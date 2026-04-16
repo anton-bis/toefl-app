@@ -1,0 +1,104 @@
+{
+  "name": "toefl-practice-system",
+  "version": "1.0.0",
+  "description": "托福模考系统 - 基于现代化前端架构",
+  "main": "electron/main.js",
+  "type": "module",
+  "productName": "托福模考系统",
+  "author": "下士小龙虾",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite --host",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src --ext .js",
+    "format": "prettier --write src/**/*.js",
+    "clean": "rm -rf dist node_modules",
+    "serve": "serve dist",
+    "electron:dev": "cross-env ELECTRON=true vite build && electron electron/main.js",
+    "electron:build": "cross-env ELECTRON=true vite build && node scripts/obfuscate.js && electron-builder",
+    "electron:pack": "cross-env ELECTRON=true vite build && node scripts/obfuscate.js && electron-builder --dir",
+    "electron:build-only": "cross-env ELECTRON=true vite build",
+    "electron:start": "cross-env NODE_ENV=development electron electron/main.js",
+    "obfuscate": "node scripts/obfuscate.js",
+    "build:obfuscated": "cross-env ELECTRON=true vite build && node scripts/obfuscate.js"
+  },
+  "keywords": [
+    "toefl",
+    "practice",
+    "exam",
+    "education",
+    "frontend",
+    "javascript"
+  ],
+  "author": "下士小龙虾",
+  "license": "MIT",
+  "dependencies": {
+    "handlebars": "^4.7.9",
+    "marked": "^12.0.0",
+    "javascript-obfuscator": "^4.0.0",
+    "electron-store": "^10.0.0"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "serve": "^14.2.1",
+    "vite": "^5.0.0",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0",
+    "electron-updater": "^6.0.0",
+    "@electron/windows-sign": "^2.0.0",
+    "@electron/osx-sign": "^1.0.0",
+    "cross-env": "^7.0.0",
+    "glob": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/toefl-practice-system"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/toefl-practice-system/issues"
+  },
+  "homepage": "https://github.com/yourusername/toefl-practice-system#readme",
+  "build": {
+    "appId": "com.yourcompany.toeflpracticesystem",
+    "productName": "托福模考系统",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "asar": true,
+    "asarUnpack": [
+      "**/*.node",
+      "**/resources/**",
+      "**/assets/**"
+    ]
+  }
+}

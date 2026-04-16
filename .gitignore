@@ -1,0 +1,59 @@
+# ===== 依赖目录 =====
+node_modules/
+dist/
+
+# ===== 生成文件（可从源码重建）=====
+tpo/
+*.html
+
+# ===== 环境变量 =====
+.env
+.env.local
+.env.*.local
+
+# ===== 编辑器文件 =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== 操作系统文件 =====
+.DS_Store
+Thumbs.db
+
+# ===== 测试文件 =====
+coverage/
+*.lcov
+
+# ===== 构建产物 =====
+*.min.js
+*.min.css
+*.map
+
+# ===== 临时文件 ======
+temp/
+tmp/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# ===== 个人配置文件 =====
+personal-config.json
+user-settings.json
+
+# ===== 数据库文件 =====
+*.db
+*.sqlite
+
+# ===== 音频/视频缓存 =====
+assets/cache/
+*.mp3.cache
+*.wav.cache
+
+# ===== 中间产物（开发过程中产生）=====
+paragraph_inner.txt
+answer-review.json
+questions.json
