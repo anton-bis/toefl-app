@@ -140,3 +140,119 @@ node generate_toefl_pages.js
 - 界面贴合托福真实考试场景，避免冗余设计
 - 代码简洁可维护，禁止引入复杂依赖
 - 保留「离线可用」核心优势
+
+---
+
+## Git 行为准则
+
+### 分支管理
+
+| 分支         | 用途               | 命名规范                   |
+| ------------ | ------------------ | -------------------------- |
+| `main`       | 主分支，稳定可发布 | -                          |
+| `feature/*`  | 新功能开发         | `feature/timer-improve`    |
+| `fix/*`      | 修复 bug           | `fix/answer-check-error`   |
+| `refactor/*` | 代码重构           | `refactor/parser-optimize` |
+
+### 提交规范
+
+**格式**：
+
+```
+<type>: <subject>
+
+<body>
+```
+
+**Type 类型**：
+| Type | 说明 | 示例 |
+|------|------|------|
+| `feat` | 新功能 | `feat: 添加计时器隐藏功能` |
+| `fix` | 修复 bug | `fix: 修复填空题答案丢失问题` |
+| `docs` | 文档更新 | `docs: 更新 PRD 需求文档` |
+| `style` | 代码格式 | `style: 格式化 ESLint` |
+| `refactor` | 重构 | `refactor: 简化 parser 逻辑` |
+| `test` | 测试 | `test: 添加计时器单元测试` |
+| `chore` | 构建/工具 | `chore: 更新 .gitignore` |
+
+**规则**：
+
+- Subject 使用中文，简短描述（<50字符）
+- 描述性提交消息，禁止空消息提交
+- 每个提交应具有独立意义
+
+### 工作流程
+
+```
+1. 从 main 创建 feature 分支
+   git checkout -b feature/new-feature
+
+2. 开发过程中频繁提交
+   git add <changed-files>
+   git commit -m "feat: 描述"
+
+3. 推送前先拉取最新代码
+   git pull origin main --rebase
+
+4. 推送到远程
+   git push origin feature/new-feature
+
+5. 提交 Pull Request，描述改动内容
+
+6. 合并后删除本地分支
+   git branch -d feature/new-feature
+```
+
+### 文件追踪规则
+
+**必须提交**：
+
+- 源码文件（`src/`, `components/`, `templates/`）
+- 配置文件（`package.json`, `vite.config.js` 等）
+- 文档（`docs/`, `CLAUDE.md`）
+- 题库（`assets/questions/`）
+- 构建脚本（`generate_*.js`）
+
+**禁止提交**：
+
+- 依赖目录（`node_modules/`）
+- 生成文件（`tpo/`, `*.html`）
+- 临时文件（`*.log`, `*.tmp`）
+- 中间产物（`paragraph_inner.txt`, `questions.json`）
+- 环境变量文件（`.env`）
+
+### 版本回退
+
+```bash
+# 查看提交历史
+git log --oneline
+
+# 回退到上一个提交（保留修改）
+git reset --soft HEAD^
+
+# 回退到上一个提交（丢弃修改）
+git reset --hard HEAD^
+
+# 回退到指定提交
+git reset --hard <commit-hash>
+```
+
+### 冲突处理
+
+1. 发生冲突时，先拉取最新代码
+
+   ```bash
+   git fetch origin
+   git rebase origin/main
+   ```
+
+2. 解决冲突后，添加文件
+
+   ```bash
+   git add <resolved-files>
+   ```
+
+3. 继续 rebase
+   ```bash
+   git rebase --continue
+   ```
