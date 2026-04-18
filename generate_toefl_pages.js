@@ -850,7 +850,7 @@ function generateTpoIndexPage(tpoSummaries) {
 // ===== Generate main index page (Apple style with sidebar) =====
 function generateMainIndexPage(tpoSummaries) {
   const tpoCardsHtml = tpoSummaries.map(s => `
-        <a href="tpo/${s.tpoNum}/reading/start.html" class="tpo-card">
+        <a href="tpo/${s.tpoNum}/index.html" class="tpo-card">
           <div class="tpo-card-header">
             <h3><i class="fas fa-book-open"></i> TPO ${s.tpoNum}</h3>
           </div>
@@ -865,7 +865,7 @@ function generateMainIndexPage(tpoSummaries) {
   `).join('');
 
   const sidebarItemsHtml = tpoSummaries.map(s => `
-        <a href="tpo/${s.tpoNum}/reading/start.html" class="sidebar-item">
+        <a href="tpo/${s.tpoNum}/index.html" class="sidebar-item">
           <span class="sidebar-item-icon"><i class="fas fa-book-open"></i></span>
           <span class="sidebar-item-label">TPO ${s.tpoNum}</span>
         </a>
@@ -1000,10 +1000,11 @@ function generateMainIndexPage(tpoSummaries) {
         font-size: 14px;
         font-weight: 500;
         transition: background 0.15s;
+        text-decoration: none !important;
       }
-      .sidebar-item:hover { background: #f0f0f2; }
-      .sidebar-item-icon { color: var(--apple-teal); width: 18px; text-align: center; }
-      .sidebar-item-label { flex: 1; }
+      .sidebar-item:hover { background: #f0f0f2; text-decoration: none !important; }
+      .sidebar-item-icon { color: var(--apple-teal); width: 18px; text-align: center; text-decoration: none !important; }
+      .sidebar-item-label { flex: 1; text-decoration: none !important; }
       .sidebar-item-count {
         font-size: 11px;
         color: var(--apple-text-muted);
@@ -1089,17 +1090,15 @@ function generateMainIndexPage(tpoSummaries) {
         transition: all 0.2s ease;
         border: 1px solid #e5e5e7;
         box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        text-decoration: none !important;
+        color: inherit !important;
       }
       .tpo-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         border-color: #d5d5d7;
-      }
-      .tpo-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
+        text-decoration: none !important;
+        color: inherit !important;
       }
       .tpo-card-header h3 {
         font-size: 18px;
@@ -1107,8 +1106,9 @@ function generateMainIndexPage(tpoSummaries) {
         display: flex;
         align-items: center;
         gap: 8px;
+        text-decoration: none !important;
       }
-      .tpo-card-header h3 i { color: var(--apple-teal); }
+      .tpo-card-header h3 i { color: var(--apple-teal); text-decoration: none !important; }
       .tpo-badge {
         font-size: 12px;
         font-weight: 600;
@@ -1145,12 +1145,6 @@ function generateMainIndexPage(tpoSummaries) {
     <header class="app-header">
       <div class="logo"><i class="fas fa-graduation-cap"></i> TOEFL iBT Practice</div>
       <div class="header-actions">
-        <button class="header-btn" onclick="alert('Volume control coming soon.')">
-          <i class="fas fa-volume-up"></i> Volume
-        </button>
-        <button class="header-btn" onclick="alert('Help info coming soon.')">
-          <i class="fas fa-question-circle"></i> Help
-        </button>
       </div>
     </header>
 

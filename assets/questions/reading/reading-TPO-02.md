@@ -6,15 +6,15 @@
 
 Fill in the missing letters in the paragraph.
 
-The study of the universe is called cosmology. T\_\_ scope o\_ this fi\_\_\_ is extr\_\_\_\_\_emely large, encomp\_\_\_\_\_\_ everything fr\_\_ the smal\_\_\_\_ particles t\_ vast galaxies. O\_\_ intriguing hypo\_\_\_\_\_\_ in cosmology is the Big Bang Theory, according to which the universe began approximately 13.8 billion years ago from an infinitely dense point. Cosmologists also study dark matter and dark energy. They observe cosmic microwave background radiation, the faint glow left over from the Big Bang, to gather information about the universe in its early days.
+The study of the universe is called cosmology. T\_\_ scope o\_ this fi\_\_\_ is extr\_\_\_\_\_ large, encomp\_\_\_\_\_\_ everything fr\_\_ the smal\_\_\_\_ particles t\_ vast galaxies. O\_\_ intriguing hypo\_\_\_\_\_\_ in cosmology is the Big Bang Theory, according to which the universe began approximately 13.8 billion years ago from an infinitely dense point. Cosmologists also study dark matter and dark energy. They observe cosmic microwave background radiation, the faint glow left over from the Big Bang, to gather information about the universe in its early days.
 
 [ANSWER]
 The:The
 of:of
 field:field
-extremely
+extremely:extremely
 encompassing:encompassing
-from
+from:from
 smallest:smallest
 to:to
 One:One
@@ -167,8 +167,6 @@ A
 
 ### Task 5 Read an Academic Passage – Urbanization in the Nineteenth Century (Questions 18–22)
 
-Urbanization in the Nineteenth Century
-
 The nineteenth century witnessed a dramatic shift in population dynamics because of urbanization. Industrialization played a crucial role in this transformation, drawing people from rural areas to cities in search of employment and better living conditions. The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.
 
 Cities expanded rapidly, leading to overcrowded living conditions and inadequate infrastructure. Housing was often substandard, and sanitation issues were prevalent. As a result, urban areas became hot spots for diseases such as cholera and tuberculosis. Despite the challenges faced by urban planners and legislators, urbanization brought significant advancements in public transportation, communication, and commerce.
@@ -258,8 +256,6 @@ D
 ---
 
 ### Task 6 Read an Academic Passage – Cognitive Mapping (Questions 23–27)
-
-Cognitive Mapping
 
 Cognitive mapping is a term used to describe the mental process by which humans and animals acquire, code, store, recall, and decode information about their spatial environment. This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness. Tolman suggested that individuals create internal maps that help them navigate their surroundings efficiently.
 
@@ -384,8 +380,6 @@ framework:framework
 ---
 
 ### Task 2 Read an Academic Passage – Vibrio Bacteria (Questions 11–15)
-
-Vibrio Bacteria
 
 Vibrio bacteria are a type of bacteria commonly found in coastal waters. These bacteria are known for their ability to cause a variety of infections in humans, ranging from mild gastroenteritis to severe wound infections. Vibrio species thrive in warm, salty environments, making them particularly prevalent in tropical and subtropical regions. There are more than twenty different species of Vibrio bacteria, with Vibrio cholerae, Vibrio parahaemolyticus, and Vibrio vulnificus being the most well-known.
 
