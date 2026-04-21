@@ -1,0 +1,13 @@
+{
+  "name": "toeﬂ-desktop-skeleton",
+  "version": "1.0.0",
+  "description": "Minimal Electron desktop skeleton to host TOEFL reading scoring UI",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "echo 'Desktop skeleton build: integrate with electron-builder in future'"
+  },
+  "devDependencies": {
+    "electron": "^25.0.0"
+  }
+}

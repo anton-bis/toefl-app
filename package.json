@@ -9,6 +9,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
+    "plan": "echo 'Running Sisyphus plan mode'",
+    "sisyphus": "oh-my-opencode run --agent Sisyphus",
     "build": "vite build",
     "preview": "vite preview",
     "start": "vite --host",
@@ -33,8 +35,6 @@
     "frontend",
     "javascript"
   ],
-  "author": "下士小龙虾",
-  "license": "MIT",
   "dependencies": {
     "handlebars": "^4.7.9",
     "marked": "^12.0.0",

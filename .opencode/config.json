@@ -1,0 +1,19 @@
+{
+  "project": "toefl-practice-system",
+  "type": "frontend",
+  "modes": ["dev", "plan", "sisyphus", "build", "preview"],
+  "defaultMode": "dev",
+  "commands": {
+    "dev": "npm run dev",
+    "plan": "echo 'Planning mode activated'",
+    "sisyphus": "npm run sisyphus",
+    "build": "npm run build",
+    "preview": "npm run preview"
+  },
+  "features": {
+    "autoReload": true,
+    "hotModuleReplacement": true,
+    "typescript": false,
+    "lintOnSave": true
+  }
+}

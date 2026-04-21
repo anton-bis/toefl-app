@@ -78,27 +78,79 @@ const TEMPLATES = {
   }
 };
 
-// ===== Load templates - DO NOT modify CSS links, preserve template exactly =====
 const templateContent = {};
 for (const [key, config] of Object.entries(TEMPLATES)) {
   if (!fs.existsSync(config.path)) {
     console.warn(`模板文件不存在: ${config.path}`);
     continue;
   }
-  // Read template AS-IS, preserve all its internal styles
-  const html = fs.readFileSync(config.path, 'utf-8');
+  let html = fs.readFileSync(config.path, 'utf-8');
 
-  // Only fix relative CSS paths - templates use href="styles.css" or href="../../styles.css"
-  // For generated pages in tpo/XX/reading/, the correct path back to root is ../../
-  // We leave template's own <style> blocks completely untouched
-  if (key === 'fill' || key === 'email' || key === 'textchain' || key === 'academic') {
-    // These templates have href="../../styles.css", keep as-is since they'll be in tpo/XX/reading/
-    templateContent[key] = html;
-  } else {
-    // start, module-intro, results use href="styles.css" - need to become ../../styles.css for tpo/XX/reading/
-    templateContent[key] = html.replace(/href="styles\.css"/g, 'href="../../styles.css"');
+  const questionPageKeys = ['fill', 'email', 'textchain', 'academic'];
+    
+    if (questionPageKeys.includes(key)) {
+      const headerStyles = `
+        html, body { margin: 0; padding: 0; }
+        .header { background-color: #008080; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .logo { font-size: 36px; font-weight: bold; color: white; }
+        .nav-buttons { display: flex; gap: 12px; }
+        .nav-button { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .nav-button.dark { background-color: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.3); }
+        .nav-button.dark:hover { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+        .nav-button.light { background-color: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.3); }
+        .nav-button.light:hover { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+        .timer-info-row { position: relative; margin-top: 70px; margin-bottom: 0; }
+        .main-content { max-width: 1200px; margin: 0 auto 30px; padding: 0 30px; width: 100%; background-color: white; box-sizing: border-box; }
+`;
+      html = html.replace('<style>', '<style>\n' + headerStyles + '\n');
+      templateContent[key] = html;
+    } else {
+      html = html.replace(/href="styles\.css"/g, 'href="../../../styles.css"');
+      templateContent[key] = html;
+    }
+}
+
+// ===== New: TPO Index Page Generator (uses the HTML template) =====
+function generateTpoIndexPage(tpoNo, payload) {
+  try {
+    const templatePath = path.join(__dirname, 'templates', 'tpo-index-template.html');
+    if (!fs.existsSync(templatePath)) {
+      console.warn('TPO index template not found:', templatePath);
+      return;
+    }
+    let html = fs.readFileSync(templatePath, 'utf-8');
+    html = html
+      .replace('{{TITLE}}', payload.title || `TPO ${tpoNo}`)
+      .replace('{{INTRO_LINK}}', payload.introLink || '#')
+      .replace('{{MODULES}}', (payload.modules || []).map(m => `<li>${m.title} - <a href="${m.link}">Start</a></li>`).join('\n'));
+
+    const outDir = path.join(__dirname, 'tpo', String(tpoNo).padStart(2, '0'));
+    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+    const outPath = path.join(outDir, 'index.html');
+    fs.writeFileSync(outPath, html, 'utf8');
+    console.log(`Generated TPO index: ${outPath}`);
+  } catch (err) {
+    console.error('Error generating TPO index page:', err);
   }
 }
+
+// Example usage for 01 and 02 (adjust as needed in real flow)
+generateTpoIndexPage(1, {
+  title: 'TPO 01',
+  introLink: '../start.html',
+  modules: [
+    { title: 'Module 1: 33 questions', link: '../01/reading/reading_question6_1.html' },
+    { title: 'Module 2: 15 questions', link: '../01/reading/reading_m2_task2_1.html' }
+  ]
+});
+generateTpoIndexPage(2, {
+  title: 'TPO 02',
+  introLink: '../start.html',
+  modules: [
+    { title: 'Module 1: 20-30 questions', link: '../02/reading/reading_question6_1.html' },
+    { title: 'Module 2: 15 questions', link: '../02/reading/reading_m2_task2_1.html' }
+  ]
+});
 
 // ===== Parsing functions =====
 function parseMarkdown(markdownText) {
@@ -518,10 +570,12 @@ function generateTPO(tpoNum, markdownFile) {
         html = html.replace(/{{BACK_PAGE_URL}}/g, backPage);
         html = html.replace(/{{NEXT_PAGE_URL}}/g, nextPage);
 
-        // Inject TPO-specific localStorage key prefix
         html = html.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
         html = html.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
         html = html.replace(/`toefl_/g, `\`toefl_tpo${tpoNum}_`);
+
+        const uniqueAnswerKey = `answers_task${task.number}_m${mIdx + 1}`;
+        html = html.replace(/answers_module1/g, uniqueAnswerKey);
 
         const filename = getFilename(mIdx, task.number);
         fs.writeFileSync(path.join(readingDir, filename), html);
@@ -668,10 +722,6 @@ function generateTPO(tpoNum, markdownFile) {
     module1Total,
     module2Total
   };
-}
-
-// ===== Generate TPO index page (TPO detail page) =====
-function generateTpoIndexPage(tpoSummaries) {
   const indexDir = path.join(__dirname, 'tpo');
   if (!fs.existsSync(indexDir)) {
     fs.mkdirSync(indexDir, { recursive: true });
@@ -1218,7 +1268,6 @@ for (const { filename, tpoNum } of filesToProcess) {
 }
 
 console.log('\n生成TPO索引页面...');
-generateTpoIndexPage(tpoSummaries);
 
 console.log('\n生成主索引页面...');
 generateMainIndexPage(tpoSummaries);

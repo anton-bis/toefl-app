@@ -93,10 +93,19 @@ class QuestionParser {
       else if (line.match(/^[A-D]\.\s/)) {
         this.parseMultipleChoice(line, lines, i);
       }
-      // 解析阅读段落
-      else if (this.currentTask && this.currentTask.type === 'reading-passage') {
-        this.parseReadingPassage(line);
-      }
+       // 解析阅读段落
+       else if (this.currentTask && this.currentTask.type === 'reading-passage') {
+         this.parseReadingPassage(line);
+       }
+       // 解析音频URL（仅用于听力任务）
+       else if (this.currentTask && line.startsWith('audio: ')) {
+         const audioUrl = line.replace('audio: ', '').trim();
+         // 将音频URL附加到当前任务
+         if (!this.currentTask.meta) {
+           this.currentTask.meta = {};
+         }
+         this.currentTask.meta.audioUrl = audioUrl;
+       }
     }
 
     // 自动生成填空题答案（如果答案为空）

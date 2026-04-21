@@ -1,0 +1,44 @@
+{
+  "name": "toefl-practice-system",
+  "version": "1.0.0",
+  "description": "托福模考系统 - Sisyphus配置",
+  "modes": {
+    "dev": {
+      "description": "开发模式",
+      "command": "npm run dev",
+      "type": "development"
+    },
+    "plan": {
+      "description": "规划模式",
+      "command": "echo 'Running in plan mode'",
+      "type": "planning"
+    },
+    "sisyphus": {
+      "description": "Sisyphus超强工作模式",
+      "command": "npm run sisyphus",
+      "type": "ultrawork"
+    },
+    "build": {
+      "description": "构建模式",
+      "command": "npm run build",
+      "type": "production"
+    },
+    "preview": {
+      "description": "预览模式",
+      "command": "npm run preview",
+      "type": "preview"
+    },
+    "electron:dev": {
+      "description": "Electron开发模式",
+      "command": "npm run electron:dev",
+      "type": "development"
+    }
+  },
+  "defaultMode": "dev",
+  "workflows": {
+    "development": {
+      "steps": ["plan", "dev", "build"],
+      "description": "标准开发工作流"
+    }
+  }
+}

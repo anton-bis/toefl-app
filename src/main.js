@@ -191,14 +191,21 @@ async function registerModules() {
   console.log('注册模块...');
 
   try {
-    // 动态导入阅读模块
     const readingModule = await import('./modules/reading/index.js');
     moduleRegistry.set('reading', readingModule.default);
     console.log('模块注册: reading');
 
-    // 这里可以添加其他模块的注册
-    // const listeningModule = await import('./modules/listening/index.js');
-    // moduleRegistry.set('listening', listeningModule.default);
+    const speakingModule = await import('./components/Speaking.js');
+    moduleRegistry.set('speaking', speakingModule);
+    console.log('模块注册: speaking');
+
+    const writingModule = await import('./components/Writing.js');
+    moduleRegistry.set('writing', writingModule);
+    console.log('模块注册: writing');
+
+    const qnaModule = await import('./components/QNA.js');
+    moduleRegistry.set('qna', qnaModule);
+    console.log('模块注册: qna');
   } catch (error) {
     console.error('模块注册失败:', error);
     throw new Error('无法加载模块，请检查模块文件是否存在。');
@@ -297,20 +304,25 @@ function createModuleSelector() {
     disabled: true
   });
 
-  // 添加模块选项
   const readingOption = DOM.create('option', {
     value: 'reading',
     textContent: '📚 阅读模块'
   });
 
-  // 这里可以添加其他模块选项
-  // const listeningOption = DOM.create('option', {
-  //     value: 'listening',
-  //     textContent: '🎧 听力模块'
-  // });
+  const speakingOption = DOM.create('option', {
+    value: 'speaking',
+    textContent: '🎤 口语模块'
+  });
+
+  const writingOption = DOM.create('option', {
+    value: 'writing',
+    textContent: '✍️ 写作模块'
+  });
 
   select.appendChild(defaultOption);
   select.appendChild(readingOption);
+  select.appendChild(speakingOption);
+  select.appendChild(writingOption);
 
   selectorContainer.appendChild(select);
 
