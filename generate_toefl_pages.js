@@ -691,7 +691,7 @@ function generateTPO(tpoNum, markdownFile) {
   console.log(`  生成: start.html`);
 
   let module1IntroHtml = templateContent['module1-intro'];
-  module1IntroHtml = module1IntroHtml.replace(/{{FIRST_QUESTION_PAGE}}/g, 'reading_question1.html');
+  module1IntroHtml = module1IntroHtml.replace(/{{FIRST_QUESTION_PAGE}}/g, firstQuestionPage);
   module1IntroHtml = module1IntroHtml.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
   module1IntroHtml = module1IntroHtml.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
   fs.writeFileSync(path.join(readingDir, 'module1-intro.html'), module1IntroHtml);
@@ -699,7 +699,7 @@ function generateTPO(tpoNum, markdownFile) {
   console.log(`  生成: module1-intro.html`);
 
   let module2IntroHtml = templateContent['module2-intro'];
-  module2IntroHtml = module2IntroHtml.replace(/{{FIRST_QUESTION_PAGE}}/g, 'reading_m2_task1.html');
+  module2IntroHtml = module2IntroHtml.replace(/{{FIRST_QUESTION_PAGE}}/g, firstModule2Page);
   module2IntroHtml = module2IntroHtml.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
   module2IntroHtml = module2IntroHtml.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
   fs.writeFileSync(path.join(readingDir, 'module2-intro.html'), module2IntroHtml);
