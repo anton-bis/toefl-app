@@ -195,6 +195,10 @@ async function registerModules() {
     moduleRegistry.set('reading', readingModule.default);
     console.log('模块注册: reading');
 
+    const listeningModule = await import('./modules/listening/index.js');
+    moduleRegistry.set('listening', listeningModule.default);
+    console.log('模块注册: listening');
+
     const speakingModule = await import('./components/Speaking.js');
     moduleRegistry.set('speaking', speakingModule);
     console.log('模块注册: speaking');
@@ -309,6 +313,11 @@ function createModuleSelector() {
     textContent: '📚 阅读模块'
   });
 
+  const listeningOption = DOM.create('option', {
+    value: 'listening',
+    textContent: '🎧 听力模块'
+  });
+
   const speakingOption = DOM.create('option', {
     value: 'speaking',
     textContent: '🎤 口语模块'
@@ -321,6 +330,7 @@ function createModuleSelector() {
 
   select.appendChild(defaultOption);
   select.appendChild(readingOption);
+  select.appendChild(listeningOption);
   select.appendChild(speakingOption);
   select.appendChild(writingOption);
 

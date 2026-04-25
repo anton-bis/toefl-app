@@ -89,23 +89,22 @@ class QuestionParser {
       ) {
         this.parseReadingQuestion(line, lines, i);
       }
+      // 解析音频元数据
+      else if (line.startsWith('audio:')) {
+        this.parseAudioMetadata(line);
+      }
+      // 解析对话文本（用于听力题型）
+      else if (line.match(/^(Woman|Man):/)) {
+        this.parseDialogueLine(line);
+      }
       // 解析选择题
       else if (line.match(/^[A-D]\.\s/)) {
         this.parseMultipleChoice(line, lines, i);
       }
-       // 解析阅读段落
-       else if (this.currentTask && this.currentTask.type === 'reading-passage') {
-         this.parseReadingPassage(line);
-       }
-       // 解析音频URL（仅用于听力任务）
-       else if (this.currentTask && line.startsWith('audio: ')) {
-         const audioUrl = line.replace('audio: ', '').trim();
-         // 将音频URL附加到当前任务
-         if (!this.currentTask.meta) {
-           this.currentTask.meta = {};
-         }
-         this.currentTask.meta.audioUrl = audioUrl;
-       }
+      // 解析阅读段落
+      else if (this.currentTask && this.currentTask.type === 'reading-passage') {
+        this.parseReadingPassage(line);
+      }
     }
 
     // 自动生成填空题答案（如果答案为空）
@@ -365,6 +364,14 @@ class QuestionParser {
       return 'multiple-choice';
     } else if (text.includes('read an academic passage')) {
       return 'reading-passage';
+    } else     if (text.includes('listen and choose a response')) {
+      return 'listening-no-stem'; // 听力题型1：只有选项
+    } else if (text.includes('listen to a conversation')) {
+      return 'listening-conversation'; // 听力题型2：对话
+    } else if (text.includes('listen to an announcement')) {
+      return 'listening-announcement'; // 听力题型3：公告
+    } else if (text.includes('listen to an academic talk')) {
+      return 'listening-lecture'; // 听力题型4：学术讲座
     } else if (text.includes('listen to')) {
       return 'listening';
     } else if (text.includes('writing task')) {
@@ -671,6 +678,45 @@ class QuestionParser {
     });
 
     return report;
+  }
+
+  /**
+   * 解析音频元数据
+   */
+  parseAudioMetadata(line) {
+    if (!this.currentTask) return;
+    
+    // 提取音频路径，格式: audio: path/to/audio.mp3
+    const audioPath = line.replace('audio:', '').trim();
+    this.currentTask.audio = audioPath;
+    
+    console.log(`解析音频元数据: ${audioPath}`);
+  }
+
+  /**
+   * 解析对话文本
+   */
+  parseDialogueLine(line) {
+    if (!this.currentTask) return;
+    
+    // 初始化对话数组
+    if (!this.currentTask.dialogue) {
+      this.currentTask.dialogue = [];
+    }
+    
+    // 提取对话内容
+    const dialogueMatch = line.match(/^(Woman|Man):\s*(.+)$/);
+    if (dialogueMatch) {
+      const speaker = dialogueMatch[1];
+      const content = dialogueMatch[2];
+      this.currentTask.dialogue.push({ speaker, content });
+      
+      // 同时构建完整的transcript文本
+      if (!this.currentTask.transcript) {
+        this.currentTask.transcript = '';
+      }
+      this.currentTask.transcript += `${speaker}: ${content}\n`;
+    }
   }
 
   /**
@@ -1117,6 +1163,14 @@ class QuestionParser {
       moduleType = 'multiple_choice';
     } else if (task.type === 'reading-passage') {
       moduleType = 'reading_passage';
+    } else if (task.type === 'listening-no-stem') {
+      moduleType = 'listening_no_stem';
+    } else if (task.type === 'listening-conversation') {
+      moduleType = 'listening_conversation';
+    } else if (task.type === 'listening-announcement') {
+      moduleType = 'listening_announcement';
+    } else if (task.type === 'listening-lecture') {
+      moduleType = 'listening_lecture';
     }
 
     // 处理填空题的特殊转换
@@ -1156,6 +1210,9 @@ class QuestionParser {
       taskDescription: task.description || '',
       paragraph: task.passage || '', // 对于填空题，passage可能为空，需要从fullText中提取
       passage: task.passage || '', // 别名，用于与阅读模块兼容
+      audio: task.audio || '', // 音频文件路径
+      transcript: task.transcript || '', // 对话原文（用于听力）
+      dialogue: task.dialogue || [], // 结构化对话数据
       questions: questions || []
     };
   }

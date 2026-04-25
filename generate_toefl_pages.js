@@ -134,23 +134,7 @@ function generateTpoIndexPage(tpoNo, payload) {
   }
 }
 
-// Example usage for 01 and 02 (adjust as needed in real flow)
-generateTpoIndexPage(1, {
-  title: 'TPO 01',
-  introLink: '../start.html',
-  modules: [
-    { title: 'Module 1: 33 questions', link: '../01/reading/reading_question6_1.html' },
-    { title: 'Module 2: 15 questions', link: '../01/reading/reading_m2_task2_1.html' }
-  ]
-});
-generateTpoIndexPage(2, {
-  title: 'TPO 02',
-  introLink: '../start.html',
-  modules: [
-    { title: 'Module 1: 20-30 questions', link: '../02/reading/reading_question6_1.html' },
-    { title: 'Module 2: 15 questions', link: '../02/reading/reading_m2_task2_1.html' }
-  ]
-});
+// Main generation flow will generate TPO indices automatically
 
 // ===== Parsing functions =====
 function parseMarkdown(markdownText) {
@@ -459,13 +443,28 @@ function generateTPO(tpoNum, markdownFile) {
   if (!fs.existsSync(readingDir)) {
     fs.mkdirSync(readingDir, { recursive: true });
   }
+  
+  // Calculate module boundaries once (needed for getFilename and question templates)
+  let module1Start = Infinity, module1End = -Infinity;
+  let module2Start = Infinity, module2End = -Infinity;
+  for (let mIdx = 0; mIdx < modules.length; mIdx++) {
+    for (const task of modules[mIdx].tasks) {
+      if (mIdx === 0) {
+        module1Start = Math.min(module1Start, task.questionStart);
+        module1End = Math.max(module1End, task.questionEnd);
+      } else {
+        module2Start = Math.min(module2Start, task.questionStart);
+        module2End = Math.max(module2End, task.questionEnd);
+      }
+    }
+  }
 
   function getFilename(moduleIndex, taskNumber, questionIndex) {
     if (moduleIndex === 0) {
       if (questionIndex === undefined) {
-        return `reading_question${taskNumber}.html`;
+        return `reading_m1_task${taskNumber}.html`;
       } else {
-        return `reading_question${taskNumber}_${questionIndex + 1}.html`;
+        return `reading_m1_task${taskNumber}_${questionIndex + 1}.html`;
       }
     } else {
       if (questionIndex === undefined) {
@@ -529,7 +528,11 @@ function generateTPO(tpoNum, markdownFile) {
 
   const pages = buildPageList(modules);
   let generatedFiles = [];
-
+   
+  // 获取第一题文件名
+  const firstQuestionPage = pages[0]?.filename || 'reading_m1_task1.html';
+  const firstModule2Page = pages.find(p => p.mIdx === 1)?.filename || 'reading_m2_task1.html';
+  
   for (let mIdx = 0; mIdx < modules.length; mIdx++) {
     const module = modules[mIdx];
     const modulePrefix = mIdx === 0 ? 'Module 1' : 'Module 2';
@@ -593,6 +596,8 @@ function generateTPO(tpoNum, markdownFile) {
 
           html = html.replace(/{{QUESTION_NUMBER}}/g, questionNumber);
           html = html.replace(/{{QUESTION_COUNT}}/g, moduleTotalQuestions);
+          html = html.replace(/{{MODULE1_END}}/g, module1End);
+          html = html.replace(/{{MODULE2_START}}/g, module2Start);
 
           if (task.templateType === 'email') {
             const emailData = parseEmailContent(task.passage);
@@ -628,6 +633,8 @@ function generateTPO(tpoNum, markdownFile) {
 
           html = html.replace(/{{BACK_PAGE}}/g, backPage);
           html = html.replace(/{{NEXT_PAGE}}/g, nextPage);
+          html = html.replace(/{{BACK_PAGE_URL}}/g, backPage);
+          html = html.replace(/{{NEXT_PAGE_URL}}/g, nextPage);
 
           // Inject TPO-specific localStorage key prefix
           html = html.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
@@ -646,27 +653,15 @@ function generateTPO(tpoNum, markdownFile) {
   // Generate results page
   console.log('\n生成结果页面...');
   const resultsTemplate = templateContent.results;
-
-  let module1Start = Infinity, module1End = -Infinity;
-  let module2Start = Infinity, module2End = -Infinity;
-
-  for (let mIdx = 0; mIdx < modules.length; mIdx++) {
-    const module = modules[mIdx];
-    for (const task of module.tasks) {
-      if (mIdx === 0) {
-        module1Start = Math.min(module1Start, task.questionStart);
-        module1End = Math.max(module1End, task.questionEnd);
-      } else {
-        module2Start = Math.min(module2Start, task.questionStart);
-        module2End = Math.max(module2End, task.questionEnd);
-      }
-    }
-  }
+  
+  // Generate CSP nonce
+  const cspNonce = `nonce-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
 
   const module1Total = module1End - module1Start + 1;
   const module2Total = module2End - module2Start + 1;
 
   let html = resultsTemplate;
+  html = html.replace(/{{CSP_NONCE}}/g, cspNonce);
   html = html.replace(/{{MODULE1_TITLE}}/g, `Module 1 (Questions ${module1Start}-${module1End})`);
   html = html.replace(/{{MODULE2_TITLE}}/g, `Module 2 (Questions ${module2Start}-${module2End})`);
   html = html.replace(/{{MODULE1_START}}/g, module1Start);
@@ -714,27 +709,24 @@ function generateTPO(tpoNum, markdownFile) {
 
   console.log(`\nTPO ${tpoNum} 生成完成！共生成 ${generatedFiles.length} 个文件`);
 
-  return {
-    tpoNum,
-    totalFiles: generatedFiles.length,
-    questionRange: `${module1Start}-${module2End}`,
-    totalQuestions: module1Total + module2Total,
-    module1Total,
-    module2Total
-  };
+  // Generate TPO index page
   const indexDir = path.join(__dirname, 'tpo');
   if (!fs.existsSync(indexDir)) {
     fs.mkdirSync(indexDir, { recursive: true });
   }
 
-  for (const summary of tpoSummaries) {
-    const tpoDir = path.join(indexDir, summary.tpoNum);
-    const indexHtml = `<!doctype html>
+  // Generate this TPO's index page
+  const tpoDirPath = path.join(indexDir, tpoNum);
+  if (!fs.existsSync(tpoDirPath)) {
+    fs.mkdirSync(tpoDirPath, { recursive: true });
+  }
+
+  const indexHtml = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TOEFL iBT Practice - TPO ${summary.tpoNum}</title>
+    <title>TOEFL iBT Practice - TPO ${tpoNum}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="../../styles.css" />
     <style>
@@ -838,7 +830,7 @@ function generateTPO(tpoNum, markdownFile) {
   </head>
   <body>
     <header class="tpo-header">
-      <div class="logo">TPO ${summary.tpoNum}</div>
+      <div class="logo">TPO ${tpoNum}</div>
       <div class="nav-btns">
         <a href="../../index.html" class="nav-btn"><i class="fas fa-th"></i> All TPOs</a>
       </div>
@@ -846,20 +838,20 @@ function generateTPO(tpoNum, markdownFile) {
 
     <div class="tpo-main">
       <div class="tpo-title-row">
-        <h1 class="tpo-title">TPO ${summary.tpoNum}</h1>
-        <p class="tpo-subtitle">${summary.totalQuestions} questions · Reading section ready</p>
+        <h1 class="tpo-title">TPO ${tpoNum}</h1>
+        <p class="tpo-subtitle">${module1Total + module2Total} questions · Reading section ready</p>
       </div>
 
       <a href="reading/start.html" class="full-test-btn">
         <i class="fas fa-play-circle"></i> Start Full Reading Test
-        <span class="sub">${summary.totalQuestions} questions · Timed exam mode</span>
+        <span class="sub">${module1Total + module2Total} questions · Timed exam mode</span>
       </a>
 
       <div class="modules-grid">
         <a href="reading/start.html" class="module-card available">
           <div class="module-icon"><i class="fas fa-book"></i></div>
           <h3 class="module-name">Reading</h3>
-          <p class="module-desc">${summary.module1Total + summary.module2Total} questions · Two modules</p>
+          <p class="module-desc">${module1Total + module2Total} questions · Two modules</p>
           <span class="module-badge">Available</span>
         </a>
 
@@ -892,9 +884,17 @@ function generateTPO(tpoNum, markdownFile) {
   </body>
 </html>`;
 
-    fs.writeFileSync(path.join(tpoDir, 'index.html'), indexHtml);
-    console.log(`  生成: tpo/${summary.tpoNum}/index.html`);
-  }
+  fs.writeFileSync(path.join(tpoDirPath, 'index.html'), indexHtml);
+  console.log(`生成: tpo/${tpoNum}/index.html`);
+
+  return {
+    tpoNum,
+    totalFiles: generatedFiles.length,
+    questionRange: `${module1Start}-${module2End}`,
+    totalQuestions: module1Total + module2Total,
+    module1Total,
+    module2Total
+  };
 }
 
 // ===== Generate main index page (Apple style with sidebar) =====

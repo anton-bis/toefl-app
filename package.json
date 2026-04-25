@@ -36,26 +36,27 @@
     "javascript"
   ],
   "dependencies": {
+    "electron-store": "^10.0.0",
     "handlebars": "^4.7.9",
-    "marked": "^12.0.0",
     "javascript-obfuscator": "^4.0.0",
-    "electron-store": "^10.0.0"
+    "marked": "^12.0.0"
   },
   "optionalDependencies": {
     "better-sqlite3": "^9.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
-    "prettier": "^3.1.1",
-    "serve": "^14.2.1",
-    "vite": "^5.0.0",
+    "@electron/osx-sign": "^1.0.0",
+    "@electron/windows-sign": "^2.0.0",
+    "cross-env": "^7.0.0",
     "electron": "^28.0.0",
     "electron-builder": "^24.0.0",
     "electron-updater": "^6.0.0",
-    "@electron/windows-sign": "^2.0.0",
-    "@electron/osx-sign": "^1.0.0",
-    "cross-env": "^7.0.0",
-    "glob": "^11.0.0"
+    "eslint": "^8.56.0",
+    "glob": "^11.0.0",
+    "prettier": "^3.1.1",
+    "serve": "^14.2.1",
+    "terser": "^5.12.0",
+    "vite": "^5.4.21"
   },
   "engines": {
     "node": ">=16.0.0",

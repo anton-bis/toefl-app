@@ -14,6 +14,7 @@ export class MultipleChoice {
       answer: '', // 正确答案，如 'A'
       userAnswer: '',
       showAnswer: false,
+      hideQuestion: false, // 是否隐藏问题文本（用于听力题型1）
       onSelect: () => {},
       onComplete: () => {},
       ...options
@@ -52,17 +53,20 @@ export class MultipleChoice {
       }
     });
 
-    // 添加问题文本
-    const questionText = DOM.create('div', {
-      className: 'question-text',
-      textContent: this.options.question,
-      style: {
-        fontSize: '17px',
-        color: '#222222',
-        lineHeight: '1.6',
-        marginBottom: '20px'
-      }
-    });
+    // 添加问题文本（除非隐藏）
+    let questionText = null;
+    if (!this.options.hideQuestion && this.options.question) {
+      questionText = DOM.create('div', {
+        className: 'question-text',
+        textContent: this.options.question,
+        style: {
+          fontSize: '17px',
+          color: '#222222',
+          lineHeight: '1.6',
+          marginBottom: '20px'
+        }
+      });
+    }
 
     // 添加选项容器
     const optionsContainer = DOM.create('div', {
@@ -84,7 +88,9 @@ export class MultipleChoice {
 
     // 组装容器
     this.element.appendChild(questionNumber);
-    this.element.appendChild(questionText);
+    if (questionText) {
+      this.element.appendChild(questionText);
+    }
     this.element.appendChild(optionsContainer);
 
     // 如果显示答案，标记正确/错误
