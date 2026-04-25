@@ -528,8 +528,7 @@ function generateTPO(tpoNum, markdownFile) {
 
   const pages = buildPageList(modules);
   let generatedFiles = [];
-   
-  // 获取第一题文件名
+  
   const firstQuestionPage = pages[0]?.filename || 'reading_m1_task1.html';
   const firstModule2Page = pages.find(p => p.mIdx === 1)?.filename || 'reading_m2_task1.html';
   
