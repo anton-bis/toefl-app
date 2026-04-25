@@ -1,0 +1,9 @@
+/* Status color chips for per-question results */
+.status-dot { text-decoration: none; border-radius: 999px; padding: 6px 10px; font-family: sans-serif; font-size: 12px; }
+.status-correct { background: #4CAF50; color: white; }
+.status-wrong { background: #F44336; color: white; }
+.status-unanswered { background: #9E9E9E; color: white; }
+
+/* Fill-in-the-blank indicators (optional visual cues) */
+.blank-correct { background: #C8E6C9; border: 1px solid #2e7d32; padding: 2px 4px; border-radius: 3px; }
+.blank-wrong { background: #FFCDD2; border: 1px solid #d32f2f; padding: 2px 4px; border-radius: 3px; }

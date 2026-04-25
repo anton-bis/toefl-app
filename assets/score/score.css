@@ -1,0 +1,46 @@
+/* Score cards styling extracted to a dedicated design module for consistency */
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.summary-card .value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #008080;
+  margin-bottom: 6px;
+}
+
+.summary-card .label {
+  font-size: 13px;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .summary-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .summary-card .value {
+    font-size: 24px;
+  }
+}
