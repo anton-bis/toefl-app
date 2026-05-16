@@ -5,6 +5,9 @@ import path from 'path';
 const isElectron = process.env.ELECTRON === 'true';
 
 export default defineConfig({
+  // 使用 MPA 模式以支持 tpo/ 目录下的多个独立 HTML 页面
+  appType: 'mpa',
+
   // 项目根目录
   root: '.',
 

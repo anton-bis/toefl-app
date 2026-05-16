@@ -1,20 +1,19 @@
 /**
- * 阅读模块
+ * 听力模块
  * 实现模块接口规范，接入核心框架
  */
 
 import { store } from '../../core/store.js';
 import { loader } from '../../core/loader.js';
 import { parser } from '../../core/parser.js';
-import FillBlank from '../../components/FillBlank.js';
-import MultipleChoice from '../../components/MultipleChoice.js';
-import ReadingPassage from '../../components/ReadingPassage.js';
+import ListeningPlayer from '../../components/ListeningPlayer.js';
+import ListeningQuestion from '../../components/ListeningQuestion.js';
 import { DOM } from '../../core/utils.js';
 
 export default {
   // 模块标识
-  name: 'reading',
-  type: 'reading',
+  name: 'listening',
+  type: 'listening',
 
   // 模块状态
   state: {
@@ -22,21 +21,22 @@ export default {
     currentQuestion: 1,
     questions: [],
     userAnswers: {},
-    isInitialized: false
+    isInitialized: false,
+    audioPlayers: {} // 存储每个题目的音频播放器实例
   },
 
   /**
    * 初始化模块
    */
   async init() {
-    console.log('阅读模块初始化...');
+    console.log('听力模块初始化...');
 
     try {
       // 注册模块到全局状态
       store.registerModule(this.name, {
-        name: 'Reading',
-        description: '托福阅读练习模块',
-        icon: '📚'
+        name: 'Listening',
+        description: '托福听力练习模块',
+        icon: '🎧'
       });
 
       // 激活模块
@@ -49,9 +49,9 @@ export default {
       this.render();
 
       this.state.isInitialized = true;
-      console.log('阅读模块初始化完成');
+      console.log('听力模块初始化完成');
     } catch (error) {
-      console.error('阅读模块初始化失败:', error);
+      console.error('听力模块初始化失败:', error);
       throw error;
     }
   },
@@ -60,14 +60,14 @@ export default {
    * 加载题库
    */
   async loadQuestionBank() {
-    console.log('加载阅读题库...');
+    console.log('加载听力题库...');
 
     try {
       // 扫描题库文件
-      const questionFiles = await loader.scanQuestionBank('reading');
+      const questionFiles = await loader.scanQuestionBank('listening');
 
       if (questionFiles.length === 0) {
-        console.warn('未找到阅读题库文件，使用示例数据');
+        console.warn('未找到听力题库文件，使用示例数据');
         await this.loadExampleData();
         return;
       }
@@ -76,7 +76,7 @@ export default {
       const markdown = await loader.load(questionFiles[0], 'markdown');
 
       // 解析Markdown
-      const parsedData = parser.parse(markdown, 'reading');
+      const parsedData = parser.parse(markdown, 'listening');
 
       // 标准化数据结构
       const standardizedData = parser.generateStandardJSON(parsedData);
@@ -104,28 +104,35 @@ export default {
     this.state.questions = [
       {
         id: 1,
-        type: 'fill-blank',
-        prefix: 'atm',
-        answer: 'osphere',
-        underlineCount: 6,
-        passage:
-          "Astronomy is the scientific study of celestial objects and phenomena that originate outside the Earth's atmosphere."
+        type: 'listening',
+        taskType: 'listen_to_conversation',
+        taskTitle: 'Listen to a Conversation',
+        audio: 'conversation1.mp3',
+        question: 'What is the main topic of the conversation?',
+        options: [
+          'The student\'s homework assignment',
+          'The professor\'s office hours',
+          'A campus event this weekend',
+          'The library\'s new resources'
+        ],
+        answer: 'C',
+        mode: 'practice' // 示例使用练习模式
       },
       {
         id: 2,
-        type: 'fill-blank',
-        prefix: 'fi',
-        answer: 'eld',
-        underlineCount: 3,
-        passage: "Geologists work in the fi___ to collect rock samples and study Earth's surface."
-      },
-      {
-        id: 3,
-        type: 'fill-blank',
-        prefix: 're',
-        answer: 'mains',
-        underlineCount: 5,
-        passage: 'Paleontologists study fossils—the re_____ of organisms preserved in rock.'
+        type: 'listening',
+        taskType: 'listen_to_academic_talk',
+        taskTitle: 'Listen to an Academic Talk',
+        audio: 'lecture1.mp3',
+        question: 'What does the professor say about the research method?',
+        options: [
+          'It is outdated and unreliable',
+          'It requires specialized equipment',
+          'It has been widely accepted',
+          'It is controversial but effective'
+        ],
+        answer: 'D',
+        mode: 'practice'
       }
     ];
 
@@ -141,41 +148,28 @@ export default {
     parsedData.tasks.forEach(task => {
       if (task.questions && task.questions.length > 0) {
         task.questions.forEach(question => {
-          const baseQuestion = {
+           const baseQuestion = {
             id: question.id,
-            type: question.type,
+            type: task.type, // listening
             taskTitle: task.title,
-            taskType: task.type,
-            passage: task.passage || '', // 整个任务的段落
-            answer: question.answer || ''
+            taskType: this.detectTaskTypeFromTitle(task.title),
+            audio: task.audio || '', // 音频文件路径
+            transcript: task.transcript || '', // 对话原文
+            dialogue: task.dialogue || [], // 结构化对话
+            answer: question.answer || '',
+            mode: 'practice' // 默认练习模式，实际中可根据配置调整
           };
 
-          // 根据题型添加特定字段
-          if (question.type === 'fill-blank') {
-            questions.push({
-              ...baseQuestion,
-              prefix: question.prefix || '',
-              underlineCount: question.underlineCount || question.answer?.length || 1,
-              fullText: question.fullText || ''
-            });
-          } else if (question.type === 'multiple-choice') {
+          // 听力题都是选择题
+          if (question.type === 'multiple-choice') {
             questions.push({
               ...baseQuestion,
               question: question.question || '',
               options: question.options || [],
               correctAnswer: question.answer || ''
             });
-          } else if (question.type === 'reading-passage') {
-            // 阅读段落题实际上是选择题，但共享段落
-            questions.push({
-              ...baseQuestion,
-              question: question.question || '',
-              options: question.options || [],
-              correctAnswer: question.answer || '',
-              passageTitle: task.title.replace('Read an Academic Passage – ', '')
-            });
           } else {
-            // 未知题型，保留原始数据
+            // 其他题型，保留原始数据
             questions.push({
               ...baseQuestion,
               ...question
@@ -189,10 +183,29 @@ export default {
   },
 
   /**
+   * 从任务标题检测任务类型
+   */
+  detectTaskTypeFromTitle(title) {
+    const lowerTitle = title.toLowerCase();
+    
+    if (lowerTitle.includes('listen and choose a response')) {
+      return 'listen_and_choose';
+    } else if (lowerTitle.includes('listen to a conversation')) {
+      return 'listen_to_conversation';
+    } else if (lowerTitle.includes('listen to an announcement')) {
+      return 'listen_to_announcement';
+    } else if (lowerTitle.includes('listen to an academic talk')) {
+      return 'listen_to_academic_talk';
+    }
+    
+    return 'listen_to_conversation'; // 默认
+  },
+
+  /**
    * 渲染模块UI
    */
   render() {
-    console.log('渲染阅读模块UI...');
+    console.log('渲染听力模块UI...');
 
     // 获取容器
     const appContainer = document.getElementById('app');
@@ -206,7 +219,7 @@ export default {
 
     // 创建模块容器
     const moduleContainer = DOM.create('div', {
-      id: 'reading-module',
+      id: 'listening-module',
       className: 'module-container',
       style: {
         maxWidth: '800px',
@@ -218,7 +231,7 @@ export default {
 
     // 添加标题
     const title = DOM.create('h1', {
-      textContent: 'TOEFL Reading Practice',
+      textContent: 'TOEFL Listening Practice',
       style: {
         color: '#007A66',
         textAlign: 'center',
@@ -231,7 +244,7 @@ export default {
 
     // 添加题目容器
     const questionsContainer = DOM.create('div', {
-      id: 'reading-questions',
+      id: 'listening-questions',
       className: 'questions-container',
       style: {
         marginTop: '20px'
@@ -318,6 +331,7 @@ export default {
     const hideTimeBtn = DOM.create('button', {
       id: 'hide-time-btn',
       className: 'hide-time-btn',
+      innerHTML: '<i class="fas fa-eye-slash"></i> Hide Time',
       style: {
         backgroundColor: '#f0f0f0',
         border: '1px solid #ddd',
@@ -332,7 +346,6 @@ export default {
       },
       onClick: () => this.toggleTimerVisibility()
     });
-    hideTimeBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Time';
 
     timerContainer.appendChild(timerDisplay);
     timerContainer.appendChild(hideTimeBtn);
@@ -371,7 +384,7 @@ export default {
       className: 'control-btn',
       textContent: 'Volume',
       style: this.getButtonStyle(),
-      onClick: () => alert('音量控制将在完整版中实现')
+      onClick: () => this.adjustVolume()
     });
 
     const helpBtn = DOM.create('button', {
@@ -385,7 +398,7 @@ export default {
       className: 'control-btn',
       textContent: 'Review',
       style: this.getButtonStyle(),
-      onClick: () => alert('复习功能将在完整版中实现')
+      onClick: () => this.showReview()
     });
 
     leftButtons.appendChild(volumeBtn);
@@ -468,8 +481,6 @@ export default {
     const currentQuestion = this.state.questions[this.state.currentQuestion - 1];
     if (!currentQuestion) return;
 
-    console.log('[DEBUG] 渲染题目 #' + this.state.currentQuestion + '/' + this.state.questions.length + ', type=' + currentQuestion.type + ', hasPassage=' + !!currentQuestion.passage);
-
     // 创建题目容器
     const questionContainer = DOM.create('div', {
       className: 'question-container',
@@ -485,7 +496,7 @@ export default {
     // 添加题目类型标题
     const questionType = DOM.create('div', {
       className: 'question-type',
-      textContent: currentQuestion.taskTitle || this.getTaskTypeDisplayName(currentQuestion.type),
+      textContent: currentQuestion.taskTitle || this.getTaskTypeDisplayName(currentQuestion.taskType),
       style: {
         fontSize: '16px',
         fontWeight: 'bold',
@@ -497,16 +508,8 @@ export default {
     });
     questionContainer.appendChild(questionType);
 
-    // 根据题型渲染不同内容
-    if (currentQuestion.type === 'fill-blank') {
-      this.renderFillBlankQuestion(currentQuestion, questionContainer);
-    } else if (currentQuestion.type === 'multiple-choice') {
-      this.renderMultipleChoiceQuestion(currentQuestion, questionContainer);
-    } else if (currentQuestion.type === 'reading-passage') {
-      this.renderReadingPassageQuestion(currentQuestion, questionContainer);
-    } else {
-      this.renderUnknownQuestionType(currentQuestion, questionContainer);
-    }
+    // 渲染听力题目
+    this.renderListeningQuestion(currentQuestion, questionContainer);
 
     container.appendChild(questionContainer);
   },
@@ -515,289 +518,104 @@ export default {
    * 清理当前组件
    */
   cleanupCurrentComponent() {
-    if (this.currentFillBlank) {
-      this.currentFillBlank.destroy();
-      this.currentFillBlank = null;
+    // 清理音频播放器
+    if (this.currentAudioPlayer) {
+      this.currentAudioPlayer.destroy();
+      this.currentAudioPlayer = null;
     }
-    if (this.currentMultipleChoice) {
-      this.currentMultipleChoice.destroy();
-      this.currentMultipleChoice = null;
-    }
-    if (this.currentReadingPassage) {
-      this.currentReadingPassage.destroy();
-      this.currentReadingPassage = null;
+    
+    // 清理题目组件
+    if (this.currentQuestionComponent) {
+      this.currentQuestionComponent.destroy();
+      this.currentQuestionComponent = null;
     }
   },
 
   /**
    * 获取题型显示名称
    */
-  getTaskTypeDisplayName(type) {
+  getTaskTypeDisplayName(taskType) {
     const names = {
-      'fill-blank': 'Complete the Words',
-      'multiple-choice': 'Multiple Choice',
-      'reading-passage': 'Reading Passage'
+      'listen_and_choose': 'Listen and Choose a Response',
+      'listen_to_conversation': 'Listen to a Conversation',
+      'listen_to_announcement': 'Listen to an Announcement',
+      'listen_to_academic_talk': 'Listen to an Academic Talk'
     };
-    return names[type] || type;
+    return names[taskType] || taskType;
   },
 
   /**
-   * 渲染填空题
+   * 渲染听力题目
    */
-  renderFillBlankQuestion(question, container) {
-    // 添加段落（如果有）
-    if (question.passage) {
-      const passage = DOM.create('div', {
-        className: 'question-passage',
-        textContent: question.passage,
-        style: {
-          fontSize: '16px',
-          lineHeight: '1.6',
-          color: '#333333',
-          marginBottom: '20px',
-          padding: '15px',
-          backgroundColor: '#f9f9f9',
-          borderRadius: '5px'
+  renderListeningQuestion(question, container) {
+    // 创建音频播放器容器
+    const playerContainer = DOM.create('div', {
+      className: 'audio-player-container',
+      style: {
+        marginBottom: '25px'
+      }
+    });
+    
+    // 构建音频URL（相对于题库文件）
+    const audioUrl = question.audio ? `assets/questions/listening/${question.audio}` : '';
+    
+    // 创建音频播放器
+    if (audioUrl) {
+      this.currentAudioPlayer = new ListeningPlayer({
+        audioUrl: audioUrl,
+        mode: question.mode || 'practice',
+        onEnded: () => {
+          console.log(`音频播放结束，题目ID: ${question.id}`);
+          // 音频播放结束后，可以自动标记为已播放
+          if (this.currentQuestionComponent) {
+            this.currentQuestionComponent.setAudioPlayed(true);
+          }
+        },
+        onError: (error) => {
+          console.error(`音频加载失败: ${error}`);
+          alert(`无法加载音频文件: ${audioUrl}`);
         }
       });
-      container.appendChild(passage);
+      
+      this.currentAudioPlayer.render(playerContainer, DOM);
+    } else {
+      playerContainer.textContent = '无音频文件';
+      playerContainer.style.color = '#999';
+      playerContainer.style.fontStyle = 'italic';
     }
-
-    // 添加题目说明
-    const instruction = DOM.create('div', {
-      className: 'question-instruction',
-      textContent: 'Fill in the missing letters in a paragraph below:',
-      style: {
-        fontSize: '14px',
-        color: '#666666',
-        marginBottom: '15px',
-        fontStyle: 'italic'
-      }
-    });
-    container.appendChild(instruction);
-
-    // 创建填空组件
-    const fillBlank = new FillBlank({
-      prefix: question.prefix,
-      answer: question.answer,
-      underlineCount: question.underlineCount,
+    
+    container.appendChild(playerContainer);
+    
+    // 创建题目组件
+    this.currentQuestionComponent = new ListeningQuestion({
+      taskType: question.taskType,
       questionId: question.id,
-      maxLength: question.underlineCount,
-      onInput: (value, questionId) => {
-        store.saveAnswer(questionId, value);
-      },
-      onComplete: (value, isCorrect, questionId) => {
-        console.log(`题目 ${questionId} 完成: ${value}, 正确: ${isCorrect}`);
-      },
-      onTab: direction => {
-        if (direction === 'next') {
-          this.goNext();
-        } else if (direction === 'prev') {
-          this.goBack();
-        }
-      }
-    });
-
-    const fillBlankElement = fillBlank.render();
-    container.appendChild(fillBlankElement);
-
-    // 保存组件引用
-    this.currentFillBlank = fillBlank;
-  },
-
-  /**
-   * 渲染选择题
-   */
-  renderMultipleChoiceQuestion(question, container) {
-    console.log('[DEBUG] 步骤1 - renderMultipleChoiceQuestion 被调用');
-    console.log('[DEBUG] 步骤1 - question.type:', question.type);
-    console.log('[DEBUG] 步骤1 - 是否有passage字段:', !!question.passage);
-    console.log('[DEBUG] 步骤1 - passage前100字:', question.passage ? question.passage.substring(0, 100) : '无');
-
-    // 如果附带段落文本（如阅读段落题），先渲染段落
-    if (question.passage) {
-      let passageHTML = question.passage
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-
-      console.log('[DEBUG] 步骤2 - question.question原文:', JSON.stringify(question.question));
-
-      const vocabMatch = question.question?.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
-      console.log('[DEBUG] 步骤3 - 正则匹配结果:', vocabMatch ? '成功，捕获词=' + vocabMatch[1] : '失败(null)');
-      if (vocabMatch) {
-        const targetWord = vocabMatch[1];
-        const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`\\b(${escapedWord})\\b`, 'gi');
-        passageHTML = passageHTML.replace(
-          regex,
-          '<span style="background-color:#008080;color:white;font-weight:bold;padding:1px 4px;border-radius:3px;">$1</span>'
-        );
-      }
-
-      console.log('[DEBUG] 步骤4 - passageHTML含<span>标签:', passageHTML.includes('<span'));
-      console.log('[DEBUG] 步骤4 - passageHTML前200字:', passageHTML.substring(0, 200));
-
-      const passage = DOM.create('div', {
-        className: 'reading-passage-text',
-        style: {
-          fontSize: '16px',
-          lineHeight: '1.8',
-          color: '#333333',
-          marginBottom: '20px',
-          padding: '20px',
-          backgroundColor: '#f9f9f9',
-          borderRadius: '6px',
-          borderLeft: '4px solid #007A66'
-        }
-      });
-      passage.innerHTML = passageHTML;
-      container.appendChild(passage);
-      console.log('[DEBUG] 步骤5 - passage已插入DOM, innerHTML前100字:', passage.innerHTML.substring(0, 100));
-      console.log('[DEBUG] 步骤5 - passage.offsetWidth:', passage.offsetWidth);
-    }
-
-    // 添加问题文本
-    const questionText = DOM.create('div', {
-      className: 'multiple-choice-question',
-      textContent: question.question,
-      style: {
-        fontSize: '17px',
-        color: '#222222',
-        lineHeight: '1.6',
-        marginBottom: '20px'
-      }
-    });
-    container.appendChild(questionText);
-
-    // 创建选择题组件
-    const multipleChoice = new MultipleChoice({
-      questionId: question.id,
+      mode: question.mode || 'practice',
+      audioPlayed: false, // 初始状态为未播放
+      audioUrl: audioUrl,
       question: question.question,
       options: question.options,
       answer: question.answer,
+      transcript: question.transcript || '', // 传递原文对话
+      dialogue: question.dialogue || [], // 传递结构化对话
       onSelect: (letter, questionId) => {
         store.saveAnswer(questionId, letter);
       },
       onComplete: (letter, isCorrect, questionId) => {
         console.log(`题目 ${questionId} 完成: ${letter}, 正确: ${isCorrect}`);
-      }
-    });
-
-    const mcElement = multipleChoice.render();
-    container.appendChild(mcElement);
-
-    // 保存组件引用
-    this.currentMultipleChoice = multipleChoice;
-  },
-
-  /**
-   * 渲染阅读段落题
-   */
-  renderReadingPassageQuestion(question, container) {
-    // 添加段落标题
-    if (question.passageTitle) {
-      const passageTitle = DOM.create('div', {
-        className: 'passage-title',
-        textContent: question.passageTitle,
-        style: {
-          fontSize: '18px',
-          fontWeight: 'bold',
-          color: '#333333',
-          marginBottom: '15px',
-          textAlign: 'center'
-        }
-      });
-      container.appendChild(passageTitle);
-    }
-
-    // 添加段落文本
-    if (question.passage) {
-      let passageHTML = question.passage
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-
-      // 词汇题高亮：从题目文本中提取目标词
-      const vocabMatch = question.question?.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
-      if (vocabMatch) {
-        const targetWord = vocabMatch[1];
-        const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`\\b(${escapedWord})\\b`, 'gi');
-        passageHTML = passageHTML.replace(
-          regex,
-          '<span style="background-color:#008080;color:white;font-weight:bold;padding:1px 4px;border-radius:3px;">$1</span>'
-        );
-      }
-
-      const passage = DOM.create('div', {
-        className: 'reading-passage-text',
-        style: {
-          fontSize: '16px',
-          lineHeight: '1.8',
-          color: '#333333',
-          marginBottom: '25px',
-          padding: '20px',
-          backgroundColor: '#f9f9f9',
-          borderRadius: '6px',
-          borderLeft: '4px solid #007A66'
-        }
-      });
-      passage.innerHTML = passageHTML;
-      container.appendChild(passage);
-    }
-
-    // 添加问题文本
-    const questionText = DOM.create('div', {
-      className: 'reading-passage-question',
-      textContent: question.question,
-      style: {
-        fontSize: '17px',
-        color: '#222222',
-        lineHeight: '1.6',
-        marginBottom: '20px',
-        fontWeight: 'bold'
-      }
-    });
-    container.appendChild(questionText);
-
-    // 创建选择题组件（阅读段落题的题目本质上是选择题）
-    const multipleChoice = new MultipleChoice({
-      questionId: question.id,
-      question: question.question,
-      options: question.options,
-      answer: question.answer,
-      onSelect: (letter, questionId) => {
-        store.saveAnswer(questionId, letter);
+        // 在练习模式下，答题后显示重播按钮和原文
       },
-      onComplete: (letter, isCorrect, questionId) => {
-        console.log(`题目 ${questionId} 完成: ${letter}, 正确: ${isCorrect}`);
+      onReplayRequest: (questionId) => {
+        console.log(`重播请求: 问题 ${questionId}`);
+        if (this.currentAudioPlayer) {
+          this.currentAudioPlayer.seek(0);
+          this.currentAudioPlayer.play();
+        }
       }
     });
-
-    const mcElement = multipleChoice.render();
-    container.appendChild(mcElement);
-
-    // 保存组件引用
-    this.currentMultipleChoice = multipleChoice;
-  },
-
-  /**
-   * 渲染未知题型
-   */
-  renderUnknownQuestionType(question, container) {
-    const warning = DOM.create('div', {
-      className: 'unknown-question-warning',
-      textContent: `未知题型: ${question.type}`,
-      style: {
-        color: '#F44336',
-        padding: '20px',
-        textAlign: 'center',
-        backgroundColor: '#FFEBEE',
-        borderRadius: '6px'
-      }
-    });
-    container.appendChild(warning);
+    
+    const questionElement = this.currentQuestionComponent.render();
+    container.appendChild(questionElement);
   },
 
   /**
@@ -864,12 +682,24 @@ export default {
   },
 
   /**
+   * 调整音量
+   */
+  adjustVolume() {
+    alert('音量控制功能将在完整版中实现');
+  },
+
+  /**
    * 显示帮助
    */
   showHelp() {
-    alert(
-      '题目帮助：\n\n1. 在灰色方框中填写缺失的字母\n2. 每个方框代表一个缺失的字母\n3. 使用Tab键在方框间切换\n4. 方框下方的数字表示题目顺序'
-    );
+    alert('听力题目帮助：\n\n1. 点击播放按钮开始听音频\n2. 在考试模式下，音频只能播放一次\n3. 在练习模式下，可以暂停、重播音频\n4. 选择你认为正确的答案\n5. 在练习模式下，答题后可以查看答案并重播音频');
+  },
+
+  /**
+   * 显示复习
+   */
+  showReview() {
+    alert('复习功能将在完整版中实现');
   },
 
   /**
@@ -879,7 +709,7 @@ export default {
     if (this.state.currentQuestion > 1) {
       this.state.currentQuestion--;
       store.setState({ currentQuestion: this.state.currentQuestion });
-      this.renderQuestions(document.getElementById('reading-questions'));
+      this.renderQuestions(document.getElementById('listening-questions'));
     }
   },
 
@@ -890,7 +720,7 @@ export default {
     if (this.state.currentQuestion < this.state.questions.length) {
       this.state.currentQuestion++;
       store.setState({ currentQuestion: this.state.currentQuestion });
-      this.renderQuestions(document.getElementById('reading-questions'));
+      this.renderQuestions(document.getElementById('listening-questions'));
     } else {
       alert('已经是最后一题了！');
     }
@@ -900,13 +730,10 @@ export default {
    * 销毁模块
    */
   destroy() {
-    console.log('销毁阅读模块...');
+    console.log('销毁听力模块...');
 
     // 清理组件
-    if (this.currentFillBlank) {
-      this.currentFillBlank.destroy();
-      this.currentFillBlank = null;
-    }
+    this.cleanupCurrentComponent();
 
     // 取消订阅
     if (this.unsubscribe) {
@@ -920,9 +747,10 @@ export default {
       currentQuestion: 1,
       questions: [],
       userAnswers: {},
-      isInitialized: false
+      isInitialized: false,
+      audioPlayers: {}
     };
 
-    console.log('阅读模块已销毁');
+    console.log('听力模块已销毁');
   }
 };

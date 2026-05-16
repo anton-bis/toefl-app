@@ -86,7 +86,7 @@ for (const [key, config] of Object.entries(TEMPLATES)) {
   }
   let html = fs.readFileSync(config.path, 'utf-8');
 
-  const questionPageKeys = ['fill', 'email', 'textchain', 'academic'];
+  const questionPageKeys = ['fill', 'email', 'textchain', 'academic', 'results'];
     
     if (questionPageKeys.includes(key)) {
       const headerStyles = `
@@ -103,6 +103,7 @@ for (const [key, config] of Object.entries(TEMPLATES)) {
         .main-content { max-width: 1200px; margin: 0 auto 30px; padding: 0 30px; width: 100%; background-color: white; box-sizing: border-box; }
 `;
       html = html.replace('<style>', '<style>\n' + headerStyles + '\n');
+      html = html.replace(/href="assets\/score\/score\.css"/g, 'href="../../../assets/score/score.css"');
       templateContent[key] = html;
     } else {
       html = html.replace(/href="styles\.css"/g, 'href="../../../styles.css"');
@@ -431,6 +432,8 @@ function generateTPO(tpoNum, markdownFile) {
   console.log(`开始生成 TPO ${tpoNum}`);
   console.log(`${'='.repeat(60)}`);
 
+  const cspNonce = `nonce-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
+
   const markdownText = fs.readFileSync(markdownFile, 'utf-8');
   const modules = parseMarkdown(markdownText);
 
@@ -458,6 +461,8 @@ function generateTPO(tpoNum, markdownFile) {
       }
     }
   }
+  const module1Total = module1End - module1Start + 1;
+  const module2Total = module2End - module2Start + 1;
 
   function getFilename(moduleIndex, taskNumber, questionIndex) {
     if (moduleIndex === 0) {
@@ -529,6 +534,27 @@ function generateTPO(tpoNum, markdownFile) {
   const pages = buildPageList(modules);
   let generatedFiles = [];
   
+  // Build URL map: global question ID → filename
+  const urlMap = {};
+  for (const page of pages) {
+    const mIdx = page.mIdx;
+    const task = modules[mIdx].tasks.find(t => t.number === page.taskNumber);
+    if (!task) continue;
+    if (page.qIndex === undefined) {
+      // Fill task: all questions point to the same page
+      for (let q = task.questionStart; q <= task.questionEnd; q++) {
+        const gId = mIdx === 0 ? q : module1End + q;
+        urlMap[gId] = page.filename;
+      }
+    } else {
+      // Reading task: one question per page
+      const localQ = task.questionStart + page.qIndex;
+      const gId = mIdx === 0 ? localQ : module1End + localQ;
+      urlMap[gId] = page.filename;
+    }
+  }
+  const urlMapJson = JSON.stringify(urlMap);
+  
   const firstQuestionPage = pages[0]?.filename || 'reading_m1_task1.html';
   const firstModule2Page = pages.find(p => p.mIdx === 1)?.filename || 'reading_m2_task1.html';
   
@@ -559,6 +585,9 @@ function generateTPO(tpoNum, markdownFile) {
         html = html.replace(/{{QUESTION_START}}/g, task.questionStart);
         html = html.replace(/{{QUESTION_END}}/g, task.questionEnd);
         html = html.replace(/{{TOTAL_QUESTIONS}}/g, moduleTotalQuestions);
+        html = html.replace(/{{MODULE1_TOTAL}}/g, module1Total);
+        html = html.replace(/{{M1_TASK_COUNT}}/g, modules[0].tasks.length);
+        html = html.replace(/{{M2_TASK_COUNT}}/g, modules[1].tasks.length);
         html = html.replace(/{{FILL_COUNT}}/g, Object.keys(task.answers).length);
         html = html.replace(/{{TIMER_SECONDS}}/g, timerSeconds);
 
@@ -572,9 +601,12 @@ function generateTPO(tpoNum, markdownFile) {
         html = html.replace(/{{BACK_PAGE_URL}}/g, backPage);
         html = html.replace(/{{NEXT_PAGE_URL}}/g, nextPage);
 
-        html = html.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
-        html = html.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
-        html = html.replace(/`toefl_/g, `\`toefl_tpo${tpoNum}_`);
+        html = html.replace(/{{CSP_NONCE}}/g, cspNonce);
+
+        const prefix = `toefl_tpo${tpoNum}_`;
+        if (!html.includes(prefix)) {
+          html = html.replace(/toefl_/g, prefix);
+        }
 
         const uniqueAnswerKey = `answers_task${task.number}_m${mIdx + 1}`;
         html = html.replace(/answers_module1/g, uniqueAnswerKey);
@@ -594,8 +626,13 @@ function generateTPO(tpoNum, markdownFile) {
           let html = templateContent[task.templateType];
 
           html = html.replace(/{{QUESTION_NUMBER}}/g, questionNumber);
+          html = html.replace(/{{TASK_NUMBER}}/g, task.number);
           html = html.replace(/{{QUESTION_COUNT}}/g, moduleTotalQuestions);
           html = html.replace(/{{MODULE1_END}}/g, module1End);
+          html = html.replace(/{{MODULE1_TOTAL}}/g, module1Total);
+          html = html.replace(/{{M1_TASK_COUNT}}/g, modules[0].tasks.length);
+  html = html.replace(/{{M2_TASK_COUNT}}/g, modules[1].tasks.length);
+  html = html.replace(/{{TASK_URL_MAP}}/g, urlMapJson);
           html = html.replace(/{{MODULE2_START}}/g, module2Start);
 
           if (task.templateType === 'email') {
@@ -635,10 +672,12 @@ function generateTPO(tpoNum, markdownFile) {
           html = html.replace(/{{BACK_PAGE_URL}}/g, backPage);
           html = html.replace(/{{NEXT_PAGE_URL}}/g, nextPage);
 
-          // Inject TPO-specific localStorage key prefix
-          html = html.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
-          html = html.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
-          html = html.replace(/`toefl_/g, `\`toefl_tpo${tpoNum}_`);
+          html = html.replace(/{{CSP_NONCE}}/g, cspNonce);
+
+          const prefix = `toefl_tpo${tpoNum}_`;
+          if (!html.includes(prefix)) {
+            html = html.replace(/toefl_/g, prefix);
+          }
 
           const filename = getFilename(mIdx, task.number, i);
           fs.writeFileSync(path.join(readingDir, filename), html);
@@ -652,13 +691,7 @@ function generateTPO(tpoNum, markdownFile) {
   // Generate results page
   console.log('\n生成结果页面...');
   const resultsTemplate = templateContent.results;
-  
-  // Generate CSP nonce
-  const cspNonce = `nonce-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
-
-  const module1Total = module1End - module1Start + 1;
-  const module2Total = module2End - module2Start + 1;
-
+   
   let html = resultsTemplate;
   html = html.replace(/{{CSP_NONCE}}/g, cspNonce);
   html = html.replace(/{{MODULE1_TITLE}}/g, `Module 1 (Questions ${module1Start}-${module1End})`);
@@ -669,10 +702,14 @@ function generateTPO(tpoNum, markdownFile) {
   html = html.replace(/{{MODULE2_START}}/g, module2Start);
   html = html.replace(/{{MODULE2_END}}/g, module2End);
   html = html.replace(/{{MODULE2_TOTAL}}/g, module2Total);
+  html = html.replace(/{{M1_TASK_COUNT}}/g, modules[0].tasks.length);
+  html = html.replace(/{{M2_TASK_COUNT}}/g, modules[1].tasks.length);
+  html = html.replace(/{{TASK_URL_MAP}}/g, urlMapJson);
 
-  html = html.replace(/'toefl_/g, `'toefl_tpo${tpoNum}_`);
-  html = html.replace(/"toefl_/g, `"toefl_tpo${tpoNum}_`);
-  html = html.replace(/`toefl_/g, `\`toefl_tpo${tpoNum}_`);
+  const prefix = `toefl_tpo${tpoNum}_`;
+  if (!html.includes(prefix)) {
+    html = html.replace(/toefl_/g, prefix);
+  }
 
   const resultsFilename = 'reading_results.html';
   fs.writeFileSync(path.join(readingDir, resultsFilename), html);
@@ -1251,7 +1288,7 @@ function generateMainIndexPage(tpoSummaries) {
   </body>
 </html>`;
 
-  fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml);
+  fs.writeFileSync(path.join(__dirname, 'tpo-select.html'), indexHtml);
   console.log('\n生成主索引页面: index.html');
 }
 

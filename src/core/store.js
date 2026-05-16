@@ -69,3 +69,67 @@ export class ToeflStore {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.error('保存失败:', e); }
   }
 }
+
+class AppStore {
+  constructor() {
+    this._answers = new ToeflStore();
+    this._modules = {};
+    this._activeModule = null;
+    this._subscriptions = [];
+    this._state = {
+      currentQuestion: 1,
+      timer: { remainingTime: 1080 }
+    };
+    this._timerInterval = null;
+    this._startTime = null;
+    this._remainingMs = 1080 * 1000;
+  }
+
+  // ---- answers ----
+  saveAnswer(questionId, value) { this._answers.saveAnswer(questionId, value); }
+  getAnswer(questionId) { return this._answers.getAnswer(questionId); }
+  getAllAnswers() { return this._answers.getAllAnswers(); }
+
+  // ---- modules ----
+  registerModule(name, info) { this._modules[name] = info; }
+  activateModule(name) { this._activeModule = name; }
+  setModuleQuestions(name, questions) { this._modules[name] = { ...this._modules[name], questions }; }
+
+  // ---- state ----
+  getState() { return { ...this._state }; }
+  setState(partial) {
+    const old = { ...this._state };
+    this._state = { ...this._state, ...partial };
+    this._notify(old, this._state);
+  }
+
+  // ---- timer ----
+  startTimer() {
+    if (this._timerInterval) return;
+    this._startTime = Date.now();
+    this._timerInterval = setInterval(() => this.updateTimer(), 1000);
+  }
+  updateTimer() {
+    const old = { ...this._state };
+    const elapsed = Math.floor((Date.now() - this._startTime) / 1000);
+    this._state.timer.remainingTime = Math.max(0, this._remainingMs / 1000 - elapsed);
+    this._notify(old, this._state);
+  }
+
+  // ---- subscriptions ----
+  subscribe(fn) {
+    this._subscriptions.push(fn);
+    return () => { this._subscriptions = this._subscriptions.filter(f => f !== fn); };
+  }
+  _notify(old, current) {
+    this._subscriptions.forEach(fn => {
+      try { fn(old, current); } catch (e) { /* ignore */ }
+    });
+  }
+
+  // ---- persistence ----
+  async loadFromStorage() {}
+  saveToStorage() {}
+}
+
+export const store = new AppStore();

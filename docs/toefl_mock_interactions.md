@@ -46,7 +46,7 @@ Last updated: 2026-04-12
 │  Question 1-10 of 10                           ⏱ 09:45  [Hide] │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                   │
-│              Fill in the missing letters in the paragraph          │
+│              Fill in the missing letters in a paragraph          │
 │                                                                   │
 │  ┌─────────────────────────────────────────────────────────────┐ │
 │  │                                                             │ │

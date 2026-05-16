@@ -1,47 +1,23 @@
-/**
- * 应用主入口
- * 初始化核心框架，加载模块
- */
-
 import { store } from './core/store.js';
 import { loader } from './core/loader.js';
 import { parser } from './core/parser.js';
 import { DOM, ErrorHandler } from './core/utils.js';
+import { router } from './core/router.js';
 
-// 模块注册表
 const moduleRegistry = new Map();
-
-// 当前活动模块
 let currentModule = null;
 
-/**
- * 初始化应用
- */
 async function initApp() {
   console.log('托福模考系统初始化...');
 
   try {
-    // 显示加载状态
     showLoading();
-
-    // 从存储加载保存的状态
     await store.loadFromStorage();
-
-    // 注册模块
     await registerModules();
-
-    // 初始化默认模块（阅读模块）
-    await initDefaultModule();
-
-    // 隐藏加载状态
     hideLoading();
-
-    // 启动计时器循环
     startTimerLoop();
-
-    // 导出全局API
     exportGlobalAPI();
-
+    initRouter();
     console.log('应用初始化完成');
   } catch (error) {
     console.error('应用初始化失败:', error);
@@ -49,9 +25,6 @@ async function initApp() {
   }
 }
 
-/**
- * 显示加载状态
- */
 function showLoading() {
   const appContainer = document.getElementById('app');
   if (!appContainer) return;
@@ -184,31 +157,33 @@ function showError(message) {
   appContainer.appendChild(errorContainer);
 }
 
-/**
- * 注册模块
- */
 async function registerModules() {
   console.log('注册模块...');
 
   try {
     const readingModule = await import('./modules/reading/index.js');
     moduleRegistry.set('reading', readingModule.default);
+    router.register('/reading', () => activateModule('reading'));
     console.log('模块注册: reading');
 
     const listeningModule = await import('./modules/listening/index.js');
     moduleRegistry.set('listening', listeningModule.default);
+    router.register('/listening', () => activateModule('listening'));
     console.log('模块注册: listening');
 
     const speakingModule = await import('./components/Speaking.js');
     moduleRegistry.set('speaking', speakingModule);
+    router.register('/speaking', () => activateModule('speaking'));
     console.log('模块注册: speaking');
 
     const writingModule = await import('./components/Writing.js');
     moduleRegistry.set('writing', writingModule);
+    router.register('/writing', () => activateModule('writing'));
     console.log('模块注册: writing');
 
     const qnaModule = await import('./components/QNA.js');
     moduleRegistry.set('qna', qnaModule);
+    router.register('/qna', () => activateModule('qna'));
     console.log('模块注册: qna');
   } catch (error) {
     console.error('模块注册失败:', error);
@@ -216,19 +191,40 @@ async function registerModules() {
   }
 }
 
-/**
- * 初始化默认模块
- */
-async function initDefaultModule() {
-  console.log('初始化默认模块...');
+function initRouter() {
+  console.log('初始化路由...');
 
-  // 默认激活阅读模块
-  await activateModule('reading');
+  router.init({
+    defaultRoute: '',
+    beforeRouteChange: async (from, to) => {
+      const homeContent = document.getElementById('home-content');
+      const appContainer = document.getElementById('app');
+
+      if (to === '' || to === '/') {
+        if (homeContent) homeContent.style.display = '';
+        if (appContainer) appContainer.style.display = 'none';
+      } else {
+        if (homeContent) homeContent.style.display = 'none';
+        if (appContainer) {
+          appContainer.style.display = '';
+          DOM.clear(appContainer);
+        }
+      }
+
+      if (currentModule && currentModule.destroy) {
+        await ErrorHandler.wrapAsync(() => currentModule.destroy(), '停用当前模块失败');
+      }
+      return true;
+    }
+  });
+
+  router.register('', () => {
+    console.log('显示首页');
+  });
+
+  console.log('路由初始化完成');
 }
 
-/**
- * 激活模块
- */
 async function activateModule(moduleName) {
   console.log(`激活模块: ${moduleName}`);
 
@@ -269,9 +265,6 @@ function startTimerLoop() {
   }, 1000);
 }
 
-/**
- * 创建模块选择器
- */
 function createModuleSelector() {
   const selectorContainer = DOM.create('div', {
     id: 'module-selector',
@@ -295,38 +288,37 @@ function createModuleSelector() {
     onChange: e => {
       const selectedModule = e.target.value;
       if (selectedModule) {
-        activateModule(selectedModule);
+        location.hash = `/${selectedModule}`;
       }
     }
   });
 
-  // 默认选项
   const defaultOption = DOM.create('option', {
     value: '',
-    textContent: '选择模块',
     selected: true,
     disabled: true
   });
+  defaultOption.textContent = '选择模块';
 
   const readingOption = DOM.create('option', {
-    value: 'reading',
-    textContent: '📚 阅读模块'
+    value: 'reading'
   });
+  readingOption.textContent = '阅读模块';
 
   const listeningOption = DOM.create('option', {
-    value: 'listening',
-    textContent: '🎧 听力模块'
+    value: 'listening'
   });
+  listeningOption.textContent = '听力模块';
 
   const speakingOption = DOM.create('option', {
-    value: 'speaking',
-    textContent: '🎤 口语模块'
+    value: 'speaking'
   });
+  speakingOption.textContent = '口语模块';
 
   const writingOption = DOM.create('option', {
-    value: 'writing',
-    textContent: '✍️ 写作模块'
+    value: 'writing'
   });
+  writingOption.textContent = '写作模块';
 
   select.appendChild(defaultOption);
   select.appendChild(readingOption);
@@ -439,23 +431,16 @@ function createGlobalStyles() {
   document.head.appendChild(style);
 }
 
-/**
- * 页面加载完成后初始化
- */
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('DOM加载完成，开始初始化应用...');
 
-  // 创建全局样式
   createGlobalStyles();
 
-  // 创建模块选择器
   const moduleSelector = createModuleSelector();
   document.body.appendChild(moduleSelector);
 
-  // 初始化应用
   await initApp();
 
-  // 添加页面卸载时的清理
   window.addEventListener('beforeunload', () => {
     if (currentModule && currentModule.destroy) {
       currentModule.destroy();

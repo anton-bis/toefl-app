@@ -227,6 +227,98 @@ form {
   background-color: white;
 }
 
+/* ===== 起始页面样式 ===== */
+.section-title {
+  font-size: 14px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-title {
+  font-size: 42px;
+  color: #222;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
+
+.title-underline {
+  height: 3px;
+  width: 100px;
+  background-color: #008080;
+  margin: 0 auto;
+}
+
+.description {
+  font-size: 19px;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 45px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+/* 表格样式 */
+.task-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  border-collapse: collapse;
+  border: 2px solid #008080;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.task-table thead {
+  background: linear-gradient(to right, #008080, #008080);
+}
+
+.task-table th {
+  color: white;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 18px 24px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.5px;
+}
+
+.task-table td {
+  padding: 16px 24px;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  transition: all 0.2s ease;
+}
+
+.task-table tbody tr:nth-child(even) {
+  background-color: #f8fbf8;
+}
+
+.task-table tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+.task-table tbody tr:hover {
+  background-color: #e8f5e9;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 168, 150, 0.1);
+}
+
 /* 响应式调整 */
 @media (max-width: 768px) {
   .header {

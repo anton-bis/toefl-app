@@ -142,7 +142,7 @@ class ResourceLoader {
     // 在实际项目中，这里应该扫描服务器目录
     // 目前我们返回预设的文件列表
     const questionFiles = {
-      reading: ['reading/reading-2026-test-01.md', 'reading/reading-2026-test-02.md'],
+      reading: ['reading/reading-TPO-01.md', 'reading/reading-TPO-02.md'],
       listening: ['listening/listening-2026-test-01.md'],
       writing: ['writing/writing-2026-task-01.md'],
       speaking: ['speaking/speaking-2026-task-01.md']

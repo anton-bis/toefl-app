@@ -14,44 +14,48 @@
   }
 
   function render(){
-    // Consider possible keys across modules/prefixes
-    const candidatesTotal = [
-      'toefl_reading_M1_Task1_total',
-      'toefl_reading_M2_Task2_total',
-      'toefl_tpo01_reading_M1_Task1_total',
-      'toefl_tpo01_reading_M2_Task2_total'
-    ];
-    const candidatesCorrect = [
-      'toefl_reading_M1_Task1_correct',
-      'toefl_reading_M2_Task2_correct',
-      'toefl_tpo01_reading_M1_Task1_correct',
-      'toefl_tpo01_reading_M2_Task2_correct'
-    ];
+    // Read module-level task scores via flexible key search
+    let m1Correct = 0, m1TaskTotal = 0;
+    for (let t = 1; t <= 6; t++) {
+      m1Correct += readIntFlexible([
+        'toefl_reading_M1_Task' + t + '_correct',
+        'toefl_reading_M1_Task' + t + '_correct'
+      ]);
+      m1TaskTotal += readIntFlexible([
+        'toefl_reading_M1_Task' + t + '_total',
+        'toefl_reading_M1_Task' + t + '_total'
+      ]);
+    }
+    let m2Correct = 0, m2TaskTotal = 0;
+    for (let t = 1; t <= 2; t++) {
+      m2Correct += readIntFlexible([
+        'toefl_reading_M2_Task' + t + '_correct',
+        'toefl_reading_M2_Task' + t + '_correct'
+      ]);
+      m2TaskTotal += readIntFlexible([
+        'toefl_reading_M2_Task' + t + '_total',
+        'toefl_reading_M2_Task' + t + '_total'
+      ]);
+    }
 
-    const m1Total = readIntFlexible(candidatesTotal);
-    const m2Total = readIntFlexible(candidatesTotal.slice(2)); // prefer M1/M2 T1/T2 variants
-    const m1Correct = readIntFlexible(candidatesCorrect);
-    const m2Correct = readIntFlexible(candidatesCorrect.slice(2));
+    const config = window.TOEFL_CONFIG;
+    const m1TotalQ = config ? config.module1.totalQuestions : 33;
+    const m2TotalQ = config ? config.module2.totalQuestions : 15;
+    const totalQuestions = m1TotalQ + m2TotalQ;
 
-    // Fall back to explicit reads if flexible search misses values
-    const totals = [m1Total, m2Total].filter(v => typeof v === 'number');
-    const corrects = [m1Correct, m2Correct].filter(v => typeof v === 'number');
-    const totalQuestions = totals.length ? totals.reduce((a,b)=>a+b,0) : 0;
-    const correctCount = corrects.length ? corrects.reduce((a,b)=>a+b,0) : 0;
-
-    const r1 = m1Total > 0 ? (m1Correct / m1Total) : 0;
-    const r2 = m2Total > 0 ? (m2Correct / m2Total) : 0;
-    const total_reading_30 = 30 * (r1 * 0.4 + r2 * 0.6);
-    const reading_30 = Math.floor(total_reading_30);
-    const six_score = Math.floor((total_reading_30 / 30 * 6) * 2 + 0.5) / 2;
+    const r1 = m1TotalQ > 0 ? (m1Correct / m1TotalQ) : 0;
+    const r2 = m2TotalQ > 0 ? (m2Correct / m2TotalQ) : 0;
+    const totalReading30 = 30 * (r1 * 0.4 + r2 * 0.6);
+    const reading30 = Math.round(totalReading30);
+    const sixScore = Math.round((reading30 / 30 * 6) * 2) / 2;
 
     const elReading = document.getElementById('reading-score-display');
     const elTotal = document.getElementById('total-questions');
     const elCorrect = document.getElementById('correct-answers');
 
-    if (elReading) elReading.textContent = reading_30 + ' / ' + six_score.toFixed(1);
+    if (elReading) elReading.textContent = reading30 + ' / ' + sixScore.toFixed(1);
     if (elTotal) elTotal.textContent = totalQuestions;
-    if (elCorrect) elCorrect.textContent = correctCount;
+    if (elCorrect) elCorrect.textContent = m1Correct + m2Correct;
   }
 
   if(document.readyState === 'loading'){
@@ -67,8 +71,8 @@
     const totalKeys = [
       `toefl_reading_M1_Task${taskIndex}_total`,
       `toefl_reading_M2_Task${taskIndex}_total`,
-      `toefl_tpo01_reading_M1_Task${taskIndex}_total`,
-      `toefl_tpo01_reading_M2_Task${taskIndex}_total`
+      `toefl_reading_M1_Task${taskIndex}_total`,
+      `toefl_reading_M2_Task${taskIndex}_total`
     ];
     let updated = false;
     for (const k of totalKeys){
@@ -88,8 +92,8 @@
       const correctKeys = [
         `toefl_reading_M1_Task${taskIndex}_correct`,
         `toefl_reading_M2_Task${taskIndex}_correct`,
-        `toefl_tpo01_reading_M1_Task${taskIndex}_correct`,
-        `toefl_tpo01_reading_M2_Task${taskIndex}_correct`
+        `toefl_reading_M1_Task${taskIndex}_correct`,
+        `toefl_reading_M2_Task${taskIndex}_correct`
       ];
       let foundCorrect = false;
       for (const ck of correctKeys){

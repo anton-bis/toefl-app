@@ -17,6 +17,10 @@ export const DOM = {
         Object.entries(attributes).forEach(([key, value]) => {
             if (key === 'className') {
                 element.className = value;
+            } else if (key === 'textContent') {
+                element.textContent = value;
+            } else if (key === 'innerHTML') {
+                element.innerHTML = value;
             } else if (key === 'style' && typeof value === 'object') {
                 Object.assign(element.style, value);
             } else if (key.startsWith('on') && typeof value === 'function') {

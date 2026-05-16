@@ -4,7 +4,7 @@
 
 ### Task 1 Complete the Words (Questions 1–10)
 
-Fill in the missing letters in the paragraph.
+Fill in the missing letters in a paragraph.
 
 The study of the universe is called cosmology. T\_\_ scope o\_ this fi\_\_\_ is extr\_\_\_\_\_ large, encomp\_\_\_\_\_\_ everything fr\_\_ the smal\_\_\_\_ particles t\_ vast galaxies. O\_\_ intriguing hypo\_\_\_\_\_\_ in cosmology is the Big Bang Theory, according to which the universe began approximately 13.8 billion years ago from an infinitely dense point. Cosmologists also study dark matter and dark energy. They observe cosmic microwave background radiation, the faint glow left over from the Big Bang, to gather information about the universe in its early days.
 
@@ -349,7 +349,7 @@ A
 
 ### Task 1 Complete the Words (Questions 1–10)
 
-Fill in the missing letters in the paragraph.
+Fill in the missing letters in a paragraph.
 
 Classical civilizations, such as Ancient Greece and Rome, have profoundly influenced modern Western culture. These socie\_\_\_\_ achieved remark\_\_\_\_ progress in philo\_\_\_\_\_, science, and gover\_\_\_\_\_. The Greeks introd\_\_\_\_ fundamental id\_\_\_ in demo\_\_\_\_\_, whereas the Rom\_\_\_ created an intri\_\_\_\_ legal frame\_\_\_\_. Studying classical civilizations provides insights into the origins of contemporary political systems, literary traditions, and architectural styles, highlighting the enduring legacy of these ancient cultures.
 

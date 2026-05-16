@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // 配置路径
-const MARKDOWN_FILE = path.join(__dirname, 'assets/questions/reading/reading-2026-test-01.md');
+const MARKDOWN_FILE = path.join(__dirname, 'assets/questions/reading/reading-TPO-01.md');
 const FILL_TEMPLATE = path.join(__dirname, 'templates/fill-in-missing-letters/template.html');
 const READING_TEMPLATE = path.join(__dirname, 'templates/read-academic-passage/template.html');
 const OUTPUT_DIR = __dirname;
@@ -226,7 +226,22 @@ function generateReadingPages(task, moduleIndex) {
     html = html.replace(/{{QUESTION_NUMBER}}/g, questionNumber);
     html = html.replace(/{{QUESTION_COUNT}}/g, readingTasks.length);
     html = html.replace(/{{PASSAGE_TITLE}}/g, task.description);
-    html = html.replace(/{{PASSAGE_CONTENT}}/g, task.passage);
+
+    let passageHTML = task.passage;
+
+    // 词汇题高亮：从题目文本中提取目标词
+    const vocabMatch = question.text.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
+    if (vocabMatch) {
+      const targetWord = vocabMatch[1];
+      const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`\\b(${escapedWord})\\b`, 'gi');
+      passageHTML = passageHTML.replace(
+        regex,
+        '<span style="background-color:#008080;color:white;font-weight:bold;padding:1px 4px;border-radius:3px;">$1</span>'
+      );
+    }
+
+    html = html.replace(/{{PASSAGE_CONTENT}}/g, passageHTML);
     html = html.replace(/{{QUESTION_TEXT}}/g, question.text);
 
     html = html.replace(/{{OPTION_A}}/g, question.options.A || '');

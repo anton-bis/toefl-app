@@ -58,7 +58,6 @@ export class ReadingPassage {
     // 添加段落文本
     const passageElement = DOM.create('div', {
       className: 'passage-text',
-      innerHTML: this.formatPassageText(this.options.passageText),
       style: {
         fontSize: '16px',
         lineHeight: '1.8',
@@ -70,6 +69,7 @@ export class ReadingPassage {
         borderLeft: '4px solid #007A66'
       }
     });
+    passageElement.innerHTML = this.formatPassageText(this.options.passageText);
     this.element.appendChild(passageElement);
 
     // 添加题目容器
@@ -94,18 +94,50 @@ export class ReadingPassage {
   }
 
   /**
-   * 格式化段落文本（处理加粗等格式）
+   * 格式化段落文本（处理加粗、词汇高亮等格式）
    */
   formatPassageText(text) {
     if (!text) return '';
 
+    let formatted = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
     // 将 **加粗** 转换为 <strong>加粗</strong>
-    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // 词汇题目标词高亮
+    const targetWords = this.collectTargetWords();
+    for (const word of targetWords) {
+      const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`\\b(${escapedWord})\\b`, 'gi');
+      formatted = formatted.replace(
+        regex,
+        '<span style="background-color:#008080;color:white;font-weight:bold;padding:1px 4px;border-radius:3px;">$1</span>'
+      );
+    }
 
     // 保留换行
     formatted = formatted.replace(/\n/g, '<br>');
 
     return formatted;
+  }
+
+  /**
+   * 收集所有词汇题的目标词
+   */
+  collectTargetWords() {
+    const words = [];
+    if (!this.options.questions) return words;
+
+    for (const q of this.options.questions) {
+      const match = q.question?.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
+      if (match) {
+        words.push(match[1]);
+      }
+    }
+    return words;
   }
 
   /**

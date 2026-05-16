@@ -4,7 +4,7 @@
 
 ### Task 1 Complete the Words (Questions 1–10)
 
-Fill in the missing letters in the paragraph below:
+Fill in the missing letters in a paragraph below:
 
 Paleontology is the scientific study that deals with the history of life through the analysis of fossil records. This fi\_\_\_ involves exam\_\_\_\_\_fossils—rem\_\_\_\_ of orga\_\_\_\_\_ preserved i\_ rock—t\_ understand h\_\_ ancient li\_\_-forms evo\_\_\_\_ and ada\_\_\_\_ to their surroundings. Paleontologists also use fossils to learn about ancient environmental conditions. Finding marine fossils in landlocked areas, for example, suggests that these regions were very likely underwater once upon a time.
 
@@ -24,7 +24,7 @@ adapted:adapted
 ---
 
 ### Task 2 Complete the Words (Questions 11–20)
-Fill in the missing letters in the paragraph below:
+Fill in the missing letters in a paragraph below:
 Fungi, a group of organisms that include mushrooms and yeast, are not plants but a separate branch of life. They c\_\_ be fo\_\_\_ in alm\_\_\_ every envir\_\_\_\_\_\_ and pl\_\_ essential ro\_\_\_ in var\_\_\_\_ ecosystems. Ma\_\_ of th\_\_ are decomposers, mea\_\_\_\_ that they break down organic matter and recycle nutrients back into the soil. Some fungi form symbiotic relationships with plants, helping them absorb water and nutrients. While many fungi are beneficial, others can cause diseases in plants, animals, and humans.
 
 [ANSWER]
@@ -206,7 +206,7 @@ B
 
 ## Module 2: Reading
 ### Task 1 Complete the Words (Questions 1–10)
-Fill in the missing letters in the paragraph below:
+Fill in the missing letters in a paragraph below:
 Climate pertains to the enduring patterns of temperature, humidity, wind, and precipitation in a specific geographical region or area over time. Climate is influen\_\_\_ by lati\_\_\_\_, altitude, and proxi\_\_\_\_ to water bod\_\_\_. Changes, driv\_\_ by hu\_\_\_ activities like deforest\_\_\_\_\_, present substan\_\_\_\_ challenges to eco\_\_\_\_\_\_\_ and human socie\_\_\_\_. Scientists scrutinize climate patterns and historical data to predict future changes and formulate strategies for mitigation and adaptation, ensuring resilience against environmental challenges.
 
 [ANSWER]
