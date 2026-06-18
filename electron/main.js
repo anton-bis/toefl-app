@@ -312,12 +312,17 @@ function setupIpcHandlers() {
   ipcMain.handle('content:list', (_event, relDir) => {
     return listContentFiles(relDir || '');
   });
+
+  // 手动触发更新下载
+  ipcMain.handle('update:download', async () => {
+    autoUpdater.downloadUpdate();
+  });
 }
 
 // 自动更新事件处理器
 function setupAutoUpdater() {
-  autoUpdater.autoDownload = true;
-  autoUpdater.autoInstallOnAppQuit = true;
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = false;
 
   autoUpdater.on('checking-for-update', () => {
     console.log('正在检查更新...');

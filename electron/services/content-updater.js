@@ -96,15 +96,16 @@ export async function checkForContentUpdates() {
 
 export async function applyContentUpdates(updates) {
   const contentDir = getContentDir();
-  const assetBase = path.join(app.getAppPath(), 'assets', 'questions');
   const results = [];
   for (const item of updates) {
     try {
       const dest = path.join(contentDir, item.path);
-      const assetDest = path.join(assetBase, item.path);
+      if (fs.existsSync(dest)) {
+        results.push({ path: item.path, success: true, cached: true });
+        continue;
+      }
       await downloadFile(item.url, dest);
-      await downloadFile(item.url, assetDest);
-      results.push({ path: item.path, success: true });
+      results.push({ path: item.path, success: true, cached: false });
     } catch (error) {
       results.push({ path: item.path, success: false, error: error.message });
     }

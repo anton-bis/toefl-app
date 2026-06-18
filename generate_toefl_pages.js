@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -1776,6 +1776,11 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.1.1</div>
+            <div class="log-date">2026-06-18</div>
+            <div class="log-detail">优化更新体验：App 更新与内容更新统一走日志卡片 → 下载进度 → 安装可见流程。内容更新下载去重（仅写 userData），已有文件自动跳过并同步版本号，消除红圈误弹。添加协议拦截器实现图片资源回退加载。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.1.0</div>
             <div class="log-date">2026-06-18</div>
             <div class="log-detail">修复 5 项问题：Listening/Reading 答案存储隔离、Speaking 录音计时与权限、继续练习路径、LCAR 题型 Help 按钮、Result 全对检测与庆祝动画。新增四模块 localStorage 前缀隔离，优化 Clear & Exit 逻辑与 Speaking 录音体验，添加 Electron 麦克风预授权。</div>
@@ -1976,11 +1981,11 @@ function generateMainIndexPage(tpoSummaries) {
           return;
         }
 
-        var updatePending = false;
+        var pendingUpdateType = null;
 
         window.electronAPI.onUpdateAvailable(function(info) {
           console.log('[update] onUpdateAvailable:', info);
-          updatePending = true;
+          pendingUpdateType = 'app';
           var currentVersion = localStorage.getItem('toefl_last_seen_version') || '1.0.0';
           var latestVersion = (info && info.version) || '';
           fetch('https://api.github.com/repos/anton-bis/toefl-app/releases?per_page=20')
@@ -2030,17 +2035,36 @@ function generateMainIndexPage(tpoSummaries) {
           btnRef.addEventListener('click', function() {
             if (btnRef.classList.contains('done')) {
               window.electronAPI.quitAndInstall();
+            } else if (pendingUpdateType === 'content') {
+              btnRef.disabled = true;
+              el('update-btn-text').textContent = '下载中...';
+              var us = el('update-desc'); if (us) us.textContent = '正在下载内容，请稍候';
+              window.electronAPI.applyContentUpdate().then(function(r) {
+                if (r && r.version) {
+                  btnRef.classList.add('done');
+                  el('update-btn-text').textContent = '已完成';
+                  var up = el('update-progress'); if (up) up.style.display = 'none';
+                  var us2 = el('update-desc'); if (us2) us2.textContent = '内容更新完成，共 ' + (r.results ? r.results.length : 0) + ' 个文件';
+                } else {
+                  el('update-btn-text').textContent = '重试';
+                  btnRef.disabled = false;
+                }
+              }).catch(function() {
+                el('update-btn-text').textContent = '重试';
+                btnRef.disabled = false;
+              });
             } else {
               btnRef.disabled = true;
               el('update-btn-text').textContent = '下载中...';
-              var us = el('update-desc'); if (us) us.textContent = '正在下载更新，请稍候';
-              window.electronAPI.checkForUpdates();
+              var us2 = el('update-desc'); if (us2) us2.textContent = '正在下载更新，请稍候';
+              window.electronAPI.downloadUpdate();
             }
           });
         }
 
         window.electronAPI.onContentUpdateAvailable(function(result) {
           console.log('[update] onContentUpdateAvailable:', result);
+          pendingUpdateType = 'content';
           if (result && result.hasUpdate) {
             showBadge(result.updateCount || 1);
             var ub = el('update-banner'); if (ub) ub.style.display = 'block';
@@ -2057,10 +2081,23 @@ function generateMainIndexPage(tpoSummaries) {
               window.electronAPI.checkContentUpdate().then(function(result) {
                 console.log('[update] checkContentUpdate result:', result);
                 if (result && result.hasUpdate) {
-                  showBadge(result.updateCount || 1);
-                  var ub = el('update-banner'); if (ub) ub.style.display = 'block';
-                  var uv = el('update-version'); if (uv) uv.textContent = 'Content';
-                  var us = el('update-desc'); if (us) us.textContent = '有新题目内容可用，点击立即更新';
+                  pendingUpdateType = 'content';
+                  window.electronAPI.applyContentUpdate().then(function(r) {
+                    var allCached = r && r.results && r.results.every(function(x) { return x.cached; });
+                    if (allCached) {
+                      console.log('[update] content already cached, version synced');
+                      return;
+                    }
+                    showBadge(result.updateCount || 1);
+                    var ub = el('update-banner'); if (ub) ub.style.display = 'block';
+                    var uv = el('update-version'); if (uv) uv.textContent = 'Content';
+                    var us = el('update-desc'); if (us) us.textContent = '有新题目内容可用，点击立即更新';
+                  }).catch(function() {
+                    showBadge(result.updateCount || 1);
+                    var ub = el('update-banner'); if (ub) ub.style.display = 'block';
+                    var uv = el('update-version'); if (uv) uv.textContent = 'Content';
+                    var us = el('update-desc'); if (us) us.textContent = '有新题目内容可用，点击立即更新';
+                  });
                 }
               }).catch(function(e) { console.log('[update] checkContentUpdate error:', e); });
             } catch (_) { console.log('[update] checkContentUpdate exception'); }
