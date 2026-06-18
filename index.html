@@ -984,30 +984,39 @@
     </script>
     <script>
       (function() {
-        if (typeof window.electronAPI === 'undefined') return;
-        var badgeEl = document.getElementById('update-badge');
-        var bannerEl = document.getElementById('update-banner');
-        var updateVersion = document.getElementById('update-version');
-        var updateReleaseDate = document.getElementById('update-release-date');
-        var updateDesc = document.getElementById('update-desc');
-        var updateBtn = document.getElementById('update-btn');
-        var updateBtnText = document.getElementById('update-btn-text');
-        var updateProgress = document.getElementById('update-progress');
-        var updatePending = false;
+        console.log('[update] script loaded, electronAPI:', typeof window.electronAPI);
+
+        var domReady = false;
+        var els = {};
+        function el(id) {
+          if (!els[id]) els[id] = document.getElementById(id);
+          return els[id];
+        }
 
         function showBadge(n) {
-          if (!badgeEl) return;
-          badgeEl.textContent = String(n || 1);
-          badgeEl.style.display = 'inline-flex';
+          var b = el('update-badge');
+          if (!b) { console.log('[update] badge element not found'); return; }
+          b.textContent = String(n || 1);
+          b.style.display = 'inline-flex';
+          console.log('[update] badge shown:', n || 1);
         }
         function hideBadge() {
-          if (badgeEl) badgeEl.style.display = 'none';
+          var b = el('update-badge');
+          if (b) b.style.display = 'none';
         }
 
+        if (typeof window.electronAPI === 'undefined') {
+          console.log('[update] electronAPI not available, stopping');
+          return;
+        }
+
+        var updatePending = false;
+
         window.electronAPI.onUpdateAvailable(function(info) {
+          console.log('[update] onUpdateAvailable:', info);
           updatePending = true;
           var currentVersion = localStorage.getItem('toefl_last_seen_version') || '1.0.0';
-          var latestVersion = (info && info.version) || '1.1.0';
+          var latestVersion = (info && info.version) || '';
           fetch('https://api.github.com/repos/anton-bis/toefl-app/releases?per_page=20')
             .then(function(r) { return r.json(); })
             .then(function(releases) {
@@ -1023,64 +1032,72 @@
             })
             .catch(function() { showBadge(1); });
           var savedVersion = localStorage.getItem('toefl_last_seen_version');
-          if (savedVersion && compareVersion(latestVersion, savedVersion) <= 0) { hideBadge(); updatePending = false; }
-          if (updateVersion) updateVersion.textContent = latestVersion;
-          if (updateReleaseDate) updateReleaseDate.textContent = (info && info.releaseDate) ? info.releaseDate : '';
-          if (updateDesc) updateDesc.textContent = '包含重要修复和优化，建议立即更新';
-          if (bannerEl) bannerEl.style.display = 'block';
-          if (updateBtn) { updateBtn.disabled = false; updateBtnText.textContent = '下载并安装'; }
+          if (savedVersion && latestVersion && compareVersion(latestVersion, savedVersion) <= 0) { hideBadge(); updatePending = false; }
+          var uv = el('update-version'); if (uv) uv.textContent = latestVersion;
+          var ud = el('update-release-date'); if (ud) ud.textContent = (info && info.releaseDate) ? info.releaseDate : '';
+          var us = el('update-desc'); if (us) us.textContent = '包含重要修复和优化，建议立即更新';
+          var ub = el('update-banner'); if (ub) ub.style.display = 'block';
+          var btn = el('update-btn'); if (btn) { btn.disabled = false; el('update-btn-text').textContent = '下载并安装'; }
         });
 
         window.electronAPI.onUpdateProgress(function(progress) {
-          if (updateProgress) { updateProgress.style.display = 'inline'; updateProgress.textContent = Math.round(progress.percent) + '%'; }
+          var up = el('update-progress');
+          if (up) { up.style.display = 'inline'; up.textContent = Math.round(progress.percent) + '%'; }
         });
 
         window.electronAPI.onUpdateDownloaded(function(info) {
-          if (updateBtn) { updateBtn.classList.add('done'); updateBtnText.textContent = '安装并重启'; }
-          if (updateProgress) updateProgress.style.display = 'none';
-          if (updateDesc) updateDesc.textContent = '下载完成，点击按钮安装更新';
+          var btn = el('update-btn');
+          if (btn) { btn.classList.add('done'); el('update-btn-text').textContent = '安装并重启'; }
+          var up = el('update-progress'); if (up) up.style.display = 'none';
+          var us = el('update-desc'); if (us) us.textContent = '下载完成，点击按钮安装更新';
           localStorage.setItem('toefl_last_seen_version', (info && info.version) || '');
         });
 
         window.electronAPI.onUpdateError(function(err) {
-          if (updateDesc) updateDesc.textContent = '更新失败：' + ((typeof err === 'string') ? err : (err && err.message || '未知错误'));
-          if (updateBtn) { updateBtnText.textContent = '重试'; updateBtn.disabled = false; }
+          var us = el('update-desc');
+          if (us) us.textContent = '更新失败：' + ((typeof err === 'string') ? err : (err && err.message || '未知错误'));
+          var btn = el('update-btn'); if (btn) { el('update-btn-text').textContent = '重试'; btn.disabled = false; }
         });
 
-        if (updateBtn) {
-          updateBtn.addEventListener('click', function() {
-            if (updateBtn.classList.contains('done')) {
+        var btnRef = el('update-btn');
+        if (btnRef) {
+          btnRef.addEventListener('click', function() {
+            if (btnRef.classList.contains('done')) {
               window.electronAPI.quitAndInstall();
             } else {
-              updateBtn.disabled = true;
-              updateBtnText.textContent = '下载中...';
-              if (updateDesc) updateDesc.textContent = '正在下载更新，请稍候';
+              btnRef.disabled = true;
+              el('update-btn-text').textContent = '下载中...';
+              var us = el('update-desc'); if (us) us.textContent = '正在下载更新，请稍候';
               window.electronAPI.checkForUpdates();
             }
           });
         }
 
         window.electronAPI.onContentUpdateAvailable(function(result) {
+          console.log('[update] onContentUpdateAvailable:', result);
           if (result && result.hasUpdate) {
             showBadge(result.updateCount || 1);
-            if (bannerEl) bannerEl.style.display = 'block';
-            if (updateVersion) updateVersion.textContent = 'Content';
-            if (updateDesc) updateDesc.textContent = '有新题目内容可用，点击立即更新';
+            var ub = el('update-banner'); if (ub) ub.style.display = 'block';
+            var uv = el('update-version'); if (uv) uv.textContent = 'Content';
+            var us = el('update-desc'); if (us) us.textContent = '有新题目内容可用，点击立即更新';
           }
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+          domReady = true;
+          console.log('[update] DOM ready, checking content update...');
           setTimeout(function() {
             try {
               window.electronAPI.checkContentUpdate().then(function(result) {
+                console.log('[update] checkContentUpdate result:', result);
                 if (result && result.hasUpdate) {
                   showBadge(result.updateCount || 1);
-                  if (bannerEl) bannerEl.style.display = 'block';
-                  if (updateVersion) updateVersion.textContent = 'Content';
-                  if (updateDesc) updateDesc.textContent = '有新题目内容可用，点击立即更新';
+                  var ub = el('update-banner'); if (ub) ub.style.display = 'block';
+                  var uv = el('update-version'); if (uv) uv.textContent = 'Content';
+                  var us = el('update-desc'); if (us) us.textContent = '有新题目内容可用，点击立即更新';
                 }
-              }).catch(function() {});
-            } catch (_) {}
+              }).catch(function(e) { console.log('[update] checkContentUpdate error:', e); });
+            } catch (_) { console.log('[update] checkContentUpdate exception'); }
           }, 2000);
         });
 
@@ -1098,8 +1115,9 @@
         // Dismiss badge when user opens the log
         document.querySelector('[data-modal="modalLog"]').addEventListener('click', function() {
           hideBadge();
-          if (updateVersion && updateVersion.textContent) {
-            localStorage.setItem('toefl_last_seen_version', updateVersion.textContent.replace(/^Content$/, ''));
+          var uv = el('update-version');
+          if (uv && uv.textContent) {
+            localStorage.setItem('toefl_last_seen_version', uv.textContent.replace(/^Content$/, ''));
           }
         });
       })();
