@@ -1776,6 +1776,11 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.1.3</div>
+            <div class="log-date">2026-06-18</div>
+            <div class="log-detail">正式打通自动更新全流程。App 更新与内容更新均走日志卡片 → 下载进度 → 安装可见流程。清理历史构建残留。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.1.2</div>
             <div class="log-date">2026-06-18</div>
             <div class="log-detail">修复 App 更新功能（process.env.NODE_ENV → app.isPackaged）。验证自动更新日志流程，为后续版本提供可靠基础。</div>
