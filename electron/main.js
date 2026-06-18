@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, shell, dialog, Menu, session, protocol, net } from 'electron';
+import { app, BrowserWindow, ipcMain, shell, dialog, Menu, session, protocol } from 'electron';
 import pkg from 'electron-updater';
 const { autoUpdater } = pkg;
 import path from 'path';
@@ -62,24 +62,17 @@ function createWindow() {
 
   // 内容更新图片回退：应用目录无权限写入时，从 userData 读取
   const contentDir = path.join(app.getPath('userData'), 'tpo-content');
-  const assetBase = path.join(app.getAppPath(), 'assets', 'questions').replace(/\\/g, '/');
-  protocol.handle('file', (request) => {
-    const url = request.url;
-    let filePath = url;
-    if (filePath.startsWith('file://')) filePath = filePath.substring('file://'.length);
-    if (/^\/[a-zA-Z]:/.test(filePath)) filePath = filePath.substring(1);
-    filePath = decodeURIComponent(filePath);
-    if (fs.existsSync(filePath)) return net.fetch(url);
-    const normalized = filePath.replace(/\\/g, '/');
-    if (normalized.startsWith(assetBase + '/')) {
-      const rel = normalized.substring(assetBase.length + 1);
+  const assetBase = path.join(app.getAppPath(), 'assets', 'questions');
+  protocol.interceptFileProtocol('file', (request, callback) => {
+    const filePath = decodeURIComponent(request.url.replace('file:///', '').replace(/\//g, path.sep));
+    const resolvedPath = path.resolve(filePath);
+    if (fs.existsSync(resolvedPath)) { callback({ path: resolvedPath }); return; }
+    if (resolvedPath.startsWith(assetBase + path.sep)) {
+      const rel = path.relative(assetBase, resolvedPath);
       const fallbackPath = path.join(contentDir, rel);
-      if (fs.existsSync(fallbackPath)) {
-        const fallbackUrl = 'file:///' + fallbackPath.replace(/\\/g, '/');
-        return net.fetch(fallbackUrl);
-      }
+      if (fs.existsSync(fallbackPath)) { callback({ path: fallbackPath }); return; }
     }
-    return new Response('Not Found', { status: 404 });
+    callback({ path: resolvedPath });
   });
 
   // 窗口准备就绪后显示
