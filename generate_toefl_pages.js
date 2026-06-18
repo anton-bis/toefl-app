@@ -2033,7 +2033,7 @@ function generateMainIndexPage(tpoSummaries) {
 
         window.electronAPI.onUpdateDownloaded(function(info) {
           var btn = el('update-btn');
-          if (btn) { btn.classList.add('done'); el('update-btn-text').textContent = '安装并重启'; }
+          if (btn) { btn.classList.add('done'); btn.disabled = false; el('update-btn-text').textContent = '安装并重启'; }
           var up = el('update-progress'); if (up) up.style.display = 'none';
           var us = el('update-desc'); if (us) us.textContent = '下载完成，点击按钮安装更新';
           localStorage.setItem('toefl_last_seen_version', (info && info.version) || '');
