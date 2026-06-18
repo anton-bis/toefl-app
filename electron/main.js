@@ -79,8 +79,8 @@ function createWindow() {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
 
-    // 检查更新（生产环境）
-    if (process.env.NODE_ENV === 'production') {
+    // 检查更新
+    if (app.isPackaged) {
       setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
       }, 5000);
@@ -380,8 +380,8 @@ async function initializeApp() {
     setupIpcHandlers();
     console.log('IPC处理器设置完成');
 
-    // 设置自动更新（生产环境）
-    if (process.env.NODE_ENV === 'production') {
+    // 设置自动更新
+    if (app.isPackaged) {
       setupAutoUpdater();
       console.log('自动更新设置完成');
     }
