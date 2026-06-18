@@ -1,0 +1,225 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Module 1 Introduction</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Module introduction page specific styles */
+      .timer-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+      }
+      .button-row {
+        display: flex;
+        gap: 15px;
+      }
+      .timer-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px auto 40px;
+        padding: 15px 30px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+      }
+      .timer-display-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+      .timer-display-intro {
+        font-family: 'Courier New', monospace;
+        font-size: 24px;
+        font-weight: bold;
+        color: #222222;
+        letter-spacing: 2px;
+      }
+      .timer-label {
+        font-size: 12px;
+        color: #666666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .hide-time-btn-intro {
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 6px 12px;
+        font-size: 12px;
+        color: #666666;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .hide-time-btn-intro:hover {
+        background-color: #e0e0e0;
+        color: #333333;
+      }
+      .hide-time-btn-intro i {
+        font-size: 10px;
+      }
+      @media (max-width: 768px) {
+        .button-row {
+          gap: 10px;
+        }
+        .timer-area {
+          margin: 20px auto 30px;
+          padding: 12px 20px;
+          max-width: 350px;
+        }
+        .timer-display-intro {
+          font-size: 20px;
+        }
+      }
+      @media (max-width: 480px) {
+        .button-row {
+          gap: 8px;
+        }
+        .timer-area {
+          margin: 15px auto 25px;
+          padding: 10px 15px;
+          max-width: 300px;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .timer-display-intro {
+          font-size: 18px;
+          letter-spacing: 1px;
+        }
+        .hide-time-btn-intro {
+          padding: 5px 10px;
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">toefl ibt</div>
+      <div class="nav-buttons">
+        <div class="button-row">
+          <button class="nav-button dark volume-btn">
+            <span>Volume</span>
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button class="nav-button dark help-btn">
+            <span>Help</span>
+            <i class="fas fa-question-circle"></i>
+          </button>
+          <button class="nav-button light begin-btn" id="start-module-btn">
+            <span>Begin</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="section-title">Reading</div>
+      <div class="page-header">
+        <h1 class="page-title">Module 1</h1>
+        <div class="title-underline"></div>
+      </div>
+      <div class="timer-area">
+        <div class="timer-display-container">
+          <div class="timer-label">Time Remaining</div>
+          <div id="timer-display-intro" class="timer-display-intro">11:30</div>
+        </div>
+        <button class="hide-time-btn-intro" id="toggle-timer-intro-btn">
+          <i class="fas fa-eye-slash"></i>
+          <span>Hide Time</span>
+        </button>
+      </div>
+      <p class="description" style="text-align:left;">
+        The clock will show you how much time you have to complete Module 1.<br><br>
+        You can use <strong>NEXT</strong> and <strong>BACK</strong> to move to the next question or return to previous questions within the same module.<br><br>
+        You WILL NOT be able to return to Module 1 once you have begun Module 2.
+      </p>
+    </main>
+
+    <script>
+      document.querySelector('.volume-btn').addEventListener('click', function () {
+        window.showHelp('Volume', 'Volume control will be implemented in the speaking and listening version.');
+      });
+      document.querySelector('.help-btn').addEventListener('click', function () {
+        window.showHelp('Help', '1. You have limited time to complete Module 1\n2. Use Next/Back buttons to navigate questions\n3. Once you start Module 2, you cannot return to Module 1');
+      });
+      let timerInterval;
+      let totalSeconds = 690;
+      let timerVisible = true;
+      function updateTimerDisplay() {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const timerDisplay = document.getElementById('timer-display-intro');
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        if (totalSeconds <= 60) {
+          timerDisplay.style.color = '#ff4444';
+        } else {
+          timerDisplay.style.color = '#222222';
+        }
+      }
+      function startTimer() {
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+        totalSeconds = 690;
+        updateTimerDisplay();
+        timerInterval = setInterval(function () {
+          if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display-intro').textContent = '00:00';
+            document.getElementById('timer-display-intro').style.color = '#ff4444';
+            alert('Time is up! Module 1 time has expired.');
+            return;
+          }
+          totalSeconds--;
+          updateTimerDisplay();
+        }, 1000);
+      }
+      function toggleTimer() {
+        const timerDisplay = document.getElementById('timer-display-intro');
+        const toggleBtn = document.getElementById('toggle-timer-intro-btn');
+        const timerLabel = document.querySelector('.timer-label');
+        if (timerVisible) {
+          timerDisplay.style.visibility = 'hidden';
+          timerLabel.style.visibility = 'hidden';
+          toggleBtn.innerHTML = '<i class="fas fa-eye"></i><span>Show Time</span>';
+          timerVisible = false;
+        } else {
+          timerDisplay.style.visibility = 'visible';
+          timerLabel.style.visibility = 'visible';
+          toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>Hide Time</span>';
+          timerVisible = true;
+        }
+      }
+      document.getElementById('start-module-btn').addEventListener('click', function () {
+        window.showConfirm('Ready to Begin', 'Are you ready to begin Module 1?\nOnce you start, you cannot return to this introduction.', [
+          { text: 'Begin', cls: 'primary', onClick: function(){
+            startTimer();
+            localStorage.setItem('toefl_reading_m1_max', totalSeconds);
+            localStorage.setItem('toefl_reading_time_acc', '0');
+            localStorage.setItem('toefl_timer_remaining', totalSeconds);
+            localStorage.setItem('toefl_timer_started', 'true');
+          setTimeout(function () {
+            window.location.href = '{{FIRST_QUESTION_PAGE}}';
+          }, 500);
+          }}
+        ], true);
+      });
+      document.getElementById('toggle-timer-intro-btn').addEventListener('click', toggleTimer);
+      updateTimerDisplay();
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

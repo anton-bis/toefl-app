@@ -1,0 +1,2472 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Reading Question {{QUESTION_NUMBER}}</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      /* Viewport lock - match all other reading templates */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        padding-top: 10px;
+      }
+      #question-module {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .timer-expired-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      }
+      .timer-expired-modal.show {
+        display: flex;
+      }
+      .timer-expired-modal-content {
+        background-color: white;
+        border-radius: 12px;
+        padding: 30px 40px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+      .timer-expired-modal-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #d32f2f;
+        margin-bottom: 15px;
+      }
+      .timer-expired-modal-text {
+        font-size: 16px;
+        color: #444;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+      .timer-expired-modal-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .timer-expired-modal-btn {
+        padding: 12px 30px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+      }
+      .timer-expired-modal-btn-continue {
+        background-color: #008080;
+        color: white;
+      }
+      .timer-expired-modal-btn-continue:hover {
+        background-color: #006666;
+      }
+      .timer-expired-modal-btn-exit {
+        background-color: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+      }
+      .timer-expired-modal-btn-exit:hover {
+        background-color: #e0e0e0;
+      }
+
+      /* 绗竴棰橀〉闈㈢壒鏈夋牱锟?*/
+      .button-row {
+        display: flex;
+        gap: 15px;
+      }
+
+      /* 璁℃椂鍣ㄥ尯锟?- 鎵╁睍鍒板叏灞忓锟?*/
+      .timer-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 30px;
+        background-color: white;
+        width: 100%;
+        max-width: 100%;
+        border-bottom: 3px solid #222222;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+        position: relative;
+      }
+
+      /* 宸︿晶锛氶鐩繘锟?*/
+      .question-progress-info {
+        font-size: 14px;
+        color: #444444;
+        font-weight: 500;
+        margin-left: 0;
+      }
+
+      /* 鍙充晶锛氳鏃跺櫒鍜孒ide Time鎸夐挳 */
+      .timer-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .timer-display-exam {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: #222222;
+        background-color: #f5f5f5;
+        padding: 5px 15px;
+        border-radius: 4px;
+        min-width: 80px;
+        text-align: center;
+        letter-spacing: 1px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .hide-time-btn-exam {
+        background-color: #f5f5f5;
+        color: #444444;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        padding: 5px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s ease;
+      }
+
+      .hide-time-btn-exam:hover {
+        background-color: #e8e8e8;
+        border-color: #aaaaaa;
+      }
+
+      /* 椤甸潰鏍囬鍖哄煙璋冩暣 */
+      .page-header-adjusted {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 40px;
+        padding: 0 10px 15px 10px;
+        border-bottom: 3px solid #222222; /* 榛戣壊涓嬪垝绾匡紝鍒嗛殧鏍囬鍜岄鐩尯锟?*/
+      }
+
+      .reading-title-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+
+      .reading-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #222222;
+      }
+
+      .vertical-separator {
+        width: 1px;
+        height: 20px; /* 鐣ュ皬浜庡瓧浣撻暱锟?*/
+        background-color: #666666;
+      }
+
+      .question-progress-adjusted {
+        font-size: 14px;
+        color: #444444;
+      }
+
+      /* 璋冩暣鍚庣殑璁℃椂鍣ㄦ牱锟?*/
+      .timer-section-adjusted {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      .timer-container-adjusted {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #008080;
+        padding: 5px 15px;
+        border-radius: 5px;
+      }
+
+      .timer-display-adjusted {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        min-width: 70px;
+        text-align: center;
+      }
+
+      .hide-time-btn-adjusted {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 4px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: background-color 0.2s ease;
+      }
+
+      .hide-time-btn-adjusted:hover {
+        background-color: #45a049;
+      }
+
+      .hide-time-btn-adjusted i {
+        font-size: 12px;
+      }
+
+      /* 鏂扮殑璁℃椂鍣ㄦ牱锟?- 鐧借壊鑳屾櫙锛岄粦鑹叉暟瀛楋紝鍙充晶浣嶇疆 */
+      .timer-row {
+        width: 100%;
+        background-color: white;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 20px;
+      }
+
+      .timer-container-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background-color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .timer-display-white {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: #222222; /* 榛戣壊鏁板瓧 */
+        min-width: 70px;
+        text-align: center;
+        background-color: white;
+        padding: 3px 10px;
+        border-radius: 3px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .hide-time-btn-white {
+        background-color: #f5f5f5;
+        color: #444444;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        padding: 4px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s ease;
+      }
+
+      .hide-time-btn-white:hover {
+        background-color: #e8e8e8;
+        border-color: #aaaaaa;
+      }
+
+      .hide-time-btn-white i {
+        font-size: 12px;
+      }
+
+      /* 棰樼洰鍐呭鏍峰紡 - 涓嶳ead an email淇濇寔涓€锟?*/
+      .question-instruction {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        margin-top: 0;
+        color: #222222;
+      }
+
+      .question-paragraph {
+        margin-bottom: 30px;
+        padding: 30px 40px;
+        background-color: white;
+        border-radius: 8px;
+        line-height: 2.2; /* 澧炲ぇ琛岄珮锛岄伩鍏嶅崟璇嶆姌锟?*/
+        font-size: 18px; /* 绋嶅井澧炲ぇ瀛椾綋 */
+        color: #222222;
+        min-height: 200px; /* 纭繚鏈€灏忛珮锟?*/
+        overflow: visible !important; /* 纭繚鍐呭涓嶈闅愯棌 */
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* 鐏拌壊鏂瑰潡閬尅鏍峰紡 */
+      .blank-square {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-color: #cccccc;
+        border-radius: 3px;
+        margin: 0 2px;
+        vertical-align: baseline;
+        position: relative;
+      }
+
+      .blank-square input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: transparent;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #222222;
+        outline: none;
+      }
+
+      .blank-square input:focus {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 3px;
+      }
+
+      /* 瀛楁瘝鎻愮ず */
+      .letter-hint {
+        font-size: 10px;
+        color: #666666;
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+
+      /* 鍗曡瘝瀹瑰櫒 - 纭繚鍗曡瘝鑷劧杩炴帴鍜屽瀭鐩村锟?*/
+      .word-container {
+        display: inline;
+        white-space: nowrap;
+        vertical-align: baseline; /* 纭繚鍨傜洿灞呬腑瀵归綈 */
+        overflow: visible !important; /* 纭繚鍐呭涓嶈闅愯棌 */
+      }
+
+      .word-prefix {
+        font-size: 18px; /* 涓庢钀藉瓧浣撳ぇ灏忎竴锟?*/
+        color: #222222;
+        font-weight: normal;
+        display: inline;
+        vertical-align: baseline; /* 纭繚鍨傜洿灞呬腑瀵归綈 */
+      }
+
+      /* ===== 閲嶆柊璁捐鐨勮緭鍏ユ鏍峰紡 - 瑙ｅ喅宸ㄥぇ绌虹櫧闂 ===== */
+      /* 璁捐鍘熷垯锛氱揣鍑戠編瑙傦紝娑堥櫎c________an_________寮忕殑宸ㄥぇ绌虹櫧 */
+
+      .part-input {
+        border: none;
+        border-bottom: 2px solid #008080;
+        background: transparent;
+        text-align: center;
+        font-size: 18px;
+        color: #222222;
+        outline: none;
+        padding: 0; /* 闆秔adding锛屾渶绱у噾 */
+        margin: 0 1px; /* 浣跨敤margin鑰屼笉鏄痯adding淇濇寔闂磋窛 */
+        transition: all 0.2s ease;
+        font-family: inherit;
+        letter-spacing: normal;
+        height: 1.2em; /* 鍩轰簬瀛椾綋楂樺害鐨勫浐瀹氶珮锟?*/
+        line-height: 1.2;
+        vertical-align: baseline; /* 鍥炲埌middle瀵归綈 */
+        box-sizing: content-box;
+        min-width: 10px; /* 鏈€灏忓搴︽洿锟?*/
+        max-width: none !important;
+        display: inline-block;
+        position: relative;
+        overflow: visible !important;
+        white-space: nowrap;
+      }
+
+      /* 杈撳叆妗唒laceholder鏍峰紡 */
+      .part-input::placeholder {
+        color: #666666;
+        font-family: monospace;
+        letter-spacing: 1px;
+        opacity: 0.7;
+      }
+
+      /* 杈撳叆妗嗚幏寰楃劍鐐规椂鐨勬牱锟?*/
+      .part-input:focus {
+        border-bottom-color: #4caf50;
+        border-bottom-width: 3px; /* 鐒︾偣鏃跺姞锟?*/
+        background-color: rgba(76, 175, 80, 0.05);
+      }
+
+      /* 鏍规嵁鍐呭闀垮害鍔ㄦ€佽皟鏁翠笅鍒掔嚎 */
+      .part-input:empty {
+        border-bottom-width: 1px; /* 绌烘椂缁嗙嚎 */
+        border-bottom-style: dotted; /* 绌烘椂铏氱嚎 */
+      }
+
+      .part-input:not(:empty) {
+        border-bottom-width: 2px; /* 鏈夊唴瀹规椂瀹炵嚎 */
+        border-bottom-style: solid;
+      }
+
+      /* 纭繚鍗曡瘝瀹瑰櫒涓嶄細闄愬埗瀹藉害 */
+      .word-container {
+        display: inline;
+        white-space: nowrap;
+        vertical-align: baseline;
+        overflow: visible !important;
+        min-width: 0; /* 鍏佽鏀剁缉锟? */
+      }
+
+      /* 纭繚娈佃惤瀹瑰櫒鏈夎冻澶熺殑绌洪棿 */
+      .question-paragraph {
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+        margin-bottom: 30px;
+        padding: 30px 40px;
+        background-color: white;
+        border-radius: 8px;
+        line-height: 2.2;
+        font-size: 18px;
+        color: #222222;
+        word-wrap: normal;
+        overflow-wrap: normal;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .part-input:focus {
+        border-bottom-color: #4caf50;
+        background-color: rgba(76, 175, 80, 0.1);
+      }
+
+      .part-input::placeholder {
+        color: #999999;
+        font-size: 12px;
+      }
+
+      /* 鍒犻櫎鏃х殑涓嬪垝绾垮鍣ㄦ牱寮忥紝浣跨敤鏂扮殑鍔ㄦ€佸搴︽柟锟?*/
+
+      .question-number {
+        font-size: 10px;
+        color: #666666;
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 15px;
+        text-align: center;
+      }
+
+      /* ===== 璞嗗寘鏂规锛氬瓧姣嶆柟妗嗘牱锟?===== */
+      .word-fill-container {
+        display: inline;
+        white-space: nowrap;
+        vertical-align: baseline;
+        position: relative;
+        margin: 0 2px;
+      }
+
+      .word-prefix {
+        font-size: 18px;
+        color: #222222;
+        font-weight: normal;
+        display: inline;
+        vertical-align: baseline;
+      }
+
+      .letter-box-container {
+        display: inline-flex;
+        border: 1px solid #4caf50; /* 澶栧眰缁胯壊杈规 */
+        border-radius: 3px;
+        padding: 2px;
+        background-color: white;
+        vertical-align: baseline;
+        margin: 0 1px;
+      }
+
+      .letter-box {
+        width: 22px;
+        height: 22px;
+        border: 2px solid #008080; /* 淇敼锟?px绮楋紝娣辩豢鑹茶竟锟?*/
+        border-radius: 3px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #222222;
+        background-color: white;
+        margin: 0 1px;
+        padding: 0;
+        outline: none;
+        font-family: inherit;
+      }
+
+      .letter-box:focus {
+        border-color: #008080;
+        background-color: #f0f9f7;
+        box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.2);
+      }
+
+      .fill-question-number {
+        font-size: 10px;
+        color: #666666;
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 15px;
+        text-align: center;
+      }
+
+      /* ===== Check Answers Overlay ===== */
+      .check-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      }
+
+      .check-overlay.active {
+        display: block;
+      }
+
+      .answers-check-area {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1001;
+        width: 620px;
+        max-width: 95vw;
+        max-height: 82vh;
+        overflow-y: auto;
+        padding: 25px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      .answers-check-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #008080;
+        cursor: move;
+        user-select: none;
+      }
+
+      .answers-check-header h3 {
+        font-size: 18px;
+        color: #222222;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .answers-check-header h3 i {
+        color: #008080;
+      }
+
+      .close-answers-btn {
+        background: none;
+        border: none;
+        color: #666666;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .close-answers-btn:hover {
+        background-color: #e9ecef;
+        color: #222222;
+      }
+
+      .answers-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #222222;
+      }
+
+      .stat-value.correct {
+        color: #28a745;
+      }
+
+      .stat-value.incorrect {
+        color: #dc3545;
+      }
+
+      .answers-details {
+        margin-bottom: 25px;
+      }
+
+      .answers-details h4 {
+        font-size: 16px;
+        color: #222222;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      #answers-list {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .answer-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s ease;
+      }
+
+      .answer-item:hover {
+        border-color: #008080;
+        box-shadow: 0 2px 6px rgba(0, 128, 128, 0.1);
+      }
+
+      .answer-item.correct {
+        border-left: 4px solid #28a745;
+      }
+
+      .answer-item.incorrect {
+        border-left: 4px solid #dc3545;
+      }
+
+      .answer-item.empty {
+        border-left: 4px solid #ffc107;
+      }
+
+      .question-number-badge {
+        width: 28px;
+        height: 28px;
+        background-color: #008080;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .answer-content {
+        flex: 1;
+      }
+
+      .answer-word {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #222222;
+        margin-bottom: 6px;
+        font-weight: 400;
+      }
+
+      .answer-status {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-text.correct {
+        color: #1a7a2e;
+        font-weight: 700;
+      }
+
+      .status-text.incorrect {
+        color: #dc3545;
+        font-weight: 500;
+      }
+
+      .status-text.empty {
+        color: #ffc107;
+        font-weight: 500;
+      }
+
+      .correct-answer {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a7a2e;
+        background-color: transparent;
+        padding: 0 0 0 12px;
+        border-radius: 0;
+        border-left: 3px solid #1a7a2e;
+        margin-left: 12px;
+      }
+
+      .answers-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .action-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .retry-btn {
+        background-color: #ffc107;
+        color: #222222;
+      }
+
+      .retry-btn:hover {
+        background-color: #e0a800;
+      }
+
+      .close-btn {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .close-btn:hover {
+        background-color: #5a6268;
+      }
+
+      /* 瀛楁瘝鏂规鐘舵€佹牱锟?*/
+      .letter-box-container.correct {
+        border-color: #28a745;
+        background-color: rgba(40, 167, 69, 0.05);
+      }
+
+      .letter-box-container.incorrect {
+        border-color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.05);
+      }
+
+      .letter-box-container.empty {
+        border-color: #ffc107;
+        background-color: rgba(255, 193, 7, 0.05);
+      }
+
+      .letter-box.correct {
+        border-color: #28a745;
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .letter-box.incorrect {
+        border-color: #dc3545;
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .letter-box.empty {
+        border-color: #ffc107;
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      /* ===== Review鍔熻兘鏍峰紡 ===== */
+      .review-panel {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 380px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .review-panel.active {
+        right: 0;
+      }
+
+      .review-header {
+        padding: 20px;
+        background-color: #008080;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .review-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .review-header h3 i {
+        font-size: 16px;
+      }
+
+      .close-review-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+      }
+
+      .close-review-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .review-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .review-stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .review-stat-label {
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .review-stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #222222;
+      }
+
+      .review-stat-value.answered {
+        color: #28a745;
+      }
+
+      .review-stat-value.marked {
+        color: #ffc107;
+      }
+
+      .review-questions-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .review-questions-list h4 {
+        font-size: 16px;
+        color: #222222;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      #questions-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+
+      .question-item {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+        position: relative;
+      }
+
+      .question-item:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+        transform: translateY(-2px);
+      }
+
+      .question-item.answered {
+        background-color: #d4edda;
+        border-color: #28a745;
+        color: #155724;
+      }
+
+      .question-item.marked {
+        background-color: #fff3cd;
+        border-color: #ffc107;
+        color: #856404;
+      }
+
+      .question-item.marked::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 12px;
+        height: 12px;
+        background-color: #ffc107;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .question-item.current {
+        background-color: #008080;
+        border-color: #006666;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 128, 128, 0.3);
+      }
+
+      .question-item.answered.marked {
+        background: linear-gradient(135deg, #d4edda 50%, #fff3cd 50%);
+        border-color: #28a745;
+      }
+
+      .review-actions {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .review-action-btn {
+        padding: 12px 15px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        background-color: white;
+        color: #495057;
+        border: 1px solid #dee2e6;
+      }
+
+      .review-action-btn:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+      }
+
+      .review-action-btn.primary {
+        background-color: #008080;
+        color: white;
+        border: none;
+      }
+
+      .review-action-btn.primary:hover {
+        background-color: #006666;
+      }
+
+      .review-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .review-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .review-panel {
+          width: 320px;
+          right: -320px;
+        }
+
+        #questions-list {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .question-item {
+          width: 45px;
+          height: 45px;
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .review-panel {
+          width: 280px;
+          right: -280px;
+        }
+
+        #questions-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .question-item {
+          width: 40px;
+          height: 40px;
+          font-size: 13px;
+        }
+
+        .review-stats {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .button-row {
+          gap: 10px;
+        }
+
+        .timer-section {
+          gap: 10px;
+        }
+
+        .timer-display-exam {
+          font-size: 14px;
+          min-width: 60px;
+          padding: 4px 8px;
+        }
+
+        .hide-time-btn-exam {
+          padding: 4px 8px;
+          font-size: 11px;
+        }
+
+        .page-header-adjusted {
+          margin-bottom: 30px;
+          padding-bottom: 12px;
+          border-bottom: 2px solid #222222;
+        }
+
+        .reading-title {
+          font-size: 18px;
+        }
+
+        .vertical-separator {
+          height: 18px; /* 閫傚簲骞虫澘绔瓧浣撳ぇ锟?*/
+        }
+
+        .question-instruction {
+          font-size: 20px; /* 璋冩暣锟?4px锟?3% */
+          margin-bottom: 12px; /* 璋冩暣锟?5px锟?0% */
+        }
+
+        .question-paragraph {
+          padding: 20px;
+          font-size: 15px;
+        }
+
+        .word-prefix {
+          font-size: 14px;
+        }
+
+        .part-input {
+          font-size: 14px;
+          padding: 1px 3px;
+        }
+
+        .part-input[placeholder='___'] {
+          width: 30px;
+        }
+        .part-input[placeholder='____'] {
+          width: 38px;
+        }
+        .part-input[placeholder='_____'] {
+          width: 45px;
+        }
+        .part-input[placeholder='__'] {
+          width: 22px;
+        }
+        .part-input[placeholder='_'] {
+          width: 18px;
+        }
+
+        .question-number {
+          font-size: 9px;
+          bottom: -12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .button-row {
+          gap: 8px;
+        }
+
+        .timer-section {
+          flex-direction: column;
+          gap: 5px;
+          align-items: flex-end;
+        }
+
+        .timer-container-exam {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .timer-display-exam {
+          font-size: 13px;
+          min-width: 55px;
+          padding: 3px 6px;
+        }
+
+        .hide-time-btn-exam {
+          padding: 3px 6px;
+          font-size: 10px;
+        }
+
+        .page-header-adjusted {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+          margin-bottom: 25px;
+          padding-bottom: 10px;
+          border-bottom: 2px solid #222222;
+        }
+
+        .reading-title-container {
+          gap: 10px;
+        }
+
+        .reading-title {
+          font-size: 16px;
+        }
+
+        .vertical-separator {
+          height: 16px; /* 閫傚簲鎵嬫満绔瓧浣撳ぇ锟?*/
+        }
+
+        .question-progress-adjusted {
+          font-size: 13px;
+        }
+
+        .question-instruction {
+          font-size: 18px; /* 璋冩暣锟?4px锟?5% */
+          margin-bottom: 10px; /* 璋冩暣锟?5px锟?7% */
+        }
+
+        .question-paragraph {
+          padding: 15px;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+
+        .word-prefix {
+          font-size: 13px;
+        }
+
+        .part-input {
+          font-size: 13px;
+          padding: 1px 2px;
+          min-width: 25px;
+        }
+
+        .part-input[placeholder='___'] {
+          width: 25px;
+        }
+        .part-input[placeholder='____'] {
+          width: 32px;
+        }
+        .part-input[placeholder='_____'] {
+          width: 38px;
+        }
+        .part-input[placeholder='__'] {
+          width: 20px;
+        }
+        .part-input[placeholder='_'] {
+          width: 16px;
+        }
+
+        .question-number {
+          font-size: 8px;
+          bottom: -10px;
+        }
+      }
+      /* 绉婚櫎濉┖鏂规涓嬬殑鏁板瓧 */
+      .fill-question-number {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="timer-expired-modal" class="timer-expired-modal">
+      <div class="timer-expired-modal-content">
+        <div class="timer-expired-modal-title">Time is Up!</div>
+        <div class="timer-expired-modal-text">Module time has expired. You can continue working without time limit, or end now to view your results.</div>
+        <div class="timer-expired-modal-buttons">
+          <button id="timer-modal-continue" class="timer-expired-modal-btn timer-expired-modal-btn-continue">Continue</button>
+          <button id="timer-modal-exit" class="timer-expired-modal-btn timer-expired-modal-btn-exit">Score and Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 椤堕儴鍥哄畾瀵艰埅锟?-->
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="logo">toefl ibt</div>
+        <button class="nav-button dark exit-btn" id="exit-btn">
+          <span>Exit</span>
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+      <div class="nav-buttons">
+        <div class="button-row">
+          <button class="nav-button dark volume-btn">
+            <span>Volume</span>
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button class="nav-button dark help-btn">
+            <span>Help</span>
+            <i class="fas fa-question-circle"></i>
+          </button>
+          <button class="nav-button dark review-btn" id="review-btn">
+            <span>Review</span>
+            <i class="fas fa-list"></i>
+          </button>
+          <button class="nav-button dark check-answers-btn" id="check-answers-btn">
+            <span>Check Answers</span>
+            <i class="fas fa-check-circle"></i>
+          </button>
+          <button class="nav-button dark back-btn" id="back-question-btn">
+            <span>Back</span>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="nav-button light next-btn" id="next-question-btn">
+            <span>Next</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+</header>
+    <div class="timer-info-row">
+      <!-- 宸︿晶锛氶鐩繘锟?-->
+      <div class="question-progress-info">
+        Question {{QUESTION_START}}-{{QUESTION_END}} of {{TOTAL_QUESTIONS}}
+      </div>
+
+      <!-- 鍙充晶锛氳鏃跺櫒鍜孒ide Time鎸夐挳 -->
+      <div class="timer-controls">
+        <div id="timer-display-exam" class="timer-display-exam">00:00</div>
+        <button class="hide-time-btn-exam" id="toggle-timer-exam-btn">
+          <i class="fas fa-eye-slash"></i>
+          <span>Hide Time</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 涓诲唴瀹瑰尯锟?-->
+    <main class="main-content">
+      <!-- 棰樼洰妯″潡 -->
+      <div id="question-module">
+        <p class="question-instruction">Fill in the missing letters in a paragraph</p>
+
+        <div class="question-paragraph">{{PARAGRAPH_WITH_FILL_BLOCKS}}</div>
+      </div>
+
+      <!-- Review闈㈡澘锛堜晶杈规爮锟?-->
+      <div id="review-panel" class="review-panel">
+        <div class="review-header">
+          <h3><i class="fas fa-list-check"></i> Review Questions</h3>
+          <button class="close-review-btn" id="close-review-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="review-stats">
+          <div class="review-stat-item">
+            <span class="review-stat-label">Total:</span>
+            <span class="review-stat-value" id="review-total">{{FILL_COUNT}}</span>
+          </div>
+          <div class="review-stat-item">
+            <span class="review-stat-label">Answered:</span>
+            <span class="review-stat-value answered" id="review-answered">0</span>
+          </div>
+          <div class="review-stat-item">
+            <span class="review-stat-label">Marked:</span>
+            <span class="review-stat-value marked" id="review-marked">0</span>
+          </div>
+          <div class="review-stat-item">
+            <span class="review-stat-label">Progress:</span>
+            <span class="review-stat-value" id="review-progress">0%</span>
+          </div>
+        </div>
+
+        <div class="review-questions-list">
+          <h4>Questions:</h4>
+          <div id="questions-list">
+            <!-- 棰樼洰鍒楄〃灏嗗姩鎬佺敓锟?-->
+          </div>
+        </div>
+
+        <div class="review-actions">
+          <button class="review-action-btn" id="review-mark-all-btn">
+            <i class="fas fa-flag"></i> Mark All
+          </button>
+          <button class="review-action-btn" id="review-clear-marks-btn">
+            <i class="fas fa-eraser"></i> Clear Marks
+          </button>
+          <button class="review-action-btn primary" id="review-jump-to-btn">
+            <i class="fas fa-arrow-right"></i> Jump to Question
+          </button>
+        </div>
+      </div>
+
+      <!-- Review闈㈡澘閬僵 -->
+      <div id="review-overlay" class="review-overlay"></div>
+
+      <!-- Check Answers Overlay -->
+      <div id="check-overlay" class="check-overlay"></div>
+      <div id="answers-check-area" class="answers-check-area">
+        <div class="answers-check-header">
+          <h3><i class="fas fa-clipboard-check"></i> Answers Check</h3>
+          <button class="close-answers-btn" id="close-answers-btn">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="answers-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total Questions:</span>
+            <span class="stat-value" id="answers-total-questions">{{FILL_COUNT}}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Correct:</span>
+            <span class="stat-value correct" id="answers-correct-count">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Incorrect:</span>
+            <span class="stat-value incorrect" id="answers-incorrect-count">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Accuracy:</span>
+            <span class="stat-value" id="answers-accuracy-rate">0%</span>
+          </div>
+        </div>
+
+        <div class="answers-details">
+          <h4>Question Details:</h4>
+          <div id="answers-list">
+            <!-- 绛旀璇︽儏灏嗗姩鎬佺敓锟?-->
+          </div>
+        </div>
+
+        <div class="answers-actions">
+          <button class="action-btn retry-btn" id="retry-incorrect-btn">
+            <i class="fas fa-redo"></i> Retry
+          </button>
+          <button class="action-btn close-btn" id="close-check-btn">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // ===== 璁℃椂鍣ㄥ姛锟?=====
+      let timerInterval;
+      let totalSeconds = {{TIMER_SECONDS}}; // 浠庡崰浣嶇鑾峰彇璁℃椂鍣ㄧ锟?
+      let timerVisible = true;
+
+      // Try to recover timer state from localStorage
+      const timerUnlimited = localStorage.getItem('toefl_reading_timer_unlimited');
+      const savedTime = localStorage.getItem('toefl_reading_timer_remaining');
+      const timerStarted = localStorage.getItem('toefl_reading_timer_started');
+
+      if (timerUnlimited === 'true') {
+        document.getElementById('timer-display-exam').textContent = '--:--';
+        totalSeconds = -1;
+      } else if (savedTime && timerStarted === 'true') {
+        totalSeconds = parseInt(savedTime);
+      }
+
+      // 鏇存柊璁℃椂鍣ㄦ樉锟?
+      function updateTimerDisplay() {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const timerDisplay = document.getElementById('timer-display-exam');
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // 鍓╀綑鏃堕棿涓嶈冻1鍒嗛挓鏃跺彉锟?
+        if (totalSeconds <= 60) {
+          timerDisplay.style.color = '#cc0000';
+          timerDisplay.style.backgroundColor = '#fff5f5';
+          timerDisplay.style.borderColor = '#cc0000';
+        } else {
+          timerDisplay.style.color = '#222222';
+          timerDisplay.style.backgroundColor = 'white';
+          timerDisplay.style.borderColor = '#e0e0e0';
+        }
+      }
+
+      // 璁℃椂鍣ㄥ埌鏈熺殑澶勭悊
+      function handleTimerExpired() {
+        clearInterval(timerInterval);
+        document.getElementById('timer-display-exam').textContent = '00:00';
+        
+        const modal = document.getElementById('timer-expired-modal');
+        modal.classList.add('show');
+        
+          document.getElementById('timer-modal-continue').onclick = function() {
+          modal.classList.remove('show');
+          localStorage.setItem('toefl_reading_timer_unlimited', 'true');
+          document.getElementById('timer-display-exam').textContent = '--:--';
+        };
+        
+        document.getElementById('timer-modal-exit').onclick = function() {
+              const resultsPage = 'reading_results.html';
+          window.location.href = resultsPage;
+        };
+      }
+
+      // 鍚姩璁℃椂锟?
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+
+        if (totalSeconds < 0) return;
+
+        updateTimerDisplay();
+
+        timerInterval = setInterval(function () {
+          if (totalSeconds <= 0) {
+            handleTimerExpired();
+            return;
+          }
+
+          totalSeconds--;
+          updateTimerDisplay();
+        }, 1000);
+      }
+
+      // 鍒囨崲璁℃椂鍣ㄦ樉锟?闅愯棌
+      function toggleTimer() {
+        const timerDisplay = document.getElementById('timer-display-exam');
+        const toggleBtn = document.getElementById('toggle-timer-exam-btn');
+
+        if (timerVisible) {
+          timerDisplay.style.visibility = 'hidden';
+          toggleBtn.innerHTML = '<i class="fas fa-eye"></i><span>Show Time</span>';
+          timerVisible = false;
+        } else {
+          timerDisplay.style.visibility = 'visible';
+          toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>Hide Time</span>';
+          timerVisible = true;
+        }
+      }
+
+      // ===== 瀛楁瘝鏂规杈撳叆绯荤粺 =====
+      function initializeLetterBoxes() {
+        const letterBoxes = document.querySelectorAll('.letter-box');
+
+        letterBoxes.forEach((box, index) => {
+          let composing = false;
+          box.addEventListener('compositionstart', () => { composing = true; });
+          box.addEventListener('compositionend', () => { composing = false; });
+
+          box.addEventListener('input', function (e) {
+            if (composing || e.isComposing) return;
+            const raw = this.value;
+            const cleaned = raw.replace(/[^a-zA-Z]/g, '').charAt(0);
+            if (cleaned !== raw) this.value = cleaned;
+          });
+
+          box.addEventListener('keydown', function (e) {
+            if (e.key === 'Backspace' && this.value === '') {
+              e.preventDefault();
+              const prev = letterBoxes[index - 1];
+              if (prev) { prev.value = ''; prev.focus(); }
+            }
+            if (e.key === 'ArrowLeft' && index > 0) {
+              e.preventDefault();
+              letterBoxes[index - 1].focus();
+            }
+            if (e.key === 'ArrowRight' && index < letterBoxes.length - 1) {
+              e.preventDefault();
+              letterBoxes[index + 1].focus();
+            }
+          });
+
+          box.addEventListener('keyup', function (e) {
+            if (e.isComposing) return;
+            if (e.key.length === 1 && /[a-zA-Z]/.test(e.key) && this.value.length >= 1) {
+              const next = letterBoxes[index + 1];
+              if (next) next.focus();
+            }
+          });
+
+          // 绮樿创浜嬩欢锛氭櫤鑳藉锟?
+          box.addEventListener('paste', function (e) {
+            e.preventDefault();
+            const pastedText = e.clipboardData.getData('text');
+            const cleanedText = pastedText.replace(/[^a-zA-Z]/g, '');
+
+            if (cleanedText.length > 0) {
+              // 濉厖褰撳墠鍜屽悗缁柟锟?
+              let currentIndex = index;
+              for (let i = 0; i < cleanedText.length; i++) {
+                if (currentIndex < letterBoxes.length) {
+                  letterBoxes[currentIndex].value = cleanedText.charAt(i);
+                  currentIndex++;
+                }
+              }
+
+              // 鑱氱劍鍒版渶鍚庝竴涓～鍏呯殑鏂规
+              if (currentIndex - 1 < letterBoxes.length) {
+                letterBoxes[currentIndex - 1].focus();
+              }
+            }
+          });
+        });
+
+        // 鑷姩鑱氱劍鍒扮涓€涓柟锟?
+        if (letterBoxes.length > 0) {
+          letterBoxes[0].focus();
+        }
+      }
+
+      // ===== 鏇存柊妯″潡寰楀垎缁熻 =====
+      function updateModuleScoreCounts() {
+        // 浠巐ocalStorage鑾峰彇鍚勯姝ｇ‘鏁板拰鎬绘暟
+        const correct1 = parseInt(localStorage.getItem('toefl_reading_M1_T1_correct') || "0");
+        const total1 = parseInt(localStorage.getItem('toefl_reading_M1_T1_total') || "0");
+        const module1Count = correct1 + total1;
+        const module1Total = total1;
+
+        const correct2 = parseInt(localStorage.getItem('toefl_reading_M2_T1_correct') || "0");
+        const total2 = parseInt(localStorage.getItem('toefl_reading_M2_T1_total') || "0");
+        const module2Count = correct2 + total2;
+        const module2Total = total2;
+
+        // 鍙湪鏂扮殑鎻愪氦鏃舵洿鏂皌otal锛岄槻姝㈤噸澶嶈锟?
+        const storedM1Total = parseInt(localStorage.getItem('toefl_reading_M1_totalStored') || "0");
+        if (module1Total > storedM1Total) {
+          localStorage.setItem('toefl_reading_M1_totalStored', module1Total);
+          const m1El = document.getElementById('module-1-count');
+          if (m1El) m1El.textContent = module1Count;
+          const m1TotalEl = document.getElementById('module-1-total');
+          if (m1TotalEl) m1TotalEl.textContent = module1Total;
+        }
+
+        const storedM2Total = parseInt(localStorage.getItem('toefl_reading_M2_totalStored') || "0");
+        if (module2Total > storedM2Total) {
+          localStorage.setItem('toefl_reading_M2_totalStored', module2Total);
+          const m2El = document.getElementById('module-2-count');
+          if (m2El) m2El.textContent = module2Count;
+          const m2TotalEl = document.getElementById('module-2-total');
+          if (m2TotalEl) m2TotalEl.textContent = module2Total;
+        }
+      }
+
+      // ===== Check Answers鍔熻兘 =====
+      function checkAllAnswers() {
+        const wordContainers = document.querySelectorAll('.word-fill-container');
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let emptyCount = 0;
+
+        // 娓呯┖涔嬪墠鐨勬鏌ョ粨锟?
+        document.querySelectorAll('.letter-box-container').forEach(container => {
+          container.classList.remove('correct', 'incorrect', 'empty');
+        });
+
+        document.querySelectorAll('.letter-box').forEach(box => {
+          box.classList.remove('correct', 'incorrect', 'empty');
+        });
+
+        // 妫€鏌ユ瘡涓崟锟?
+        wordContainers.forEach((container, index) => {
+          const letterBoxContainer = container.querySelector('.letter-box-container');
+          const correctAnswer = letterBoxContainer.getAttribute('data-answer');
+          const letterBoxes = letterBoxContainer.querySelectorAll('.letter-box');
+
+          // 鏀堕泦鐢ㄦ埛杈撳叆鐨勫瓧锟?
+          let userAnswer = '';
+          letterBoxes.forEach(box => {
+            userAnswer += box.value.toLowerCase();
+          });
+
+          // 鍒ゆ柇绛旀鐘讹拷?
+          if (userAnswer === '') {
+            // 鏈～锟?
+            letterBoxContainer.classList.add('empty');
+            letterBoxes.forEach(box => box.classList.add('empty'));
+            emptyCount++;
+          } else if (userAnswer === correctAnswer.toLowerCase()) {
+            // 姝ｇ‘
+            letterBoxContainer.classList.add('correct');
+            letterBoxes.forEach(box => box.classList.add('correct'));
+            correctCount++;
+          } else {
+            // 閿欒
+            letterBoxContainer.classList.add('incorrect');
+            letterBoxes.forEach(box => box.classList.add('incorrect'));
+            incorrectCount++;
+          }
+        });
+
+        const totalQuestions = wordContainers.length;
+        const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+
+        document.getElementById('answers-total-questions').textContent = totalQuestions;
+        document.getElementById('answers-correct-count').textContent = correctCount;
+        document.getElementById('answers-incorrect-count').textContent = incorrectCount;
+        document.getElementById('answers-accuracy-rate').textContent = accuracy + '%';
+
+        // 姣忎釜绌烘牸鍗曠嫭璁″垎
+        updateModuleScoreCounts();
+
+        // 鐢熸垚绛旀璇︽儏
+        generateAnswersDetails(wordContainers);
+
+        // 显示答案检查区
+        document.getElementById('check-overlay').style.display = 'block';
+        document.getElementById('answers-check-area').style.display = 'block';
+
+        return {
+          total: totalQuestions,
+          correct: correctCount,
+          incorrect: incorrectCount,
+          empty: emptyCount,
+          accuracy: accuracy
+        };
+      }
+
+      function generateAnswersDetails(wordContainers) {
+        const answersList = document.getElementById('answers-list');
+        answersList.innerHTML = '';
+
+        wordContainers.forEach((container, index) => {
+          const questionNumber = index + 1;
+          const letterBoxContainer = container.querySelector('.letter-box-container');
+          const correctAnswer = letterBoxContainer.getAttribute('data-answer');
+          const letterBoxes = letterBoxContainer.querySelectorAll('.letter-box');
+          const prefix = container.querySelector('.word-prefix').textContent;
+
+          // 鏀堕泦鐢ㄦ埛杈撳叆鐨勫瓧锟?
+          let userAnswer = '';
+          letterBoxes.forEach(box => {
+            userAnswer += box.value.toLowerCase();
+          });
+
+          // 鏋勫缓瀹屾暣鍗曡瘝
+          var fullUserWord = prefix + userAnswer;
+          var fullCorrectWord = prefix + correctAnswer;
+
+          // 纭畾鐘讹拷?
+          let status = '';
+          let statusClass = '';
+          let statusText = '';
+
+          if (userAnswer === '') {
+            status = 'empty';
+            statusClass = 'empty';
+            statusText = 'Not answered';
+          } else if (userAnswer === correctAnswer.toLowerCase()) {
+            status = 'correct';
+            statusClass = 'correct';
+            statusText = 'Correct';
+          } else {
+            status = 'incorrect';
+            statusClass = 'incorrect';
+            statusText = 'Incorrect';
+          }
+
+          // 鍒涘缓绛旀锟?
+          const answerItem = document.createElement('div');
+          answerItem.className = `answer-item ${statusClass}`;
+
+          answerItem.innerHTML = `
+                    <div class="question-number-badge">${questionNumber}</div>
+                    <div class="answer-content">
+                        <div class="answer-word">
+                            Your answer: ${fullUserWord || '(empty)'}
+                        </div>
+                        <div class="answer-status">
+                            <span class="status-text ${statusClass}">${statusText}</span>
+                            ${status !== 'correct' ? `<span class="correct-answer">Correct: ${fullCorrectWord}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+
+          answersList.appendChild(answerItem);
+        });
+      }
+
+      function closeAnswersCheck() {
+        document.getElementById('answers-check-area').style.display = 'none';
+        document.getElementById('check-overlay').style.display = 'none';
+
+        // 娓呴櫎妫€鏌ョ粨鏋滄牱锟?
+        document.querySelectorAll('.letter-box-container').forEach(container => {
+          container.classList.remove('correct', 'incorrect', 'empty');
+        });
+
+        document.querySelectorAll('.letter-box').forEach(box => {
+          box.classList.remove('correct', 'incorrect', 'empty');
+        });
+      }
+
+      function retryIncorrectAnswers() {
+        document.querySelectorAll('.letter-box-container').forEach(container => {
+          const letterBoxes = container.querySelectorAll('.letter-box');
+          letterBoxes.forEach(box => {
+            box.value = '';
+            box.classList.remove('correct', 'incorrect', 'empty');
+          });
+          container.classList.remove('correct', 'incorrect', 'empty');
+        });
+        document.getElementById('answers-check-area').style.display = 'none';
+        document.getElementById('check-overlay').style.display = 'none';
+        const firstBox = document.querySelector('.letter-box');
+        if (firstBox) firstBox.focus();
+      }
+
+      // ===== Drag answers check panel =====
+      function initAnswersPanelDrag() {
+        var panel = document.getElementById('answers-check-area');
+        var header = panel.querySelector('.answers-check-header');
+        var isDragging = false;
+        var startX, startY, startLeft, startTop;
+
+        header.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          var rect = panel.getBoundingClientRect();
+          startLeft = rect.left;
+          startTop = rect.top;
+          panel.style.transform = 'none';
+          panel.style.top = startTop + 'px';
+          panel.style.left = startLeft + 'px';
+          panel.style.cursor = 'grabbing';
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function (e) {
+          if (!isDragging) return;
+          var dx = e.clientX - startX;
+          var dy = e.clientY - startY;
+          panel.style.top = (startTop + dy) + 'px';
+          panel.style.left = (startLeft + dx) + 'px';
+        });
+
+        document.addEventListener('mouseup', function () {
+          if (!isDragging) return;
+          isDragging = false;
+          panel.style.cursor = '';
+        });
+      }
+
+      // ===== 鑷姩淇濆瓨鍔熻兘 =====
+      let autoSaveTimer = null;
+      const AUTO_SAVE_INTERVAL = 3000; // 3绉掕嚜鍔ㄤ繚锟?
+
+      function initializeAutoSave() {
+        // 鐩戝惉鎵€鏈夎緭鍏ユ鍙樺寲
+        document.querySelectorAll('.letter-box').forEach(box => {
+          box.addEventListener('input', debounceAutoSave);
+          box.addEventListener('blur', saveAnswersImmediately);
+          box.addEventListener('blur', function () {
+            // Auto-record per-question correctness on blur
+            const container = this.closest('.word-fill-container');
+            if (!container) return;
+            const letterBoxContainer = container.querySelector('.letter-box-container');
+            if (!letterBoxContainer) return;
+            const correctAnswer = letterBoxContainer.getAttribute('data-answer');
+            if (!correctAnswer) return;
+            const letterBoxes = container.querySelectorAll('.letter-box');
+            let userAnswer = '', allFilled = true;
+            letterBoxes.forEach(b => {
+              if (!b.value.trim()) allFilled = false;
+              userAnswer += b.value.toLowerCase();
+            });
+            if (allFilled) {
+              const isCorrect = (userAnswer === correctAnswer.toLowerCase());
+              const allContainers = document.querySelectorAll('.word-fill-container');
+              const localIndex = Array.from(allContainers).indexOf(container);
+              const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+              const qId = ({{QUESTION_START}} + localIndex + m2Offset).toString();
+              const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
+              cMap[qId] = isCorrect;
+              localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+            } else {
+              // Not fully filled 锟?remove stale record or mark incorrect if any content exists
+              const allContainers = document.querySelectorAll('.word-fill-container');
+              const localIndex = Array.from(allContainers).indexOf(container);
+              const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+              const qId = ({{QUESTION_START}} + localIndex + m2Offset).toString();
+              const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
+              let hasContent = false;
+              letterBoxes.forEach(function (b) { if (b.value.trim()) hasContent = true; });
+              if (hasContent) {
+                // Partially filled 锟?mark as incorrect
+                cMap[qId] = false;
+                localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+              } else if (cMap.hasOwnProperty(qId)) {
+                // Completely erased 锟?remove stale entry
+                delete cMap[qId];
+                localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+              }
+            }
+          });
+        });
+
+        // 鍚姩瀹氭椂淇濆瓨
+        startAutoSaveTimer();
+
+        // 椤甸潰鍗歌浇鏃跺己鍒朵繚锟?
+        window.addEventListener('beforeunload', saveAllAnswers);
+        window.addEventListener('beforeunload', function () {
+          // Store per-question correctness and aggregate module scores
+          const containers = document.querySelectorAll('.word-fill-container');
+          const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+          let taskCorrect = 0, taskAnswered = 0;
+          const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
+          containers.forEach(function (container, idx) {
+            const lbc = container.querySelector('.letter-box-container');
+            if (!lbc) return;
+            const correctAnswer = lbc.getAttribute('data-answer');
+            if (!correctAnswer) return;
+            const letterBoxes = container.querySelectorAll('.letter-box');
+            let userAnswer = '', allFilled = true;
+            letterBoxes.forEach(function (b) {
+              if (!b.value.trim()) allFilled = false;
+              userAnswer += b.value.toLowerCase();
+            });
+            if (allFilled) {
+              const isCorrect = (userAnswer === correctAnswer.toLowerCase());
+              const qId = ({{QUESTION_START}} + idx + m2Offset).toString();
+              cMap[qId] = isCorrect;
+              taskAnswered++;
+              if (isCorrect) taskCorrect++;
+            } else if (userAnswer.length > 0) {
+              // Partially filled 锟?mark as incorrect
+              const qId = ({{QUESTION_START}} + idx + m2Offset).toString();
+              cMap[qId] = false;
+              taskAnswered++;
+            } else if (cMap.hasOwnProperty(({{QUESTION_START}} + idx + m2Offset).toString())) {
+              // Completely erased 锟?remove stale entry
+              delete cMap[({{QUESTION_START}} + idx + m2Offset).toString()];
+            }
+          });
+          localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+          // Write module-level scores directly (not incrementally)
+          if (taskAnswered > 0) {
+            const taskModule = m2Offset > 0 ? 'M2' : 'M1';
+            const taskNum = {{QUESTION_NUMBER}};
+            localStorage.setItem('toefl_reading_' + taskModule + '_Task' + taskNum + '_total', taskAnswered.toString());
+            localStorage.setItem('toefl_reading_' + taskModule + '_Task' + taskNum + '_correct', taskCorrect.toString());
+          }
+        });
+
+        // 鍔犺浇宸蹭繚瀛樼殑绛旀
+        loadSavedAnswers();
+      }
+
+      function debounceAutoSave() {
+        if (autoSaveTimer) {
+          clearTimeout(autoSaveTimer);
+        }
+
+        autoSaveTimer = setTimeout(() => {
+          saveCurrentAnswers();
+          autoSaveTimer = null;
+        }, 500); // 闃叉姈500ms
+      }
+
+      function saveAnswersImmediately() {
+        saveCurrentAnswers();
+      }
+
+      function saveCurrentAnswers() {
+        const answers = {};
+
+        document.querySelectorAll('.word-fill-container').forEach((container, index) => {
+          const questionId = index + 1;
+          const letterBoxes = container.querySelectorAll('.letter-box');
+          let answer = '';
+
+          letterBoxes.forEach(box => {
+            answer += box.value || '';
+          });
+
+          if (answer.trim() !== '') {
+            answers[questionId] = {
+              answer: answer,
+              timestamp: new Date().toISOString()
+            };
+          }
+        });
+
+          // 保存到localStorage
+        try {
+          localStorage.setItem('toefl_reading_answers_module1', JSON.stringify(answers));
+          console.log(`Auto-save complete: ${Object.keys(answers).length} answers`);
+        } catch (error) {
+          console.error('Failed to save answers:', error);
+        }
+      }
+
+      function loadSavedAnswers() {
+        try {
+          const saved = localStorage.getItem('toefl_reading_answers_module1');
+          if (!saved) return;
+
+          const answers = JSON.parse(saved);
+          let loadedCount = 0;
+
+          Object.entries(answers).forEach(([questionId, data]) => {
+            const container = document.querySelector(
+              `.word-fill-container:nth-child(${questionId})`
+            );
+            if (container && data.answer) {
+              const letterBoxes = container.querySelectorAll('.letter-box');
+              const answer = data.answer;
+
+              // 濉厖绛旀
+              for (let i = 0; i < Math.min(letterBoxes.length, answer.length); i++) {
+                letterBoxes[i].value = answer[i];
+              }
+
+              loadedCount++;
+            }
+          });
+
+          console.log('Loaded', loadedCount, 'saved answers');
+
+          // 鏇存柊Review闈㈡澘
+          if (typeof updateReviewPanel === 'function') {
+            setTimeout(updateReviewPanel, 100);
+          }
+        } catch (error) {
+          console.error('Failed to load saved answers:', error);
+        }
+      }
+
+      function saveAllAnswers() {
+        saveCurrentAnswers();
+        console.log('Saving all answers before unload');
+      }
+
+      function startAutoSaveTimer() {
+        // 锟?绉掕嚜鍔ㄤ繚瀛樹竴娆★紙浣滀负澶囦唤锟?
+        setInterval(() => {
+          if (document.querySelectorAll('.letter-box:focus').length === 0) {
+            // 娌℃湁杈撳叆妗嗚仛鐒︽椂鎵嶈嚜鍔ㄤ繚锟?
+            saveCurrentAnswers();
+          }
+        }, AUTO_SAVE_INTERVAL);
+      }
+
+      function showSaveNotification() {
+        // 鍒涘缓鎴栬幏鍙栭€氱煡鍏冪礌
+        let notification = document.getElementById('auto-save-notification');
+        if (!notification) {
+          notification = document.createElement('div');
+          notification.id = 'auto-save-notification';
+          notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background-color: #28a745;
+                    color: white;
+                    padding: 10px 15px;
+                    border-radius: 6px;
+        font-size: 18px;
+                    z-index: 10000;
+                    opacity: 0;
+                    transform: translateY(10px);
+                    transition: opacity 0.3s, transform 0.3s;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                `;
+          document.body.appendChild(notification);
+        }
+
+        notification.innerHTML = `
+                <i class="fas fa-save" style="margin-right: 8px;"></i>
+                <span>绛旀宸茶嚜鍔ㄤ繚锟?/span>
+                <small style="opacity: 0.8; margin-left: 5px;">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</small>
+            `;
+
+        // 鏄剧ず閫氱煡
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
+
+        // 3绉掑悗闅愯棌
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transform = 'translateY(10px)';
+        }, 3000);
+      }
+
+      // ===== Review鍔熻兘 =====
+      let markedQuestions = new Set();
+
+      function initializeReviewPanel() {
+        // 鍔犺浇鏍囪鐨勯锟?
+        const savedMarks = localStorage.getItem('toefl_reading_marked_questions');
+        if (savedMarks) {
+          try {
+            markedQuestions = new Set(JSON.parse(savedMarks));
+          } catch (error) {
+            console.error('鍔犺浇鏍囪棰樼洰澶辫触:', error);
+            markedQuestions = new Set();
+          }
+        }
+
+        // 鏇存柊Review闈㈡澘
+        updateReviewPanel();
+
+        // 鐩戝惉杈撳叆妗嗗彉鍖栵紝鏇存柊绛旈鐘讹拷?
+        document.querySelectorAll('.letter-box').forEach(box => {
+          box.addEventListener('input', function () {
+            setTimeout(updateReviewPanel, 100);
+          });
+        });
+      }
+
+      function updateReviewPanel() {
+        const wordContainers = document.querySelectorAll('.word-fill-container');
+        const totalQuestions = wordContainers.length;
+        let answeredCount = 0;
+
+        // 璁＄畻宸插洖绛旂殑棰樼洰
+        wordContainers.forEach((container, index) => {
+          const letterBoxes = container.querySelectorAll('.letter-box');
+          let hasAnswer = false;
+
+          letterBoxes.forEach(box => {
+            if (box.value && box.value.trim() !== '') {
+              hasAnswer = true;
+            }
+          });
+
+          if (hasAnswer) {
+            answeredCount++;
+          }
+        });
+
+        const markedCount = markedQuestions.size;
+        const progress =
+          totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+
+        // 鏇存柊缁熻淇℃伅
+        document.getElementById('review-total').textContent = totalQuestions;
+        document.getElementById('review-answered').textContent = answeredCount;
+        document.getElementById('review-marked').textContent = markedCount;
+        document.getElementById('review-progress').textContent = `${progress}%`;
+
+        // 鏇存柊棰樼洰鍒楄〃
+        updateQuestionsList();
+      }
+
+      function updateQuestionsList() {
+        const questionsList = document.getElementById('questions-list');
+        const wordContainers = document.querySelectorAll('.word-fill-container');
+        const totalQuestions = wordContainers.length;
+
+        questionsList.innerHTML = '';
+
+        for (let i = 1; i <= totalQuestions; i++) {
+          const questionItem = document.createElement('div');
+          questionItem.className = 'question-item';
+          questionItem.textContent = i;
+          questionItem.dataset.questionId = i;
+
+          // 妫€鏌ユ槸鍚﹀凡鍥炵瓟
+          const container = document.querySelector(`.word-fill-container:nth-child(${i})`);
+          if (container) {
+            const letterBoxes = container.querySelectorAll('.letter-box');
+            let hasAnswer = false;
+
+            letterBoxes.forEach(box => {
+              if (box.value && box.value.trim() !== '') {
+                hasAnswer = true;
+              }
+            });
+
+            if (hasAnswer) {
+              questionItem.classList.add('answered');
+            }
+          }
+
+          // 妫€鏌ユ槸鍚︽爣锟?
+          if (markedQuestions.has(i)) {
+            questionItem.classList.add('marked');
+          }
+
+          // 娣诲姞鐐瑰嚮浜嬩欢
+          questionItem.addEventListener('click', function () {
+            const questionId = parseInt(this.dataset.questionId);
+            jumpToQuestion(questionId);
+          });
+
+          questionsList.appendChild(questionItem);
+        }
+      }
+
+      function toggleReviewPanel() {
+        const reviewPanel = document.getElementById('review-panel');
+        const overlay = document.getElementById('review-overlay');
+
+        if (reviewPanel.classList.contains('active')) {
+          reviewPanel.classList.remove('active');
+          overlay.classList.remove('active');
+        } else {
+          reviewPanel.classList.add('active');
+          overlay.classList.add('active');
+          updateReviewPanel();
+        }
+      }
+
+      function closeReviewPanel() {
+        document.getElementById('review-panel').classList.remove('active');
+        document.getElementById('review-overlay').classList.remove('active');
+      }
+
+      function jumpToQuestion(questionId) {
+        const wordContainers = document.querySelectorAll('.word-fill-container');
+        if (questionId < 1 || questionId > wordContainers.length) return;
+
+        // 鎵惧埌瀵瑰簲鐨勮緭鍏ユ瀹瑰櫒
+        const container = document.querySelector(`.word-fill-container:nth-child(${questionId})`);
+        if (container) {
+          const letterBoxes = container.querySelectorAll('.letter-box');
+          if (letterBoxes.length > 0) {
+            // 鑱氱劍鍒扮涓€涓緭鍏ユ
+            letterBoxes[0].focus();
+
+            // 婊氬姩鍒拌棰樼洰浣嶇疆
+            container.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+
+            // 楂樹寒鏄剧ず褰撳墠棰樼洰
+            highlightCurrentQuestion(questionId);
+          }
+        }
+
+        // 鍏抽棴Review闈㈡澘
+        closeReviewPanel();
+      }
+
+      function highlightCurrentQuestion(questionId) {
+        // 绉婚櫎涔嬪墠鐨勯珮锟?
+        document.querySelectorAll('.question-item.current').forEach(item => {
+          item.classList.remove('current');
+        });
+
+        // 娣诲姞褰撳墠楂樹寒
+        const currentItem = document.querySelector(
+          `.question-item[data-question-id="${questionId}"]`
+        );
+        if (currentItem) {
+          currentItem.classList.add('current');
+        }
+      }
+
+      function toggleQuestionMark(questionId) {
+        if (markedQuestions.has(questionId)) {
+          markedQuestions.delete(questionId);
+        } else {
+          markedQuestions.add(questionId);
+        }
+
+        // 淇濆瓨鍒發ocalStorage
+        localStorage.setItem('toefl_reading_marked_questions', JSON.stringify([...markedQuestions]));
+
+        // 鏇存柊Review闈㈡澘
+        updateReviewPanel();
+      }
+
+      function markAllQuestions() {
+        const wordContainers = document.querySelectorAll('.word-fill-container');
+        for (let i = 1; i <= wordContainers.length; i++) {
+          markedQuestions.add(i);
+        }
+
+        localStorage.setItem('toefl_reading_marked_questions', JSON.stringify([...markedQuestions]));
+        updateReviewPanel();
+      }
+
+      function clearAllMarks() {
+        markedQuestions.clear();
+        localStorage.removeItem('toefl_reading_marked_questions');
+        updateReviewPanel();
+      }
+
+      // ===== 椤甸潰鍒濆锟?=====
+      document.addEventListener('DOMContentLoaded', function () {
+        // 鍚姩璁℃椂锟?
+        setTimeout(startTimer, 100);
+
+        // 鍒濆鍖栧瓧姣嶆柟锟?
+        initializeLetterBoxes();
+
+        // 鍒濆鍖栬嚜鍔ㄤ繚瀛樺姛锟?
+        initializeAutoSave();
+
+        // 鍒濆鍖朢eview闈㈡澘
+        initializeReviewPanel();
+
+        // Back鎸夐挳鏄剧ず閫昏緫 - 鏍规嵁棰樼洰搴忓彿鏄剧ず/闅愯棌
+        const progressText = document.querySelector('.question-progress-info').textContent;
+        const match = progressText.match(/Question (\d+)-/);
+        if (match) {
+            const questionStart = parseInt(match[1]);
+            const backButton = document.getElementById('back-question-btn');
+            if (questionStart === 1) {
+                backButton.style.display = 'none';
+            } else {
+                backButton.style.display = 'inline-block';
+            }
+        }
+
+        // 鎸夐挳浜嬩欢缁戝畾
+        document.querySelector('.volume-btn').addEventListener('click', function () {
+          window.showHelp('Volume', 'Volume control will be implemented in the speaking and listening version.');
+        });
+
+        document.querySelector('.help-btn').addEventListener('click', function () {
+          window.showHelp('Help', '1. Fill in the missing letters in the green-bordered boxes\n2. Each small box represents one missing letter\n3. Use Tab or arrow keys to move between boxes\n4. Numbers below boxes indicate question order');
+        });
+
+        // Review鎸夐挳
+        document.getElementById('review-btn').addEventListener('click', toggleReviewPanel);
+
+        // Check Answers鎸夐挳
+        document.getElementById('check-answers-btn').addEventListener('click', checkAllAnswers);
+
+        // Hide Time鎸夐挳
+        document.getElementById('toggle-timer-exam-btn').addEventListener('click', toggleTimer);
+
+        // Back鎸夐挳 - 闇€瑕佹浛鎹负涓婁竴椤礥RL锛堜粎褰撲笉鏄涓€棰樻椂鏄剧ず锟?
+        document.getElementById('back-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+          localStorage.setItem('toefl_reading_resume_page', '{{BACK_PAGE_URL}}');
+          window.location.href = '{{BACK_PAGE_URL}}';
+        });
+
+        // Next鎸夐挳
+        document.getElementById('next-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+          localStorage.setItem('toefl_reading_resume_page', '{{NEXT_PAGE_URL}}');
+          window.location.href = '{{NEXT_PAGE_URL}}';
+        });
+
+        // Exit鎸夐挳
+        document.getElementById('exit-btn').addEventListener('click', function () {
+          window.showConfirm('Exit Test', 'Your progress has been saved.\nWould you like to keep it or clear all data?', [
+            { text: 'Save & Exit', cls: 'primary', onClick: function(){
+              localStorage.setItem('toefl_reading_resume_page', window.location.pathname.split('/').pop());
+              window.location.href = '../../../dist/index.html';
+            }},
+            { text: 'Clear & Exit', cls: 'danger', onClick: function(){
+              var keys = [];
+              for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && k.startsWith('toefl_')) keys.push(k);
+              }
+              keys.forEach(function(k){ localStorage.removeItem(k); });
+              window.location.href = '../../../dist/index.html';
+            }}
+          ], true);
+        });
+
+        // 绛旀妫€鏌ュ尯鍩熸寜锟?
+        document.getElementById('close-answers-btn').addEventListener('click', closeAnswersCheck);
+        document.getElementById('close-check-btn').addEventListener('click', closeAnswersCheck);
+        document
+          .getElementById('retry-incorrect-btn')
+          .addEventListener('click', retryIncorrectAnswers);
+
+        // Close on overlay click
+        document.getElementById('check-overlay').addEventListener('click', closeAnswersCheck);
+
+        // Drag answers check panel
+        initAnswersPanelDrag();
+
+        // Review闈㈡澘鎸夐挳
+        document.getElementById('close-review-btn').addEventListener('click', closeReviewPanel);
+        document.getElementById('review-overlay').addEventListener('click', closeReviewPanel);
+        document.getElementById('review-mark-all-btn').addEventListener('click', markAllQuestions);
+        document.getElementById('review-clear-marks-btn').addEventListener('click', clearAllMarks);
+        document.getElementById('review-jump-to-btn').addEventListener('click', function () {
+          const firstMarked = [...markedQuestions].sort((a, b) => a - b)[0];
+          if (firstMarked) {
+            jumpToQuestion(firstMarked);
+          } else {
+            alert('No marked questions. Please mark some questions first.');
+          }
+        });
+
+        console.log('Fill in Missing Letters Template - initialized');
+
+        // === Review Mode Support ===
+        if (sessionStorage.getItem('review_mode') === 'true') {
+          setTimeout(function () { checkAllAnswers(); }, 300);
+
+          var backBtn = document.getElementById('back-question-btn');
+          var nextBtn = document.getElementById('next-question-btn');
+          var backClone = backBtn.cloneNode(true);
+          var nextClone = nextBtn.cloneNode(true);
+          backBtn.parentNode.replaceChild(backClone, backBtn);
+          nextBtn.parentNode.replaceChild(nextClone, nextBtn);
+
+          backClone.addEventListener('click', function () {
+            var queue = JSON.parse(sessionStorage.getItem('review_queue') || '[]');
+            var idx = parseInt(sessionStorage.getItem('review_index') || '0');
+            if (idx > 0) {
+              idx--;
+              sessionStorage.setItem('review_index', String(idx));
+              window.location.href = queue[idx];
+            }
+          });
+
+          nextClone.addEventListener('click', function () {
+            var queue = JSON.parse(sessionStorage.getItem('review_queue') || '[]');
+            var idx = parseInt(sessionStorage.getItem('review_index') || '0');
+            if (idx < queue.length - 1) {
+              idx++;
+              sessionStorage.setItem('review_index', String(idx));
+              window.location.href = queue[idx];
+            } else {
+              sessionStorage.removeItem('review_mode');
+              sessionStorage.removeItem('review_queue');
+              sessionStorage.removeItem('review_index');
+              window.location.href = 'reading_results.html';
+            }
+          });
+
+          var hash = window.location.hash;
+          if (hash && hash.indexOf('review-blanks=') === 0) {
+            setTimeout(function () {
+              var firstWrong = document.querySelector('.word-fill-container.incorrect');
+              if (firstWrong) {
+                firstWrong.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 600);
+          }
+        }
+      });
+    </script>
+<script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>
+
+

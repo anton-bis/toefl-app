@@ -1,9 +1,16 @@
 import { app, BrowserWindow, ipcMain, shell, dialog, Menu } from 'electron';
-import { autoUpdater } from 'electron-updater';
+import pkg from 'electron-updater';
+const { autoUpdater } = pkg;
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { initDatabase, closeDatabase } from '../src/services/database.js';
-import { checkLicense, activateLicense } from '../src/services/license.js';
+import { initDatabase, closeDatabase } from './services/database.js';
+import { checkLicense, activateLicense } from './services/license.js';
+import {
+  checkForContentUpdates,
+  runContentUpdate,
+  getContentPath,
+  listContentFiles
+} from './services/content-updater.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -24,7 +31,7 @@ function createWindow() {
     minHeight: 600,
     icon: path.join(__dirname, '../assets/icons/icon.png'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: false,
@@ -45,6 +52,13 @@ function createWindow() {
     // 生产环境：加载构建后的文件
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
+
+  // 预授权麦克风权限，避免录音时弹窗
+  const { session } = require('electron');
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+    if (permission === 'media') callback(true);
+    else callback(false);
+  });
 
   // 窗口准备就绪后显示
   mainWindow.once('ready-to-show', () => {
@@ -266,6 +280,23 @@ function setupIpcHandlers() {
     app.relaunch();
     app.exit(0);
   });
+
+  // 内容热更新
+  ipcMain.handle('content:check', async () => {
+    return await checkForContentUpdates();
+  });
+
+  ipcMain.handle('content:apply', async () => {
+    return await runContentUpdate();
+  });
+
+  ipcMain.handle('content:get-path', (_event, subPath) => {
+    return getContentPath(subPath);
+  });
+
+  ipcMain.handle('content:list', (_event, relDir) => {
+    return listContentFiles(relDir || '');
+  });
 }
 
 // 自动更新事件处理器
@@ -338,6 +369,18 @@ async function initializeApp() {
     // 创建窗口
     createWindow();
     console.log('主窗口创建完成');
+
+    // 后台静默检查内容更新
+    checkForContentUpdates()
+      .then(result => {
+        if (result.hasUpdate) {
+          console.log(`发现内容更新：v${result.localVersion} → v${result.remoteVersion}`);
+          if (mainWindow) {
+            mainWindow.webContents.send('content:update-available', result);
+          }
+        }
+      })
+      .catch(err => console.warn('内容更新检查失败:', err.message));
   } catch (error) {
     console.error('应用初始化失败:', error);
     dialog.showErrorBox('应用初始化失败', error.message);

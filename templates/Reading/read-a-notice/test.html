@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Read a Notice Test</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        padding: 20px;
+        background: #f5f5f7;
+        margin: 0;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+      h1 {
+        color: #222;
+        border-bottom: 2px solid #007aff;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      .test-section {
+        margin: 30px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+      .notice-preview {
+        width: 100%;
+        height: 500px;
+        border: 2px dashed #007aff;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .variables-list {
+        background: #f1f3f5;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+      }
+      .variable-item {
+        margin: 8px 0;
+        padding: 5px 10px;
+        background: white;
+        border-radius: 4px;
+        border-left: 4px solid #007aff;
+      }
+      .success {
+        color: #28a745;
+        font-weight: bold;
+      }
+      .instructions {
+        background: #e8f5e9;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+        border-left: 4px solid #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1><i class="fas fa-check-circle"></i> Read a Notice Template - 测试验证</h1>
+
+      <div class="instructions">
+        <h3><i class="fas fa-info-circle"></i> 测试说明</h3>
+        <p>
+          此页面验证"Read a notice"题型模板的所有功能和显示效果。模板文件位于：<code
+            >templates/read-a-notice/template.html</code
+          >
+        </p>
+      </div>
+
+      <div class="test-section">
+        <h2><i class="fas fa-eye"></i> 公告栏预览</h2>
+        <div class="notice-preview">
+          <iframe src="template.html?test=1" title="Notice Template Preview"></iframe>
+        </div>
+        <p>左侧为简洁公告栏，包含主标题、次标题和内容区域。右侧为标准题目区。</p>
+      </div>
+
+      <div class="test-section">
+        <h2><i class="fas fa-code"></i> 模板变量列表</h2>
+        <div class="variables-list">
+          <div class="variable-item">{{QUESTION_NUMBER}} - 当前题号 (示例: 1)</div>
+          <div class="variable-item">{{QUESTION_COUNT}} - 总题数 (示例: 14)</div>
+          <div class="variable-item">{{TIMER_SECONDS}} - 计时器秒数 (示例: 7200)</div>
+          <div class="variable-item">{{NOTICE_TITLE}} - 公告主标题 (可选，如果无则空白)</div>
+          <div class="variable-item">{{NOTICE_SUBTITLE}} - 公告次标题 (可选，如果无则空白)</div>
+          <div class="variable-item">{{NOTICE_CONTENT}} - 公告内容 (HTML格式，必需)</div>
+          <div class="variable-item">{{QUESTION_TEXT}} - 题目文本</div>
+          <div class="variable-item">
+            {{OPTION_A}}, {{OPTION_B}}, {{OPTION_C}}, {{OPTION_D}} - 选项内容
+          </div>
+          <div class="variable-item">
+            {{CORRECT_A}}, {{CORRECT_B}}, {{CORRECT_C}}, {{CORRECT_D}} - 正确选项标记 (true/false)
+          </div>
+          <div class="variable-item">{{BACK_PAGE}} - 上一页URL</div>
+          <div class="variable-item">{{NEXT_PAGE}} - 下一页URL</div>
+        </div>
+      </div>
+
+      <div class="test-section">
+        <h2><i class="fas fa-check-circle success"></i> 已完成的功能验证</h2>
+        <ul>
+          <li>✅ 左侧公告栏容器设计 (简洁白色背景，苹果风格边框阴影)</li>
+          <li>✅ 公告标题区域 (主标题和次标题，支持空值隐藏)</li>
+          <li>✅ 公告内容区域 (自适应高度，可滚动)</li>
+          <li>✅ 响应式设计 (移动端适配)</li>
+          <li>✅ 计时器功能 (显示/隐藏、倒计时)</li>
+          <li>✅ 题目选择功能 (单选、答案保存)</li>
+          <li>✅ Review面板 (题目标记、跳转)</li>
+          <li>✅ Check Answers功能 (答案检查、统计)</li>
+          <li>✅ 顶部导航栏 (固定布局、功能按钮)</li>
+          <li>✅ 右侧题目区 (与现有阅读题型统一)</li>
+        </ul>
+      </div>
+
+      <div class="test-section">
+        <h2><i class="fas fa-play-circle"></i> 使用说明</h2>
+        <ol>
+          <li>将模板文件 <code>template.html</code> 复制到您的TOEFL阅读模拟系统中</li>
+          <li>
+            使用服务器端模板引擎 (如Jinja2, Handlebars, PHP等) 替换所有 <code>{{变量名}}</code>
+          </li>
+          <li>确保包含外部样式表: <code>../../styles.css</code></li>
+          <li>测试所有交互功能: 计时器、答题选择、Review面板、答案检查</li>
+          <li>在不同屏幕尺寸上验证响应式设计</li>
+        </ol>
+      </div>
+
+      <div class="instructions">
+        <h3><i class="fas fa-bullhorn"></i> 设计特色</h3>
+        <p>
+          <strong>左侧公告栏</strong>: 简洁白色背景，苹果风格边框阴影，包含三个核心元素： 1. 主标题
+          (可选)，2. 次标题 (可选)，3. 主题内容 (必需)。空标题自动隐藏。
+        </p>
+        <p><strong>右侧题目区</strong>: 与现有阅读题型完全一致的布局、字体、颜色和交互模式。</p>
+        <p><strong>顶部导航</strong>: 固定不变的TOEFL iBT导航栏、功能按钮、题目进度、计时器。</p>
+      </div>
+    </div>
+
+    <script>
+      // 自动重载iframe以显示模板
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe');
+        iframe.src = iframe.src;
+      }, 1000);
+
+      console.log('Read a Notice Template 测试页面加载完成');
+    </script>
+  </body>
+</html>

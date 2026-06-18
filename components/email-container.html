@@ -1,0 +1,26 @@
+<!-- Email容器组件 -->
+<div class="apple-email-container">
+    <div class="email-header-apple">
+        <div class="email-meta-apple">
+            <div class="email-date-apple">
+                <span class="meta-label">Date:</span>
+                <span class="meta-value">{{date}}</span>
+            </div>
+            <div class="email-subject-apple">
+                <span class="meta-label">Subject:</span>
+                <span class="meta-value">{{subject}}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="email-body-apple">
+        {{#each bodyLines}}
+        <p class="email-paragraph">{{this}}</p>
+        {{/each}}
+    </div>
+    
+    <div class="email-signature-apple">
+        <p class="signature-line">Best regards,</p>
+        <p class="signature-name">{{signature}}</p>
+    </div>
+</div>

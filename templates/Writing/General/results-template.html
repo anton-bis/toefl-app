@@ -1,0 +1,860 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEFL iBT Writing - Results</title>
+  <link rel="stylesheet" href="../../../font-awesome.css" />
+  <link rel="stylesheet" href="../../../styles.css" />
+  <style>
+    .header {
+      background-color: #008080;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 60px;
+    }
+
+    .results-main {
+      padding: 30px;
+      max-width: 1000px;
+      margin: 80px auto 0 auto;
+    }
+
+    .completion-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+
+    .completion-banner .completion-check {
+      font-size: 32px;
+      color: #008080;
+    }
+
+    .completion-banner h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #222222;
+      margin: 0;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      text-align: center;
+      border: 1px solid #eef0f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .summary-card .label {
+      font-size: 11px;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .score-card {
+      padding: 28px 20px 22px;
+      gap: 6px;
+    }
+
+    .donut-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin-bottom: 6px;
+    }
+
+    .donut-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .donut-progress {
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .donut-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      line-height: 1;
+    }
+
+    .score-big {
+      font-size: 42px;
+      font-weight: 700;
+      color: #222222;
+    }
+
+    .score-of {
+      font-size: 14px;
+      color: #999999;
+    }
+
+    .score-sub {
+      font-size: 14px;
+      color: #555555;
+      font-weight: 500;
+    }
+
+    .time-card {
+      padding: 28px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .time-card .value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #444444;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .time-card .value i {
+      font-size: 22px;
+      color: #008080;
+    }
+
+    .module-section {
+      margin-bottom: 24px;
+    }
+
+    .module-section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #222222;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .module-section h2 i {
+      color: #008080;
+    }
+
+    .module-stat-badge {
+      font-size: 12px;
+      font-weight: 500;
+      color: #666666;
+      background: #f1f3f5;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-left: auto;
+    }
+
+    .section-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid #eef0f2;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 24px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .section-header:hover {
+      background: #fafafa;
+    }
+
+    .section-header .chevron {
+      font-size: 15px;
+      color: #999;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .section-header .chevron.open {
+      transform: rotate(180deg);
+    }
+
+    .section-header .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #222;
+      flex: 1;
+    }
+
+    .section-header .badge {
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+      background: #f1f3f5;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .section-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .section-body.open {
+      opacity: 1;
+    }
+
+    .section-body-inner {
+      padding: 0 24px 20px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: #eef0f2;
+      margin: 0 24px;
+    }
+
+    .bs-question {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border: 1px solid #e9ecef;
+    }
+
+    .bs-question:last-child {
+      margin-bottom: 0;
+    }
+
+    .bs-question-header {
+      font-size: 15px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .bs-speaker-a {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .bs-sentence {
+      font-size: 17px;
+      line-height: 2;
+      color: #333;
+    }
+
+    .bs-sentence .slot-text {
+      display: inline;
+    }
+
+    .bs-sentence .slot-blank {
+      display: inline-block;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin: 0 2px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .slot-blank.correct {
+      background: #d4edda;
+      border: 2px solid #28a745;
+      color: #155724;
+    }
+
+    .slot-blank.incorrect {
+      background: #f8d7da;
+      border: 2px solid #dc3545;
+      color: #721c24;
+    }
+
+    .slot-blank.unanswered {
+      background: #f8f9fa;
+      border: 2px solid #dee2e6;
+      color: #adb5bd;
+    }
+
+    .slot-blank .expected {
+      font-size: 15px;
+      color: #999;
+      font-weight: 400;
+      margin-left: 4px;
+    }
+
+    .response-text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      white-space: pre-wrap;
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .response-text:empty {
+      display: none;
+    }
+
+    .no-response {
+      font-size: 16px;
+      color: #999;
+      font-style: italic;
+      padding: 16px 0;
+    }
+
+    .word-count {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .results-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .results-btn {
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .results-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .results-btn.primary {
+      background-color: #008080;
+      color: white;
+    }
+
+    .results-btn.primary:hover {
+      background-color: #006666;
+    }
+
+    .results-btn.secondary {
+      background-color: #e9e9ee;
+      color: #1a1a1a;
+    }
+
+    .results-btn.secondary:hover {
+      background-color: #d5d5db;
+    }
+
+    .results-footer {
+      text-align: center;
+      color: #bbbbbb;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .summary-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .results-main {
+        padding: 20px 15px;
+      }
+      .completion-banner h1 {
+        font-size: 28px;
+      }
+      .donut-wrap {
+        width: 120px;
+        height: 120px;
+      }
+      .score-big {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .results-actions {
+        flex-direction: column;
+      }
+      .section-header {
+        padding: 14px 16px;
+      }
+      .section-body-inner {
+        padding: 0 16px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">toefl ibt</div>
+    <div class="nav-buttons">
+      <button class="nav-button dark volume-btn">
+        <span>Volume</span>
+        <i class="fas fa-volume-up"></i>
+      </button>
+        <button class="nav-button dark help-btn">
+          <span>Help</span>
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button dark back-btn" id="back-results-btn" style="display:none">
+          <span>Back</span><i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="nav-button light next-btn" id="next-results-btn" style="display:none">
+          <span>Next</span><i class="fas fa-arrow-right"></i>
+        </button>
+      <button class="nav-button light" onclick="window.location.href='../../../dist/index.html'">
+        <span>Home</span>
+        <i class="fas fa-home"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="results-main">
+    <div class="completion-banner">
+      <i class="fas fa-check-circle completion-check"></i>
+      <h1>Writing Section Completed</h1>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card score-card">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 140 140" class="donut-svg">
+            <circle cx="70" cy="70" r="58" fill="none" stroke="#e9ecef" stroke-width="12" />
+            <circle cx="70" cy="70" r="58" fill="none" stroke="#008080" stroke-width="12"
+              stroke-linecap="round" class="donut-progress"
+              style="transform:rotate(-90deg);transform-origin:50% 50%;
+                     stroke-dasharray:364.42;stroke-dashoffset:364.42;" />
+          </svg>
+          <div class="donut-center">
+            <span class="score-big" id="donut-score">--</span>
+            <span class="score-of">/ {{TOTAL_QUESTIONS}}</span>
+          </div>
+        </div>
+        <div class="score-sub" id="score-sub">-- correct</div>
+        <div class="label">Build a Sentence</div>
+      </div>
+
+      <div class="summary-card time-card">
+        <div class="value">
+          <i class="fas fa-clock"></i>
+          <span id="time-value">--:--</span>
+        </div>
+        <div class="label">Time Used</div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <div class="section-card" id="bs-section">
+        <div class="section-header" id="bs-header">
+          <i class="fas fa-chevron-down chevron" id="bs-chevron"></i>
+          <span class="title">Build a Sentence</span>
+          <span class="badge" id="bs-badge">-- / -- correct</span>
+        </div>
+        <div class="section-body" id="bs-body">
+          <div class="section-divider"></div>
+          <div class="section-body-inner" id="bs-content"></div>
+        </div>
+      </div>
+
+      <div class="section-card" id="email-section">
+        <div class="section-header" id="email-header">
+          <i class="fas fa-chevron-down chevron" id="email-chevron"></i>
+          <span class="title">Write an Email</span>
+          <span class="badge" id="email-badge">-- words</span>
+        </div>
+        <div class="section-body" id="email-body">
+          <div class="section-divider"></div>
+          <div class="section-body-inner">
+            <div class="response-text" id="email-response"></div>
+            <div class="no-response" id="email-empty">No response provided.</div>
+            <div class="word-count" id="email-wc"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" id="disc-section">
+        <div class="section-header" id="disc-header">
+          <i class="fas fa-chevron-down chevron" id="disc-chevron"></i>
+          <span class="title">Academic Discussion</span>
+          <span class="badge" id="disc-badge">-- words</span>
+        </div>
+        <div class="section-body" id="disc-body">
+          <div class="section-divider"></div>
+          <div class="section-body-inner">
+            <div class="response-text" id="disc-response"></div>
+            <div class="no-response" id="disc-empty">No response provided.</div>
+            <div class="word-count" id="disc-wc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="results-btn primary" id="review-btn">
+        <i class="fas fa-chart-bar"></i> Detailed Review
+      </button>
+      <button class="results-btn secondary" id="restart-btn">
+        <i class="fas fa-redo"></i> Restart Test
+      </button>
+    </div>
+
+    <p class="results-footer">Scoring based on TOEFL iBT Writing section rubric</p>
+  </div>
+
+  <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  <script>
+    var BS_QUESTIONS = {{BS_QUESTIONS_JSON}};
+    var TOTAL_QUESTIONS = {{TOTAL_QUESTIONS}};
+
+    var CONFIG = {
+      storagePrefix: '{{STORAGE_PREFIX}}'
+    };
+
+    function loadWritingKey(suffix) {
+      var prefixed = CONFIG.storagePrefix + suffix;
+      var unprefixed = 'toefl_writing_' + suffix;
+      var v = localStorage.getItem(prefixed);
+      if (v !== null) return v;
+      return localStorage.getItem(unprefixed) || '';
+    }
+
+    function countWords(text) {
+      if (!text || !text.trim()) return 0;
+      return text.trim().split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+    }
+
+    function formatTime(seconds) {
+      if (!seconds || seconds <= 0) return '--:--';
+      var m = Math.floor(seconds / 60);
+      var s = seconds % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function getScoreColor(ratio) {
+      if (ratio >= 0.9) return '#27ae60';
+      if (ratio >= 0.67) return '#008080';
+      if (ratio >= 0.33) return '#f39c12';
+      return '#e74c3c';
+    }
+
+    function clearAllTestData() {
+      var keys = [
+        CONFIG.storagePrefix + 'writing_elapsed',
+        'toefl_writing_elapsed',
+        CONFIG.storagePrefix + 'writing_start_time',
+        'toefl_writing_start_time',
+        CONFIG.storagePrefix + 'writing_email_response',
+        'toefl_writing_email_response',
+        CONFIG.storagePrefix + 'writing_discussion_response',
+        'toefl_writing_discussion_response',
+        CONFIG.storagePrefix + 'writing_overtime',
+        'toefl_writing_overtime',
+        CONFIG.storagePrefix + 'writing_marked',
+        'toefl_writing_marked',
+        CONFIG.storagePrefix + 'writing_email_marked',
+        'toefl_writing_email_marked',
+        CONFIG.storagePrefix + 'writing_discussion_marked',
+        'toefl_writing_discussion_marked',
+        'toefl_writing_bs_answers',
+        'toefl_writing_timer_remaining',
+        'toefl_writing_timer_expired',
+        CONFIG.storagePrefix + 'timer_started',
+        'toefl_writing_timer_started',
+        CONFIG.storagePrefix + 'timer_remaining',
+        'toefl_writing_timer_remaining',
+        'toefl_writing_timer_unlimited',
+        'toefl_writing_resume_page'
+      ];
+      keys.forEach(function(k) { localStorage.removeItem(k); });
+    }
+
+    function toggleSection(headerId, bodyId, chevronId) {
+      var header = document.getElementById(headerId);
+      var body = document.getElementById(bodyId);
+      var chevron = document.getElementById(chevronId);
+      if (!header || !body || !chevron) return;
+
+      header.addEventListener('click', function() {
+        var isOpen = body.classList.toggle('open');
+        chevron.classList.toggle('open', isOpen);
+        if (isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+        } else {
+          body.style.maxHeight = '0';
+        }
+        requestAnimationFrame(function() {
+          if (isOpen) body.style.maxHeight = body.scrollHeight + 80 + 'px';
+        });
+      });
+    }
+
+    function init() {
+      var emailText = loadWritingKey('email_response');
+      var discussionText = loadWritingKey('discussion_response');
+      var emailWc = countWords(emailText);
+      var discussionWc = countWords(discussionText);
+
+      var startTime = parseInt(loadWritingKey('start_time') || '0');
+      var elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+      document.getElementById('time-value').textContent = formatTime(elapsed);
+
+      // Load BS answers from localStorage
+      var savedAnswers = {};
+      try {
+        var raw = localStorage.getItem('toefl_writing_bs_answers');
+        if (raw) savedAnswers = JSON.parse(raw);
+      } catch(e) {}
+
+      // Evaluate each BS question: correct only if ALL blanks are correct
+      var correctCount = 0;
+      var questionResults = [];
+
+      BS_QUESTIONS.forEach(function(q, idx) {
+        var qNum = q.questionNumber;
+        var userData = savedAnswers[qNum] || { filled: [] };
+        var userFilled = userData.filled || [];
+
+        var slots = q.slots || [];
+        var blankIdx = 0;
+        var allCorrect = true;
+        var slotResults = [];
+
+        slots.forEach(function(slot) {
+          if (slot.type === 'blank') {
+            var userVal = blankIdx < userFilled.length ? userFilled[blankIdx] : '';
+            var expected = q.answerOrder[blankIdx] || '';
+            var isCorrect = userVal.toLowerCase().trim() === expected.toLowerCase().trim();
+            slotResults.push({ type: 'blank', userVal: userVal, expected: expected, correct: isCorrect });
+            if (!isCorrect) allCorrect = false;
+            blankIdx++;
+          } else {
+            slotResults.push({ type: 'text', value: slot.value });
+          }
+        });
+
+        if (allCorrect && q.blankCount > 0 && blankIdx > 0) correctCount++;
+        questionResults.push({
+          index: idx,
+          num: qNum,
+          speakerA: q.speakerA || '',
+          slots: slotResults,
+          allCorrect: allCorrect,
+          totalBlanks: q.blankCount
+        });
+      });
+
+      var totalQ = TOTAL_QUESTIONS;
+      var pct = totalQ > 0 ? Math.round(correctCount / totalQ * 100) : 0;
+      var color = getScoreColor(pct / 100);
+
+      var circumference = 2 * Math.PI * 58;
+      var donutCircle = document.querySelector('.donut-progress');
+      var donutScore = document.getElementById('donut-score');
+      var scoreSub = document.getElementById('score-sub');
+
+      if (totalQ > 0) {
+        donutScore.textContent = correctCount;
+        scoreSub.textContent = correctCount + '/' + totalQ + ' correct';
+        scoreSub.style.color = color;
+        if (donutCircle) {
+          donutCircle.style.stroke = color;
+          donutCircle.style.strokeDasharray = circumference;
+          donutCircle.style.strokeDashoffset = circumference;
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              donutCircle.style.strokeDashoffset = circumference * (1 - correctCount / totalQ);
+            });
+          });
+        }
+      }
+
+      document.getElementById('bs-badge').textContent = correctCount + ' / ' + totalQ + ' correct';
+
+      // Render BS questions
+      var bsContent = document.getElementById('bs-content');
+      questionResults.forEach(function(qr) {
+        var div = document.createElement('div');
+        div.className = 'bs-question';
+
+        var headerDiv = document.createElement('div');
+        headerDiv.className = 'bs-question-header';
+        headerDiv.textContent = 'Question ' + qr.num;
+        div.appendChild(headerDiv);
+
+        if (qr.speakerA) {
+          var speakerDiv = document.createElement('div');
+          speakerDiv.className = 'bs-speaker-a';
+          speakerDiv.textContent = qr.speakerA;
+          div.appendChild(speakerDiv);
+        }
+
+        var sentenceDiv = document.createElement('div');
+        sentenceDiv.className = 'bs-sentence';
+        qr.slots.forEach(function(s) {
+          if (s.type === 'text') {
+            var span = document.createElement('span');
+            span.className = 'slot-text';
+            span.textContent = s.value;
+            sentenceDiv.appendChild(span);
+          } else {
+            var span = document.createElement('span');
+            span.className = 'slot-blank';
+            if (s.correct) {
+              span.classList.add('correct');
+              span.textContent = s.userVal;
+            } else if (s.userVal) {
+              span.classList.add('incorrect');
+              span.textContent = s.userVal;
+              var expected = document.createElement('span');
+              expected.className = 'expected';
+              expected.textContent = '(\u2192 ' + s.expected + ')';
+              span.appendChild(expected);
+            } else {
+              span.classList.add('unanswered');
+              span.textContent = s.expected;
+            }
+            sentenceDiv.appendChild(span);
+          }
+        });
+        div.appendChild(sentenceDiv);
+        bsContent.appendChild(div);
+      });
+
+      // Email
+      document.getElementById('email-badge').textContent = emailWc > 0 ? emailWc + ' words' : 'No response';
+      var emailResp = document.getElementById('email-response');
+      var emailEmpty = document.getElementById('email-empty');
+      if (emailText) {
+        emailResp.textContent = emailText;
+        emailResp.style.display = '';
+        emailEmpty.style.display = 'none';
+        document.getElementById('email-wc').textContent = 'Word count: ' + emailWc;
+      } else {
+        emailResp.style.display = 'none';
+        emailEmpty.style.display = '';
+        document.getElementById('email-wc').textContent = '';
+      }
+
+      // Discussion
+      document.getElementById('disc-badge').textContent = discussionWc > 0 ? discussionWc + ' words' : 'No response';
+      var discResp = document.getElementById('disc-response');
+      var discEmpty = document.getElementById('disc-empty');
+      if (discussionText) {
+        discResp.textContent = discussionText;
+        discResp.style.display = '';
+        discEmpty.style.display = 'none';
+        document.getElementById('disc-wc').textContent = 'Word count: ' + discussionWc;
+      } else {
+        discResp.style.display = 'none';
+        discEmpty.style.display = '';
+        document.getElementById('disc-wc').textContent = '';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Expandable sections
+    toggleSection('bs-header', 'bs-body', 'bs-chevron');
+    toggleSection('email-header', 'email-body', 'email-chevron');
+    toggleSection('disc-header', 'disc-body', 'disc-chevron');
+
+    // Detailed Review: expand all sections
+    document.getElementById('review-btn').addEventListener('click', function() {
+      ['bs', 'email', 'disc'].forEach(function(id) {
+        var body = document.getElementById(id + '-body');
+        var chevron = document.getElementById(id + '-chevron');
+        if (body && !body.classList.contains('open')) {
+          body.classList.add('open');
+          chevron.classList.add('open');
+          requestAnimationFrame(function() {
+            body.style.maxHeight = body.scrollHeight + 80 + 'px';
+          });
+        }
+      });
+      var first = document.getElementById('bs-section');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.getElementById('restart-btn').addEventListener('click', function() {
+      if (window.showConfirm) {
+        window.showConfirm('Restart Test', 'Are you sure you want to restart? Your writing responses will be cleared.', [
+          { text: 'Cancel', cls: 'cancel', onClick: function() {} },
+          { text: 'Restart', cls: 'primary', onClick: function() {
+            clearAllTestData();
+            window.location.href = 'start.html';
+          }}
+        ], true);
+      } else {
+        if (confirm('Are you sure you want to restart? Your writing responses will be cleared.')) {
+          clearAllTestData();
+          window.location.href = 'start.html';
+        }
+      }
+    });
+
+    document.querySelector('.volume-btn').addEventListener('click', function() {
+      window.showHelp('Volume', 'Volume control will be implemented in the speaking and listening version.');
+    });
+
+    document.querySelector('.help-btn').addEventListener('click', function() {
+      window.showHelp('Help', 'Your scores are based on the TOEFL iBT Writing rubric.');
+    });
+  </script>
+  <script>
+    (function(){
+      if(new URLSearchParams(window.location.search).get('mode')!=='report')return;
+      document.getElementById('back-results-btn').style.display='flex';
+      document.getElementById('next-results-btn').style.display='flex';
+      var mod='writing';
+      var routes={reading:'../listening/listening_results.html?mode=report',listening:'../writing/writing_results.html?mode=report',writing:'../speaking/speaking_results.html?mode=report'};
+      var backRoutes={listening:'../reading/reading_results.html?mode=report',writing:'../listening/listening_results.html?mode=report',speaking:'../writing/writing_results.html?mode=report'};
+      if(routes[mod])document.getElementById('next-results-btn').onclick=function(){window.location.href=routes[mod]};
+      else document.getElementById('next-results-btn').style.display='none';
+      if(backRoutes[mod])document.getElementById('back-results-btn').onclick=function(){window.location.href=backRoutes[mod]};
+      else document.getElementById('back-results-btn').style.display='none';
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Speaking Scenario</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      :root {
+        --teal: #008080;
+        --text: #1d1d1f;
+        --muted: #86868b;
+        --border: #e5e5e7;
+      }
+
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+      .header {
+        background-color: var(--teal);
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        height: 60px;
+      }
+      .logo { font-size: 36px; font-weight: bold; color: white; }
+      .nav-buttons { display: flex; gap: 12px; }
+      .nav-button {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .nav-button.dark {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .nav-button.dark:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+      .nav-button.light {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .nav-button.light:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 30px;
+        background-color: white;
+        border-bottom: 3px solid #222;
+        margin-top: 60px;
+        min-height: 56.4px;
+        position: relative;
+        z-index: 1;
+      }
+      .section-label {
+        font-size: 14px;
+        color: #444;
+        font-weight: 500;
+      }
+
+      .main-content {
+        max-width: 1200px; margin: 0 auto;
+        height: calc(100vh - 120px); display: flex; flex-direction: column;
+        box-sizing: border-box; overflow: hidden; padding: 10px 30px 35px;
+      }
+
+      .scenario-title-area {
+        text-align: center; margin: 0 0 10px; flex-shrink: 0;
+      }
+      .scenario-title {
+        font-size: 30px; font-weight: bold;
+        font-family: -apple-system, 'SF Pro Display', 'Avenir Next', 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #222; margin: 0 0 10px; line-height: 1.3;
+      }
+      .title-underline {
+        height: 3px; width: 100px;
+        background-color: var(--teal); margin: 0 auto;
+      }
+
+      .scenario-image-area {
+        flex: 1 1 auto; min-height: 0;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        margin-top: 10px;
+      }
+      .scenario-image {
+        max-width: 100%; max-height: 100%; width: auto; height: auto;
+        object-fit: contain; border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .volume-panel {
+        position: absolute;
+        top: 52px;
+        right: 16px;
+        background: white;
+        border-radius: 10px;
+        padding: 14px 18px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        display: none;
+        align-items: center;
+        gap: 10px;
+        z-index: 2000;
+      }
+      .volume-panel input[type="range"] { width: 120px; accent-color: var(--teal); }
+      .volume-panel .vol-val { font-size: 13px; font-weight: 600; color: #333; min-width: 34px; text-align: center; }
+
+      .help-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .help-modal-overlay.open { display: flex; }
+      .help-modal-card {
+        background: white;
+        border-radius: 14px;
+        width: 480px;
+        max-width: 92vw;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      }
+      .help-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid #e5e5e7;
+      }
+      .help-modal-header h3 { margin: 0; font-size: 17px; font-weight: 700; }
+      .help-modal-close {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f2;
+        cursor: pointer;
+        font-size: 14px;
+        color: #86868b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .help-modal-close:hover { background: #e0e0e2; color: #1d1d1f; }
+      .help-modal-body { padding: 24px; font-size: 14px; line-height: 1.7; color: #444; }
+
+      @media (max-width: 768px) {
+        .nav-button { padding: 8px 14px; font-size: 12px; }
+        .scenario-image { max-width: 100%; max-height: 300px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="logo">toefl ibt</div>
+        <button class="nav-button dark exit-btn" id="exit-btn">
+          <span>Exit</span>
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-button dark volume-btn" id="volume-btn">
+          <span>Volume</span>
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="nav-button dark help-btn" id="help-btn">
+          <span>Help</span>
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button light next-btn" id="next-question-btn">
+          <span>Next</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="info-row">
+      <div class="section-label">Speaking</div>
+      <div></div>
+    </div>
+
+    <main class="main-content">
+      <div class="scenario-title-area">
+        <h2 class="scenario-title">{{SCENARIO_TITLE}}</h2>
+      </div>
+
+      <div class="scenario-image-area">
+        <img class="scenario-image" src="{{SCENARIO_IMAGE}}" alt="Scenario Image" />
+      </div>
+    </main>
+
+    <div class="help-modal-overlay" id="help-modal-overlay">
+      <div class="help-modal-card">
+        <div class="help-modal-header">
+          <h3><i class="fas fa-question-circle"></i> Help</h3>
+          <button class="help-modal-close" id="help-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="help-modal-body">
+          在正式考试中，本页面会播报一遍主标题，随后自动跳转至下一页面进行答题。
+        </div>
+      </div>
+    </div>
+
+    <div id="volume-panel" class="volume-panel">
+      <i class="fas fa-volume-up" style="color:#008080;font-size:17px;"></i>
+      <input type="range" id="volume-slider" min="0" max="100" />
+      <span class="vol-val" id="volume-value">80%</span>
+    </div>
+
+    <script>
+      (function () {
+        // Volume
+        var volPanel = document.getElementById('volume-panel');
+        var volSlider = document.getElementById('volume-slider');
+        var volDisplay = document.getElementById('volume-value');
+
+        function getVolume() {
+          var v = localStorage.getItem('toefl_speaking_volume');
+          return v !== null ? parseInt(v) : 80;
+        }
+
+        function saveVolume(v) {
+          localStorage.setItem('toefl_speaking_volume', v);
+        }
+
+        var initVol = getVolume();
+        volSlider.value = initVol;
+        volDisplay.textContent = initVol + '%';
+
+        volSlider.addEventListener('input', function () {
+          var v = parseInt(this.value);
+          volDisplay.textContent = v + '%';
+          saveVolume(v);
+        });
+
+        document.getElementById('volume-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          volPanel.style.display = volPanel.style.display === 'flex' ? 'none' : 'flex';
+        });
+        document.addEventListener('click', function () { volPanel.style.display = 'none'; });
+
+        // Next
+        document.getElementById('next-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_speaking_resume_page', '{{NEXT_PAGE}}');
+          window.location.href = '{{NEXT_PAGE}}';
+        });
+
+        // Help Modal
+        document.getElementById('help-btn').addEventListener('click', function () {
+          document.getElementById('help-modal-overlay').classList.add('open');
+        });
+        document.getElementById('help-modal-close').addEventListener('click', function () {
+          document.getElementById('help-modal-overlay').classList.remove('open');
+        });
+        document.getElementById('help-modal-overlay').addEventListener('click', function (e) {
+          if (e.target === this) this.classList.remove('open');
+        });
+
+        // Exit
+        document.getElementById('exit-btn').addEventListener('click', function () {
+          window.showConfirm('Exit Test',
+            'Your progress has been saved.\nWould you like to keep it or clear all data?',
+            [
+              { text: 'Save & Exit', cls: 'primary', onClick: function () {
+                localStorage.setItem('toefl_speaking_resume_page', window.location.pathname.split('/').pop());
+                window.location.href = '../../../dist/index.html';
+              }},
+              { text: 'Clear & Exit', cls: 'danger', onClick: function () {
+                var keys = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                  var k = localStorage.key(i);
+                  if (k && (k.indexOf('toefl_tpo') === 0 || k.indexOf('toefl_speaking_') === 0)) keys.push(k);
+                }
+                keys.forEach(function (k) { localStorage.removeItem(k); });
+                window.location.href = '../../../dist/index.html';
+              }}
+            ], true);
+        });
+      })();
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

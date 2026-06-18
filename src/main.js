@@ -1,4 +1,4 @@
-import { store } from './core/store.js';
+﻿import { store } from './core/store.js';
 import { loader } from './core/loader.js';
 import { parser } from './core/parser.js';
 import { DOM, ErrorHandler } from './core/utils.js';
@@ -13,6 +13,7 @@ async function initApp() {
   try {
     showLoading();
     await store.loadFromStorage();
+    await checkContentUpdates();
     await registerModules();
     hideLoading();
     startTimerLoop();
@@ -25,6 +26,34 @@ async function initApp() {
   }
 }
 
+async function checkContentUpdates() {
+  if (typeof window.electronAPI === 'undefined') return;
+  try {
+    const result = await window.electronAPI.checkContentUpdate();
+    if (result && result.hasUpdate) {
+      console.log(`内容更新可用: v${result.localVersion} → v${result.remoteVersion}, ${result.updateCount} 个文件`);
+    }
+    const files = await window.electronAPI.listContentFiles('questions');
+    if (files && files.length > 0) {
+      const fileMap = {};
+      for (const f of files) {
+        const slash = f.indexOf('/');
+        if (slash > 0) {
+          const module = f.substring(0, slash);
+          if (!fileMap[module]) fileMap[module] = [];
+          fileMap[module].push(f);
+        }
+      }
+      const set = new Set();
+      for (const arr of Object.values(fileMap)) {
+        for (const f of arr) set.add(f);
+      }
+      loader.setExternalFiles(fileMap);
+    }
+  } catch (err) {
+    console.warn('内容更新检查跳过（非Electron环境或首启）:', err.message);
+  }
+}
 function showLoading() {
   const appContainer = document.getElementById('app');
   if (!appContainer) return;
@@ -176,7 +205,7 @@ async function registerModules() {
     router.register('/speaking', () => activateModule('speaking'));
     console.log('模块注册: speaking');
 
-    const writingModule = await import('./components/Writing.js');
+    const writingModule = await import('./modules/writing/index.js');
     moduleRegistry.set('writing', writingModule);
     router.register('/writing', () => activateModule('writing'));
     console.log('模块注册: writing');
@@ -263,72 +292,6 @@ function startTimerLoop() {
   setInterval(() => {
     store.updateTimer();
   }, 1000);
-}
-
-function createModuleSelector() {
-  const selectorContainer = DOM.create('div', {
-    id: 'module-selector',
-    style: {
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      zIndex: '1000'
-    }
-  });
-
-  const select = DOM.create('select', {
-    style: {
-      padding: '8px 12px',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      backgroundColor: 'white',
-      fontSize: '14px',
-      cursor: 'pointer'
-    },
-    onChange: e => {
-      const selectedModule = e.target.value;
-      if (selectedModule) {
-        location.hash = `/${selectedModule}`;
-      }
-    }
-  });
-
-  const defaultOption = DOM.create('option', {
-    value: '',
-    selected: true,
-    disabled: true
-  });
-  defaultOption.textContent = '选择模块';
-
-  const readingOption = DOM.create('option', {
-    value: 'reading'
-  });
-  readingOption.textContent = '阅读模块';
-
-  const listeningOption = DOM.create('option', {
-    value: 'listening'
-  });
-  listeningOption.textContent = '听力模块';
-
-  const speakingOption = DOM.create('option', {
-    value: 'speaking'
-  });
-  speakingOption.textContent = '口语模块';
-
-  const writingOption = DOM.create('option', {
-    value: 'writing'
-  });
-  writingOption.textContent = '写作模块';
-
-  select.appendChild(defaultOption);
-  select.appendChild(readingOption);
-  select.appendChild(listeningOption);
-  select.appendChild(speakingOption);
-  select.appendChild(writingOption);
-
-  selectorContainer.appendChild(select);
-
-  return selectorContainer;
 }
 
 /**
@@ -436,9 +399,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   createGlobalStyles();
 
-  const moduleSelector = createModuleSelector();
-  document.body.appendChild(moduleSelector);
-
   await initApp();
 
   window.addEventListener('beforeunload', () => {
@@ -462,13 +422,5 @@ window.ToeflApp = {
   getModuleRegistry: () => moduleRegistry,
   isInitialized: () => isAppInitialized
 };
-
-console.log('托福模考系统全局API已创建（等待初始化）');
-
-// 导出全局API的函数（在应用初始化完成后调用）
-function exportGlobalAPI() {
-  isAppInitialized = true;
-  console.log('托福模考系统全局API已完全初始化');
-}
 
 console.log('托福模考系统主入口加载完成');

@@ -1,0 +1,710 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEFL iBT Speaking - Results</title>
+  <link rel="stylesheet" href="../../../font-awesome.css" />
+  <link rel="stylesheet" href="../../../styles.css" />
+  <style>
+    :root {
+      --teal: #008080;
+      --text: #1d1d1f;
+      --muted: #86868b;
+      --border: #e5e5e7;
+    }
+    .header {
+      background-color: #008080; color: white; padding: 15px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 60px;
+    }
+    .logo { font-size: 36px; font-weight: bold; color: white; }
+    .nav-buttons { display: flex; gap: 12px; }
+    .nav-button {
+      padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;
+      cursor: pointer; border: 3px solid transparent; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .nav-button.dark {
+      background-color: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);
+    }
+    .nav-button.dark:hover { background-color: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
+    .nav-button.light {
+      background-color: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);
+    }
+    .nav-button.light:hover { background-color: rgba(255,255,255,0.25); }
+
+    .results-main { padding: 30px; max-width: 1000px; margin: 80px auto 0 auto; }
+
+    .completion-banner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 20px; margin-bottom: 32px;
+    }
+    .completion-banner .completion-check { font-size: 32px; color: #008080; }
+    .completion-banner h1 { font-size: 32px; font-weight: 700; color: #222222; margin: 0; }
+
+    .summary-row {
+      display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 28px;
+      max-width: 400px; margin-left: auto; margin-right: auto;
+    }
+    .summary-card {
+      background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      text-align: center; border: 1px solid #eef0f2; display: flex;
+      flex-direction: column; align-items: center;
+    }
+    .summary-card .label {
+      font-size: 11px; color: #999999; text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .time-card {
+      padding: 28px 20px 22px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .time-card .value {
+      font-size: 32px; font-weight: 700; color: #444444;
+      font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 10px;
+    }
+    .time-card .value i { font-size: 22px; color: #008080; }
+
+    .module-section { margin-bottom: 24px; }
+
+    .section-card {
+      background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border: 1px solid #eef0f2; overflow: hidden; margin-bottom: 16px;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 12px; padding: 18px 24px;
+      cursor: pointer; user-select: none; transition: background 0.2s;
+    }
+    .section-header:hover { background: #fafafa; }
+    .section-header .chevron {
+      font-size: 15px; color: #999; transition: transform 0.3s ease; flex-shrink: 0;
+    }
+    .section-header .chevron.open { transform: rotate(180deg); }
+    .section-header .title { font-size: 18px; font-weight: 600; color: #222; flex: 1; }
+    .section-header .badge {
+      font-size: 14px; font-weight: 500; color: #666;
+      background: #f1f3f5; padding: 4px 12px; border-radius: 999px;
+    }
+    .section-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    .section-body.open { opacity: 1; }
+    .section-body-inner { padding: 0 24px 20px; }
+    .section-divider { height: 1px; background: #eef0f2; margin: 0 24px; }
+
+    .sq-question {
+      margin-bottom: 18px; padding: 16px; background: #f8f9fa;
+      border-radius: 10px; border: 1px solid #e9ecef;
+    }
+    .sq-question:last-child { margin-bottom: 0; }
+    .sq-question-header {
+      font-size: 15px; font-weight: 600; color: #666; margin-bottom: 6px;
+    }
+    .sq-transcript {
+      font-size: 17px; line-height: 1.7; color: #333; white-space: pre-wrap;
+      margin-bottom: 12px;
+    }
+
+    /* Audio player inside question */
+    .sq-audio-player {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: #fff; border-radius: 8px; border: 1px solid #e0e0e5;
+    }
+    .sq-play-btn {
+      width: 32px; height: 32px; border-radius: 50%; border: none;
+      background: var(--teal); color: white; font-size: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .sq-play-btn:hover { background: #006666; }
+    .sq-progress-container { flex: 1; display: flex; align-items: center; }
+    .sq-progress-slider {
+      width: 100%; height: 4px; accent-color: var(--teal); cursor: pointer; margin: 0;
+    }
+    .sq-time-display {
+      font-size: 11px; color: #888; min-width: 70px; text-align: right;
+      font-family: 'Courier New', monospace;
+    }
+    .sq-speed-btn {
+      padding: 2px 6px; border-radius: 3px; border: 1px solid #ddd;
+      background: #f5f5f7; cursor: pointer; font-size: 10px; font-weight: 600;
+      color: #777; transition: all 0.15s;
+    }
+    .sq-speed-btn:hover { background: #e8e8ed; }
+    .sq-speed-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
+    .sq-volume-wrap { display: flex; align-items: center; gap: 4px; }
+    .sq-volume-icon { font-size: 11px; color: #999; }
+    .sq-volume-slider { width: 50px; height: 3px; accent-color: var(--teal); cursor: pointer; }
+
+    .sq-recording-divider {
+      display: flex; align-items: center; gap: 10px; margin: 14px 0 10px;
+      font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sq-recording-divider::before,
+    .sq-recording-divider::after {
+      content: ''; flex: 1; height: 1px; background: #e0e0e5;
+    }
+    .sq-recording-player {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+      background: #f0faf5; border-radius: 8px; border: 1px solid #c8e6c9;
+    }
+    .sq-recording-play-btn {
+      width: 32px; height: 32px; border-radius: 50%; border: none;
+      background: #4CAF50; color: white; font-size: 12px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .sq-recording-play-btn:hover { background: #388E3C; }
+    .sq-no-recording {
+      font-size: 13px; color: #bbb; font-style: italic; padding: 6px 0;
+    }
+
+    .results-actions {
+      display: flex; gap: 15px; justify-content: center; margin-top: 30px;
+    }
+    .results-btn {
+      padding: 14px 28px; font-size: 15px; font-weight: 600; border-radius: 8px;
+      border: none; cursor: pointer; transition: all 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .results-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .results-btn.primary { background-color: #008080; color: white; }
+    .results-btn.primary:hover { background-color: #006666; }
+    .results-btn.secondary { background-color: #e9e9ee; color: #1a1a1a; }
+    .results-btn.secondary:hover { background-color: #d5d5db; }
+
+    .results-footer { text-align: center; color: #bbbbbb; font-size: 12px; margin-top: 24px; }
+
+    @media (max-width: 768px) {
+      .results-main { padding: 20px 15px; }
+      .completion-banner h1 { font-size: 28px; }
+      .section-header { padding: 14px 16px; }
+      .section-body-inner { padding: 0 16px 16px; }
+    }
+    @media (max-width: 480px) {
+      .results-actions { flex-direction: column; }
+      .sq-audio-player { flex-wrap: wrap; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">toefl ibt</div>
+    <div class="nav-buttons">
+      <button class="nav-button dark volume-btn">
+        <span>Volume</span><i class="fas fa-volume-up"></i>
+      </button>
+        <button class="nav-button dark help-btn">
+          <span>Help</span><i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button dark back-btn" id="back-results-btn" style="display:none">
+          <span>Back</span><i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="nav-button light next-btn" id="next-results-btn" style="display:none">
+          <span>Next</span><i class="fas fa-arrow-right"></i>
+        </button>
+      <button class="nav-button light" onclick="window.location.href='../../../dist/index.html'">
+        <span>Home</span><i class="fas fa-home"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="results-main">
+    <div class="completion-banner">
+      <i class="fas fa-check-circle completion-check"></i>
+      <h1>Speaking Section Completed</h1>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-card time-card">
+        <div class="value">
+          <i class="fas fa-clock"></i>
+          <span id="time-value">--:--</span>
+        </div>
+        <div class="label">Time Used</div>
+      </div>
+    </div>
+
+    <div class="module-section">
+      <div class="section-card" id="lr-section">
+        <div class="section-header" id="lr-header">
+          <i class="fas fa-chevron-down chevron" id="lr-chevron"></i>
+          <span class="title">Listen and Repeat</span>
+          <span class="badge" id="lr-badge">7 questions</span>
+        </div>
+        <div class="section-body" id="lr-body">
+          <div class="section-divider"></div>
+          <div class="section-body-inner" id="lr-content"></div>
+        </div>
+      </div>
+
+      <div class="section-card" id="interview-section">
+        <div class="section-header" id="interview-header">
+          <i class="fas fa-chevron-down chevron" id="interview-chevron"></i>
+          <span class="title">Take an Interview</span>
+          <span class="badge" id="interview-badge">4 questions</span>
+        </div>
+        <div class="section-body" id="interview-body">
+          <div class="section-divider"></div>
+          <div class="section-body-inner" id="interview-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="results-btn primary" id="review-btn">
+        <i class="fas fa-chart-bar"></i> Detailed Review
+      </button>
+      <button class="results-btn secondary" id="restart-btn">
+        <i class="fas fa-redo"></i> Restart Test
+      </button>
+    </div>
+
+    <p class="results-footer">Scoring based on TOEFL iBT Speaking section rubric</p>
+  </div>
+
+  <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  <script>
+    var LR_QUESTIONS = {{LR_QUESTIONS_JSON}};
+    var INTERVIEW_QUESTIONS = {{INTERVIEW_QUESTIONS_JSON}};
+    var AUDIO_LR = '{{AUDIO_LR}}';
+    var AUDIO_INTERVIEW = '{{AUDIO_INTERVIEW}}';
+    var STORAGE_PREFIX = '{{STORAGE_PREFIX}}';
+
+    function formatTime(seconds) {
+      if (!seconds || seconds <= 0) return '--:--';
+      var m = Math.floor(seconds / 60);
+      var s = seconds % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function fmtTimeMMSS(s) {
+      var m = Math.floor(s / 60);
+      var sec = Math.floor(s % 60);
+      return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    function getVolume() {
+      var v = localStorage.getItem('toefl_speaking_volume');
+      return v !== null ? parseInt(v) : 80;
+    }
+
+    function buildAudioPlayer(audioSrc, segStart, segEnd, vol) {
+      var audio = new Audio(audioSrc);
+      audio.preload = 'auto';
+      audio.volume = vol / 100;
+
+      var container = document.createElement('div');
+      container.className = 'sq-audio-player';
+
+      // Play button
+      var playBtn = document.createElement('button');
+      playBtn.className = 'sq-play-btn';
+      playBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+      // Progress slider
+      var progressContainer = document.createElement('div');
+      progressContainer.className = 'sq-progress-container';
+      var progressSlider = document.createElement('input');
+      progressSlider.type = 'range';
+      progressSlider.className = 'sq-progress-slider';
+      progressSlider.min = 0;
+      progressSlider.max = 1000;
+      progressSlider.value = 0;
+      progressContainer.appendChild(progressSlider);
+
+      // Time display
+      var timeDisplay = document.createElement('span');
+      timeDisplay.className = 'sq-time-display';
+      var realEnd = (segEnd >= 900) ? 999 : segEnd;
+      var segDur = realEnd - segStart;
+      timeDisplay.textContent = '00:00 / ' + fmtTimeMMSS(segDur);
+
+      // Speed buttons
+      var speeds = [0.5, 0.8, 1.0, 1.5, 2.0];
+      var speedBtns = [];
+      speeds.forEach(function(sp) {
+        var btn = document.createElement('button');
+        btn.className = 'sq-speed-btn';
+        if (sp === 1.0) btn.classList.add('active');
+        btn.textContent = sp + 'x';
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          speedBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          audio.playbackRate = sp;
+        });
+        speedBtns.push(btn);
+        container.appendChild(btn);
+      });
+
+      // Volume
+      var volWrap = document.createElement('div');
+      volWrap.className = 'sq-volume-wrap';
+      var volIcon = document.createElement('span');
+      volIcon.className = 'sq-volume-icon';
+      volIcon.innerHTML = '<i class="fas fa-volume-up"></i>';
+      var volSlider = document.createElement('input');
+      volSlider.type = 'range';
+      volSlider.className = 'sq-volume-slider';
+      volSlider.min = 0; volSlider.max = 100; volSlider.value = vol;
+      volSlider.addEventListener('input', function() {
+        var v = parseInt(this.value);
+        localStorage.setItem('toefl_speaking_volume', v);
+        audio.volume = v / 100;
+      });
+      volWrap.appendChild(volIcon);
+      volWrap.appendChild(volSlider);
+
+      container.appendChild(playBtn);
+      container.appendChild(progressContainer);
+      container.appendChild(timeDisplay);
+      container.appendChild(volWrap);
+
+      // Events
+      var played = false;
+      var updateInterval = null;
+
+      function stopAll() {
+        clearInterval(updateInterval);
+        audio.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+
+      audio.addEventListener('ended', stopAll);
+      audio.addEventListener('pause', function() {
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        clearInterval(updateInterval);
+      });
+
+      playBtn.addEventListener('click', function() {
+        if (audio.paused) {
+          var rEnd = (segEnd >= 900) ? (audio.duration || 999) : segEnd;
+          if (audio.currentTime < segStart || audio.currentTime >= rEnd) {
+            audio.currentTime = segStart;
+          }
+          audio.play();
+          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          updateInterval = setInterval(function() {
+            var t = audio.currentTime;
+            var rE = (segEnd >= 900) ? (audio.duration || 999) : segEnd;
+            var d = rE - segStart;
+            if (t >= rE) {
+              stopAll();
+              progressSlider.value = 1000;
+              timeDisplay.textContent = fmtTimeMMSS(d) + ' / ' + fmtTimeMMSS(d);
+              return;
+            }
+            var rel = Math.max(0, t - segStart);
+            var pct = d > 0 ? Math.round((rel / d) * 1000) : 0;
+            progressSlider.value = Math.min(pct, 1000);
+            timeDisplay.textContent = fmtTimeMMSS(rel) + ' / ' + fmtTimeMMSS(d);
+          }, 150);
+        } else {
+          audio.pause();
+        }
+      });
+
+      progressSlider.addEventListener('input', function() {
+        var rEnd = (segEnd >= 900) ? (audio.duration || 999) : segEnd;
+        var d = rEnd - segStart;
+        audio.currentTime = segStart + (parseInt(this.value) / 1000) * d;
+      });
+
+      return { container: container, audio: audio, stop: stopAll };
+    }
+
+    function loadRecordingBlob(qNumber) {
+      var key = 'toefl_speaking_response_' + qNumber;
+      var data = localStorage.getItem(key);
+      if (!data) return null;
+      try {
+        var parts = data.split(',');
+        var mimeString = parts[0].split(':')[1].split(';')[0];
+        var byteString = atob(parts[1]);
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+        return { blob: new Blob([ab], { type: mimeString }), url: URL.createObjectURL(new Blob([ab], { type: mimeString })) };
+      } catch (e) { return null; }
+    }
+
+    function buildBlobAudioPlayer(blobUrl, vol) {
+      var audio = new Audio(blobUrl);
+      audio.preload = 'auto';
+      audio.volume = vol / 100;
+
+      var container = document.createElement('div');
+      container.className = 'sq-recording-player';
+
+      var playBtn = document.createElement('button');
+      playBtn.className = 'sq-recording-play-btn';
+      playBtn.innerHTML = '<i class="fas fa-play"></i>';
+
+      var progressContainer = document.createElement('div');
+      progressContainer.className = 'sq-progress-container';
+      var progressSlider = document.createElement('input');
+      progressSlider.type = 'range';
+      progressSlider.className = 'sq-progress-slider';
+      progressSlider.min = 0; progressSlider.max = 1000; progressSlider.value = 0;
+      progressContainer.appendChild(progressSlider);
+
+      var timeDisplay = document.createElement('span');
+      timeDisplay.className = 'sq-time-display';
+      timeDisplay.textContent = '00:00 / ' + fmtTimeMMSS(audio.duration || 0);
+
+      var updateInterval = null;
+
+      function stopAll() {
+        clearInterval(updateInterval);
+        audio.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+
+      audio.addEventListener('loadedmetadata', function() {
+        timeDisplay.textContent = '00:00 / ' + fmtTimeMMSS(audio.duration || 0);
+      });
+      audio.addEventListener('ended', stopAll);
+      audio.addEventListener('pause', function() {
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        clearInterval(updateInterval);
+      });
+
+      playBtn.addEventListener('click', function() {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+          updateInterval = setInterval(function() {
+            var t = audio.currentTime;
+            var d = audio.duration || 1;
+            if (t >= d) {
+              stopAll();
+              progressSlider.value = 1000;
+              timeDisplay.textContent = fmtTimeMMSS(d) + ' / ' + fmtTimeMMSS(d);
+              return;
+            }
+            var pct = d > 0 ? Math.round((t / d) * 1000) : 0;
+            progressSlider.value = Math.min(pct, 1000);
+            timeDisplay.textContent = fmtTimeMMSS(t) + ' / ' + fmtTimeMMSS(d);
+          }, 150);
+        } else {
+          audio.pause();
+        }
+      });
+
+      progressSlider.addEventListener('input', function() {
+        var d = audio.duration || 1;
+        audio.currentTime = (parseInt(this.value) / 1000) * d;
+      });
+
+      container.appendChild(playBtn);
+      container.appendChild(progressContainer);
+      container.appendChild(timeDisplay);
+
+      // Volume
+      var volWrap = document.createElement('div');
+      volWrap.className = 'sq-volume-wrap';
+      var volIcon = document.createElement('span');
+      volIcon.className = 'sq-volume-icon';
+      volIcon.innerHTML = '<i class="fas fa-volume-up"></i>';
+      var volSlider = document.createElement('input');
+      volSlider.type = 'range';
+      volSlider.className = 'sq-volume-slider';
+      volSlider.min = 0; volSlider.max = 100; volSlider.value = vol;
+      volSlider.addEventListener('input', function() {
+        var v = parseInt(this.value);
+        localStorage.setItem('toefl_speaking_volume', v);
+        audio.volume = v / 100;
+      });
+      volWrap.appendChild(volIcon);
+      volWrap.appendChild(volSlider);
+      container.appendChild(volWrap);
+
+      // Speed buttons
+      var speeds = [0.5, 0.8, 1.0, 1.5, 2.0];
+      var speedBtns = [];
+      speeds.forEach(function(sp) {
+        var btn = document.createElement('button');
+        btn.className = 'sq-speed-btn';
+        if (sp === 1.0) btn.classList.add('active');
+        btn.textContent = sp + 'x';
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          speedBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          audio.playbackRate = sp;
+        });
+        speedBtns.push(btn);
+        container.appendChild(btn);
+      });
+
+      return { container: container, audio: audio, stop: stopAll };
+    }
+
+    function renderQuestions(questions, audioSrc, container) {
+      var vol = getVolume();
+      var players = [];
+      questions.forEach(function(q) {
+        var div = document.createElement('div');
+        div.className = 'sq-question';
+
+        var header = document.createElement('div');
+        header.className = 'sq-question-header';
+        header.textContent = 'Question ' + q.number;
+        div.appendChild(header);
+
+        var transcript = document.createElement('div');
+        transcript.className = 'sq-transcript';
+        transcript.textContent = q.transcript || '(No transcript available)';
+        div.appendChild(transcript);
+
+        if (audioSrc && q.audioStart !== undefined && q.audioEnd !== undefined) {
+          var player = buildAudioPlayer(audioSrc, q.audioStart, q.audioEnd, vol);
+          div.appendChild(player.container);
+          players.push(player);
+        }
+
+        // Recording section
+        var divider = document.createElement('div');
+        divider.className = 'sq-recording-divider';
+        divider.textContent = 'Your Response';
+        div.appendChild(divider);
+
+        var recData = loadRecordingBlob(q.number);
+        if (recData && recData.blob && recData.blob.size > 0) {
+          var recPlayer = buildBlobAudioPlayer(recData.url, vol);
+          div.appendChild(recPlayer.container);
+        } else {
+          var noRec = document.createElement('div');
+          noRec.className = 'sq-no-recording';
+          noRec.innerHTML = '<i class="fas fa-microphone"></i> No recording submitted';
+          div.appendChild(noRec);
+        }
+
+        container.appendChild(div);
+      });
+      return players;
+    }
+
+    function toggleSection(headerId, bodyId, chevronId) {
+      var header = document.getElementById(headerId);
+      var body = document.getElementById(bodyId);
+      var chevron = document.getElementById(chevronId);
+      if (!header || !body || !chevron) return;
+      header.addEventListener('click', function() {
+        var isOpen = body.classList.toggle('open');
+        chevron.classList.toggle('open', isOpen);
+        if (isOpen) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          requestAnimationFrame(function() {
+            body.style.maxHeight = body.scrollHeight + 80 + 'px';
+          });
+        } else {
+          body.style.maxHeight = '0';
+        }
+      });
+    }
+
+    function clearAllTestData() {
+      var keys = [
+        STORAGE_PREFIX + 'speaking_start_time', 'toefl_speaking_start_time',
+        STORAGE_PREFIX + 'speaking_timer_started', 'toefl_speaking_timer_started',
+        STORAGE_PREFIX + 'speaking_timer_remaining', 'toefl_speaking_timer_remaining',
+        STORAGE_PREFIX + 'speaking_marked_questions',
+        'toefl_speaking_volume',
+        'toefl_speaking_resume_page'
+      ];
+      for (var i = 1; i <= 11; i++) {
+        keys.push('toefl_speaking_response_' + i);
+      }
+      keys.forEach(function(k) { localStorage.removeItem(k); });
+    }
+
+    function init() {
+      // Time Used
+      var startKey = STORAGE_PREFIX + 'speaking_start_time';
+      var fallbackKey = 'toefl_speaking_start_time';
+      var startTime = parseInt(localStorage.getItem(startKey) || localStorage.getItem(fallbackKey) || '0');
+      var elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+      document.getElementById('time-value').textContent = formatTime(elapsed);
+
+      // Render Listen and Repeat questions
+      var lrContainer = document.getElementById('lr-content');
+      var lrPlayers = renderQuestions(LR_QUESTIONS, AUDIO_LR, lrContainer);
+      document.getElementById('lr-badge').textContent = LR_QUESTIONS.length + ' questions';
+
+      // Render Interview questions
+      var intContainer = document.getElementById('interview-content');
+      var intPlayers = renderQuestions(INTERVIEW_QUESTIONS, AUDIO_INTERVIEW, intContainer);
+      document.getElementById('interview-badge').textContent = INTERVIEW_QUESTIONS.length + ' questions';
+
+      // Init sections
+      toggleSection('lr-header', 'lr-body', 'lr-chevron');
+      toggleSection('interview-header', 'interview-body', 'interview-chevron');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Detailed Review
+    document.getElementById('review-btn').addEventListener('click', function() {
+      ['lr', 'interview'].forEach(function(id) {
+        var body = document.getElementById(id + '-body');
+        var chevron = document.getElementById(id + '-chevron');
+        if (body && !body.classList.contains('open')) {
+          body.classList.add('open');
+          chevron.classList.add('open');
+          requestAnimationFrame(function() {
+            body.style.maxHeight = body.scrollHeight + 80 + 'px';
+          });
+        }
+      });
+      var first = document.getElementById('lr-section');
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Restart Test
+    document.getElementById('restart-btn').addEventListener('click', function() {
+      if (window.showConfirm) {
+        window.showConfirm('Restart Test',
+          'Are you sure you want to restart? Your speaking responses will be cleared.',
+          [
+            { text: 'Cancel', cls: 'cancel', onClick: function() {} },
+            { text: 'Restart', cls: 'primary', onClick: function() {
+              clearAllTestData();
+              window.location.href = 'start.html';
+            }}
+          ], true);
+      } else {
+        if (confirm('Are you sure you want to restart? Your speaking responses will be cleared.')) {
+          clearAllTestData();
+          window.location.href = 'start.html';
+        }
+      }
+    });
+
+    document.querySelector('.volume-btn').addEventListener('click', function() {
+      window.showHelp('Volume', 'Use the volume slider on each audio player to adjust volume.');
+    });
+    document.querySelector('.help-btn').addEventListener('click', function() {
+      window.showHelp('Help', 'Your responses are based on the TOEFL iBT Speaking section rubric.');
+    });
+  </script>
+  <script>
+    (function(){
+      if(new URLSearchParams(window.location.search).get('mode')!=='report')return;
+      document.getElementById('back-results-btn').style.display='flex';
+      document.getElementById('next-results-btn').style.display='flex';
+      var mod='speaking';
+      var routes={reading:'../listening/listening_results.html?mode=report',listening:'../writing/writing_results.html?mode=report',writing:'../speaking/speaking_results.html?mode=report'};
+      var backRoutes={listening:'../reading/reading_results.html?mode=report',writing:'../listening/listening_results.html?mode=report',speaking:'../writing/writing_results.html?mode=report'};
+      if(routes[mod])document.getElementById('next-results-btn').onclick=function(){window.location.href=routes[mod]};
+      else document.getElementById('next-results-btn').style.display='none';
+      if(backRoutes[mod])document.getElementById('back-results-btn').onclick=function(){window.location.href=backRoutes[mod]};
+      else document.getElementById('back-results-btn').style.display='none';
+    })();
+  </script>
+</body>
+</html>

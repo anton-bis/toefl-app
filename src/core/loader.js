@@ -7,6 +7,11 @@ class ResourceLoader {
   constructor() {
     this.cache = new Map();
     this.basePath = 'assets/questions/';
+    this._externalFiles = null;
+  }
+
+  setExternalFiles(fileMap) {
+    this._externalFiles = fileMap;
   }
 
   /**
@@ -56,13 +61,20 @@ class ResourceLoader {
    * 加载Markdown文件
    */
   async loadMarkdown(path) {
-    // 检查是否在本地文件协议下
-    if (window.location.protocol === 'file:') {
+    const useXHR = window.location.protocol === 'file:';
+    const isElectron = typeof window.electronAPI !== 'undefined';
+
+    // Electron 主进程提供的内容目录文件
+    if (isElectron && this._externalFiles && this._externalFiles.has(path)) {
+      const contentPath = await window.electronAPI.getContentPath(path);
+      return this.loadWithXHR(contentPath);
+    }
+
+    if (useXHR) {
       console.log(`检测到file://协议，使用XMLHttpRequest加载: ${path}`);
       return this.loadWithXHR(path);
     }
 
-    // 正常使用fetch（需要HTTP服务器）
     const response = await fetch(path);
     if (!response.ok) {
       throw new Error(`Markdown加载失败: ${response.status}`);
@@ -142,13 +154,30 @@ class ResourceLoader {
     // 在实际项目中，这里应该扫描服务器目录
     // 目前我们返回预设的文件列表
     const questionFiles = {
-      reading: ['reading/reading-TPO-01.md', 'reading/reading-TPO-02.md'],
-      listening: ['listening/listening-2026-test-01.md'],
-      writing: ['writing/writing-2026-task-01.md'],
-      speaking: ['speaking/speaking-2026-task-01.md']
+      reading: [
+        'reading/TPO-01/reading-TPO-01.md',
+        'reading/TPO-02/reading-TPO-02.md',
+        'reading/TPO-03/reading-TPO-03.md'
+      ],
+      listening: ['listening/TPO-01/listening-TPO-01.md', 'listening/TPO-03/listening-TPO-03.md'],
+      writing: ['writing/TPO-01/writing-TPO-01.md'],
+      speaking: ['speaking/TPO-01/speaking-TPO-01.md', 'speaking/TPO-03/speaking-TPO-03.md']
     };
 
-    return questionFiles[moduleName] || [];
+    const baseFiles = questionFiles[moduleName] || [];
+
+    // 合并内容更新目录的文件
+    if (this._externalFiles && this._externalFiles[moduleName]) {
+      const seen = new Set(baseFiles);
+      for (const f of this._externalFiles[moduleName]) {
+        if (!seen.has(f)) {
+          baseFiles.push(f);
+          seen.add(f);
+        }
+      }
+    }
+
+    return baseFiles;
   }
 
   /**

@@ -1,0 +1,1252 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TOEFL iBT - Write an Email</title>
+<link rel="stylesheet" href="../../../font-awesome.css" />
+<link rel="stylesheet" href="../../../styles.css" />
+<style>
+:root {
+  --teal: #008080;
+  --text: #1d1d1f;
+  --muted: #86868b;
+  --border: #e5e5e7;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== 计时器信息行 ===== */
+.timer-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  background-color: white;
+  border-bottom: 3px solid #222;
+  box-sizing: border-box;
+}
+
+.question-progress-info {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.timer-display-exam {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+  background-color: #fff;
+  padding: 5px 15px;
+  border-radius: 4px;
+  min-width: 80px;
+  text-align: center;
+  letter-spacing: 1px;
+  border: 1px solid #e0e0e0;
+}
+
+.timer-display-exam.urgent {
+  color: #cc0000;
+  background-color: #fff5f5;
+  border-color: #cc0000;
+}
+
+.hide-time-btn {
+  background-color: #f5f5f5;
+  color: #444;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.hide-time-btn:hover {
+  background-color: #e8e8e8;
+  border-color: #aaa;
+}
+
+/* ===== 主内容区域 ===== */
+.main-content {
+  max-width: none;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 16px 20px 20px;
+  overflow: hidden;
+}
+
+/* ===== 两栏布局 ===== */
+.two-column-layout {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+.left-column {
+  flex: 0 0 calc(35% - 10px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 左侧圆角容器 ===== */
+.left-card {
+  border: 1px solid #d1d1d6;
+  border-radius: 12px;
+  padding: 4px 24px 20px 24px;
+  background: #fff;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.left-card .identity-info {
+  margin-bottom: 14px;
+}
+
+.left-card .task-instruction {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1d1d1f;
+}
+
+.left-card .requirements-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0 0 14px 0;
+}
+
+.left-card .requirements-list li {
+  margin-bottom: 4px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.left-card .writing-tip {
+  font-style: italic;
+  color: #666;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid #e5e5e7;
+}
+
+/* ===== 右侧写作区 ===== */
+.response-header {
+  margin-bottom: 4px;
+}
+
+.response-header h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin: 0 0 24px 0;
+}
+
+.response-header .to-line,
+.response-header .subject-line {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1d1d1f;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+/* ===== 右侧写作区容器（工具栏 + 输入框） ===== */
+.writing-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid #d1d1d6;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ===== 工具栏 ===== */
+.writing-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f0f2;
+  padding: 8px 12px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s;
+}
+
+.toolbar-btn:hover {
+  background: #e8e8ed;
+  border-color: #bbb;
+}
+
+.toolbar-btn:active {
+  background: #ddd;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.word-count-display {
+  font-size: 14px;
+  color: #666;
+  min-width: 70px;
+  text-align: right;
+}
+
+.hide-wc-btn {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.hide-wc-btn:hover {
+  background: #e0e0e2;
+  color: #333;
+}
+
+/* ===== 输入框 ===== */
+.response-textarea {
+  width: 100%;
+  flex: 1;
+  border: none;
+  border-top: 1px solid #d1d1d6;
+  padding: 12px 14px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #1d1d1f;
+  resize: none;
+  overflow-y: auto;
+  box-sizing: border-box;
+  outline: none;
+  font-family: -apple-system, 'SF Pro Display', 'Avenir Next', 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+.response-textarea:focus {
+  outline: none;
+}
+
+.writing-area:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 2px rgba(0, 128, 128, 0.15);
+}
+
+/* ===== Help Modal ===== */
+.help-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.help-modal-overlay.open {
+  display: flex;
+}
+
+.help-modal-card {
+  background: white;
+  border-radius: 14px;
+  width: 480px;
+  max-width: 92vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+}
+
+.help-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid #e5e5e7;
+}
+
+.help-modal-header h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.help-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f0f2;
+  cursor: pointer;
+  font-size: 14px;
+  color: #86868b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.help-modal-close:hover {
+  background: #e0e0e2;
+  color: #1d1d1f;
+}
+
+.help-modal-body {
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+}
+
+/* ===== Review 弹窗面板（参照 Listening 模块风格） ===== */
+.review-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1500;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-overlay.active {
+  display: flex;
+}
+
+.review-panel {
+  background: white;
+  border-radius: 14px;
+  width: 600px;
+  max-width: 92vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.review-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  border-radius: 14px 14px 0 0;
+}
+
+.review-header-bar h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-header-bar h3 i {
+  color: var(--teal);
+}
+
+.review-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.review-mark-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f0f2;
+  cursor: pointer;
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.review-mark-btn:hover {
+  background: #e0e0e2;
+  color: #666;
+}
+
+.review-mark-btn.marked {
+  background: #fff3cd;
+  color: #ffc107;
+}
+
+.review-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f0f0f2;
+  cursor: pointer;
+  font-size: 14px;
+  color: #86868b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.review-close-btn:hover {
+  background: #e0e0e2;
+  color: #1d1d1f;
+}
+
+.review-body {
+  padding: 18px;
+}
+
+.review-written-text {
+  background: #f9f9fb;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  min-height: 120px;
+  max-height: 360px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.review-written-text.empty {
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+  padding: 40px 18px;
+}
+
+.review-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 16px 0;
+  padding: 12px 0;
+  border-top: 1px solid #e5e5e7;
+  border-bottom: 1px solid #e5e5e7;
+}
+
+.review-stat {
+  text-align: center;
+}
+
+.review-stat .stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.review-stat .stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.review-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.review-retry-btn {
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: #ffc107;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.review-retry-btn:hover {
+  background: #e0a800;
+}
+
+.review-close-bottom-btn {
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  background: #6c757d;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.review-close-bottom-btn:hover {
+  background: #5a6268;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 900px) {
+  .two-column-layout {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .left-column {
+    flex: 0 0 auto;
+    max-height: 30vh;
+  }
+  .right-column {
+    flex: 1 1 auto;
+  }
+  .review-panel {
+    width: 95vw;
+  }
+}
+
+/* ===== Timer Expired Modal ===== */
+.timer-expired-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+.timer-expired-modal.show {
+  display: flex;
+}
+.timer-expired-modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px 40px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+.timer-expired-modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d32f2f;
+  margin-bottom: 15px;
+}
+.timer-expired-modal-text {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+.timer-expired-modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+.timer-expired-modal-btn {
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.timer-expired-modal-btn-continue {
+  background-color: #008080;
+  color: white;
+}
+.timer-expired-modal-btn-continue:hover {
+  background-color: #006666;
+}
+.timer-expired-modal-btn-exit {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.timer-expired-modal-btn-exit:hover {
+  background-color: #e0e0e0;
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="logo">toefl ibt</div>
+    <button class="nav-button dark" id="exit-btn"><span>Exit</span><i class="fas fa-sign-out-alt"></i></button>
+  </div>
+  <div class="nav-buttons">
+    <button class="nav-button dark" id="help-btn">
+      <span>Help</span>
+      <i class="fas fa-question-circle"></i>
+    </button>
+    <button class="nav-button dark" id="review-btn">
+      <span>Review</span>
+      <i class="fas fa-clipboard-list"></i>
+    </button>
+    <button class="nav-button light" id="next-btn">
+      <span>Next</span>
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
+</header>
+
+<div class="timer-info-row">
+  <div class="question-progress-info">Question {{QUESTION_NUMBER}} of {{TOTAL_QUESTIONS}}</div>
+  <div class="timer-controls">
+    <div class="timer-display-exam" id="timer-display">07:00</div>
+    <button class="hide-time-btn" id="toggle-timer-btn">
+      <i class="fas fa-eye-slash"></i>
+      <span>Hide Time</span>
+    </button>
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="two-column-layout">
+
+    <!-- ========== 左栏：题目信息 ========== -->
+    <div class="left-column">
+      <div class="left-card">
+        <div class="identity-info">
+          {{IDENTITY_INFO}}
+        </div>
+
+        <div class="task-instruction">
+          Write an email to {{TO_NAME}}. In your email, do the following:
+        </div>
+
+        <ul class="requirements-list">
+          {{REQUIREMENTS}}
+        </ul>
+
+        <p class="writing-tip">
+          Write as much as you can and in complete sentences.
+        </p>
+      </div>
+    </div>
+
+    <!-- ========== 右栏：写作区 ========== -->
+    <div class="right-column">
+      <div class="response-header">
+        <h2>Your Response:</h2>
+        <div class="to-line">To: {{TO_NAME}}</div>
+        <div class="subject-line">Subject: {{SUBJECT_TEXT}}</div>
+      </div>
+
+      <div class="writing-area">
+        <div class="writing-toolbar" id="writing-toolbar">
+          <div class="toolbar-left">
+            <button class="toolbar-btn" id="cut-btn" title="Cut">
+              <i class="fas fa-cut"></i> Cut
+            </button>
+            <button class="toolbar-btn" id="paste-btn" title="Paste">
+              <i class="fas fa-paste"></i> Paste
+            </button>
+            <button class="toolbar-btn" id="undo-btn" title="Undo">
+              <i class="fas fa-undo"></i> Undo
+            </button>
+            <button class="toolbar-btn" id="redo-btn" title="Redo">
+              <i class="fas fa-redo"></i> Redo
+            </button>
+          </div>
+          <div class="toolbar-right">
+            <button class="hide-wc-btn" id="hide-wc-btn">
+              <i class="fas fa-eye-slash"></i> Hide Word Count
+            </button>
+            <span class="word-count-display" id="word-count">Words: 0</span>
+          </div>
+        </div>
+
+        <textarea class="response-textarea" id="response-textarea"
+                  placeholder="Enter your response here..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== Timer Expired Modal ===== -->
+<div id="timer-expired-modal" class="timer-expired-modal">
+  <div class="timer-expired-modal-content">
+    <div class="timer-expired-modal-title">Time is Up!</div>
+    <div class="timer-expired-modal-text">Your time for this task has expired. You can continue working without time limit, or end this task to move on.</div>
+    <div class="timer-expired-modal-buttons">
+      <button id="timer-modal-continue" class="timer-expired-modal-btn timer-expired-modal-btn-continue">Continue</button>
+      <button id="timer-modal-exit" class="timer-expired-modal-btn timer-expired-modal-btn-exit">End Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Help Modal ===== -->
+<div class="help-modal-overlay" id="help-modal-overlay">
+  <div class="help-modal-card">
+    <div class="help-modal-header">
+      <h3><i class="fas fa-question-circle"></i> Help</h3>
+      <button class="help-modal-close" id="help-modal-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="help-modal-body">
+      <p><strong>Write an Email</strong></p>
+      <ul>
+        <li>Read the prompt on the left carefully.</li>
+        <li>Write your email in the text area on the right.</li>
+        <li>Use <strong>Cut</strong>, <strong>Paste</strong>, <strong>Undo</strong>, and <strong>Redo</strong> to edit your writing.</li>
+        <li>Your word count is displayed in the toolbar. Click <strong>Hide Word Count</strong> to toggle visibility.</li>
+        <li>Click <strong>Review</strong> to see your written response, mark the question, or retry.</li>
+        <li>Click <strong>Next</strong> when you have finished writing.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Review 弹窗面板 ===== -->
+<div class="review-overlay" id="review-overlay">
+  <div class="review-panel" id="review-panel">
+    <div class="review-header-bar" id="review-drag-handle">
+      <h3><i class="fas fa-clipboard-list"></i> Review</h3>
+      <div class="review-header-actions">
+        <button class="review-mark-btn" id="review-mark-btn" title="Mark this question">
+          <i class="far fa-flag"></i>
+        </button>
+        <button class="review-close-btn" id="review-close-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="review-body">
+      <div class="review-written-text" id="review-written-text"></div>
+      <div class="review-stats">
+        <div class="review-stat">
+          <span class="stat-label">Words</span>
+          <span class="stat-value" id="review-word-count">0</span>
+        </div>
+        <div class="review-stat">
+          <span class="stat-label">Characters</span>
+          <span class="stat-value" id="review-char-count">0</span>
+        </div>
+      </div>
+      <div class="review-actions">
+        <button class="review-retry-btn" id="review-retry-btn">
+          <i class="fas fa-redo"></i> Retry
+        </button>
+        <button class="review-close-bottom-btn" id="review-close-bottom-btn">
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ===== 计时器 =====
+  var TIMER_SECONDS = {{TIMER_SECONDS}};
+  var DURATION = TIMER_SECONDS;
+  var totalSeconds = TIMER_SECONDS;
+  var timerVisible = true;
+  var timerInterval;
+  var overtime = 0;
+  var unlimitedMode = false;
+
+  var savedTime = localStorage.getItem('toefl_writing_timer_remaining');
+  var timerStarted = localStorage.getItem('toefl_writing_timer_started');
+  if (savedTime && timerStarted === 'true') {
+    totalSeconds = parseInt(savedTime, 10);
+  }
+
+  var timerDisplay = document.getElementById('timer-display');
+
+  function updateTimerDisplay() {
+    var minutes = Math.floor(totalSeconds / 60);
+    var seconds = totalSeconds % 60;
+    timerDisplay.textContent = String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    if (totalSeconds <= 60) {
+      timerDisplay.classList.add('urgent');
+    } else {
+      timerDisplay.classList.remove('urgent');
+    }
+  }
+
+  function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+    updateTimerDisplay();
+    timerInterval = setInterval(function () {
+      if (!unlimitedMode) {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          timerDisplay.textContent = '00:00';
+          timerDisplay.classList.add('urgent');
+          showTimeUpModal();
+          return;
+        }
+        totalSeconds--;
+        updateTimerDisplay();
+        localStorage.setItem('toefl_writing_timer_remaining', String(totalSeconds));
+      } else {
+        overtime++;
+        localStorage.setItem('toefl_writing_overtime', String(overtime));
+      }
+    }, 1000);
+  }
+
+  function showTimeUpModal() {
+    var modal = document.getElementById('timer-expired-modal');
+    modal.classList.add('show');
+
+    document.getElementById('timer-modal-continue').onclick = function () {
+      modal.classList.remove('show');
+      unlimitedMode = true;
+      timerDisplay.textContent = '--:--';
+      timerInterval = setInterval(function () {
+        overtime++;
+        localStorage.setItem('toefl_writing_overtime', String(overtime));
+      }, 1000);
+    };
+
+    document.getElementById('timer-modal-exit').onclick = function () {
+      modal.classList.remove('show');
+      endTask();
+    };
+  }
+
+  function endTask() {
+    localStorage.removeItem('toefl_writing_overtime');
+    localStorage.setItem('toefl_writing_email_response', textarea.value);
+    window.location.href = '{{NEXT_PAGE}}';
+  }
+
+  function toggleTimer() {
+    var toggleBtn = document.getElementById('toggle-timer-btn');
+    if (timerVisible) {
+      timerDisplay.style.visibility = 'hidden';
+      toggleBtn.innerHTML = '<i class="fas fa-eye"></i><span>Show Time</span>';
+      timerVisible = false;
+    } else {
+      timerDisplay.style.visibility = 'visible';
+      toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>Hide Time</span>';
+      timerVisible = true;
+    }
+  }
+
+  document.getElementById('toggle-timer-btn').addEventListener('click', toggleTimer);
+
+  // ===== 文本输入区 =====
+  var textarea = document.getElementById('response-textarea');
+  var wordCountEl = document.getElementById('word-count');
+  var hideWcBtn = document.getElementById('hide-wc-btn');
+  var wcVisible = true;
+
+  // 恢复已保存的内容
+  var savedResponse = localStorage.getItem('toefl_writing_email_response');
+  if (savedResponse) {
+    textarea.value = savedResponse.replace(/[\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef]/g, '');
+  }
+
+  function countWords(text) {
+    if (!text || !text.trim()) return 0;
+    return text.trim().split(/\s+/).filter(function (w) { return w.length > 0; }).length;
+  }
+
+  function updateWordCount() {
+    var text = textarea.value.replace(/[\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef]/g, '');
+    textarea.value = text;
+    var words = countWords(text);
+    wordCountEl.textContent = 'Words: ' + words;
+    localStorage.setItem('toefl_writing_email_response', text);
+  }
+
+  textarea.addEventListener('beforeinput', function (e) {
+    if (e.data && /[\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef]/.test(e.data)) {
+      e.preventDefault();
+    }
+  });
+
+  textarea.addEventListener('input', function () {
+    var filtered = textarea.value.replace(/[\u4e00-\u9fff\u3400-\u4dbf\u3000-\u303f\uff00-\uffef]/g, '');
+    if (filtered !== textarea.value) {
+      textarea.value = filtered;
+    }
+    updateWordCount();
+  });
+
+  hideWcBtn.addEventListener('click', function () {
+    if (wcVisible) {
+      wordCountEl.style.visibility = 'hidden';
+      hideWcBtn.innerHTML = '<i class="fas fa-eye"></i> Show Word Count';
+      wcVisible = false;
+    } else {
+      wordCountEl.style.visibility = 'visible';
+      hideWcBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Word Count';
+      wcVisible = true;
+    }
+  });
+
+  // ===== 工具栏：Cut / Paste / Undo / Redo =====
+  var undoStack = [];
+  var redoStack = [];
+  var MAX_HISTORY = 50;
+
+  function pushUndo(text) {
+    if (undoStack.length >= MAX_HISTORY) { undoStack.shift(); }
+    undoStack.push(text);
+  }
+
+  function snapshot() {
+    pushUndo(textarea.value);
+    redoStack = [];
+  }
+
+  textarea.addEventListener('keydown', function (e) {
+    // Enter, Delete, Backspace, Space 时记录快照
+    if (e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete' || e.key === ' ') {
+      snapshot();
+    }
+  });
+
+  textarea.addEventListener('paste', function () {
+    setTimeout(snapshot, 0);
+  });
+
+  document.getElementById('cut-btn').addEventListener('click', function () {
+    var start = textarea.selectionStart;
+    var end = textarea.selectionEnd;
+    if (start === end) return;
+    var selected = textarea.value.substring(start, end);
+    navigator.clipboard.writeText(selected).catch(function () {});
+
+    var before = textarea.value.substring(0, start);
+    var after = textarea.value.substring(end);
+    pushUndo(textarea.value);
+    redoStack = [];
+    textarea.value = before + after;
+    textarea.selectionStart = start;
+    textarea.selectionEnd = start;
+    textarea.focus();
+    updateWordCount();
+  });
+
+  document.getElementById('paste-btn').addEventListener('click', function () {
+    navigator.clipboard.readText().then(function (clipText) {
+      if (!clipText) return;
+      var start = textarea.selectionStart;
+      var end = textarea.selectionEnd;
+      var before = textarea.value.substring(0, start);
+      var after = textarea.value.substring(end);
+      pushUndo(textarea.value);
+      redoStack = [];
+      textarea.value = before + clipText + after;
+      var newPos = start + clipText.length;
+      textarea.selectionStart = newPos;
+      textarea.selectionEnd = newPos;
+      textarea.focus();
+      updateWordCount();
+    }).catch(function () {});
+  });
+
+  document.getElementById('undo-btn').addEventListener('click', function () {
+    if (undoStack.length === 0) return;
+    redoStack.push(textarea.value);
+    textarea.value = undoStack.pop();
+    textarea.focus();
+    updateWordCount();
+  });
+
+  document.getElementById('redo-btn').addEventListener('click', function () {
+    if (redoStack.length === 0) return;
+    pushUndo(textarea.value);
+    textarea.value = redoStack.pop();
+    textarea.focus();
+    updateWordCount();
+  });
+
+  // 键盘快捷键支持
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+      e.preventDefault();
+      document.getElementById('undo-btn').click();
+    }
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+      e.preventDefault();
+      document.getElementById('redo-btn').click();
+    }
+  });
+
+  // ===== Help Modal =====
+  document.getElementById('help-btn').addEventListener('click', function () {
+    document.getElementById('help-modal-overlay').classList.add('open');
+  });
+
+  document.getElementById('help-modal-close').addEventListener('click', function () {
+    document.getElementById('help-modal-overlay').classList.remove('open');
+  });
+
+  document.getElementById('help-modal-overlay').addEventListener('click', function (e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+
+  // ===== Review 弹窗面板 =====
+  var reviewOverlay = document.getElementById('review-overlay');
+  var reviewWrittenText = document.getElementById('review-written-text');
+  var reviewMarkBtn = document.getElementById('review-mark-btn');
+  var marked = false;
+
+  function openReview() {
+    var text = textarea.value.trim();
+    if (text) {
+      reviewWrittenText.textContent = text;
+      reviewWrittenText.classList.remove('empty');
+    } else {
+      reviewWrittenText.textContent = 'No response written yet.';
+      reviewWrittenText.classList.add('empty');
+    }
+    document.getElementById('review-word-count').textContent = countWords(textarea.value);
+    document.getElementById('review-char-count').textContent = textarea.value.length;
+    reviewOverlay.classList.add('active');
+    updateMarkButton();
+  }
+
+  function closeReview() {
+    reviewOverlay.classList.remove('active');
+  }
+
+  document.getElementById('review-btn').addEventListener('click', openReview);
+
+  document.getElementById('review-close-btn').addEventListener('click', closeReview);
+  document.getElementById('review-close-bottom-btn').addEventListener('click', closeReview);
+
+  reviewOverlay.addEventListener('click', function (e) {
+    if (e.target === reviewOverlay) closeReview();
+  });
+
+  // Mark 功能
+  function updateMarkButton() {
+    if (marked) {
+      reviewMarkBtn.classList.add('marked');
+      reviewMarkBtn.title = 'Unmark this question';
+      reviewMarkBtn.innerHTML = '<i class="fas fa-flag"></i>';
+    } else {
+      reviewMarkBtn.classList.remove('marked');
+      reviewMarkBtn.title = 'Mark this question';
+      reviewMarkBtn.innerHTML = '<i class="far fa-flag"></i>';
+    }
+  }
+
+  reviewMarkBtn.addEventListener('click', function () {
+    marked = !marked;
+    updateMarkButton();
+    localStorage.setItem('toefl_writing_email_marked', marked ? 'true' : 'false');
+  });
+
+  // 恢复 mark 状态
+  if (localStorage.getItem('toefl_writing_email_marked') === 'true') {
+    marked = true;
+  }
+
+  // Retry 功能
+  document.getElementById('review-retry-btn').addEventListener('click', function () {
+    if (window.showConfirm) {
+      window.showConfirm('Retry',
+        'Are you sure you want to clear your response and start over?\nThis cannot be undone.',
+        [
+          { text: 'Cancel', cls: 'secondary', onClick: function () {} },
+          { text: 'Retry', cls: 'danger', onClick: function () {
+            textarea.value = '';
+            undoStack = [];
+            redoStack = [];
+            updateWordCount();
+            localStorage.removeItem('toefl_writing_email_response');
+            closeReview();
+          }}
+        ]
+      );
+    } else {
+      textarea.value = '';
+      undoStack = [];
+      redoStack = [];
+      updateWordCount();
+      localStorage.removeItem('toefl_writing_email_response');
+      closeReview();
+    }
+  });
+
+  // ===== Review 面板拖动 =====
+  var reviewPanel = document.getElementById('review-panel');
+  var dragHandle = document.getElementById('review-drag-handle');
+  var isDragging = false;
+  var dragStartX, dragStartY, panelStartX, panelStartY;
+
+  dragHandle.addEventListener('mousedown', function (e) {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    var rect = reviewPanel.getBoundingClientRect();
+    panelStartX = rect.left;
+    panelStartY = rect.top;
+    reviewPanel.style.position = 'absolute';
+    reviewPanel.style.left = panelStartX + 'px';
+    reviewPanel.style.top = panelStartY + 'px';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    reviewPanel.style.left = (panelStartX + e.clientX - dragStartX) + 'px';
+    reviewPanel.style.top = (panelStartY + e.clientY - dragStartY) + 'px';
+  });
+
+  document.addEventListener('mouseup', function () {
+    if (isDragging) {
+      isDragging = false;
+    }
+  });
+
+  // ===== Next 按钮 =====
+  document.getElementById('next-btn').addEventListener('click', function () {
+    if (window.showConfirm) {
+      window.showConfirm('Next',
+        'Are you ready to move to the next question?\nYour response will be saved.',
+        [
+          { text: 'Cancel', cls: 'secondary', onClick: function () {} },
+          { text: 'Next', cls: 'primary', onClick: function () {
+            endTask();
+          }}
+        ]
+      );
+    } else {
+      endTask();
+    }
+  });
+
+  // ===== Exit 按钮 =====
+  (function () {
+    var exitBtn = document.getElementById('exit-btn');
+    if (!exitBtn) return;
+    var newExitBtn = exitBtn.cloneNode(true);
+    exitBtn.parentNode.replaceChild(newExitBtn, exitBtn);
+    newExitBtn.addEventListener('click', function () {
+      localStorage.setItem('toefl_writing_email_response', textarea.value);
+      if (window.showConfirm) {
+        window.showConfirm('Exit Test',
+          'Your progress has been saved.\nWould you like to keep it or clear all data?',
+          [
+            { text: 'Save & Exit', cls: 'primary', onClick: function () {
+              localStorage.setItem('toefl_writing_resume_page', window.location.pathname.split('/').pop());
+              localStorage.setItem('{{RESUME_PAGE_KEY}}', window.location.pathname.split('/').pop());
+              window.location.href = '../../../dist/index.html';
+            }},
+            { text: 'Clear & Exit', cls: 'danger', onClick: function () {
+              var keys = [];
+              for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && (k.indexOf('toefl_tpo') === 0 || k.indexOf('toefl_writing_') === 0)) keys.push(k);
+              }
+              keys.forEach(function (k) { localStorage.removeItem(k); });
+              window.location.href = '../../../dist/index.html';
+            }}
+          ], true);
+      } else {
+        window.location.href = 'start.html';
+      }
+    });
+  })();
+
+  // ===== 启动 =====
+  updateTimerDisplay();
+  startTimer();
+  updateWordCount();
+  localStorage.setItem('toefl_writing_timer_started', 'true');
+
+})();
+</script>
+</body>
+</html>

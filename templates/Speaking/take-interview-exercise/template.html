@@ -1,0 +1,928 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Speaking Question {{QUESTION_NUMBER}}</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      :root {
+        --teal: #008080;
+        --text: #1d1d1f;
+        --muted: #86868b;
+        --border: #e5e5e7;
+      }
+      html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+      .header {
+        background-color: var(--teal); color: white; padding: 15px 30px;
+        display: flex; justify-content: space-between; align-items: center;
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 60px;
+      }
+      .logo { font-size: 36px; font-weight: bold; color: white; }
+      .nav-buttons { display: flex; gap: 12px; }
+      .nav-button {
+        padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px;
+        cursor: pointer; border: 3px solid transparent; transition: all 0.3s ease;
+        display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .nav-button.dark {
+        background-color: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);
+      }
+      .nav-button.dark:hover { background-color: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); }
+      .nav-button.light {
+        background-color: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);
+      }
+      .nav-button.light:hover { background-color: rgba(255,255,255,0.25); }
+
+      .info-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 12px 30px; background-color: white; border-bottom: 3px solid #222;
+        margin-top: 60px; min-height: 56.4px; position: relative; z-index: 1;
+      }
+      .question-progress-info { font-size: 14px; color: #444; font-weight: 500; }
+
+      .main-content {
+        max-width: 1200px; margin: 0 auto;
+        height: calc(100vh - 120px); display: flex; flex-direction: column;
+        box-sizing: border-box; overflow: hidden; padding: 10px 30px 35px;
+      }
+
+      .exercise-title {
+        text-align: center; font-size: 30px; font-weight: bold;
+        font-family: -apple-system, 'SF Pro Display', 'Avenir Next', 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #222; margin: 0 0 10px; line-height: 1.3; flex-shrink: 0;
+      }
+      .question-image-area {
+        text-align: center; margin-bottom: 12px;
+        flex: 1 1 auto; min-height: 0;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .question-image {
+        max-width: 100%; max-height: 100%; width: auto; height: auto;
+        object-fit: contain; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      }
+
+      .audio-player-row { display: flex; justify-content: center; margin-bottom: 10px; flex-shrink: 0; }
+      .audio-inline-player {
+        display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+        background: #f0f4f4; border-radius: 8px; max-width: 400px; width: 100%;
+      }
+      .audio-play-btn {
+        width: 36px; height: 36px; border-radius: 50%; border: none;
+        background: var(--teal); color: white; font-size: 14px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s;
+      }
+      .audio-play-btn.played { background: #aaa; cursor: not-allowed; }
+      .audio-progress-bar {
+        flex: 1; height: 4px; background: #d0d0d0; border-radius: 2px; position: relative; overflow: hidden;
+      }
+      .audio-progress-fill {
+        height: 100%; background: var(--teal); border-radius: 3px; width: 0%; transition: width 0.15s linear;
+      }
+      .audio-time { font-size: 13px; color: #666; font-weight: 600; min-width: 90px; text-align: right; }
+
+      /* Response Time Container */
+      .response-container {
+        max-width: 420px; margin: 15px auto 0; border-radius: 10px; overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1); flex-shrink: 0;
+      }
+      .response-header {
+        background: #555555; color: white; text-align: center; padding: 14px 12px;
+        font-size: 17px; font-weight: 600; letter-spacing: 0.3px;
+      }
+      .response-body {
+        background: #f8f8fa; padding: 12px 14px; display: flex;
+        align-items: center; justify-content: center; gap: 10px;
+      }
+      .response-body.recording { background: #fef5f5; }
+      .response-body.complete { background: #f0faf5; }
+
+      .mic-ring-wrapper { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
+      .mic-ring-svg { width: 48px; height: 48px; display: block; }
+      .mic-ring-bg { fill: none; stroke: #ddd; stroke-width: 4; }
+      .mic-ring-progress {
+        fill: none; stroke: #4CAF50; stroke-width: 4; stroke-linecap: round;
+        transform: rotate(-90deg); transform-origin: 50% 50%;
+      }
+      .mic-icon-overlay {
+        position: absolute; top: 0; left: 0; width: 48px; height: 48px;
+        display: flex; align-items: center; justify-content: center; font-size: 16px; color: #555;
+      }
+
+      .response-timer-display {
+        font-family: 'Courier New', 'SF Mono', monospace; font-size: 18px;
+        font-weight: 700; color: #222; min-width: 78px; text-align: center;
+      }
+      .response-timer-display.urgent { color: #cc0000; }
+      .response-status {
+        font-size: 11px; color: var(--muted); text-align: center; margin-top: 2px; min-width: 78px;
+      }
+
+      .response-action-btn {
+        width: 32px; height: 32px; border-radius: 50%; border: none;
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        font-size: 13px; transition: all 0.15s; flex-shrink: 0;
+      }
+      .response-action-btn.rerecord { background: #e8e8ed; color: #555; }
+      .response-action-btn.rerecord:hover { background: #d0d0d5; }
+      .response-action-btn.playback { background: var(--teal); color: white; }
+      .response-action-btn.playback:hover { background: #006666; }
+
+      .volume-panel {
+        position: absolute; top: 52px; right: 120px; background: white;
+        border-radius: 10px; padding: 14px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        display: none; align-items: center; gap: 10px; z-index: 2000;
+      }
+      .volume-panel input[type="range"] { width: 120px; accent-color: var(--teal); }
+      .volume-panel .vol-val { font-size: 13px; font-weight: 600; color: #333; min-width: 34px; text-align: center; }
+
+      .help-modal-overlay {
+        display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+        z-index: 2000; align-items: center; justify-content: center;
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      }
+      .help-modal-overlay.open { display: flex; }
+      .help-modal-card {
+        background: white; border-radius: 14px; width: 480px; max-width: 92vw;
+        max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      }
+      .help-modal-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 24px; border-bottom: 1px solid #e5e5e7;
+      }
+      .help-modal-header h3 { margin: 0; font-size: 17px; font-weight: 700; }
+      .help-modal-close {
+        width: 32px; height: 32px; border-radius: 50%; border: none; background: #f0f0f2;
+        cursor: pointer; font-size: 14px; color: #86868b; display: flex; align-items: center;
+        justify-content: center; transition: all 0.15s;
+      }
+      .help-modal-close:hover { background: #e0e0e2; color: #1d1d1f; }
+      .help-modal-body { padding: 24px; font-size: 14px; line-height: 1.7; color: #444; }
+
+      /* Review Panel */
+      .review-player-overlay {
+        display: none; position: fixed; inset: 0; z-index: 1500; pointer-events: none;
+      }
+      .review-player-overlay.active { display: block; pointer-events: auto; }
+      .review-player {
+        position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
+        width: 520px; max-width: 90vw; background: white; border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.25); z-index: 1501; cursor: grab; user-select: none;
+      }
+      .review-player:active { cursor: grabbing; }
+      .review-player-header {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 14px 18px; border-bottom: 1px solid var(--border);
+      }
+      .review-player-header h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text); }
+      .review-header-left { display: flex; align-items: center; gap: 10px; }
+      .review-mark-btn {
+        width: 30px; height: 30px; border-radius: 50%; border: none;
+        background: #f0f0f2; cursor: pointer; font-size: 13px; color: var(--muted);
+        display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+      }
+      .review-mark-btn:hover { background: #e0e0e2; }
+      .review-mark-btn.marked { background: #fff3cd; color: #f0ad4e; }
+      .review-player-close {
+        width: 30px; height: 30px; border-radius: 50%; border: none; background: #f0f0f2;
+        cursor: pointer; font-size: 14px; color: var(--muted); display: flex;
+        align-items: center; justify-content: center;
+      }
+      .review-player-body { padding: 16px 18px; }
+      .review-transcript {
+        max-height: 350px; overflow-y: auto; font-size: 18px; line-height: 1.7;
+        white-space: pre-line; color: #333; background: #f9f9fb; border-radius: 8px;
+        padding: 14px; margin-bottom: 14px; border: 1px solid var(--border);
+      }
+      .review-audio-controls { display: flex; align-items: center; gap: 10px; }
+      .review-progress-container { flex: 1; display: flex; align-items: center; }
+      .review-btn-sm {
+        width: 32px; height: 32px; border-radius: 50%; border: none; background: #f0f0f2;
+        cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;
+        color: #555; transition: all 0.15s;
+      }
+      .review-btn-sm:hover { background: #e0e0e2; }
+      .review-speed-group { display: flex; align-items: center; gap: 4px; margin-top: 8px; }
+      .review-speed-btn {
+        padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border);
+        background: #f5f5f7; cursor: pointer; font-size: 12px; font-weight: 600;
+        color: #555; transition: all 0.15s;
+      }
+      .review-speed-btn:hover { background: #e8e8ed; }
+      .review-speed-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
+      .review-time-display { font-size: 12px; color: var(--muted); min-width: 80px; text-align: center; }
+      .review-bottom-row {
+        display: flex; align-items: center; gap: 8px; margin-top: 8px;
+      }
+      .review-retry-btn {
+        padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+        background: #f5f5f7; cursor: pointer; font-size: 12px; font-weight: 600;
+        color: #555; transition: all 0.15s; display: flex; align-items: center; gap: 4px;
+      }
+      .review-retry-btn:hover { background: #e8e8ed; }
+
+      @media (max-width: 768px) {
+        .nav-button { padding: 8px 14px; font-size: 12px; }
+        .response-body { gap: 8px; padding: 12px 10px; }
+        .response-timer-display { font-size: 16px; min-width: 68px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="logo">toefl ibt</div>
+        <button class="nav-button dark exit-btn" id="exit-btn">
+          <span>Exit</span><i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+      <div class="nav-buttons">
+        <button class="nav-button dark volume-btn" id="volume-btn">
+          <span>Volume</span><i class="fas fa-volume-up"></i>
+        </button>
+        <button class="nav-button dark help-btn" id="help-btn">
+          <span>Help</span><i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button dark review-btn" id="review-btn">
+          <span>Review</span><i class="fas fa-headphones"></i>
+        </button>
+        <button class="nav-button dark back-btn" id="back-question-btn" style="{{BACK_BTN_STYLE}}">
+          <span>Back</span><i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="nav-button light next-btn" id="next-question-btn">
+          <span>Next</span><i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="info-row">
+      <div class="question-progress-info">Question {{QUESTION_NUMBER}} of {{TOTAL_QUESTIONS}}</div>
+      <div></div>
+    </div>
+
+    <main class="main-content">
+      <h2 class="exercise-title">Please answer the interviewer's questions</h2>
+
+      <div class="question-image-area">
+        <img class="question-image" src="{{QUESTION_IMAGE}}" alt="Question {{QUESTION_NUMBER}} Image" />
+      </div>
+
+      <div class="audio-player-row">
+        <div class="audio-inline-player" id="audio-inline-player">
+          <button class="audio-play-btn" id="audio-play-btn"><i class="fas fa-play"></i></button>
+          <div class="audio-progress-bar" id="audio-progress-bar">
+            <div class="audio-progress-fill" id="audio-progress-fill"></div>
+          </div>
+          <div class="audio-time" id="audio-time-display">00:00 / 00:00</div>
+        </div>
+      </div>
+
+      <div class="response-container" id="response-container">
+        <div class="response-header">Response Time</div>
+        <div class="response-body" id="response-body">
+          <button class="response-action-btn rerecord" id="response-rerecord-btn" style="visibility:hidden;" title="Re-record">
+            <i class="fas fa-rotate-right"></i>
+          </button>
+          <div class="mic-ring-wrapper">
+            <svg class="mic-ring-svg" viewBox="0 0 80 80">
+              <circle class="mic-ring-bg" cx="40" cy="40" r="34"/>
+              <circle class="mic-ring-progress" id="mic-ring-progress" cx="40" cy="40" r="34"
+                stroke-dasharray="213.628" stroke-dashoffset="213.628"/>
+            </svg>
+            <div class="mic-icon-overlay" id="mic-icon-overlay">
+              <i class="fas fa-microphone"></i>
+            </div>
+          </div>
+          <div>
+            <div class="response-timer-display" id="response-timer">00:00:{{RESPONSE_TIME_DISPLAY}}</div>
+            <div class="response-status" id="response-status">Click play to listen</div>
+          </div>
+          <button class="response-action-btn playback" id="response-playback-btn" style="visibility:hidden;" title="Play recording">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <div class="help-modal-overlay" id="help-modal-overlay">
+      <div class="help-modal-card">
+        <div class="help-modal-header">
+          <h3><i class="fas fa-question-circle"></i> Help</h3>
+          <button class="help-modal-close" id="help-modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="help-modal-body">
+          点击播放按钮收听音频。音频播放完毕后，将在倒计时结束时自动开始录音。倒计时结束，录音自动保存。
+        </div>
+      </div>
+    </div>
+
+    <div class="review-player-overlay" id="review-player-overlay">
+      <div class="review-player" id="review-player-panel">
+        <div class="review-player-header" id="review-player-drag-handle">
+          <div class="review-header-left">
+            <h3><i class="fas fa-headphones"></i> Review</h3>
+            <button class="review-mark-btn" id="review-mark-btn" title="Mark"><i class="fas fa-bookmark"></i></button>
+          </div>
+          <button class="review-player-close" id="review-player-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="review-player-body">
+          <div class="review-transcript" id="review-transcript">{{TRANSCRIPT}}</div>
+          <div class="review-audio-controls">
+            <button class="review-btn-sm" id="review-skip-back" title="Back 5s"><i class="fas fa-backward"></i></button>
+            <button class="review-btn-sm" id="review-play-pause" title="Play/Pause"><i class="fas fa-play"></i></button>
+            <button class="review-btn-sm" id="review-skip-fwd" title="Forward 5s"><i class="fas fa-forward"></i></button>
+            <div class="review-progress-container">
+              <input type="range" id="review-seek-slider" min="0" max="1000" value="0"
+                style="width:100%;height:6px;accent-color:var(--teal);cursor:pointer;margin:0;">
+            </div>
+            <span class="review-time-display" id="review-time-display">00:00 / 00:00</span>
+          </div>
+          <div class="review-speed-group">
+            <button class="review-speed-btn" data-speed="0.5">0.5x</button>
+            <button class="review-speed-btn" data-speed="0.8">0.8x</button>
+            <button class="review-speed-btn active" data-speed="1.0">1.0x</button>
+            <button class="review-speed-btn" data-speed="1.5">1.5x</button>
+            <button class="review-speed-btn" data-speed="2.0">2.0x</button>
+            <span style="flex:1;min-width:12px;"></span>
+            <i class="fas fa-volume-up" style="font-size:13px;color:#888;"></i>
+            <input type="range" id="review-volume-slider" min="0" max="100"
+              style="width:70px;height:4px;accent-color:var(--teal);">
+            <span style="font-size:12px;color:#888;min-width:32px;text-align:right;" id="review-volume-val">80%</span>
+          </div>
+          <div class="review-bottom-row">
+            <span style="flex:1;"></span>
+            <button class="review-retry-btn" id="review-retry-btn">
+              <i class="fas fa-rotate-right"></i> Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="volume-panel" class="volume-panel">
+      <i class="fas fa-volume-up" style="color:#008080;font-size:17px;"></i>
+      <input type="range" id="volume-slider" min="0" max="100" />
+      <span class="vol-val" id="volume-value">80%</span>
+    </div>
+
+    <audio id="task-audio" preload="auto" src="{{AUDIO_FILE}}"></audio>
+    <audio id="review-audio" preload="auto" src="{{AUDIO_FILE}}"></audio>
+
+    <script>
+      (function () {
+        var QUESTION_NUM = {{QUESTION_NUMBER}};
+        var TOTAL_RESPONSE_SECONDS = {{RESPONSE_TIME}};
+
+        var tAudio = document.getElementById('task-audio');
+        var rAudio = document.getElementById('review-audio');
+        var SEG_START = {{AUDIO_START}};
+        var SEG_END   = {{AUDIO_END}};
+
+        var savedVol = localStorage.getItem('toefl_speaking_volume');
+        if (savedVol !== null) {
+          tAudio.volume = parseInt(savedVol) / 100;
+          rAudio.volume = parseInt(savedVol) / 100;
+        }
+
+        // ---- Audio Player ----
+        var audioPlayBtn = document.getElementById('audio-play-btn');
+        var audioProgFill = document.getElementById('audio-progress-fill');
+        var audioTimeDisp = document.getElementById('audio-time-display');
+        var audioPlayed = false;
+
+        tAudio.addEventListener('loadedmetadata', function () {
+          var realEnd = (SEG_END >= 900) ? (tAudio.duration || 999) : SEG_END;
+          var d = realEnd - SEG_START;
+          if (d > 0) audioTimeDisp.textContent = '00:00 / ' + fmtTimeMMSS(d);
+        });
+
+        audioPlayBtn.addEventListener('click', function () {
+          if (audioPlayed) return;
+          var realEnd = (SEG_END >= 900) ? (tAudio.duration || 999) : SEG_END;
+          tAudio.currentTime = SEG_START;
+          tAudio.play().catch(function () {});
+          audioPlayBtn.classList.add('played');
+          audioPlayBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+          audioPlayed = true;
+          setStatus('Listening...');
+        });
+
+        tAudio.addEventListener('timeupdate', function () {
+          var t = tAudio.currentTime;
+          var realEnd = (SEG_END >= 900) ? (tAudio.duration || 999) : SEG_END;
+          var d = realEnd - SEG_START;
+          if (t >= realEnd) {
+            tAudio.pause(); tAudio.currentTime = realEnd;
+            audioProgFill.style.width = '100%';
+            if (!recordingComplete && !isRecording) startResponsePhase();
+          }
+          var rel = Math.max(0, t - SEG_START);
+          var pct = d > 0 ? (rel / d) * 100 : 0;
+          audioProgFill.style.width = Math.min(pct, 100) + '%';
+          audioTimeDisp.textContent = fmtTimeMMSS(rel) + ' / ' + fmtTimeMMSS(d);
+        });
+
+        function resetAudioPlayer() {
+          tAudio.pause();
+          tAudio.currentTime = SEG_START;
+          audioPlayed = false;
+          audioPlayBtn.classList.remove('played');
+          audioPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+          audioProgFill.style.width = '0%';
+          var realEnd = (SEG_END >= 900) ? (tAudio.duration || 999) : SEG_END;
+          var d = realEnd - SEG_START;
+          if (d > 0) audioTimeDisp.textContent = '00:00 / ' + fmtTimeMMSS(d);
+        }
+
+        // ---- Response Phase ----
+        var responseTimerEl = document.getElementById('response-timer');
+        var micRingProgress = document.getElementById('mic-ring-progress');
+        var micIconOverlay = document.getElementById('mic-icon-overlay');
+        var responseBody = document.getElementById('response-body');
+        var responseStatusEl = document.getElementById('response-status');
+        var rerecordBtn = document.getElementById('response-rerecord-btn');
+        var playbackBtn = document.getElementById('response-playback-btn');
+
+        var CIRCUMFERENCE = 2 * Math.PI * 34;
+        micRingProgress.style.strokeDasharray = CIRCUMFERENCE;
+        micRingProgress.style.strokeDashoffset = CIRCUMFERENCE;
+
+        var isRecording = false;
+        var recordingComplete = false;
+        var mediaRecorder = null;
+        var audioChunks = [];
+        var recordedBlob = null;
+        var responseRemaining = TOTAL_RESPONSE_SECONDS;
+        var ringAnimId = null;
+        var ringStartTime = 0;
+        var ringDuration = TOTAL_RESPONSE_SECONDS;
+        var ringForwardPlaying = null;
+
+        var storageKey = 'toefl_speaking_response_' + QUESTION_NUM;
+
+        function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+        function fmtTimeDisplay(totalSec) {
+          if (!isFinite(totalSec) || totalSec < 0) totalSec = 0;
+          var h = Math.floor(totalSec / 3600);
+          var m = Math.floor((totalSec % 3600) / 60);
+          var s = totalSec % 60;
+          return pad2(h) + ':' + pad2(m) + ':' + pad2(s);
+        }
+
+        function fmtTimeMMSS(s) {
+          var m = Math.floor(s / 60);
+          var sec = Math.floor(s % 60);
+          return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+        }
+
+        function setStatus(text) { responseStatusEl.textContent = text; }
+
+        function setRingProgress(progress) {
+          var p = Math.min(Math.max(progress, 0), 1);
+          micRingProgress.style.strokeDashoffset = CIRCUMFERENCE * (1 - p);
+        }
+
+        function stopRingAnimation() {
+          if (ringAnimId) { cancelAnimationFrame(ringAnimId); ringAnimId = null; }
+          if (ringForwardPlaying !== null) {
+            // Ring was being reused for playback count-up
+            ringForwardPlaying = null;
+          }
+        }
+
+        function runRingAnimation() {
+          ringAnimId = null;
+          var elapsed = (performance.now() - ringStartTime) / 1000;
+          var progress = Math.min(elapsed / ringDuration, 1);
+          setRingProgress(progress);
+          if (progress < 1) {
+            ringAnimId = requestAnimationFrame(runRingAnimation);
+          } else {
+            if (ringForwardPlaying !== null) {
+              setRingProgress(0);
+            }
+            ringForwardPlaying = null;
+          }
+        }
+
+        function startResponsePhase() {
+          stopRingAnimation();
+          responseRemaining = TOTAL_RESPONSE_SECONDS;
+          isRecording = true;
+          recordingComplete = false;
+
+          responseTimerEl.textContent = fmtTimeDisplay(responseRemaining);
+          responseTimerEl.classList.remove('urgent');
+          responseBody.classList.add('recording');
+          responseBody.classList.remove('complete');
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#cc0000;"></i>';
+          setStatus('Recording...');
+          rerecordBtn.style.visibility = 'hidden';
+          playbackBtn.style.visibility = 'hidden';
+          playbackBtn.querySelector('i').className = 'fas fa-play';
+          if (playbackAudio) { playbackAudio.pause(); playbackAudio = null; }
+
+          setRingProgress(0);
+          ringDuration = TOTAL_RESPONSE_SECONDS;
+
+          startRecording().then(function () {
+            ringStartTime = performance.now();
+            ringForwardPlaying = null;
+            ringAnimId = requestAnimationFrame(runRingAnimation);
+
+            var tickTimer = setInterval(function () {
+              var elapsed = (performance.now() - ringStartTime) / 1000;
+              responseRemaining = Math.max(0, Math.round(TOTAL_RESPONSE_SECONDS - elapsed));
+              responseTimerEl.textContent = fmtTimeDisplay(responseRemaining);
+              if (responseRemaining <= 3) responseTimerEl.classList.add('urgent');
+              if (responseRemaining <= 0) {
+                clearInterval(tickTimer);
+                finishResponse();
+              }
+            }, 200);
+          });
+        }
+
+        var cachedStream = null;
+
+        function startRecording() {
+          return new Promise(function (resolve) {
+            var mimeType = 'audio/webm;codecs=opus';
+            if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = 'audio/webm';
+            if (!MediaRecorder.isTypeSupported(mimeType)) mimeType = '';
+            function doRecord(stream) {
+              var opts = {};
+              if (mimeType) opts.mimeType = mimeType;
+              mediaRecorder = new MediaRecorder(stream, opts);
+              audioChunks = [];
+              mediaRecorder.ondataavailable = function (e) { if (e.data.size > 0) audioChunks.push(e.data); };
+              mediaRecorder.onstop = function () {
+                if (audioChunks.length > 0) {
+                  recordedBlob = new Blob(audioChunks, { type: mimeType || 'audio/webm' });
+                  saveRecording();
+                }
+                if (!cachedStream) {
+                  stream.getTracks().forEach(function (t) { t.stop(); });
+                }
+              };
+              mediaRecorder.start();
+              resolve();
+            }
+            if (cachedStream) {
+              doRecord(cachedStream);
+            } else {
+              navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+                cachedStream = stream;
+                doRecord(stream);
+              }).catch(function () {
+                setStatus('Microphone unavailable - demo mode');
+                isRecording = false;
+                resolve();
+              });
+            }
+          });
+        }
+
+        function finishResponse() {
+          stopRingAnimation();
+          isRecording = false;
+          recordingComplete = true;
+          if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+          responseTimerEl.classList.remove('urgent');
+          responseBody.classList.remove('recording');
+          responseBody.classList.add('complete');
+          setRingProgress(1);
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#4CAF50;"></i>';
+          setStatus('Response recorded');
+          rerecordBtn.style.visibility = 'visible';
+          playbackBtn.style.visibility = 'visible';
+        }
+
+        // ---- Playback of recorded response (icon in response body) ----
+        var playbackAudio = null;
+
+        function playRecordingWithRing() {
+          var blob = recordedBlob || loadRecording();
+          if (!blob) { setStatus('No recording found'); return; }
+          if (!playbackAudio) {
+            playbackAudio = new Audio(URL.createObjectURL(blob));
+            playbackAudio.addEventListener('ended', function () {
+              stopRingAnimation();
+              playbackBtn.querySelector('i').className = 'fas fa-play';
+              setRingProgress(0);
+              responseTimerEl.textContent = fmtTimeDisplay(0);
+            });
+            playbackAudio.addEventListener('loadedmetadata', function () {
+              ringDuration = isFinite(playbackAudio.duration) ? playbackAudio.duration : 1;
+            });
+          }
+          if (!playbackAudio.paused) {
+            playbackAudio.pause();
+            stopRingAnimation();
+            playbackBtn.querySelector('i').className = 'fas fa-play';
+            return;
+          }
+          playbackAudio.currentTime = 0;
+          playbackAudio.play();
+          playbackBtn.querySelector('i').className = 'fas fa-pause';
+          stopRingAnimation();
+          setRingProgress(0);
+          ringDuration = isFinite(playbackAudio.duration) ? playbackAudio.duration : 1;
+          ringStartTime = performance.now();
+          ringForwardPlaying = true;
+          ringAnimId = requestAnimationFrame(runRingAnimation);
+
+          var tickTimer = setInterval(function () {
+            var elapsed = (performance.now() - ringStartTime) / 1000;
+            var remaining = Math.max(0, Math.round(ringDuration - elapsed));
+            responseTimerEl.textContent = fmtTimeDisplay(remaining);
+            if (remaining <= 0) {
+              clearInterval(tickTimer);
+              responseTimerEl.textContent = fmtTimeDisplay(0);
+            }
+          }, 200);
+        }
+
+        playbackBtn.addEventListener('click', playRecordingWithRing);
+
+        // ---- Re-record (left icon) ----
+        rerecordBtn.addEventListener('click', function () {
+          if (playbackAudio) { playbackAudio.pause(); playbackAudio = null; }
+          recordedBlob = null;
+          recordingComplete = false;
+          isRecording = false;
+          localStorage.removeItem(storageKey);
+          stopRingAnimation();
+          responseTimerEl.textContent = fmtTimeDisplay(TOTAL_RESPONSE_SECONDS);
+          responseTimerEl.classList.remove('urgent');
+          responseBody.classList.remove('recording', 'complete');
+          setRingProgress(0);
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#555;"></i>';
+          setStatus('Recording...');
+          rerecordBtn.style.visibility = 'hidden';
+          playbackBtn.style.visibility = 'hidden';
+          playbackBtn.querySelector('i').className = 'fas fa-play';
+          ringDuration = TOTAL_RESPONSE_SECONDS;
+          ringStartTime = performance.now();
+          ringForwardPlaying = null;
+          ringAnimId = requestAnimationFrame(runRingAnimation);
+          startRecording();
+          isRecording = true;
+          responseBody.classList.add('recording');
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#cc0000;"></i>';
+          responseRemaining = TOTAL_RESPONSE_SECONDS;
+          var tickTimer = setInterval(function () {
+            var elapsed = (performance.now() - ringStartTime) / 1000;
+            responseRemaining = Math.max(0, Math.round(TOTAL_RESPONSE_SECONDS - elapsed));
+            responseTimerEl.textContent = fmtTimeDisplay(responseRemaining);
+            if (responseRemaining <= 3) responseTimerEl.classList.add('urgent');
+            if (responseRemaining <= 0) {
+              clearInterval(tickTimer);
+              finishResponse();
+            }
+          }, 200);
+        });
+
+        function saveRecording() {
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            try { localStorage.setItem(storageKey, reader.result); } catch (e) {}
+          };
+          reader.readAsDataURL(recordedBlob);
+        }
+
+        function loadRecording() {
+          var data = localStorage.getItem(storageKey);
+          if (data) {
+            var byteString = atob(data.split(',')[1]);
+            var mimeString = data.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+            return new Blob([ab], { type: mimeString });
+          }
+          return null;
+        }
+
+        function retryQuestion() {
+          if (playbackAudio) { playbackAudio.pause(); playbackAudio = null; }
+          recordedBlob = null;
+          recordingComplete = false;
+          isRecording = false;
+          localStorage.removeItem(storageKey);
+          stopRingAnimation();
+          responseTimerEl.textContent = fmtTimeDisplay(TOTAL_RESPONSE_SECONDS);
+          responseTimerEl.classList.remove('urgent', 'complete');
+          responseBody.classList.remove('recording', 'complete');
+          setRingProgress(0);
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#555;"></i>';
+          setStatus('Click play to listen');
+          rerecordBtn.style.visibility = 'hidden';
+          playbackBtn.style.visibility = 'hidden';
+          playbackBtn.querySelector('i').className = 'fas fa-play';
+          resetAudioPlayer();
+        }
+
+        // Check for existing recording on load
+        if (localStorage.getItem(storageKey)) {
+          recordingComplete = true;
+          recordedBlob = loadRecording();
+          responseBody.classList.add('complete');
+          setRingProgress(1);
+          micIconOverlay.innerHTML = '<i class="fas fa-microphone" style="color:#4CAF50;"></i>';
+          responseTimerEl.textContent = fmtTimeDisplay(0);
+          setStatus('Response recorded');
+          rerecordBtn.style.visibility = 'visible';
+          playbackBtn.style.visibility = 'visible';
+        }
+
+        // ---- Next / Back ----
+        document.getElementById('next-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_speaking_resume_page', '{{NEXT_PAGE}}');
+          window.location.href = '{{NEXT_PAGE}}';
+        });
+        document.getElementById('back-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_speaking_resume_page', '{{BACK_PAGE}}');
+          window.location.href = '{{BACK_PAGE}}';
+        });
+
+        // ---- Volume ----
+        var volPanel = document.getElementById('volume-panel');
+        var volSlider = document.getElementById('volume-slider');
+        var volDisplay = document.getElementById('volume-value');
+        var initVol = savedVol !== null ? parseInt(savedVol) : 80;
+        volSlider.value = initVol; volDisplay.textContent = initVol + '%';
+        volSlider.addEventListener('input', function () {
+          var v = parseInt(this.value); volDisplay.textContent = v + '%';
+          localStorage.setItem('toefl_speaking_volume', v);
+          tAudio.volume = v / 100; rAudio.volume = v / 100;
+        });
+        document.getElementById('volume-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          volPanel.style.display = volPanel.style.display === 'flex' ? 'none' : 'flex';
+        });
+        document.addEventListener('click', function () { volPanel.style.display = 'none'; });
+
+        // ---- Help ----
+        document.getElementById('help-btn').addEventListener('click', function () {
+          document.getElementById('help-modal-overlay').classList.add('open');
+        });
+        document.getElementById('help-modal-close').addEventListener('click', function () {
+          document.getElementById('help-modal-overlay').classList.remove('open');
+        });
+        document.getElementById('help-modal-overlay').addEventListener('click', function (e) {
+          if (e.target === this) this.classList.remove('open');
+        });
+
+        // ---- Exit ----
+        document.getElementById('exit-btn').addEventListener('click', function () {
+          window.showConfirm('Exit Test',
+            'Your progress has been saved.\nWould you like to keep it or clear all data?',
+            [
+              { text: 'Save & Exit', cls: 'primary', onClick: function () {
+                localStorage.setItem('toefl_speaking_resume_page', window.location.pathname.split('/').pop());
+                window.location.href = '../../../dist/index.html';
+              }},
+              { text: 'Clear & Exit', cls: 'danger', onClick: function () {
+                var keys = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                  var k = localStorage.key(i);
+                  if (k && (k.indexOf('toefl_tpo') === 0 || k.indexOf('toefl_speaking_') === 0)) keys.push(k);
+                }
+                keys.forEach(function (k) { localStorage.removeItem(k); });
+                window.location.href = '../../../dist/index.html';
+              }}
+            ], true);
+        });
+
+        // ---- Review Panel ----
+        var reviewOverlay = document.getElementById('review-player-overlay');
+        var reviewPanel = document.getElementById('review-player-panel');
+        var dragHandle = document.getElementById('review-player-drag-handle');
+        var isDragging = false, dragStartX, dragStartY, panelStartX, panelStartY;
+
+        dragHandle.addEventListener('mousedown', function (e) {
+          isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
+          var rect = reviewPanel.getBoundingClientRect();
+          panelStartX = rect.left; panelStartY = rect.top;
+          reviewPanel.style.transform = 'none';
+          reviewPanel.style.left = panelStartX + 'px';
+          reviewPanel.style.top = panelStartY + 'px';
+          e.preventDefault();
+        });
+        document.addEventListener('mousemove', function (e) {
+          if (!isDragging) return;
+          reviewPanel.style.left = (panelStartX + e.clientX - dragStartX) + 'px';
+          reviewPanel.style.top = (panelStartY + e.clientY - dragStartY) + 'px';
+        });
+        document.addEventListener('mouseup', function () { isDragging = false; });
+
+        document.getElementById('review-btn').addEventListener('click', function () {
+          reviewOverlay.classList.add('active');
+          reviewPanel.style.transform = 'translateX(-50%)';
+          reviewPanel.style.left = '50%'; reviewPanel.style.top = '80px';
+          var sv = localStorage.getItem('toefl_speaking_volume');
+          var vv = sv !== null ? parseInt(sv) : 80;
+          document.getElementById('review-volume-slider').value = vv;
+          document.getElementById('review-volume-val').textContent = vv + '%';
+          var d = rAudio.duration || 0;
+          document.getElementById('review-time-display').textContent = '00:00 / ' + (d ? fmtTimeMMSS(d) : '--:--');
+          document.getElementById('review-seek-slider').value = 0;
+          updateMarkBtn();
+        });
+        document.getElementById('review-player-close').addEventListener('click', function () {
+          reviewOverlay.classList.remove('active'); rAudio.pause();
+        });
+
+        // Mark button
+        var reviewMarkBtn = document.getElementById('review-mark-btn');
+        var marksKey = 'toefl_speaking_marked_questions';
+        function updateMarkBtn() {
+          var marks = {};
+          try { marks = JSON.parse(localStorage.getItem(marksKey)) || {}; } catch (e) {}
+          if (marks[QUESTION_NUM]) {
+            reviewMarkBtn.classList.add('marked');
+            reviewMarkBtn.innerHTML = '<i class="fas fa-bookmark"></i>';
+          } else {
+            reviewMarkBtn.classList.remove('marked');
+            reviewMarkBtn.innerHTML = '<i class="far fa-bookmark"></i>';
+          }
+        }
+        reviewMarkBtn.addEventListener('click', function () {
+          var marks = {};
+          try { marks = JSON.parse(localStorage.getItem(marksKey)) || {}; } catch (e) {}
+          if (marks[QUESTION_NUM]) { delete marks[QUESTION_NUM]; } else { marks[QUESTION_NUM] = true; }
+          localStorage.setItem(marksKey, JSON.stringify(marks));
+          updateMarkBtn();
+        });
+
+        // Review audio controls
+        var revPlayPause = document.getElementById('review-play-pause');
+        var revTimeDisp = document.getElementById('review-time-display');
+        var revSeekSlider = document.getElementById('review-seek-slider');
+
+        revPlayPause.addEventListener('click', function () {
+          if (rAudio.paused) {
+            var realEnd = (SEG_END >= 900) ? (rAudio.duration || 999) : SEG_END;
+            if (rAudio.currentTime < SEG_START || rAudio.currentTime >= realEnd) rAudio.currentTime = SEG_START;
+            rAudio.play();
+            revPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
+          } else {
+            rAudio.pause();
+            revPlayPause.innerHTML = '<i class="fas fa-play"></i>';
+          }
+        });
+        rAudio.addEventListener('timeupdate', function () {
+          var t = rAudio.currentTime;
+          var realEnd = (SEG_END >= 900) ? (rAudio.duration || 999) : SEG_END;
+          var segDur = realEnd - SEG_START;
+          if (t >= realEnd) { rAudio.pause(); rAudio.currentTime = realEnd; revPlayPause.innerHTML = '<i class="fas fa-play"></i>'; }
+          var rel = Math.max(0, t - SEG_START);
+          var pct = segDur > 0 ? Math.round((rel / segDur) * 1000) : 0;
+          revSeekSlider.value = Math.min(pct, 1000);
+          revTimeDisp.textContent = fmtTimeMMSS(rel) + ' / ' + fmtTimeMMSS(segDur);
+        });
+        revSeekSlider.addEventListener('input', function () {
+          var realEnd = (SEG_END >= 900) ? (rAudio.duration || 999) : SEG_END;
+          var segDur = realEnd - SEG_START;
+          rAudio.currentTime = SEG_START + (parseInt(this.value) / 1000) * segDur;
+        });
+        document.getElementById('review-skip-back').addEventListener('click', function () {
+          rAudio.currentTime = Math.max(SEG_START, rAudio.currentTime - 5);
+        });
+        document.getElementById('review-skip-fwd').addEventListener('click', function () {
+          var realEnd = (SEG_END >= 900) ? (rAudio.duration || 999) : SEG_END;
+          rAudio.currentTime = Math.min(realEnd, rAudio.currentTime + 5);
+        });
+
+        // Review speed buttons
+        document.querySelectorAll('.review-speed-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            document.querySelectorAll('.review-speed-btn').forEach(function (b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            rAudio.playbackRate = parseFloat(this.dataset.speed);
+          });
+        });
+
+        // Review volume
+        var rvSlider = document.getElementById('review-volume-slider');
+        var rvVal = document.getElementById('review-volume-val');
+        rvSlider.addEventListener('input', function () {
+          var v = parseInt(this.value); rvVal.textContent = v + '%';
+          rAudio.volume = v / 100; tAudio.volume = v / 100;
+          localStorage.setItem('toefl_speaking_volume', v);
+        });
+
+        // Retry button in Review panel
+        document.getElementById('review-retry-btn').addEventListener('click', function () {
+          reviewOverlay.classList.remove('active');
+          rAudio.pause();
+          retryQuestion();
+        });
+      })();
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

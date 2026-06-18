@@ -10,19 +10,19 @@ export default class ListeningPlayer {
     this.onEnded = options.onEnded || (() => {});
     this.onTimeUpdate = options.onTimeUpdate || (() => {});
     this.onError = options.onError || (() => {});
-    
+
     this.audioElement = null;
     this.isPlaying = false;
     this.duration = 0;
     this.currentTime = 0;
-    
+
     this._initAudioElement();
   }
-  
+
   _initAudioElement() {
     this.audioElement = new Audio();
     this.audioElement.preload = 'metadata';
-    
+
     // 事件监听
     this.audioElement.addEventListener('loadedmetadata', () => {
       this.duration = this.audioElement.duration;
@@ -32,7 +32,7 @@ export default class ListeningPlayer {
         isPlaying: this.isPlaying
       });
     });
-    
+
     this.audioElement.addEventListener('timeupdate', () => {
       this.currentTime = this.audioElement.currentTime;
       this.onTimeUpdate({
@@ -41,23 +41,23 @@ export default class ListeningPlayer {
         isPlaying: this.isPlaying
       });
     });
-    
+
     this.audioElement.addEventListener('ended', () => {
       this.isPlaying = false;
       this.onEnded();
     });
-    
-    this.audioElement.addEventListener('error', (e) => {
+
+    this.audioElement.addEventListener('error', e => {
       this.onError(e);
     });
   }
-  
+
   loadAudio(url) {
     this.audioUrl = url;
     this.audioElement.src = url;
     this.audioElement.load();
   }
-  
+
   play() {
     if (!this.audioUrl) return;
     this.audioElement.play().catch(e => {
@@ -66,30 +66,31 @@ export default class ListeningPlayer {
     });
     this.isPlaying = true;
   }
-  
+
   pause() {
     this.audioElement.pause();
     this.isPlaying = false;
   }
-  
+
   seek(time) {
-    if (this.audioElement.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+    if (this.audioElement.readyState >= 2) {
+      // HAVE_CURRENT_DATA or higher
       this.audioElement.currentTime = time;
     }
   }
-  
+
   getCurrentTime() {
     return this.audioElement.currentTime;
   }
-  
+
   getDuration() {
     return this.duration;
   }
-  
+
   isPlayingState() {
     return this.isPlaying;
   }
-  
+
   destroy() {
     if (this.audioElement) {
       this.audioElement.pause();
@@ -102,7 +103,7 @@ export default class ListeningPlayer {
       this.audioElement.removeEventListener('error', null);
     }
   }
-  
+
   /**
    * 渲染播放器 UI
    * @param {HTMLElement} container - 容器元素
@@ -111,7 +112,7 @@ export default class ListeningPlayer {
   render(container, DOM) {
     // 清空容器
     DOM.clear(container);
-    
+
     // 创建播放器容器
     const playerContainer = DOM.create('div', {
       className: 'listening-player',
@@ -125,7 +126,7 @@ export default class ListeningPlayer {
         marginBottom: '20px'
       }
     });
-    
+
     // 音频信息区域
     const infoContainer = DOM.create('div', {
       className: 'player-info',
@@ -136,7 +137,7 @@ export default class ListeningPlayer {
         marginBottom: '15px'
       }
     });
-    
+
     const modeLabel = DOM.create('span', {
       textContent: this.mode === 'exam' ? '考试模式' : '练习模式',
       style: {
@@ -145,7 +146,7 @@ export default class ListeningPlayer {
         fontWeight: 'bold'
       }
     });
-    
+
     const timeDisplay = DOM.create('div', {
       className: 'time-display',
       style: {
@@ -156,7 +157,7 @@ export default class ListeningPlayer {
         textAlign: 'center'
       }
     });
-    
+
     // 更新时间显示
     const updateTimeDisplay = () => {
       const current = Math.floor(this.audioElement.currentTime);
@@ -167,7 +168,7 @@ export default class ListeningPlayer {
       const secondsDuration = String(duration % 60).padStart(2, '0');
       timeDisplay.textContent = `${minutesCurrent}:${secondsCurrent} / ${minutesDuration}:${secondsDuration}`;
     };
-    
+
     // 控制按钮区域
     const controlsContainer = DOM.create('div', {
       className: 'player-controls',
@@ -177,7 +178,7 @@ export default class ListeningPlayer {
         gap: '15px'
       }
     });
-    
+
     const playPauseBtn = DOM.create('button', {
       className: 'play-pause-btn',
       innerHTML: '▶️',
@@ -197,7 +198,7 @@ export default class ListeningPlayer {
         transition: 'all 0.2s'
       }
     });
-    
+
     // 考试模式下只能播放一次
     if (this.mode === 'exam') {
       playPauseBtn.addEventListener('click', () => {
@@ -221,7 +222,7 @@ export default class ListeningPlayer {
         }
       });
     }
-    
+
     // 重播按钮（仅在练习模式或音频结束后显示）
     const replayBtn = DOM.create('button', {
       className: 'replay-btn',
@@ -242,7 +243,7 @@ export default class ListeningPlayer {
         visibility: this.mode === 'exam' ? 'hidden' : 'visible'
       }
     });
-    
+
     replayBtn.addEventListener('click', () => {
       this.seek(0);
       this.play();
@@ -251,7 +252,7 @@ export default class ListeningPlayer {
         playPauseBtn.style.backgroundColor = '#ff6b6b';
       }
     });
-    
+
     // 进度条容器
     const progressContainer = DOM.create('div', {
       className: 'progress-container',
@@ -266,7 +267,7 @@ export default class ListeningPlayer {
         cursor: this.mode === 'practice' ? 'pointer' : 'default'
       }
     });
-    
+
     const progressBar = DOM.create('div', {
       className: 'progress-bar',
       style: {
@@ -277,34 +278,34 @@ export default class ListeningPlayer {
         transition: 'width 0.1s linear'
       }
     });
-    
+
     // 进度条点击事件（仅练习模式）
     if (this.mode === 'practice') {
-      progressContainer.addEventListener('click', (e) => {
+      progressContainer.addEventListener('click', e => {
         const rect = progressContainer.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
         const seekTime = percent * this.duration;
         this.seek(seekTime);
       });
     }
-    
+
     // 组装元素
     infoContainer.appendChild(modeLabel);
     infoContainer.appendChild(timeDisplay);
-    
+
     controlsContainer.appendChild(playPauseBtn);
     if (this.mode === 'practice') {
       controlsContainer.appendChild(replayBtn);
     }
-    
+
     progressContainer.appendChild(progressBar);
-    
+
     playerContainer.appendChild(infoContainer);
     playerContainer.appendChild(controlsContainer);
     playerContainer.appendChild(progressContainer);
-    
+
     container.appendChild(playerContainer);
-    
+
     // 更新循环
     const updateLoop = () => {
       updateTimeDisplay();
@@ -312,13 +313,13 @@ export default class ListeningPlayer {
         const percent = (this.audioElement.currentTime / this.duration) * 100;
         progressBar.style.width = `${percent}%`;
       }
-      
+
       // 继续更新直到音频结束或暂停
       if (this.isPlaying && !this.audioElement.ended) {
         requestAnimationFrame(updateLoop);
       }
     };
-    
+
     // 启动更新循环
     requestAnimationFrame(updateLoop);
   }

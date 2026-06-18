@@ -17,15 +17,15 @@ export default class ListeningQuestion {
     this.audioUrl = options.audioUrl || ''; // 音频文件路径（用于显示）
     this.transcript = options.transcript || ''; // 原文对话文本（用于review模式）
     this.showTranscript = options.showTranscript || false; // 是否显示原文
-    
+
     // 回调函数
     this.onReplayRequest = options.onReplayRequest || (() => {}); // 重播请求回调
     this.onSelect = options.onSelect || (() => {});
     this.onComplete = options.onComplete || (() => {});
-    
+
     // 确定是否隐藏问题文本（对于Listen and Choose a Response题型）
     const hideQuestion = this.taskType === 'listen_and_choose';
-    
+
     // 多选题选项
     this.multipleChoice = new MultipleChoice({
       questionId: this.questionId,
@@ -47,7 +47,7 @@ export default class ListeningQuestion {
         }
       }
     });
-    
+
     this.element = null;
     this.replayButton = null;
     this.statusIndicator = null;
@@ -57,7 +57,7 @@ export default class ListeningQuestion {
     this.transcriptPanel = null;
     this.showTranscriptButton = null;
   }
-  
+
   /**
    * 渲染组件
    */
@@ -73,15 +73,15 @@ export default class ListeningQuestion {
         marginBottom: '20px'
       }
     });
-    
+
     // 顶部状态栏
     const statusBar = this.createStatusBar();
     this.element.appendChild(statusBar);
-    
+
     // 任务类型标识
     const taskTypeBadge = this.createTaskTypeBadge();
     this.element.appendChild(taskTypeBadge);
-    
+
     // 题号
     const questionNumber = DOM.create('div', {
       className: 'question-number',
@@ -94,7 +94,7 @@ export default class ListeningQuestion {
       }
     });
     this.element.appendChild(questionNumber);
-    
+
     // 问题文本
     const questionText = DOM.create('div', {
       className: 'question-text',
@@ -107,15 +107,15 @@ export default class ListeningQuestion {
       }
     });
     this.element.appendChild(questionText);
-    
+
     // 多选题内容
     const mcElement = this.multipleChoice.render();
     this.element.appendChild(mcElement);
-    
+
     // 控制栏（重播按钮）
     const controlBar = this.createControlBar();
     this.element.appendChild(controlBar);
-    
+
     // 原文面板（仅在练习模式下且有transcript时）
     if (this.mode === 'practice' && this.transcript) {
       this.transcriptPanel = this.createTranscriptPanel();
@@ -123,10 +123,10 @@ export default class ListeningQuestion {
         this.element.appendChild(this.transcriptPanel);
       }
     }
-    
+
     return this.element;
   }
-  
+
   /**
    * 创建状态栏
    */
@@ -142,7 +142,7 @@ export default class ListeningQuestion {
         borderBottom: '1px solid #eee'
       }
     });
-    
+
     // 模式标签
     const modeLabel = DOM.create('span', {
       className: 'mode-label',
@@ -156,7 +156,7 @@ export default class ListeningQuestion {
         borderRadius: '10px'
       }
     });
-    
+
     // 音频状态指示器
     this.statusIndicator = DOM.create('span', {
       className: 'audio-status-indicator',
@@ -172,7 +172,7 @@ export default class ListeningQuestion {
         gap: '4px'
       }
     });
-    
+
     // 如果音频已播放，添加图标
     if (this.audioPlayed) {
       const icon = DOM.create('span', {
@@ -181,7 +181,7 @@ export default class ListeningQuestion {
       });
       this.statusIndicator.prepend(icon);
     }
-    
+
     // 如果提供了音频URL，显示音频标识
     if (this.audioUrl) {
       const audioInfo = DOM.create('div', {
@@ -195,7 +195,7 @@ export default class ListeningQuestion {
       });
       const audioIcon = DOM.create('span', { innerHTML: '🔊', style: { fontSize: '10px' } });
       const fileName = this.audioUrl.split('/').pop() || 'audio.mp3';
-      const nameText = DOM.create('span', { 
+      const nameText = DOM.create('span', {
         textContent: fileName.length > 15 ? fileName.substring(0, 12) + '...' : fileName,
         title: fileName
       });
@@ -203,19 +203,19 @@ export default class ListeningQuestion {
       audioInfo.appendChild(nameText);
       statusBar.appendChild(audioInfo);
     }
-    
+
     statusBar.appendChild(modeLabel);
     statusBar.appendChild(this.statusIndicator);
-    
+
     return statusBar;
   }
-  
+
   /**
    * 创建原文面板（用于Review模式）
    */
   createTranscriptPanel() {
     if (!this.transcript || !this.element) return null;
-    
+
     const transcriptContainer = DOM.create('div', {
       className: 'transcript-container',
       style: {
@@ -226,7 +226,7 @@ export default class ListeningQuestion {
         border: '1px solid #e0e0e0'
       }
     });
-    
+
     const transcriptHeader = DOM.create('div', {
       className: 'transcript-header',
       style: {
@@ -236,7 +236,7 @@ export default class ListeningQuestion {
         marginBottom: '10px'
       }
     });
-    
+
     const transcriptTitle = DOM.create('div', {
       className: 'transcript-title',
       innerHTML: '<i class="fas fa-scroll"></i> 原文对话',
@@ -246,7 +246,7 @@ export default class ListeningQuestion {
         color: '#666'
       }
     });
-    
+
     const transcriptToggle = DOM.create('button', {
       className: 'transcript-toggle-btn',
       innerHTML: '<i class="fas fa-eye"></i> 显示原文',
@@ -262,10 +262,10 @@ export default class ListeningQuestion {
       },
       onClick: () => this.toggleTranscriptDisplay()
     });
-    
+
     transcriptHeader.appendChild(transcriptTitle);
     transcriptHeader.appendChild(transcriptToggle);
-    
+
     const transcriptContent = DOM.create('div', {
       className: 'transcript-content',
       innerHTML: `<div style="font-size:14px; color:#333; line-height:1.6; padding-top:10px; border-top:1px solid #eee; margin-top:10px;">${this.transcript}</div>`,
@@ -273,26 +273,26 @@ export default class ListeningQuestion {
         display: 'none'
       }
     });
-    
+
     transcriptContainer.appendChild(transcriptHeader);
     transcriptContainer.appendChild(transcriptContent);
-    
+
     return transcriptContainer;
   }
-  
+
   /**
    * 切换原文显示
    */
   toggleTranscriptDisplay() {
     if (!this.transcriptPanel) return;
-    
+
     const content = this.transcriptPanel.querySelector('.transcript-content');
     const toggleBtn = this.transcriptPanel.querySelector('.transcript-toggle-btn');
-    
+
     if (!content || !toggleBtn) return;
-    
+
     const isVisible = content.style.display !== 'none';
-    
+
     if (isVisible) {
       content.style.display = 'none';
       toggleBtn.innerHTML = '<i class="fas fa-eye"></i> 显示原文';
@@ -302,21 +302,21 @@ export default class ListeningQuestion {
       toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> 隐藏原文';
       toggleBtn.style.backgroundColor = '#b2ebf2';
     }
-}
+  }
 
   /**
    * 创建任务类型徽章
    */
   createTaskTypeBadge() {
     const taskTypeMap = {
-      'listen_and_choose': 'Listen and Choose a Response',
-      'listen_to_conversation': 'Listen to a Conversation',
-      'listen_to_announcement': 'Listen to an Announcement',
-      'listen_to_academic_talk': 'Listen to an Academic Talk'
+      listen_and_choose: 'Listen and Choose a Response',
+      listen_to_conversation: 'Listen to a Conversation',
+      listen_to_announcement: 'Listen to an Announcement',
+      listen_to_academic_talk: 'Listen to an Academic Talk'
     };
-    
+
     const taskTypeText = taskTypeMap[this.taskType] || this.taskType;
-    
+
     return DOM.create('div', {
       className: 'task-type-badge',
       textContent: taskTypeText,
@@ -332,7 +332,7 @@ export default class ListeningQuestion {
       }
     });
   }
-  
+
   /**
    * 创建控制栏
    */
@@ -349,7 +349,7 @@ export default class ListeningQuestion {
         minHeight: '40px'
       }
     });
-    
+
     // 重播按钮（仅在练习模式下且音频已播放后显示）
     this.replayButton = DOM.create('button', {
       className: 'replay-audio-btn',
@@ -370,19 +370,19 @@ export default class ListeningQuestion {
       },
       onClick: () => this.handleReplayRequest()
     });
-    
+
     this.replayButton.addEventListener('mouseenter', () => {
       this.replayButton.style.backgroundColor = '#b2ebf2';
     });
     this.replayButton.addEventListener('mouseleave', () => {
       this.replayButton.style.backgroundColor = '#e0f7f5';
     });
-    
+
     controlBar.appendChild(this.replayButton);
-    
+
     return controlBar;
   }
-  
+
   /**
    * 获取音频状态文本
    */
@@ -392,7 +392,7 @@ export default class ListeningQuestion {
     }
     return this.mode === 'exam' ? '等待播放音频' : '点击播放音频';
   }
-  
+
   /**
    * 更新状态指示器
    */
@@ -401,7 +401,7 @@ export default class ListeningQuestion {
       this.statusIndicator.textContent = this.getAudioStatusText();
       this.statusIndicator.style.color = this.audioPlayed ? '#4CAF50' : '#666';
       this.statusIndicator.style.backgroundColor = this.audioPlayed ? '#e8f5e9' : '#f5f5f5';
-      
+
       // 更新图标
       const existingIcon = this.statusIndicator.querySelector('span');
       if (this.audioPlayed && !existingIcon) {
@@ -412,20 +412,20 @@ export default class ListeningQuestion {
       }
     }
   }
-  
+
   /**
    * 设置音频播放状态
    */
   setAudioPlayed(isPlayed) {
     this.audioPlayed = isPlayed;
     this.updateStatusIndicator();
-    
+
     // 练习模式下，音频播放后显示重播按钮
     if (this.mode === 'practice' && this.replayButton) {
       this.replayButton.style.display = isPlayed ? 'flex' : 'none';
     }
   }
-  
+
   /**
    * 显示重播按钮
    */
@@ -434,29 +434,29 @@ export default class ListeningQuestion {
       this.replayButton.style.display = 'flex';
     }
   }
-  
+
   /**
    * 显示原文面板
    */
   showTranscriptPanel() {
     if (!this.transcriptPanel || !this.mode === 'practice') return;
-    
+
     // 如果transcript面板已存在，确保它显示
     if (this.transcriptPanel.parentNode) {
       this.transcriptPanel.style.display = 'block';
     }
-    
+
     // 自动展开原文内容
     const content = this.transcriptPanel.querySelector('.transcript-content');
     const toggleBtn = this.transcriptPanel.querySelector('.transcript-toggle-btn');
-    
+
     if (content && toggleBtn) {
       content.style.display = 'block';
       toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i> 隐藏原文';
       toggleBtn.style.backgroundColor = '#b2ebf2';
     }
   }
-  
+
   /**
    * 隐藏重播按钮
    */
@@ -465,60 +465,60 @@ export default class ListeningQuestion {
       this.replayButton.style.display = 'none';
     }
   }
-  
+
   /**
    * 隐藏原文面板
    */
   hideTranscriptPanel() {
     if (!this.transcriptPanel) return;
-    
+
     if (this.transcriptPanel.parentNode) {
       this.transcriptPanel.style.display = 'none';
     }
   }
-  
+
   /**
    * 处理重播请求
    */
   handleReplayRequest() {
     this.onReplayRequest(this.questionId);
   }
-  
+
   /**
    * 处理选项选择（委托给内部的MultipleChoice）
    */
   handleOptionSelect(letter) {
     this.multipleChoice.handleOptionSelect(letter);
   }
-  
+
   /**
    * 设置用户答案
    */
   setUserAnswer(letter) {
     this.multipleChoice.setUserAnswer(letter);
   }
-  
+
   /**
    * 获取用户答案
    */
   getUserAnswer() {
     return this.multipleChoice.getUserAnswer();
   }
-  
+
   /**
    * 显示答案
    */
   showAnswer() {
     this.multipleChoice.showAnswer();
   }
-  
+
   /**
    * 隐藏答案
    */
   hideAnswer() {
     this.multipleChoice.hideAnswer();
   }
-  
+
   /**
    * 重置选择
    */
@@ -528,7 +528,7 @@ export default class ListeningQuestion {
     this.updateStatusIndicator();
     this.hideReplayButton();
   }
-  
+
   /**
    * 更新题目内容
    */
@@ -570,7 +570,7 @@ export default class ListeningQuestion {
       this.showTranscript = options.showTranscript;
     }
   }
-  
+
   /**
    * 销毁组件
    */

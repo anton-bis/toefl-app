@@ -71,6 +71,26 @@ class QuestionParser {
       else if (line.startsWith('### ')) {
         this.parseTask(line, lines, i);
       }
+      // 解析 Build a Sentence - Speaker/Candidates（必须在 fill-blank 之前）
+      else if (
+        this.currentTask &&
+        this.currentTask.type === 'build-sentence' &&
+        line.startsWith('Speaker A:')
+      ) {
+        this.parseBuildSentenceSpeaker(line);
+      } else if (
+        this.currentTask &&
+        this.currentTask.type === 'build-sentence' &&
+        line.startsWith('Speaker B:')
+      ) {
+        this.parseBuildSentenceSpeaker(line);
+      } else if (
+        this.currentTask &&
+        this.currentTask.type === 'build-sentence' &&
+        line.startsWith('Candidates:')
+      ) {
+        this.parseBuildSentenceCandidates(line);
+      }
       // 解析填空题 - 检测多种格式：包含连续下划线或下划线+星号组合（支持转义反斜杠）
       else if (
         line.includes('________') ||
@@ -113,8 +133,6 @@ class QuestionParser {
     // 处理最后一个Task（如果有）
     if (this.currentTask) {
       this.result.tasks.push(this.currentTask);
-
-      // 同时将Task添加到当前模块的tasks数组中
       const currentModule = this.getCurrentModule();
       if (currentModule) {
         currentModule.tasks.push(this.currentTask);
@@ -122,6 +140,35 @@ class QuestionParser {
     }
 
     return this.result;
+  }
+
+  parseBuildSentenceSpeaker(line) {
+    if (!this.currentTask) return;
+    const speakerMatch = line.match(/^Speaker ([AB]):\s*(.*)$/);
+    if (speakerMatch) {
+      const speakerKey = speakerMatch[1] === 'A' ? 'speakerA' : 'speakerB';
+      this.currentTask[speakerKey] = speakerMatch[2].trim();
+    }
+  }
+
+  parseBuildSentenceCandidates(line) {
+    if (!this.currentTask) return;
+    const raw = line.replace(/^Candidates:\s*/i, '').trim();
+    this.currentTask.candidates = raw.split(/\s*\/\s*/).filter(Boolean);
+  }
+
+  processBuildSentenceAnswers(answerLines) {
+    if (!this.currentTask || !this.currentTask.questions) return;
+    const fullSentence = answerLines
+      .map(l => l.trim())
+      .filter(Boolean)
+      .join(' ')
+      .replace(/\\\./g, '.')
+      .trim();
+    const question = this.currentTask.questions[0];
+    if (question) {
+      question.answer = fullSentence;
+    }
   }
 
   /**
@@ -364,7 +411,7 @@ class QuestionParser {
       return 'multiple-choice';
     } else if (text.includes('read an academic passage')) {
       return 'reading-passage';
-    } else     if (text.includes('listen and choose a response')) {
+    } else if (text.includes('listen and choose a response')) {
       return 'listening-no-stem'; // 听力题型1：只有选项
     } else if (text.includes('listen to a conversation')) {
       return 'listening-conversation'; // 听力题型2：对话
@@ -374,6 +421,12 @@ class QuestionParser {
       return 'listening-lecture'; // 听力题型4：学术讲座
     } else if (text.includes('listen to')) {
       return 'listening';
+    } else if (text.includes('build a sentence')) {
+      return 'build-sentence';
+    } else if (text.includes('write an email')) {
+      return 'write-email';
+    } else if (text.includes('write for an academic discussion')) {
+      return 'academic-discussion';
     } else if (text.includes('writing task')) {
       return 'writing';
     } else if (text.includes('speaking task')) {
@@ -685,11 +738,11 @@ class QuestionParser {
    */
   parseAudioMetadata(line) {
     if (!this.currentTask) return;
-    
+
     // 提取音频路径，格式: audio: path/to/audio.mp3
     const audioPath = line.replace('audio:', '').trim();
     this.currentTask.audio = audioPath;
-    
+
     console.log(`解析音频元数据: ${audioPath}`);
   }
 
@@ -698,19 +751,19 @@ class QuestionParser {
    */
   parseDialogueLine(line) {
     if (!this.currentTask) return;
-    
+
     // 初始化对话数组
     if (!this.currentTask.dialogue) {
       this.currentTask.dialogue = [];
     }
-    
+
     // 提取对话内容
     const dialogueMatch = line.match(/^(Woman|Man):\s*(.+)$/);
     if (dialogueMatch) {
       const speaker = dialogueMatch[1];
       const content = dialogueMatch[2];
       this.currentTask.dialogue.push({ speaker, content });
-      
+
       // 同时构建完整的transcript文本
       if (!this.currentTask.transcript) {
         this.currentTask.transcript = '';
@@ -872,6 +925,8 @@ class QuestionParser {
         this.processFillBlankAnswers(lines);
       } else if (taskType === 'multiple-choice' || taskType === 'reading-passage') {
         this.processMultipleChoiceAnswers(lines);
+      } else if (taskType === 'build-sentence') {
+        this.processBuildSentenceAnswers(lines);
       }
     }
   }
@@ -1032,6 +1087,35 @@ class QuestionParser {
           questionIndex++;
         }
       }
+    }
+  }
+
+  parseBuildSentenceSpeaker(line) {
+    if (!this.currentTask) return;
+    const speakerMatch = line.match(/^Speaker ([AB]):\s*(.*)$/);
+    if (speakerMatch) {
+      const speakerKey = speakerMatch[1] === 'A' ? 'speakerA' : 'speakerB';
+      this.currentTask[speakerKey] = speakerMatch[2].trim();
+    }
+  }
+
+  parseBuildSentenceCandidates(line) {
+    if (!this.currentTask) return;
+    const raw = line.replace(/^Candidates:\s*/i, '').trim();
+    this.currentTask.candidates = raw.split(/\s*\/\s*/).filter(Boolean);
+  }
+
+  processBuildSentenceAnswers(answerLines) {
+    if (!this.currentTask || !this.currentTask.questions) return;
+    const fullSentence = answerLines
+      .map(l => l.trim())
+      .filter(Boolean)
+      .join(' ')
+      .replace(/\\\./g, '.')
+      .trim();
+    const question = this.currentTask.questions[0];
+    if (question) {
+      question.answer = fullSentence;
     }
   }
 
@@ -1204,15 +1288,17 @@ class QuestionParser {
 
     return {
       type: moduleType,
-      // 主应用兼容性字段
-      title: task.title, // extractQuestions 方法期望 task.title
-      taskTitle: task.title, // 原始字段保持不变
+      title: task.title,
+      taskTitle: task.title,
       taskDescription: task.description || '',
-      paragraph: task.passage || '', // 对于填空题，passage可能为空，需要从fullText中提取
-      passage: task.passage || '', // 别名，用于与阅读模块兼容
-      audio: task.audio || '', // 音频文件路径
-      transcript: task.transcript || '', // 对话原文（用于听力）
-      dialogue: task.dialogue || [], // 结构化对话数据
+      paragraph: task.passage || '',
+      passage: task.passage || '',
+      audio: task.audio || '',
+      transcript: task.transcript || '',
+      dialogue: task.dialogue || [],
+      speakerA: task.speakerA || '',
+      speakerB: task.speakerB || '',
+      candidates: task.candidates || [],
       questions: questions || []
     };
   }

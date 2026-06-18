@@ -1,0 +1,13 @@
+<!-- 题目容器组件 -->
+<div class="question-container-apple">
+    <div class="question-text-apple">{{questionText}}</div>
+    
+    <div class="options-container-apple" id="options-container-{{questionId}}">
+        {{#each options}}
+        <div class="option-item-apple" data-question="{{../questionId}}" data-option="{{id}}" data-correct="{{isCorrect}}">
+            <div class="option-letter-apple">{{id}}</div>
+            <div class="option-text-apple">{{text}}</div>
+        </div>
+        {{/each}}
+    </div>
+</div>

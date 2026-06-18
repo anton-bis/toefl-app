@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "托福模考系统 - 基于现代化前端架构",
   "main": "electron/main.js",
   "type": "module",
@@ -37,12 +37,13 @@
   ],
   "dependencies": {
     "electron-store": "^10.0.0",
+    "electron-updater": "^6.0.0",
     "handlebars": "^4.7.9",
     "javascript-obfuscator": "^4.0.0",
     "marked": "^12.0.0"
   },
   "optionalDependencies": {
-    "better-sqlite3": "^9.0.0"
+    "better-sqlite3": "^9.6.0"
   },
   "devDependencies": {
     "@electron/osx-sign": "^1.0.0",
@@ -50,7 +51,6 @@
     "cross-env": "^7.0.0",
     "electron": "^28.0.0",
     "electron-builder": "^24.0.0",
-    "electron-updater": "^6.0.0",
     "eslint": "^8.56.0",
     "glob": "^11.0.0",
     "prettier": "^3.1.1",
@@ -79,27 +79,49 @@
     "files": [
       "dist/**/*",
       "electron/**/*",
-      "node_modules/**/*"
+      "assets/**/*",
+      "tpo/**/*",
+      "font-awesome.css",
+      "webfonts/**/*",
+      "styles.css",
+      "package.json"
     ],
     "mac": {
       "category": "public.app-category.education",
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "assets/icons/icon.png"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "assets/icons/icon.ico"
     },
     "linux": {
-      "target": "AppImage"
+      "target": "AppImage",
+      "icon": "assets/icons/icon.png"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "assets/icons/icon.ico"
     },
-    "asar": true,
+    "asar": false,
     "asarUnpack": [
       "**/*.node",
-      "**/resources/**",
-      "**/assets/**"
-    ]
+      "**/dist/assets/**"
+    ],
+    "extraFiles": [
+      {
+        "from": "src/services/",
+        "to": "src/services/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "anton-bis",
+      "repo": "toefl-app"
+    }
   }
 }

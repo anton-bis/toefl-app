@@ -65,7 +65,18 @@ export default defineConfig({
   },
 
   // 插件配置
-  plugins: [],
+  plugins: [
+    {
+      name: 'remove-crossorigin',
+      transformIndexHtml(html) {
+        return html
+          .replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ')
+          .replace(/<script\s+type="module"\s+src="[^"]*"><\/script>/g, '')
+          .replace(/<link\s+rel="modulepreload"\s+crossorigin\s+href="[^"]*">/g, '');
+      },
+      enforce: 'post'
+    }
+  ],
 
   // 解析配置
   resolve: {

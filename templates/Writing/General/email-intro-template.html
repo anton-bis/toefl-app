@@ -1,0 +1,126 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Write an Email</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      .help-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .help-modal-overlay.open { display: flex; }
+      .help-modal-card {
+        background: white;
+        border-radius: 14px;
+        width: 480px;
+        max-width: 92vw;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      }
+      .help-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid #e5e5e7;
+      }
+      .help-modal-header h3 { margin: 0; font-size: 17px; font-weight: 700; }
+      .help-modal-close {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f2;
+        cursor: pointer;
+        font-size: 14px;
+        color: #86868b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .help-modal-close:hover { background: #e0e0e2; color: #1d1d1f; }
+      .help-modal-body { padding: 24px; font-size: 14px; line-height: 1.7; color: #444; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">toefl ibt</div>
+      <div class="nav-buttons">
+        <button class="nav-button dark help-btn" id="help-btn">
+          <span>Help</span>
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button light begin-btn" id="start-module-btn">
+          <span>Begin</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="section-title">Writing</div>
+      <div class="page-header">
+        <h1 class="page-title">Write an Email</h1>
+        <div class="title-underline"></div>
+      </div>
+
+      <p class="description" style="text-align:left;">
+        You will read some information and use the information to write an email.
+      </p>
+
+      <p class="description" style="text-align:left;">
+        You will have 7 minutes to write the email.
+      </p>
+    </main>
+
+    <div class="help-modal-overlay" id="help-modal-overlay">
+      <div class="help-modal-card">
+        <div class="help-modal-header">
+          <h3><i class="fas fa-question-circle"></i> Help</h3>
+          <button class="help-modal-close" id="help-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="help-modal-body">
+          Write an Email: Read the prompt carefully and write an email based on the information provided. Make sure to include all the required points and address them clearly. Keep your tone appropriate for the audience and purpose. You can use Cut, Paste, Undo, and Redo buttons in the toolbar to edit your writing.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('help-btn').addEventListener('click', function () {
+        document.getElementById('help-modal-overlay').classList.add('open');
+      });
+      document.getElementById('help-modal-close').addEventListener('click', function () {
+        document.getElementById('help-modal-overlay').classList.remove('open');
+      });
+      document.getElementById('help-modal-overlay').addEventListener('click', function (e) {
+        if (e.target === this) this.classList.remove('open');
+      });
+
+      document.getElementById('start-module-btn').addEventListener('click', function () {
+        window.showConfirm('Ready to Begin',
+          'Are you ready to begin Write an Email?\nOnce you start, you cannot return to this introduction.',
+          [
+            { text: 'Begin', cls: 'primary', onClick: function() {
+                localStorage.setItem('toefl_timer_started', 'true');
+                window.location.href = 'email-questions.html';
+              }
+            }
+          ], true);
+      });
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!-- Review面板组件 -->
+<div id="review-panel" class="review-panel">
+  <div class="review-header">
+    <h3><i class="fas fa-list-check"></i> Review Questions</h3>
+    <button class="close-review-btn" id="close-review-btn">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="review-stats">
+    <div class="review-stat-item">
+      <span class="review-stat-label">Total:</span>
+      <span class="review-stat-value" id="review-total">1</span>
+    </div>
+    <div class="review-stat-item">
+      <span class="review-stat-label">Answered:</span>
+      <span class="review-stat-value answered" id="review-answered">0</span>
+    </div>
+    <div class="review-stat-item">
+      <span class="review-stat-label">Marked:</span>
+      <span class="review-stat-value marked" id="review-marked">0</span>
+    </div>
+    <div class="review-stat-item">
+      <span class="review-stat-label">Progress:</span>
+      <span class="review-stat-value" id="review-progress">0%</span>
+    </div>
+  </div>
+  <div class="review-questions-list">
+    <h4>Questions:</h4>
+    <div id="questions-list">
+      <!-- 题目列表将动态生成 -->
+    </div>
+  </div>
+  <div class="review-actions">
+    <button class="review-action-btn" id="review-mark-all-btn">
+      <i class="fas fa-flag"></i> Mark All
+    </button>
+    <button class="review-action-btn" id="review-clear-marks-btn">
+      <i class="fas fa-eraser"></i> Clear Marks
+    </button>
+    <button class="review-action-btn primary" id="review-jump-to-btn">
+      <i class="fas fa-arrow-right"></i> Jump to Question
+    </button>
+  </div>
+</div>
+
+<!-- Review面板遮罩 -->
+<div id="review-overlay" class="review-overlay"></div>

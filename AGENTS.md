@@ -49,6 +49,36 @@ scripts/        # obfuscate.js（Electron代码混淆）
 - **入口**: `electron/main.js`（使用 `electron-store`, 可选 `better-sqlite3`）
 - **构建输出**: `release/` 目录，使用 asar 打包
 - **代码混淆**: `scripts/obfuscate.js`（构建前执行）
+- **应用权限**：Electron 打包后需在 `electron/main.js` 中预授权以下权限，避免运行时弹窗：
+  - **麦克风权限**：通过 `session.setPermissionRequestHandler` 对 `media` 类型自动放行
+  - **音频输出**：无需额外权限，`<audio>` 标签默认可用
+  - **本地存储**：`localStorage` / `electron-store` 默认可用，无需权限
+  - 示例配置：
+    ```js
+    const { session } = require('electron');
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+      if (permission === 'media') return callback(true);
+      callback(false);
+    });
+    ```
+  - **语法说明**：`callback(true)` 是 Electron 旧版回调风格。若 IDE 报 `callback` 弃用警告，改用新版 Promise 风格：
+    ```js
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+      if (permission === 'media') callback(true);
+      else callback(false);
+    });
+    ```
+    两种写法功能完全等价。
+
+## Speaking 模块
+- **生成脚本**: `generate_speaking_pages.js --tpo=XX`
+- **题库位置**: `assets/questions/speaking/TPO-XX/speaking-TPO-XX.md`
+- **图片命名**: 自由命名，Markdown 中 `image:` / `scenario_image:` 字段对齐即可
+- **音频支持**: 单文件 + 时间戳（`>> play: MM:SS-MM:SS`，与 Listening 格式一致）
+- **题型**: Listen and Repeat（7 题）+ Take an Interview（4 题），总计 11 题
+- **Response Time**: LR: Q1-2=8s, Q3-5=10s, Q6-7=12s；Interview: Q8-11=45s
+- **录音功能**: 使用 MediaRecorder API，stream 缓存复用避免重复弹窗
+- **环形进度动画**: `requestAnimationFrame` 驱动，60fps 丝滑填充
 
 ## 开发须知
 - 所有数据当前存储在 LocalStorage（第一阶段）

@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Listen and Repeat</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      .volume-panel {
+        position: absolute;
+        top: 52px;
+        right: 16px;
+        background: white;
+        border-radius: 10px;
+        padding: 14px 18px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        display: none;
+        align-items: center;
+        gap: 10px;
+        z-index: 1000;
+      }
+      .volume-panel input[type="range"] { width: 120px; accent-color: #008080; }
+      .volume-panel .vol-val { font-size: 13px; font-weight: 600; color: #333; min-width: 34px; text-align: center; }
+      .help-modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .help-modal-overlay.open { display: flex; }
+      .help-modal-card {
+        background: white;
+        border-radius: 14px;
+        width: 480px;
+        max-width: 92vw;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      }
+      .help-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid #e5e5e7;
+      }
+      .help-modal-header h3 { margin: 0; font-size: 17px; font-weight: 700; }
+      .help-modal-close {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f2;
+        cursor: pointer;
+        font-size: 14px;
+        color: #86868b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+      }
+      .help-modal-close:hover { background: #e0e0e2; color: #1d1d1f; }
+      .help-modal-body { padding: 24px; font-size: 14px; line-height: 1.7; color: #444; }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="logo">toefl ibt</div>
+      <div class="nav-buttons">
+        <button class="nav-button dark volume-btn" id="volume-btn">
+          <span>Volume</span>
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="nav-button dark help-btn" id="help-btn">
+          <span>Help</span>
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="nav-button light begin-btn" id="start-module-btn">
+          <span>Begin</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="volume-panel" class="volume-panel">
+      <i class="fas fa-volume-up" style="color:#008080;font-size:17px;"></i>
+      <input type="range" id="volume-slider" min="0" max="100" />
+      <span class="vol-val" id="volume-value">80%</span>
+    </div>
+
+    <main class="main-content">
+      <div class="section-title">Speaking</div>
+      <div class="page-header">
+        <h1 class="page-title">Listen and Repeat</h1>
+        <div class="title-underline"></div>
+      </div>
+
+      <p class="description" style="text-align:left;">
+        You will listen as someone speaks to you. Listen carefully and then repeat what you have heard. The clock will indicate how much time you have to speak.
+      </p>
+
+      <p class="description" style="text-align:left;">
+        No time for preparation will be provided.
+      </p>
+    </main>
+
+    <div class="help-modal-overlay" id="help-modal-overlay">
+      <div class="help-modal-card">
+        <div class="help-modal-header">
+          <h3><i class="fas fa-question-circle"></i> Help</h3>
+          <button class="help-modal-close" id="help-modal-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="help-modal-body">
+          正式考试中，此页面会朗读一遍口语考试规则，随后直接跳转至下一页。
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var panel = document.getElementById('volume-panel');
+        var slider = document.getElementById('volume-slider');
+        var display = document.getElementById('volume-value');
+
+        function getVolume() {
+          var v = localStorage.getItem('toefl_speaking_volume');
+          return v !== null ? parseInt(v) : 80;
+        }
+
+        function saveVolume(v) {
+          localStorage.setItem('toefl_speaking_volume', v);
+        }
+
+        var vol = getVolume();
+        slider.value = vol;
+        display.textContent = vol + '%';
+
+        slider.addEventListener('input', function () {
+          var v = parseInt(this.value);
+          display.textContent = v + '%';
+          saveVolume(v);
+        });
+
+        document.getElementById('volume-btn').addEventListener('click', function (e) {
+          e.stopPropagation();
+          panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        document.addEventListener('click', function () {
+          panel.style.display = 'none';
+        });
+      })();
+
+      document.getElementById('help-btn').addEventListener('click', function () {
+        document.getElementById('help-modal-overlay').classList.add('open');
+      });
+      document.getElementById('help-modal-close').addEventListener('click', function () {
+        document.getElementById('help-modal-overlay').classList.remove('open');
+      });
+      document.getElementById('help-modal-overlay').addEventListener('click', function (e) {
+        if (e.target === this) this.classList.remove('open');
+      });
+
+      document.getElementById('start-module-btn').addEventListener('click', function () {
+        window.showConfirm(
+          'Ready to Begin',
+          'Are you ready to begin the Listen and Repeat task?\nOnce you start, you cannot return to this introduction.',
+          [
+            {
+              text: 'Begin',
+              cls: 'primary',
+              onClick: function () {
+                localStorage.setItem('toefl_speaking_timer_started', 'true');
+                window.location.href = '{{FIRST_QUESTION_PAGE}}';
+              }
+            }
+          ],
+          true
+        );
+      });
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

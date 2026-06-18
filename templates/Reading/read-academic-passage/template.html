@@ -1,0 +1,1956 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Reading Question {{QUESTION_NUMBER}}</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <style>
+      .timer-expired-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+      }
+      .timer-expired-modal.show {
+        display: flex;
+      }
+      .timer-expired-modal-content {
+        background-color: white;
+        border-radius: 12px;
+        padding: 30px 40px;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+      .timer-expired-modal-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #d32f2f;
+        margin-bottom: 15px;
+      }
+      .timer-expired-modal-text {
+        font-size: 16px;
+        color: #444;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+      .timer-expired-modal-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .timer-expired-modal-btn {
+        padding: 12px 30px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+      }
+      .timer-expired-modal-btn-continue {
+        background-color: #008080;
+        color: white;
+      }
+      .timer-expired-modal-btn-continue:hover {
+        background-color: #006666;
+      }
+      .timer-expired-modal-btn-exit {
+        background-color: #f5f5f5;
+        color: #333;
+        border: 1px solid #ccc;
+      }
+      .timer-expired-modal-btn-exit:hover {
+        background-color: #e0e0e0;
+      }
+
+      /* 鍏ㄥ眬椤甸潰甯冨眬 */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* 绗簩棰橀〉闈㈢壒鏈夋牱寮忥紙瀹屽叏澶嶅埗锟?*/
+      .button-row {
+        display: flex;
+        gap: 15px;
+      }
+
+      /* 璁℃椂鍣ㄥ尯锟?- 鎵╁睍鍒板叏灞忓锟?*/
+      .timer-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 30px;
+        background-color: white;
+        width: 100%;
+        max-width: 100%;
+        border-bottom: 3px solid #222222;
+        box-sizing: border-box;
+        left: 0;
+        right: 0;
+        position: relative;
+      }
+
+      /* 宸︿晶锛氶鐩繘锟?*/
+      .question-progress-info {
+        font-size: 14px;
+        color: #444444;
+        font-weight: 500;
+        margin-left: 0;
+      }
+
+      /* 鍙充晶锛氳鏃跺櫒鍜孒ide Time鎸夐挳 */
+      .timer-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .timer-display-exam {
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        color: #222222;
+        background-color: #f5f5f5;
+        padding: 5px 15px;
+        border-radius: 4px;
+        min-width: 80px;
+        text-align: center;
+        letter-spacing: 1px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .hide-time-btn-exam {
+        background-color: #f5f5f5;
+        color: #444444;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        padding: 5px 12px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s ease;
+      }
+
+      .hide-time-btn-exam:hover {
+        background-color: #e8e8e8;
+        border-color: #aaaaaa;
+      }
+
+      /* Read an academic passage鏍囬鏍峰紡 */
+      .question-instruction {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        margin-top: 0;
+        color: #222222;
+      }
+
+      /* 鏂囩珷鏍囬鍖哄煙锛堥粦鑹插垎鍓茬嚎涓嬫柟锛屽眳涓姞绮楋級 */
+      .passage-title-area {
+        text-align: center;
+        margin: 0 0 15px 0;
+        padding: 0 30px;
+      }
+
+      .passage-title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #222222;
+        margin: 0;
+      }
+
+      /* 涓诲唴瀹瑰尯鍩熼珮搴︽帶锟?*/
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        padding-top: 10px;
+        padding-left: 0;
+        max-width: 1400px;
+      }
+
+      #question-module {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      /* 涓ゆ爮甯冨眬锛堝鏈枃绔犻〉闈級 */
+      .two-column-layout {
+        display: flex;
+        gap: 30px;
+        margin-top: 15px;
+        flex: 1;
+        min-height: 0;
+        padding: 0 20px 0 0;
+      }
+
+      .left-column {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .right-column {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* 瀛︽湳鏂囩珷鍐呭瀹瑰櫒 - 闅愬舰鏍峰紡锛屾渶澶у寲绌洪棿鍒╃敤 */
+      .academic-passage-container {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 20px 16px;
+        box-shadow: none;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        flex: 1;
+        overflow-y: auto;
+        min-height: 0;
+        line-height: 1.7;
+        font-size: 18px;
+        color: #1d1d1f;
+      }
+
+      .academic-passage-content {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      /* 鑻规灉椋庢牸棰樼洰瀹瑰櫒锛堜笌read-an-email妯℃澘涓€鑷达級 */
+      .question-container-apple {
+        /* 绉婚櫎瀹瑰櫒鏍峰紡锛岃瀺鍏ヨ儗锟?*/
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        box-sizing: border-box;
+      }
+
+      .question-text-apple {
+        font-size: 17px;
+        color: #1d1d1f;
+        margin-bottom: 24px;
+        font-weight: 500;
+        line-height: 1.5;
+      }
+
+      .options-container-apple {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      /* 句子选项（Click on the sentence 题型） */
+      .sentence-options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        margin-bottom: 12px;
+      }
+      /* 当有句子选项时，隐藏后面的ABCD空选项 */
+      .sentence-options-container + .options-container-apple {
+        display: none;
+      }
+      .sentence-option-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 14px;
+        background: #f5f5f7;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .sentence-option-row:hover {
+        background: #e8e8ed;
+        border-color: #008080;
+      }
+      .sentence-option-row.selected {
+        background: #008080;
+        border-color: #008080;
+      }
+      .sentence-option-row.correct {
+        border-color: #28a745;
+        background: #d4edda;
+      }
+      .sentence-option-row.incorrect {
+        border-color: #dc3545;
+        background: #f8d7da;
+      }
+      .sentence-option-row.empty {
+        border-color: #ffc107;
+        background: #fff3cd;
+      }
+      .sentence-option-row.selected .sentence-number {
+        background: rgba(255,255,255,0.25);
+        color: #fff;
+      }
+      .sentence-option-row.selected .sentence-text {
+        color: #fff;
+      }
+      .sentence-number {
+        font-weight: 700;
+        min-width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        flex-shrink: 0;
+        color: #555;
+      }
+      .sentence-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        flex: 1;
+        min-width: 0;
+      }
+      /* 文章左侧句子高亮 */
+      .passage-sentence-hl {
+        background: transparent;
+        transition: background 0.3s;
+      }
+      .passage-sentence-active {
+        background: #b2dfdb;
+        padding: 2px 0;
+      }
+
+      .option-item-apple {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: #f5f5f7;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-height: 44px;
+        min-width: 0;
+        max-width: 480px;
+      }
+
+      .option-item-apple:hover {
+        background: #e8e8ed;
+        border-color: #d1d1d6;
+      }
+
+      .option-item-apple.selected {
+        background: #e8f5e9;
+        border-color: #4caf50;
+      }
+
+      .option-item-apple.correct {
+        background: #d4edda;
+        border-color: #28a745;
+        color: #155724;
+      }
+      .option-item-apple.incorrect {
+        background: #f8d7da;
+        border-color: #dc3545;
+        color: #721c24;
+      }
+      .option-item-apple.empty {
+        background: #f8f9fa;
+        border-color: #dee2e6;
+        color: #adb5bd;
+      }
+
+      .option-letter-apple {
+        font-weight: 600;
+        color: #008080;
+        min-width: 24px;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      .option-text-apple {
+        flex: 1;
+        color: #1d1d1f;
+        line-height: 1.4;
+        font-size: 16px;
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+
+      /* ===== Check Answers Overlay ===== */
+      .check-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+      }
+
+      .answers-check-area {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1001;
+        width: 620px;
+        max-width: 95vw;
+        max-height: 82vh;
+        overflow-y: auto;
+        padding: 25px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      .answers-check-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #008080;
+        cursor: move;
+        user-select: none;
+      }
+      }
+
+      .answers-check-header h3 {
+        font-size: 18px;
+        color: #222222;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .answers-check-header h3 i {
+        color: #008080;
+      }
+
+      .close-answers-btn {
+        background: none;
+        border: none;
+        color: #666666;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .close-answers-btn:hover {
+        background-color: #e9ecef;
+        color: #222222;
+      }
+
+      .answers-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #222222;
+      }
+
+      .stat-value.correct {
+        color: #28a745;
+      }
+
+      .stat-value.incorrect {
+        color: #dc3545;
+      }
+
+      .answers-details {
+        margin-bottom: 25px;
+      }
+
+      .answers-details h4 {
+        font-size: 16px;
+        color: #222222;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      #answers-list {
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .answer-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        margin-bottom: 12px;
+        background-color: white;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s ease;
+      }
+
+      .answer-item:hover {
+        border-color: #008080;
+        box-shadow: 0 2px 6px rgba(0, 128, 128, 0.1);
+      }
+
+      .answer-item.correct {
+        border-left: 4px solid #28a745;
+      }
+
+      .answer-item.incorrect {
+        border-left: 4px solid #dc3545;
+      }
+
+      .answer-item.empty {
+        border-left: 4px solid #ffc107;
+      }
+
+      .question-number-badge {
+        width: 28px;
+        height: 28px;
+        background-color: #008080;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .answer-content {
+        flex: 1;
+      }
+
+      .answer-word {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #222222;
+        margin-bottom: 6px;
+        font-weight: 400;
+      }
+
+      .answer-status {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-text.correct {
+        color: #1a7a2e;
+        font-weight: 700;
+      }
+
+      .status-text.incorrect {
+        color: #dc3545;
+        font-weight: 500;
+      }
+
+      .status-text.empty {
+        color: #ffc107;
+        font-weight: 500;
+      }
+
+      .correct-answer {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1a7a2e;
+        background-color: transparent;
+        padding: 0 0 0 12px;
+        border-radius: 0;
+        border-left: 3px solid #1a7a2e;
+        margin-left: 12px;
+      }
+
+      .answers-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        padding-top: 20px;
+        border-top: 1px solid #dee2e6;
+      }
+
+      .action-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .retry-btn {
+        background-color: #ffc107;
+        color: #222222;
+      }
+
+      .retry-btn:hover {
+        background-color: #e0a800;
+      }
+
+      .close-btn {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .close-btn:hover {
+        background-color: #5a6268;
+      }
+
+      /* 瀛楁瘝鏂规鐘舵€佹牱锟?*/
+      .letter-box-container.correct {
+        border-color: #28a745;
+        background-color: rgba(40, 167, 69, 0.05);
+      }
+
+      .letter-box-container.incorrect {
+        border-color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.05);
+      }
+
+      .letter-box-container.empty {
+        border-color: #ffc107;
+        background-color: rgba(255, 193, 7, 0.05);
+      }
+
+      .letter-box.correct {
+        border-color: #28a745;
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .letter-box.incorrect {
+        border-color: #dc3545;
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .letter-box.empty {
+        border-color: #ffc107;
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      /* ===== Review鍔熻兘鏍峰紡 ===== */
+      .review-panel {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 380px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .review-panel.active {
+        right: 0;
+      }
+
+      .review-header {
+        padding: 20px;
+        background-color: #008080;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .review-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .review-header h3 i {
+        font-size: 16px;
+      }
+
+      .close-review-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s ease;
+      }
+
+      .close-review-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .review-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .review-stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .review-stat-label {
+        font-size: 12px;
+        color: #666666;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+
+      .review-stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #222222;
+      }
+
+      .review-stat-value.answered {
+        color: #28a745;
+      }
+
+      .review-stat-value.marked {
+        color: #ffc107;
+      }
+
+      .review-questions-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      .review-questions-list h4 {
+        font-size: 16px;
+        color: #222222;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      #questions-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+      }
+
+      .question-item {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+        position: relative;
+      }
+
+      .question-item:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+        transform: translateY(-2px);
+      }
+
+      .question-item.answered {
+        background-color: #d4edda;
+        border-color: #28a745;
+        color: #155724;
+      }
+
+      .question-item.marked {
+        background-color: #fff3cd;
+        border-color: #ffc107;
+        color: #856404;
+      }
+
+      .question-item.current {
+        background-color: #008080;
+        border-color: #006666;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 128, 128, 0.3);
+      }
+
+      .question-item.answered.marked {
+        background: linear-gradient(135deg, #d4edda 50%, #fff3cd 50%);
+        border-color: #28a745;
+      }
+
+      .question-item.marked::after {
+        content: '锟?;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        font-size: 14px;
+        color: #ffcc00;
+        background: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #ffcc00;
+        z-index: 1;
+      }
+
+      .review-actions {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .review-action-btn {
+        padding: 12px 15px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        background-color: white;
+        color: #495057;
+        border: 1px solid #dee2e6;
+      }
+
+      .review-action-btn:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+      }
+
+      .review-action-btn.primary {
+        background-color: #008080;
+        color: white;
+        border: none;
+      }
+
+      .review-action-btn.primary:hover {
+        background-color: #006666;
+      }
+
+      .review-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .review-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .review-panel {
+          width: 320px;
+          right: -320px;
+        }
+
+        #questions-list {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .question-item {
+          width: 45px;
+          height: 45px;
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .review-panel {
+          width: 280px;
+          right: -280px;
+        }
+
+        #questions-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .question-item {
+          width: 40px;
+          height: 40px;
+          font-size: 13px;
+        }
+
+        .review-stats {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+<body>
+
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="logo">toefl ibt</div>
+        <button class="nav-button dark exit-btn" id="exit-btn">
+          <span>Exit</span>
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+      <div class="nav-buttons">
+        <div class="button-row">
+          <button class="nav-button dark volume-btn">
+            <span>Volume</span>
+            <i class="fas fa-volume-up"></i>
+          </button>
+          <button class="nav-button dark help-btn">
+            <span>Help</span>
+            <i class="fas fa-question-circle"></i>
+          </button>
+          <button class="nav-button dark review-btn" id="review-btn">
+            <span>Review</span>
+            <i class="fas fa-list"></i>
+          </button>
+          <button class="nav-button dark check-answers-btn" id="check-answers-btn">
+            <span>Check Answers</span>
+            <i class="fas fa-check-circle"></i>
+          </button>
+          <button class="nav-button dark back-btn" id="back-question-btn">
+            <span>Back</span>
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="nav-button light next-btn" id="next-question-btn">
+            <span>Next</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="timer-expired-modal" class="timer-expired-modal">
+      <div class="timer-expired-modal-content">
+        <div class="timer-expired-modal-title">Time is Up!</div>
+        <div class="timer-expired-modal-text">Module time has expired. You can continue working without time limit, or end now to view your results.</div>
+        <div class="timer-expired-modal-buttons">
+          <button id="timer-modal-continue" class="timer-expired-modal-btn timer-expired-modal-btn-continue">Continue</button>
+          <button id="timer-modal-exit" class="timer-expired-modal-btn timer-expired-modal-btn-exit">Score and Exit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="timer-info-row">
+      <!-- 宸︿晶锛氶鐩繘锟?-->
+      <div class="question-progress-info">Question {{QUESTION_NUMBER}} of {{QUESTION_COUNT}}</div>
+
+      <!-- 鍙充晶锛氳鏃跺櫒鍜孒ide Time鎸夐挳 -->
+      <div class="timer-controls">
+        <div id="timer-display-exam" class="timer-display-exam">00:00</div>
+        <button class="hide-time-btn-exam" id="toggle-timer-exam-btn">
+          <i class="fas fa-eye-slash"></i>
+          <span>Hide Time</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 涓诲唴瀹瑰尯锟?- Academic Passage棰樺瀷 -->
+    <main class="main-content">
+      <div id="question-module">
+        <!-- 鏂囩珷鏍囬鍖哄煙锛堥粦鑹插垎鍓茬嚎涓嬫柟锛屽眳涓姞绮楋級 -->
+        <div class="passage-title-area">
+          <h2 class="passage-title">{{PASSAGE_TITLE}}</h2>
+        </div>
+
+        <div class="two-column-layout">
+          <!-- 宸︿晶锛氬鏈枃绔犲唴锟?-->
+          <div class="left-column">
+            <div class="academic-passage-container">
+              <div class="academic-passage-content">{{PASSAGE_CONTENT}}</div>
+            </div>
+          </div>
+
+          <!-- 鍙充晶锛氶锟?-->
+          <div class="right-column">
+            <div class="question-container-apple">
+              <div class="question-text-apple">{{QUESTION_TEXT}}</div>
+
+              {{SENTENCE_OPTIONS_HTML}}
+              <div class="options-container-apple" id="options-container-{{QUESTION_NUMBER}}">
+                <div
+                  class="option-item-apple"
+                  data-question="{{QUESTION_NUMBER}}"
+                  data-option="A"
+                  data-correct="{{CORRECT_A}}"
+                >
+                  <div class="option-letter-apple">A</div>
+                  <div class="option-text-apple">{{OPTION_A}}</div>
+                </div>
+                <div
+                  class="option-item-apple"
+                  data-question="{{QUESTION_NUMBER}}"
+                  data-option="B"
+                  data-correct="{{CORRECT_B}}"
+                >
+                  <div class="option-letter-apple">B</div>
+                  <div class="option-text-apple">{{OPTION_B}}</div>
+                </div>
+                <div
+                  class="option-item-apple"
+                  data-question="{{QUESTION_NUMBER}}"
+                  data-option="C"
+                  data-correct="{{CORRECT_C}}"
+                >
+                  <div class="option-letter-apple">C</div>
+                  <div class="option-text-apple">{{OPTION_C}}</div>
+                </div>
+                <div
+                  class="option-item-apple"
+                  data-question="{{QUESTION_NUMBER}}"
+                  data-option="D"
+                  data-correct="{{CORRECT_D}}"
+                >
+                  <div class="option-letter-apple">D</div>
+                  <div class="option-text-apple">{{OPTION_D}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Review闈㈡澘锛堜晶杈规爮锟?-->
+    <div id="review-panel" class="review-panel">
+      <div class="review-header">
+        <h3><i class="fas fa-list-check"></i> Review Questions</h3>
+        <button class="close-review-btn" id="close-review-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="review-stats">
+        <div class="review-stat-item">
+          <span class="review-stat-label">Total:</span>
+          <span class="review-stat-value" id="review-total">1</span>
+        </div>
+        <div class="review-stat-item">
+          <span class="review-stat-label">Answered:</span>
+          <span class="review-stat-value answered" id="review-answered">0</span>
+        </div>
+        <div class="review-stat-item">
+          <span class="review-stat-label">Marked:</span>
+          <span class="review-stat-value marked" id="review-marked">0</span>
+        </div>
+        <div class="review-stat-item">
+          <span class="review-stat-label">Progress:</span>
+          <span class="review-stat-value" id="review-progress">0%</span>
+        </div>
+      </div>
+      <div class="review-questions-list">
+        <h4>Questions:</h4>
+        <div id="questions-list">
+          <!-- 棰樼洰鍒楄〃灏嗗姩鎬佺敓锟?-->
+        </div>
+      </div>
+      <div class="review-actions">
+        <button class="review-action-btn" id="review-mark-all-btn">
+          <i class="fas fa-flag"></i> Mark All
+        </button>
+        <button class="review-action-btn" id="review-clear-marks-btn">
+          <i class="fas fa-eraser"></i> Clear Marks
+        </button>
+        <button class="review-action-btn primary" id="review-jump-to-btn">
+          <i class="fas fa-arrow-right"></i> Jump to Question
+        </button>
+      </div>
+    </div>
+
+    <!-- Review闈㈡澘閬僵 -->
+    <div id="review-overlay" class="review-overlay"></div>
+
+    <!-- Check Answers Overlay -->
+    <div id="check-overlay" class="check-overlay"></div>
+    <div id="answers-check-area" class="answers-check-area">
+      <div class="answers-check-header">
+        <h3><i class="fas fa-clipboard-check"></i> Answers Check</h3>
+        <button class="close-answers-btn" id="close-answers-btn">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="answers-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total Questions:</span>
+          <span class="stat-value" id="answers-total-questions">1</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Correct:</span>
+          <span class="stat-value correct" id="answers-correct-count">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Incorrect:</span>
+          <span class="stat-value incorrect" id="answers-incorrect-count">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Accuracy:</span>
+          <span class="stat-value" id="answers-accuracy-rate">0%</span>
+        </div>
+      </div>
+      <div class="answers-details">
+        <h4>Question Details:</h4>
+        <div id="answers-list"></div>
+      </div>
+      <div class="answers-actions">
+        <button class="action-btn retry-btn" id="retry-incorrect-btn">
+          <i class="fas fa-redo"></i> Retry
+        </button>
+        <button class="action-btn close-btn" id="close-check-btn">
+          <i class="fas fa-times"></i> Close
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // 璁℃椂鍣ㄥ姛锟?
+      let timerInterval;
+      let totalSeconds = {{TIMER_SECONDS}};
+      let timerVisible = true;
+
+      const timerUnlimited = localStorage.getItem('toefl_reading_timer_unlimited');
+      const savedTime = localStorage.getItem('toefl_reading_timer_remaining');
+      const timerStarted = localStorage.getItem('toefl_reading_timer_started');
+
+      if (timerUnlimited === 'true') {
+        document.getElementById('timer-display-exam').textContent = '--:--';
+        totalSeconds = -1;
+      } else if (savedTime && timerStarted === 'true') {
+        totalSeconds = parseInt(savedTime);
+      }
+
+      function updateTimerDisplay() {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const timerDisplay = document.getElementById('timer-display-exam');
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (totalSeconds <= 60) {
+          timerDisplay.style.color = '#cc0000';
+          timerDisplay.style.backgroundColor = '#fff5f5';
+          timerDisplay.style.borderColor = '#cc0000';
+        } else {
+          timerDisplay.style.color = '#222222';
+          timerDisplay.style.backgroundColor = '#f5f5f5';
+          timerDisplay.style.borderColor = '#e0e0e0';
+        }
+      }
+
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        if (totalSeconds < 0) return;
+        updateTimerDisplay();
+        timerInterval = setInterval(function () {
+          if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display-exam').textContent = '00:00';
+            const modal = document.getElementById('timer-expired-modal');
+            modal.classList.add('show');
+
+            document.getElementById('timer-modal-continue').onclick = function() {
+              modal.classList.remove('show');
+              localStorage.setItem('toefl_reading_timer_unlimited', 'true');
+              document.getElementById('timer-display-exam').textContent = '--:--';
+            };
+
+            document.getElementById('timer-modal-exit').onclick = function() {
+              const resultsPage = 'reading_results.html';
+              window.location.href = resultsPage;
+            };
+            return;
+          }
+          totalSeconds--;
+          updateTimerDisplay();
+        }, 1000);
+      }
+
+      function toggleTimer() {
+        const timerDisplay = document.getElementById('timer-display-exam');
+        const toggleBtn = document.getElementById('toggle-timer-exam-btn');
+        if (timerVisible) {
+          timerDisplay.style.visibility = 'hidden';
+          toggleBtn.innerHTML = '<i class="fas fa-eye"></i><span>Show Time</span>';
+          timerVisible = false;
+        } else {
+          timerDisplay.style.visibility = 'visible';
+          toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>Hide Time</span>';
+          timerVisible = true;
+        }
+      }
+
+      // 閫夐」閫夋嫨鍔熻兘锛堝鏈枃绔犻鍨嬩笓鐢級
+      document.addEventListener('DOMContentLoaded', function () {
+        console.log('鍒濆鍖朡uestion {{QUESTION_NUMBER}}閫夐」...');
+        setTimeout(startTimer, 100);
+        localStorage.setItem('toefl_reading_timer_started', 'true');
+
+        // 閫夐」鐐瑰嚮浜嬩欢
+        const options = document.querySelectorAll('.option-item-apple');
+        options.forEach(option => {
+          option.addEventListener('click', function () {
+            const questionId = this.getAttribute('data-question');
+            document.querySelectorAll(`.option-item-apple[data-question="${questionId}"]`).forEach(item => {
+              item.classList.remove('selected');
+            });
+            this.classList.add('selected');
+            const answer = this.getAttribute('data-option');
+            const qNum = parseInt(questionId);
+            const gId = (qNum + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+            let answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
+            answers[gId] = answer;
+            localStorage.setItem('toefl_reading_answers', JSON.stringify(answers));
+            console.log('绛旀宸蹭繚锟?', answer);
+
+            // Store per-question correctness and module score for results page
+            const isCorrect = this.getAttribute('data-correct') === 'true';
+            const taskNum = {{TASK_NUMBER}};
+            const modPrefix = {{QUESTION_COUNT}} <= 20 ? 'M2' : 'M1';
+            const taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
+
+            const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
+            const wasAnswered = cMap.hasOwnProperty(gId);
+            const wasCorrect = wasAnswered ? cMap[gId] : false;
+
+            if (!wasAnswered) {
+              let curTotal = parseInt(localStorage.getItem(taskKey + '_total') || '0', 10);
+              localStorage.setItem(taskKey + '_total', (curTotal + 1).toString());
+              if (isCorrect) {
+                let curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+                localStorage.setItem(taskKey + '_correct', (curCorrect + 1).toString());
+              }
+            } else if (wasCorrect && !isCorrect) {
+              let curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+              localStorage.setItem(taskKey + '_correct', Math.max(0, curCorrect - 1).toString());
+            } else if (!wasCorrect && isCorrect) {
+              let curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+              localStorage.setItem(taskKey + '_correct', (curCorrect + 1).toString());
+            }
+
+            cMap[gId] = isCorrect;
+            localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+          });
+        });
+
+        // 鍔犺浇宸蹭繚瀛樼殑绛旀
+        const answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
+        const loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+        const savedAnswer = answers[loadGId];
+        if (savedAnswer) {
+          const optionToSelect = document.querySelector(
+            `.option-item-apple[data-question="{{QUESTION_NUMBER}}"][data-option="${savedAnswer}"]`
+          );
+          if (optionToSelect) {
+            optionToSelect.classList.add('selected');
+            console.log('鍔犺浇宸蹭繚瀛樼瓟锟?', savedAnswer);
+          }
+          // 尝试恢复句子选择
+          document.querySelectorAll('.sentence-option-row').forEach(row => {
+            const st = row.querySelector('.sentence-text');
+            if (st && st.textContent.trim() === savedAnswer) {
+              row.classList.add('selected');
+              document.querySelectorAll('.passage-sentence-hl').forEach(s => {
+                if (s.textContent.trim() === savedAnswer) s.classList.add('passage-sentence-active');
+              });
+            }
+          });
+        }
+
+        // Back鎸夐挳鏄剧ず閫昏緫
+        const questionNumber = parseInt('{{QUESTION_NUMBER}}');
+        const backButton = document.getElementById('back-question-btn');
+        if (questionNumber === 1) {
+            backButton.style.display = 'none';
+        } else {
+            backButton.style.display = 'inline-block';
+        }
+
+        // Hide Time鎸夐挳
+        document.getElementById('toggle-timer-exam-btn').addEventListener('click', toggleTimer);
+
+        // Back鎸夐挳
+        // Back鎸夐挳
+        document.getElementById('back-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+          localStorage.setItem('toefl_reading_resume_page', '{{BACK_PAGE}}');
+          window.location.href = '{{BACK_PAGE}}';
+        });
+
+        // Next鎸夐挳
+        document.getElementById('next-question-btn').addEventListener('click', function () {
+          localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+          localStorage.setItem('toefl_reading_resume_page', '{{NEXT_PAGE}}');
+          window.location.href = '{{NEXT_PAGE}}';
+        });
+
+        // Exit鎸夐挳
+        document.getElementById('exit-btn').addEventListener('click', function () {
+          window.showConfirm('Exit Test', 'Your progress has been saved.\nWould you like to keep it or clear all data?', [
+            { text: 'Save & Exit', cls: 'primary', onClick: function(){
+              localStorage.setItem('toefl_reading_resume_page', window.location.pathname.split('/').pop());
+              window.location.href = '../../../dist/index.html';
+            }},
+            { text: 'Clear & Exit', cls: 'danger', onClick: function(){
+              var keys = [];
+              for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && k.startsWith('toefl_')) keys.push(k);
+              }
+              keys.forEach(function(k){ localStorage.removeItem(k); });
+              window.location.href = '../../../dist/index.html';
+            }}
+          ], true);
+        });
+
+        // Volume鎸夐挳
+        document.querySelector('.volume-btn').addEventListener('click', function () {
+          window.showHelp('Volume', 'Volume control will be implemented in the speaking and listening version.');
+        });
+
+        // Help鎸夐挳
+        document.querySelector('.help-btn').addEventListener('click', function () {
+          window.showHelp('Help', '1. Read the academic passage carefully\n2. Select the best answer\n3. Use Review button to mark questions\n4. Click Next to continue');
+        });
+
+        // Check Answers鎸夐挳
+        document.getElementById('check-answers-btn').addEventListener('click', checkAllAnswers);
+
+        // Review鎸夐挳
+        document.getElementById('review-btn').addEventListener('click', toggleReviewPanel);
+
+        // 鍒濆鍖朢eview闈㈡澘
+        initializeReviewPanel();
+
+        console.log('Question {{QUESTION_NUMBER}} initialization complete');
+
+        // Bind answer check area buttons
+        document.getElementById('close-answers-btn').addEventListener('click', closeAnswersCheck);
+        document.getElementById('close-check-btn').addEventListener('click', closeAnswersCheck);
+        document.getElementById('retry-incorrect-btn').addEventListener('click', retryIncorrectAnswers);
+
+        document.getElementById('check-overlay').addEventListener('click', closeAnswersCheck);
+
+        function initAnswersPanelDrag() {
+          var panel = document.getElementById('answers-check-area');
+          var header = panel.querySelector('.answers-check-header');
+          var isDragging = false;
+          var startX, startY, startLeft, startTop;
+          header.addEventListener('mousedown', function (e) {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            var rect = panel.getBoundingClientRect();
+            startLeft = rect.left;
+            startTop = rect.top;
+            panel.style.transform = 'none';
+            panel.style.top = startTop + 'px';
+            panel.style.left = startLeft + 'px';
+            panel.style.cursor = 'grabbing';
+            e.preventDefault();
+          });
+          document.addEventListener('mousemove', function (e) {
+            if (!isDragging) return;
+            var dx = e.clientX - startX;
+            var dy = e.clientY - startY;
+            panel.style.top = (startTop + dy) + 'px';
+            panel.style.left = (startLeft + dx) + 'px';
+          });
+          document.addEventListener('mouseup', function () {
+            if (!isDragging) return;
+            isDragging = false;
+            panel.style.cursor = '';
+          });
+        }
+        initAnswersPanelDrag();
+
+        // Review panel buttons
+        document.getElementById('close-review-btn').addEventListener('click', closeReviewPanel);
+        document.getElementById('review-overlay').addEventListener('click', closeReviewPanel);
+        document.getElementById('review-mark-all-btn').addEventListener('click', markAllQuestions);
+        document.getElementById('review-clear-marks-btn').addEventListener('click', clearAllMarks);
+        document.getElementById('review-jump-to-btn').addEventListener('click', function() {
+          const firstMarked = [...markedQuestions].sort((a, b) => a - b)[0];
+          if (firstMarked) {
+            jumpToQuestion(firstMarked);
+          } else {
+            alert('No marked questions. Please mark some questions first.');
+          }
+        });
+
+        // === Review Mode Support ===
+        if (sessionStorage.getItem('review_mode') === 'true') {
+          setTimeout(function () { checkAllAnswers(); }, 300);
+
+          var backBtn = document.getElementById('back-question-btn');
+          var nextBtn = document.getElementById('next-question-btn');
+          var backClone = backBtn.cloneNode(true);
+          var nextClone = nextBtn.cloneNode(true);
+          backBtn.parentNode.replaceChild(backClone, backBtn);
+          nextBtn.parentNode.replaceChild(nextClone, nextBtn);
+
+          backClone.addEventListener('click', function () {
+            var queue = JSON.parse(sessionStorage.getItem('review_queue') || '[]');
+            var idx = parseInt(sessionStorage.getItem('review_index') || '0');
+            if (idx > 0) {
+              idx--;
+              sessionStorage.setItem('review_index', String(idx));
+              window.location.href = queue[idx];
+            }
+          });
+
+          nextClone.addEventListener('click', function () {
+            var queue = JSON.parse(sessionStorage.getItem('review_queue') || '[]');
+            var idx = parseInt(sessionStorage.getItem('review_index') || '0');
+            if (idx < queue.length - 1) {
+              idx++;
+              sessionStorage.setItem('review_index', String(idx));
+              window.location.href = queue[idx];
+            } else {
+              sessionStorage.removeItem('review_mode');
+              sessionStorage.removeItem('review_queue');
+              sessionStorage.removeItem('review_index');
+              window.location.href = 'reading_results.html';
+            }
+          });
+        }
+      });
+
+// ===== Check Answers鍔熻兘 =====
+      function checkAllAnswers() {
+        const questionId = '{{QUESTION_NUMBER}}';
+
+        // 检测是否为句子选择题
+        const sentenceRows = document.querySelectorAll('.sentence-option-row');
+        if (sentenceRows.length > 0) {
+          return checkSentenceAnswers(sentenceRows);
+        }
+
+        // 普通ABCD选择题逻辑（不变）
+        const options = document.querySelectorAll(`.option-item-apple[data-question="${questionId}"]`);
+        let selectedOption = null;
+        let correctOption = null;
+
+        options.forEach(option => {
+          if (option.classList.contains('selected')) {
+            selectedOption = option;
+          }
+          if (option.getAttribute('data-correct') === 'true') {
+            correctOption = option;
+          }
+        });
+
+        const totalQuestions = 1;
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let emptyCount = 0;
+
+        options.forEach(option => {
+          option.classList.remove('correct', 'incorrect', 'empty', 'selected');
+        });
+
+        if (!selectedOption) {
+          emptyCount = 1;
+          options.forEach(option => option.classList.add('empty'));
+        } else if (selectedOption === correctOption) {
+          correctCount = 1;
+          selectedOption.classList.add('correct');
+        } else {
+          incorrectCount = 1;
+          selectedOption.classList.add('incorrect');
+          if (correctOption) correctOption.classList.add('correct');
+        }
+
+        const accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+        document.getElementById('answers-total-questions').textContent = totalQuestions;
+        document.getElementById('answers-correct-count').textContent = correctCount;
+        document.getElementById('answers-incorrect-count').textContent = incorrectCount;
+        document.getElementById('answers-accuracy-rate').textContent = accuracy + '%';
+        updateModuleScoreCounts();
+
+        generateAnswersDetails(questionId, selectedOption, correctOption);
+        document.getElementById('check-overlay').style.display = 'block';
+        document.getElementById('answers-check-area').style.display = 'block';
+        document.getElementById('answers-check-area').scrollIntoView({ behavior: 'smooth' });
+
+        return { total: totalQuestions, correct: correctCount, incorrect: incorrectCount, empty: emptyCount, accuracy: accuracy };
+      }
+
+      function checkSentenceAnswers(sentenceRows) {
+        var selectedRow = null;
+        var correctRow = null;
+
+        sentenceRows.forEach(row => {
+          if (row.classList.contains('selected')) selectedRow = row;
+          if (row.getAttribute('data-correct') === 'true') correctRow = row;
+        });
+
+        var totalQuestions = 1;
+        var correctCount = 0;
+        var incorrectCount = 0;
+        var emptyCount = 0;
+
+        sentenceRows.forEach(row => {
+          row.classList.remove('correct', 'incorrect', 'empty');
+        });
+
+        if (!selectedRow) {
+          emptyCount = 1;
+          sentenceRows.forEach(row => row.classList.add('empty'));
+        } else if (selectedRow === correctRow) {
+          correctCount = 1;
+          selectedRow.classList.add('correct');
+        } else {
+          incorrectCount = 1;
+          selectedRow.classList.add('incorrect');
+          if (correctRow) correctRow.classList.add('correct');
+        }
+
+        var accuracy = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+        document.getElementById('answers-total-questions').textContent = totalQuestions;
+        document.getElementById('answers-correct-count').textContent = correctCount;
+        document.getElementById('answers-incorrect-count').textContent = incorrectCount;
+        document.getElementById('answers-accuracy-rate').textContent = accuracy + '%';
+        updateModuleScoreCounts();
+
+        generateSentenceAnswersDetails(selectedRow, correctRow);
+        document.getElementById('check-overlay').style.display = 'block';
+        document.getElementById('answers-check-area').style.display = 'block';
+        document.getElementById('answers-check-area').scrollIntoView({ behavior: 'smooth' });
+
+        return { total: totalQuestions, correct: correctCount, incorrect: incorrectCount, empty: emptyCount, accuracy: accuracy };
+      }
+
+      function generateAnswersDetails(questionId, selectedOption, correctOption) {
+        const answersList = document.getElementById('answers-list');
+        answersList.innerHTML = '';
+        const questionNumber = {{QUESTION_NUMBER}};
+        let userAnswer = selectedOption ? selectedOption.getAttribute('data-option') : '';
+        let correctAnswer = correctOption ? correctOption.getAttribute('data-option') : '';
+        let status = '';
+        let statusClass = '';
+        let statusText = '';
+
+        if (!selectedOption) {
+          status = 'empty';
+          statusClass = 'empty';
+          statusText = 'Not answered';
+        } else if (selectedOption === correctOption) {
+          status = 'correct';
+          statusClass = 'correct';
+          statusText = 'Correct';
+        } else {
+          status = 'incorrect';
+          statusClass = 'incorrect';
+          statusText = 'Incorrect';
+        }
+
+        const answerItem = document.createElement('div');
+        answerItem.className = `answer-item ${statusClass}`;
+        answerItem.innerHTML = `
+            <div class="question-number-badge">${questionNumber}</div>
+            <div class="answer-content">
+              <div class="answer-word">
+                Your answer: ${userAnswer || '(empty)'}
+              </div>
+              <div class="answer-status">
+                <span class="status-text ${statusClass}">${statusText}</span>
+                ${status !== 'correct' ? `<span class="correct-answer">Correct: ${correctAnswer}</span>` : ''}
+              </div>
+            </div>
+          `;
+        answersList.appendChild(answerItem);
+      }
+
+      function generateSentenceAnswersDetails(selectedRow, correctRow) {
+        var answersList = document.getElementById('answers-list');
+        answersList.innerHTML = '';
+        var questionNumber = {{QUESTION_NUMBER}};
+        var userText = selectedRow ? selectedRow.querySelector('.sentence-text').textContent.trim() : '';
+        var correctText = correctRow ? correctRow.querySelector('.sentence-text').textContent.trim() : '';
+        var status = '';
+        var statusClass = '';
+        var statusText = '';
+
+        if (!selectedRow) {
+          status = 'empty';
+          statusClass = 'empty';
+          statusText = 'Not answered';
+        } else if (selectedRow === correctRow) {
+          status = 'correct';
+          statusClass = 'correct';
+          statusText = 'Correct';
+        } else {
+          status = 'incorrect';
+          statusClass = 'incorrect';
+          statusText = 'Incorrect';
+        }
+        var truncate = function(s, max) { return s.length > max ? s.substring(0, max) + '...' : s; };
+        var answerItem = document.createElement('div');
+        answerItem.className = 'answer-item ' + statusClass;
+        answerItem.innerHTML =
+          '<div class="question-number-badge">' + questionNumber + '</div>' +
+          '<div class="answer-content">' +
+            '<div class="answer-word">Your answer: ' + truncate(userText || '(empty)', 80) + '</div>' +
+            '<div class="answer-status">' +
+              '<span class="status-text ' + statusClass + '">' + statusText + '</span>' +
+              (status !== 'correct' ? '<span class="correct-answer">Correct: ' + truncate(correctText, 80) + '</span>' : '') +
+            '</div>' +
+          '</div>';
+        answersList.appendChild(answerItem);
+      }
+
+      function closeAnswersCheck() {
+        document.getElementById('answers-check-area').style.display = 'none';
+        document.getElementById('check-overlay').style.display = 'none';
+        document.querySelectorAll('.option-item-apple').forEach(option => {
+          option.classList.remove('correct', 'incorrect', 'empty');
+        });
+        document.querySelectorAll('.sentence-option-row').forEach(row => {
+          row.classList.remove('correct', 'incorrect', 'empty');
+        });
+        var answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
+        var loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+        var savedAnswer = answers[loadGId];
+        if (savedAnswer) {
+          var opt = document.querySelector('.option-item-apple[data-question="{{QUESTION_NUMBER}}"][data-option="' + savedAnswer + '"]');
+          if (opt) opt.classList.add('selected');
+        }
+      }
+
+// ===== 鏇存柊妯″潡寰楀垎缁熻 =====
+      function updateModuleScoreCounts() {
+        // 浠巐ocalStorage鑾峰彇鍚勯姝ｇ‘鏁板拰鎬绘暟
+        const correct1 = parseInt(localStorage.getItem('toefl_reading_M1_T1_correct') || "0");
+        const total1 = parseInt(localStorage.getItem('toefl_reading_M1_T1_total') || "0");
+        const module1Count = correct1 + total1;
+        const module1Total = total1;
+
+        const correct2 = parseInt(localStorage.getItem('toefl_reading_M2_T1_correct') || "0");
+        const total2 = parseInt(localStorage.getItem('toefl_reading_M2_T1_total') || "0");
+        const module2Count = correct2 + total2;
+        const module2Total = total2;
+
+        // 鍙湪鏂扮殑鎻愪氦鏃舵洿鏂皌otal锛岄槻姝㈤噸澶嶈锟?
+        const storedM1Total = parseInt(localStorage.getItem('toefl_reading_M1_totalStored') || "0");
+        if (module1Total > storedM1Total) {
+          localStorage.setItem('toefl_reading_M1_totalStored', module1Total);
+          const m1El = document.getElementById('module-1-count');
+          if (m1El) m1El.textContent = module1Count;
+          const m1TotalEl = document.getElementById('module-1-total');
+          if (m1TotalEl) m1TotalEl.textContent = module1Total;
+        }
+
+        const storedM2Total = parseInt(localStorage.getItem('toefl_reading_M2_totalStored') || "0");
+        if (module2Total > storedM2Total) {
+          localStorage.setItem('toefl_reading_M2_totalStored', module2Total);
+          const m2El = document.getElementById('module-2-count');
+          if (m2El) m2El.textContent = module2Count;
+          const m2TotalEl = document.getElementById('module-2-total');
+          if (m2TotalEl) m2TotalEl.textContent = module2Total;
+        }
+      }
+
+      function retryIncorrectAnswers() {
+          document.querySelectorAll('.option-item-apple.selected').forEach(option => {
+            option.classList.remove('selected');
+          });
+          document.querySelectorAll('.option-item-apple').forEach(option => {
+            option.classList.remove('correct', 'incorrect', 'empty');
+          });
+          document.querySelectorAll('.sentence-option-row.selected').forEach(row => {
+            row.classList.remove('selected');
+          });
+          document.querySelectorAll('.passage-sentence-active').forEach(s => {
+            s.classList.remove('passage-sentence-active');
+          });
+          document.getElementById('answers-check-area').style.display = 'none';
+          document.getElementById('check-overlay').style.display = 'none';
+        }
+
+      // ===== Review鍔熻兘 =====
+      let markedQuestions = new Set();
+
+      function initializeReviewPanel() {
+        const savedMarks = localStorage.getItem('toefl_reading_marked_questions');
+        if (savedMarks) {
+          try {
+            markedQuestions = new Set(JSON.parse(savedMarks));
+          } catch (error) {
+            console.error('鍔犺浇鏍囪棰樼洰澶辫触:', error);
+            markedQuestions = new Set();
+          }
+        }
+        updateReviewPanel();
+      }
+
+      function updateReviewPanel() {
+        const totalQuestions = 1;
+        let answeredCount = 0;
+        const selectedOption = document.querySelector('.option-item-apple.selected');
+        if (selectedOption) answeredCount = 1;
+        const markedCount = markedQuestions.has({{QUESTION_NUMBER}}) ? 1 : 0;
+        const progress = totalQuestions > 0 ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+
+        document.getElementById('review-total').textContent = totalQuestions;
+        document.getElementById('review-answered').textContent = answeredCount;
+        document.getElementById('review-marked').textContent = markedCount;
+        document.getElementById('review-progress').textContent = `${progress}%`;
+        updateQuestionsList();
+      }
+
+      function updateQuestionsList() {
+        const questionsList = document.getElementById('questions-list');
+        questionsList.innerHTML = '';
+        for (let i = {{QUESTION_NUMBER}}; i <= {{QUESTION_NUMBER}}; i++) {
+          const questionItem = document.createElement('div');
+          questionItem.className = 'question-item';
+          questionItem.textContent = i;
+          questionItem.dataset.questionId = i;
+
+          const selectedOption = document.querySelector('.option-item-apple.selected');
+          if (selectedOption) {
+            questionItem.classList.add('answered');
+          }
+          if (markedQuestions.has(i)) {
+            questionItem.classList.add('marked');
+          }
+          questionItem.addEventListener('click', function() {
+            jumpToQuestion(i);
+          });
+          questionsList.appendChild(questionItem);
+        }
+      }
+
+      function toggleReviewPanel() {
+        const reviewPanel = document.getElementById('review-panel');
+        const overlay = document.getElementById('review-overlay');
+        if (reviewPanel.classList.contains('active')) {
+          reviewPanel.classList.remove('active');
+          overlay.classList.remove('active');
+        } else {
+          reviewPanel.classList.add('active');
+          overlay.classList.add('active');
+          updateReviewPanel();
+        }
+      }
+
+      function closeReviewPanel() {
+        document.getElementById('review-panel').classList.remove('active');
+        document.getElementById('review-overlay').classList.remove('active');
+      }
+
+      function jumpToQuestion(questionId) {
+        highlightCurrentQuestion(questionId);
+        closeReviewPanel();
+      }
+
+      function highlightCurrentQuestion(questionId) {
+        document.querySelectorAll('.question-item.current').forEach(item => {
+          item.classList.remove('current');
+        });
+        const currentItem = document.querySelector(`.question-item[data-question-id="${questionId}"]`);
+        if (currentItem) {
+          currentItem.classList.add('current');
+        }
+      }
+
+      function toggleQuestionMark(questionId) {
+        if (markedQuestions.has(questionId)) {
+          markedQuestions.delete(questionId);
+        } else {
+          markedQuestions.add(questionId);
+        }
+        localStorage.setItem('toefl_reading_marked_questions', JSON.stringify([...markedQuestions]));
+        updateReviewPanel();
+      }
+
+      function markAllQuestions() {
+        markedQuestions.add({{QUESTION_NUMBER}});
+        localStorage.setItem('toefl_reading_marked_questions', JSON.stringify([...markedQuestions]));
+        updateReviewPanel();
+      }
+
+      function clearAllMarks() {
+        markedQuestions.clear();
+        localStorage.removeItem('toefl_reading_marked_questions');
+        updateReviewPanel();
+      }
+
+      // ===== 句子选择题（Click on the sentence 题型）=====
+      function selectSentence(el, index, paraNum) {
+        document.querySelectorAll('.sentence-option-row').forEach(r => r.classList.remove('selected'));
+        el.classList.add('selected');
+        var selectedText = el.querySelector('.sentence-text').textContent.trim();
+        var questionNum = parseInt('{{QUESTION_NUMBER}}');
+        var gId = (questionNum + (parseInt('{{QUESTION_COUNT}}') <= 20 ? parseInt('{{MODULE1_TOTAL}}') : 0)).toString();
+
+        // 存入答案（与ABCD题格式一致）
+        var answers = {};
+        try { answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}'); } catch(e) {}
+        answers[gId] = selectedText;
+        localStorage.setItem('toefl_reading_answers', JSON.stringify(answers));
+
+        // 存对错（防重复累加）
+        var isCorrect = el.getAttribute('data-correct') === 'true';
+        var cMap = {};
+        try { cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}'); } catch(e) {}
+        var wasAnswered = cMap.hasOwnProperty(gId);
+        var wasCorrect = wasAnswered ? cMap[gId] : false;
+
+        // 累加 task 计数
+        var taskNum = {{TASK_NUMBER}};
+        var modPrefix = parseInt('{{QUESTION_COUNT}}') <= 20 ? 'M2' : 'M1';
+        var taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
+        if (!wasAnswered) {
+          var curTotal = parseInt(localStorage.getItem(taskKey + '_total') || '0', 10);
+          localStorage.setItem(taskKey + '_total', (curTotal + 1).toString());
+          if (isCorrect) {
+            var curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+            localStorage.setItem(taskKey + '_correct', (curCorrect + 1).toString());
+          }
+        } else if (wasCorrect && !isCorrect) {
+          var curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+          localStorage.setItem(taskKey + '_correct', Math.max(0, curCorrect - 1).toString());
+        } else if (!wasCorrect && isCorrect) {
+          var curCorrect = parseInt(localStorage.getItem(taskKey + '_correct') || '0', 10);
+          localStorage.setItem(taskKey + '_correct', (curCorrect + 1).toString());
+        }
+
+        cMap[gId] = isCorrect;
+        localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
+
+        // 左侧文章同步高亮
+        document.querySelectorAll('.passage-sentence-hl').forEach(s => {
+          if (s.textContent.trim() === selectedText) s.classList.add('passage-sentence-active');
+          else s.classList.remove('passage-sentence-active');
+        });
+      }
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

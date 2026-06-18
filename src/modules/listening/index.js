@@ -110,10 +110,10 @@ export default {
         audio: 'conversation1.mp3',
         question: 'What is the main topic of the conversation?',
         options: [
-          'The student\'s homework assignment',
-          'The professor\'s office hours',
+          "The student's homework assignment",
+          "The professor's office hours",
           'A campus event this weekend',
-          'The library\'s new resources'
+          "The library's new resources"
         ],
         answer: 'C',
         mode: 'practice' // 示例使用练习模式
@@ -148,7 +148,7 @@ export default {
     parsedData.tasks.forEach(task => {
       if (task.questions && task.questions.length > 0) {
         task.questions.forEach(question => {
-           const baseQuestion = {
+          const baseQuestion = {
             id: question.id,
             type: task.type, // listening
             taskTitle: task.title,
@@ -187,7 +187,7 @@ export default {
    */
   detectTaskTypeFromTitle(title) {
     const lowerTitle = title.toLowerCase();
-    
+
     if (lowerTitle.includes('listen and choose a response')) {
       return 'listen_and_choose';
     } else if (lowerTitle.includes('listen to a conversation')) {
@@ -197,7 +197,7 @@ export default {
     } else if (lowerTitle.includes('listen to an academic talk')) {
       return 'listen_to_academic_talk';
     }
-    
+
     return 'listen_to_conversation'; // 默认
   },
 
@@ -496,7 +496,8 @@ export default {
     // 添加题目类型标题
     const questionType = DOM.create('div', {
       className: 'question-type',
-      textContent: currentQuestion.taskTitle || this.getTaskTypeDisplayName(currentQuestion.taskType),
+      textContent:
+        currentQuestion.taskTitle || this.getTaskTypeDisplayName(currentQuestion.taskType),
       style: {
         fontSize: '16px',
         fontWeight: 'bold',
@@ -523,7 +524,7 @@ export default {
       this.currentAudioPlayer.destroy();
       this.currentAudioPlayer = null;
     }
-    
+
     // 清理题目组件
     if (this.currentQuestionComponent) {
       this.currentQuestionComponent.destroy();
@@ -536,10 +537,10 @@ export default {
    */
   getTaskTypeDisplayName(taskType) {
     const names = {
-      'listen_and_choose': 'Listen and Choose a Response',
-      'listen_to_conversation': 'Listen to a Conversation',
-      'listen_to_announcement': 'Listen to an Announcement',
-      'listen_to_academic_talk': 'Listen to an Academic Talk'
+      listen_and_choose: 'Listen and Choose a Response',
+      listen_to_conversation: 'Listen to a Conversation',
+      listen_to_announcement: 'Listen to an Announcement',
+      listen_to_academic_talk: 'Listen to an Academic Talk'
     };
     return names[taskType] || taskType;
   },
@@ -555,10 +556,10 @@ export default {
         marginBottom: '25px'
       }
     });
-    
+
     // 构建音频URL（相对于题库文件）
     const audioUrl = question.audio ? `assets/questions/listening/${question.audio}` : '';
-    
+
     // 创建音频播放器
     if (audioUrl) {
       this.currentAudioPlayer = new ListeningPlayer({
@@ -571,21 +572,21 @@ export default {
             this.currentQuestionComponent.setAudioPlayed(true);
           }
         },
-        onError: (error) => {
+        onError: error => {
           console.error(`音频加载失败: ${error}`);
           alert(`无法加载音频文件: ${audioUrl}`);
         }
       });
-      
+
       this.currentAudioPlayer.render(playerContainer, DOM);
     } else {
       playerContainer.textContent = '无音频文件';
       playerContainer.style.color = '#999';
       playerContainer.style.fontStyle = 'italic';
     }
-    
+
     container.appendChild(playerContainer);
-    
+
     // 创建题目组件
     this.currentQuestionComponent = new ListeningQuestion({
       taskType: question.taskType,
@@ -605,7 +606,7 @@ export default {
         console.log(`题目 ${questionId} 完成: ${letter}, 正确: ${isCorrect}`);
         // 在练习模式下，答题后显示重播按钮和原文
       },
-      onReplayRequest: (questionId) => {
+      onReplayRequest: questionId => {
         console.log(`重播请求: 问题 ${questionId}`);
         if (this.currentAudioPlayer) {
           this.currentAudioPlayer.seek(0);
@@ -613,7 +614,7 @@ export default {
         }
       }
     });
-    
+
     const questionElement = this.currentQuestionComponent.render();
     container.appendChild(questionElement);
   },
@@ -692,7 +693,9 @@ export default {
    * 显示帮助
    */
   showHelp() {
-    alert('听力题目帮助：\n\n1. 点击播放按钮开始听音频\n2. 在考试模式下，音频只能播放一次\n3. 在练习模式下，可以暂停、重播音频\n4. 选择你认为正确的答案\n5. 在练习模式下，答题后可以查看答案并重播音频');
+    alert(
+      '听力题目帮助：\n\n1. 点击播放按钮开始听音频\n2. 在考试模式下，音频只能播放一次\n3. 在练习模式下，可以暂停、重播音频\n4. 选择你认为正确的答案\n5. 在练习模式下，答题后可以查看答案并重播音频'
+    );
   },
 
   /**

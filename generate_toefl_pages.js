@@ -7,8 +7,7 @@ const __dirname = path.dirname(__filename);
 
 // ===== CLI argument parsing =====
 const args = process.argv.slice(2);
-let tpoMode = 'single';
-let tpoNumber = '01';
+let tpoMode = 'all';
 
 for (const arg of args) {
   if (arg.startsWith('--tpo=')) {
@@ -24,57 +23,75 @@ for (const arg of args) {
 // ===== Discover TPO files =====
 const questionsDir = path.join(__dirname, 'assets/questions/reading');
 
-const allTpoFiles = fs.readdirSync(questionsDir).filter(file =>
-  file.endsWith('.md') && file.startsWith('reading-TPO-')
-);
+const allTpoNums = [];
+if (fs.existsSync(questionsDir)) {
+  const entries = fs.readdirSync(questionsDir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      const match = entry.name.match(/^TPO-(\d+)$/i);
+      if (match) allTpoNums.push(match[1]);
+    }
+  }
+}
+allTpoNums.sort((a, b) => parseInt(a) - parseInt(b));
 
-if (allTpoFiles.length === 0) {
+if (allTpoNums.length === 0) {
   console.error('未找到题库文件！');
   process.exit(1);
 }
 
-console.log('可用的题库文件:', allTpoFiles.map(f => f.replace(/reading-TPO-(\d+)\.md/, 'TPO $1')));
+console.log('可用的题库文件:', allTpoNums.map(n => `TPO ${n}`));
 
 let filesToProcess = [];
 if (tpoMode === 'all') {
-  filesToProcess = allTpoFiles.map(f => ({
-    filename: f,
-    tpoNum: f.match(/reading-TPO-(\d+)\.md/)?.[1] || '01'
-  }));
+  for (const num of allTpoNums) {
+    const relativePath = path.join(`TPO-${num.padStart(2, '0')}`, `reading-TPO-${num.padStart(2, '0')}.md`);
+    const fullPath = path.join(questionsDir, relativePath);
+    if (fs.existsSync(fullPath)) {
+      filesToProcess.push({ filename: relativePath, tpoNum: num });
+    }
+  }
 } else {
-  const targetFile = allTpoFiles.find(f => f.includes(`reading-TPO-${tpoNumber}`));
-  if (!targetFile) {
+  const relativePath = path.join(`TPO-${tpoNumber.padStart(2, '0')}`, `reading-TPO-${tpoNumber.padStart(2, '0')}.md`);
+  const fullPath = path.join(questionsDir, relativePath);
+  if (!fs.existsSync(fullPath)) {
     console.error(`未找到TPO ${tpoNumber}的题库文件！`);
     process.exit(1);
   }
-  filesToProcess.push({ filename: targetFile, tpoNum: tpoNumber });
+  filesToProcess.push({ filename: relativePath, tpoNum: tpoNumber });
 }
 
 // ===== Templates definition =====
 const TEMPLATES = {
   fill: {
-    path: path.join(__dirname, 'templates/fill-in-missing-letters/template.html')
+    path: path.join(__dirname, 'templates/Reading/fill-in-missing-letters/template.html')
   },
   email: {
-    path: path.join(__dirname, 'templates/read-an-email/template.html')
+    path: path.join(__dirname, 'templates/Reading/read-an-email/template.html')
   },
   textchain: {
-    path: path.join(__dirname, 'templates/read-a-text-chain/template.html')
+    path: path.join(__dirname, 'templates/Reading/read-a-text-chain/template.html')
   },
   academic: {
-    path: path.join(__dirname, 'templates/read-academic-passage/template.html')
+    path: path.join(__dirname, 'templates/Reading/read-academic-passage/template.html')
+  },
+  notice: {
+    path: path.join(__dirname, 'templates/Reading/read-a-notice/template.html')
+  },
+  'social-media-post': {
+    path: path.join(__dirname, 'templates/Reading/read-a-social-media-post/template.html')
   },
   start: {
-    path: path.join(__dirname, 'templates/general/start-page-template.html')
+    path: path.join(__dirname, 'templates/Reading/general/start-page-template.html')
   },
   'module1-intro': {
-    path: path.join(__dirname, 'templates/general/module1-intro-template.html')
+    path: path.join(__dirname, 'templates/Reading/general/module1-intro-template.html')
   },
   'module2-intro': {
-    path: path.join(__dirname, 'templates/general/module2-intro-template.html')
+    path: path.join(__dirname, 'templates/Reading/general/module2-intro-template.html')
   },
   results: {
-    path: path.join(__dirname, 'templates/general/results-page-template.html')
+    path: path.join(__dirname, 'templates/Reading/general/results-page-template.html')
   }
 };
 
@@ -86,56 +103,33 @@ for (const [key, config] of Object.entries(TEMPLATES)) {
   }
   let html = fs.readFileSync(config.path, 'utf-8');
 
-  const questionPageKeys = ['fill', 'email', 'textchain', 'academic', 'results'];
+  const questionPageKeys = ['fill', 'email', 'textchain', 'academic', 'results', 'notice', 'social-media-post'];
     
     if (questionPageKeys.includes(key)) {
       const headerStyles = `
         html, body { margin: 0; padding: 0; }
-        .header { background-color: #008080; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .header { background-color: #008080; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 60px; }
         .logo { font-size: 36px; font-weight: bold; color: white; }
         .nav-buttons { display: flex; gap: 12px; }
-        .nav-button { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        .nav-button { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 16px; cursor: pointer; border: 3px solid transparent; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
         .nav-button.dark { background-color: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.3); }
         .nav-button.dark:hover { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
         .nav-button.light { background-color: rgba(255, 255, 255, 0.15); color: white; border-color: rgba(255, 255, 255, 0.3); }
         .nav-button.light:hover { background-color: rgba(255, 255, 255, 0.25); border-color: rgba(255, 255, 255, 0.6); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
-        .timer-info-row { position: relative; margin-top: 70px; margin-bottom: 0; }
+        .timer-info-row { position: relative; margin-top: 60px; margin-bottom: 0; }
         .main-content { max-width: 1200px; margin: 0 auto 30px; padding: 0 30px; width: 100%; background-color: white; box-sizing: border-box; }
 `;
       html = html.replace('<style>', '<style>\n' + headerStyles + '\n');
       html = html.replace(/href="assets\/score\/score\.css"/g, 'href="../../../assets/score/score.css"');
+      html = html.replace(/href="font-awesome\.css"/g, 'href="../../../font-awesome.css"');
+      html = html.replace(/'\\.\\.\\.\\.\'index\\.html\'/g, "'../../../dist/index.html'");
       templateContent[key] = html;
     } else {
+      html = html.replace(/href="font-awesome\.css"/g, 'href="../../../font-awesome.css"');
       html = html.replace(/href="styles\.css"/g, 'href="../../../styles.css"');
       templateContent[key] = html;
     }
 }
-
-// ===== New: TPO Index Page Generator (uses the HTML template) =====
-function generateTpoIndexPage(tpoNo, payload) {
-  try {
-    const templatePath = path.join(__dirname, 'templates', 'tpo-index-template.html');
-    if (!fs.existsSync(templatePath)) {
-      console.warn('TPO index template not found:', templatePath);
-      return;
-    }
-    let html = fs.readFileSync(templatePath, 'utf-8');
-    html = html
-      .replace('{{TITLE}}', payload.title || `TPO ${tpoNo}`)
-      .replace('{{INTRO_LINK}}', payload.introLink || '#')
-      .replace('{{MODULES}}', (payload.modules || []).map(m => `<li>${m.title} - <a href="${m.link}">Start</a></li>`).join('\n'));
-
-    const outDir = path.join(__dirname, 'tpo', String(tpoNo).padStart(2, '0'));
-    if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
-    const outPath = path.join(outDir, 'index.html');
-    fs.writeFileSync(outPath, html, 'utf8');
-    console.log(`Generated TPO index: ${outPath}`);
-  } catch (err) {
-    console.error('Error generating TPO index page:', err);
-  }
-}
-
-// Main generation flow will generate TPO indices automatically
 
 // ===== Parsing functions =====
 function parseMarkdown(markdownText) {
@@ -177,6 +171,10 @@ function parseMarkdown(markdownText) {
         templateType = 'textchain';
       } else if (taskDescription.includes('Academic Passage')) {
         templateType = 'academic';
+      } else if (taskDescription.includes('Notice')) {
+        templateType = 'notice';
+      } else if (taskDescription.includes('Social Media Post')) {
+        templateType = 'social-media-post';
       } else {
         console.warn('未知题型:', taskDescription);
         continue;
@@ -370,14 +368,67 @@ function parseTextChain(passage) {
 
   return messages
     .map(m => `
-<div class="message-bubble ${m.isSent ? 'sent' : 'received'}">
-  <div class="message-header">
-    <div class="message-sender ${m.isSent ? 'sent' : ''}">${m.sender}</div>
-    <div class="message-time ${m.isSent ? 'sent' : ''}">${m.time}</div>
+<div class="message-group ${m.isSent ? 'sent-align' : ''}">
+  <div class="message-sender-label">${m.sender}</div>
+  <div class="message-bubble ${m.isSent ? 'sent' : 'received'}">
+    <div class="message-text">${m.text}</div>
   </div>
-  <div class="message-text">${m.text}</div>
+  <div class="message-time-label">${m.time}</div>
 </div>`)
     .join('\n');
+}
+
+function parseNoticeContent(passage) {
+  const lines = passage.split('\n').map(l => l.trim()).filter(l => l);
+  let title = '';
+  let subtitle = '';
+
+  for (const line of lines) {
+    const titlePrefix = line.match(/^Title[：:]\s*(.+)/);
+    if (titlePrefix) { title = titlePrefix[1].trim(); continue; }
+    const subtitlePrefix = line.match(/^Subtitle[：:]\s*(.+)/);
+    if (subtitlePrefix) { subtitle = subtitlePrefix[1].trim(); }
+  }
+
+  if (!title) {
+    for (let i = 0; i < lines.length; i++) {
+      const titleMatch = lines[i].match(/^\*\*(.+?)\*\*/);
+      if (titleMatch) {
+        title = titleMatch[1].trim();
+        if (i + 1 < lines.length && !lines[i + 1].startsWith('*') && !lines[i + 1].match(/^\d+\./)) {
+          subtitle = lines[i + 1];
+        }
+        break;
+      }
+    }
+  }
+
+  const contentLines = lines.filter(l => !l.match(/^Title[：:]/) && !l.match(/^Subtitle[：:]/) && !l.startsWith('**') && !l.match(/^\d+\./));
+  const content = contentLines.join('\n');
+
+  return { title, subtitle, content };
+}
+
+function parseSocialContent(passage) {
+  const lines = passage.split('\n').map(l => l.trim()).filter(l => l);
+  let username = '';
+
+  for (const line of lines) {
+    const namePrefix = line.match(/^username[：:]\s*(.+)/i);
+    if (namePrefix) { username = namePrefix[1].trim(); break; }
+  }
+
+  if (!username) {
+    for (const line of lines) {
+      const nameMatch = line.match(/^\*\*(.+?)\*\*/);
+      if (nameMatch) { username = nameMatch[1].trim(); break; }
+    }
+  }
+
+  const contentLines = lines.filter(l => !l.match(/^username[：:]/i) && !l.startsWith('**') && !l.match(/^\d+\./));
+  const content = contentLines.join('<br>');
+
+  return { username, content };
 }
 
 function generateFillBlocks(paragraph, answers) {
@@ -436,6 +487,9 @@ function generateTPO(tpoNum, markdownFile) {
 
   const markdownText = fs.readFileSync(markdownFile, 'utf-8');
   const modules = parseMarkdown(markdownText);
+
+  const titleMatch = markdownText.match(/^#\s*(.+)/m);
+  const rawTitle = titleMatch ? titleMatch[1].trim() : `2026新托福样题（${tpoNum}）`;
 
   console.log(`解析完成: ${modules.length} 个模块`);
   console.log(`模块1: ${modules[0]?.tasks.length} 个任务`);
@@ -643,11 +697,66 @@ function generateTPO(tpoNum, markdownFile) {
             html = html.replace(/{{EMAIL_SENDER}}/g, emailData.sender);
           } else if (task.templateType === 'textchain') {
             html = html.replace(/{{TEXT_CHAIN_CONTENT}}/g, parseTextChain(task.passage));
+          } else if (task.templateType === 'notice') {
+            const noticeData = parseNoticeContent(task.passage);
+            html = html.replace(/{{NOTICE_TITLE}}/g, noticeData.title);
+            html = html.replace(/{{NOTICE_SUBTITLE}}/g, noticeData.subtitle);
+            html = html.replace(/{{NOTICE_CONTENT}}/g, noticeData.content);
+          } else if (task.templateType === 'social-media-post') {
+            const socialData = parseSocialContent(task.passage);
+            html = html.replace(/{{USERNAME}}/g, socialData.username);
+            html = html.replace(/{{SOCIAL_MEDIA_CONTENT}}/g, socialData.content);
           } else if (task.templateType === 'academic') {
             const titleMatch = task.description.match(/[-–—]\s*(.+)$/);
             const passageTitle = titleMatch ? titleMatch[1].trim() : task.description;
             html = html.replace(/{{PASSAGE_TITLE}}/g, passageTitle);
-            html = html.replace(/{{PASSAGE_CONTENT}}/g, task.passage);
+
+            let passageHTML = task.passage;
+            const vocabMatch = question.text.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
+            if (vocabMatch) {
+              const targetWord = vocabMatch[1];
+              const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(`\\b(${escapedWord})\\b`, 'gi');
+              passageHTML = passageHTML.replace(
+                regex,
+                '<span style="background-color:#008080;color:white;font-weight:bold;padding:1px 4px;border-radius:3px;">$1</span>'
+              );
+            }
+
+            // Click on the sentence 题型检测
+            const clickSentenceMatch = question.text.match(/Click on the sentence in paragraph (\d+)/i);
+            let sentenceOptionsHTML = '';
+            if (clickSentenceMatch) {
+              const paraNum = parseInt(clickSentenceMatch[1]);
+              const paras = passageHTML.split(/\n\s*\n/).filter(p => p.trim());
+              if (paras.length >= paraNum) {
+                const targetPara = paras[paraNum - 1];
+                const sentences = targetPara
+                  .split('. ')
+                  .map(s => s.trim())
+                  .filter(s => s.length > 3)
+                  .map((s, j, arr) => (j === arr.length - 1 ? s.replace(/\.$/, '') + '.' : s + '.'));
+
+                let markedPara = '';
+                for (let j = 0; j < sentences.length; j++) {
+                  markedPara += `<span class="passage-sentence-hl">${sentences[j]}</span> `;
+                }
+                paras[paraNum - 1] = markedPara.trim();
+                passageHTML = paras.join('\n\n');
+
+                const correctAnswer = (question.correctAnswer || '').trim();
+                sentenceOptionsHTML = '<div class="sentence-options-container">' + sentences.map((s, j) => {
+                  const isCorrect = s === correctAnswer;
+                  return `<div class="sentence-option-row" data-sentence-index="${j}" data-correct="${isCorrect}" onclick="selectSentence(this,${j},${paraNum})">
+                    <div class="sentence-number">${j + 1}</div>
+                    <div class="sentence-text">${s}</div>
+                  </div>`;
+                }).join('') + '</div>';
+              }
+            }
+
+            html = html.replace(/{{PASSAGE_CONTENT}}/g, passageHTML);
+            html = html.replace(/{{SENTENCE_OPTIONS_HTML}}/g, sentenceOptionsHTML);
           }
 
           html = html.replace(/{{QUESTION_TEXT}}/g, question.text);
@@ -745,186 +854,19 @@ function generateTPO(tpoNum, markdownFile) {
 
   console.log(`\nTPO ${tpoNum} 生成完成！共生成 ${generatedFiles.length} 个文件`);
 
-  // Generate TPO index page
-  const indexDir = path.join(__dirname, 'tpo');
-  if (!fs.existsSync(indexDir)) {
-    fs.mkdirSync(indexDir, { recursive: true });
+  // Inject start time tracking into first question page
+  const firstQPath = path.join(readingDir, firstQuestionPage);
+  if (fs.existsSync(firstQPath)) {
+    let firstQHtml = fs.readFileSync(firstQPath, 'utf8');
+    const startTimeKey = prefix + 'reading_start_time';
+    const injectScript = '<script>(function(){var k="' + startTimeKey + '";if(!localStorage.getItem(k))localStorage.setItem(k,Date.now());})();<\/script>';
+    firstQHtml = firstQHtml.replace('</head>', injectScript + '</head>');
+    fs.writeFileSync(firstQPath, firstQHtml, 'utf8');
   }
-
-  // Generate this TPO's index page
-  const tpoDirPath = path.join(indexDir, tpoNum);
-  if (!fs.existsSync(tpoDirPath)) {
-    fs.mkdirSync(tpoDirPath, { recursive: true });
-  }
-
-  const indexHtml = `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TOEFL iBT Practice - TPO ${tpoNum}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link rel="stylesheet" href="../../styles.css" />
-    <style>
-      body { background-color: #f5f5f7; margin: 0; }
-      .tpo-header {
-        background: linear-gradient(135deg, #008080, #006666);
-        color: white;
-        padding: 20px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .tpo-header .logo { font-size: 24px; font-weight: bold; }
-      .tpo-header .nav-btns { display: flex; gap: 10px; }
-      .tpo-header .nav-btn {
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 13px;
-        cursor: pointer;
-        border: 2px solid rgba(255,255,255,0.3);
-        background: rgba(255,255,255,0.15);
-        color: white;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.2s ease;
-      }
-      .tpo-header .nav-btn:hover { background: rgba(255,255,255,0.25); }
-      .tpo-main {
-        max-width: 900px;
-        margin: 30px auto;
-        padding: 0 20px;
-      }
-      .tpo-title-row {
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      .tpo-title { font-size: 36px; font-weight: 700; color: #1d1d1f; margin: 0; }
-      .tpo-subtitle { font-size: 16px; color: #86868b; margin: 8px 0 0; }
-      .full-test-btn {
-        display: block;
-        max-width: 400px;
-        margin: 0 auto 30px;
-        padding: 18px 30px;
-        background: linear-gradient(135deg, #008080, #006666);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        box-shadow: 0 4px 15px rgba(0,128,128,0.3);
-        transition: all 0.2s ease;
-      }
-      .full-test-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,128,128,0.4); }
-      .full-test-btn .sub { display: block; font-size: 12px; font-weight: 400; opacity: 0.8; margin-top: 4px; }
-      .modules-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin-bottom: 30px;
-      }
-      .module-card {
-        background: white;
-        border-radius: 12px;
-        padding: 24px;
-        text-align: center;
-        border: 1px solid #e5e5e7;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        text-decoration: none;
-        color: inherit;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      }
-      .module-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-      .module-card.available { border-top: 4px solid #008080; }
-      .module-card.unavailable { opacity: 0.5; cursor: not-allowed; }
-      .module-icon { font-size: 40px; margin-bottom: 12px; }
-      .module-card.available .module-icon { color: #008080; }
-      .module-card.unavailable .module-icon { color: #ccc; }
-      .module-name { font-size: 20px; font-weight: 600; color: #1d1d1f; margin: 0 0 6px; }
-      .module-desc { font-size: 13px; color: #86868b; margin: 0 0 12px; }
-      .module-badge {
-        display: inline-block;
-        padding: 5px 14px;
-        border-radius: 16px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-      .module-card.available .module-badge { background: rgba(0,128,128,0.1); color: #008080; }
-      .module-card.unavailable .module-badge { background: #f0f0f0; color: #999; }
-      .back-link { text-align: center; margin-top: 20px; }
-      .back-link a { color: #008080; text-decoration: none; font-weight: 600; }
-      .back-link a:hover { text-decoration: underline; }
-      @media (max-width: 768px) { .modules-grid { grid-template-columns: 1fr; } }
-    </style>
-  </head>
-  <body>
-    <header class="tpo-header">
-      <div class="logo">TPO ${tpoNum}</div>
-      <div class="nav-btns">
-        <a href="../../index.html" class="nav-btn"><i class="fas fa-th"></i> All TPOs</a>
-      </div>
-    </header>
-
-    <div class="tpo-main">
-      <div class="tpo-title-row">
-        <h1 class="tpo-title">TPO ${tpoNum}</h1>
-        <p class="tpo-subtitle">${module1Total + module2Total} questions · Reading section ready</p>
-      </div>
-
-      <a href="reading/start.html" class="full-test-btn">
-        <i class="fas fa-play-circle"></i> Start Full Reading Test
-        <span class="sub">${module1Total + module2Total} questions · Timed exam mode</span>
-      </a>
-
-      <div class="modules-grid">
-        <a href="reading/start.html" class="module-card available">
-          <div class="module-icon"><i class="fas fa-book"></i></div>
-          <h3 class="module-name">Reading</h3>
-          <p class="module-desc">${module1Total + module2Total} questions · Two modules</p>
-          <span class="module-badge">Available</span>
-        </a>
-
-        <div class="module-card unavailable">
-          <div class="module-icon"><i class="fas fa-headphones"></i></div>
-          <h3 class="module-name">Listening</h3>
-          <p class="module-desc">Lectures and conversations</p>
-          <span class="module-badge">Coming Soon</span>
-        </div>
-
-        <div class="module-card unavailable">
-          <div class="module-icon"><i class="fas fa-microphone"></i></div>
-          <h3 class="module-name">Speaking</h3>
-          <p class="module-desc">Record spoken responses</p>
-          <span class="module-badge">Coming Soon</span>
-        </div>
-
-        <div class="module-card unavailable">
-          <div class="module-icon"><i class="fas fa-pen-fancy"></i></div>
-          <h3 class="module-name">Writing</h3>
-          <p class="module-desc">Essays and integrated tasks</p>
-          <span class="module-badge">Coming Soon</span>
-        </div>
-      </div>
-
-      <div class="back-link">
-        <a href="../../index.html">&larr; Back to all TPOs</a>
-      </div>
-    </div>
-  </body>
-</html>`;
-
-  fs.writeFileSync(path.join(tpoDirPath, 'index.html'), indexHtml);
-  console.log(`生成: tpo/${tpoNum}/index.html`);
 
   return {
     tpoNum,
+    title: rawTitle,
     totalFiles: generatedFiles.length,
     questionRange: `${module1Start}-${module2End}`,
     totalQuestions: module1Total + module2Total,
@@ -935,360 +877,1204 @@ function generateTPO(tpoNum, markdownFile) {
 
 // ===== Generate main index page (Apple style with sidebar) =====
 function generateMainIndexPage(tpoSummaries) {
-  const tpoCardsHtml = tpoSummaries.map(s => `
-        <a href="tpo/${s.tpoNum}/index.html" class="tpo-card">
-          <div class="tpo-card-header">
-            <h3><i class="fas fa-book-open"></i> TPO ${s.tpoNum}</h3>
-          </div>
-          <p class="tpo-desc">Authentic TOEFL practice test.</p>
-          <div class="tpo-modules">
-            <span class="mod-badge available"><i class="fas fa-book"></i> Reading</span>
-            <span class="mod-badge coming"><i class="fas fa-headphones"></i> Listening</span>
-            <span class="mod-badge coming"><i class="fas fa-microphone"></i> Speaking</span>
-            <span class="mod-badge coming"><i class="fas fa-pen"></i> Writing</span>
-          </div>
-        </a>
-  `).join('');
+  // Discover listening TPOs from assets/questions/listening/
+  const listeningDir = path.join(__dirname, 'assets/questions/listening');
+  const listeningTpoNums = new Set();
+  if (fs.existsSync(listeningDir)) {
+    const entries = fs.readdirSync(listeningDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const match = entry.name.match(/^TPO-(\d+)$/i);
+        if (match) listeningTpoNums.add(match[1]);
+      }
+    }
+  }
 
-  const sidebarItemsHtml = tpoSummaries.map(s => `
-        <a href="tpo/${s.tpoNum}/index.html" class="sidebar-item">
-          <span class="sidebar-item-icon"><i class="fas fa-book-open"></i></span>
-          <span class="sidebar-item-label">TPO ${s.tpoNum}</span>
-        </a>
-  `).join('');
+  // Discover writing TPOs from assets/questions/writing/
+  const writingDir = path.join(__dirname, 'assets/questions/writing');
+  const writingTpoNums = new Set();
+  if (fs.existsSync(writingDir)) {
+    const entries = fs.readdirSync(writingDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const match = entry.name.match(/^TPO-(\d+)$/i);
+        if (match) writingTpoNums.add(match[1]);
+      }
+    }
+  }
+
+  // Discover reading TPOs from assets/questions/reading/
+  const readingDir = path.join(__dirname, 'assets/questions/reading');
+  const readingTpoNums = new Set();
+  if (fs.existsSync(readingDir)) {
+    const entries = fs.readdirSync(readingDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const match = entry.name.match(/^TPO-(\d+)$/i);
+        if (match) readingTpoNums.add(match[1]);
+      }
+    }
+  }
+
+  // Discover speaking TPOs from assets/questions/speaking/
+  const speakingDir = path.join(__dirname, 'assets/questions/speaking');
+  const speakingTpoNums = new Set();
+  if (fs.existsSync(speakingDir)) {
+    const entries = fs.readdirSync(speakingDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isDirectory()) {
+        const match = entry.name.match(/^TPO-(\d+)$/i);
+        if (match) speakingTpoNums.add(match[1]);
+      }
+    }
+  }
+
+  // Build a map of existing summaries keyed by tpoNum
+  const summaryMap = {};
+  tpoSummaries.forEach(s => { summaryMap[s.tpoNum] = s; });
+
+  // Union all TPOs discovered from all four modules
+  const allTpoNums = new Set([
+    ...readingTpoNums,
+    ...listeningTpoNums,
+    ...writingTpoNums,
+    ...speakingTpoNums
+  ]);
+  allTpoNums.forEach(num => {
+    if (!summaryMap[num]) summaryMap[num] = { tpoNum: num };
+  });
+
+  // Generate table rows sorted by tpoNum
+  const sortedNums = [...allTpoNums].sort((a, b) => parseInt(a) - parseInt(b));
+  const tableRows = sortedNums.map(num => {
+    const s = summaryMap[num];
+    const hasReading = readingTpoNums.has(num);
+    const hasListening = listeningTpoNums.has(num);
+    const hasWriting = writingTpoNums.has(num);
+    const hasSpeaking = speakingTpoNums.has(num);
+
+    const readingCell = hasReading
+      ? `<a href="../tpo/${num}/reading/start.html" class="mod-btn available" data-tpo="${num}" data-module="reading">Reading</a>`
+      : '<span class="mod-na">&mdash;</span>';
+
+    const listeningCell = hasListening
+      ? `<a href="../tpo/${num}/listening/start.html" class="mod-btn available" data-tpo="${num}" data-module="listening">Listening</a>`
+      : '<span class="mod-na">&mdash;</span>';
+
+    const writingCell = hasWriting
+      ? `<a href="../tpo/${num}/writing/start.html" class="mod-btn available" data-tpo="${num}" data-module="writing">Writing</a>`
+      : '<span class="mod-na">&mdash;</span>';
+
+    const speakingCell = hasSpeaking
+      ? `<a href="../tpo/${num}/speaking/start.html" class="mod-btn available" data-tpo="${num}" data-module="speaking">Speaking</a>`
+      : '<span class="mod-na">&mdash;</span>';
+
+    const reportCell = hasReading
+      ? `<a href="../tpo/${num}/reading/reading_results.html?mode=report" class="mod-btn available">测试报告</a>`
+      : hasListening
+        ? `<a href="../tpo/${num}/listening/listening_results.html" class="mod-btn available">测试报告</a>`
+        : hasWriting
+          ? `<a href="../tpo/${num}/writing/writing_results.html" class="mod-btn available">测试报告</a>`
+          : hasSpeaking
+            ? `<a href="../tpo/${num}/speaking/speaking_results.html" class="mod-btn available">测试报告</a>`
+            : '<span class="mod-na">&mdash;</span>';
+
+    return `
+        <tr>
+          <td class="id-cell"><span class="tpo-id">TPO ${num}</span></td>
+          <td class="desc-cell">2026 新托福样题</td>
+          <td class="module-cell">${readingCell}</td>
+          <td class="module-cell">${listeningCell}</td>
+          <td class="module-cell">${writingCell}</td>
+          <td class="module-cell">${speakingCell}</td>
+          <td class="report-cell">${reportCell}</td>
+        </tr>`;
+  }).join('');
 
   const indexHtml = `<!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TOEFL iBT Practice</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="font-awesome.css" />
     <link rel="stylesheet" href="styles.css" />
     <style>
       :root {
-        --apple-bg: #f5f5f7;
-        --apple-surface: #ffffff;
-        --apple-text: #1d1d1f;
-        --apple-text-muted: #86868b;
-        --apple-primary: #007aff;
-        --apple-teal: #008080;
-        --apple-radius: 12px;
-        --apple-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        --bg: #f5f5f7;
+        --surface: #ffffff;
+        --text: #1d1d1f;
+        --muted: #86868b;
+        --teal: #008080;
+        --teal-light: rgba(0,128,128,0.08);
+        --border: #e5e5e7;
+        --sidebar-w: 220px;
+        --header-h: 60px;
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
-        background-color: var(--apple-bg);
-        color: var(--apple-text);
+        background: var(--bg);
+        color: var(--text);
         font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
 
-      /* ===== Header ===== */
       .app-header {
-        background: var(--apple-surface);
-        border-bottom: 1px solid #e5e5e7;
-        padding: 0 24px;
-        height: 52px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        height: var(--header-h);
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        padding: 0 28px;
         position: sticky;
         top: 0;
         z-index: 100;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
       }
-      .app-header .logo {
-        font-size: 18px;
-        font-weight: 700;
+      .logo-text {
+        font-family: 'Georgia', 'Times New Roman', 'Palatino', serif;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 32px;
+        letter-spacing: 1.5px;
+        color: var(--teal);
+        user-select: none;
+      }
+
+      .app-layout {
+        display: flex;
+        flex: 1;
+        min-height: calc(100vh - var(--header-h));
+      }
+
+      .sidebar {
+        width: var(--sidebar-w);
+        background: #fafafa;
+        border-right: 1px solid var(--border);
+        padding: 20px 0;
+        flex-shrink: 0;
+        overflow-y: auto;
+      }
+      .sidebar-section {
+        margin-bottom: 12px;
+      }
+      .sidebar-section-header {
         display: flex;
         align-items: center;
         gap: 8px;
-      }
-      .app-header .logo i { color: var(--apple-teal); }
-      .header-actions { display: flex; gap: 8px; align-items: center; }
-      .header-btn {
-        padding: 7px 14px;
-        border-radius: 8px;
-        font-weight: 500;
+        padding: 6px 20px 8px;
         font-size: 13px;
-        cursor: pointer;
-        border: none;
-        background: transparent;
-        color: var(--apple-text);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: background 0.15s ease;
-      }
-      .header-btn:hover { background: #f0f0f2; }
-      .header-btn.primary { background: var(--apple-teal); color: white; }
-      .header-btn.primary:hover { background: #006666; }
-
-      /* ===== Layout ===== */
-      .app-layout {
-        display: flex;
-        min-height: calc(100vh - 52px);
-      }
-
-      /* ===== Sidebar ===== */
-      .sidebar {
-        width: 240px;
-        background: var(--apple-surface);
-        border-right: 1px solid #e5e5e7;
-        padding: 16px 0;
-        overflow-y: auto;
-        flex-shrink: 0;
-        transition: width 0.3s ease, padding 0.3s ease;
-      }
-      .sidebar.collapsed {
-        width: 60px;
-        padding: 16px 0;
-      }
-      .sidebar.collapsed .sidebar-item-label,
-      .sidebar.collapsed .sidebar-item-count,
-      .sidebar.collapsed .sidebar-section-title,
-      .sidebar.collapsed .sidebar-search {
-        display: none;
-      }
-      .sidebar.collapsed .sidebar-item {
-        justify-content: center;
-        padding: 10px;
-      }
-      .sidebar-section-title {
-        padding: 8px 20px;
-        font-size: 11px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.8px;
-        color: var(--apple-text-muted);
+        color: var(--muted);
       }
-      .sidebar-search {
-        margin: 0 12px 12px;
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid #e5e5e7;
-        background: #f5f5f7;
-        font-size: 13px;
-        width: calc(100% - 24px);
-        outline: none;
-        transition: border-color 0.15s;
+      .sidebar-section-header i {
+        font-size: 14px;
+        color: var(--muted);
       }
-      .sidebar-search:focus { border-color: var(--apple-teal); }
-      .sidebar-item {
+      .sidebar-nav-item {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 20px;
-        text-decoration: none;
-        color: var(--apple-text);
-        font-size: 14px;
-        font-weight: 500;
-        transition: background 0.15s;
+        padding: 9px 20px;
+        font-size: 16px;
+        font-weight: 450;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.15s;
+        border-left: 3px solid transparent;
+        text-decoration: none !important;
+        user-select: none;
+      }
+      .sidebar-nav-item:hover {
+        background: #f0f0f2;
         text-decoration: none !important;
       }
-      .sidebar-item:hover { background: #f0f0f2; text-decoration: none !important; }
-      .sidebar-item-icon { color: var(--apple-teal); width: 18px; text-align: center; text-decoration: none !important; }
-      .sidebar-item-label { flex: 1; text-decoration: none !important; }
-      .sidebar-item-count {
-        font-size: 11px;
-        color: var(--apple-text-muted);
-        background: #f0f0f2;
-        padding: 2px 8px;
-        border-radius: 10px;
+      .sidebar-nav-item.active {
+        background: var(--teal-light);
+        color: var(--teal);
+        font-weight: 600;
+        border-left-color: var(--teal);
       }
-      .sidebar-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px;
-        margin: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid #e5e5e7;
-        background: transparent;
-        cursor: pointer;
-        color: var(--apple-text-muted);
-        font-size: 14px;
-        transition: all 0.15s;
-        width: calc(100% - 24px);
+      .sidebar-nav-item .nav-icon {
+        width: 18px;
+        text-align: center;
+        font-size: 15px;
       }
-      .sidebar-toggle:hover { background: #f0f0f2; }
 
-      /* ===== Main Content ===== */
       .main-content {
         flex: 1;
-        padding: 30px;
+        padding: 32px 36px;
         overflow-y: auto;
       }
-      .main-header {
-        margin-bottom: 30px;
+
+      .panel {
+        display: none;
       }
-      .main-header h1 {
-        font-size: 34px;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-      .main-header p {
-        font-size: 17px;
-        color: var(--apple-text-muted);
+      .panel.active {
+        display: block;
       }
 
-      /* ===== Full Test Banner ===== */
-      .full-test-banner {
-        background: linear-gradient(135deg, #008080, #006666);
-        border-radius: 16px;
-        padding: 24px 30px;
+      .panel-header {
+        margin-bottom: 24px;
+      }
+      .panel-header h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .panel-header p {
+        font-size: 16px;
+        color: var(--muted);
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        background: var(--surface);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      }
+      .data-table thead {
+        background: var(--teal);
+      }
+      .data-table th {
         color: white;
-        margin-bottom: 30px;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 14px 16px;
+        text-align: center;
+        letter-spacing: 0.4px;
+        white-space: nowrap;
+      }
+      .data-table tbody tr {
+        border-bottom: 1px solid #f0f0f2;
+        transition: background 0.15s;
+      }
+      .data-table tbody tr:last-child {
+        border-bottom: none;
+      }
+      .data-table tbody tr:hover {
+        background: #f9fafb;
+      }
+      .data-table td {
+        padding: 14px 16px;
+        text-align: center;
+        font-size: 16px;
+        color: var(--text);
+      }
+      .data-table .id-cell {
+        text-align: left;
+        padding-left: 20px;
+      }
+      .tpo-id {
+        font-weight: 600;
+        font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+        font-size: 15px;
+        color: var(--teal);
+      }
+      .desc-cell {
+        text-align: left;
+        color: #333;
+        font-size: 15px;
+      }
+      .mod-btn {
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.15s;
+        cursor: pointer;
+        min-width: 90px;
+        text-align: center;
+      }
+      .mod-btn.available {
+        background: var(--teal);
+        color: white;
+      }
+      .mod-btn.available:hover {
+        background: #006666;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0,128,128,0.25);
+        text-decoration: none !important;
+        color: white;
+      }
+      .mod-na {
+        color: #c0c0c0;
+        font-size: 16px;
+        user-select: none;
+      }
+      .report-link {
+        color: var(--muted);
+        font-size: 15px;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .report-link:hover {
+        color: var(--teal);
+        text-decoration: underline;
+      }
+
+      .empty-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .empty-panel .empty-icon {
+        font-size: 50px;
+        margin-bottom: 16px;
+        color: #d0d0d0;
+      }
+      .empty-panel h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #999;
+      }
+      .empty-panel p {
+        font-size: 16px;
+        color: #bbb;
+        margin-top: 6px;
+      }
+
+      /* Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-card {
+        background: var(--surface);
+        border-radius: 14px;
+        width: 760px;
+        max-width: 92vw;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+        padding: 0;
+      }
+      .modal-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 4px 20px rgba(0,128,128,0.25);
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: var(--surface);
+        z-index: 1;
       }
-      .full-test-banner .text h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-      .full-test-banner .text p { font-size: 14px; opacity: 0.85; }
-      .full-test-btn {
-        padding: 12px 24px;
-        background: white;
-        color: #008080;
-        border: none;
-        border-radius: 10px;
+      .modal-header h3 {
+        font-size: 19px;
         font-weight: 700;
-        font-size: 14px;
+      }
+      .modal-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: #f0f0f2;
         cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.2s;
-      }
-      .full-test-btn:hover { transform: scale(1.03); }
-
-      /* ===== TPO Grid ===== */
-      .tpo-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 16px;
-      }
-      .tpo-card {
-        background: var(--apple-surface);
-        border-radius: 14px;
-        padding: 22px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        border: 1px solid #e5e5e7;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        text-decoration: none !important;
-        color: inherit !important;
-      }
-      .tpo-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        border-color: #d5d5d7;
-        text-decoration: none !important;
-        color: inherit !important;
-      }
-      .tpo-card-header h3 {
-        font-size: 18px;
-        font-weight: 600;
         display: flex;
         align-items: center;
-        gap: 8px;
-        text-decoration: none !important;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--muted);
+        transition: all 0.15s;
       }
-      .tpo-card-header h3 i { color: var(--apple-teal); text-decoration: none !important; }
-      .tpo-badge {
-        font-size: 12px;
-        font-weight: 600;
-        background: rgba(0,128,128,0.1);
-        color: var(--apple-teal);
-        padding: 3px 10px;
-        border-radius: 10px;
+      .modal-close:hover {
+        background: #e0e0e2;
+        color: var(--text);
       }
-      .tpo-desc {
+      .modal-body {
+        padding: 24px;
+        font-size: 16px;
+        line-height: 1.7;
+        color: #444;
+      }
+      .modal-body .log-entry {
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f2;
+      }
+      .modal-body .log-entry:last-child {
+        border-bottom: none;
+      }
+      .log-version {
+        font-weight: 700;
+        color: var(--teal);
+        font-size: 15px;
+        margin-bottom: 4px;
+      }
+      .log-date {
         font-size: 13px;
-        color: var(--apple-text-muted);
-        margin-bottom: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
       }
-      .tpo-modules { display: flex; flex-wrap: wrap; gap: 6px; }
-      .mod-badge {
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 11px;
-        font-weight: 600;
+      .log-detail {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.6;
       }
-      .mod-badge.available { background: rgba(0,128,128,0.1); color: #008080; }
-      .mod-badge.coming { background: #f0f0f0; color: #999; }
 
-      /* ===== Responsive ===== */
-      @media (max-width: 900px) {
+      .modal-body h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 18px 0 8px;
+      }
+      .modal-body h4:first-child {
+        margin-top: 0;
+      }
+      .modal-body .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 16px;
+        font-size: 15px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .modal-body .info-table thead {
+        background: var(--teal);
+      }
+      .modal-body .info-table thead th {
+        color: white;
+        font-weight: 600;
+        padding: 8px 12px;
+        text-align: center;
+        font-size: 14px;
+      }
+      .modal-body .info-table tbody td {
+        padding: 7px 12px;
+        border-bottom: 1px solid #f0f0f2;
+        text-align: center;
+      }
+      .modal-body .info-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .modal-body ul {
+        margin: 6px 0 12px 18px;
+        color: #444;
+        line-height: 1.8;
+        font-size: 15px;
+      }
+      .modal-body .note {
+        font-size: 14px;
+        color: #999;
+        margin-top: 16px;
+        border-top: 1px solid var(--border);
+        padding-top: 12px;
+      }
+      .modal-body .img-block {
+        text-align: center;
+        margin: 16px 0;
+      }
+      .modal-body .img-block img {
+        width: 240px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        display: block;
+        margin: 0 auto 6px;
+      }
+      .modal-body .img-block .img-label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 768px) {
         .sidebar { display: none; }
-        .main-content { padding: 20px 16px; }
-        .full-test-banner { flex-direction: column; gap: 16px; text-align: center; }
-        .tpo-grid { grid-template-columns: 1fr; }
+        .main-content { padding: 20px 12px; }
+        .data-table { font-size: 14px; }
+        .data-table th, .data-table td { padding: 10px 8px; }
+      }
+
+      .practice-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+      .practice-overlay.open {
+        display: flex;
+      }
+      .practice-box {
+        background: var(--surface);
+        border-radius: 14px;
+        width: 460px;
+        max-width: 92vw;
+        padding: 28px 30px 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+        position: relative;
+      }
+      .practice-box h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 0 0 6px;
+        text-align: center;
+      }
+      .practice-box .practice-sub {
+        font-size: 15px;
+        color: var(--muted);
+        text-align: center;
+        margin: 0 0 20px;
+      }
+      .practice-option-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.15s;
+        text-decoration: none;
+        color: var(--text);
+      }
+      .practice-option-card:last-child {
+        margin-bottom: 0;
+      }
+      .practice-option-card.active:hover {
+        border-color: var(--teal);
+        box-shadow: 0 2px 10px rgba(0,128,128,0.1);
+      }
+      .practice-option-card.danger.active:hover {
+        border-color: #dc3545;
+        box-shadow: 0 2px 10px rgba(220,53,69,0.12);
+      }
+      .practice-option-card .opt-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        flex-shrink: 0;
+      }
+      .practice-option-card.active .opt-icon {
+        background: rgba(0,128,128,0.1);
+        color: var(--teal);
+      }
+      .practice-option-card.danger.active .opt-icon {
+        background: rgba(220,53,69,0.1);
+        color: #dc3545;
+      }
+      .practice-option-card .opt-body {
+        flex: 1;
+      }
+      .practice-option-card .opt-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .practice-option-card .opt-hint {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .practice-option-card.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .practice-option-card.disabled .opt-icon {
+        background: #f0f0f2;
+        color: #bbb;
+      }
+      .practice-option-card.disabled .opt-title {
+        color: #bbb;
+      }
+
+      /* ===== Nav Badge ===== */
+      .nav-badge {
+        margin-left: auto;
+        background: #ff3b30;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 9px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 5px;
+        line-height: 1;
+      }
+
+      /* ===== Update Banner ===== */
+      .update-banner { margin-bottom: 24px; }
+      .update-card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #e5e5ea;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .update-card-header {
+        padding: 20px 20px 0;
+        display: flex; align-items: flex-start; gap: 12px;
+      }
+      .update-card-dot {
+        width: 10px; height: 10px; border-radius: 50%;
+        background: #ff3b30; flex-shrink: 0; margin-top: 7px;
+      }
+      .update-card-info { flex: 1; min-width: 0; }
+      .update-card-version {
+        font-size: 17px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px;
+      }
+      .update-card-date { font-size: 13px; color: #86868b; margin-bottom: 6px; }
+      .update-card-summary { font-size: 14px; color: #555; line-height: 1.5; }
+      .update-card-footer {
+        padding: 16px 20px; border-top: 1px solid #f0f0f2;
+        margin-top: 16px; display: flex; align-items: center; justify-content: space-between;
+      }
+      .update-download-btn {
+        background: var(--teal); color: #fff; border: none;
+        padding: 10px 24px; border-radius: 8px;
+        font-size: 14px; font-weight: 600; cursor: pointer;
+        transition: background 0.2s;
+      }
+      .update-download-btn:hover { background: #006666; }
+      .update-download-btn:disabled { background: #a0d0d0; cursor: default; }
+      .update-download-btn.done { background: #34c759; }
+      .update-progress {
+        font-size: 13px; color: #86868b;
+        font-variant-numeric: tabular-nums;
       }
     </style>
   </head>
   <body>
     <header class="app-header">
-      <div class="logo"><i class="fas fa-graduation-cap"></i> TOEFL iBT Practice</div>
-      <div class="header-actions">
-      </div>
+      <span class="logo-text">Toefl</span>
     </header>
 
     <div class="app-layout">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-section-title">TPO Tests</div>
-        <input type="text" class="sidebar-search" placeholder="Search TPO..." id="sidebarSearch" />
-        ${sidebarItemsHtml}
-        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
-          <i class="fas fa-angles-left"></i>
-        </button>
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section-header"><i class="fas fa-layer-group"></i> 题目</div>
+          <div class="sidebar-nav-item active" data-panel="mock">
+            <span class="nav-icon"><i class="fas fa-pencil-alt"></i></span> 模考
+          </div>
+          <div class="sidebar-nav-item" data-panel="real">
+            <span class="nav-icon"><i class="fas fa-scroll"></i></span> 真题
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> 其他</div>
+          <div class="sidebar-nav-item" data-modal="modalNews">
+            <span class="nav-icon"><i class="fas fa-newspaper"></i></span> 托福动态
+          </div>
+          <div class="sidebar-nav-item" data-modal="modalAbout">
+            <span class="nav-icon"><i class="fas fa-handshake"></i></span> 关注/合作
+          </div>
+          <div class="sidebar-nav-item" data-modal="modalLog">
+            <span class="nav-icon"><i class="fas fa-history"></i></span> 日志
+            <span class="nav-badge" id="update-badge" style="display:none;">1</span>
+          </div>
+        </div>
       </aside>
 
       <main class="main-content">
-        <div class="main-header">
-          <h1>Welcome</h1>
-          <p>Prepare for the TOEFL iBT with authentic practice tests.</p>
-        </div>
-
-        <div class="full-test-banner">
-          <div class="text">
-            <h2><i class="fas fa-clock"></i> Full Test</h2>
-            <p>Reading → Listening → Speaking → Writing</p>
+        <div class="panel active" id="panel-mock">
+          <div class="panel-header">
+            <h2>模考</h2>
+            <p>2026年reform ETS官方样题 &middot; official</p>
           </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding-left:20px;">ID</th>
+                <th>描述</th>
+                <th>阅读</th>
+                <th>听力</th>
+                <th>写作</th>
+                <th>口语</th>
+                <th>测试报告</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
         </div>
 
-        <div class="tpo-grid">
-          ${tpoCardsHtml}
+        <div class="panel" id="panel-real">
+          <div class="empty-panel">
+            <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+            <h3>真题数据即将上线</h3>
+            <p>敬请期待</p>
+          </div>
         </div>
       </main>
     </div>
 
-    <script>
-      // Sidebar toggle
-      const sidebar = document.getElementById('sidebar');
-      const sidebarToggle = document.getElementById('sidebarToggle');
-      sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        const icon = sidebarToggle.querySelector('i');
-        icon.className = sidebar.classList.contains('collapsed') ? 'fas fa-angles-right' : 'fas fa-angles-left';
-      });
+    <div class="modal-overlay" id="modalNews">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fas fa-newspaper"></i> 托福动态</h3>
+          <button class="modal-close" onclick="closeModal('modalNews')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <h4>2026年1月21日 · 托福iBT改革要点</h4>
+          <p style="font-size:13px;color:#555;line-height:1.7;">新版托福 iBT 采用<strong>多阶段自适应（multistage）</strong>形式，考试顺序固定为：阅读 → 听力 → 写作 → 口语。</p>
 
-      // Sidebar search
-      const searchInput = document.getElementById('sidebarSearch');
-      searchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase();
-        document.querySelectorAll('.sidebar-item').forEach(item => {
-          const label = item.querySelector('.sidebar-item-label');
-          if (label) {
-            item.style.display = label.textContent.toLowerCase().includes(query) ? '' : 'none';
+          <h4>考试题量与时长</h4>
+          <table class="info-table">
+            <thead><tr><th>考试部分</th><th>题型数量</th><th>预估时长</th></tr></thead>
+            <tbody>
+              <tr><td>阅读（自适应）</td><td>35–48 题</td><td>约 18–27 分钟</td></tr>
+              <tr><td>听力（自适应）</td><td>35–45 题</td><td>约 18–27 分钟</td></tr>
+              <tr><td>写作</td><td>12 题</td><td>约 23 分钟</td></tr>
+              <tr><td>口语</td><td>12 题</td><td>约 8 分钟</td></tr>
+            </tbody>
+          </table>
+
+          <h4>各部分任务类型</h4>
+          <p style="font-size:13px;color:#333;font-weight:600;">阅读</p>
+          <ul><li>Complete the Words（补全单词）</li><li>Read in Daily Life（日常生活阅读）</li><li>Read an Academic Passage（学术文章阅读）</li></ul>
+          <p style="font-size:13px;color:#333;font-weight:600;">听力</p>
+          <ul><li>Listen and Choose a Response</li><li>Listen to a Conversation</li><li>Listen to an Announcement</li><li>Listen to an Academic Talk</li></ul>
+          <p style="font-size:13px;color:#333;font-weight:600;">写作</p>
+          <ul><li>Build a Sentence（造句）</li><li>Write an Email（写邮件）</li><li>Write for an Academic Discussion（学术讨论写作）</li></ul>
+          <p style="font-size:13px;color:#333;font-weight:600;">口语</p>
+          <ul><li>Listen and Repeat（听并复述）</li><li>Take an Interview（面试式问答）</li></ul>
+
+          <h4>评分体系</h4>
+          <p style="font-size:13px;color:#555;line-height:1.7;">采用<strong>1–6 分制分段评分</strong>，与 CEFR 直接对齐。四个单项及总分均以 <strong>0.5 分为增量</strong>，总分由四项平均值计算得出。成绩报告包含 <strong>MyBest® 分数</strong>（过去 2 年内各单项最高分平均值）。</p>
+
+          <h4>原始分与 1–6 分制对照</h4>
+          <table class="info-table">
+            <thead><tr><th>考试部分</th><th>原始分范围</th><th>1–6 分制范围</th></tr></thead>
+            <tbody>
+              <tr><td>阅读</td><td>0–35</td><td>1–6</td></tr>
+              <tr><td>听力</td><td>0–30</td><td>1–6</td></tr>
+              <tr><td>写作</td><td>0–15</td><td>1–6</td></tr>
+              <tr><td>口语</td><td>0–50</td><td>1–6</td></tr>
+            </tbody>
+          </table>
+
+          <h4>CEFR 等级对应</h4>
+          <table class="info-table">
+            <thead><tr><th>CEFR</th><th>阅读</th><th>听力</th><th>写作</th><th>口语</th><th>总分</th></tr></thead>
+            <tbody>
+              <tr><td>C2</td><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr>
+              <tr><td>C1</td><td>5–5.5</td><td>5–5.5</td><td>5–5.5</td><td>5–5.5</td><td>5–5.5</td></tr>
+              <tr><td>B2</td><td>4–4.5</td><td>4–4.5</td><td>4–4.5</td><td>4–4.5</td><td>4–4.5</td></tr>
+              <tr><td>B1</td><td>3–3.5</td><td>3–3.5</td><td>3–3.5</td><td>3–3.5</td><td>3–3.5</td></tr>
+              <tr><td>A2</td><td>2–2.5</td><td>2–2.5</td><td>2–2.5</td><td>2–2.5</td><td>2–2.5</td></tr>
+              <tr><td>A1</td><td>1–1.5</td><td>1–1.5</td><td>1–1.5</td><td>1–1.5</td><td>1–1.5</td></tr>
+            </tbody>
+          </table>
+
+          <h4>新旧分制换算（1–6 ↔ 0–30/0–120）</h4>
+          <table class="info-table">
+            <thead><tr><th>新制</th><th>阅读(0–30)</th><th>听力(0–30)</th><th>写作(0–30)</th><th>口语(0–30)</th><th>总分(0–120)</th></tr></thead>
+            <tbody>
+              <tr><td>6</td><td>29–30</td><td>28–30</td><td>29–30</td><td>28–30</td><td>114–120</td></tr>
+              <tr><td>5.5</td><td>26–28</td><td>26–27</td><td>27–28</td><td>27</td><td>106–113</td></tr>
+              <tr><td>5</td><td>24–25</td><td>22–25</td><td>24–26</td><td>25–26</td><td>95–105</td></tr>
+              <tr><td>4.5</td><td>21–23</td><td>19–21</td><td>23</td><td>23–24</td><td>86–94</td></tr>
+              <tr><td>4</td><td>18–20</td><td>17–18</td><td>17–22</td><td>20–22</td><td>72–85</td></tr>
+              <tr><td>3.5</td><td>12–17</td><td>13–16</td><td>15–16</td><td>18–19</td><td>58–71</td></tr>
+              <tr><td>3</td><td>6–11</td><td>9–12</td><td>13–14</td><td>16–17</td><td>44–57</td></tr>
+              <tr><td>2.5</td><td>4–5</td><td>6–8</td><td>11–12</td><td>14–15</td><td>35–43</td></tr>
+              <tr><td>2</td><td>3</td><td>4–5</td><td>7–10</td><td>10–13</td><td>24–34</td></tr>
+              <tr><td>1.5</td><td>2</td><td>2–3</td><td>3–6</td><td>5–9</td><td>12–23</td></tr>
+              <tr><td>1</td><td>1–1.5</td><td>0–1</td><td>0–2</td><td>0–4</td><td>0–11</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modalAbout">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fas fa-handshake"></i> 关注/合作</h3>
+          <button class="modal-close" onclick="closeModal('modalAbout')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <p>本软件由 AI 辅助开发，致力于为托福考生提供高质量的模拟练习体验。</p>
+
+          <h4><i class="fab fa-weixin" style="color:#07C160;"></i> 微信平台</h4>
+          <p style="font-size:13px;color:#555;">扫描下方二维码添加好友</p>
+          <div class="img-block">
+            <img src="assets/images/wechat-qr.jpg" alt="微信二维码" />
+            <div class="img-label">扫码添加好友</div>
+          </div>
+
+          <h4><i class="fab fa-x-twitter"></i> X 社交平台</h4>
+          <p style="font-size:13px;color:#555;">访问我的个人主页</p>
+          <div class="img-block">
+            <img src="assets/images/x-profile.jpg" alt="X 平台主页" />
+            <div class="img-label">访问主页</div>
+          </div>
+
+          <h4><i class="fas fa-book-open" style="color:#FF2442;"></i> 小红书</h4>
+          <p style="font-size:13px;color:#555;">关注我的小红书账号</p>
+          <div class="img-block">
+            <img src="assets/images/rednote-qr.jpg" alt="小红书二维码" />
+            <div class="img-label">扫码关注</div>
+          </div>
+
+          <p class="note">如有合作意向或反馈建议，请通过以上方式联系我们。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modalLog">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fas fa-history"></i> 更新日志</h3>
+          <button class="modal-close" onclick="closeModal('modalLog')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="update-banner" id="update-banner" style="display:none;">
+            <div class="update-card">
+              <div class="update-card-header">
+                <span class="update-card-dot"></span>
+                <div class="update-card-info">
+                  <div class="update-card-version">V<span id="update-version"></span></div>
+                  <div class="update-card-date" id="update-release-date"></div>
+                  <div class="update-card-summary" id="update-desc"></div>
+                </div>
+              </div>
+              <div class="update-card-footer">
+                <button class="update-download-btn" id="update-btn">
+                  <span id="update-btn-text">下载并安装</span>
+                </button>
+                <span class="update-progress" id="update-progress" style="display:none;"></span>
+              </div>
+            </div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.1.0</div>
+            <div class="log-date">2026-06-18</div>
+            <div class="log-detail">修复 5 项问题：Listening/Reading 答案存储隔离、Speaking 录音计时与权限、继续练习路径、LCAR 题型 Help 按钮、Result 全对检测与庆祝动画。新增四模块 localStorage 前缀隔离，优化 Clear & Exit 逻辑与 Speaking 录音体验，添加 Electron 麦克风预授权。</div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.0.0</div>
+            <div class="log-date">2026-06</div>
+            <div class="log-detail">首个正式版本。全面支持 TPO 模考，涵盖阅读、听力、写作、口语全科练习。实现答题计时、自动保存、结果统计、错题回顾等核心功能。采用 Electron 桌面应用架构，支持自动更新。</div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V0.0（测试版）</div>
+            <div class="log-date">2026-05</div>
+            <div class="log-detail">初始版本正式发布。核心功能上线：全面支持 TPO 模考，涵盖阅读、听力、写作、口语全科练习。</div>
+            <div class="log-detail" style="margin-top:8px;">开发者寄语：本版本为初版测试，旨在为考生提供高效的模考体验。一切内容以后续测试者的实际反馈为准，我们将持续进行优化与改进。</div>
+          </div>
+          <p class="note">很荣幸为您服务。</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function switchPanel(panelName) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('panel-' + panelName);
+        if (target) target.classList.add('active');
+      }
+
+      function openModal(id) {
+        document.getElementById(id).classList.add('open');
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+      }
+
+      document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const panel = this.dataset.panel;
+          const modal = this.dataset.modal;
+
+          if (panel) {
+            document.querySelectorAll('.sidebar-nav-item[data-panel]').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            switchPanel(panel);
+          }
+
+          if (modal) {
+            openModal(modal);
           }
         });
       });
+
+      document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === this) closeModal(this.id);
+        });
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+        }
+      });
+
+      (function() {
+        function hasSavedProgress(tpoNum) {
+          var prefix = 'toefl_tpo' + tpoNum + '_';
+          for (var i = 0; i < localStorage.length; i++) {
+            var k = localStorage.key(i);
+            if (k && k.indexOf(prefix) === 0 && k.indexOf('resume_page') === -1) return true;
+          }
+          return false;
+        }
+
+        function clearTpoData(tpoNum) {
+          var prefix = 'toefl_tpo' + tpoNum + '_';
+          var keys = [];
+          for (var i = 0; i < localStorage.length; i++) {
+            var k = localStorage.key(i);
+            if (k && k.indexOf(prefix) === 0) keys.push(k);
+          }
+          keys.forEach(function(k) { localStorage.removeItem(k); });
+        }
+
+        function showPracticeModal(tpoNum, moduleName, targetUrl, hasData) {
+          var overlay = document.createElement('div');
+          overlay.className = 'practice-overlay open';
+
+          var box = document.createElement('div');
+          box.className = 'practice-box';
+
+          var closeBtn = document.createElement('button');
+          closeBtn.className = 'modal-close';
+          closeBtn.style.cssText = 'position:absolute;top:12px;right:14px;';
+          closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+          closeBtn.onclick = function() { overlay.remove(); };
+          box.appendChild(closeBtn);
+
+          var h2 = document.createElement('h2');
+          h2.textContent = 'TPO ' + tpoNum + ' \u00b7 ' + (moduleName === 'reading' ? 'Reading' : moduleName);
+          box.appendChild(h2);
+
+          var sub = document.createElement('div');
+          sub.className = 'practice-sub';
+          sub.textContent = hasData ? '\u68c0\u6d4b\u5230\u5df2\u6709\u7b54\u9898\u8bb0\u5f55\uff0c\u8bf7\u9009\u62e9\u7ec3\u4e60\u6a21\u5f0f' : '\u8bf7\u9009\u62e9\u7ec3\u4e60\u6a21\u5f0f';
+          box.appendChild(sub);
+
+          function makeOption(title, hint, cls, enabled, onClick) {
+            var card = document.createElement('div');
+            card.className = 'practice-option-card' + (enabled ? ' ' + cls + ' active' : ' disabled');
+
+            var icon = document.createElement('div');
+            icon.className = 'opt-icon';
+            icon.innerHTML = enabled ? (cls === 'danger' ? '<i class="fas fa-redo-alt"></i>' : '<i class="fas fa-play"></i>') : '<i class="fas fa-lock"></i>';
+            card.appendChild(icon);
+
+            var body = document.createElement('div');
+            body.className = 'opt-body';
+            var t = document.createElement('div');
+            t.className = 'opt-title';
+            t.textContent = title;
+            body.appendChild(t);
+            var h = document.createElement('div');
+            h.className = 'opt-hint';
+            h.textContent = hint;
+            body.appendChild(h);
+            card.appendChild(body);
+
+            if (enabled) {
+              card.addEventListener('click', function() {
+                overlay.remove();
+                onClick();
+              });
+            }
+
+            return card;
+          }
+
+          box.appendChild(makeOption('\u5f00\u59cb\u7ec3\u4e60', '\u5168\u65b0\u5f00\u59cb\uff0c\u4ece\u7b2c\u4e00\u9898\u505a\u8d77', '', true, function() {
+            clearTpoData(tpoNum);
+            window.location.href = targetUrl;
+          }));
+
+          box.appendChild(makeOption('\u7ee7\u7eed\u7ec3\u4e60', '\u4ece\u4e0a\u6b21\u9000\u51fa\u7684\u4f4d\u7f6e\u7ee7\u7eed\u7b54\u9898', '', hasData, function() {
+            var resumePage = localStorage.getItem('toefl_tpo' + tpoNum + '_' + moduleName + '_resume_page');
+            window.location.href = resumePage ? '../tpo/' + tpoNum + '/' + moduleName + '/' + resumePage : targetUrl;
+          }));
+
+          box.appendChild(makeOption('\u91cd\u65b0\u7ec3\u4e60', '\u6e05\u9664\u5f53\u524d\u8bb0\u5f55\uff0c\u5168\u65b0\u5f00\u59cb', 'danger', hasData, function() {
+            clearTpoData(tpoNum);
+            window.location.href = targetUrl;
+          }));
+
+          overlay.appendChild(box);
+          document.body.appendChild(overlay);
+
+          overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) overlay.remove();
+          });
+        }
+
+        document.querySelectorAll('.mod-btn.available[data-tpo]').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var tpoNum = this.dataset.tpo;
+            var targetUrl = this.getAttribute('href');
+            var hasData = hasSavedProgress(tpoNum);
+            showPracticeModal(tpoNum, this.dataset.module, targetUrl, hasData);
+          });
+        });
+      })();
     </script>
+    <script>
+      (function() {
+        if (typeof window.electronAPI === 'undefined') return;
+        var badgeEl = document.getElementById('update-badge');
+        var bannerEl = document.getElementById('update-banner');
+        var updateVersion = document.getElementById('update-version');
+        var updateReleaseDate = document.getElementById('update-release-date');
+        var updateDesc = document.getElementById('update-desc');
+        var updateBtn = document.getElementById('update-btn');
+        var updateBtnText = document.getElementById('update-btn-text');
+        var updateProgress = document.getElementById('update-progress');
+        var updatePending = false;
+
+        function showBadge(n) {
+          if (!badgeEl) return;
+          badgeEl.textContent = String(n || 1);
+          badgeEl.style.display = 'inline-flex';
+        }
+        function hideBadge() {
+          if (badgeEl) badgeEl.style.display = 'none';
+        }
+
+        window.electronAPI.onUpdateAvailable(function(info) {
+          updatePending = true;
+          var currentVersion = localStorage.getItem('toefl_last_seen_version') || '1.0.0';
+          var latestVersion = (info && info.version) || '1.1.0';
+          fetch('https://api.github.com/repos/anton-bis/toefl-app/releases?per_page=20')
+            .then(function(r) { return r.json(); })
+            .then(function(releases) {
+              var missed = 0;
+              if (Array.isArray(releases)) {
+                for (var i = 0; i < releases.length; i++) {
+                  var tag = releases[i].tag_name || '';
+                  var ver = tag.replace(/^v/i, '');
+                  if (compareVersion(ver, currentVersion) > 0 && compareVersion(ver, latestVersion) <= 0) missed++;
+                }
+              }
+              showBadge(missed || 1);
+            })
+            .catch(function() { showBadge(1); });
+          var savedVersion = localStorage.getItem('toefl_last_seen_version');
+          if (savedVersion && compareVersion(latestVersion, savedVersion) <= 0) { hideBadge(); updatePending = false; }
+          if (updateVersion) updateVersion.textContent = latestVersion;
+          if (updateReleaseDate) updateReleaseDate.textContent = (info && info.releaseDate) ? info.releaseDate : '';
+          if (updateDesc) updateDesc.textContent = '包含重要修复和优化，建议立即更新';
+          if (bannerEl) bannerEl.style.display = 'block';
+          if (updateBtn) { updateBtn.disabled = false; updateBtnText.textContent = '下载并安装'; }
+        });
+
+        window.electronAPI.onUpdateProgress(function(progress) {
+          if (updateProgress) { updateProgress.style.display = 'inline'; updateProgress.textContent = Math.round(progress.percent) + '%'; }
+        });
+
+        window.electronAPI.onUpdateDownloaded(function(info) {
+          if (updateBtn) { updateBtn.classList.add('done'); updateBtnText.textContent = '安装并重启'; }
+          if (updateProgress) updateProgress.style.display = 'none';
+          if (updateDesc) updateDesc.textContent = '下载完成，点击按钮安装更新';
+          localStorage.setItem('toefl_last_seen_version', (info && info.version) || '');
+        });
+
+        window.electronAPI.onUpdateError(function(err) {
+          if (updateDesc) updateDesc.textContent = '更新失败：' + ((typeof err === 'string') ? err : (err && err.message || '未知错误'));
+          if (updateBtn) { updateBtnText.textContent = '重试'; updateBtn.disabled = false; }
+        });
+
+        if (updateBtn) {
+          updateBtn.addEventListener('click', function() {
+            if (updateBtn.classList.contains('done')) {
+              window.electronAPI.quitAndInstall();
+            } else {
+              updateBtn.disabled = true;
+              updateBtnText.textContent = '下载中...';
+              if (updateDesc) updateDesc.textContent = '正在下载更新，请稍候';
+              window.electronAPI.checkForUpdates();
+            }
+          });
+        }
+
+        window.electronAPI.onContentUpdateAvailable(function(result) {
+          if (result && result.hasUpdate) {
+            showBadge(result.updateCount || 1);
+            if (bannerEl) bannerEl.style.display = 'block';
+            if (updateVersion) updateVersion.textContent = 'Content';
+            if (updateDesc) updateDesc.textContent = '有新题目内容可用，点击立即更新';
+          }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(function() {
+            try {
+              window.electronAPI.checkContentUpdate().then(function(result) {
+                if (result && result.hasUpdate) {
+                  showBadge(result.updateCount || 1);
+                  if (bannerEl) bannerEl.style.display = 'block';
+                  if (updateVersion) updateVersion.textContent = 'Content';
+                  if (updateDesc) updateDesc.textContent = '有新题目内容可用，点击立即更新';
+                }
+              }).catch(function() {});
+            } catch (_) {}
+          }, 2000);
+        });
+
+        function compareVersion(a, b) {
+          var pa = String(a).split('.').map(Number);
+          var pb = String(b).split('.').map(Number);
+          for (var i = 0; i < Math.max(pa.length, pb.length); i++) {
+            var na = pa[i] || 0, nb = pb[i] || 0;
+            if (na > nb) return 1;
+            if (na < nb) return -1;
+          }
+          return 0;
+        }
+
+        // Dismiss badge when user opens the log
+        document.querySelector('[data-modal="modalLog"]').addEventListener('click', function() {
+          hideBadge();
+          if (updateVersion && updateVersion.textContent) {
+            localStorage.setItem('toefl_last_seen_version', updateVersion.textContent.replace(/^Content$/, ''));
+          }
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>`;
 
-  fs.writeFileSync(path.join(__dirname, 'tpo-select.html'), indexHtml);
+  fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml);
   console.log('\n生成主索引页面: index.html');
 }
 
@@ -1302,8 +2088,6 @@ for (const { filename, tpoNum } of filesToProcess) {
   const summary = generateTPO(tpoNum, markdownFile);
   tpoSummaries.push(summary);
 }
-
-console.log('\n生成TPO索引页面...');
 
 console.log('\n生成主索引页面...');
 generateMainIndexPage(tpoSummaries);

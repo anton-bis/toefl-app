@@ -1,0 +1,486 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TOEFL iBT - Build a Sentence {{QUESTION_TITLE_SUFFIX}}</title>
+<link rel="stylesheet" href="../../../font-awesome.css" />
+<link rel="stylesheet" href="../../../styles.css" />
+<style>
+:root{--teal:#008080;--text:#1d1d1f;--muted:#86868b;--border:#e5e5e7}
+html,body{margin:0;padding:0}
+.header{background-color:var(--teal);color:white;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;right:0;z-index:1000;height:60px}
+.logo{font-size:36px;font-weight:bold;color:white}
+.nav-buttons{display:flex;gap:12px}
+.nav-button{padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;border:3px solid transparent;transition:all 0.3s ease;display:flex;align-items:center;gap:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.nav-button.dark{background-color:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3)}
+.nav-button.dark:hover{background-color:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.6)}
+.nav-button.light{background-color:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3)}
+.nav-button.light:hover{background-color:rgba(255,255,255,0.25)}
+.timer-info-row{display:flex;justify-content:space-between;align-items:center;padding:12px 30px;background-color:white;border-bottom:3px solid #222;margin-top:60px}
+.question-progress-info{font-size:14px;color:#444;font-weight:500}
+.timer-controls{display:flex;align-items:center;gap:15px}
+.timer-display-exam{font-family:'Courier New',monospace;font-size:16px;font-weight:bold;color:#222;background-color:#f5f5f5;padding:5px 15px;border-radius:4px;min-width:80px;text-align:center;border:1px solid #e0e0e0}
+.timer-display-exam.urgent{color:#cc0000;background-color:#fff5f5;border-color:#cc0000}
+.hide-time-btn{background-color:#f5f5f5;color:#444;border:1px solid #ccc;border-radius:4px;padding:5px 12px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:5px}
+.main-content{max-width:800px;margin:0 auto;padding:10px 30px 0}
+.page-title-area{text-align:center;margin:0 0 105px}
+.page-title-area h2{font-size:30px;font-weight:bold;color:#222;margin:0}
+.dialogue-area{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.dialogue-row{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.avatar{width:108px;height:108px;border-radius:50%;background:#e8e8ed;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:48px;flex-shrink:0}
+.speaker-text{flex:1;min-width:0;font-size:20px;line-height:1.5;color:#333}
+.sentence-line{display:flex;align-items:center;flex-wrap:wrap;gap:4px;font-size:20px;color:#333}
+.text-segment{white-space:pre-wrap}
+.blank-slot{min-width:50px;height:28px;border-bottom:2px solid #333;display:inline-flex;align-items:center;justify-content:center;padding:0 4px;font-size:20px;color:#222;cursor:pointer;margin:2px 0;text-align:center}
+.blank-slot.correct{border-bottom-color:#4CAF50;background-color:#E8F5E9;cursor:default}
+.blank-slot.incorrect{border-bottom-color:#F44336;background-color:#FFEBEE;cursor:default}
+.blank-slot.empty{border-bottom-color:#FF9800;background-color:#FFF3E0;cursor:default}
+.candidates-area{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:16px 0;min-height:44px}
+.candidate-chip{display:inline-flex;align-items:center;padding:6px 16px;border:1px solid #ccc;border-radius:20px;background:#fff;font-size:20px;color:#333;cursor:pointer;transition:all 0.15s;user-select:none}
+.candidate-chip:hover{border-color:var(--teal);background:rgba(0,128,128,0.05)}
+.candidate-chip.used{opacity:0.45;background:#e8e8ed;color:#999;pointer-events:none;cursor:default;border-color:#ddd}
+.help-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.help-modal-overlay.open{display:flex}
+.help-modal-card{background:white;border-radius:14px;width:480px;max-width:92vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,0.18)}
+.help-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid #e5e5e7}
+.help-modal-header h3{margin:0;font-size:17px;font-weight:700}
+.help-modal-close{width:32px;height:32px;border-radius:50%;border:none;background:#f0f0f2;cursor:pointer;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.help-modal-close:hover{background:#e0e0e2;color:#1d1d1f}
+.help-modal-body{padding:24px;font-size:14px;line-height:1.7;color:#444}
+.check-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1000}
+.check-overlay.active{display:block}
+.answers-check-area{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;width:620px;max-width:95vw;max-height:82vh;overflow-y:auto;padding:25px;background-color:#f8f9fa;border-radius:10px;border:1px solid #dee2e6;box-shadow:0 10px 40px rgba(0,0,0,0.25)}
+.answers-check-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #008080;cursor:move;user-select:none}
+.answers-check-header h3{font-size:18px;color:#222;margin:0;display:flex;align-items:center;gap:10px}
+.answers-check-header h3 i{color:#008080}
+.close-answers-btn{background:none;border:none;color:#666;font-size:16px;cursor:pointer;padding:5px;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease}
+.close-answers-btn:hover{background-color:#e9ecef;color:#222}
+.answers-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px;padding:15px;background-color:white;border-radius:6px;border:1px solid #e9ecef}
+.stat-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+.stat-label{font-size:12px;color:#666;margin-bottom:5px;font-weight:500}
+.stat-value{font-size:20px;font-weight:bold;color:#222}
+.stat-value.correct{color:#28a745}
+.stat-value.incorrect{color:#dc3545}
+.answers-details{margin-bottom:25px}
+.answers-details h4{font-size:16px;color:#222;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #dee2e6}
+#answers-list{max-height:300px;overflow-y:auto;padding-right:10px}
+.answer-item{display:flex;align-items:center;padding:16px 20px;margin-bottom:12px;background-color:white;border-radius:6px;border:1px solid #e9ecef;transition:all 0.2s ease}
+.answer-item:hover{border-color:#008080;box-shadow:0 2px 6px rgba(0,128,128,0.1)}
+.answer-item.correct{border-left:4px solid #28a745}
+.answer-item.incorrect{border-left:4px solid #dc3545}
+.answer-item.empty{border-left:4px solid #ffc107}
+.question-number-badge{width:28px;height:28px;background-color:#008080;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;margin-right:15px;flex-shrink:0}
+.answer-content{flex:1}
+.answer-word{font-size:18px;line-height:1.5;color:#222;margin-bottom:6px;font-weight:400}
+.answer-sentence{font-size:18px;line-height:1.6;color:#222;font-weight:500}
+.answer-status{font-size:15px;display:flex;align-items:center;gap:8px}
+.status-text.correct{color:#1a7a2e;font-weight:700}
+.status-text.incorrect{color:#dc3545;font-weight:500}
+.status-text.empty{color:#ffc107;font-weight:500}
+.correct-answer{font-size:16px;font-weight:600;color:#1a7a2e;padding:0 0 0 12px;border-left:3px solid #1a7a2e;margin-left:12px}
+.answers-actions{display:flex;justify-content:flex-end;gap:15px;padding-top:20px;border-top:1px solid #dee2e6}
+.action-btn{padding:10px 20px;border:none;border-radius:5px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all 0.2s ease}
+.retry-btn{background-color:#ffc107;color:#222}
+.retry-btn:hover{background-color:#e0a800}
+.close-btn{background-color:#6c757d;color:white}
+.close-btn:hover{background-color:#5a6268}
+.review-panel{position:fixed;top:0;right:-400px;width:380px;height:100vh;background-color:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;transition:right 0.3s ease;display:flex;flex-direction:column;overflow:hidden}
+.review-panel.active{right:0}
+.review-header{padding:20px;background-color:#008080;color:white;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.1)}
+.review-header h3{margin:0;font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px}
+.review-header h3 i{font-size:16px}
+.close-review-btn{background:none;border:none;color:white;font-size:18px;cursor:pointer;padding:5px;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:background-color 0.2s ease}
+.close-review-btn:hover{background-color:rgba(255,255,255,0.2)}
+.review-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;padding:20px;background-color:#f8f9fa;border-bottom:1px solid #e9ecef}
+.review-stat-item{display:flex;flex-direction:column;align-items:center;text-align:center}
+.review-stat-label{font-size:12px;color:#666;margin-bottom:5px;font-weight:500}
+.review-stat-value{font-size:20px;font-weight:bold;color:#222}
+.review-stat-value.answered{color:#28a745}
+.review-stat-value.marked{color:#ffc107}
+.review-questions-list{flex:1;overflow-y:auto;padding:20px}
+.review-questions-list h4{font-size:16px;color:#222;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid #e9ecef}
+#questions-list{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.question-item{width:50px;height:50px;display:flex;align-items:center;justify-content:center;background-color:#f8f9fa;border:2px solid #dee2e6;border-radius:8px;font-size:16px;font-weight:bold;color:#495057;cursor:pointer;transition:all 0.2s ease;user-select:none;position:relative}
+.question-item:hover{background-color:#e9ecef;border-color:#adb5bd;transform:translateY(-2px)}
+.question-item.answered{background-color:#d4edda;border-color:#28a745;color:#155724}
+.question-item.marked{background-color:#fff3cd;border-color:#ffc107;color:#856404}
+.question-item.marked::after{content:'';position:absolute;top:-5px;right:-5px;width:12px;height:12px;background-color:#ffc107;border-radius:50%;border:2px solid white;box-shadow:0 2px 4px rgba(0,0,0,0.2)}
+.question-item.current{background-color:#008080;border-color:#006666;color:white;box-shadow:0 4px 8px rgba(0,128,128,0.3)}
+.question-item.answered.marked{background:linear-gradient(135deg,#d4edda 50%,#fff3cd 50%);border-color:#28a745}
+.review-actions{padding:20px;background-color:#f8f9fa;border-top:1px solid #e9ecef;display:flex;flex-direction:column;gap:10px}
+.review-action-btn{padding:12px 15px;border:none;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s ease;background-color:white;color:#495057;border:1px solid #dee2e6}
+.review-action-btn:hover{background-color:#e9ecef;border-color:#adb5bd}
+.review-action-btn.primary{background-color:#008080;color:white;border:none}
+.review-action-btn.primary:hover{background-color:#006666}
+.review-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:999;display:none;opacity:0;transition:opacity 0.3s ease}
+.review-overlay.active{display:block;opacity:1}
+@media (max-width:768px){.review-panel{width:320px;right:-320px}#questions-list{grid-template-columns:repeat(4,1fr)}.question-item{width:45px;height:45px;font-size:14px}.answers-check-area{width:95vw;padding:15px}.answers-stats{grid-template-columns:repeat(2,1fr);gap:10px}}
+@media (max-width:480px){.review-panel{width:280px;right:-280px}#questions-list{grid-template-columns:repeat(3,1fr)}.question-item{width:40px;height:40px;font-size:13px}.review-stats{grid-template-columns:1fr;gap:10px}.answers-stats{grid-template-columns:1fr 1fr}}
+.timer-expired-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center}
+.timer-expired-modal.show{display:flex}
+.timer-expired-modal-content{background-color:white;border-radius:12px;padding:30px 40px;max-width:400px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+.timer-expired-modal-title{font-size:24px;font-weight:bold;color:#d32f2f;margin-bottom:15px}
+.timer-expired-modal-text{font-size:16px;color:#444;margin-bottom:25px;line-height:1.5}
+.timer-expired-modal-buttons{display:flex;gap:15px;justify-content:center}
+.timer-expired-modal-btn{padding:12px 30px;font-size:15px;font-weight:600;border-radius:6px;cursor:pointer;border:none;transition:all 0.2s}
+.timer-expired-modal-btn-continue{background-color:#008080;color:white}
+.timer-expired-modal-btn-continue:hover{background-color:#006666}
+.timer-expired-modal-btn-exit{background-color:#f5f5f5;color:#333;border:1px solid #ccc}
+.timer-expired-modal-btn-exit:hover{background-color:#e0e0e0}
+</style>
+</head>
+<body>
+<header class="header">
+<div style="display:flex;align-items:center;gap:8px">
+<div class="logo">toefl ibt</div>
+<button class="nav-button dark" id="exit-btn"><span>Exit</span><i class="fas fa-sign-out-alt"></i></button>
+</div>
+<div class="nav-buttons">
+<button class="nav-button dark" id="help-btn"><span>Help</span><i class="fas fa-question-circle"></i></button>
+<button class="nav-button dark" id="review-btn"><span>Review</span><i class="fas fa-eye"></i></button>
+<button class="nav-button dark" id="check-answers-btn"><span>Check Answers</span><i class="fas fa-check-circle"></i></button>
+{{BACK_BUTTON_HTML}}
+<button class="nav-button light" id="next-btn"><span>Next</span><i class="fas fa-arrow-right"></i></button>
+</div>
+</header>
+
+<div class="timer-info-row">
+<div class="question-progress-info">Question {{QUESTION_NUMBER}} of {{TOTAL_QUESTIONS}}</div>
+<div class="timer-controls">
+<div class="timer-display-exam" id="timer-display">05:47</div>
+<button class="hide-time-btn" id="toggle-timer-btn"><i class="fas fa-eye-slash"></i><span>Hide Time</span></button>
+</div>
+</div>
+
+<main class="main-content">
+<div class="page-title-area"><h2>Make an appropriate sentence</h2></div>
+<div class="dialogue-area">
+<div class="dialogue-row">
+<div class="avatar"><i class="fas fa-user-circle"></i></div>
+<div class="speaker-text">{{SPEAKER_A_TEXT}}</div>
+</div>
+<div class="dialogue-row">
+<div class="avatar"><i class="fas fa-user-circle"></i></div>
+<div class="sentence-line" id="speaker-b-line"></div>
+</div>
+</div>
+<div class="candidates-area" id="candidates-area"></div>
+</main>
+
+<div class="help-modal-overlay" id="help-modal-overlay">
+<div class="help-modal-card">
+<div class="help-modal-header"><h3><i class="fas fa-question-circle"></i> Help</h3><button class="help-modal-close" id="help-modal-close"><i class="fas fa-times"></i></button></div>
+<div class="help-modal-body"><p><strong>Build a Sentence</strong></p><ul><li>Click a word to place it into the first empty blank.</li><li>Click a filled blank to return the word.</li><li>Drag and drop to rearrange or swap.</li><li>Click <strong>Check Answers</strong> to verify.</li></ul></div>
+</div>
+</div>
+
+<span id="check-close-btn" style="display:none"></span>
+<div class="check-overlay" id="check-overlay"></div>
+<div id="answers-check-area" class="answers-check-area">
+<div class="answers-check-header" id="answers-check-drag-handle">
+<h3><i class="fas fa-clipboard-check"></i> Answers Check</h3>
+<button class="close-answers-btn" id="close-answers-btn"><i class="fas fa-times"></i></button>
+</div>
+<div class="answers-stats">
+<div class="stat-item"><span class="stat-label">Total Questions:</span><span class="stat-value" id="answers-total-questions">{{BLANK_COUNT}}</span></div>
+<div class="stat-item"><span class="stat-label">Correct:</span><span class="stat-value correct" id="answers-correct-count">0</span></div>
+<div class="stat-item"><span class="stat-label">Incorrect:</span><span class="stat-value incorrect" id="answers-incorrect-count">0</span></div>
+<div class="stat-item"><span class="stat-label">Accuracy:</span><span class="stat-value" id="answers-accuracy-rate">0%</span></div>
+</div>
+<div class="answers-details"><h4>Question Details:</h4><div id="answers-list"></div></div>
+<div class="answers-actions">
+<button class="action-btn retry-btn" id="retry-incorrect-btn"><i class="fas fa-redo"></i> Retry Incorrect</button>
+<button class="action-btn close-btn" id="close-check-btn"><i class="fas fa-times"></i> Close</button>
+</div>
+</div>
+
+<div id="review-overlay" class="review-overlay"></div>
+<div id="review-panel" class="review-panel">
+<div class="review-header">
+<h3><i class="fas fa-list-check"></i> Review Questions</h3>
+<button class="close-review-btn" id="close-review-btn"><i class="fas fa-times"></i></button>
+</div>
+<div class="review-stats">
+<div class="review-stat-item"><span class="review-stat-label">Total:</span><span class="review-stat-value" id="review-total">{{TOTAL_QUESTIONS}}</span></div>
+<div class="review-stat-item"><span class="review-stat-label">Answered:</span><span class="review-stat-value answered" id="review-answered">0</span></div>
+<div class="review-stat-item"><span class="review-stat-label">Marked:</span><span class="review-stat-value marked" id="review-marked">0</span></div>
+<div class="review-stat-item"><span class="review-stat-label">Progress:</span><span class="review-stat-value" id="review-progress">0%</span></div>
+</div>
+<div class="review-questions-list"><h4>Questions:</h4><div id="questions-list"></div></div>
+<div class="review-actions">
+<button class="review-action-btn" id="review-mark-all-btn"><i class="fas fa-flag"></i> Mark All</button>
+<button class="review-action-btn" id="review-clear-marks-btn"><i class="fas fa-eraser"></i> Clear Marks</button>
+<button class="review-action-btn primary" id="review-jump-to-btn"><i class="fas fa-arrow-right"></i> Jump to Question</button>
+</div>
+</div>
+
+<script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+<script>
+window.BS_QUESTION_DATA = {
+  speakerA: "{{SPEAKER_A_TEXT}}",
+  slots: {{SLOTS_JSON}},
+  candidates: {{CANDIDATES_JSON}},
+  answerOrder: {{ANSWER_ORDER_JSON}},
+  blankCount: {{BLANK_COUNT}},
+  questionNumber: {{QUESTION_NUMBER}},
+  nextPage: "{{NEXT_PAGE}}",
+  prevPage: {{PREV_PAGE}},
+  emailIntroPage: "{{EMAIL_INTRO_PAGE}}"
+};
+</script>
+<script src="../../../assets/questions/writing/build-sentence-engine.js"></script>
+<script>
+(function() {
+  if (!window.BS_QUESTION_DATA) return;
+  var slots = window.BS_QUESTION_DATA.slots;
+  if (!slots || slots.length === 0) return;
+  if (slots[0].type !== 'blank') return;
+
+  function capitalizeFirstBlank() {
+    var blanks = document.querySelectorAll('#speaker-b-line .blank-slot');
+    if (blanks.length === 0) return;
+    var el = blanks[0];
+    if (el.classList.contains('correct') || el.classList.contains('incorrect') || el.classList.contains('empty')) return;
+    var text = (el.textContent || '').trim();
+    if (!text) return;
+    var first = text.charAt(0);
+    if (first === first.toUpperCase()) return;
+    if (first.toLowerCase() === first.toUpperCase()) return;
+    el.textContent = first.toUpperCase() + text.slice(1);
+  }
+
+  var observer = new MutationObserver(capitalizeFirstBlank);
+  observer.observe(document.getElementById('speaker-b-line'), {
+    childList: true, characterData: true, subtree: true
+  });
+})();
+</script>
+<script>
+(function() {
+  // ===== Exit button override =====
+  var exitBtn = document.getElementById('exit-btn');
+  if (exitBtn) {
+    var newExitBtn = exitBtn.cloneNode(true);
+    exitBtn.parentNode.replaceChild(newExitBtn, exitBtn);
+    newExitBtn.addEventListener('click', function() {
+      if (window.showConfirm) {
+        window.showConfirm('Exit Test',
+          'Your progress has been saved.\nWould you like to keep it or clear all data?',
+          [
+            { text: 'Save & Exit', cls: 'primary', onClick: function() {
+              localStorage.removeItem('toefl_writing_overtime');
+              localStorage.setItem('toefl_writing_resume_page', window.location.pathname.split('/').pop());
+              localStorage.setItem('{{RESUME_PAGE_KEY}}', window.location.pathname.split('/').pop());
+              window.location.href = '../../../dist/index.html';
+            }},
+            { text: 'Clear & Exit', cls: 'danger', onClick: function() {
+              var keys = [];
+              for (var i = 0; i < localStorage.length; i++) {
+                var k = localStorage.key(i);
+                if (k && (k.indexOf('toefl_tpo') === 0 || k.indexOf('toefl_writing_') === 0)) keys.push(k);
+              }
+              keys.forEach(function(k) { localStorage.removeItem(k); });
+              window.location.href = '../../../dist/index.html';
+            }}
+          ], true);
+      } else {
+        window.location.href = 'start.html';
+      }
+    });
+  }
+
+  // ===== Check Answers override =====
+  var checkBtn = document.getElementById('check-answers-btn');
+  if (checkBtn) {
+    var newCheckBtn = checkBtn.cloneNode(true);
+    checkBtn.parentNode.replaceChild(newCheckBtn, checkBtn);
+    var checked = false;
+
+    newCheckBtn.addEventListener('click', function() {
+      if (checked) return;
+      checked = true;
+      var blanks = document.querySelectorAll('#speaker-b-line .blank-slot');
+      var qData = window.BS_QUESTION_DATA;
+      var correctCount = 0;
+      var totalBlanks = blanks.length;
+
+      blanks.forEach(function(el, i) {
+        var userVal = (el.textContent || '').trim();
+        var correctVal = qData.answerOrder[i] || '';
+        el.className = 'blank-slot';
+        if (userVal !== '' && correctVal && userVal.toLowerCase() === correctVal.toLowerCase()) {
+          el.classList.add('correct');
+          correctCount++;
+        } else if (userVal !== '') {
+          el.classList.add('incorrect');
+          el.textContent = userVal + ' (' + correctVal + ')';
+        } else {
+          el.classList.add('empty');
+          el.textContent = '(' + correctVal + ')';
+        }
+        el.draggable = false;
+      });
+
+      document.getElementById('answers-total-questions').textContent = totalBlanks;
+      document.getElementById('answers-correct-count').textContent = correctCount;
+      document.getElementById('answers-incorrect-count').textContent = totalBlanks - correctCount;
+      var accuracy = totalBlanks > 0 ? Math.round((correctCount / totalBlanks) * 100) : 0;
+      document.getElementById('answers-accuracy-rate').textContent = accuracy + '%';
+
+      var fullSentence = '';
+      qData.slots.forEach(function(slot) {
+        if (slot.type === 'text') {
+          fullSentence += slot.value;
+        } else {
+          fullSentence += (slot.answer || '___') + ' ';
+        }
+      });
+      fullSentence = fullSentence.replace(/\s{2,}/g, ' ').replace(/\s([.,!?;:])/g, '$1').trim();
+
+      var list = document.getElementById('answers-list');
+      list.innerHTML = '';
+      var item = document.createElement('div');
+      item.className = 'answer-item ' + (correctCount === totalBlanks ? 'correct' : (correctCount === 0 ? 'empty' : 'incorrect'));
+      item.innerHTML =
+        '<div class="question-number-badge">' + qData.questionNumber + '</div>' +
+        '<div class="answer-content">' +
+          '<div class="answer-sentence">' + fullSentence + '</div>' +
+          '<div class="answer-status">' +
+            '<span class="status-text ' + (correctCount === totalBlanks ? 'correct' : 'incorrect') + '">' +
+              (correctCount === totalBlanks ? 'Correct' : 'Partially correct (' + correctCount + '/' + totalBlanks + ' slots)') +
+            '</span>' +
+          '</div>' +
+        '</div>';
+      list.appendChild(item);
+
+      document.getElementById('check-overlay').classList.add('active');
+      document.getElementById('answers-check-area').style.display = 'block';
+    });
+
+    function closeCheck() {
+      document.getElementById('check-overlay').classList.remove('active');
+      document.getElementById('answers-check-area').style.display = 'none';
+    }
+
+    document.getElementById('close-answers-btn').addEventListener('click', closeCheck);
+    document.getElementById('close-check-btn').addEventListener('click', closeCheck);
+    document.getElementById('retry-incorrect-btn').addEventListener('click', function() {
+      closeCheck();
+      checked = false;
+      var blanks = document.querySelectorAll('#speaker-b-line .blank-slot');
+      blanks.forEach(function(el) {
+        el.className = 'blank-slot';
+        el.draggable = true;
+        var val = el.getAttribute('data-original');
+        if (val) el.textContent = val;
+      });
+      document.querySelectorAll('#speaker-b-line .blank-slot').forEach(function(el) {
+        if (el.textContent.trim()) el.draggable = true;
+      });
+    });
+    document.getElementById('check-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeCheck();
+    });
+  }
+
+  // ===== Review Panel =====
+  var reviewBtn = document.getElementById('review-btn');
+  if (reviewBtn) {
+    var newReviewBtn = reviewBtn.cloneNode(true);
+    reviewBtn.parentNode.replaceChild(newReviewBtn, reviewBtn);
+    var TOTAL_Q = {{TOTAL_QUESTIONS}};
+    var CURRENT_Q = {{QUESTION_NUMBER}};
+    var MARK_KEY = 'toefl_writing_marked';
+
+    function getMarked() {
+      try { return JSON.parse(localStorage.getItem(MARK_KEY) || '[]'); } catch(e) { return []; }
+    }
+
+    function saveMarked(arr) {
+      localStorage.setItem(MARK_KEY, JSON.stringify(arr));
+    }
+
+    function buildReviewPanel() {
+      var marked = getMarked();
+      var answeredCount = 0;
+      document.querySelectorAll('#speaker-b-line .blank-slot').forEach(function(el) {
+        if (el.textContent.trim()) answeredCount++;
+      });
+      var list = document.getElementById('questions-list');
+      list.innerHTML = '';
+
+      for (var i = 1; i <= TOTAL_Q; i++) {
+        var div = document.createElement('div');
+        div.className = 'question-item';
+        div.textContent = i;
+        if (i === CURRENT_Q) div.classList.add('current');
+        if (marked.indexOf(i) !== -1) div.classList.add('marked');
+        if (i === CURRENT_Q && answeredCount > 0) div.classList.add('answered');
+        (function(qNum) {
+          div.addEventListener('click', function() {
+            var fname = 'build-sentence-' + String(qNum).padStart(2, '0') + '.html';
+            window.location.href = fname;
+          });
+        })(i);
+        list.appendChild(div);
+      }
+
+      document.getElementById('review-total').textContent = TOTAL_Q;
+      document.getElementById('review-answered').textContent = (answeredCount > 0 ? 1 : 0);
+      document.getElementById('review-marked').textContent = marked.length;
+      document.getElementById('review-progress').textContent = Math.round(((answeredCount > 0 ? 1 : 0) / TOTAL_Q) * 100) + '%';
+    }
+
+    newReviewBtn.addEventListener('click', function() {
+      buildReviewPanel();
+      document.getElementById('review-panel').classList.add('active');
+      document.getElementById('review-overlay').classList.add('active');
+    });
+
+    function closeReview() {
+      document.getElementById('review-panel').classList.remove('active');
+      document.getElementById('review-overlay').classList.remove('active');
+    }
+
+    document.getElementById('close-review-btn').addEventListener('click', closeReview);
+    document.getElementById('review-overlay').addEventListener('click', closeReview);
+
+    document.getElementById('review-mark-all-btn').addEventListener('click', function() {
+      var all = [];
+      for (var i = 1; i <= TOTAL_Q; i++) all.push(i);
+      saveMarked(all);
+      buildReviewPanel();
+    });
+
+    document.getElementById('review-clear-marks-btn').addEventListener('click', function() {
+      saveMarked([]);
+      buildReviewPanel();
+    });
+
+    document.getElementById('review-jump-to-btn').addEventListener('click', function() {
+      var num = prompt('Enter question number (1-' + TOTAL_Q + '):', '');
+      if (num !== null && num !== '') {
+        var n = parseInt(num);
+        if (n >= 1 && n <= TOTAL_Q) {
+          var fname = 'build-sentence-' + String(n).padStart(2, '0') + '.html';
+          window.location.href = fname;
+        }
+      }
+    });
+  }
+})();
+</script>
+<!-- ===== Timer Expired Modal ===== -->
+<div id="timer-expired-modal" class="timer-expired-modal">
+  <div class="timer-expired-modal-content">
+    <div class="timer-expired-modal-title">Time is Up!</div>
+    <div class="timer-expired-modal-text">Your time for this task has expired. You can continue working without time limit, or end this task to move on.</div>
+    <div class="timer-expired-modal-buttons">
+      <button id="timer-modal-continue" class="timer-expired-modal-btn timer-expired-modal-btn-continue">Continue</button>
+      <button id="timer-modal-exit" class="timer-expired-modal-btn timer-expired-modal-btn-exit">End Task</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

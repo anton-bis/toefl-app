@@ -1,0 +1,41 @@
+<!-- 答案检查区域组件 -->
+<div id="answers-check-area" class="answers-check-area" style="display: none">
+  <div class="answers-check-header">
+    <h3><i class="fas fa-clipboard-check"></i> Answers Check</h3>
+    <button class="close-answers-btn" id="close-answers-btn">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="answers-stats">
+    <div class="stat-item">
+      <span class="stat-label">Total Questions:</span>
+      <span class="stat-value" id="answers-total-questions">1</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Correct:</span>
+      <span class="stat-value correct" id="answers-correct-count">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Incorrect:</span>
+      <span class="stat-value incorrect" id="answers-incorrect-count">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Accuracy:</span>
+      <span class="stat-value" id="answers-accuracy-rate">0%</span>
+    </div>
+  </div>
+  <div class="answers-details">
+    <h4>Question Details:</h4>
+    <div id="answers-list">
+      <!-- 答案详情将动态生成 -->
+    </div>
+  </div>
+  <div class="answers-actions">
+    <button class="action-btn retry-btn" id="retry-incorrect-btn">
+      <i class="fas fa-redo"></i> Retry Incorrect
+    </button>
+    <button class="action-btn close-btn" id="close-check-btn">
+      <i class="fas fa-times"></i> Close
+    </button>
+  </div>
+</div>

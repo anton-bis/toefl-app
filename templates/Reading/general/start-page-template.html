@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOEFL iBT - Reading Section</title>
+    <link rel="stylesheet" href="../../../font-awesome.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="module-reading">
+    <header class="header">
+      <div class="logo">toefl ibt</div>
+      <div class="nav-buttons">
+        <button class="nav-button dark volume-btn">
+          <span>Volume</span>
+          <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="nav-button dark help-btn">
+          <span>Help</span>
+          <i class="fas fa-question-circle"></i>
+        </button>
+        <button
+          class="nav-button light begin-btn"
+          id="begin-btn"
+        >
+          <span>Begin</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="section-title">Reading</div>
+
+      <div class="page-header">
+        <h1 class="page-title">Reading Section</h1>
+        <div class="title-underline"></div>
+      </div>
+
+      <p class="description" style="text-align:left;">
+        In the reading section, you will answer 35 - 48 questions to demonstrate how well you
+        understand academic and non-academic texts in English. There are three types of tasks.
+      </p>
+
+      <table class="task-table">
+        <thead>
+          <tr>
+            <th>Type of Task</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Complete the Words</td>
+            <td>Fill in the missing letters in a paragraph.</td>
+          </tr>
+          <tr>
+            <td>Read in Daily Life</td>
+            <td>Answer questions about everyday reading material.</td>
+          </tr>
+          <tr>
+            <td>Read an Academic Passage</td>
+            <td>Answer questions about academic passages.</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <script>
+      document.querySelector('.volume-btn').addEventListener('click', function () {
+        window.showHelp('Volume', 'Volume control will be implemented in the speaking and listening version.');
+      });
+
+      document.querySelector('.help-btn').addEventListener('click', function () {
+        window.showHelp('Help', '1. Complete the Words: Fill missing letters in paragraphs\n2. Read in Daily Life: Answer questions about everyday texts\n3. Read an Academic Passage: Answer questions about academic texts');
+      });
+
+      // Begin按钮：直接开始
+      document.getElementById('begin-btn').addEventListener('click', function () {
+        window.location.href = '{{NEXT_PAGE_URL}}';
+      });
+    </script>
+    <script src="../../../assets/score/render_reading_score.js" nonce="{{CSP_NONCE}}"></script>
+  </body>
+</html>

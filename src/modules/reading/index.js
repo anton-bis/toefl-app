@@ -468,7 +468,16 @@ export default {
     const currentQuestion = this.state.questions[this.state.currentQuestion - 1];
     if (!currentQuestion) return;
 
-    console.log('[DEBUG] 渲染题目 #' + this.state.currentQuestion + '/' + this.state.questions.length + ', type=' + currentQuestion.type + ', hasPassage=' + !!currentQuestion.passage);
+    console.log(
+      '[DEBUG] 渲染题目 #' +
+        this.state.currentQuestion +
+        '/' +
+        this.state.questions.length +
+        ', type=' +
+        currentQuestion.type +
+        ', hasPassage=' +
+        !!currentQuestion.passage
+    );
 
     // 创建题目容器
     const questionContainer = DOM.create('div', {
@@ -612,7 +621,10 @@ export default {
     console.log('[DEBUG] 步骤1 - renderMultipleChoiceQuestion 被调用');
     console.log('[DEBUG] 步骤1 - question.type:', question.type);
     console.log('[DEBUG] 步骤1 - 是否有passage字段:', !!question.passage);
-    console.log('[DEBUG] 步骤1 - passage前100字:', question.passage ? question.passage.substring(0, 100) : '无');
+    console.log(
+      '[DEBUG] 步骤1 - passage前100字:',
+      question.passage ? question.passage.substring(0, 100) : '无'
+    );
 
     // 如果附带段落文本（如阅读段落题），先渲染段落
     if (question.passage) {
@@ -624,7 +636,10 @@ export default {
       console.log('[DEBUG] 步骤2 - question.question原文:', JSON.stringify(question.question));
 
       const vocabMatch = question.question?.match(/The word\s+[^a-zA-Z]*([a-zA-Z-]+)[^a-zA-Z]*/);
-      console.log('[DEBUG] 步骤3 - 正则匹配结果:', vocabMatch ? '成功，捕获词=' + vocabMatch[1] : '失败(null)');
+      console.log(
+        '[DEBUG] 步骤3 - 正则匹配结果:',
+        vocabMatch ? '成功，捕获词=' + vocabMatch[1] : '失败(null)'
+      );
       if (vocabMatch) {
         const targetWord = vocabMatch[1];
         const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -653,7 +668,10 @@ export default {
       });
       passage.innerHTML = passageHTML;
       container.appendChild(passage);
-      console.log('[DEBUG] 步骤5 - passage已插入DOM, innerHTML前100字:', passage.innerHTML.substring(0, 100));
+      console.log(
+        '[DEBUG] 步骤5 - passage已插入DOM, innerHTML前100字:',
+        passage.innerHTML.substring(0, 100)
+      );
       console.log('[DEBUG] 步骤5 - passage.offsetWidth:', passage.offsetWidth);
     }
 

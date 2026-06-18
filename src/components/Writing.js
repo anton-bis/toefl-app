@@ -3,14 +3,23 @@
  * 参考新 API：scoreWriteEmail, scoreAcademicDiscussion, convertTotal05_to_final30_final6_for_writing
  */
 
-import { scoreWriteEmail, scoreAcademicDiscussion, convertTotal05_to_final30_final6_for_writing } from '../services/ai.js';
+import {
+  scoreWriteEmail,
+  scoreAcademicDiscussion,
+  convertTotal05_to_final30_final6_for_writing
+} from '../services/ai.js';
 import { DOM } from '../core/utils.js';
 
 let apiKey = null;
 
 // 简单的英文单词统计
 function countWordsEnglish(text = '') {
-  return text.trim().length ? text.trim().split(/\s+/).filter((w) => w).length : 0;
+  return text.trim().length
+    ? text
+        .trim()
+        .split(/\s+/)
+        .filter(w => w).length
+    : 0;
 }
 
 function clearAllInputs() {
@@ -183,7 +192,13 @@ function showWritingInterface() {
   const emailSubject = DOM.create('textarea', {
     placeholder: 'Enter email subject...',
     style: {
-      width: '100%', height: '60px', padding: '8px', fontSize: '14px', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical'
+      width: '100%',
+      height: '60px',
+      padding: '8px',
+      fontSize: '14px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      resize: 'vertical'
     },
     'data-role': 'email-subject'
   });
@@ -195,9 +210,15 @@ function showWritingInterface() {
   const emailBody = DOM.create('textarea', {
     placeholder: 'Write your essay here...',
     style: {
-      width: '100%', height: '180px', padding: '8px', fontSize: '14px', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical'
+      width: '100%',
+      height: '180px',
+      padding: '8px',
+      fontSize: '14px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      resize: 'vertical'
     },
-    'data-role': 'email-body',
+    'data-role': 'email-body'
   });
   const emailWordCount = DOM.create('div', {
     'data-role': 'email-body-wordcount',
@@ -208,13 +229,26 @@ function showWritingInterface() {
   const emailSubmit = DOM.create('button', {
     textContent: '提交批改',
     style: {
-      width: '100%', padding: '12px', backgroundColor: '#007A66', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', marginTop: '12px'
+      width: '100%',
+      padding: '12px',
+      backgroundColor: '#007A66',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      marginTop: '12px'
     }
   });
 
   const emailResult = DOM.create('div', {
     id: 'final-writing-email',
-    style: { marginTop: '14px', fontSize: '22px', fontWeight: 'bold', textAlign: 'center', color: '#333' }
+    style: {
+      marginTop: '14px',
+      fontSize: '22px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#333'
+    }
   });
 
   emailPanel.appendChild(emailSubjectLabel);
@@ -245,7 +279,13 @@ function showWritingInterface() {
   const discTopic = DOM.create('textarea', {
     placeholder: 'Enter discussion topic...',
     style: {
-      width: '100%', height: '60px', padding: '8px', fontSize: '14px', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical'
+      width: '100%',
+      height: '60px',
+      padding: '8px',
+      fontSize: '14px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      resize: 'vertical'
     },
     'data-role': 'discussion-topic'
   });
@@ -257,7 +297,13 @@ function showWritingInterface() {
   const discBody = DOM.create('textarea', {
     placeholder: 'Write your discussion response...',
     style: {
-      width: '100%', height: '180px', padding: '8px', fontSize: '14px', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical'
+      width: '100%',
+      height: '180px',
+      padding: '8px',
+      fontSize: '14px',
+      border: '1px solid #ddd',
+      borderRadius: '4px',
+      resize: 'vertical'
     },
     'data-role': 'discussion-body'
   });
@@ -269,13 +315,26 @@ function showWritingInterface() {
 
   const discResult = DOM.create('div', {
     id: 'final-writing-discussion',
-    style: { marginTop: '14px', fontSize: '22px', fontWeight: 'bold', textAlign: 'center', color: '#333' }
+    style: {
+      marginTop: '14px',
+      fontSize: '22px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: '#333'
+    }
   });
 
   const discSubmit = DOM.create('button', {
     textContent: '提交批改',
     style: {
-      width: '100%', padding: '12px', backgroundColor: '#007A66', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer', marginTop: '10px'
+      width: '100%',
+      padding: '12px',
+      backgroundColor: '#007A66',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      marginTop: '10px'
     }
   });
 
@@ -310,14 +369,21 @@ function showWritingInterface() {
   emailSubmit.addEventListener('click', async () => {
     const subject = emailSubject.value?.trim() ?? '';
     const body = emailBody.value?.trim() ?? '';
-    if (!subject) { alert('请输入邮件主题'); return; }
-    if (!body) { alert('请输入作文内容'); return; }
+    if (!subject) {
+      alert('请输入邮件主题');
+      return;
+    }
+    if (!body) {
+      alert('请输入作文内容');
+      return;
+    }
     // 两个子任务评分：W1 与 W2，均以相同文本触发，确保逻辑符合“两个子任务”的要求
     try {
       const r1 = await scoreWriteEmail(apiKey, subject, body);
       const r2 = await scoreWriteEmail(apiKey, subject, body);
       const total05 = (r1?.score05 ?? 0) + (r2?.score05 ?? 0);
-      const { final30_writing, final6_writing } = convertTotal05_to_final30_final6_for_writing(total05);
+      const { final30_writing, final6_writing } =
+        convertTotal05_to_final30_final6_for_writing(total05);
       // 显示最终分数
       emailResult.textContent = `Final30_writing: ${final30_writing} | Final6_writing: ${final6_writing}`;
       // 隐藏输入区域以聚焦结果（可按需调整，这里保持简单）
@@ -329,15 +395,26 @@ function showWritingInterface() {
 
   // 提交 Academic Discussion
   discSubmit.addEventListener('click', async () => {
-    const topic = (discussionPanel.querySelector('[data-role="discussion-topic"]')?.value ?? '').trim();
-    const body = (discussionPanel.querySelector('[data-role="discussion-body"]')?.value ?? '').trim();
-    if (!topic) { alert('请输入讨论主题'); return; }
-    if (!body) { alert('请输入讨论内容'); return; }
+    const topic = (
+      discussionPanel.querySelector('[data-role="discussion-topic"]')?.value ?? ''
+    ).trim();
+    const body = (
+      discussionPanel.querySelector('[data-role="discussion-body"]')?.value ?? ''
+    ).trim();
+    if (!topic) {
+      alert('请输入讨论主题');
+      return;
+    }
+    if (!body) {
+      alert('请输入讨论内容');
+      return;
+    }
     try {
       const r1 = await scoreAcademicDiscussion(apiKey, topic, body);
       const r2 = await scoreAcademicDiscussion(apiKey, topic, body);
       const total05 = (r1?.score05 ?? 0) + (r2?.score05 ?? 0);
-      const { final30_writing, final6_writing } = convertTotal05_to_final30_final6_for_writing(total05);
+      const { final30_writing, final6_writing } =
+        convertTotal05_to_final30_final6_for_writing(total05);
       discResult.textContent = `Final30_writing: ${final30_writing} | Final6_writing: ${final6_writing}`;
     } catch (err) {
       alert('评分失败: ' + (err?.message || err));

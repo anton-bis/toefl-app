@@ -1,0 +1,96 @@
+/**
+ * 口语模块
+ * 实现模块接口规范，接入核心框�? */
+
+import { store } from '../../core/store.js';
+import { loader } from '../../core/loader.js';
+import { parser } from '../../core/parser.js';
+import { DOM } from '../../core/utils.js';
+
+export default {
+  name: 'speaking',
+  type: 'speaking',
+
+  state: {
+    currentTask: null,
+    currentQuestion: 1,
+    questions: [],
+    userAnswers: {},
+    isInitialized: false,
+    audioPlayers: {}
+  },
+
+  async init() {
+    console.log('口语模块初始�?..');
+
+    try {
+      store.registerModule(this.name, {
+        name: 'Speaking',
+        description: '托福口语练习模块',
+        icon: '🎙�?
+      });
+
+      store.activateModule(this.name);
+
+      await this.loadQuestionBank();
+
+      this.render();
+
+      this.state.isInitialized = true;
+      console.log('口语模块初始化完�?);
+    } catch (error) {
+      console.error('口语模块初始化失�?', error);
+      throw error;
+    }
+  },
+
+  async loadQuestionBank() {
+    console.log('加载口语题库...');
+
+    try {
+      const questionFiles = await loader.scanQuestionBank('speaking');
+
+      if (questionFiles.length === 0) {
+        console.warn('未找到口语题库文�?);
+        return;
+      }
+
+      const markdown = await loader.load(questionFiles[0], 'markdown');
+      const parsedData = parser.parse(markdown, 'speaking');
+
+      this.state.questions = this.extractQuestions(parsedData);
+      store.setModuleQuestions(this.name, this.state.questions);
+
+      console.log(`口语题库加载完成，共 ${this.state.questions.length} 题`);
+    } catch (error) {
+      console.error('加载口语题库失败:', error);
+    }
+  },
+
+  extractQuestions(parsedData) {
+    if (!parsedData || !parsedData.tasks) return [];
+    return parsedData.tasks.flatMap(task => task.questions || []);
+  },
+
+  render() {
+    const app = document.getElementById('app');
+    if (!app) return;
+
+    DOM.clear(app);
+    DOM.create('div', {
+      className: 'module-placeholder',
+      style: {
+        textAlign: 'center',
+        padding: '40px',
+        fontSize: '18px',
+        color: '#86868b'
+      },
+      textContent: 'Speaking module loaded. Navigate to tpo/01/speaking/start.html for the full experience.'
+    }, app);
+  },
+
+  destroy() {
+    this.state.isInitialized = false;
+    console.log('口语模块已销�?);
+  }
+};

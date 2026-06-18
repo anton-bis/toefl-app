@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
-import { JavaScriptObfuscator } from 'javascript-obfuscator';
+import obfuscatorPkg from 'javascript-obfuscator';
 import { fileURLToPath } from 'url';
+
+const { JavaScriptObfuscator } = obfuscatorPkg;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

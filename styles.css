@@ -285,6 +285,20 @@ form {
   background: linear-gradient(to right, #008080, #008080);
 }
 
+/* 模块专属表头颜色 */
+.module-reading .task-table thead {
+  background: linear-gradient(to right, #00AA88, #00AA88);
+}
+.module-listening .task-table thead {
+  background: linear-gradient(to right, #00AAAA, #00AAAA);
+}
+.module-writing .task-table thead {
+  background: linear-gradient(to right, #FFA07A, #FFA07A);
+}
+.module-speaking .task-table thead {
+  background: linear-gradient(to right, #D2B48C, #D2B48C);
+}
+
 .task-table th {
   color: white;
   font-weight: 700;
@@ -305,13 +319,7 @@ form {
   transition: all 0.2s ease;
 }
 
-.task-table tbody tr:nth-child(even) {
-  background-color: #f8fbf8;
-}
-
-.task-table tbody tr:nth-child(odd) {
-  background-color: white;
-}
+/* 表格行默认白底，hover 浅绿高亮 */
 
 .task-table tbody tr:hover {
   background-color: #e8f5e9;

@@ -12,12 +12,12 @@ let apiKey = null;
  */
 export function initQNAModule(config = {}) {
   apiKey = config.apiKey || localStorage.getItem('toefl_api_key') || '';
-  
+
   if (!apiKey) {
     showApiKeyInput();
     return;
   }
-  
+
   showQNAInterface();
 }
 
@@ -27,9 +27,9 @@ export function initQNAModule(config = {}) {
 function showApiKeyInput() {
   const app = document.getElementById('app');
   if (!app) return;
-  
+
   DOM.clear(app);
-  
+
   const container = DOM.create('div', {
     className: 'qna-config',
     style: {
@@ -41,17 +41,17 @@ function showApiKeyInput() {
       boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
     }
   });
-  
+
   const title = DOM.create('h2', {
     textContent: '配置 API Key',
     style: { marginBottom: '20px', color: '#007A66' }
   });
-  
+
   const desc = DOM.create('p', {
     textContent: '请输入您的 NVIDIA API Key 以使用问答功能',
     style: { marginBottom: '20px', color: '#666' }
   });
-  
+
   const input = DOM.create('input', {
     type: 'text',
     placeholder: 'nvapi-xxx',
@@ -64,7 +64,7 @@ function showApiKeyInput() {
       marginBottom: '15px'
     }
   });
-  
+
   const button = DOM.create('button', {
     textContent: '保存并开始',
     style: {
@@ -86,7 +86,7 @@ function showApiKeyInput() {
       }
     }
   });
-  
+
   container.appendChild(title);
   container.appendChild(desc);
   container.appendChild(input);
@@ -100,9 +100,9 @@ function showApiKeyInput() {
 function showQNAInterface() {
   const app = document.getElementById('app');
   if (!app) return;
-  
+
   DOM.clear(app);
-  
+
   const container = DOM.create('div', {
     className: 'qna-container',
     style: {
@@ -111,12 +111,12 @@ function showQNAInterface() {
       padding: '20px'
     }
   });
-  
+
   const title = DOM.create('h2', {
     textContent: '题目问答',
     style: { color: '#007A66', marginBottom: '10px' }
   });
-  
+
   const tabContainer = DOM.create('div', {
     style: {
       display: 'flex',
@@ -124,7 +124,7 @@ function showQNAInterface() {
       marginBottom: '20px'
     }
   });
-  
+
   const explainTab = DOM.create('button', {
     id: 'explain-tab',
     textContent: '📖 题目解析',
@@ -137,7 +137,7 @@ function showQNAInterface() {
       cursor: 'pointer'
     }
   });
-  
+
   const qaTab = DOM.create('button', {
     id: 'qa-tab',
     textContent: '❓ 提问答疑',
@@ -150,10 +150,10 @@ function showQNAInterface() {
       cursor: 'pointer'
     }
   });
-  
+
   tabContainer.appendChild(explainTab);
   tabContainer.appendChild(qaTab);
-  
+
   const contentArea = DOM.create('div', {
     id: 'qna-content',
     style: {
@@ -163,17 +163,17 @@ function showQNAInterface() {
       minHeight: '400px'
     }
   });
-  
+
   container.appendChild(title);
   container.appendChild(tabContainer);
   container.appendChild(contentArea);
   app.appendChild(container);
-  
+
   // 题目解析界面
   showExplainPanel(contentArea);
-  
+
   let currentMode = 'explain';
-  
+
   explainTab.onclick = () => {
     if (currentMode !== 'explain') {
       currentMode = 'explain';
@@ -184,7 +184,7 @@ function showQNAInterface() {
       showExplainPanel(contentArea);
     }
   };
-  
+
   qaTab.onclick = () => {
     if (currentMode !== 'qa') {
       currentMode = 'qa';
@@ -202,22 +202,22 @@ function showQNAInterface() {
  */
 function showExplainPanel(container) {
   DOM.clear(container);
-  
+
   const title = DOM.create('h3', {
     textContent: '题目解析',
     style: { color: '#007A66', marginBottom: '15px' }
   });
-  
+
   const desc = DOM.create('p', {
     textContent: '输入题目和答案，获取解题思路分析',
     style: { marginBottom: '20px', color: '#666' }
   });
-  
+
   const questionLabel = DOM.create('label', {
     textContent: '题目内容：',
     style: { display: 'block', marginBottom: '8px', fontWeight: 'bold' }
   });
-  
+
   const questionInput = DOM.create('textarea', {
     placeholder: '请粘贴题目内容...',
     style: {
@@ -231,12 +231,12 @@ function showExplainPanel(container) {
       resize: 'vertical'
     }
   });
-  
+
   const userAnswerLabel = DOM.create('label', {
     textContent: '你的答案：',
     style: { display: 'block', marginBottom: '8px', fontWeight: 'bold' }
   });
-  
+
   const userAnswerInput = DOM.create('input', {
     type: 'text',
     placeholder: 'A / B / C / D',
@@ -249,12 +249,12 @@ function showExplainPanel(container) {
       marginBottom: '15px'
     }
   });
-  
+
   const correctAnswerLabel = DOM.create('label', {
     textContent: '正确答案：',
     style: { display: 'block', marginBottom: '8px', fontWeight: 'bold' }
   });
-  
+
   const correctAnswerInput = DOM.create('input', {
     type: 'text',
     placeholder: 'A / B / C / D',
@@ -267,7 +267,7 @@ function showExplainPanel(container) {
       marginBottom: '15px'
     }
   });
-  
+
   const submitBtn = DOM.create('button', {
     textContent: '获取解析',
     style: {
@@ -282,12 +282,12 @@ function showExplainPanel(container) {
       marginBottom: '20px'
     }
   });
-  
+
   const resultArea = DOM.create('div', {
     id: 'explain-result',
     style: { display: 'none' }
   });
-  
+
   container.appendChild(title);
   container.appendChild(desc);
   container.appendChild(questionLabel);
@@ -298,31 +298,31 @@ function showExplainPanel(container) {
   container.appendChild(correctAnswerInput);
   container.appendChild(submitBtn);
   container.appendChild(resultArea);
-  
+
   submitBtn.onclick = async () => {
     const question = questionInput.value.trim();
     const userAnswer = userAnswerInput.value.trim().toUpperCase();
     const correctAnswer = correctAnswerInput.value.trim().toUpperCase();
-    
+
     if (!question || !userAnswer || !correctAnswer) {
       alert('���填写完整信息');
       return;
     }
-    
+
     submitBtn.disabled = true;
     submitBtn.textContent = '分析中...';
-    
+
     try {
       // 判断是否答对
       const isCorrect = userAnswer === correctAnswer;
-      
+
       let result;
       if (isCorrect) {
         result = await explainQuestion(apiKey, question, userAnswer, correctAnswer);
       } else {
         result = await explainMistake(apiKey, question, userAnswer, correctAnswer);
       }
-      
+
       resultArea.innerHTML = `
         <div style="padding: 15px; backgroundColor: ${isCorrect ? '#e8f5e9' : '#ffebee'}; borderRadius: 5px; marginBottom: 15px;">
           <strong>${isCorrect ? '✅ 回答正确！' : '❌ 回答错误'}</strong>
@@ -344,22 +344,22 @@ function showExplainPanel(container) {
  */
 function showQAPanel(container) {
   DOM.clear(container);
-  
+
   const title = DOM.create('h3', {
     textContent: '提问答疑',
     style: { color: '#007A66', marginBottom: '15px' }
   });
-  
+
   const desc = DOM.create('p', {
     textContent: '对任何题目有疑问都可以提问',
     style: { marginBottom: '20px', color: '#666' }
   });
-  
+
   const questionLabel = DOM.create('label', {
     textContent: '题目原文/背景（可选）：',
     style: { display: 'block', marginBottom: '8px', fontWeight: 'bold' }
   });
-  
+
   const questionInput = DOM.create('textarea', {
     placeholder: '可以粘贴题目原文或阅读文章...',
     style: {
@@ -373,12 +373,12 @@ function showQAPanel(container) {
       resize: 'vertical'
     }
   });
-  
+
   const userQuestionLabel = DOM.create('label', {
     textContent: '你的问题：',
     style: { display: 'block', marginBottom: '8px', fontWeight: 'bold' }
   });
-  
+
   const userQuestionInput = DOM.create('textarea', {
     placeholder: '请描述你的问题...',
     style: {
@@ -392,7 +392,7 @@ function showQAPanel(container) {
       resize: 'vertical'
     }
   });
-  
+
   const submitBtn = DOM.create('button', {
     textContent: '提问',
     style: {
@@ -407,12 +407,12 @@ function showQAPanel(container) {
       marginBottom: '20px'
     }
   });
-  
+
   const resultArea = DOM.create('div', {
     id: 'qa-result',
     style: { display: 'none' }
   });
-  
+
   container.appendChild(title);
   container.appendChild(desc);
   container.appendChild(questionLabel);
@@ -421,7 +421,7 @@ function showQAPanel(container) {
   container.appendChild(userQuestionInput);
   container.appendChild(submitBtn);
   container.appendChild(resultArea);
-  
+
   // 通用问答功能
   const prompt = `你是一位托福阅读教学专家。请用中文回答学生的问题。
 
@@ -434,18 +434,18 @@ ${userQuestionInput.value}
   submitBtn.onclick = async () => {
     const question = questionInput.value.trim();
     const userQ = userQuestionInput.value.trim();
-    
+
     if (!userQ) {
       alert('请输入你的问题');
       return;
     }
-    
+
     submitBtn.disabled = true;
     submitBtn.textContent = '回答中...';
-    
+
     try {
       const result = await callAI(apiKey, question + '\n\n' + userQ);
-      
+
       resultArea.innerHTML = `
         <div style="padding: 15px; backgroundColor: #f5f5f5; borderRadius: 5px; whiteSpace: pre-wrap;">${result}</div>
       `;
@@ -464,7 +464,7 @@ async function callAI(key, content, options = {}) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${key}`
+      Authorization: `Bearer ${key}`
     },
     body: JSON.stringify({
       model: 'meta/llama-3.1-405b-instruct',
@@ -473,11 +473,11 @@ async function callAI(key, content, options = {}) {
       temperature: 0.7
     })
   });
-  
+
   if (!response.ok) {
     throw new Error(`API错误: ${response.status}`);
   }
-  
+
   const json = await response.json();
   if (json.choices && json.choices[0]) {
     return json.choices[0].message.content;

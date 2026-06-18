@@ -62,11 +62,19 @@ export class ToeflStore {
   }
 
   _getItem(key) {
-    try { return JSON.parse(localStorage.getItem(key)); } catch { return null; }
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch {
+      return null;
+    }
   }
 
   _setItem(key, value) {
-    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.error('保存失败:', e); }
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      console.error('保存失败:', e);
+    }
   }
 }
 
@@ -86,17 +94,31 @@ class AppStore {
   }
 
   // ---- answers ----
-  saveAnswer(questionId, value) { this._answers.saveAnswer(questionId, value); }
-  getAnswer(questionId) { return this._answers.getAnswer(questionId); }
-  getAllAnswers() { return this._answers.getAllAnswers(); }
+  saveAnswer(questionId, value) {
+    this._answers.saveAnswer(questionId, value);
+  }
+  getAnswer(questionId) {
+    return this._answers.getAnswer(questionId);
+  }
+  getAllAnswers() {
+    return this._answers.getAllAnswers();
+  }
 
   // ---- modules ----
-  registerModule(name, info) { this._modules[name] = info; }
-  activateModule(name) { this._activeModule = name; }
-  setModuleQuestions(name, questions) { this._modules[name] = { ...this._modules[name], questions }; }
+  registerModule(name, info) {
+    this._modules[name] = info;
+  }
+  activateModule(name) {
+    this._activeModule = name;
+  }
+  setModuleQuestions(name, questions) {
+    this._modules[name] = { ...this._modules[name], questions };
+  }
 
   // ---- state ----
-  getState() { return { ...this._state }; }
+  getState() {
+    return { ...this._state };
+  }
   setState(partial) {
     const old = { ...this._state };
     this._state = { ...this._state, ...partial };
@@ -119,11 +141,17 @@ class AppStore {
   // ---- subscriptions ----
   subscribe(fn) {
     this._subscriptions.push(fn);
-    return () => { this._subscriptions = this._subscriptions.filter(f => f !== fn); };
+    return () => {
+      this._subscriptions = this._subscriptions.filter(f => f !== fn);
+    };
   }
   _notify(old, current) {
     this._subscriptions.forEach(fn => {
-      try { fn(old, current); } catch (e) { /* ignore */ }
+      try {
+        fn(old, current);
+      } catch (e) {
+        /* ignore */
+      }
     });
   }
 
