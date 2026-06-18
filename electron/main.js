@@ -82,7 +82,7 @@ function createWindow() {
     // 检查更新
     if (app.isPackaged) {
       setTimeout(() => {
-        autoUpdater.checkForUpdatesAndNotify();
+        autoUpdater.checkForUpdates();
       }, 5000);
     }
   });
@@ -314,6 +314,14 @@ function setupIpcHandlers() {
   });
 
   // 手动触发更新下载
+  ipcMain.handle('update:check', async () => {
+    return await autoUpdater.checkForUpdates();
+  });
+
+  ipcMain.handle('update:quit-and-install', async () => {
+    autoUpdater.quitAndInstall();
+  });
+
   ipcMain.handle('update:download', async () => {
     autoUpdater.downloadUpdate();
   });
