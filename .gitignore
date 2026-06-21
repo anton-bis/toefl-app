@@ -65,8 +65,5 @@ generation_output.txt
 # ===== AI 助手 =====
 .opencode/
 
-# ===== 个人图片（不提交到代码库）=====
-assets/images/
-
 # ===== 归档文件 =====
 *.archived
