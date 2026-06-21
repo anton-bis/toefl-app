@@ -1,10 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
-import obfuscatorPkg from 'javascript-obfuscator';
-import { fileURLToPath } from 'url';
-
-const { JavaScriptObfuscator } = obfuscatorPkg;
+import JavaScriptObfuscator from 'javascript-obfuscator';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,7 +11,7 @@ const configPath = path.join(__dirname, '../obfuscator.config.js');
 let config = {};
 
 try {
-  const configModule = await import(configPath);
+  const configModule = await import(pathToFileURL(configPath).href);
   config = configModule.default || configModule;
   console.log('✅ 加载混淆配置成功');
 } catch (error) {
@@ -27,8 +25,9 @@ const electronDir = path.join(__dirname, '../electron');
 // 查找JavaScript文件
 async function findJsFiles(dir) {
   try {
-    const pattern = path.join(dir, '**/*.js');
-    const files = await glob(pattern, {
+    const files = await glob('**/*.js', {
+      cwd: dir,
+      absolute: true,
       ignore: [
         '**/node_modules/**',
         '**/*.map',
