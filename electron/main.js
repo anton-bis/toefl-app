@@ -64,7 +64,8 @@ function createWindow() {
   const contentDir = path.join(app.getPath('userData'), 'tpo-content');
   const assetBase = path.join(app.getAppPath(), 'assets', 'questions');
   protocol.interceptFileProtocol('file', (request, callback) => {
-    const filePath = decodeURIComponent(request.url.replace('file:///', '').replace(/\//g, path.sep));
+    const urlWithoutQuery = request.url.split('?')[0];
+    const filePath = decodeURIComponent(urlWithoutQuery.replace('file:///', '').replace(/\//g, path.sep));
     const resolvedPath = path.resolve(filePath);
     if (fs.existsSync(resolvedPath)) { callback({ path: resolvedPath }); return; }
     if (resolvedPath.startsWith(assetBase + path.sep)) {

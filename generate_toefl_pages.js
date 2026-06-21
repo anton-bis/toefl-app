@@ -1776,6 +1776,11 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.1.6</div>
+            <div class="log-date">2026-06-20</div>
+            <div class="log-detail">修复打包后测试报告按钮点击空白：file:// 协议拦截器未剥离 ?mode=report 查询参数，导致路径解析为带问号的文件名，fs.existsSync 永远返回 false。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.1.5</div>
             <div class="log-date">2026-06-18</div>
             <div class="log-detail">自动更新功能回归验证通过。全流程（检测 → 红圈 → 下载 → 安装重启）正式打通。</div>
