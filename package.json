@@ -88,10 +88,7 @@
     ],
     "mac": {
       "category": "public.app-category.education",
-      "target": {
-        "target": "dmg",
-        "arch": ["x64", "arm64"]
-      },
+      "target": "dmg",
       "icon": "assets/icons/icon.png",
       "artifactName": "toefl-practice-system-${version}-mac.${ext}"
     },
