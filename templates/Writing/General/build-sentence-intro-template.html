@@ -114,9 +114,6 @@
           'Are you ready to begin Build a Sentence?\nOnce you start, you cannot return to this introduction.',
           [
             { text: 'Begin', cls: 'primary', onClick: function() {
-                localStorage.setItem('toefl_timer_started', 'true');
-                var sk = 'toefl' + '_writing_start_time';
-                if (!localStorage.getItem(sk)) localStorage.setItem(sk, String(Date.now()));
                 window.location.href = 'build-sentence-questions.html';
               }
             }

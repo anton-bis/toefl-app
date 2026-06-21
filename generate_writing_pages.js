@@ -365,6 +365,16 @@ for (let i = 0; i < bsTotal; i++) {
   console.log(`  ${fname}`);
 }
 
+// Inject start_time tracker into first BS page (other modules inject on first question page)
+const startTimeKey = STORAGE_PREFIX + 'writing_start_time';
+const firstQPath = path.join(OUTPUT_DIR, 'build-sentence-01.html');
+if (fs.existsSync(firstQPath)) {
+  let firstQHtml = fs.readFileSync(firstQPath, 'utf8');
+  const injectScript = '<script>(function(){var k="' + startTimeKey + '";if(!localStorage.getItem(k))localStorage.setItem(k,Date.now());})();<\/script>';
+  firstQHtml = firstQHtml.replace('</head>', injectScript + '</head>');
+  fs.writeFileSync(firstQPath, firstQHtml, 'utf8');
+}
+
 // ===== Stage 4: Generate Email pages =====
 if (emailQuestion) {
   const eq = emailQuestion;

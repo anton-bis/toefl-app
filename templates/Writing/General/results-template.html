@@ -636,9 +636,17 @@
       var emailWc = countWords(emailText);
       var discussionWc = countWords(discussionText);
 
-      var startTime = parseInt(loadWritingKey('start_time') || '0');
-      var elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
-      document.getElementById('time-value').textContent = formatTime(elapsed);
+      var hasResponses = emailText || discussionText || localStorage.getItem('toefl_writing_bs_answers');
+      if (!hasResponses) {
+        document.getElementById('time-value').textContent = '--:--';
+      } else {
+        var startTime = parseInt(
+          localStorage.getItem(CONFIG.storagePrefix + 'writing_start_time') ||
+          localStorage.getItem('toefl_writing_start_time') || '0'
+        );
+        var elapsed = startTime > 0 ? Math.floor((Date.now() - startTime) / 1000) : 0;
+        document.getElementById('time-value').textContent = formatTime(elapsed);
+      }
 
       // Load BS answers from localStorage
       var savedAnswers = {};
