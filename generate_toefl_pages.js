@@ -1785,9 +1785,24 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.2.4</div>
+            <div class="log-date">2026-06-24</div>
+            <div class="log-detail">清理历史发布残留，统一版本号。</div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.2.3</div>
+            <div class="log-date">2026-06-24</div>
+            <div class="log-detail">修复 Skills - Typing 语料库在 Electron 打包后无法加载（loader.js 路径解析：file:// 协议下自动添加 ../ 前缀，从 dist/ 回退到 app 根目录）。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.2.2</div>
             <div class="log-date">2026-06-24</div>
-            <div class="log-detail">修复 Skills - Typing 语料库在打包后无法加载（publicDir 配置缺失）。<br>补全 Typing 练习文章语料：15 篇 TOEFL 学术风格文章（三级难度各 5 篇）。<br>修复 TPO 02-04 Writing &amp; Speaking 模块空白（生成脚本仅生成 TPO 01，现已对齐 Reading/Listening 自动发现全部 TPO 目录）。<br>自动更新增加每 10 分钟轮询检测。</div>
+            <div class="log-detail">补全 Typing 练习文章语料：15 篇 TOEFL 学术风格文章（三级难度各 5 篇）。<br>修复 TPO 02-04 Writing &amp; Speaking 模块空白（生成脚本原仅支持 TPO 01，现已对齐 Reading/Listening 自动发现全部 TPO 目录）。</div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.2.1</div>
+            <div class="log-date">2026-06-24</div>
+            <div class="log-detail">重磅更新：新增 Skills - Typing 英文打字练习模块。<br>支持 Beginner / Intermediate / Advanced 三级难度，含倒计时、暂停/重试、结果页（Raw WPM / Net WPM / Accuracy / 错误分布）和进度页（SVG 趋势图 + 历史记录）。<br>新增 TPO 04 全套真题（阅读/听力/写作/口语）。<br>修复 Reading &amp; Writing 计时器跨模块共用错误。<br>修复 Electron 本地 dev 模式 main.js 无法加载（vite 配置剔除 script 标签）。<br>侧边栏新增 Skills 分区，自动更新增加每 10 分钟轮询检测。</div>
           </div>
           <div class="log-entry">
             <div class="log-version">V1.1.7</div>
