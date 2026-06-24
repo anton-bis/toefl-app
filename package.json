@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "托福模考系统 - 基于现代化前端架构",
   "main": "electron/main.js",
   "type": "module",
