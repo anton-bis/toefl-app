@@ -17,13 +17,35 @@ for (const arg of args) {
 }
 
 const TEMPLATE_DIR = path.join(__dirname, 'templates', 'Writing');
-const OUTPUT_DIR = path.join(__dirname, 'tpo', tpoNumber, 'writing');
-const MARKDOWN_PATH = path.join(
+
+// Auto-discover all TPO directories
+const questionsDir = path.join(__dirname, 'assets', 'questions', 'writing');
+let tpoNumbers;
+if (tpoMode === 'all') {
+  const entries = fs.readdirSync(questionsDir, { withFileTypes: true });
+  tpoNumbers = [];
+  for (const entry of entries) {
+    if (entry.isDirectory() && entry.name.startsWith('TPO-')) {
+      const num = entry.name.slice(4);
+      if (/^\d+$/.test(num)) tpoNumbers.push(num);
+    }
+  }
+  tpoNumbers.sort((a, b) => parseInt(a) - parseInt(b));
+  console.log('Discovered ' + tpoNumbers.length + ' Writing TPO(s): ' + tpoNumbers.map(function (n) { return 'TPO ' + n; }).join(', '));
+} else {
+  tpoNumbers = [tpoNumber];
+}
+
+for (var _tIdx = 0; _tIdx < tpoNumbers.length; _tIdx++) {
+var _tpo = tpoNumbers[_tIdx];
+
+var OUTPUT_DIR = path.join(__dirname, 'tpo', _tpo, 'writing');
+var MARKDOWN_PATH = path.join(
   __dirname,
-  'assets', 'questions', 'writing', `TPO-${tpoNumber.padStart(2, '0')}`,
-  `writing-TPO-${tpoNumber.padStart(2, '0')}.md`
+  'assets', 'questions', 'writing', 'TPO-' + _tpo.padStart(2, '0'),
+  'writing-TPO-' + _tpo.padStart(2, '0') + '.md'
 );
-const STORAGE_PREFIX = `toefl_tpo${tpoNumber}_`;
+var STORAGE_PREFIX = 'toefl_tpo' + _tpo + '_';
 
 // ===== Read templates =====
 const bsTpl = fs.readFileSync(
@@ -492,5 +514,7 @@ fs.writeFileSync(path.join(OUTPUT_DIR, 'writing_results.html'), resultsHtml, 'ut
 console.log('  writing_results.html');
 
 // ===== Done =====
-const totalPages = bsTotal + (emailQuestion ? 2 : 0) + (discQuestions.length > 0 ? 2 : 0) + 3;
-console.log(`\nDone! ${totalPages} pages generated in ${OUTPUT_DIR}`);
+var totalPages = bsTotal + (emailQuestion ? 2 : 0) + (discQuestions.length > 0 ? 2 : 0) + 3;
+console.log('\nDone! ' + totalPages + ' pages generated in ' + OUTPUT_DIR);
+
+}

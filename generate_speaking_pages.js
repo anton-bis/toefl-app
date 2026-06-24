@@ -17,14 +17,36 @@ for (const arg of args) {
 }
 
 const TEMPLATE_DIR = path.join(__dirname, 'templates', 'Speaking');
-const OUTPUT_DIR = path.join(__dirname, 'tpo', tpoNumber, 'speaking');
-const MARKDOWN_PATH = path.join(
+
+// Auto-discover all TPO directories
+const questionsDir = path.join(__dirname, 'assets', 'questions', 'speaking');
+let tpoNumbers;
+if (tpoMode === 'all') {
+  const entries = fs.readdirSync(questionsDir, { withFileTypes: true });
+  tpoNumbers = [];
+  for (const entry of entries) {
+    if (entry.isDirectory() && entry.name.startsWith('TPO-')) {
+      const num = entry.name.slice(4);
+      if (/^\d+$/.test(num)) tpoNumbers.push(num);
+    }
+  }
+  tpoNumbers.sort((a, b) => parseInt(a) - parseInt(b));
+  console.log('Discovered ' + tpoNumbers.length + ' Speaking TPO(s): ' + tpoNumbers.map(function (n) { return 'TPO ' + n; }).join(', '));
+} else {
+  tpoNumbers = [tpoNumber];
+}
+
+for (var _tIdx = 0; _tIdx < tpoNumbers.length; _tIdx++) {
+var _tpo = tpoNumbers[_tIdx];
+
+var OUTPUT_DIR = path.join(__dirname, 'tpo', _tpo, 'speaking');
+var MARKDOWN_PATH = path.join(
   __dirname, 'assets', 'questions', 'speaking',
-  `TPO-${tpoNumber.padStart(2, '0')}`,
-  `speaking-TPO-${tpoNumber.padStart(2, '0')}.md`
+  'TPO-' + _tpo.padStart(2, '0'),
+  'speaking-TPO-' + _tpo.padStart(2, '0') + '.md'
 );
-const ASSETS_BASE = `../../../assets/questions/speaking/TPO-${tpoNumber.padStart(2, '0')}/`;
-const STORAGE_PREFIX = `toefl_tpo${tpoNumber}_`;
+var ASSETS_BASE = '../../../assets/questions/speaking/TPO-' + _tpo.padStart(2, '0') + '/';
+var STORAGE_PREFIX = 'toefl_tpo' + _tpo + '_';
 
 const TOTAL_SPEAKING_QUESTIONS = 11;
 
@@ -355,5 +377,7 @@ if (firstQIdx >= 0) {
     allPages[firstQIdx].html.replace(/toefl_(?!tpo\d+_)/g, STORAGE_PREFIX), 'utf8');
 }
 
-const totalFiles = allPages.length + 3;
-console.log(`\nDone! ${totalFiles} files generated in ${OUTPUT_DIR}`);
+var totalFiles = allPages.length + 3;
+console.log('\nDone! ' + totalFiles + ' files generated in ' + OUTPUT_DIR);
+
+}

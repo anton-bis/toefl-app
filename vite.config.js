@@ -27,6 +27,9 @@ export default defineConfig({
     }
   },
 
+  // 静态资源目录 — 打包时复制到 dist/，确保 Electron 内可访问
+  publicDir: 'assets',
+
   // 构建配置
   build: {
     outDir: 'dist',
