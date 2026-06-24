@@ -31,7 +31,10 @@ class ResourceLoader {
 
     try {
       let resource;
-      const fullPath = `${this.basePath}${path}`;
+      let fullPath = `${this.basePath}${path}`;
+      if (window.location.protocol === 'file:' && typeof window.electronAPI !== 'undefined') {
+        fullPath = '../' + fullPath;
+      }
 
       switch (type) {
         case 'markdown':
