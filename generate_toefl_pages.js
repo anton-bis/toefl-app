@@ -1589,6 +1589,12 @@ function generateMainIndexPage(tpoSummaries) {
           </div>
         </div>
         <div class="sidebar-section">
+          <div class="sidebar-section-header"><i class="fas fa-tools"></i> Skills</div>
+          <div class="sidebar-nav-item" data-panel="typing">
+            <span class="nav-icon"><i class="fas fa-keyboard"></i></span> Typing
+          </div>
+        </div>
+        <div class="sidebar-section">
           <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> 其他</div>
           <div class="sidebar-nav-item" data-modal="modalNews">
             <span class="nav-icon"><i class="fas fa-newspaper"></i></span> 托福动态
@@ -1634,7 +1640,9 @@ function generateMainIndexPage(tpoSummaries) {
             <p>敬请期待</p>
           </div>
         </div>
+        <div class="panel" id="panel-typing"></div>
       </main>
+      <div id="app" style="display:none;"></div>
     </div>
 
     <div class="modal-overlay" id="modalNews">
@@ -1837,6 +1845,20 @@ function generateMainIndexPage(tpoSummaries) {
         document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
         const target = document.getElementById('panel-' + panelName);
         if (target) target.classList.add('active');
+
+        if (panelName === 'typing') {
+          const typingPanel = document.getElementById('panel-typing');
+          if (typingPanel && !typingPanel.children.length) {
+            const waitForInit = () => {
+              if (window.ToeflApp && window.ToeflApp.initTypingPanel) {
+                window.ToeflApp.initTypingPanel();
+              } else {
+                setTimeout(waitForInit, 200);
+              }
+            };
+            waitForInit();
+          }
+        }
       }
 
       function openModal(id) {
