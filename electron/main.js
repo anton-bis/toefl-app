@@ -80,11 +80,15 @@ function createWindow() {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
 
-    // 检查更新
+    // 检查更新（首次 + 此后每 10 分钟轮询）
     if (app.isPackaged) {
       setTimeout(() => {
         autoUpdater.checkForUpdates();
       }, 5000);
+
+      setInterval(() => {
+        autoUpdater.checkForUpdates();
+      }, 10 * 60 * 1000);
     }
   });
 
