@@ -941,8 +941,8 @@ body {
   var overtime = 0;
   var unlimitedMode = false;
 
-  var savedTime = localStorage.getItem('toefl_writing_timer_remaining');
-  var timerStarted = localStorage.getItem('toefl_writing_timer_started');
+  var savedTime = localStorage.getItem('toefl_writing_discussion_timer_remaining');
+  var timerStarted = localStorage.getItem('toefl_writing_discussion_timer_started');
   if (savedTime && timerStarted === 'true') {
     totalSeconds = parseInt(savedTime, 10);
   }
@@ -974,10 +974,10 @@ body {
         }
         totalSeconds--;
         updateTimerDisplay();
-        localStorage.setItem('toefl_writing_timer_remaining', String(totalSeconds));
+        localStorage.setItem('toefl_writing_discussion_timer_remaining', String(totalSeconds));
       } else {
         overtime++;
-        localStorage.setItem('toefl_writing_overtime', String(overtime));
+        localStorage.setItem('toefl_writing_discussion_overtime', String(overtime));
       }
     }, 1000);
   }
@@ -992,7 +992,7 @@ body {
       timerDisplay.textContent = '--:--';
       timerInterval = setInterval(function () {
         overtime++;
-        localStorage.setItem('toefl_writing_overtime', String(overtime));
+        localStorage.setItem('toefl_writing_discussion_overtime', String(overtime));
       }, 1000);
     };
 
@@ -1003,7 +1003,7 @@ body {
   }
 
   function endTask() {
-    localStorage.removeItem('toefl_writing_overtime');
+    localStorage.removeItem('toefl_writing_discussion_overtime');
     localStorage.setItem('toefl_writing_discussion_response', textarea.value);
     window.location.href = '{{NEXT_PAGE}}';
   }
@@ -1347,7 +1347,7 @@ body {
   updateTimerDisplay();
   startTimer();
   updateWordCount();
-  localStorage.setItem('toefl_writing_timer_started', 'true');
+  localStorage.setItem('toefl_writing_discussion_timer_started', 'true');
 
 })();
 </script>

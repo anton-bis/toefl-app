@@ -205,7 +205,7 @@
       document.getElementById('start-module-btn').addEventListener('click', function () {
         window.showConfirm('Ready to Begin', 'Are you ready to begin Module 2?\nOnce you start, you cannot return to this introduction.', [
           { text: 'Begin', cls: 'primary', onClick: function(){
-            var prevRemaining = parseInt(localStorage.getItem('toefl_timer_remaining') || totalSeconds);
+            var prevRemaining = parseInt(localStorage.getItem('toefl_reading_timer_remaining') || totalSeconds);
             var m1Max = parseInt(localStorage.getItem('toefl_reading_m1_max') || '0');
             if (m1Max > 0 && prevRemaining > 0) {
               var m1Used = m1Max - prevRemaining;
@@ -216,8 +216,8 @@
             }
             startTimer();
             localStorage.setItem('toefl_reading_m2_max', totalSeconds);
-            localStorage.setItem('toefl_timer_remaining', totalSeconds);
-            localStorage.setItem('toefl_timer_started', 'true');
+            localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+            localStorage.setItem('toefl_reading_timer_started', 'true');
             localStorage.setItem('toefl_module2_started', 'true');
             setTimeout(function () {
               window.location.href = '{{FIRST_QUESTION_PAGE}}';

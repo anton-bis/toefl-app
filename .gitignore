@@ -67,3 +67,4 @@ generation_output.txt
 
 # ===== 归档文件 =====
 *.archived
+.vite-log.txt

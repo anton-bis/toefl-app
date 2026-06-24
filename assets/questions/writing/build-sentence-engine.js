@@ -38,11 +38,11 @@
   }
 
   function saveTimer() {
-    localStorage.setItem('toefl_writing_timer_remaining', totalSeconds);
+    localStorage.setItem('toefl_writing_bs_timer_remaining', totalSeconds);
   }
 
   function loadTimer() {
-    var saved = localStorage.getItem('toefl_writing_timer_remaining');
+    var saved = localStorage.getItem('toefl_writing_bs_timer_remaining');
     if (saved !== null) totalSeconds = parseInt(saved) || TOTAL_TIME;
     updateTimerDisplay();
   }
@@ -50,7 +50,7 @@
   function lockAll() {
     if (isLocked) return;
     isLocked = true;
-    localStorage.setItem('toefl_writing_timer_expired', 'true');
+    localStorage.setItem('toefl_writing_bs_timer_expired', 'true');
     totalSeconds = 0;
     timerDisp.textContent = '00:00';
     timerDisp.classList.add('urgent');
@@ -70,7 +70,7 @@
       timerDisp.textContent = '--:--';
       timerInterval = setInterval(function () {
         overtime++;
-        localStorage.setItem('toefl_writing_overtime', String(overtime));
+        localStorage.setItem('toefl_writing_bs_overtime', String(overtime));
       }, 1000);
     };
 
@@ -81,7 +81,7 @@
   }
 
   function endTask(dest) {
-    localStorage.removeItem('toefl_writing_overtime');
+    localStorage.removeItem('toefl_writing_bs_overtime');
     try {
       var allAnswers = JSON.parse(localStorage.getItem('toefl_writing_bs_answers') || '{}');
       var qn = String(qData.questionNumber || '1');
@@ -91,8 +91,8 @@
     if (dest === 'next') {
       window.location.href = qData.nextPage;
     } else if (dest === 'timeup') {
-      localStorage.removeItem('toefl_writing_timer_expired');
-      localStorage.removeItem('toefl_writing_timer_remaining');
+      localStorage.removeItem('toefl_writing_bs_timer_expired');
+      localStorage.removeItem('toefl_writing_bs_timer_remaining');
       window.location.href = qData.emailIntroPage || 'email-intro.html';
     } else if (dest === 'back') {
       window.location.href = qData.prevPage;
@@ -103,7 +103,7 @@
 
   function startTimer() {
     loadTimer();
-    var expired = localStorage.getItem('toefl_writing_timer_expired');
+    var expired = localStorage.getItem('toefl_writing_bs_timer_expired');
     if (expired === 'true') {
       lockAll();
       return;

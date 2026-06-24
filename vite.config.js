@@ -66,12 +66,26 @@ export default defineConfig({
 
   // 插件配置
   plugins: [
+    // 开发模式下 /dist/index.html 302 重定向到 /
+    {
+      name: 'dist-redirect',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/dist/index.html' || req.url === '/dist/') {
+            res.statusCode = 302;
+            res.setHeader('Location', '/');
+            res.end();
+            return;
+          }
+          next();
+        });
+      }
+    },
     {
       name: 'remove-crossorigin',
       transformIndexHtml(html) {
         return html
           .replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ')
-          .replace(/<script\s+type="module"\s+src="[^"]*"><\/script>/g, '')
           .replace(/<link\s+rel="modulepreload"\s+crossorigin\s+href="[^"]*">/g, '');
       },
       enforce: 'post'

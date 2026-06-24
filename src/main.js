@@ -214,6 +214,11 @@ async function registerModules() {
     moduleRegistry.set('qna', qnaModule);
     router.register('/qna', () => activateModule('qna'));
     console.log('模块注册: qna');
+
+    const typingModule = await import('./modules/skills/typing/index.js');
+    moduleRegistry.set('typing', typingModule.default);
+    router.register('/skills/typing', () => activateModule('typing'));
+    console.log('模块注册: typing');
   } catch (error) {
     console.error('模块注册失败:', error);
     throw new Error('无法加载模块，请检查模块文件是否存在。');
@@ -417,10 +422,15 @@ window.ToeflApp = {
   store,
   loader,
   parser,
+  router,
   activateModule: moduleName => activateModule(moduleName),
   getCurrentModule: () => currentModule,
   getModuleRegistry: () => moduleRegistry,
-  isInitialized: () => isAppInitialized
+  isInitialized: () => isAppInitialized,
+  initTypingPanel: () => {
+    const module = moduleRegistry.get('typing');
+    if (module && module.init) module.init();
+  }
 };
 
 console.log('托福模考系统主入口加载完成');

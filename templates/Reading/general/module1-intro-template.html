@@ -209,8 +209,8 @@
             startTimer();
             localStorage.setItem('toefl_reading_m1_max', totalSeconds);
             localStorage.setItem('toefl_reading_time_acc', '0');
-            localStorage.setItem('toefl_timer_remaining', totalSeconds);
-            localStorage.setItem('toefl_timer_started', 'true');
+            localStorage.setItem('toefl_reading_timer_remaining', totalSeconds);
+            localStorage.setItem('toefl_reading_timer_started', 'true');
           setTimeout(function () {
             window.location.href = '{{FIRST_QUESTION_PAGE}}';
           }, 500);

@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 // ===== CLI argument parsing =====
 const args = process.argv.slice(2);
 let tpoMode = 'all';
+let tpoNumber = '01';
 
 for (const arg of args) {
   if (arg.startsWith('--tpo=')) {
