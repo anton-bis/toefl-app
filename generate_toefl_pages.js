@@ -1785,6 +1785,11 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.2.5</div>
+            <div class="log-date">2026-06-24</div>
+            <div class="log-detail">版本号对齐，更新日志完善（V1.2.1 ~ V1.2.5 全记录）。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.2.4</div>
             <div class="log-date">2026-06-24</div>
             <div class="log-detail">清理历史发布残留，统一版本号。</div>
