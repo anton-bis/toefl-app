@@ -174,9 +174,16 @@ for (i = 0; i < lines.length; i++) {
     continue;
   }
 
-  // Audio metadata
+  // Audio metadata (per-question for LCAR, task-level otherwise)
   if (line.startsWith('audio:')) {
-    if (currentTask) currentTask.audio = line.replace('audio:', '').trim();
+    if (currentTask) {
+      const audioVal = line.replace('audio:', '').trim();
+      if (currentTask.type === 'lcar' && currentTask.questions.length > 0) {
+        currentTask.questions[currentTask.questions.length - 1].audio = audioVal;
+      } else {
+        currentTask.audio = audioVal;
+      }
+    }
     continue;
   }
 
@@ -341,14 +348,16 @@ tasks.forEach(task => {
       const modTotal = q.moduleTotal;
       const isFirstQ = (globalNum === 1);
       const qTranscript = escapeHtml(q.dialogue || '');
+      const lcarAudio = q.audio || task.audio || '';
+      const lcarAudioFile = lcarAudio ? AUDIO_BASE + lcarAudio : '';
       const vars = {
         QUESTION_NUMBER: globalNum,
         QUESTION_KEY: q.globalKey,
         TOTAL_QUESTIONS: modTotal,
         TIMER_SECONDS: 20,
-        AUDIO_FILE: audioFile,
-        AUDIO_START: q.audioStart ?? 0,
-        AUDIO_END: q.audioEnd ?? 999,
+        AUDIO_FILE: lcarAudioFile,
+        AUDIO_START: 0,
+        AUDIO_END: 999,
         TRANSCRIPT: qTranscript,
         OPTION_A: escapeHtml(q.options[0]?.text || ''),
         OPTION_B: escapeHtml(q.options[1]?.text || ''),

@@ -133,7 +133,12 @@ function parseQuestions(task, startIdx) {
       continue;
     }
     if (line.startsWith('audio:')) {
-      task.audio = line.replace('audio:', '').trim();
+      const audioVal = line.replace('audio:', '').trim();
+      if (task.questions.length > 0) {
+        task.questions[task.questions.length - 1].audio = audioVal;
+      } else {
+        task.audio = audioVal;
+      }
       continue;
     }
     if (line.startsWith('image:')) {
@@ -220,7 +225,7 @@ interviewTask.questions.forEach((q) => {
 const allPages = [];
 
 // Listen and Repeat: scenario + exercise pages
-const lrAudioBase = ASSETS_BASE + lrTask.audio;
+const lrAudioBase = lrTask.audio ? ASSETS_BASE + lrTask.audio : '';
 
 const lrScenarioVars = {
   SCENARIO_TITLE: escapeHtml(lrTask.scenarioTitle),
@@ -236,13 +241,14 @@ lrTask.questions.forEach((q, idx) => {
     ? fmtLRPageName(qNum + 1)
     : (interviewTask.questions.length > 0 ? 'take-interview-intro.html' : 'speaking_results.html');
 
+  const qAudioSrc = q.audio ? ASSETS_BASE + q.audio : lrAudioBase;
   const vars = {
     QUESTION_NUMBER: q.number,
     TOTAL_QUESTIONS: TOTAL_SPEAKING_QUESTIONS,
     QUESTION_IMAGE: q.image,
-    AUDIO_FILE: lrAudioBase,
-    AUDIO_START: q.audioStart,
-    AUDIO_END: q.audioEnd,
+    AUDIO_FILE: qAudioSrc,
+    AUDIO_START: q.audio ? 0 : (q.audioStart || 0),
+    AUDIO_END: q.audio ? 999 : (q.audioEnd || 999),
     RESPONSE_TIME: q.responseTime,
     RESPONSE_TIME_DISPLAY: responseTimeDisplay,
     TRANSCRIPT: escapeHtml(q.transcript || ''),
@@ -255,7 +261,7 @@ lrTask.questions.forEach((q, idx) => {
 
 // Take an Interview: intro + scenario + exercise pages
 if (interviewTask.questions.length > 0) {
-  const interviewAudioBase = ASSETS_BASE + interviewTask.audio;
+  const interviewAudioBase = interviewTask.audio ? ASSETS_BASE + interviewTask.audio : '';
 
   // Interview Intro
   let interviewIntroTpl = fs.readFileSync(
@@ -286,13 +292,14 @@ if (interviewTask.questions.length > 0) {
       ? fmtInterviewPageName(qDisplayNum + 1)
       : 'speaking_results.html';
 
+    const qAudioSrc = q.audio ? ASSETS_BASE + q.audio : interviewAudioBase;
     const vars = {
       QUESTION_NUMBER: qDisplayNum,
       TOTAL_QUESTIONS: TOTAL_SPEAKING_QUESTIONS,
       QUESTION_IMAGE: q.image,
-      AUDIO_FILE: interviewAudioBase,
-      AUDIO_START: q.audioStart,
-      AUDIO_END: q.audioEnd,
+      AUDIO_FILE: qAudioSrc,
+      AUDIO_START: q.audio ? 0 : (q.audioStart || 0),
+      AUDIO_END: q.audio ? 999 : (q.audioEnd || 999),
       RESPONSE_TIME: q.responseTime,
       RESPONSE_TIME_DISPLAY: responseTimeDisplay,
       TRANSCRIPT: escapeHtml(q.transcript || ''),
@@ -341,15 +348,17 @@ console.log('  listen-repeat-intro.html');
 const lrQuestionsForResults = lrTask.questions.map(q => ({
   number: q.number,
   transcript: q.transcript || '',
-  audioStart: q.audioStart,
-  audioEnd: q.audioEnd
+  audioFile: q.audio ? (ASSETS_BASE + q.audio) : '',
+  audioStart: q.audioStart || 0,
+  audioEnd: q.audioEnd || 999
 }));
 
 const interviewQuestionsForResults = interviewTask.questions.map((q, idx) => ({
   number: 8 + idx,
   transcript: q.transcript || '',
-  audioStart: q.audioStart,
-  audioEnd: q.audioEnd
+  audioFile: q.audio ? (ASSETS_BASE + q.audio) : '',
+  audioStart: q.audioStart || 0,
+  audioEnd: q.audioEnd || 999
 }));
 
 const resultsVars = {

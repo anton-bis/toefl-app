@@ -1364,7 +1364,7 @@ function initializeOptionSelection() {
             // 鏇存柊姣忛寰楀垎鍙婃ā鍧楀垎鏁?
             const isCorrect = this.getAttribute('data-correct') === 'true';
             const taskNum = {{TASK_NUMBER}};
-            const modPrefix = {{QUESTION_COUNT}} <= 20 ? 'M2' : 'M1';
+            const modPrefix = {{IS_MODULE2}} ? 'M2' : 'M1';
             const taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
             let curTotal = parseInt(localStorage.getItem(taskKey + '_total') || '0', 10);
             localStorage.setItem(taskKey + '_total', (curTotal + 1).toString());
@@ -1374,7 +1374,7 @@ function initializeOptionSelection() {
             }
 
             // Store per-question correctness for results page color display
-            const gId = (parseInt(questionId) + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+            const gId = (parseInt(questionId) + ({{MODULE_OFFSET}})).toString();
             const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
             cMap[gId] = isCorrect;
             localStorage.setItem('toefl_reading_answers_correctness', JSON.stringify(cMap));
@@ -1389,7 +1389,7 @@ function initializeOptionSelection() {
           const questionId = selectedOption.getAttribute('data-question');
           const answer = selectedOption.getAttribute('data-option');
           const qNum = parseInt(questionId);
-          const gId = (qNum + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+          const gId = (qNum + ({{MODULE_OFFSET}})).toString();
           let answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
           answers[gId] = answer;
           localStorage.setItem('toefl_reading_answers', JSON.stringify(answers));
@@ -1400,7 +1400,7 @@ function initializeOptionSelection() {
       function loadSavedAnswer() {
         try {
           const answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
-          const loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+          const loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{MODULE_OFFSET}})).toString();
           const savedAnswer = answers[loadGId];
           if (savedAnswer) {
             const optionToSelect = document.querySelector(
@@ -1497,7 +1497,7 @@ function initializeOptionSelection() {
         // Update per-question score tracking
         const isCorrectForTask1 = Boolean(selectedOption && selectedOption === correctOption);
         const taskNum = {{TASK_NUMBER}};
-        const modPrefix = {{QUESTION_COUNT}} <= 20 ? 'M2' : 'M1';
+        const modPrefix = {{IS_MODULE2}} ? 'M2' : 'M1';
         const taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
         let curTotal = parseInt(localStorage.getItem(taskKey + '_total') || '0', 10);
         localStorage.setItem(taskKey + '_total', (curTotal + 1).toString());
@@ -1565,7 +1565,7 @@ function initializeOptionSelection() {
           option.classList.remove('correct', 'incorrect', 'empty');
         });
         var answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
-        var loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+        var loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{MODULE_OFFSET}})).toString();
         var savedAnswer = answers[loadGId];
         if (savedAnswer) {
           var opt = document.querySelector('.option-item-apple[data-question="{{QUESTION_NUMBER}}"][data-option="' + savedAnswer + '"]');

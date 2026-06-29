@@ -1898,7 +1898,7 @@
               const isCorrect = (userAnswer === correctAnswer.toLowerCase());
               const allContainers = document.querySelectorAll('.word-fill-container');
               const localIndex = Array.from(allContainers).indexOf(container);
-              const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+              const m2Offset = {{MODULE_OFFSET}};
               const qId = ({{QUESTION_START}} + localIndex + m2Offset).toString();
               const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
               cMap[qId] = isCorrect;
@@ -1907,7 +1907,7 @@
               // Not fully filled 锟?remove stale record or mark incorrect if any content exists
               const allContainers = document.querySelectorAll('.word-fill-container');
               const localIndex = Array.from(allContainers).indexOf(container);
-              const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+              const m2Offset = {{MODULE_OFFSET}};
               const qId = ({{QUESTION_START}} + localIndex + m2Offset).toString();
               const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
               let hasContent = false;
@@ -1933,7 +1933,7 @@
         window.addEventListener('beforeunload', function () {
           // Store per-question correctness and aggregate module scores
           const containers = document.querySelectorAll('.word-fill-container');
-          const m2Offset = {{TOTAL_QUESTIONS}} <= 20 ? {{MODULE1_TOTAL}} : 0;
+          const m2Offset = {{MODULE_OFFSET}};
           let taskCorrect = 0, taskAnswered = 0;
           const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
           containers.forEach(function (container, idx) {

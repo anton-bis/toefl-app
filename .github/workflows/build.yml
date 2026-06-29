@@ -84,7 +84,7 @@ jobs:
       - name: Obfuscate
         run: node scripts/obfuscate.js
 
-      - name: Build DMG
+      - name: Build DMG + zip
         run: npx electron-builder --mac --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -95,6 +95,7 @@ jobs:
           name: macOS-${{ github.ref_name }}
           path: |
             release/*.dmg
+            release/*.zip
             release/*.blockmap
             release/latest-mac.yml
 

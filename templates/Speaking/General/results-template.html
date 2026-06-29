@@ -561,8 +561,11 @@
         transcript.textContent = q.transcript || '(No transcript available)';
         div.appendChild(transcript);
 
-        if (audioSrc && q.audioStart !== undefined && q.audioEnd !== undefined) {
-          var player = buildAudioPlayer(audioSrc, q.audioStart, q.audioEnd, vol);
+        var src = q.audioFile || audioSrc;
+        var start = q.audioFile ? 0 : (q.audioStart !== undefined ? q.audioStart : 0);
+        var end = q.audioFile ? 999 : (q.audioEnd !== undefined ? q.audioEnd : 999);
+        if (src) {
+          var player = buildAudioPlayer(src, start, end, vol);
           div.appendChild(player.container);
           players.push(player);
         }

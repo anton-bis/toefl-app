@@ -79,6 +79,9 @@ const TEMPLATES = {
   notice: {
     path: path.join(__dirname, 'templates/Reading/read-a-notice/template.html')
   },
+  advertisement: {
+    path: path.join(__dirname, 'templates/Reading/read-an-advertisement/template.html')
+  },
   'social-media-post': {
     path: path.join(__dirname, 'templates/Reading/read-a-social-media-post/template.html')
   },
@@ -104,7 +107,7 @@ for (const [key, config] of Object.entries(TEMPLATES)) {
   }
   let html = fs.readFileSync(config.path, 'utf-8');
 
-  const questionPageKeys = ['fill', 'email', 'textchain', 'academic', 'results', 'notice', 'social-media-post'];
+  const questionPageKeys = ['fill', 'email', 'textchain', 'academic', 'results', 'notice', 'social-media-post', 'advertisement'];
     
     if (questionPageKeys.includes(key)) {
       const headerStyles = `
@@ -174,6 +177,8 @@ function parseMarkdown(markdownText) {
         templateType = 'academic';
       } else if (taskDescription.includes('Notice')) {
         templateType = 'notice';
+      } else if (taskDescription.includes('Advertisement')) {
+        templateType = 'advertisement';
       } else if (taskDescription.includes('Social Media Post')) {
         templateType = 'social-media-post';
       } else {
@@ -643,6 +648,8 @@ function generateTPO(tpoNum, markdownFile) {
         html = html.replace(/{{MODULE1_TOTAL}}/g, module1Total);
         html = html.replace(/{{M1_TASK_COUNT}}/g, modules[0].tasks.length);
         html = html.replace(/{{M2_TASK_COUNT}}/g, modules[1].tasks.length);
+        html = html.replace(/{{IS_MODULE2}}/g, mIdx === 1 ? 'true' : 'false');
+        html = html.replace(/{{MODULE_OFFSET}}/g, mIdx === 0 ? '0' : String(module1End));
         html = html.replace(/{{FILL_COUNT}}/g, Object.keys(task.answers).length);
         html = html.replace(/{{TIMER_SECONDS}}/g, timerSeconds);
 
@@ -689,6 +696,8 @@ function generateTPO(tpoNum, markdownFile) {
   html = html.replace(/{{M2_TASK_COUNT}}/g, modules[1].tasks.length);
   html = html.replace(/{{TASK_URL_MAP}}/g, urlMapJson);
           html = html.replace(/{{MODULE2_START}}/g, module2Start);
+          html = html.replace(/{{IS_MODULE2}}/g, mIdx === 1 ? 'true' : 'false');
+          html = html.replace(/{{MODULE_OFFSET}}/g, mIdx === 0 ? '0' : String(module1End));
 
           if (task.templateType === 'email') {
             const emailData = parseEmailContent(task.passage);
@@ -699,6 +708,11 @@ function generateTPO(tpoNum, markdownFile) {
           } else if (task.templateType === 'textchain') {
             html = html.replace(/{{TEXT_CHAIN_CONTENT}}/g, parseTextChain(task.passage));
           } else if (task.templateType === 'notice') {
+            const noticeData = parseNoticeContent(task.passage);
+            html = html.replace(/{{NOTICE_TITLE}}/g, noticeData.title);
+            html = html.replace(/{{NOTICE_SUBTITLE}}/g, noticeData.subtitle);
+            html = html.replace(/{{NOTICE_CONTENT}}/g, noticeData.content);
+          } else if (task.templateType === 'advertisement') {
             const noticeData = parseNoticeContent(task.passage);
             html = html.replace(/{{NOTICE_TITLE}}/g, noticeData.title);
             html = html.replace(/{{NOTICE_SUBTITLE}}/g, noticeData.subtitle);
@@ -754,6 +768,18 @@ function generateTPO(tpoNum, markdownFile) {
                   </div>`;
                 }).join('') + '</div>';
               }
+            }
+
+            // Insert the sentence into the passage 题型检测
+            const insertMatch = question.text.match(/Insert the sentence into the passage/i);
+            if (insertMatch) {
+              const sentMatch = question.text.match(/Insert this sentence:\s*"(.+?)"/i);
+              const insertSentence = sentMatch ? sentMatch[1].replace(/"/g, '&quot;') : '';
+
+              passageHTML = passageHTML.replace(/\(([ABCD])\)/g, '<span class="insertion-marker" data-insert-pos="$1">$&</span>');
+              html = html.replace('{{INSERTION_SENTENCE}}', insertSentence);
+            } else {
+              html = html.replace('{{INSERTION_SENTENCE}}', '');
             }
 
             html = html.replace(/{{PASSAGE_CONTENT}}/g, passageHTML);
@@ -1783,6 +1809,11 @@ function generateMainIndexPage(tpoSummaries) {
                 <span class="update-progress" id="update-progress" style="display:none;"></span>
               </div>
             </div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.2.6</div>
+            <div class="log-date">2026-06-29</div>
+            <div class="log-detail">新增 TPO 05-09 共五套内容。TPO 05（原07）/ 06 / 07 完整听说读写四模块，TPO 08（原05）/ 09（原06）阅读+写作模块。TPO 重新排序 05-09。新增 Advertisement 题型模板；Listening/Speaking 支持每题独立音频文件；Writing BS 题型答案标签修复；Results 模板双模式音频兼容。</div>
           </div>
           <div class="log-entry">
             <div class="log-version">V1.2.5</div>

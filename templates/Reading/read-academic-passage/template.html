@@ -973,11 +973,31 @@
         }
       }
 
-      @media (max-width: 480px) {
-        .review-panel {
-          width: 280px;
-          right: -280px;
+        /* 插入题标记样式 */
+        .insertion-marker {
+          display: inline;
+          padding: 2px 6px;
+          margin: 0 2px;
+          font-weight: 700;
+          color: #008080;
+          cursor: default;
+          border-radius: 3px;
+          transition: all 0.2s;
         }
+        .insertion-marker.active {
+          background-color: #008080;
+          color: #fff;
+        }
+        .ins-sentence-insert {
+          font-weight: 700;
+          color: #1d1d1f;
+        }
+
+        @media (max-width: 480px) {
+          .review-panel {
+            width: 280px;
+            right: -280px;
+          }
 
         #questions-list {
           grid-template-columns: repeat(3, 1fr);
@@ -1074,6 +1094,7 @@
           <div class="left-column">
             <div class="academic-passage-container">
               <div class="academic-passage-content">{{PASSAGE_CONTENT}}</div>
+              <div id="insert-sentence-data" data-sentence="{{INSERTION_SENTENCE}}" style="display:none"></div>
             </div>
           </div>
 
@@ -1309,7 +1330,7 @@
             this.classList.add('selected');
             const answer = this.getAttribute('data-option');
             const qNum = parseInt(questionId);
-            const gId = (qNum + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+            const gId = (qNum + ({{MODULE_OFFSET}})).toString();
             let answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
             answers[gId] = answer;
             localStorage.setItem('toefl_reading_answers', JSON.stringify(answers));
@@ -1318,7 +1339,7 @@
             // Store per-question correctness and module score for results page
             const isCorrect = this.getAttribute('data-correct') === 'true';
             const taskNum = {{TASK_NUMBER}};
-            const modPrefix = {{QUESTION_COUNT}} <= 20 ? 'M2' : 'M1';
+            const modPrefix = {{IS_MODULE2}} ? 'M2' : 'M1';
             const taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
 
             const cMap = JSON.parse(localStorage.getItem('toefl_reading_answers_correctness') || '{}');
@@ -1347,7 +1368,7 @@
 
         // 鍔犺浇宸蹭繚瀛樼殑绛旀
         const answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
-        const loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+        const loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{MODULE_OFFSET}})).toString();
         const savedAnswer = answers[loadGId];
         if (savedAnswer) {
           const optionToSelect = document.querySelector(
@@ -1367,6 +1388,44 @@
               });
             }
           });
+        }
+
+        // === Insertion question mode ===
+        var insertSentenceEl = document.getElementById('insert-sentence-data');
+        if (insertSentenceEl && insertSentenceEl.getAttribute('data-sentence')) {
+          var insertSentence = insertSentenceEl.getAttribute('data-sentence');
+          insertSentence = insertSentence.replace(/&quot;/g, '"');
+
+          function updateInsertionDisplay(letter) {
+            document.querySelectorAll('.insertion-marker.active').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.ins-sentence-insert').forEach(function(el) { el.remove(); });
+            var prevEl = document.querySelector('.ins-sentence-prev');
+            if (prevEl) prevEl.classList.remove('ins-sentence-prev');
+
+            var marker = document.querySelector('.insertion-marker[data-insert-pos="' + letter + '"]');
+            if (marker) {
+              marker.classList.add('active');
+              marker.classList.add('ins-sentence-prev');
+              var insSpan = document.createElement('span');
+              insSpan.className = 'ins-sentence-insert';
+              insSpan.textContent = ' \u201C' + insertSentence + '\u201D';
+              marker.parentNode.insertBefore(insSpan, marker.nextSibling);
+            }
+          }
+
+          // Add insertion display logic to option clicks (runs after existing handler)
+          document.querySelectorAll('.option-item-apple').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+              updateInsertionDisplay(this.getAttribute('data-option'));
+            });
+          });
+
+          // Restore insertion display from saved answer
+          if (savedAnswer) {
+            setTimeout(function() {
+              updateInsertionDisplay(savedAnswer);
+            }, 50);
+          }
         }
 
         // Back鎸夐挳鏄剧ず閫昏緫
@@ -1722,7 +1781,7 @@
           row.classList.remove('correct', 'incorrect', 'empty');
         });
         var answers = JSON.parse(localStorage.getItem('toefl_reading_answers') || '{}');
-        var loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{QUESTION_COUNT}} <= 20 ? {{MODULE1_TOTAL}} : 0)).toString();
+        var loadGId = (parseInt('{{QUESTION_NUMBER}}') + ({{MODULE_OFFSET}})).toString();
         var savedAnswer = answers[loadGId];
         if (savedAnswer) {
           var opt = document.querySelector('.option-item-apple[data-question="{{QUESTION_NUMBER}}"][data-option="' + savedAnswer + '"]');
@@ -1895,7 +1954,7 @@
         el.classList.add('selected');
         var selectedText = el.querySelector('.sentence-text').textContent.trim();
         var questionNum = parseInt('{{QUESTION_NUMBER}}');
-        var gId = (questionNum + (parseInt('{{QUESTION_COUNT}}') <= 20 ? parseInt('{{MODULE1_TOTAL}}') : 0)).toString();
+        var gId = (questionNum + ({{MODULE_OFFSET}})).toString();
 
         // 存入答案（与ABCD题格式一致）
         var answers = {};
@@ -1912,7 +1971,7 @@
 
         // 累加 task 计数
         var taskNum = {{TASK_NUMBER}};
-        var modPrefix = parseInt('{{QUESTION_COUNT}}') <= 20 ? 'M2' : 'M1';
+        var modPrefix = {{IS_MODULE2}} ? 'M2' : 'M1';
         var taskKey = 'toefl_reading_' + modPrefix + '_Task' + taskNum;
         if (!wasAnswered) {
           var curTotal = parseInt(localStorage.getItem(taskKey + '_total') || '0', 10);
