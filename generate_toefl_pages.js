@@ -213,9 +213,10 @@ function parseMarkdown(markdownText) {
               numberedAnswers.push(answer);
             } else {
               answers[questionNumRaw] = answer;
-            }
           }
         }
+
+      }
         numberedAnswers.forEach((ans, idx) => {
           answers[(idx + 1).toString()] = ans;
         });
@@ -1619,6 +1620,9 @@ function generateMainIndexPage(tpoSummaries) {
           <div class="sidebar-nav-item" data-panel="typing">
             <span class="nav-icon"><i class="fas fa-keyboard"></i></span> Typing
           </div>
+          <div class="sidebar-nav-item" data-panel="vocabulary">
+            <span class="nav-icon"><i class="fas fa-book"></i></span> Vocabulary
+          </div>
         </div>
         <div class="sidebar-section">
           <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> 其他</div>
@@ -1667,6 +1671,7 @@ function generateMainIndexPage(tpoSummaries) {
           </div>
         </div>
         <div class="panel" id="panel-typing"></div>
+        <div class="panel" id="panel-vocabulary"></div>
       </main>
       <div id="app" style="display:none;"></div>
     </div>
@@ -1913,6 +1918,20 @@ function generateMainIndexPage(tpoSummaries) {
             const waitForInit = () => {
               if (window.ToeflApp && window.ToeflApp.initTypingPanel) {
                 window.ToeflApp.initTypingPanel();
+              } else {
+                setTimeout(waitForInit, 200);
+              }
+            };
+            waitForInit();
+          }
+        }
+
+        if (panelName === 'vocabulary') {
+          const vocabPanel = document.getElementById('panel-vocabulary');
+          if (vocabPanel && !vocabPanel.children.length) {
+            const waitForInit = () => {
+              if (window.ToeflApp && window.ToeflApp.initVocabPanel) {
+                window.ToeflApp.initVocabPanel();
               } else {
                 setTimeout(waitForInit, 200);
               }
