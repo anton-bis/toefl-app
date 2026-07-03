@@ -1,0 +1,418 @@
+{
+  "subject": "writing",
+  "words": {
+    "julio": {
+      "sentence": "Julio said you had a question about the research paper.",
+      "pos": { "type": "proper noun", "chinese": "胡里奥（人名）" },
+      "pronunciation": { "us": "/ˈhuːlioʊ/", "uk": "/ˈhuːliəʊ/" },
+      "inflections": [],
+      "etymology": "Spanish name Julio, from Latin Iulius"
+    },
+    "knit": {
+      "sentence": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "pos": { "type": "verb", "chinese": "编织；紧密结合" },
+      "pronunciation": { "us": "/nɪt/", "uk": "/nɪt/" },
+      "inflections": ["knits", "knitted", "knit", "knitting"],
+      "etymology": "Old English cnyttan 'to tie, bind'; related to German knüpfen"
+    },
+    "ladder": {
+      "sentence": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+      "pos": { "type": "noun", "chinese": "梯子；阶梯" },
+      "pronunciation": { "us": "/ˈlædər/", "uk": "/ˈlædə/" },
+      "inflections": ["ladders"],
+      "etymology": "Old English hlæder; related to Dutch ladder, German Leiter"
+    },
+    "laptop": {
+      "sentence": "I need to buy a new laptop.",
+      "pos": { "type": "noun", "chinese": "笔记本电脑" },
+      "pronunciation": { "us": "/ˈlæptɑːp/", "uk": "/ˈlæptɒp/" },
+      "inflections": ["laptops"],
+      "etymology": "lap + top (1980s); from the ability to use on one's lap"
+    },
+    "larger": {
+      "sentence": "Which do you believe plays a larger role in mental health?",
+      "pos": { "type": "adjective (comparative)", "chinese": "更大的" },
+      "pronunciation": { "us": "/ˈlɑːrdʒər/", "uk": "/ˈlɑːdʒə/" },
+      "inflections": ["large (positive)", "larger (comparative)", "largest (superlative)"],
+      "etymology": "Old French large 'wide, broad', from Latin largus 'abundant'"
+    },
+    "leak": {
+      "sentence": "He wanted to know where he could find a plumber to fix a leak.",
+      "pos": { "type": "noun / verb", "chinese": "泄漏；漏水" },
+      "pronunciation": { "us": "/liːk/", "uk": "/liːk/" },
+      "inflections": ["leaks", "leaked", "leaking"],
+      "etymology": "Middle English leken, from Old Norse leka 'to drip'; related to German lecken"
+    },
+    "lessen": {
+      "sentence": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+      "pos": { "type": "verb", "chinese": "减少；减轻" },
+      "pronunciation": { "us": "/ˈlɛsən/", "uk": "/ˈlesən/" },
+      "inflections": ["lessens", "lessened", "lessening"],
+      "etymology": "less + -en (verbal suffix); first recorded 16th century"
+    },
+    "liam": {
+      "sentence": "Liam: I don't think volunteer hours should be required because many students already have limited free time.",
+      "pos": { "type": "proper noun", "chinese": "利亚姆（人名）" },
+      "pronunciation": { "us": "/ˈliːəm/", "uk": "/ˈliːəm/" },
+      "inflections": [],
+      "etymology": "Irish name, short for Uilliam (William)"
+    },
+    "mandatory": {
+      "sentence": "While many people volunteer mainly to help others, some institutions have mandatory volunteer programs.",
+      "pos": { "type": "adjective", "chinese": "强制性的；义务的" },
+      "pronunciation": { "us": "/ˈmændətɔːri/", "uk": "/ˈmændətəri/" },
+      "inflections": [],
+      "etymology": "Late Latin mandatorius, from Latin mandatum 'command'"
+    },
+    "maria": {
+      "sentence": "What did Maria ask you about the book you're reading?",
+      "pos": { "type": "proper noun", "chinese": "玛丽亚（人名）" },
+      "pronunciation": { "us": "/məˈriːə/", "uk": "/məˈriːə/" },
+      "inflections": [],
+      "etymology": "Latin Maria, from Greek Mariam, from Hebrew Miryam"
+    },
+    "mariana": {
+      "sentence": "What did Mariana ask you after class?",
+      "pos": { "type": "proper noun", "chinese": "玛丽安娜（人名）" },
+      "pronunciation": { "us": "/ˌmɛriˈænə/", "uk": "/ˌmæriˈænə/" },
+      "inflections": [],
+      "etymology": "Feminine form of Marianus, Roman family name"
+    },
+    "martha": {
+      "sentence": "Why was Martha talking to the owner of the garden shop?",
+      "pos": { "type": "proper noun", "chinese": "玛莎（人名）" },
+      "pronunciation": { "us": "/ˈmɑːrθə/", "uk": "/ˈmɑːθə/" },
+      "inflections": [],
+      "etymology": "Aramaic מַרְתָּא (Mārtā) 'the lady, the mistress'"
+    },
+    "matthew": {
+      "sentence": "Matthew loved the book you recommended to him.",
+      "pos": { "type": "proper noun", "chinese": "马修（人名）" },
+      "pronunciation": { "us": "/ˈmæθjuː/", "uk": "/ˈmæθjuː/" },
+      "inflections": [],
+      "etymology": "Hebrew מַתִּתְיָהוּ (Mattityahu) 'gift of Yahweh'"
+    },
+    "meaningful": {
+      "sentence": "The fast-paced city life can make it difficult for people to form meaningful connections.",
+      "pos": { "type": "adjective", "chinese": "有意义的；重要的" },
+      "pronunciation": { "us": "/ˈmiːnɪŋfəl/", "uk": "/ˈmiːnɪŋfəl/" },
+      "inflections": ["more meaningful", "most meaningful"],
+      "etymology": "meaning + -ful; first recorded mid-19th century"
+    },
+    "mentorship": {
+      "sentence": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+      "pos": { "type": "noun", "chinese": "导师指导；师徒关系" },
+      "pronunciation": { "us": "/ˈmɛntərʃɪp/", "uk": "/ˈmentəʃɪp/" },
+      "inflections": [],
+      "etymology": "mentor + -ship; from Greek Mentor (friend of Odysseus)"
+    },
+    "minimizing": {
+      "sentence": "What do you think is the most effective way to address environmental issues — eliminating harmful activities or minimizing their impact?",
+      "pos": { "type": "verb (present participle)", "chinese": "最小化；将…降到最低" },
+      "pronunciation": { "us": "/ˈmɪnɪmaɪzɪŋ/", "uk": "/ˈmɪnɪmaɪzɪŋ/" },
+      "inflections": [],
+      "etymology": "minimize + -ing; from Latin minimus 'least'"
+    },
+    "misunderstanding": {
+      "sentence": "News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.",
+      "pos": { "type": "noun", "chinese": "误解；误会" },
+      "pronunciation": { "us": "/ˌmɪsʌndərˈstændɪŋ/", "uk": "/ˌmɪsʌndəˈstændɪŋ/" },
+      "inflections": ["misunderstandings"],
+      "etymology": "mis- + understanding; first recorded late 15th century"
+    },
+    "mitigate": {
+      "sentence": "Some argue we must reduce or eliminate these actions to mitigate their impact.",
+      "pos": { "type": "verb", "chinese": "缓解；减轻" },
+      "pronunciation": { "us": "/ˈmɪtɪɡeɪt/", "uk": "/ˈmɪtɪɡeɪt/" },
+      "inflections": ["mitigates", "mitigated", "mitigating"],
+      "etymology": "Latin mitigatus, past participle of mitigare 'to soften, make mild'"
+    },
+    "movies": {
+      "sentence": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+      "pos": { "type": "noun (plural)", "chinese": "电影" },
+      "pronunciation": { "us": "/ˈmuːviz/", "uk": "/ˈmuːviz/" },
+      "inflections": ["movie (singular)"],
+      "etymology": "moving picture, shortened to movie (early 20th century)"
+    },
+    "mutual": {
+      "sentence": "Large cities bring together people from different backgrounds, creating opportunities for cultural interaction and mutual understanding.",
+      "pos": { "type": "adjective", "chinese": "相互的；共同的" },
+      "pronunciation": { "us": "/ˈmjuːtʃuəl/", "uk": "/ˈmjuːtʃuəl/" },
+      "inflections": [],
+      "etymology": "Latin mutuus 'reciprocal, borrowed'; from mutare 'to change'"
+    },
+    "nomadism": {
+      "sentence": "Do you think digital nomadism is likely to continue increasing?",
+      "pos": { "type": "noun", "chinese": "游牧生活方式" },
+      "pronunciation": { "us": "/ˈnoʊmædɪzəm/", "uk": "/ˈnəʊmædɪzəm/" },
+      "inflections": [],
+      "etymology": "nomad + -ism; from Greek nomas 'roaming, wandering'"
+    },
+    "nomads": {
+      "sentence": "These workers often have more flexibility regarding when and where they work, allowing them to become what are known as \"digital nomads\"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries.",
+      "pos": { "type": "noun (plural)", "chinese": "游牧者；数字游民" },
+      "pronunciation": { "us": "/ˈnoʊmædz/", "uk": "/ˈnəʊmædz/" },
+      "inflections": ["nomad (singular)"],
+      "etymology": "from Greek nomas 'roaming, wandering'"
+    },
+    "outlets": {
+      "sentence": "News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.",
+      "pos": { "type": "noun (plural)", "chinese": "媒体渠道；出口" },
+      "pronunciation": { "us": "/ˈaʊtlɛts/", "uk": "/ˈaʊtlɛts/" },
+      "inflections": ["outlet (singular)"],
+      "etymology": "out- + let; originally 'a passage for exit' (13th century)"
+    },
+    "oversimplify": {
+      "sentence": "However, some worry that art and media may oversimplify complex environmental issues or focus too much on negative aspects for dramatic effect.",
+      "pos": { "type": "verb", "chinese": "过度简化" },
+      "pronunciation": { "us": "/ˌoʊvərˈsɪmplɪfaɪ/", "uk": "/ˌəʊvəˈsɪmplɪfaɪ/" },
+      "inflections": ["oversimplifies", "oversimplified", "oversimplifying"],
+      "etymology": "over- + simplify; first recorded early 20th century"
+    },
+    "photography": {
+      "sentence": "I'm planning to take a photography class.",
+      "pos": { "type": "noun", "chinese": "摄影；摄影术" },
+      "pronunciation": { "us": "/fəˈtɑːɡrəfi/", "uk": "/fəˈtɒɡrəfi/" },
+      "inflections": [],
+      "etymology": "photo- + -graphy; coined 1839 from Greek phōtos 'light' + graphē 'drawing'"
+    },
+    "planned": {
+      "sentence": "Can you tell me if there are more trips planned for this month?",
+      "pos": { "type": "verb (past participle) / adjective", "chinese": "计划好的；规划的" },
+      "pronunciation": { "us": "/plænd/", "uk": "/plænd/" },
+      "inflections": [],
+      "etymology": "plan + -ed; from French plan 'drawing, sketch'"
+    },
+    "plumber": {
+      "sentence": "He wanted to know where he could find a plumber to fix a leak.",
+      "pos": { "type": "noun", "chinese": "水管工" },
+      "pronunciation": { "us": "/ˈplʌmər/", "uk": "/ˈplʌmə/" },
+      "inflections": ["plumbers"],
+      "etymology": "Latin plumbarius 'worker in lead', from plumbum 'lead'"
+    },
+    "portable": {
+      "sentence": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "pos": { "type": "adjective", "chinese": "便携的；轻便的" },
+      "pronunciation": { "us": "/ˈpɔːrtəbəl/", "uk": "/ˈpɔːtəbəl/" },
+      "inflections": [],
+      "etymology": "Latin portabilis, from portare 'to carry'"
+    },
+    "practices": {
+      "sentence": "A supportive environment and good mental health practices are crucial for overall well-being.",
+      "pos": { "type": "noun (plural)", "chinese": "实践；做法；习惯" },
+      "pronunciation": { "us": "/ˈpræktɪsɪz/", "uk": "/ˈpræktɪsɪz/" },
+      "inflections": ["practice (singular)"],
+      "etymology": "from Greek praktikē 'practical work', from prassein 'to do'"
+    },
+    "reliable": {
+      "sentence": "I'm hoping you can tell me where I might find some reliable sources.",
+      "pos": { "type": "adjective", "chinese": "可靠的；可信赖的" },
+      "pronunciation": { "us": "/rɪˈlaɪəbəl/", "uk": "/rɪˈlaɪəbəl/" },
+      "inflections": ["more reliable", "most reliable"],
+      "etymology": "rely + -able; first recorded late 16th century"
+    },
+    "renovations": {
+      "sentence": "The only library in town is temporarily closed for renovations.",
+      "pos": { "type": "noun (plural)", "chinese": "翻新；整修" },
+      "pronunciation": { "us": "/ˌrɛnəˈveɪʃənz/", "uk": "/ˌrenəˈveɪʃənz/" },
+      "inflections": ["renovation (singular)"],
+      "etymology": "Latin renovatio, from renovare 'to renew' (re- 'again' + novare 'make new')"
+    },
+    "rescheduled": {
+      "sentence": "Why was the meeting rescheduled?",
+      "pos": { "type": "verb (past tense)", "chinese": "重新安排时间" },
+      "pronunciation": { "us": "/riːˈskɛdʒuːld/", "uk": "/riːˈʃɛdjuːld/" },
+      "inflections": [],
+      "etymology": "re- + schedule + -ed; from Latin schedula 'small leaf of paper'"
+    },
+    "restoration": {
+      "sentence": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+      "pos": { "type": "noun", "chinese": "恢复；修复" },
+      "pronunciation": { "us": "/ˌrɛstəˈreɪʃən/", "uk": "/ˌrestəˈreɪʃən/" },
+      "inflections": ["restorations"],
+      "etymology": "Latin restauratio, from restaurare 'to restore, repair'"
+    },
+    "retraced": {
+      "sentence": "I retraced all of the steps that I took last night.",
+      "pos": { "type": "verb (past tense)", "chinese": "折返；追溯" },
+      "pronunciation": { "us": "/riːˈtreɪst/", "uk": "/riːˈtreɪst/" },
+      "inflections": [],
+      "etymology": "re- + trace + -ed; from French tracer 'to trace'"
+    },
+    "ruby": {
+      "sentence": "What did Ruby ask about the new software?",
+      "pos": { "type": "proper noun / noun", "chinese": "Ruby（人名）；红宝石" },
+      "pronunciation": { "us": "/ˈruːbi/", "uk": "/ˈruːbi/" },
+      "inflections": ["rubies (noun plural)"],
+      "etymology": "Latin rubeus 'red'; gemstone name via Old French rubi"
+    },
+    "scarf": {
+      "sentence": "Where did you get that scarf?",
+      "pos": { "type": "noun", "chinese": "围巾" },
+      "pronunciation": { "us": "/skɑːrf/", "uk": "/skɑːf/" },
+      "inflections": ["scarves", "scarfs"],
+      "etymology": "Old French escharpe 'sash, sling'; probably Germanic origin"
+    },
+    "scenes": {
+      "sentence": "Urban areas often have vibrant social scenes that encourage community building.",
+      "pos": { "type": "noun (plural)", "chinese": "场景；社交圈" },
+      "pronunciation": { "us": "/siːnz/", "uk": "/siːnz/" },
+      "inflections": ["scene (singular)"],
+      "etymology": "Latin scaena 'stage, scene', from Greek skēnē 'tent, stage'"
+    },
+    "seems": {
+      "sentence": "Although it seems like a good thing on the surface, I think digital media has led to some serious problems.",
+      "pos": { "type": "verb (3rd person singular)", "chinese": "似乎；看起来" },
+      "pronunciation": { "us": "/siːmz/", "uk": "/siːmz/" },
+      "inflections": [],
+      "etymology": "Old Norse sœma 'to honor, conform'; related to same"
+    },
+    "seminar": {
+      "sentence": "Will you attend the seminar tomorrow?",
+      "pos": { "type": "noun", "chinese": "研讨会；讨论课" },
+      "pronunciation": { "us": "/ˈsɛmɪnɑːr/", "uk": "/ˈsemɪnɑː/" },
+      "inflections": ["seminars"],
+      "etymology": "Latin seminarium 'seed plot', from semen 'seed'"
+    },
+    "shoes": {
+      "sentence": "Where did you get your shoes?",
+      "pos": { "type": "noun (plural)", "chinese": "鞋子" },
+      "pronunciation": { "us": "/ʃuːz/", "uk": "/ʃuːz/" },
+      "inflections": ["shoe (singular)"],
+      "etymology": "Old English scōh; related to Dutch schoen, German Schuh"
+    },
+    "siblings": {
+      "sentence": "Some have part-time jobs or take care of younger siblings after school.",
+      "pos": { "type": "noun (plural)", "chinese": "兄弟姐妹" },
+      "pronunciation": { "us": "/ˈsɪblɪŋz/", "uk": "/ˈsɪblɪŋz/" },
+      "inflections": ["sibling (singular)"],
+      "etymology": "Old English sibling 'relative', from sibb 'kinship' + -ling"
+    },
+    "stunning": {
+      "sentence": "The new art exhibit at the museum is stunning.",
+      "pos": { "type": "adjective", "chinese": "令人惊叹的；极美的" },
+      "pronunciation": { "us": "/ˈstʌnɪŋ/", "uk": "/ˈstʌnɪŋ/" },
+      "inflections": ["more stunning", "most stunning"],
+      "etymology": "stun + -ing; from Old French estoner 'to stun, daze'"
+    },
+    "superstore": {
+      "sentence": "The new superstore offers a wide variety of products at discounted prices.",
+      "pos": { "type": "noun", "chinese": "大型超市" },
+      "pronunciation": { "us": "/ˈsuːpərstɔːr/", "uk": "/ˈsuːpəstɔː/" },
+      "inflections": ["superstores"],
+      "etymology": "super- + store; first recorded mid-20th century"
+    },
+    "supervisor": {
+      "sentence": "I heard that the supervisor was looking for you.",
+      "pos": { "type": "noun", "chinese": "主管；监督人" },
+      "pronunciation": { "us": "/ˈsuːpərvaɪzər/", "uk": "/ˈsuːpəvaɪzə/" },
+      "inflections": ["supervisors"],
+      "etymology": "Latin super- 'over' + visor 'one who sees', from videre 'to see'"
+    },
+    "supportive": {
+      "sentence": "A supportive environment and good mental health practices are crucial for overall well-being.",
+      "pos": { "type": "adjective", "chinese": "支持的；鼓励的" },
+      "pronunciation": { "us": "/səˈpɔːrtɪv/", "uk": "/səˈpɔːtɪv/" },
+      "inflections": ["more supportive", "most supportive"],
+      "etymology": "support + -ive; from Latin supportare 'to carry, convey'"
+    },
+    "tastes": {
+      "sentence": "This coffee tastes better than all of the other brands I've tried.",
+      "pos": { "type": "verb (3rd person singular)", "chinese": "尝起来；品尝" },
+      "pronunciation": { "us": "/teɪsts/", "uk": "/teɪsts/" },
+      "inflections": [],
+      "etymology": "Old French tast 'sense of touch'; from Latin taxare 'to evaluate'"
+    },
+    "temporarily": {
+      "sentence": "The only library in town is temporarily closed for renovations.",
+      "pos": { "type": "adverb", "chinese": "暂时地" },
+      "pronunciation": { "us": "/ˌtɛmpəˈrɛrəli/", "uk": "/ˈtɛmpərərɪli/" },
+      "inflections": [],
+      "etymology": "Latin temporarius 'of time', from tempus 'time'"
+    },
+    "ubi": {
+      "sentence": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+      "pos": { "type": "noun (acronym)", "chinese": "全民基本收入" },
+      "pronunciation": { "us": "/ˌjuː biː ˈaɪ/", "uk": "/ˌjuː biː ˈaɪ/" },
+      "inflections": [],
+      "etymology": "Universal Basic Income; acronym coined late 20th century"
+    },
+    "unparalleled": {
+      "sentence": "Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions.",
+      "pos": { "type": "adjective", "chinese": "无与伦比的；空前的" },
+      "pronunciation": { "us": "/ʌnˈpærəleld/", "uk": "/ʌnˈpærəleld/" },
+      "inflections": [],
+      "etymology": "un- + paralleled; from Greek parallēlos 'alongside one another'"
+    },
+    "update": {
+      "sentence": "The new software update looks promising.",
+      "pos": { "type": "noun / verb", "chinese": "更新" },
+      "pronunciation": { "us": "/ˈʌpdeɪt/ (noun), /ʌpˈdeɪt/ (verb)", "uk": "/ˈʌpdeɪt/ (noun), /ʌpˈdeɪt/ (verb)" },
+      "inflections": ["updates", "updated", "updating"],
+      "etymology": "up + date; first recorded mid-20th century"
+    },
+    "upward": {
+      "sentence": "We have always been taught that education provides a foundation for long-term success and upward mobility.",
+      "pos": { "type": "adjective / adverb", "chinese": "向上的；向上地" },
+      "pronunciation": { "us": "/ˈʌpwərd/", "uk": "/ˈʌpwəd/" },
+      "inflections": [],
+      "etymology": "Old English upweard; from up + -ward"
+    },
+    "urbanization": {
+      "sentence": "Diaz Next week we'll be discussing the impact of urbanization on community life.",
+      "pos": { "type": "noun", "chinese": "城市化" },
+      "pronunciation": { "us": "/ˌɜːrbənəˈzeɪʃən/", "uk": "/ˌɜːbənaɪˈzeɪʃən/" },
+      "inflections": [],
+      "etymology": "urban + -ization; from Latin urbanus 'of the city', from urbs 'city'"
+    },
+    "urgent": {
+      "sentence": "A powerful documentary or social media campaign can inspire real action and make complex issues feel personal and urgent.",
+      "pos": { "type": "adjective", "chinese": "紧急的；迫切的" },
+      "pronunciation": { "us": "/ˈɜːrdʒənt/", "uk": "/ˈɜːdʒənt/" },
+      "inflections": ["more urgent", "most urgent"],
+      "etymology": "Latin urgens, present participle of urgere 'to press, drive'"
+    },
+    "vibrant": {
+      "sentence": "Urban areas often have vibrant social scenes that encourage community building.",
+      "pos": { "type": "adjective", "chinese": "充满活力的；生机勃勃的" },
+      "pronunciation": { "us": "/ˈvaɪbrənt/", "uk": "/ˈvaɪbrənt/" },
+      "inflections": ["more vibrant", "most vibrant"],
+      "etymology": "Latin vibrans, present participle of vibrare 'to move to and fro, shake'"
+    },
+    "viewpoint": {
+      "sentence": "Which viewpoint do you agree with?",
+      "pos": { "type": "noun", "chinese": "观点；视角" },
+      "pronunciation": { "us": "/ˈvjuːpɔɪnt/", "uk": "/ˈvjuːpɔɪnt/" },
+      "inflections": ["viewpoints"],
+      "etymology": "view + point; first recorded mid-19th century"
+    },
+    "villages": {
+      "sentence": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "pos": { "type": "noun (plural)", "chinese": "村庄" },
+      "pronunciation": { "us": "/ˈvɪlɪdʒɪz/", "uk": "/ˈvɪlɪdʒɪz/" },
+      "inflections": ["village (singular)"],
+      "etymology": "Latin villa 'country house'; via Old French vilage"
+    },
+    "volunteerism": {
+      "sentence": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+      "pos": { "type": "noun", "chinese": "志愿服务；义工精神" },
+      "pronunciation": { "us": "/ˌvɑːlənˈtɪrɪzəm/", "uk": "/ˌvɒlənˈtɪərɪzəm/" },
+      "inflections": [],
+      "etymology": "volunteer + -ism; from Latin voluntarius 'voluntary'"
+    },
+    "weaken": {
+      "sentence": "Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.",
+      "pos": { "type": "verb", "chinese": "削弱；变弱" },
+      "pronunciation": { "us": "/ˈwiːkən/", "uk": "/ˈwiːkən/" },
+      "inflections": ["weakens", "weakened", "weakening"],
+      "etymology": "weak + -en; from Old Norse veikr 'weak'"
+    },
+    "yoga": {
+      "sentence": "The new yoga class was very relaxing.",
+      "pos": { "type": "noun", "chinese": "瑜伽" },
+      "pronunciation": { "us": "/ˈjoʊɡə/", "uk": "/ˈjəʊɡə/" },
+      "inflections": [],
+      "etymology": "Sanskrit योग (yoga) 'yoking, union'; from yuj 'to join'"
+    }
+  }
+}

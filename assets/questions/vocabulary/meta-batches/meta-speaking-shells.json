@@ -1,0 +1,939 @@
+{
+  "subject": "speaking",
+  "words": {
+    "affect": {
+      "word": "affect",
+      "pos": [
+        { "type": "v", "chinese": "影响；感动" }
+      ],
+      "pronunciation": {
+        "us": "/əˈfekt/",
+        "uk": "/əˈfekt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "affectation"
+      },
+      "etymology": {
+        "prefix": { "form": "ad-", "meaning": "朝向" },
+        "root": { "form": "facere", "meaning": "做，使" },
+        "suffix": null,
+        "summary": "源自拉丁语afficere（ad-朝向+facere做），意为对……施加影响"
+      }
+    },
+    "cardio": {
+      "word": "cardio",
+      "pos": [
+        { "type": "n", "chinese": "有氧运动" },
+        { "type": "adj", "chinese": "心脏的" }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑːrdioʊ/",
+        "uk": "/ˈkɑːdiəʊ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "kardia", "meaning": "心脏" },
+        "suffix": null,
+        "summary": "源自希腊语kardia（心脏），现代英语中简写为cardio，常指有氧运动"
+      }
+    },
+    "adjust": {
+      "word": "adjust",
+      "pos": [
+        { "type": "v", "chinese": "调整，适应" }
+      ],
+      "pronunciation": {
+        "us": "/əˈdʒʌst/",
+        "uk": "/əˈdʒʌst/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "adjustment"
+      },
+      "etymology": {
+        "prefix": { "form": "ad-", "meaning": "朝向" },
+        "root": { "form": "juxta", "meaning": "靠近" },
+        "suffix": null,
+        "summary": "源自拉丁语adjuxtare（ad-朝向+juxta靠近），意为使靠近、使适合"
+      }
+    },
+    "adopt": {
+      "word": "adopt",
+      "pos": [
+        { "type": "v", "chinese": "采纳；收养" }
+      ],
+      "pronunciation": {
+        "us": "/əˈdɑːpt/",
+        "uk": "/əˈdɒpt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "adoption"
+      },
+      "etymology": {
+        "prefix": { "form": "ad-", "meaning": "朝向" },
+        "root": { "form": "optare", "meaning": "选择" },
+        "suffix": null,
+        "summary": "源自拉丁语adoptare（ad-朝向+optare选择），意为选择并接受"
+      }
+    },
+    "amenities": {
+      "word": "amenities",
+      "pos": [
+        { "type": "n", "chinese": "便利设施；宜人条件" }
+      ],
+      "pronunciation": {
+        "us": "/əˈmenətiz/",
+        "uk": "/əˈmiːnətiz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "amoenus", "meaning": "令人愉悦的" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自拉丁语amoenitas（宜人），由amoenus（愉悦的）+复数后缀-s构成"
+      }
+    },
+    "assistance": {
+      "word": "assistance",
+      "pos": [
+        { "type": "n", "chinese": "帮助，援助" }
+      ],
+      "pronunciation": {
+        "us": "/əˈsɪstəns/",
+        "uk": "/əˈsɪstəns/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": { "form": "ad-", "meaning": "朝向" },
+        "root": { "form": "sistere", "meaning": "站立" },
+        "suffix": { "form": "-ance", "meaning": "动作/状态名词" },
+        "summary": "源自拉丁语assistere（ad-旁边+sistere站立→站在旁边协助），加名词后缀-ance"
+      }
+    },
+    "attendants": {
+      "word": "attendants",
+      "pos": [
+        { "type": "n", "chinese": "服务员；随从人员" }
+      ],
+      "pronunciation": {
+        "us": "/əˈtendənts/",
+        "uk": "/əˈtendənts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": { "form": "ad-", "meaning": "朝向" },
+        "root": { "form": "tendere", "meaning": "伸展" },
+        "suffix": { "form": "-ants", "meaning": "施动者（复数）" },
+        "summary": "源自拉丁语attendere（ad-朝向+tendere伸展→关注、照料），加施动者后缀-ant和复数-s"
+      }
+    },
+    "banging": {
+      "word": "banging",
+      "pos": [
+        { "type": "adj", "chinese": "砰砰作响的" },
+        { "type": "n", "chinese": "撞击声" }
+      ],
+      "pronunciation": {
+        "us": "/ˈbæŋɪŋ/",
+        "uk": "/ˈbæŋɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "bang", "meaning": "重击声（拟声词）" },
+        "suffix": { "form": "-ing", "meaning": "动名词/现在分词" },
+        "summary": "拟声词bang（重击声）+动名词后缀-ing构成，表持续的撞击声"
+      }
+    },
+    "basketball": {
+      "word": "basketball",
+      "pos": [
+        { "type": "n", "chinese": "篮球" }
+      ],
+      "pronunciation": {
+        "us": "/ˈbæskɪtbɔːl/",
+        "uk": "/ˈbɑːskɪtbɔːl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "basket + ball", "meaning": "篮子 + 球" },
+        "suffix": null,
+        "summary": "复合词：basket（篮子）+ ball（球），因最初投篮目标为篮子而得名"
+      }
+    },
+    "benches": {
+      "word": "benches",
+      "pos": [
+        { "type": "n", "chinese": "长凳（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/ˈbentʃɪz/",
+        "uk": "/ˈbentʃɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "benc", "meaning": "长凳" },
+        "suffix": { "form": "-es", "meaning": "复数" },
+        "summary": "源自古英语benc（长凳），加复数后缀-es构成"
+      }
+    },
+    "bikes": {
+      "word": "bikes",
+      "pos": [
+        { "type": "n", "chinese": "自行车（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/baɪks/",
+        "uk": "/baɪks/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "bi- + kyklos", "meaning": "二 + 轮子" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "缩写自bicycle（bi-二+希腊语kyklos轮子），加复数后缀-s"
+      }
+    },
+    "cats": {
+      "word": "cats",
+      "pos": [
+        { "type": "n", "chinese": "猫（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/kæts/",
+        "uk": "/kæts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "cattus", "meaning": "猫" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自拉丁语cattus（猫），加复数后缀-s构成"
+      }
+    },
+    "classical": {
+      "word": "classical",
+      "pos": [
+        { "type": "adj", "chinese": "古典的；经典的" }
+      ],
+      "pronunciation": {
+        "us": "/ˈklæsɪkəl/",
+        "uk": "/ˈklæsɪkəl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "classically",
+        "noun": "classicism"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "classicus", "meaning": "最高等级的" },
+        "suffix": { "form": "-al", "meaning": "……的（形容词）" },
+        "summary": "源自拉丁语classicus（第一等的、经典的），加形容词后缀-al构成"
+      }
+    },
+    "commute": {
+      "word": "commute",
+      "pos": [
+        { "type": "v", "chinese": "通勤" },
+        { "type": "n", "chinese": "通勤路程" }
+      ],
+      "pronunciation": {
+        "us": "/kəˈmjuːt/",
+        "uk": "/kəˈmjuːt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "commuter"
+      },
+      "etymology": {
+        "prefix": { "form": "com-", "meaning": "完全" },
+        "root": { "form": "mutare", "meaning": "改变" },
+        "suffix": null,
+        "summary": "源自拉丁语commutare（com-完全+mutare改变），原指替换、交换，后引申为通勤往返"
+      }
+    },
+    "drain": {
+      "word": "drain",
+      "pos": [
+        { "type": "v", "chinese": "排出；耗尽" },
+        { "type": "n", "chinese": "排水管；流失" }
+      ],
+      "pronunciation": {
+        "us": "/dreɪn/",
+        "uk": "/dreɪn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "drainage"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "dreahnian", "meaning": "排干，过滤" },
+        "suffix": null,
+        "summary": "源自古英语dreahnian（排干液体），与dry同源，均表去除水分"
+      }
+    },
+    "eco": {
+      "word": "eco",
+      "pos": [
+        { "type": "adj", "chinese": "生态的；环保的" }
+      ],
+      "pronunciation": {
+        "us": "/ˈiːkoʊ/",
+        "uk": "/ˈiːkəʊ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "oikos", "meaning": "家，栖息地" },
+        "suffix": null,
+        "summary": "源自希腊语oikos（家、栖息地），缩写自ecology（生态学），表示与环境相关"
+      }
+    },
+    "elevators": {
+      "word": "elevators",
+      "pos": [
+        { "type": "n", "chinese": "电梯（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/ˈelɪveɪtərz/",
+        "uk": "/ˈelɪveɪtəz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": { "form": "e-", "meaning": "向外，向上" },
+        "root": { "form": "levare", "meaning": "举起" },
+        "suffix": { "form": "-ors", "meaning": "工具/施动者（复数）" },
+        "summary": "源自拉丁语elevare（e-向上+levare举起），加工具后缀-or和复数-s"
+      }
+    },
+    "enclosures": {
+      "word": "enclosures",
+      "pos": [
+        { "type": "n", "chinese": "围场；封闭区域（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/ɪnˈkloʊʒərz/",
+        "uk": "/ɪnˈkləʊʒəz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": { "form": "en-", "meaning": "使进入" },
+        "root": { "form": "claudere", "meaning": "关闭" },
+        "suffix": { "form": "-ures", "meaning": "动作/结果（复数）" },
+        "summary": "源自古法语enclos（围起来），由前缀en-（使）+拉丁词根claudere（关闭）+后缀-ure和复数-s构成"
+      }
+    },
+    "equipped": {
+      "word": "equipped",
+      "pos": [
+        { "type": "adj", "chinese": "配备的" },
+        { "type": "v", "chinese": "装备（过去式/过去分词）" }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈkwɪpt/",
+        "uk": "/ɪˈkwɪpt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "equipment"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "skip", "meaning": "船（日耳曼语）" },
+        "suffix": { "form": "-ed", "meaning": "过去分词/形容词" },
+        "summary": "源自古法语équiper（为船只配备），源自日耳曼语skip（船），加过去分词后缀-ed"
+      }
+    },
+    "healthcare": {
+      "word": "healthcare",
+      "pos": [
+        { "type": "n", "chinese": "医疗保健" }
+      ],
+      "pronunciation": {
+        "us": "/ˈhelθker/",
+        "uk": "/ˈhelθkeə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "health + care", "meaning": "健康 + 照护" },
+        "suffix": null,
+        "summary": "复合词：health（健康，源自古英语hǣlþ）+ care（照护，源自古英语caru）"
+      }
+    },
+    "healthier": {
+      "word": "healthier",
+      "pos": [
+        { "type": "adj", "chinese": "更健康的（比较级）" }
+      ],
+      "pronunciation": {
+        "us": "/ˈhelθiər/",
+        "uk": "/ˈhelθiə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "healthiest",
+        "adverb": "healthily",
+        "noun": "healthiness"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "hǣlþ", "meaning": "健康" },
+        "suffix": { "form": "-ier", "meaning": "比较级" },
+        "summary": "由health（健康）+形容词后缀-y构成healthy（健康的），再加比较级后缀-ier"
+      }
+    },
+    "hurtful": {
+      "word": "hurtful",
+      "pos": [
+        { "type": "adj", "chinese": "伤人的" }
+      ],
+      "pronunciation": {
+        "us": "/ˈhɜːrtfəl/",
+        "uk": "/ˈhɜːtfʊl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "hurtfully",
+        "noun": "hurtfulness"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "hurt", "meaning": "伤害" },
+        "suffix": { "form": "-ful", "meaning": "充满……的" },
+        "summary": "由hurt（伤害）+形容词后缀-ful构成，表具有伤害性质的"
+      }
+    },
+    "lobby": {
+      "word": "lobby",
+      "pos": [
+        { "type": "n", "chinese": "大厅；游说团体" },
+        { "type": "v", "chinese": "游说" }
+      ],
+      "pronunciation": {
+        "us": "/ˈlɑːbi/",
+        "uk": "/ˈlɒbi/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "lobbyist"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "lobium", "meaning": "回廊，门廊" },
+        "suffix": null,
+        "summary": "源自中世纪拉丁语lobium（门廊），后引申为议会休息厅，进而产生游说义"
+      }
+    },
+    "luggage": {
+      "word": "luggage",
+      "pos": [
+        { "type": "n", "chinese": "行李" }
+      ],
+      "pronunciation": {
+        "us": "/ˈlʌɡɪdʒ/",
+        "uk": "/ˈlʌɡɪdʒ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "lug", "meaning": "拖拽" },
+        "suffix": { "form": "-age", "meaning": "集合名词后缀" },
+        "summary": "由lug（用力拖拽）+名词后缀-age构成，指需要拖拽搬运的物品"
+      }
+    },
+    "machines": {
+      "word": "machines",
+      "pos": [
+        { "type": "n", "chinese": "机器" }
+      ],
+      "pronunciation": {
+        "us": "/məˈʃiːnz/",
+        "uk": "/məˈʃiːnz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "machina", "meaning": "装置，机器" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自拉丁语machina，经希腊语mēkhanē（装置）传入，-s为复数形式"
+      }
+    },
+    "minimize": {
+      "word": "minimize",
+      "pos": [
+        { "type": "v", "chinese": "最小化，尽量减少" }
+      ],
+      "pronunciation": {
+        "us": "/ˈmɪnɪmaɪz/",
+        "uk": "/ˈmɪnɪmaɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "minimization"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "minimus", "meaning": "最小的" },
+        "suffix": { "form": "-ize", "meaning": "使……化" },
+        "summary": "源自拉丁语minimus（最小），加动词后缀-ize构成，表使变到最小"
+      }
+    },
+    "renovation": {
+      "word": "renovation",
+      "pos": [
+        { "type": "n", "chinese": "翻新，装修" }
+      ],
+      "pronunciation": {
+        "us": "/ˌrenəˈveɪʃən/",
+        "uk": "/ˌrenəˈveɪʃən/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": { "form": "re-", "meaning": "再次" },
+        "root": { "form": "novus", "meaning": "新的" },
+        "suffix": { "form": "-ation", "meaning": "动作/状态名词" },
+        "summary": "由前缀re-（再次）+拉丁词根nov（新）+名词后缀-ation构成，表使重新变新"
+      }
+    },
+    "restroom": {
+      "word": "restroom",
+      "pos": [
+        { "type": "n", "chinese": "洗手间，卫生间" }
+      ],
+      "pronunciation": {
+        "us": "/ˈrestruːm/",
+        "uk": "/ˈrestruːm/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "rest + room", "meaning": "休息 + 房间" },
+        "suffix": null,
+        "summary": "复合词：rest（休息）+ room（房间），最初指可休息的公共房间，后委婉指洗手间"
+      }
+    },
+    "rules": {
+      "word": "rules",
+      "pos": [
+        { "type": "n", "chinese": "规则，规定" }
+      ],
+      "pronunciation": {
+        "us": "/ruːlz/",
+        "uk": "/ruːlz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "regula", "meaning": "直尺，规则" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自拉丁语regula（直尺、规范），经古法语reule传入，-s为复数形式"
+      }
+    },
+    "sculpture": {
+      "word": "sculpture",
+      "pos": [
+        { "type": "n", "chinese": "雕塑" },
+        { "type": "v", "chinese": "雕刻" }
+      ],
+      "pronunciation": {
+        "us": "/ˈskʌlptʃər/",
+        "uk": "/ˈskʌlptʃə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "sculpere", "meaning": "雕刻" },
+        "suffix": { "form": "-ure", "meaning": "动作/结果名词" },
+        "summary": "源自拉丁语sculpere（雕刻），加名词后缀-ure构成，表雕刻的行为或成果"
+      }
+    },
+    "services": {
+      "word": "services",
+      "pos": [
+        { "type": "n", "chinese": "服务，服务设施" }
+      ],
+      "pronunciation": {
+        "us": "/ˈsɜːrvɪsɪz/",
+        "uk": "/ˈsɜːvɪsɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "servus", "meaning": "奴隶，仆人" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自拉丁语servus（仆人）→ servitium（奴役/服务），加复数后缀-s"
+      }
+    },
+    "spontaneous": {
+      "word": "spontaneous",
+      "pos": [
+        { "type": "adj", "chinese": "自发的，自然而然的" }
+      ],
+      "pronunciation": {
+        "us": "/spɑːnˈteɪniəs/",
+        "uk": "/spɒnˈteɪniəs/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "spontaneously",
+        "noun": "spontaneity"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "sponte", "meaning": "自愿地，自发地" },
+        "suffix": { "form": "-aneous", "meaning": "……性质的" },
+        "summary": "源自拉丁语sponte（自愿地），加形容词后缀-aneous构成，表发自内在意志的"
+      }
+    },
+    "stressful": {
+      "word": "stressful",
+      "pos": [
+        { "type": "adj", "chinese": "有压力的，紧张的" }
+      ],
+      "pronunciation": {
+        "us": "/ˈstresfəl/",
+        "uk": "/ˈstresfʊl/"
+      },
+      "inflections": {
+        "comparative": "more stressful",
+        "superlative": "most stressful",
+        "adverb": "stressfully",
+        "noun": "stressfulness"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "stress", "meaning": "压力，紧张" },
+        "suffix": { "form": "-ful", "meaning": "充满……的" },
+        "summary": "由stress（压力）+形容词后缀-ful构成，表充满压力的"
+      }
+    },
+    "tapping": {
+      "word": "tapping",
+      "pos": [
+        { "type": "n", "chinese": "轻敲" },
+        { "type": "v", "chinese": "轻敲（现在分词）" }
+      ],
+      "pronunciation": {
+        "us": "/ˈtæpɪŋ/",
+        "uk": "/ˈtæpɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "tap", "meaning": "轻敲" },
+        "suffix": { "form": "-ing", "meaning": "动名词/现在分词" },
+        "summary": "拟声词tap（轻敲的声音）+动名词后缀-ing构成"
+      }
+    },
+    "taxi": {
+      "word": "taxi",
+      "pos": [
+        { "type": "n", "chinese": "出租车" },
+        { "type": "v", "chinese": "（飞机）滑行" }
+      ],
+      "pronunciation": {
+        "us": "/ˈtæksi/",
+        "uk": "/ˈtæksi/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "taximeter", "meaning": "计程器" },
+        "suffix": null,
+        "summary": "缩写自taximeter cab（装有计程器的马车），taximeter源自法语taximètre（计费表）"
+      }
+    },
+    "timings": {
+      "word": "timings",
+      "pos": [
+        { "type": "n", "chinese": "时间安排，时机（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/ˈtaɪmɪŋz/",
+        "uk": "/ˈtaɪmɪŋz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "time", "meaning": "时间" },
+        "suffix": { "form": "-ings", "meaning": "动作/过程（复数）" },
+        "summary": "由time（时间）+动名词后缀-ing构成，-s为复数形式"
+      }
+    },
+    "towels": {
+      "word": "towels",
+      "pos": [
+        { "type": "n", "chinese": "毛巾" }
+      ],
+      "pronunciation": {
+        "us": "/ˈtaʊəlz/",
+        "uk": "/ˈtaʊəlz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "toaille", "meaning": "布，毛巾" },
+        "suffix": { "form": "-s", "meaning": "复数" },
+        "summary": "源自古法语toaille（布），经日耳曼语传入，-s为复数形式"
+      }
+    },
+    "treadmill": {
+      "word": "treadmill",
+      "pos": [
+        { "type": "n", "chinese": "跑步机" }
+      ],
+      "pronunciation": {
+        "us": "/ˈtredmɪl/",
+        "uk": "/ˈtredmɪl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "tread + mill", "meaning": "踩踏 + 磨坊" },
+        "suffix": null,
+        "summary": "复合词：tread（踩踏）+ mill（磨坊），原指由人踩踏驱动的磨粉机，后指健身跑步机"
+      }
+    },
+    "usage": {
+      "word": "usage",
+      "pos": [
+        { "type": "n", "chinese": "使用，用法" }
+      ],
+      "pronunciation": {
+        "us": "/ˈjuːsɪdʒ/",
+        "uk": "/ˈjuːsɪdʒ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "usus", "meaning": "使用" },
+        "suffix": { "form": "-age", "meaning": "行为/状态名词" },
+        "summary": "源自古法语usage，由拉丁词根us（使用）+名词后缀-age构成"
+      }
+    },
+    "weightlifting": {
+      "word": "weightlifting",
+      "pos": [
+        { "type": "n", "chinese": "举重" }
+      ],
+      "pronunciation": {
+        "us": "/ˈweɪtˌlɪftɪŋ/",
+        "uk": "/ˈweɪtˌlɪftɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "weight + lift", "meaning": "重量 + 举起" },
+        "suffix": { "form": "-ing", "meaning": "动名词" },
+        "summary": "复合词：weight（重量）+ lifting（举起），由lift加动名词后缀-ing构成"
+      }
+    },
+    "wipes": {
+      "word": "wipes",
+      "pos": [
+        { "type": "n", "chinese": "湿巾，擦拭布" },
+        { "type": "v", "chinese": "擦拭（第三人称单数）" }
+      ],
+      "pronunciation": {
+        "us": "/waɪps/",
+        "uk": "/waɪps/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "wipian", "meaning": "擦拭" },
+        "suffix": { "form": "-s", "meaning": "复数/第三人称单数" },
+        "summary": "源自古英语wipian（擦拭），-s为复数或第三人称单数后缀"
+      }
+    },
+    "wolves": {
+      "word": "wolves",
+      "pos": [
+        { "type": "n", "chinese": "狼（复数）" }
+      ],
+      "pronunciation": {
+        "us": "/wʊlvz/",
+        "uk": "/wʊlvz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": { "form": "wulf", "meaning": "狼" },
+        "suffix": { "form": "-es", "meaning": "复数" },
+        "summary": "源自古英语wulf（狼），不规则复数形式wolves，f→v+es"
+      }
+    }
+  }
+}

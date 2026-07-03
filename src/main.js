@@ -219,6 +219,11 @@ async function registerModules() {
     moduleRegistry.set('typing', typingModule.default);
     router.register('/skills/typing', () => activateModule('typing'));
     console.log('模块注册: typing');
+
+    const vocabModule = await import('./modules/skills/vocabulary/index.js');
+    moduleRegistry.set('vocabulary', vocabModule.default);
+    router.register('/skills/vocabulary', () => activateModule('vocabulary'));
+    console.log('模块注册: vocabulary');
   } catch (error) {
     console.error('模块注册失败:', error);
     throw new Error('无法加载模块，请检查模块文件是否存在。');
@@ -429,6 +434,10 @@ window.ToeflApp = {
   isInitialized: () => isAppInitialized,
   initTypingPanel: () => {
     const module = moduleRegistry.get('typing');
+    if (module && module.init) module.init();
+  },
+  initVocabPanel: () => {
+    const module = moduleRegistry.get('vocabulary');
     if (module && module.init) module.init();
   }
 };

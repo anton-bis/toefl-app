@@ -1,0 +1,3160 @@
+{
+  "ad-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "additionally",
+      "adaptation",
+      "addition",
+      "adapted",
+      "advancements",
+      "adapt",
+      "adaptations",
+      "additional",
+      "adhere",
+      "adjustments",
+      "admission",
+      "adversity",
+      "advertisers",
+      "advising",
+      "advocating",
+      "adopting",
+      "advantages",
+      "advice",
+      "adjust",
+      "adopt"
+    ]
+  },
+  "add": {
+    "meaning": "add, put to",
+    "type": "root",
+    "words": [
+      "additionally"
+    ]
+  },
+  "-ly": {
+    "meaning": "in the manner of",
+    "type": "suffix",
+    "words": [
+      "additionally",
+      "accordingly",
+      "appropriately",
+      "approximately",
+      "considerably",
+      "conversely",
+      "densely",
+      "meticulously",
+      "minimally",
+      "noticeably",
+      "readily",
+      "temporarily",
+      "undeniably",
+      "anomaly",
+      "apparently",
+      "electronically",
+      "indirectly",
+      "randomly",
+      "scientifically",
+      "uncomfortably"
+    ]
+  },
+  "challeng": {
+    "meaning": "accusation, dispute",
+    "type": "root",
+    "words": [
+      "challenges"
+    ]
+  },
+  "hab": {
+    "meaning": "have, hold",
+    "type": "root",
+    "words": [
+      "ability"
+    ]
+  },
+  "-ity": {
+    "meaning": "state or quality of",
+    "type": "suffix",
+    "words": [
+      "ability",
+      "adversity",
+      "cavity",
+      "compatibility",
+      "complexity",
+      "connectivity",
+      "gravity",
+      "immunity",
+      "ingenuity",
+      "instability",
+      "reliability",
+      "salinity",
+      "sustainability",
+      "vulnerability",
+      "neuroplasticity",
+      "flexibility",
+      "inequality"
+    ]
+  },
+  "ac-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "accommodate",
+      "accessible",
+      "accomplishments",
+      "accordingly",
+      "account",
+      "accounts",
+      "accurate",
+      "achieve",
+      "achievement",
+      "achievements",
+      "acquire",
+      "active",
+      "actual",
+      "according",
+      "acquisition",
+      "achieving",
+      "action",
+      "actions"
+    ]
+  },
+  "commod": {
+    "meaning": "suitable, convenient",
+    "type": "root",
+    "words": [
+      "accommodate"
+    ]
+  },
+  "-ate": {
+    "meaning": "to make, cause",
+    "type": "suffix",
+    "words": [
+      "accommodate",
+      "appreciate",
+      "mitigate",
+      "navigate",
+      "accurate",
+      "alleviate",
+      "delicate",
+      "elaborate",
+      "exacerbate",
+      "facilitate",
+      "graduate",
+      "inadequate",
+      "intricate",
+      "rotate",
+      "appropriate"
+    ]
+  },
+  "apt": {
+    "meaning": "fit, suitable",
+    "type": "root",
+    "words": [
+      "adaptation",
+      "adapted"
+    ]
+  },
+  "-ation": {
+    "meaning": "process or state of",
+    "type": "suffix",
+    "words": [
+      "adaptation",
+      "cancellation",
+      "demonstrations",
+      "rotation",
+      "sanitation",
+      "urbanization",
+      "allocation",
+      "application",
+      "combination",
+      "cooperation",
+      "democratization",
+      "documentation",
+      "industrialization",
+      "integration",
+      "irrigation",
+      "medication",
+      "navigation",
+      "notification",
+      "precipitation",
+      "proliferation",
+      "degradation",
+      "fascination",
+      "stimulation",
+      "compensation",
+      "deforestation",
+      "isolation",
+      "restoration",
+      "renovation"
+    ]
+  },
+  "dit": {
+    "meaning": "give, put",
+    "type": "root",
+    "words": [
+      "addition"
+    ]
+  },
+  "-ion": {
+    "meaning": "action or process of",
+    "type": "suffix",
+    "words": [
+      "addition"
+    ]
+  },
+  "af-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "affecting",
+      "affects",
+      "affected",
+      "affordable",
+      "african",
+      "afterward",
+      "affect"
+    ]
+  },
+  "fect": {
+    "meaning": "do, make",
+    "type": "root",
+    "words": [
+      "affecting",
+      "affects",
+      "affected",
+      "disinfecting",
+      "unaffected",
+      "affect"
+    ]
+  },
+  "-ing": {
+    "meaning": "present participle",
+    "type": "suffix",
+    "words": [
+      "affecting",
+      "reducing",
+      "storytelling",
+      "advising",
+      "advocating",
+      "amplifying",
+      "analyzing",
+      "blending",
+      "burgeoning",
+      "bustling",
+      "captivating",
+      "chanting",
+      "complicating",
+      "composting",
+      "curating",
+      "disinfecting",
+      "energizing",
+      "fascinating",
+      "flourishing",
+      "forthcoming",
+      "fostering",
+      "grazing",
+      "groundbreaking",
+      "harvesting",
+      "mapping",
+      "necessitating",
+      "nesting",
+      "provoking",
+      "refraining",
+      "revolutionizing",
+      "rotating",
+      "seafaring",
+      "showcasing",
+      "soothing",
+      "splitting",
+      "supervising",
+      "triggering",
+      "unblocking",
+      "vanishing",
+      "according",
+      "achieving",
+      "annoying",
+      "ceiling",
+      "evaluating",
+      "exerting",
+      "frustrating",
+      "hiking",
+      "imitating",
+      "intriguing",
+      "recycling",
+      "restarting",
+      "shutting",
+      "skiing",
+      "adopting",
+      "minimizing",
+      "misunderstanding",
+      "stunning",
+      "commuting",
+      "banging",
+      "tapping",
+      "weightlifting"
+    ]
+  },
+  "anti": {
+    "meaning": "before, opposite",
+    "type": "root",
+    "words": [
+      "ancient"
+    ]
+  },
+  "-ent": {
+    "meaning": "having the quality of",
+    "type": "suffix",
+    "words": [
+      "ancient",
+      "prevalent",
+      "convenient",
+      "fluent",
+      "transparent",
+      "equivalent",
+      "urgent"
+    ]
+  },
+  "annu": {
+    "meaning": "year",
+    "type": "root",
+    "words": [
+      "annual"
+    ]
+  },
+  "-al": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "annual",
+      "arrival",
+      "integral",
+      "pivotal",
+      "seasonal",
+      "actual",
+      "additional",
+      "appeal",
+      "canal",
+      "coastal",
+      "communal",
+      "conventional",
+      "cordial",
+      "crystal",
+      "dental",
+      "dimensional",
+      "festival",
+      "herbal",
+      "ideal",
+      "medieval",
+      "municipal",
+      "mutual",
+      "navigational",
+      "neural",
+      "nominal",
+      "optimal",
+      "surgical",
+      "portal",
+      "functional",
+      "gravitational"
+    ]
+  },
+  "ang": {
+    "meaning": "tight, painful",
+    "type": "root",
+    "words": [
+      "anxiety"
+    ]
+  },
+  "-ety": {
+    "meaning": "state of",
+    "type": "suffix",
+    "words": [
+      "anxiety"
+    ]
+  },
+  "as-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "associated",
+      "assist",
+      "aspirin",
+      "assistants",
+      "assignment",
+      "assistance"
+    ]
+  },
+  "soci": {
+    "meaning": "companion, ally",
+    "type": "root",
+    "words": [
+      "associated"
+    ]
+  },
+  "-ated": {
+    "meaning": "past participle",
+    "type": "suffix",
+    "words": [
+      "associated",
+      "dedicated"
+    ]
+  },
+  "a-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "availability",
+      "arise",
+      "aeschylus",
+      "aid",
+      "ailments",
+      "amplifying",
+      "ape",
+      "app",
+      "aqueducts",
+      "audiences",
+      "audio",
+      "audit",
+      "await",
+      "awake",
+      "auction",
+      "auditorium",
+      "airport",
+      "ate",
+      "awareness",
+      "amenities"
+    ]
+  },
+  "vail": {
+    "meaning": "be worth, be strong",
+    "type": "root",
+    "words": [
+      "availability",
+      "unavailable"
+    ]
+  },
+  "-ability": {
+    "meaning": "capability of",
+    "type": "suffix",
+    "words": [
+      "availability"
+    ]
+  },
+  "infra-": {
+    "meaning": "below, beneath",
+    "type": "prefix",
+    "words": [
+      "infrastructure"
+    ]
+  },
+  "struct": {
+    "meaning": "build, construct",
+    "type": "root",
+    "words": [
+      "infrastructure",
+      "constructive",
+      "structures"
+    ]
+  },
+  "-ure": {
+    "meaning": "result of",
+    "type": "suffix",
+    "words": [
+      "infrastructure",
+      "cultures",
+      "brochure",
+      "texture",
+      "agriculture",
+      "furniture",
+      "sculpture"
+    ]
+  },
+  "inter-": {
+    "meaning": "between, among",
+    "type": "prefix",
+    "words": [
+      "interactive",
+      "interdependency",
+      "intertwined"
+    ]
+  },
+  "act": {
+    "meaning": "do, drive",
+    "type": "root",
+    "words": [
+      "interactive",
+      "impractical"
+    ]
+  },
+  "-ive": {
+    "meaning": "having the quality of",
+    "type": "suffix",
+    "words": [
+      "interactive",
+      "constructive",
+      "intensive",
+      "thrive",
+      "aggressive",
+      "collective",
+      "comprehensive",
+      "digestive",
+      "prohibitive",
+      "strive",
+      "cognitive",
+      "supportive"
+    ]
+  },
+  "lay": {
+    "meaning": "put, place",
+    "type": "root",
+    "words": [
+      "laid"
+    ]
+  },
+  "-d": {
+    "meaning": "past tense/participle",
+    "type": "suffix",
+    "words": [
+      "laid"
+    ]
+  },
+  "pract": {
+    "meaning": "do, perform",
+    "type": "root",
+    "words": [
+      "practices"
+    ]
+  },
+  "-ice": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "practices",
+      "devices"
+    ]
+  },
+  "re-": {
+    "meaning": "back, again",
+    "type": "prefix",
+    "words": [
+      "reducing",
+      "reduce",
+      "refreshments",
+      "renaissance",
+      "rescheduled",
+      "respect",
+      "readily",
+      "reduces",
+      "refraining",
+      "refund",
+      "refunded",
+      "relatives",
+      "reliability",
+      "reliance",
+      "reschedule",
+      "resurgence",
+      "retailers",
+      "revolutionized",
+      "revolutionizing",
+      "renowned",
+      "receptacle",
+      "recycling",
+      "refine",
+      "relativism",
+      "reliable",
+      "reorganize",
+      "restarting",
+      "reused",
+      "reduced",
+      "renovations",
+      "restoration",
+      "retraced",
+      "renovation",
+      "restroom"
+    ]
+  },
+  "duc": {
+    "meaning": "lead, bring",
+    "type": "root",
+    "words": [
+      "reducing",
+      "reduce",
+      "reduces",
+      "reduced"
+    ]
+  },
+  "cess": {
+    "meaning": "go, yield",
+    "type": "root",
+    "words": [
+      "accessible"
+    ]
+  },
+  "-ible": {
+    "meaning": "able to",
+    "type": "suffix",
+    "words": [
+      "accessible",
+      "flexible",
+      "indelible",
+      "invisible"
+    ]
+  },
+  "-ed": {
+    "meaning": "past participle",
+    "type": "suffix",
+    "words": [
+      "adapted",
+      "navigated",
+      "rescheduled",
+      "updated",
+      "affected",
+      "altered",
+      "baked",
+      "borrowed",
+      "calculated",
+      "clashed",
+      "cultivated",
+      "delighted",
+      "demonstrated",
+      "depicted",
+      "designated",
+      "disrupted",
+      "finalized",
+      "illuminated",
+      "intertwined",
+      "occurred",
+      "outweighed",
+      "overcrowded",
+      "personalized",
+      "popularized",
+      "populated",
+      "postponed",
+      "prolonged",
+      "refunded",
+      "revolutionized",
+      "satirized",
+      "shipped",
+      "supplied",
+      "unaffected",
+      "validated",
+      "waived",
+      "weakened",
+      "renowned",
+      "captivated",
+      "consumed",
+      "graduated",
+      "originated",
+      "reused",
+      "screwed",
+      "sidetracked",
+      "submitted",
+      "thrilled",
+      "unchanged",
+      "unrelated",
+      "applied",
+      "dedicated",
+      "planned",
+      "reduced",
+      "retraced",
+      "unparalleled",
+      "equipped"
+    ]
+  },
+  "vanc": {
+    "meaning": "before, in front",
+    "type": "root",
+    "words": [
+      "advancements"
+    ]
+  },
+  "-ment": {
+    "meaning": "result or state of",
+    "type": "suffix",
+    "words": [
+      "advancements",
+      "apartment",
+      "achievement",
+      "contentment",
+      "assignment"
+    ]
+  },
+  "agri": {
+    "meaning": "field, land",
+    "type": "root",
+    "words": [
+      "agricultural"
+    ]
+  },
+  "-ural": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "agricultural"
+    ]
+  },
+  "anti-": {
+    "meaning": "against",
+    "type": "prefix",
+    "words": [
+      "antibiotics",
+      "anticyclones"
+    ]
+  },
+  "bio": {
+    "meaning": "life",
+    "type": "root",
+    "words": [
+      "antibiotics",
+      "microbiome"
+    ]
+  },
+  "-tic": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "antibiotics"
+    ]
+  },
+  "part": {
+    "meaning": "separate, divide",
+    "type": "root",
+    "words": [
+      "apartment"
+    ]
+  },
+  "ap-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "appreciate",
+      "apartments",
+      "apes",
+      "apologize",
+      "appeal",
+      "application",
+      "approach",
+      "appropriately",
+      "approximately",
+      "apartment",
+      "apparently",
+      "apparel",
+      "appetizers",
+      "applied",
+      "appropriate"
+    ]
+  },
+  "preci": {
+    "meaning": "price, value",
+    "type": "root",
+    "words": [
+      "appreciate"
+    ]
+  },
+  "napron": {
+    "meaning": "cloth",
+    "type": "root",
+    "words": [
+      "apron"
+    ]
+  },
+  "ris": {
+    "meaning": "rise, get up",
+    "type": "root",
+    "words": [
+      "arise"
+    ]
+  },
+  "ar-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "arrival",
+      "archaeologists",
+      "arctic",
+      "aristophanes",
+      "array",
+      "artificial",
+      "artisans"
+    ]
+  },
+  "riv": {
+    "meaning": "river bank, shore",
+    "type": "root",
+    "words": [
+      "arrival"
+    ]
+  },
+  "art": {
+    "meaning": "skill, craft",
+    "type": "root",
+    "words": [
+      "artistic",
+      "arts"
+    ]
+  },
+  "-istic": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "artistic"
+    ]
+  },
+  "-s": {
+    "meaning": "plural",
+    "type": "suffix",
+    "words": [
+      "arts",
+      "neurotransmitters",
+      "refreshments",
+      "accomplishments",
+      "accounts",
+      "achievements",
+      "adaptations",
+      "adjustments",
+      "advertisers",
+      "aeschylus",
+      "ailments",
+      "apartments",
+      "aqueducts",
+      "archaeologists",
+      "artisans",
+      "beams",
+      "bonds",
+      "breakthroughs",
+      "cancellations",
+      "chorus",
+      "civilizations",
+      "conservationists",
+      "cookingclass",
+      "counterparts",
+      "crystals",
+      "dionysus",
+      "dips",
+      "disruptions",
+      "egyptians",
+      "electronics",
+      "elephants",
+      "entertainers",
+      "evaluations",
+      "evans",
+      "facilitators",
+      "feats",
+      "fertilizers",
+      "festivals",
+      "fluctuations",
+      "formats",
+      "gaps",
+      "gastroenteritis",
+      "gods",
+      "gradients",
+      "greeks",
+      "gymworkers",
+      "hippocampus",
+      "laptops",
+      "legislators",
+      "lions",
+      "logs",
+      "looms",
+      "maps",
+      "marketers",
+      "meteorologists",
+      "microbes",
+      "microorganisms",
+      "mutations",
+      "neuroscientists",
+      "olympics",
+      "parahaemolyticus",
+      "pathways",
+      "patrons",
+      "pigeons",
+      "planners",
+      "playlists",
+      "prebiotics",
+      "precedents",
+      "predators",
+      "probiotics",
+      "retailers",
+      "romans",
+      "russos",
+      "sagas",
+      "santos",
+      "scenarios",
+      "shoppers",
+      "signings",
+      "simmons",
+      "sitcoms",
+      "slots",
+      "sparrows",
+      "spectators",
+      "supervisors",
+      "technicians",
+      "tempos",
+      "tigers",
+      "trillions",
+      "tuberculosis",
+      "tumors",
+      "vendors",
+      "vikings",
+      "vulnificus",
+      "warriors",
+      "weekdays",
+      "advancements",
+      "alerts",
+      "assistants",
+      "beliefs",
+      "catalysts",
+      "gels",
+      "inventions",
+      "notifications",
+      "orleans",
+      "placebos",
+      "skis",
+      "snacks",
+      "sneakers",
+      "thesis",
+      "tons",
+      "marcus",
+      "actions",
+      "appetizers",
+      "coworkers",
+      "endorphins",
+      "fosters",
+      "grandparents",
+      "nomads",
+      "outlets",
+      "renovations",
+      "seems",
+      "siblings",
+      "attendants",
+      "bikes",
+      "cats",
+      "elevators",
+      "mats",
+      "timings",
+      "towels"
+    ]
+  },
+  "sist": {
+    "meaning": "stand, cause to stand",
+    "type": "root",
+    "words": [
+      "assist",
+      "assistance"
+    ]
+  },
+  "at-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "attendees",
+      "athletes",
+      "atlantic",
+      "attendants"
+    ]
+  },
+  "tend": {
+    "meaning": "stretch, direct",
+    "type": "root",
+    "words": [
+      "attendees"
+    ]
+  },
+  "-ee": {
+    "meaning": "person who is...",
+    "type": "suffix",
+    "words": [
+      "attendees"
+    ]
+  },
+  "ware": {
+    "meaning": "watchful, cautious",
+    "type": "root",
+    "words": [
+      "awareness"
+    ]
+  },
+  "-ness": {
+    "meaning": "state of",
+    "type": "suffix",
+    "words": [
+      "awareness",
+      "cleanliness",
+      "consciousness",
+      "fitness",
+      "wellness"
+    ]
+  },
+  "bacteri": {
+    "meaning": "rod, staff",
+    "type": "root",
+    "words": [
+      "bacteria"
+    ]
+  },
+  "-a": {
+    "meaning": "plural",
+    "type": "suffix",
+    "words": [
+      "bacteria"
+    ]
+  },
+  "bas": {
+    "meaning": "low, foundation",
+    "type": "root",
+    "words": [
+      "basis"
+    ]
+  },
+  "-is": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "basis"
+    ]
+  },
+  "cancel": {
+    "meaning": "cross out",
+    "type": "root",
+    "words": [
+      "cancellation"
+    ]
+  },
+  "cert": {
+    "meaning": "sure, certain",
+    "type": "root",
+    "words": [
+      "certificate"
+    ]
+  },
+  "-icate": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "certificate"
+    ]
+  },
+  "chois": {
+    "meaning": "choose, perceive",
+    "type": "root",
+    "words": [
+      "choices"
+    ]
+  },
+  "-ce": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "choices"
+    ]
+  },
+  "cogn": {
+    "meaning": "know",
+    "type": "root",
+    "words": [
+      "cognitive"
+    ]
+  },
+  "-itive": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "cognitive"
+    ]
+  },
+  "con-": {
+    "meaning": "together",
+    "type": "prefix",
+    "words": [
+      "constructive",
+      "confidential",
+      "connectivity",
+      "consciousness",
+      "conservationists",
+      "considerably",
+      "contentment",
+      "continuous",
+      "convenient",
+      "conventional",
+      "converge",
+      "conversely",
+      "convey",
+      "consume",
+      "concert",
+      "consumed",
+      "consumption",
+      "consequences",
+      "convenience"
+    ]
+  },
+  "cult": {
+    "meaning": "till, cultivate",
+    "type": "root",
+    "words": [
+      "cultures"
+    ]
+  },
+  "dead": {
+    "meaning": "dead",
+    "type": "root",
+    "words": [
+      "deadline"
+    ]
+  },
+  "de-": {
+    "meaning": "down, away",
+    "type": "prefix",
+    "words": [
+      "dedicated",
+      "demonstrations",
+      "devices",
+      "decode",
+      "delicate",
+      "delighted",
+      "delightful",
+      "democratization",
+      "demonstrated",
+      "densely",
+      "dental",
+      "depicted",
+      "depiction",
+      "designated",
+      "decent",
+      "degradation",
+      "depletion",
+      "deadline",
+      "deforestation",
+      "delicious"
+    ]
+  },
+  "dic": {
+    "meaning": "declare, proclaim",
+    "type": "root",
+    "words": [
+      "dedicated"
+    ]
+  },
+  "monstr": {
+    "meaning": "show, point out",
+    "type": "root",
+    "words": [
+      "demonstrations",
+      "demonstrated"
+    ]
+  },
+  "vis": {
+    "meaning": "see, divide",
+    "type": "root",
+    "words": [
+      "devices",
+      "advising",
+      "supervising",
+      "supervisors",
+      "invisible",
+      "supervisor"
+    ]
+  },
+  "diet": {
+    "meaning": "way of living, food",
+    "type": "root",
+    "words": [
+      "dietary"
+    ]
+  },
+  "-ary": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "dietary"
+    ]
+  },
+  "dis-": {
+    "meaning": "away, not",
+    "type": "prefix",
+    "words": [
+      "diseases",
+      "disrupt",
+      "discount",
+      "disinfecting",
+      "disrupted",
+      "disruption",
+      "disruptions",
+      "discourage",
+      "distances"
+    ]
+  },
+  "eas": {
+    "meaning": "ease, comfort",
+    "type": "root",
+    "words": [
+      "diseases"
+    ]
+  },
+  "rupt": {
+    "meaning": "break",
+    "type": "root",
+    "words": [
+      "disrupt",
+      "disrupted"
+    ]
+  },
+  "dolphin": {
+    "meaning": "dolphin",
+    "type": "root",
+    "words": [
+      "dolphins"
+    ]
+  },
+  "dynam": {
+    "meaning": "power, force",
+    "type": "root",
+    "words": [
+      "dynamic"
+    ]
+  },
+  "-ic": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "dynamic",
+      "arctic",
+      "atlantic",
+      "automatic",
+      "individualistic",
+      "picnic",
+      "static",
+      "synthetic",
+      "unihemispheric",
+      "civic",
+      "drastic",
+      "electronic",
+      "graphic"
+    ]
+  },
+  "electr": {
+    "meaning": "amber, electricity",
+    "type": "root",
+    "words": [
+      "electronic"
+    ]
+  },
+  "-onic": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "electronic"
+    ]
+  },
+  "haut": {
+    "meaning": "high, great",
+    "type": "root",
+    "words": [
+      "enhance"
+    ]
+  },
+  "-ence": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "enhance",
+      "inconvenience",
+      "resurgence",
+      "convenience"
+    ]
+  },
+  "Europ": {
+    "meaning": "Europe",
+    "type": "root",
+    "words": [
+      "european"
+    ]
+  },
+  "-ean": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "european"
+    ]
+  },
+  "feh": {
+    "meaning": "cattle, property",
+    "type": "root",
+    "words": [
+      "fee"
+    ]
+  },
+  "ground": {
+    "meaning": "ground, foundation",
+    "type": "root",
+    "words": [
+      "groundwork"
+    ]
+  },
+  "habit": {
+    "meaning": "live, dwell",
+    "type": "root",
+    "words": [
+      "habitats"
+    ]
+  },
+  "-at": {
+    "meaning": "noun suffix",
+    "type": "suffix",
+    "words": [
+      "habitats"
+    ]
+  },
+  "-es": {
+    "meaning": "plural or third person",
+    "type": "suffix",
+    "words": [
+      "headphones",
+      "initiatives",
+      "involves",
+      "narratives",
+      "roles",
+      "services",
+      "structures",
+      "temperatures",
+      "underscores",
+      "anticyclones",
+      "aristophanes",
+      "athletes",
+      "audiences",
+      "becomes",
+      "beverages",
+      "blockages",
+      "bones",
+      "bridges",
+      "colleagues",
+      "cyclones",
+      "daguerreotypes",
+      "databases",
+      "dates",
+      "drives",
+      "employees",
+      "exercises",
+      "exposes",
+      "fees",
+      "figures",
+      "games",
+      "genres",
+      "guidelines",
+      "heatwaves",
+      "hemispheres",
+      "horses",
+      "images",
+      "indicates",
+      "influences",
+      "landscapes",
+      "languages",
+      "latitudes",
+      "leagues",
+      "magazines",
+      "miles",
+      "obstacles",
+      "onlinecourses",
+      "performances",
+      "pesticides",
+      "phones",
+      "polarizes",
+      "poles",
+      "preferences",
+      "pressures",
+      "prices",
+      "procedures",
+      "reduces",
+      "relatives",
+      "spaces",
+      "statues",
+      "stones",
+      "substances",
+      "sunstones",
+      "tables",
+      "textiles",
+      "trees",
+      "updates",
+      "utilizes",
+      "vegetables",
+      "volumes",
+      "wages",
+      "blues",
+      "calculates",
+      "cultures",
+      "devices",
+      "ensures",
+      "examples",
+      "features",
+      "hectares",
+      "holes",
+      "honeybees",
+      "lifestyles",
+      "practices",
+      "shoes",
+      "slides",
+      "states",
+      "advantages",
+      "consequences",
+      "distances",
+      "entrees",
+      "guides",
+      "scenes",
+      "tastes",
+      "villages",
+      "benches",
+      "choices",
+      "enclosures",
+      "machines",
+      "rules",
+      "wipes",
+      "wolves"
+    ]
+  },
+  "in-": {
+    "meaning": "in, into, not",
+    "type": "prefix",
+    "words": [
+      "initiatives",
+      "integral",
+      "intensive",
+      "involves",
+      "inadequate",
+      "inbox",
+      "inconvenience",
+      "indelible",
+      "indicates",
+      "individualistic",
+      "indoor",
+      "industrialization",
+      "influences",
+      "influential",
+      "influx",
+      "ingenuity",
+      "inhospitable",
+      "inspection",
+      "instability",
+      "integration",
+      "intricate",
+      "invention",
+      "inventory",
+      "invoke",
+      "indirectly",
+      "intriguing",
+      "inventions",
+      "invisible",
+      "informative",
+      "inequality"
+    ]
+  },
+  "teg": {
+    "meaning": "cover",
+    "type": "root",
+    "words": [
+      "integral",
+      "integration"
+    ]
+  },
+  "tens": {
+    "meaning": "stretch, reach",
+    "type": "root",
+    "words": [
+      "intensive"
+    ]
+  },
+  "volv": {
+    "meaning": "roll, turn",
+    "type": "root",
+    "words": [
+      "involves"
+    ]
+  },
+  "mit": {
+    "meaning": "send",
+    "type": "root",
+    "words": [
+      "mitigate",
+      "submitted"
+    ]
+  },
+  "nav": {
+    "meaning": "ship, sail",
+    "type": "root",
+    "words": [
+      "navigate",
+      "navigation"
+    ]
+  },
+  "-th": {
+    "meaning": "state or quality of",
+    "type": "suffix",
+    "words": [
+      "nineteenth",
+      "fourteenth",
+      "seventeenth",
+      "twentieth",
+      "tenth"
+    ]
+  },
+  "past": {
+    "meaning": "feed",
+    "type": "root",
+    "words": [
+      "pastries"
+    ]
+  },
+  "-ies": {
+    "meaning": "plural or third person (y→i)",
+    "type": "suffix",
+    "words": [
+      "pastries",
+      "comedies",
+      "ethnicities",
+      "goodies",
+      "groceries",
+      "melodies",
+      "rallies",
+      "veggies",
+      "galaxies",
+      "movies",
+      "amenities"
+    ]
+  },
+  "-graphy": {
+    "meaning": "writing, recording",
+    "type": "suffix",
+    "words": [
+      "photography"
+    ]
+  },
+  "pre-": {
+    "meaning": "before",
+    "type": "prefix",
+    "words": [
+      "precision",
+      "prevalent",
+      "prebiotics",
+      "precedents",
+      "precipitation",
+      "precursor",
+      "predators",
+      "preferences",
+      "pressures",
+      "preliminary"
+    ]
+  },
+  "-sion": {
+    "meaning": "action or process of",
+    "type": "suffix",
+    "words": [
+      "precision",
+      "admission",
+      "cohesion",
+      "illusion",
+      "submission"
+    ]
+  },
+  "val": {
+    "meaning": "strong, worth",
+    "type": "root",
+    "words": [
+      "prevalent"
+    ]
+  },
+  "-ance": {
+    "meaning": "state or quality",
+    "type": "suffix",
+    "words": [
+      "renaissance",
+      "imbalance",
+      "overabundance",
+      "reliance",
+      "vigilance",
+      "assistance"
+    ]
+  },
+  "spec": {
+    "meaning": "look, see",
+    "type": "root",
+    "words": [
+      "respect",
+      "inspection"
+    ]
+  },
+  "rot": {
+    "meaning": "wheel, turn",
+    "type": "root",
+    "words": [
+      "rotation",
+      "rotating",
+      "rotate"
+    ]
+  },
+  "se-": {
+    "meaning": "apart, aside",
+    "type": "prefix",
+    "words": [
+      "seasonal",
+      "services",
+      "seafaring",
+      "semi",
+      "serene",
+      "serotonin",
+      "server",
+      "seventeenth",
+      "seems"
+    ]
+  },
+  "son": {
+    "meaning": "sound",
+    "type": "root",
+    "words": [
+      "seasonal"
+    ]
+  },
+  "-ical": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "tropical",
+      "biological",
+      "empirical",
+      "impractical",
+      "mythical",
+      "optical",
+      "subtropical",
+      "technological",
+      "theoretical",
+      "ecological",
+      "clinical",
+      "classical"
+    ]
+  },
+  "un-": {
+    "meaning": "not, opposite",
+    "type": "prefix",
+    "words": [
+      "unavailable",
+      "unaffected",
+      "unblocking",
+      "uncover",
+      "undeniably",
+      "uneven",
+      "unfamiliar",
+      "unchanged",
+      "uncomfortably",
+      "uneaten",
+      "unobservable",
+      "unrelated",
+      "unseen",
+      "unparalleled"
+    ]
+  },
+  "-able": {
+    "meaning": "able to be",
+    "type": "suffix",
+    "words": [
+      "unavailable",
+      "affordable",
+      "enjoyable",
+      "hospitable",
+      "inhospitable",
+      "notable",
+      "noticeable",
+      "durable",
+      "portable",
+      "reliable",
+      "unobservable"
+    ]
+  },
+  "under-": {
+    "meaning": "below, beneath",
+    "type": "prefix",
+    "words": [
+      "underscores",
+      "undergone"
+    ]
+  },
+  "up-": {
+    "meaning": "up, upward",
+    "type": "prefix",
+    "words": [
+      "updated",
+      "upbeat",
+      "update",
+      "updates",
+      "upgrade",
+      "upward"
+    ]
+  },
+  "ab-": {
+    "meaning": "away from",
+    "type": "prefix",
+    "words": [
+      "abstract",
+      "ability",
+      "absorb",
+      "abroad",
+      "absence"
+    ]
+  },
+  "tract": {
+    "meaning": "draw, pull",
+    "type": "root",
+    "words": [
+      "abstract"
+    ]
+  },
+  "ordin": {
+    "meaning": "order",
+    "type": "root",
+    "words": [
+      "accordingly",
+      "coordinator"
+    ]
+  },
+  "quir": {
+    "meaning": "ask, seek",
+    "type": "root",
+    "words": [
+      "acquire"
+    ]
+  },
+  "here": {
+    "meaning": "stick",
+    "type": "root",
+    "words": [
+      "adhere",
+      "hemisphere"
+    ]
+  },
+  "vers": {
+    "meaning": "turn",
+    "type": "root",
+    "words": [
+      "adversity",
+      "conversely"
+    ]
+  },
+  "voc": {
+    "meaning": "call",
+    "type": "root",
+    "words": [
+      "advocating"
+    ]
+  },
+  "ag-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "aggressive",
+      "agriculture"
+    ]
+  },
+  "gress": {
+    "meaning": "step, walk",
+    "type": "root",
+    "words": [
+      "aggressive"
+    ]
+  },
+  "ment": {
+    "meaning": "mind",
+    "type": "root",
+    "words": [
+      "ailments",
+      "mentorship"
+    ]
+  },
+  "al-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "alert",
+      "alleviate",
+      "allocation",
+      "alongside",
+      "altered",
+      "alerts",
+      "alternative"
+    ]
+  },
+  "loc": {
+    "meaning": "place",
+    "type": "root",
+    "words": [
+      "allocation",
+      "unblocking"
+    ]
+  },
+  "an-": {
+    "meaning": "to, toward",
+    "type": "prefix",
+    "words": [
+      "analyzing",
+      "anthology",
+      "annual",
+      "annoying",
+      "anomaly"
+    ]
+  },
+  "-logy": {
+    "meaning": "study of",
+    "type": "suffix",
+    "words": [
+      "anthology",
+      "pharmacology"
+    ]
+  },
+  "log": {
+    "meaning": "word, thought",
+    "type": "root",
+    "words": [
+      "apologize",
+      "biological",
+      "logs",
+      "ecological",
+      "blog"
+    ]
+  },
+  "-ize": {
+    "meaning": "to make, cause",
+    "type": "suffix",
+    "words": [
+      "apologize",
+      "energize",
+      "optimize",
+      "finalize",
+      "reorganize",
+      "minimize"
+    ]
+  },
+  "plic": {
+    "meaning": "fold",
+    "type": "root",
+    "words": [
+      "application",
+      "complicating"
+    ]
+  },
+  "-y": {
+    "meaning": "having the quality of",
+    "type": "suffix",
+    "words": [
+      "array",
+      "birthday",
+      "cloudy",
+      "comedy",
+      "convey",
+      "honey",
+      "multiply",
+      "pathway",
+      "salty",
+      "galaxy",
+      "biography",
+      "lobby"
+    ]
+  },
+  "-ial": {
+    "meaning": "relating to",
+    "type": "suffix",
+    "words": [
+      "artificial",
+      "beneficial",
+      "confidential",
+      "imperial",
+      "influential",
+      "spatial"
+    ]
+  },
+  "auto-": {
+    "meaning": "self",
+    "type": "prefix",
+    "words": [
+      "automatic"
+    ]
+  },
+  "-ery": {
+    "meaning": "collection or practice of",
+    "type": "suffix",
+    "words": [
+      "bakery",
+      "imagery",
+      "pottery"
+    ]
+  },
+  "be-": {
+    "meaning": "around, by, make",
+    "type": "prefix",
+    "words": [
+      "beams",
+      "becomes",
+      "began",
+      "belief",
+      "beverages",
+      "bees",
+      "beliefs",
+      "benches"
+    ]
+  },
+  "bene-": {
+    "meaning": "good, well",
+    "type": "prefix",
+    "words": [
+      "beneficial"
+    ]
+  },
+  "ver": {
+    "meaning": "true",
+    "type": "root",
+    "words": [
+      "beverages",
+      "coverage"
+    ]
+  },
+  "bi-": {
+    "meaning": "two",
+    "type": "prefix",
+    "words": [
+      "biological",
+      "birthday",
+      "bins",
+      "biomimicry",
+      "bias",
+      "biography",
+      "bistro",
+      "bikes"
+    ]
+  },
+  "rid": {
+    "meaning": "laugh",
+    "type": "root",
+    "words": [
+      "bridges"
+    ]
+  },
+  "-en": {
+    "meaning": "to make, become",
+    "type": "suffix",
+    "words": [
+      "burden",
+      "driven",
+      "fourteen",
+      "gluten",
+      "uneven",
+      "weaken",
+      "uneaten",
+      "unseen",
+      "chosen",
+      "lessen"
+    ]
+  },
+  "co-": {
+    "meaning": "together",
+    "type": "prefix",
+    "words": [
+      "coastal",
+      "coexist",
+      "cohesion",
+      "cookingclass",
+      "cooperation",
+      "coordinator",
+      "copper",
+      "coverage",
+      "cows",
+      "cognitive",
+      "coworkers"
+    ]
+  },
+  "st": {
+    "meaning": "stand",
+    "type": "root",
+    "words": [
+      "coastal",
+      "nesting",
+      "stones",
+      "strive",
+      "forecast",
+      "bistro",
+      "restoration",
+      "tastes",
+      "adjust"
+    ]
+  },
+  "-ist": {
+    "meaning": "one who does, relating to",
+    "type": "suffix",
+    "words": [
+      "coexist",
+      "collectivist",
+      "cellist",
+      "saxophonist"
+    ]
+  },
+  "col-": {
+    "meaning": "together",
+    "type": "prefix",
+    "words": [
+      "collaborative",
+      "colleagues",
+      "collective",
+      "collectivist"
+    ]
+  },
+  "labor": {
+    "meaning": "work",
+    "type": "root",
+    "words": [
+      "collaborative",
+      "elaborate"
+    ]
+  },
+  "-ative": {
+    "meaning": "tending to",
+    "type": "suffix",
+    "words": [
+      "collaborative",
+      "imperative",
+      "informative",
+      "alternative"
+    ]
+  },
+  "lect": {
+    "meaning": "choose, gather",
+    "type": "root",
+    "words": [
+      "collective",
+      "collectivist"
+    ]
+  },
+  "com-": {
+    "meaning": "together",
+    "type": "prefix",
+    "words": [
+      "combination",
+      "comedies",
+      "comedy",
+      "communal",
+      "compatibility",
+      "completion",
+      "complexity",
+      "complicating",
+      "complimentary",
+      "composting",
+      "comprehensive",
+      "compost",
+      "compensation",
+      "commuting",
+      "commute"
+    ]
+  },
+  "un": {
+    "meaning": "one",
+    "type": "root",
+    "words": [
+      "communal",
+      "immunity"
+    ]
+  },
+  "-tion": {
+    "meaning": "action or process of",
+    "type": "suffix",
+    "words": [
+      "completion",
+      "depiction",
+      "digestion",
+      "disruption",
+      "inspection",
+      "invention",
+      "auction",
+      "consumption",
+      "depletion"
+    ]
+  },
+  "plex": {
+    "meaning": "braid, weave",
+    "type": "root",
+    "words": [
+      "complexity"
+    ]
+  },
+  "-ry": {
+    "meaning": "collection or practice of",
+    "type": "suffix",
+    "words": [
+      "complimentary",
+      "exclusionary",
+      "introductory",
+      "inventory",
+      "jewelry",
+      "migratory",
+      "biomimicry",
+      "chemistry",
+      "preliminary",
+      "documentary",
+      "mandatory"
+    ]
+  },
+  "pos": {
+    "meaning": "place, put",
+    "type": "root",
+    "words": [
+      "composting",
+      "exposes",
+      "compost"
+    ]
+  },
+  "tent": {
+    "meaning": "stretch, reach",
+    "type": "root",
+    "words": [
+      "contentment"
+    ]
+  },
+  "tin": {
+    "meaning": "hold",
+    "type": "root",
+    "words": [
+      "continuous"
+    ]
+  },
+  "-ous": {
+    "meaning": "full of, having",
+    "type": "suffix",
+    "words": [
+      "continuous",
+      "fabulous",
+      "spontaneous"
+    ]
+  },
+  "ven": {
+    "meaning": "come",
+    "type": "root",
+    "words": [
+      "convenient",
+      "invention",
+      "convenience"
+    ]
+  },
+  "erg": {
+    "meaning": "work",
+    "type": "root",
+    "words": [
+      "converge",
+      "energize",
+      "energizing"
+    ]
+  },
+  "oper": {
+    "meaning": "work",
+    "type": "root",
+    "words": [
+      "cooperation"
+    ]
+  },
+  "-or": {
+    "meaning": "one who does",
+    "type": "suffix",
+    "words": [
+      "coordinator",
+      "equator",
+      "indoor",
+      "precursor",
+      "supervisor"
+    ]
+  },
+  "-er": {
+    "meaning": "one who does",
+    "type": "suffix",
+    "words": [
+      "copper",
+      "earlier",
+      "farther",
+      "gender",
+      "happier",
+      "server",
+      "soccer",
+      "tier",
+      "uncover",
+      "larger",
+      "thriller",
+      "diner",
+      "ladder",
+      "plumber",
+      "healthier"
+    ]
+  },
+  "cor-": {
+    "meaning": "together",
+    "type": "prefix",
+    "words": [
+      "cordial"
+    ]
+  },
+  "counter-": {
+    "meaning": "against",
+    "type": "prefix",
+    "words": [
+      "counterparts"
+    ]
+  },
+  "par": {
+    "meaning": "equal, prepare",
+    "type": "root",
+    "words": [
+      "counterparts",
+      "transparent",
+      "apparel"
+    ]
+  },
+  "-age": {
+    "meaning": "related to, collection of",
+    "type": "suffix",
+    "words": [
+      "coverage",
+      "discourage",
+      "luggage",
+      "usage"
+    ]
+  },
+  "-ful": {
+    "meaning": "full of",
+    "type": "suffix",
+    "words": [
+      "delightful",
+      "mindful",
+      "meaningful",
+      "hurtful",
+      "stressful"
+    ]
+  },
+  "pict": {
+    "meaning": "paint, show",
+    "type": "root",
+    "words": [
+      "depicted"
+    ]
+  },
+  "sign": {
+    "meaning": "mark, sign",
+    "type": "root",
+    "words": [
+      "designated",
+      "assignment"
+    ]
+  },
+  "down-": {
+    "meaning": "down, downward",
+    "type": "prefix",
+    "words": [
+      "downtown",
+      "download"
+    ]
+  },
+  "e-": {
+    "meaning": "out, from",
+    "type": "prefix",
+    "words": [
+      "earlier",
+      "earliest",
+      "egyptians",
+      "elaborate",
+      "electronics",
+      "elephants",
+      "equator",
+      "ethnicities",
+      "evade",
+      "evaluations",
+      "evans",
+      "ecological",
+      "electronically",
+      "equivalent",
+      "ethnocentrism",
+      "evaluating",
+      "electronic",
+      "erode",
+      "eco",
+      "elevators",
+      "equipped"
+    ]
+  },
+  "em-": {
+    "meaning": "cause to be, put into",
+    "type": "prefix",
+    "words": [
+      "empirical",
+      "employees",
+      "emerald",
+      "emit"
+    ]
+  },
+  "en-": {
+    "meaning": "cause to be, put into",
+    "type": "prefix",
+    "words": [
+      "energize",
+      "energizing",
+      "enjoyable",
+      "enroll",
+      "entertainers",
+      "ensures",
+      "endorphins",
+      "entrees",
+      "enclosures"
+    ]
+  },
+  "qua": {
+    "meaning": "what, how",
+    "type": "root",
+    "words": [
+      "equator",
+      "inequality"
+    ]
+  },
+  "vad": {
+    "meaning": "go",
+    "type": "root",
+    "words": [
+      "evade"
+    ]
+  },
+  "ex-": {
+    "meaning": "out, former",
+    "type": "prefix",
+    "words": [
+      "exacerbate",
+      "exclusionary",
+      "exercises",
+      "exposes",
+      "examples",
+      "exerting",
+      "exam"
+    ]
+  },
+  "-dom": {
+    "meaning": "domain, condition",
+    "type": "suffix",
+    "words": [
+      "fandom",
+      "kingdom"
+    ]
+  },
+  "-ism": {
+    "meaning": "doctrine, belief",
+    "type": "suffix",
+    "words": [
+      "favoritism",
+      "ethnocentrism",
+      "relativism",
+      "nomadism",
+      "volunteerism"
+    ]
+  },
+  "-less": {
+    "meaning": "without",
+    "type": "suffix",
+    "words": [
+      "flawless",
+      "paperless"
+    ]
+  },
+  "flex": {
+    "meaning": "bend",
+    "type": "root",
+    "words": [
+      "flexible"
+    ]
+  },
+  "flu": {
+    "meaning": "flow",
+    "type": "root",
+    "words": [
+      "fluent"
+    ]
+  },
+  "form": {
+    "meaning": "shape, form",
+    "type": "root",
+    "words": [
+      "formats",
+      "informative"
+    ]
+  },
+  "gen": {
+    "meaning": "birth, kind, produce",
+    "type": "root",
+    "words": [
+      "gender",
+      "genres",
+      "ingenuity"
+    ]
+  },
+  "grad": {
+    "meaning": "step, walk",
+    "type": "root",
+    "words": [
+      "graduate",
+      "upgrade",
+      "degradation"
+    ]
+  },
+  "grav": {
+    "meaning": "heavy, serious",
+    "type": "root",
+    "words": [
+      "gravity"
+    ]
+  },
+  "hemi-": {
+    "meaning": "half",
+    "type": "prefix",
+    "words": [
+      "hemisphere",
+      "hemispheres"
+    ]
+  },
+  "il-": {
+    "meaning": "in, into, not",
+    "type": "prefix",
+    "words": [
+      "illuminated",
+      "illusion"
+    ]
+  },
+  "im-": {
+    "meaning": "in, into, not",
+    "type": "prefix",
+    "words": [
+      "imagery",
+      "images",
+      "imbalance",
+      "immunity",
+      "imperative",
+      "imperial",
+      "impractical",
+      "imitating"
+    ]
+  },
+  "ag": {
+    "meaning": "do, act",
+    "type": "root",
+    "words": [
+      "imagery",
+      "images",
+      "sagas",
+      "wages"
+    ]
+  },
+  "flux": {
+    "meaning": "flow",
+    "type": "root",
+    "words": [
+      "influx"
+    ]
+  },
+  "-cy": {
+    "meaning": "state or quality",
+    "type": "suffix",
+    "words": [
+      "interdependency"
+    ]
+  },
+  "intro-": {
+    "meaning": "into, within",
+    "type": "prefix",
+    "words": [
+      "introductory"
+    ]
+  },
+  "duct": {
+    "meaning": "lead, bring",
+    "type": "root",
+    "words": [
+      "introductory"
+    ]
+  },
+  "vent": {
+    "meaning": "come",
+    "type": "root",
+    "words": [
+      "inventory"
+    ]
+  },
+  "vok": {
+    "meaning": "call, voice",
+    "type": "root",
+    "words": [
+      "invoke",
+      "provoking"
+    ]
+  },
+  "ir-": {
+    "meaning": "in, into, not",
+    "type": "prefix",
+    "words": [
+      "irrigation"
+    ]
+  },
+  "medi": {
+    "meaning": "middle",
+    "type": "root",
+    "words": [
+      "medication",
+      "medieval"
+    ]
+  },
+  "micro-": {
+    "meaning": "small",
+    "type": "prefix",
+    "words": [
+      "microbes",
+      "microbiome",
+      "microorganisms"
+    ]
+  },
+  "min": {
+    "meaning": "small",
+    "type": "root",
+    "words": [
+      "mindful",
+      "minimize"
+    ]
+  },
+  "multi-": {
+    "meaning": "many",
+    "type": "prefix",
+    "words": [
+      "multiply"
+    ]
+  },
+  "mut": {
+    "meaning": "change",
+    "type": "root",
+    "words": [
+      "mutual",
+      "commuting",
+      "commute"
+    ]
+  },
+  "eu": {
+    "meaning": "good, well",
+    "type": "root",
+    "words": [
+      "neural"
+    ]
+  },
+  "nomin": {
+    "meaning": "name",
+    "type": "root",
+    "words": [
+      "nominal"
+    ]
+  },
+  "-ify": {
+    "meaning": "to make, cause",
+    "type": "suffix",
+    "words": [
+      "notify",
+      "oversimplify"
+    ]
+  },
+  "curr": {
+    "meaning": "run",
+    "type": "root",
+    "words": [
+      "occurred"
+    ]
+  },
+  "opt": {
+    "meaning": "choose, best",
+    "type": "root",
+    "words": [
+      "optical",
+      "optimal",
+      "optimize",
+      "adopting",
+      "adopt"
+    ]
+  },
+  "out-": {
+    "meaning": "beyond, surpass",
+    "type": "prefix",
+    "words": [
+      "outweighed",
+      "outlets"
+    ]
+  },
+  "over-": {
+    "meaning": "above, excessive",
+    "type": "prefix",
+    "words": [
+      "overabundance",
+      "overcrowded",
+      "overview",
+      "oversimplify"
+    ]
+  },
+  "und": {
+    "meaning": "wave",
+    "type": "root",
+    "words": [
+      "overabundance",
+      "profound",
+      "refund",
+      "refunded"
+    ]
+  },
+  "para-": {
+    "meaning": "beside, beyond",
+    "type": "prefix",
+    "words": [
+      "paradox",
+      "parahaemolyticus"
+    ]
+  },
+  "dox": {
+    "meaning": "opinion, praise",
+    "type": "root",
+    "words": [
+      "paradox"
+    ]
+  },
+  "path": {
+    "meaning": "feeling, suffering",
+    "type": "root",
+    "words": [
+      "pathway"
+    ]
+  },
+  "patr": {
+    "meaning": "father",
+    "type": "root",
+    "words": [
+      "patrons"
+    ]
+  },
+  "per-": {
+    "meaning": "through, thoroughly",
+    "type": "prefix",
+    "words": [
+      "performances",
+      "personalized"
+    ]
+  },
+  "phon": {
+    "meaning": "sound",
+    "type": "root",
+    "words": [
+      "phones"
+    ]
+  },
+  "pol": {
+    "meaning": "city, citizen",
+    "type": "root",
+    "words": [
+      "poles"
+    ]
+  },
+  "post-": {
+    "meaning": "after",
+    "type": "prefix",
+    "words": [
+      "postponed"
+    ]
+  },
+  "pon": {
+    "meaning": "place, put",
+    "type": "root",
+    "words": [
+      "postponed"
+    ]
+  },
+  "pot": {
+    "meaning": "power, drink",
+    "type": "root",
+    "words": [
+      "pottery"
+    ]
+  },
+  "cede": {
+    "meaning": "go, yield",
+    "type": "root",
+    "words": [
+      "precedents"
+    ]
+  },
+  "curs": {
+    "meaning": "run",
+    "type": "root",
+    "words": [
+      "precursor"
+    ]
+  },
+  "pri": {
+    "meaning": "first",
+    "type": "root",
+    "words": [
+      "prices"
+    ]
+  },
+  "pro-": {
+    "meaning": "forward, for",
+    "type": "prefix",
+    "words": [
+      "probiotics",
+      "procedures",
+      "profound",
+      "prohibitive",
+      "proliferation",
+      "prolonged",
+      "provoking"
+    ]
+  },
+  "ced": {
+    "meaning": "go, move",
+    "type": "root",
+    "words": [
+      "procedures"
+    ]
+  },
+  "fer": {
+    "meaning": "carry, bear",
+    "type": "root",
+    "words": [
+      "proliferation"
+    ]
+  },
+  "long": {
+    "meaning": "long",
+    "type": "root",
+    "words": [
+      "prolonged"
+    ]
+  },
+  "lat": {
+    "meaning": "carry, bear",
+    "type": "root",
+    "words": [
+      "relatives",
+      "relativism",
+      "unrelated"
+    ]
+  },
+  "surg": {
+    "meaning": "rise",
+    "type": "root",
+    "words": [
+      "resurgence"
+    ]
+  },
+  "man": {
+    "meaning": "hand",
+    "type": "root",
+    "words": [
+      "romans"
+    ]
+  },
+  "sal": {
+    "meaning": "salt, leap",
+    "type": "root",
+    "words": [
+      "salinity",
+      "salty"
+    ]
+  },
+  "pat": {
+    "meaning": "suffer, feel",
+    "type": "root",
+    "words": [
+      "spatial"
+    ]
+  },
+  "-ship": {
+    "meaning": "state, condition",
+    "type": "suffix",
+    "words": [
+      "spectatorship",
+      "mentorship"
+    ]
+  },
+  "stat": {
+    "meaning": "stand, place",
+    "type": "root",
+    "words": [
+      "static",
+      "statues",
+      "states"
+    ]
+  },
+  "sub-": {
+    "meaning": "under, below",
+    "type": "prefix",
+    "words": [
+      "submission",
+      "substances",
+      "substandard",
+      "subtropical",
+      "submitted"
+    ]
+  },
+  "super-": {
+    "meaning": "above, beyond",
+    "type": "prefix",
+    "words": [
+      "supervising",
+      "supervisors",
+      "superstore",
+      "supervisor"
+    ]
+  },
+  "sup-": {
+    "meaning": "under, below",
+    "type": "prefix",
+    "words": [
+      "supplied",
+      "supportive"
+    ]
+  },
+  "sur-": {
+    "meaning": "over, above",
+    "type": "prefix",
+    "words": [
+      "surgical"
+    ]
+  },
+  "syn-": {
+    "meaning": "together, same",
+    "type": "prefix",
+    "words": [
+      "synthetic"
+    ]
+  },
+  "thet": {
+    "meaning": "put, place",
+    "type": "root",
+    "words": [
+      "synthetic"
+    ]
+  },
+  "temp": {
+    "meaning": "time",
+    "type": "root",
+    "words": [
+      "tempos"
+    ]
+  },
+  "ten": {
+    "meaning": "hold",
+    "type": "root",
+    "words": [
+      "tenant",
+      "tenth"
+    ]
+  },
+  "-ant": {
+    "meaning": "one who, tending to",
+    "type": "suffix",
+    "words": [
+      "tenant",
+      "vibrant",
+      "vigilant"
+    ]
+  },
+  "trans-": {
+    "meaning": "across, beyond",
+    "type": "prefix",
+    "words": [
+      "transparent"
+    ]
+  },
+  "tri-": {
+    "meaning": "three",
+    "type": "prefix",
+    "words": [
+      "triggering",
+      "trillions"
+    ]
+  },
+  "mor": {
+    "meaning": "custom, manner",
+    "type": "root",
+    "words": [
+      "tumors"
+    ]
+  },
+  "uni-": {
+    "meaning": "one",
+    "type": "prefix",
+    "words": [
+      "unify",
+      "unihemispheric"
+    ]
+  },
+  "vig": {
+    "meaning": "lively",
+    "type": "root",
+    "words": [
+      "vigilance",
+      "vigilant"
+    ]
+  },
+  "volu": {
+    "meaning": "roll, turn",
+    "type": "root",
+    "words": [
+      "volumes"
+    ]
+  },
+  "cord": {
+    "meaning": "heart",
+    "type": "root",
+    "words": [
+      "according"
+    ]
+  },
+  "quis": {
+    "meaning": "ask, seek",
+    "type": "root",
+    "words": [
+      "acquisition"
+    ]
+  },
+  "-ition": {
+    "meaning": "action or process of",
+    "type": "suffix",
+    "words": [
+      "acquisition"
+    ]
+  },
+  "sum": {
+    "meaning": "total, highest",
+    "type": "root",
+    "words": [
+      "consume",
+      "consumed",
+      "consumption"
+    ]
+  },
+  "port": {
+    "meaning": "carry",
+    "type": "root",
+    "words": [
+      "portal",
+      "airport",
+      "portable",
+      "supportive"
+    ]
+  },
+  "-ia": {
+    "meaning": "condition or disease",
+    "type": "suffix",
+    "words": [
+      "criteria"
+    ]
+  },
+  "cent": {
+    "meaning": "hundred",
+    "type": "root",
+    "words": [
+      "decent"
+    ]
+  },
+  "dia-": {
+    "meaning": "through, across",
+    "type": "prefix",
+    "words": [
+      "diagnose"
+    ]
+  },
+  "extra-": {
+    "meaning": "outside, beyond",
+    "type": "prefix",
+    "words": [
+      "extravaganza"
+    ]
+  },
+  "fab": {
+    "meaning": "speak",
+    "type": "root",
+    "words": [
+      "fabulous"
+    ]
+  },
+  "fin": {
+    "meaning": "end, limit",
+    "type": "root",
+    "words": [
+      "finalize",
+      "refine"
+    ]
+  },
+  "fore-": {
+    "meaning": "before, front",
+    "type": "prefix",
+    "words": [
+      "forecast"
+    ]
+  },
+  "rect": {
+    "meaning": "straight, right",
+    "type": "root",
+    "words": [
+      "indirectly"
+    ]
+  },
+  "us": {
+    "meaning": "use",
+    "type": "root",
+    "words": [
+      "reused",
+      "usage"
+    ]
+  },
+  "stim": {
+    "meaning": "goad, urge",
+    "type": "root",
+    "words": [
+      "stimulation"
+    ]
+  },
+  "hes": {
+    "meaning": "stick",
+    "type": "root",
+    "words": [
+      "thesis"
+    ]
+  },
+  "serv": {
+    "meaning": "serve, keep",
+    "type": "root",
+    "words": [
+      "unobservable"
+    ]
+  },
+  "orn": {
+    "meaning": "decorate",
+    "type": "root",
+    "words": [
+      "worn"
+    ]
+  },
+  "mar": {
+    "meaning": "sea",
+    "type": "root",
+    "words": [
+      "marcus"
+    ]
+  },
+  "sen": {
+    "meaning": "old",
+    "type": "root",
+    "words": [
+      "absence"
+    ]
+  },
+  "-ward": {
+    "meaning": "in the direction of",
+    "type": "suffix",
+    "words": [
+      "afterward"
+    ]
+  },
+  "graph": {
+    "meaning": "write, draw",
+    "type": "root",
+    "words": [
+      "biography",
+      "graphic"
+    ]
+  },
+  "civ": {
+    "meaning": "citizen",
+    "type": "root",
+    "words": [
+      "civic"
+    ]
+  },
+  "pens": {
+    "meaning": "hang, weigh",
+    "type": "root",
+    "words": [
+      "compensation"
+    ]
+  },
+  "-ious": {
+    "meaning": "full of, having",
+    "type": "suffix",
+    "words": [
+      "delicious"
+    ]
+  },
+  "ras": {
+    "meaning": "scrape",
+    "type": "root",
+    "words": [
+      "drastic"
+    ]
+  },
+  "-archy": {
+    "meaning": "rule, government",
+    "type": "suffix",
+    "words": [
+      "hierarchy"
+    ]
+  },
+  "sol": {
+    "meaning": "alone, sun",
+    "type": "root",
+    "words": [
+      "isolation"
+    ]
+  },
+  "mis-": {
+    "meaning": "wrong, badly",
+    "type": "prefix",
+    "words": [
+      "misunderstanding"
+    ]
+  },
+  "mov": {
+    "meaning": "move",
+    "type": "root",
+    "words": [
+      "movies"
+    ]
+  },
+  "lum": {
+    "meaning": "light",
+    "type": "root",
+    "words": [
+      "plumber"
+    ]
+  },
+  "semi-": {
+    "meaning": "half, partly",
+    "type": "prefix",
+    "words": [
+      "seminar"
+    ]
+  },
+  "card": {
+    "meaning": "heart",
+    "type": "root",
+    "words": [
+      "cardio"
+    ]
+  },
+  "nov": {
+    "meaning": "new",
+    "type": "root",
+    "words": [
+      "renovation"
+    ]
+  },
+  "culp": {
+    "meaning": "blame",
+    "type": "root",
+    "words": [
+      "sculpture"
+    ]
+  }
+}

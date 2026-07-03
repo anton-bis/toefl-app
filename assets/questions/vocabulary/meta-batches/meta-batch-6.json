@@ -1,0 +1,1446 @@
+{
+  "subject": "reading",
+  "words": {
+    "playlists": {
+      "sentence": "This is why workout playlists often feature upbeat songs, while relaxation playlists include soothing melodies.",
+      "pos": {
+        "type": "noun",
+        "chn": "播放列表（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈpleɪlɪsts/",
+        "uk": "/ˈpleɪlɪsts/"
+      },
+      "inflections": [
+        "playlist (singular)"
+      ],
+      "etymology": "play (玩耍) + list (列表)，意为\"播放列表\""
+    },
+    "polar": {
+      "sentence": "Flowing west to east at speeds of up to 200 miles per hour, it forms due to the temperature contrast between cold polar air and warm tropical air, which creates pressure differences that generate strong winds.",
+      "pos": {
+        "type": "adjective",
+        "chn": "极地的；两极的"
+      },
+      "pronunciation": {
+        "us": "/ˈpoʊlər/",
+        "uk": "/ˈpəʊlə/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语polaris，意为\"极地的\"，与polus（极）相关"
+    },
+    "polarizes": {
+      "sentence": "[B] It polarizes light by splitting light into two beams, creating a double image when the stone is held up to the sky.",
+      "pos": {
+        "type": "verb",
+        "chn": "使极化；使偏振（第三人称单数）"
+      },
+      "pronunciation": {
+        "us": "/ˈpoʊləraɪzɪz/",
+        "uk": "/ˈpəʊləraɪzɪz/"
+      },
+      "inflections": [
+        "polarize (base form)"
+      ],
+      "etymology": "polar (极) + -ize (使动) + -s (第三人称)，意为\"使极化\""
+    },
+    "poles": {
+      "sentence": "Seasonal changes play a role; it's stronger in winter due to the greater temperature contrast between the poles and the equator.",
+      "pos": {
+        "type": "noun",
+        "chn": "极地；极点（复数）"
+      },
+      "pronunciation": {
+        "us": "/poʊlz/",
+        "uk": "/pəʊlz/"
+      },
+      "inflections": [
+        "pole (singular)"
+      ],
+      "etymology": "源自拉丁语polus，源自希腊语polos（轴、天极）"
+    },
+    "pont": {
+      "sentence": "Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills.",
+      "pos": {
+        "type": "noun",
+        "chn": "桥（法语词，专有名词）"
+      },
+      "pronunciation": {
+        "us": "/pɒnt/",
+        "uk": "/pɒnt/"
+      },
+      "inflections": [],
+      "etymology": "法语pont，源自拉丁语pons（桥）"
+    },
+    "popularized": {
+      "sentence": "The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction.",
+      "pos": {
+        "type": "verb",
+        "chn": "普及；推广（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈpɑːpjələraɪzd/",
+        "uk": "/ˈpɒpjʊləraɪzd/"
+      },
+      "inflections": [
+        "popularize (base form)"
+      ],
+      "etymology": "popular (流行的) + -ize (使动) + -d (过去分词)，意为\"使流行\""
+    },
+    "populated": {
+      "sentence": "They supplied water to public baths, helping to maintain hygiene in densely populated urban areas.",
+      "pos": {
+        "type": "adjective",
+        "chn": "人口密集的；居住的"
+      },
+      "pronunciation": {
+        "us": "/ˈpɑːpjəleɪtɪd/",
+        "uk": "/ˈpɒpjʊleɪtɪd/"
+      },
+      "inflections": [
+        "populate (verb base)"
+      ],
+      "etymology": "源自拉丁语populus（人民） + -ate + -ed，意为\"有人居住的\""
+    },
+    "postponed": {
+      "sentence": "Due to a schedule conflict, the presenter has asked that the webinar be postponed until next Wednesday at the same time.",
+      "pos": {
+        "type": "verb",
+        "chn": "推迟；延期（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/poʊstˈpoʊnd/",
+        "uk": "/pəʊstˈpəʊnd/"
+      },
+      "inflections": [
+        "postpone (base form)"
+      ],
+      "etymology": "post- (后) + pone (放置)，源自拉丁语postponere，意为\"推迟\""
+    },
+    "pottery": {
+      "sentence": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "pos": {
+        "type": "noun",
+        "chn": "陶器；陶艺"
+      },
+      "pronunciation": {
+        "us": "/ˈpɑːtəri/",
+        "uk": "/ˈpɒtəri/"
+      },
+      "inflections": [],
+      "etymology": "源自法语poterie，与pot（罐）相关，意为\"陶器\""
+    },
+    "prebiotics": {
+      "sentence": "Bacteria that aid digestion, known as probiotics and prebiotics, are also beneficial.",
+      "pos": {
+        "type": "noun",
+        "chn": "益生元（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˌpriːbaɪˈɑːtɪks/",
+        "uk": "/ˌpriːbaɪˈɒtɪks/"
+      },
+      "inflections": [
+        "prebiotic (singular)"
+      ],
+      "etymology": "pre- (前) + biotic (生命的)，意为\"益生元\""
+    },
+    "precedents": {
+      "sentence": "Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family.",
+      "pos": {
+        "type": "noun",
+        "chn": "先例；前例（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈprɛsɪdənts/",
+        "uk": "/ˈprɛsɪdənts/"
+      },
+      "inflections": [
+        "precedent (singular)"
+      ],
+      "etymology": "源自拉丁语praecedens（在先的），pre- (前) + ced (走)"
+    },
+    "precipitation": {
+      "sentence": "The jet stream also influences cyclones and anticyclones, affecting precipitation and wind patterns.",
+      "pos": {
+        "type": "noun",
+        "chn": "降水；降水量"
+      },
+      "pronunciation": {
+        "us": "/prɪˌsɪpɪˈteɪʃən/",
+        "uk": "/prɪˌsɪpɪˈteɪʃən/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语praecipitatio，pre- (前) + capit (头)，原义\"坠落\""
+    },
+    "precursor": {
+      "sentence": "Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.",
+      "pos": {
+        "type": "noun",
+        "chn": "先驱；前体"
+      },
+      "pronunciation": {
+        "us": "/priːˈkɜːrsər/",
+        "uk": "/prɪˈkɜːsə/"
+      },
+      "inflections": [
+        "precursors (plural)"
+      ],
+      "etymology": "pre- (前) + curs (跑) + -or (者)，意为\"跑在前面的人、先驱\""
+    },
+    "predators": {
+      "sentence": "This adaptation allows them to surface for air and stay alert for predators even while resting.",
+      "pos": {
+        "type": "noun",
+        "chn": "捕食者；掠食者（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈprɛdətərz/",
+        "uk": "/ˈprɛdətəz/"
+      },
+      "inflections": [
+        "predator (singular)"
+      ],
+      "etymology": "源自拉丁语praedator（掠夺者），praedari（掠夺）"
+    },
+    "preferences": {
+      "sentence": "Access your Municipal Charter account through the mobile app and select account preferences in the upper right-hand corner to enroll.",
+      "pos": {
+        "type": "noun",
+        "chn": "偏好；喜好（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈprɛfərənsɪz/",
+        "uk": "/ˈprɛfərənsɪz/"
+      },
+      "inflections": [
+        "preference (singular)"
+      ],
+      "etymology": "pre- (前) + fer (携带) + -ence (名词后缀)，意为\"更偏爱\""
+    },
+    "pressures": {
+      "sentence": "TV networks navigated the balance between artistic innovation and commercial pressures.",
+      "pos": {
+        "type": "noun",
+        "chn": "压力；压迫（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈprɛʃərz/",
+        "uk": "/ˈprɛʃəz/"
+      },
+      "inflections": [
+        "pressure (singular)"
+      ],
+      "etymology": "源自拉丁语pressura（压力），premere（压）"
+    },
+    "prices": {
+      "sentence": "Nations depend on importing and exporting food to meet domestic needs and take advantage of international prices.",
+      "pos": {
+        "type": "noun",
+        "chn": "价格；价钱（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈpraɪsɪz/",
+        "uk": "/ˈpraɪsɪz/"
+      },
+      "inflections": [
+        "price (singular)"
+      ],
+      "etymology": "源自拉丁语pretium（价值、价格）"
+    },
+    "probiotics": {
+      "sentence": "Bacteria that aid digestion, known as probiotics and prebiotics, are also beneficial.",
+      "pos": {
+        "type": "noun",
+        "chn": "益生菌（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˌproʊbaɪˈɑːtɪks/",
+        "uk": "/ˌprəʊbaɪˈɒtɪks/"
+      },
+      "inflections": [
+        "probiotic (singular)"
+      ],
+      "etymology": "pro- (促进) + biotic (生命的)，意为\"益生菌\""
+    },
+    "procedures": {
+      "sentence": "Ancient texts describe procedures like the removal of tumors and the setting of broken bones.",
+      "pos": {
+        "type": "noun",
+        "chn": "程序；步骤（复数）"
+      },
+      "pronunciation": {
+        "us": "/prəˈsiːdʒərz/",
+        "uk": "/prəˈsiːdʒəz/"
+      },
+      "inflections": [
+        "procedure (singular)"
+      ],
+      "etymology": "pro- (向前) + ced (走) + -ure (名词后缀)，意为\"操作步骤\""
+    },
+    "profound": {
+      "sentence": "Urbanization has had a profound impact on bird populations worldwide.",
+      "pos": {
+        "type": "adjective",
+        "chn": "深远的；深刻的"
+      },
+      "pronunciation": {
+        "us": "/prəˈfaʊnd/",
+        "uk": "/prəˈfaʊnd/"
+      },
+      "inflections": [
+        "more profound (comp.)",
+        "most profound (sup.)"
+      ],
+      "etymology": "源自拉丁语profundus（深的），pro- (向前) + fundus (底)"
+    },
+    "prohibitive": {
+      "sentence": "Precision farming requires significant investment in technology, which can be prohibitive for small-scale farmers.",
+      "pos": {
+        "type": "adjective",
+        "chn": " prohibitive 过于昂贵的；禁止性的"
+      },
+      "pronunciation": {
+        "us": "/prəˈhɪbɪtɪv/",
+        "uk": "/prəˈhɪbɪtɪv/"
+      },
+      "inflections": [],
+      "etymology": "pro- (前) + hibit (持有) + -ive (……的)，意为\"阻止的\""
+    },
+    "proliferation": {
+      "sentence": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "pos": {
+        "type": "noun",
+        "chn": "激增；扩散"
+      },
+      "pronunciation": {
+        "us": "/prəˌlɪfəˈreɪʃən/",
+        "uk": "/prəˌlɪfəˈreɪʃən/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语proles（后代） + ferre (携带)，意为\"繁衍扩散\""
+    },
+    "prolonged": {
+      "sentence": "A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.",
+      "pos": {
+        "type": "adjective",
+        "chn": "延长的；持久的"
+      },
+      "pronunciation": {
+        "us": "/prəˈlɔːŋd/",
+        "uk": "/prəˈlɒŋd/"
+      },
+      "inflections": [
+        "prolong (verb base)"
+      ],
+      "etymology": "pro- (向前) + long (长) + -ed (过去分词)，意为\"延长的\""
+    },
+    "provoking": {
+      "sentence": "One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways.",
+      "pos": {
+        "type": "adjective",
+        "chn": " provoking 引人思考的；激发的"
+      },
+      "pronunciation": {
+        "us": "/prəˈvoʊkɪŋ/",
+        "uk": "/prəˈvəʊkɪŋ/"
+      },
+      "inflections": [
+        "provoke (verb base)"
+      ],
+      "etymology": "pro- (前) + voke (呼唤)，意为\"激发、引起\""
+    },
+    "rainfall": {
+      "sentence": "A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.",
+      "pos": {
+        "type": "noun",
+        "chn": "降雨；降雨量"
+      },
+      "pronunciation": {
+        "us": "/ˈreɪnfɔːl/",
+        "uk": "/ˈreɪnfɔːl/"
+      },
+      "inflections": [],
+      "etymology": "rain (雨) + fall (降落)，意为\"降雨\""
+    },
+    "rallies": {
+      "sentence": "Chanting and singing have been used in protests and rallies to motivate and unify participants.",
+      "pos": {
+        "type": "noun",
+        "chn": "集会； rally  rally 集合（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈræliz/",
+        "uk": "/ˈræliz/"
+      },
+      "inflections": [
+        "rally (singular)"
+      ],
+      "etymology": "源自法语rallier（重新集合），re- (再) + allier (联合)"
+    },
+    "readily": {
+      "sentence": "Please ensure that all inventory logs from your department are updated and will be readily accessible two days prior to the event.",
+      "pos": {
+        "type": "adverb",
+        "chn": " readily  readily  readily  readily  readily  readily  readily  readily  readily 形容词 容易地；欣然"
+      },
+      "pronunciation": {
+        "us": "/ˈrɛdɪli/",
+        "uk": "/ˈrɛdɪli/"
+      },
+      "inflections": [],
+      "etymology": "ready (准备好的) + -ly (副词后缀)，意为\"容易地、乐意地\""
+    },
+    "refraining": {
+      "sentence": "This includes refraining from loud conversations and phone calls.",
+      "pos": {
+        "type": "verb",
+        "chn": "克制； refrain  refrain  refrain  refrain  refrain  refrain  refrain  refrain  refrain 动词 克制（现在分词）"
+      },
+      "pronunciation": {
+        "us": "/rɪˈfreɪnɪŋ/",
+        "uk": "/rɪˈfreɪnɪŋ/"
+      },
+      "inflections": [
+        "refrain (base form)"
+      ],
+      "etymology": "re- (回) + frain (缰绳)，源自拉丁语refrenare，意为\"克制\""
+    },
+    "refund": {
+      "sentence": "If you cannot make the new date, please respond to this email and we will process a refund for you.",
+      "pos": {
+        "type": "noun",
+        "chn": "退款；退还"
+      },
+      "pronunciation": {
+        "us": "/ˈriːfʌnd/",
+        "uk": "/ˈriːfʌnd/"
+      },
+      "inflections": [
+        "refunds (plural)"
+      ],
+      "etymology": "re- (回) + fund (资金)，意为\"退回资金\""
+    },
+    "refunded": {
+      "sentence": "Your registration fee will be refunded if you have a scheduling conflict.",
+      "pos": {
+        "type": "verb",
+        "chn": "退还； refund  refund  refund  refund  refund  refund  refund  refund  refund 动词 退还（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/rɪˈfʌndɪd/",
+        "uk": "/rɪˈfʌndɪd/"
+      },
+      "inflections": [
+        "refund (base form)"
+      ],
+      "etymology": "re- (回) + fund (资金) + -ed (过去分词)"
+    },
+    "relatives": {
+      "sentence": "Apes are close relatives of humans, but in recent years, scientists have discovered that other animals also pass the “mirror test.",
+      "pos": {
+        "type": "noun",
+        "chn": "亲戚；亲属（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈrɛlətɪvz/",
+        "uk": "/ˈrɛlətɪvz/"
+      },
+      "inflections": [
+        "relative (singular)"
+      ],
+      "etymology": "源自拉丁语relativus（相关的），re- (回) + lat (携带) + -ive"
+    },
+    "reliability": {
+      "sentence": "We appreciate your understanding as we strive to ensure the security and reliability of our IT infrastructure.",
+      "pos": {
+        "type": "noun",
+        "chn": "可靠性；可信赖性"
+      },
+      "pronunciation": {
+        "us": "/rɪˌlaɪəˈbɪləti/",
+        "uk": "/rɪˌlaɪəˈbɪləti/"
+      },
+      "inflections": [],
+      "etymology": "rely (依赖) + -ability (可……性)，意为\"可靠性\""
+    },
+    "reliance": {
+      "sentence": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "pos": {
+        "type": "noun",
+        "chn": "依赖； reliance  reliance  reliance  reliance  reliance 依赖；信任"
+      },
+      "pronunciation": {
+        "us": "/rɪˈlaɪəns/",
+        "uk": "/rɪˈlaɪəns/"
+      },
+      "inflections": [],
+      "etymology": "rely (依赖) + -ance (名词后缀)，意为\"依赖\""
+    },
+    "reschedule": {
+      "sentence": "To reschedule or cancel, call us at 756-8793.",
+      "pos": {
+        "type": "verb",
+        "chn": "重新安排；改期"
+      },
+      "pronunciation": {
+        "us": "/riːˈʃɛdjuːl/",
+        "uk": "/riːˈʃɛdjuːl/"
+      },
+      "inflections": [
+        "reschedules (3rd person)",
+        "rescheduled (past)"
+      ],
+      "etymology": "re- (再) + schedule (安排)，意为\"重新安排\""
+    },
+    "resurgence": {
+      "sentence": "However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.",
+      "pos": {
+        "type": "noun",
+        "chn": "复苏； resurgence  resurgence  resurgence  resurgence 复兴"
+      },
+      "pronunciation": {
+        "us": "/rɪˈsɜːrdʒəns/",
+        "uk": "/rɪˈsɜːdʒəns/"
+      },
+      "inflections": [],
+      "etymology": "re- (再) + surge (涌起) + -ence (名词后缀)，意为\"复兴\""
+    },
+    "retailers": {
+      "sentence": "This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.",
+      "pos": {
+        "type": "noun",
+        "chn": "零售商（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈriːteɪlərz/",
+        "uk": "/ˈriːteɪləz/"
+      },
+      "inflections": [
+        "retailer (singular)"
+      ],
+      "etymology": "re- (再) + tail (切、分割) + -er (者)，原义\"切分、零售\""
+    },
+    "revolutionized": {
+      "sentence": "This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness.",
+      "pos": {
+        "type": "verb",
+        "chn": "革命化；彻底改变（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/ˌrɛvəˈluːʃənaɪzd/",
+        "uk": "/ˌrɛvəˈluːʃənaɪzd/"
+      },
+      "inflections": [
+        "revolutionize (base form)"
+      ],
+      "etymology": "revolution (革命) + -ize (使动) + -d (过去分词)"
+    },
+    "revolutionizing": {
+      "sentence": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "pos": {
+        "type": "verb",
+        "chn": " revolution  revolution  revolution  revolution  revolution  revolution  revolution  revolution  revolution 动词 彻底改变（现在分词）"
+      },
+      "pronunciation": {
+        "us": "/ˌrɛvəˈluːʃənaɪzɪŋ/",
+        "uk": "/ˌrɛvəˈluːʃənaɪzɪŋ/"
+      },
+      "inflections": [
+        "revolutionize (base form)"
+      ],
+      "etymology": "revolution (革命) + -ize (使动) + -ing (现在分词)"
+    },
+    "ribbon": {
+      "sentence": "The jet stream is a fast-moving ribbon of air high in the atmosphere that affects global weather.",
+      "pos": {
+        "type": "noun",
+        "chn": "缎带；带状物"
+      },
+      "pronunciation": {
+        "us": "/ˈrɪbən/",
+        "uk": "/ˈrɪbən/"
+      },
+      "inflections": [
+        "ribbons (plural)"
+      ],
+      "etymology": "源自古法语riban（带子），与ring（环）相关"
+    },
+    "riverdale": {
+      "sentence": "Riverdale Parks Department seeks dedicated volunteers to assist with weekend nature programs for families.",
+      "pos": {
+        "type": "noun",
+        "chn": "里弗代尔（地名）"
+      },
+      "pronunciation": {
+        "us": "/ˈrɪvərdeɪl/",
+        "uk": "/ˈrɪvədeɪl/"
+      },
+      "inflections": [],
+      "etymology": "river (河) + dale (山谷)，意为\"河谷\"地名"
+    },
+    "robust": {
+      "sentence": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "pos": {
+        "type": "adjective",
+        "chn": " robust  robust  robust  robust  robust  robust  robust 坚固的；强健的"
+      },
+      "pronunciation": {
+        "us": "/roʊˈbʌst/",
+        "uk": "/rəʊˈbʌst/"
+      },
+      "inflections": [
+        "more robust (comp.)",
+        "most robust (sup.)"
+      ],
+      "etymology": "源自拉丁语robustus（橡木般坚固的），robur（橡木、力量）"
+    },
+    "romans": {
+      "sentence": "The Romans, in particular, mastered the construction of aqueducts, building extensive networks that supplied water to urban centers.",
+      "pos": {
+        "type": "noun",
+        "chn": "罗马人（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈroʊmənz/",
+        "uk": "/ˈrəʊmənz/"
+      },
+      "inflections": [
+        "Roman (singular)"
+      ],
+      "etymology": "源自拉丁语Romanus，Rome（罗马）的居民"
+    },
+    "rotating": {
+      "sentence": "By rotating the crystal, the Vikings could determine the location of the sun in the sky on cloudy days, which would help them maintain their course.",
+      "pos": {
+        "type": "adjective",
+        "chn": "旋转的；轮换的"
+      },
+      "pronunciation": {
+        "us": "/ˈroʊteɪtɪŋ/",
+        "uk": "/rəʊˈteɪtɪŋ/"
+      },
+      "inflections": [
+        "rotate (verb base)"
+      ],
+      "etymology": "源自拉丁语rota（轮子） + -ting，意为\"旋转的\""
+    },
+    "sagas": {
+      "sentence": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "pos": {
+        "type": "noun",
+        "chn": "传奇； saga  saga  saga  saga 萨迦（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈsɑːɡəz/",
+        "uk": "/ˈsɑːɡəz/"
+      },
+      "inflections": [
+        "saga (singular)"
+      ],
+      "etymology": "古诺尔斯语saga（故事、传说），与say同源"
+    },
+    "salicin": {
+      "sentence": "Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.",
+      "pos": {
+        "type": "noun",
+        "chn": "柳苷；水杨苷"
+      },
+      "pronunciation": {
+        "us": "/ˈsælɪsɪn/",
+        "uk": "/ˈsælɪsɪn/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语salix（柳树），因从柳树皮中提取而得名"
+    },
+    "salinity": {
+      "sentence": "Rising sea temperatures and changing salinity levels create ideal conditions for these bacteria to multiply.",
+      "pos": {
+        "type": "noun",
+        "chn": "盐度；咸度"
+      },
+      "pronunciation": {
+        "us": "/səˈlɪnəti/",
+        "uk": "/səˈlɪnəti/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语sal（盐） + -inity（性质），意为\"盐度\""
+    },
+    "salty": {
+      "sentence": "Vibrio species thrive in warm, salty environments, making them particularly prevalent in tropical and subtropical regions.",
+      "pos": {
+        "type": "adjective",
+        "chn": "咸的；含盐的"
+      },
+      "pronunciation": {
+        "us": "/ˈsɔːlti/",
+        "uk": "/ˈsɔːlti/"
+      },
+      "inflections": [
+        "saltier (comp.)",
+        "saltiest (sup.)"
+      ],
+      "etymology": "salt (盐) + -y (充满……的)，意为\"咸的\""
+    },
+    "sank": {
+      "sentence": "But an Iceland spar sunstone was recovered from a ship that sank in 1592, suggesting that this navigational tool was indeed used for quite some time.",
+      "pos": {
+        "type": "verb",
+        "chn": "下沉（sink的过去式）"
+      },
+      "pronunciation": {
+        "us": "/sæŋk/",
+        "uk": "/sæŋk/"
+      },
+      "inflections": [
+        "sink (base form)"
+      ],
+      "etymology": "古英语sincan（下沉），sank为过去式"
+    },
+    "sarah": {
+      "sentence": "Contact Sarah Mitchell at 555-0199 for more information.",
+      "pos": {
+        "type": "noun",
+        "chn": "萨拉（人名）"
+      },
+      "pronunciation": {
+        "us": "/ˈsɛrə/",
+        "uk": "/ˈsɛərə/"
+      },
+      "inflections": [],
+      "etymology": "希伯来语שָׂרָה (Sarah)，意为\"公主\""
+    },
+    "satirized": {
+      "sentence": "Comedies, like those by Aristophanes, satirized society and politics.",
+      "pos": {
+        "type": "verb",
+        "chn": "讽刺； satirize  satirize  satirize  satirize  satirize  satirize 动词 讽刺（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈsætɪraɪzd/",
+        "uk": "/ˈsætɪraɪzd/"
+      },
+      "inflections": [
+        "satirize (base form)"
+      ],
+      "etymology": "源自拉丁语satira（讽刺作品） + -ize + -d"
+    },
+    "scandinavia": {
+      "sentence": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "pos": {
+        "type": "noun",
+        "chn": "斯堪的纳维亚（地名）"
+      },
+      "pronunciation": {
+        "us": "/ˌskændɪˈneɪviə/",
+        "uk": "/ˌskændɪˈneɪviə/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语Scandinavia，可能源自日耳曼语Skathin（危险）+ awjo（岛）"
+    },
+    "scarce": {
+      "sentence": "[C] However, evidence of actual sunstone use remains scarce.",
+      "pos": {
+        "type": "adjective",
+        "chn": " scarce  scarce  scarce  scarce  scarce  scarce  scarce  scarce  scarce  scarce 形容词 稀缺的；不足的"
+      },
+      "pronunciation": {
+        "us": "/skɛrs/",
+        "uk": "/skeəs/"
+      },
+      "inflections": [
+        "scarcer (comp.)",
+        "scarcest (sup.)"
+      ],
+      "etymology": "源自古法语eschars（稀少的），源自拉丁语excarpere（挑出）"
+    },
+    "scenarios": {
+      "sentence": "Experienced facilitators will guide participants through interactive exercises and real-world scenarios.",
+      "pos": {
+        "type": "noun",
+        "chn": "场景； scenario  scenario  scenario  scenario 情景（复数）"
+      },
+      "pronunciation": {
+        "us": "/sɪˈnɛrioʊz/",
+        "uk": "/sɪˈnɑːriəʊz/"
+      },
+      "inflections": [
+        "scenario (singular)"
+      ],
+      "etymology": "源自意大利语scenario（舞台场景），源自拉丁语scaena（舞台）"
+    },
+    "schwartz": {
+      "sentence": "The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction.",
+      "pos": {
+        "type": "noun",
+        "chn": "施瓦茨（姓氏）"
+      },
+      "pronunciation": {
+        "us": "/ʃwɔːrts/",
+        "uk": "/ʃwɔːts/"
+      },
+      "inflections": [],
+      "etymology": "德语Schwartz，意为\"黑色的\"，源自德语schwarz"
+    },
+    "scrape": {
+      "sentence": "But in a more recent experiment, a type of fish called the cleaner fish tried to scrape a mark off its body when it saw itself in the mirror.",
+      "pos": {
+        "type": "verb",
+        "chn": "刮；擦；刮掉"
+      },
+      "pronunciation": {
+        "us": "/skreɪp/",
+        "uk": "/skreɪp/"
+      },
+      "inflections": [
+        "scrapes (3rd person)",
+        "scraped (past)"
+      ],
+      "etymology": "古诺尔斯语skrapa（刮），源自古英语scrapian"
+    },
+    "seafaring": {
+      "sentence": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "pos": {
+        "type": "adjective",
+        "chn": "航海的；海上旅行的"
+      },
+      "pronunciation": {
+        "us": "/ˈsiːfɛrɪŋ/",
+        "uk": "/ˈsiːfɛərɪŋ/"
+      },
+      "inflections": [],
+      "etymology": "sea (海) + faring (旅行)，意为\"航海的\""
+    },
+    "semi": {
+      "sentence": "A reminder: Routine maintenance windows take place on a semi-monthly basis.",
+      "pos": {
+        "type": "adjective",
+        "chn": " semi  semi  semi  semi  semi 半（前缀）"
+      },
+      "pronunciation": {
+        "us": "/ˈsɛmi/",
+        "uk": "/ˈsɛmi/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语semi-（半），意为\"一半的\""
+    },
+    "serene": {
+      "sentence": "Your cooperation helps maintain a serene environment for everyone.",
+      "pos": {
+        "type": "adjective",
+        "chn": " serene  serene  serene  serene  serene  serene 平静的；宁静的"
+      },
+      "pronunciation": {
+        "us": "/səˈriːn/",
+        "uk": "/səˈriːn/"
+      },
+      "inflections": [
+        "more serene (comp.)",
+        "most serene (sup.)"
+      ],
+      "etymology": "源自拉丁语serenus（晴朗、平静）"
+    },
+    "serotonin": {
+      "sentence": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "pos": {
+        "type": "noun",
+        "chn": "血清素；5-羟色胺"
+      },
+      "pronunciation": {
+        "us": "/ˌsɛrəˈtoʊnɪn/",
+        "uk": "/ˌsɛrəˈtəʊnɪn/"
+      },
+      "inflections": [],
+      "etymology": "serum (血清) + ton (紧张) + -in (素)，意为\"血清素\""
+    },
+    "server": {
+      "sentence": "com The next university server maintenance is scheduled on May 22 from 2 AM to 6 AM.",
+      "pos": {
+        "type": "noun",
+        "chn": "服务器；侍者"
+      },
+      "pronunciation": {
+        "us": "/ˈsɜːrvər/",
+        "uk": "/ˈsɜːvə/"
+      },
+      "inflections": [
+        "servers (plural)"
+      ],
+      "etymology": "serve (服务) + -er (者)，意为\"服务器\""
+    },
+    "seventeenth": {
+      "sentence": "During the European Renaissance (the period between the fourteenth and the seventeenth centuries), artists developed techniques that made their paintings appear more realistic.",
+      "pos": {
+        "type": "adjective",
+        "chn": "第十七的；十七世纪的"
+      },
+      "pronunciation": {
+        "us": "/ˌsɛvənˈtiːnθ/",
+        "uk": "/ˌsɛvənˈtiːnθ/"
+      },
+      "inflections": [],
+      "etymology": "seven (七) + -teenth (第十)，意为\"第十七\""
+    },
+    "sheena": {
+      "sentence": "In an experiment, psychologist Sheena Iyengar found that shoppers were more likely to purchase jam when offered 6 varieties instead of 24.",
+      "pos": {
+        "type": "noun",
+        "chn": "希娜（人名）"
+      },
+      "pronunciation": {
+        "us": "/ˈʃiːnə/",
+        "uk": "/ˈʃiːnə/"
+      },
+      "inflections": [],
+      "etymology": "爱尔兰语Síne，Jane的爱尔兰形式"
+    },
+    "shipped": {
+      "sentence": "TechHub has shipped the order you placed on Thursday.",
+      "pos": {
+        "type": "verb",
+        "chn": "运送；发货（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/ʃɪpt/",
+        "uk": "/ʃɪpt/"
+      },
+      "inflections": [
+        "ship (base form)"
+      ],
+      "etymology": "ship (船/运输) + -ed (过去分词)，意为\"已发货\""
+    },
+    "shoppers": {
+      "sentence": "In an experiment, psychologist Sheena Iyengar found that shoppers were more likely to purchase jam when offered 6 varieties instead of 24.",
+      "pos": {
+        "type": "noun",
+        "chn": "购物者（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈʃɑːpərz/",
+        "uk": "/ˈʃɒpəz/"
+      },
+      "inflections": [
+        "shopper (singular)"
+      ],
+      "etymology": "shop (购物) + -er (者) + -s (复数)，意为\"购物者\""
+    },
+    "showcasing": {
+      "sentence": "Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills.",
+      "pos": {
+        "type": "verb",
+        "chn": "展示； showcase  showcase  showcase  showcase  showcase  showcase 动词 展示（现在分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈʃoʊkeɪsɪŋ/",
+        "uk": "/ˈʃəʊkeɪsɪŋ/"
+      },
+      "inflections": [
+        "showcase (base form)"
+      ],
+      "etymology": "show (展示) + case (柜子) + -ing，意为\"展示\""
+    },
+    "signings": {
+      "sentence": "/ Town Square Enjoy author signings, book readings, and literary workshops.",
+      "pos": {
+        "type": "noun",
+        "chn": "签名活动（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈsaɪnɪŋz/",
+        "uk": "/ˈsaɪnɪŋz/"
+      },
+      "inflections": [
+        "signing (singular)"
+      ],
+      "etymology": "sign (签名) + -ing (动名词) + -s (复数)"
+    },
+    "sitcoms": {
+      "sentence": "Sitcoms reflecting everyday life, like I Love Lucy, became a cultural phenomenon.",
+      "pos": {
+        "type": "noun",
+        "chn": "情景喜剧（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈsɪtkɑːmz/",
+        "uk": "/ˈsɪtkɒmz/"
+      },
+      "inflections": [
+        "sitcom (singular)"
+      ],
+      "etymology": "situation comedy的缩合，situation (情景) + comedy (喜剧)"
+    },
+    "slot": {
+      "sentence": "Title: Library Computer Reservation System Library Card Number: Computer Station Preference: □ Basic (Internet only) □ Premium (Full software access) Time Slot: □ 9-11 A.",
+      "pos": {
+        "type": "noun",
+        "chn": " slot  slot  slot  slot  slot  slot 位置；时段"
+      },
+      "pronunciation": {
+        "us": "/slɑːt/",
+        "uk": "/slɒt/"
+      },
+      "inflections": [
+        "slots (plural)"
+      ],
+      "etymology": "源自古法语esclot（痕迹），意为\"位置、时段\""
+    },
+    "smock": {
+      "sentence": "All necessary arts supplies will be provided, but please bring your own apron or smock.",
+      "pos": {
+        "type": "noun",
+        "chn": " smock  smock  smock  smock  smock  smock  smock  smock 罩衫；工作服"
+      },
+      "pronunciation": {
+        "us": "/smɑːk/",
+        "uk": "/smɒk/"
+      },
+      "inflections": [
+        "smocks (plural)"
+      ],
+      "etymology": "古英语smoc（衬衫），源自日耳曼语"
+    },
+    "soccer": {
+      "sentence": "For example, community soccer leagues often bring together people from different ethnicities, creating an environment where cultural differences are celebrated and mutual respect is cultivated.",
+      "pos": {
+        "type": "noun",
+        "chn": "足球（英式）"
+      },
+      "pronunciation": {
+        "us": "/ˈsɑːkər/",
+        "uk": "/ˈsɒkə/"
+      },
+      "inflections": [],
+      "etymology": "association football的缩写 - soc + -er，意为\"英式足球\""
+    },
+    "sofia": {
+      "sentence": "username：Sofia Baker Every Saturday, our local farmer's market is the place to be!",
+      "pos": {
+        "type": "noun",
+        "chn": "索菲亚（人名）"
+      },
+      "pronunciation": {
+        "us": "/səˈfiːə/",
+        "uk": "/səˈfiːə/"
+      },
+      "inflections": [],
+      "etymology": "希腊语Sophia（智慧），意为\"智慧\"的专名"
+    },
+    "soothing": {
+      "sentence": "This is why workout playlists often feature upbeat songs, while relaxation playlists include soothing melodies.",
+      "pos": {
+        "type": "adjective",
+        "chn": "舒缓的；安慰的"
+      },
+      "pronunciation": {
+        "us": "/ˈsuːðɪŋ/",
+        "uk": "/ˈsuːðɪŋ/"
+      },
+      "inflections": [
+        "more soothing (comp.)",
+        "most soothing (sup.)"
+      ],
+      "etymology": "soothe (缓和) + -ing (……的)，意为\"舒缓的\""
+    },
+    "sophia": {
+      "sentence": "Sophia Nguyen (10:15 A.",
+      "pos": {
+        "type": "noun",
+        "chn": "索菲亚（人名）"
+      },
+      "pronunciation": {
+        "us": "/səˈfiːə/",
+        "uk": "/səˈfiːə/"
+      },
+      "inflections": [],
+      "etymology": "希腊语Sophia（智慧），意为\"智慧\"的专名"
+    },
+    "sought": {
+      "sentence": "Advertisers sought to influence content to appeal to mass audiences, which sometimes clashed with creative visions.",
+      "pos": {
+        "type": "verb",
+        "chn": "寻找；寻求（seek的过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/sɔːt/",
+        "uk": "/sɔːt/"
+      },
+      "inflections": [
+        "seek (base form)"
+      ],
+      "etymology": "古英语secan（寻找），sought为过去式/分词形式"
+    },
+    "southward": {
+      "sentence": "In the northern hemisphere, when the jet stream dips southward, it brings cold air and storms to lower latitudes.",
+      "pos": {
+        "type": "adverb",
+        "chn": "向南地"
+      },
+      "pronunciation": {
+        "us": "/ˈsaʊθwərd/",
+        "uk": "/ˈsaʊθwəd/"
+      },
+      "inflections": [],
+      "etymology": "south (南) + -ward (向)，意为\"向南\""
+    },
+    "spaces": {
+      "sentence": "Initiatives such as creating urban green spaces, constructing bird-friendly buildings, and reducing light pollution are being implemented.",
+      "pos": {
+        "type": "noun",
+        "chn": "空间；空地（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈspeɪsɪz/",
+        "uk": "/ˈspeɪsɪz/"
+      },
+      "inflections": [
+        "space (singular)"
+      ],
+      "etymology": "源自拉丁语spatium（空间），-s为复数标记"
+    },
+    "spar": {
+      "sentence": "Some argue the sagas' content is mythical, while others suggest these stones were real tools used by the Vikings, probably crystals, such as Iceland spar.",
+      "pos": {
+        "type": "noun",
+        "chn": "晶石（矿物）"
+      },
+      "pronunciation": {
+        "us": "/spɑːr/",
+        "uk": "/spɑː/"
+      },
+      "inflections": [
+        "spars (plural)"
+      ],
+      "etymology": "源自中古低地德语spar（晶石）"
+    },
+    "sparrows": {
+      "sentence": "Some species, such as pigeons and sparrows, have adapted well to urban environments, taking advantage of the new resources and structures.",
+      "pos": {
+        "type": "noun",
+        "chn": "麻雀（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈspæroʊz/",
+        "uk": "/ˈspærəʊz/"
+      },
+      "inflections": [
+        "sparrow (singular)"
+      ],
+      "etymology": "古英语spearwa（麻雀），源自日耳曼语"
+    },
+    "spatial": {
+      "sentence": "Cognitive mapping is a term used to describe the mental process by which humans and animals acquire, code, store, recall, and decode information about their spatial environment.",
+      "pos": {
+        "type": "adjective",
+        "chn": "空间的；空间上的"
+      },
+      "pronunciation": {
+        "us": "/ˈspeɪʃəl/",
+        "uk": "/ˈspeɪʃəl/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语spatium（空间） + -al (……的)，意为\"空间的\""
+    },
+    "spectators": {
+      "sentence": "Spectatorship and fandom also play significant roles in uniting people.",
+      "pos": {
+        "type": "noun",
+        "chn": "观众；旁观者（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈspɛkteɪtərz/",
+        "uk": "/spɛkˈteɪtəz/"
+      },
+      "inflections": [
+        "spectator (singular)"
+      ],
+      "etymology": "源自拉丁语spectator（观察者），specere（看）"
+    },
+    "spectatorship": {
+      "sentence": "Spectatorship and fandom also play significant roles in uniting people.",
+      "pos": {
+        "type": "noun",
+        "chn": " spectatorship  spectatorship  spectatorship  spectatorship 观众身份；观赏"
+      },
+      "pronunciation": {
+        "us": "/ˈspɛkteɪtərʃɪp/",
+        "uk": "/spɛkˈteɪtəʃɪp/"
+      },
+      "inflections": [],
+      "etymology": "spectator (观众) + -ship (身份)，意为\"观众身份\""
+    },
+    "splitting": {
+      "sentence": "[B] It polarizes light by splitting light into two beams, creating a double image when the stone is held up to the sky.",
+      "pos": {
+        "type": "verb",
+        "chn": " split  split  split  split 分裂；分开（现在分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈsplɪtɪŋ/",
+        "uk": "/ˈsplɪtɪŋ/"
+      },
+      "inflections": [
+        "split (base form)"
+      ],
+      "etymology": "源自中古荷兰语splitten（分裂），-ing为现在分词后缀"
+    },
+    "sportswear": {
+      "sentence": "Here's to a smoother launch of the water bottle than of the smart sportswear line!",
+      "pos": {
+        "type": "noun",
+        "chn": "运动服装"
+      },
+      "pronunciation": {
+        "us": "/ˈspɔːrtswɛr/",
+        "uk": "/ˈspɔːtswɛə/"
+      },
+      "inflections": [],
+      "etymology": "sports (运动) + wear (穿着)，意为\"运动服\""
+    },
+    "stall": {
+      "sentence": "Their stall is always bustling with customers eager to buy fresh, pesticide-free vegetables from the welcoming staff.",
+      "pos": {
+        "type": "noun",
+        "chn": " stall  stall  stall  stall  stall  stall 摊位；货摊"
+      },
+      "pronunciation": {
+        "us": "/stɔːl/",
+        "uk": "/stɔːl/"
+      },
+      "inflections": [
+        "stalls (plural)"
+      ],
+      "etymology": "古英语steall（站立处、摊位），与stand同源"
+    },
+    "static": {
+      "sentence": "Moreover, cognitive maps are not static; they evolve with new experiences and information.",
+      "pos": {
+        "type": "adjective",
+        "chn": "静态的；静止的"
+      },
+      "pronunciation": {
+        "us": "/ˈstætɪk/",
+        "uk": "/ˈstætɪk/"
+      },
+      "inflections": [],
+      "etymology": "源自希腊语statikos（使静止的），histemi（站立）"
+    },
+    "statues": {
+      "sentence": "Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family.",
+      "pos": {
+        "type": "noun",
+        "chn": "雕像；雕塑（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈstætʃuːz/",
+        "uk": "/ˈstætʃuːz/"
+      },
+      "inflections": [
+        "statue (singular)"
+      ],
+      "etymology": "源自拉丁语statua（雕像），stare（站立）"
+    },
+    "stones": {
+      "sentence": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "pos": {
+        "type": "noun",
+        "chn": "石头；石块（复数）"
+      },
+      "pronunciation": {
+        "us": "/stoʊnz/",
+        "uk": "/stəʊnz/"
+      },
+      "inflections": [
+        "stone (singular)"
+      ],
+      "etymology": "古英语stan（石头），源自日耳曼语"
+    },
+    "strive": {
+      "sentence": "We appreciate your understanding as we strive to ensure the security and reliability of our IT infrastructure.",
+      "pos": {
+        "type": "verb",
+        "chn": "努力；奋斗；力争"
+      },
+      "pronunciation": {
+        "us": "/straɪv/",
+        "uk": "/straɪv/"
+      },
+      "inflections": [
+        "strives (3rd person)",
+        "strove (past)",
+        "striven (past part.)"
+      ],
+      "etymology": "源自古法语estriver（竞争），源自日耳曼语"
+    },
+    "submission": {
+      "sentence": "Ensure all testing is complete before submission.",
+      "pos": {
+        "type": "noun",
+        "chn": "提交；呈递；服从"
+      },
+      "pronunciation": {
+        "us": "/səbˈmɪʃən/",
+        "uk": "/səbˈmɪʃən/"
+      },
+      "inflections": [
+        "submissions (plural)"
+      ],
+      "etymology": "sub- (下) + miss (送) + -ion (名词后缀)，意为\"提交、屈服\""
+    },
+    "substances": {
+      "sentence": "They used substances like honey and willow bark to treat ailments.",
+      "pos": {
+        "type": "noun",
+        "chn": "物质；物质（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈsʌbstənsɪz/",
+        "uk": "/ˈsʌbstənsɪz/"
+      },
+      "inflections": [
+        "substance (singular)"
+      ],
+      "etymology": "源自拉丁语substantia（本质、物质），sub- (下) + stare (站立)"
+    },
+    "substandard": {
+      "sentence": "Housing was often substandard, and sanitation issues were prevalent.",
+      "pos": {
+        "type": "adjective",
+        "chn": "不合格的； substandard  substandard  substandard  substandard  substandard 低于标准的"
+      },
+      "pronunciation": {
+        "us": "/ˌsʌbˈstændərd/",
+        "uk": "/ˌsʌbˈstændəd/"
+      },
+      "inflections": [],
+      "etymology": "sub- (低于) + standard (标准)，意为\"低于标准的\""
+    },
+    "subtropical": {
+      "sentence": "Vibrio species thrive in warm, salty environments, making them particularly prevalent in tropical and subtropical regions.",
+      "pos": {
+        "type": "adjective",
+        "chn": "亚热带的"
+      },
+      "pronunciation": {
+        "us": "/ˌsʌbˈtrɑːpɪkəl/",
+        "uk": "/ˌsʌbˈtrɒpɪkəl/"
+      },
+      "inflections": [],
+      "etymology": "sub- (亚、次) + tropical (热带的)，意为\"亚热带的\""
+    },
+    "sunstone": {
+      "sentence": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "pos": {
+        "type": "noun",
+        "chn": "太阳石"
+      },
+      "pronunciation": {
+        "us": "/ˈsʌnstoʊn/",
+        "uk": "/ˈsʌnstəʊn/"
+      },
+      "inflections": [
+        "sunstones (plural)"
+      ],
+      "etymology": "sun (太阳) + stone (石头)，意为\"太阳石\""
+    },
+    "supervising": {
+      "sentence": "• Responsibilities include leading nature walks, supervising craft activities, and helping with educational demonstrations.",
+      "pos": {
+        "type": "verb",
+        "chn": "监督；指导（现在分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈsuːpərvaɪzɪŋ/",
+        "uk": "/ˈsuːpəvaɪzɪŋ/"
+      },
+      "inflections": [
+        "supervise (base form)"
+      ],
+      "etymology": "super- (在上) + vis (看) + -ing，意为\"监督\""
+    },
+    "supervisors": {
+      "sentence": "We have also collected comments from supervisors and colleagues, based on which you will receive constructive feedback.",
+      "pos": {
+        "type": "noun",
+        "chn": " supervisor  supervisor  supervisor  supervisor  supervisor 监督者；主管（复数）"
+      },
+      "pronunciation": {
+        "us": "/ˈsuːpərvaɪzərz/",
+        "uk": "/ˈsuːpəvaɪzəz/"
+      },
+      "inflections": [
+        "supervisor (singular)"
+      ],
+      "etymology": "super- (在上) + vis (看) + -or (者)，意为\"监督者\""
+    },
+    "supplied": {
+      "sentence": "The Romans, in particular, mastered the construction of aqueducts, building extensive networks that supplied water to urban centers.",
+      "pos": {
+        "type": "verb",
+        "chn": "供应；提供（过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/səˈplaɪd/",
+        "uk": "/səˈplaɪd/"
+      },
+      "inflections": [
+        "supply (base form)"
+      ],
+      "etymology": "源自拉丁语supplere（补充），sub- (下) + plere (填满)"
+    },
+    "surgical": {
+      "sentence": "One significant contribution of Egyptian medicine was surgical techniques.",
+      "pos": {
+        "type": "adjective",
+        "chn": "外科的；手术的"
+      },
+      "pronunciation": {
+        "us": "/ˈsɜːrdʒɪkəl/",
+        "uk": "/ˈsɜːdʒɪkəl/"
+      },
+      "inflections": [],
+      "etymology": "源自拉丁语chirurgia（外科手术），源自希腊语kheirourgos"
+    },
+    "sustainability": {
+      "sentence": "Organic farming often yields lower outputs than conventional methods, complicating the balance between sustainability and food security.",
+      "pos": {
+        "type": "noun",
+        "chn": "可持续性"
+      },
+      "pronunciation": {
+        "us": "/səˌsteɪnəˈbɪləti/",
+        "uk": "/səˌsteɪnəˈbɪləti/"
+      },
+      "inflections": [],
+      "etymology": "sustain (维持) + -ability (可……性)，意为\"可持续性\""
+    },
+    "swap": {
+      "sentence": "Learn a new language, meet people from different cultural backgrounds, and swap languages in a fun, flexible, and relaxed way.",
+      "pos": {
+        "type": "verb",
+        "chn": "交换；调换"
+      },
+      "pronunciation": {
+        "us": "/swɑːp/",
+        "uk": "/swɒp/"
+      },
+      "inflections": [
+        "swaps (3rd person)",
+        "swapped (past)"
+      ],
+      "etymology": "中古英语swappen（交换），拟声词源"
+    },
+    "synthetic": {
+      "sentence": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "pos": {
+        "type": "adjective",
+        "chn": "合成的；人造的"
+      },
+      "pronunciation": {
+        "us": "/sɪnˈθɛtɪk/",
+        "uk": "/sɪnˈθɛtɪk/"
+      },
+      "inflections": [],
+      "etymology": "源自希腊语synthetikos（合成的），syn- (一起) + thet (放置) + -ic"
+    }
+  }
+}

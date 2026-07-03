@@ -1,0 +1,4274 @@
+[
+  {
+    "id": "vocab-writing-0001",
+    "word": "concert",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "音乐会；演唱会"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkɑːnsərt/",
+      "uk": "/ˈkɒnsət/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "concerts"
+    },
+    "etymology": {
+      "prefix": "com-",
+      "root": "certare",
+      "suffix": "",
+      "summary": "源自意大利语 concerto（和谐）"
+    },
+    "rootGroup": null,
+    "example": "Did you get tickets for the concert?",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The symphony orchestra's final concert of the season attracted music enthusiasts from across the region.",
+      "Attending a live concert can be an immersive cultural experience that transcends mere auditory pleasure."
+    ],
+    "example_cn": "你买到音乐会的票了吗？",
+    "altExamples_cn": [
+      "交响乐团本季最后一场音乐会吸引了来自各地的音乐爱好者。",
+      "参加现场音乐会可以是一种沉浸式的文化体验，超越单纯的听觉享受。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0002",
+    "word": "reduce",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "减少；降低"
+      }
+    ],
+    "pronunciation": {
+      "us": "/rɪˈduːs/",
+      "uk": "/rɪˈdjuːs/"
+    },
+    "inflections": [
+      "reduces",
+      "reduced",
+      "reducing"
+    ],
+    "etymology": "From Latin reducere 'to lead back', from re- 'back' + ducere 'to lead'",
+    "rootGroup": null,
+    "example": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Urban planners are implementing green roofing initiatives to reduce the heat island effect in densely populated areas.",
+      "Many governments have pledged to reduce carbon emissions by transitioning to renewable energy sources."
+    ],
+    "example_cn": "有人认为，全民基本收入让每个人获得相似的收入，可以提供经济保障并减少贫困，而另一些人则认为这会打击人们的工作积极性，并对经济产生负面影响。",
+    "altExamples_cn": [
+      "城市规划者正在推行绿色屋顶计划，以减轻人口密集地区的热岛效应。",
+      "许多政府已承诺通过转向可再生能源来减少碳排放。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0003",
+    "word": "lent",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/lɛnt/",
+      "uk": "/lɛnt/"
+    },
+    "inflections": {
+      "base": "lend",
+      "third": "lends",
+      "present": "lending",
+      "past": "lent"
+    },
+    "etymology": "From Old English \"lænan\"",
+    "rootGroup": null,
+    "example": "Did you finish reading the book I lent you?",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The professor kindly lent her personal research notes to the graduate student for his dissertation.",
+      "Having lent his laboratory equipment to the neighboring department, he could not conduct the experiment."
+    ],
+    "example_cn": "你读完我借给你的那本书了吗？",
+    "altExamples_cn": [
+      "教授慷慨地把她个人的研究笔记借给了那位研究生用于他的论文。",
+      "由于他把实验室设备借给了隔壁系，他无法进行实验。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0004",
+    "word": "bonds",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "联系；纽带；债券"
+      }
+    ],
+    "pronunciation": {
+      "us": "/bɑndz/",
+      "uk": "/bɒndz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "bond"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "bindan",
+        "meaning": "to bind, tie"
+      },
+      "suffix": null,
+      "summary": "古英语bindan（捆绑），指连接双方的关系或契约纽带"
+    },
+    "rootGroup": null,
+    "example": "Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Strong social bonds among community members contribute to higher resilience during economic downturns.",
+      "The chemical bonds between hydrogen and oxygen atoms determine the unique properties of water molecules."
+    ],
+    "example_cn": "传统社区纽带通常存在于小城镇，但在城市环境中往往会减弱。",
+    "altExamples_cn": [
+      "社区成员之间牢固的社会纽带有助于在经济衰退期间提高韧性。",
+      "氢原子和氧原子之间的化学键决定了水分子的独特性质。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0006",
+    "word": "connectivity",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "translation": "连接性；连通性"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌkɑnɛkˈtɪvəti/",
+      "uk": "/ˌkɒnɛkˈtɪvəti/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "connectivity"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "con-",
+        "meaning": "一起"
+      },
+      "root": {
+        "form": "nect",
+        "meaning": "连接"
+      },
+      "suffix": {
+        "form": "-ivity",
+        "meaning": "…性"
+      },
+      "summary": "con-（一起）+ nect（连接）+ -ivity（名词后缀）= 连接性"
+    },
+    "rootGroup": null,
+    "example": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The expansion of rural broadband infrastructure has significantly improved digital connectivity for underserved populations.",
+      "Ecological connectivity between protected habitats is essential for maintaining biodiversity across fragmented landscapes."
+    ],
+    "example_cn": "有人认为数字媒体总体上产生了有益的影响，因为它极大地改善了全球通信和互联互通。",
+    "altExamples_cn": [
+      "农村宽带基础设施的扩展显著改善了服务不足人群的数字连接。",
+      "保护区栖息地之间的生态连通性对于维持破碎化景观中的生物多样性至关重要。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0008",
+    "word": "documentary",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌdɑːkjəˈmɛntəri/",
+      "uk": "/ˌdɒkjʊˈmɛntəri/"
+    },
+    "inflections": {
+      "plural": "documentaries"
+    },
+    "etymology": "From Latin \"documentum\" (example, proof)",
+    "rootGroup": null,
+    "example": "I really enjoyed the documentary we watched yesterday.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The documentary exploring climate change effects on Arctic ecosystems received critical acclaim at the festival.",
+      "Watching a well-produced documentary can enhance one's understanding of complex historical events."
+    ],
+    "example_cn": "我真的很喜欢昨天我们看的那个纪录片。",
+    "altExamples_cn": [
+      "那部探讨气候变化对北极生态系统影响的纪录片在电影节上获得了一致好评。",
+      "观看制作精良的纪录片可以加深人们对复杂历史事件的理解。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0010",
+    "word": "europe",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "translation": "欧洲"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈjʊrəp/",
+      "uk": "/ˈjʊərəp/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "Europe"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "Europ",
+        "meaning": "欧洲"
+      },
+      "suffix": null,
+      "summary": "来自希腊神话中的公主欧罗巴（Europa）"
+    },
+    "rootGroup": null,
+    "example": "I'm planning a trip to Europe this summer.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The European Union has implemented stringent regulations to protect personal data privacy across member states.",
+      "Western Europe's industrial revolution fundamentally transformed global economic structures in the nineteenth century."
+    ],
+    "example_cn": "我计划今年夏天去欧洲旅行。",
+    "altExamples_cn": [
+      "欧盟实施了严格的法规来保护各成员国的个人数据隐私。",
+      "西欧的工业革命在十九世纪根本性地改变了全球经济结构。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0011",
+    "word": "furniture",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈfɜːrnɪtʃər/",
+      "uk": "/ˈfɜːnɪtʃə/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From French \"fourniture\" (supply)",
+    "rootGroup": null,
+    "example": "I found it in the back of the furniture section at the local superstore\\.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Ergonomic office furniture has become increasingly important as more professionals work remotely from home.",
+      "The museum's collection of antique furniture provides valuable insights into eighteenth-century craftsmanship."
+    ],
+    "example_cn": "我在本地大卖场的家具区后面找到了它。",
+    "altExamples_cn": [
+      "随着越来越多的专业人士远程在家工作，符合人体工学的办公家具变得越来越重要。",
+      "博物馆收藏的古董家具为理解十八世纪的工艺水平提供了宝贵的见解。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0012",
+    "word": "groceries",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɡroʊsəriz/",
+      "uk": "/ˈɡrəʊsəriz/"
+    },
+    "inflections": [
+      "grocery"
+    ],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "text": "groc",
+        "origin": "Old French grossier",
+        "meaning": "wholesale / 批发"
+      },
+      "suffix": {
+        "text": "-ery",
+        "origin": "Latin -arius",
+        "meaning": "place of / 场所"
+      },
+      "summary_cn": "源自 Old French grossier（批发商），原义为批发商品，后泛指食品杂货"
+    },
+    "rootGroup": null,
+    "example": "I need to buy groceries today.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Rising inflation has made purchasing weekly groceries a significant financial burden for many families.",
+      "Many urban residents now order their groceries online to save time and reduce unnecessary trips."
+    ],
+    "example_cn": "我今天需要去买食品杂货。",
+    "altExamples_cn": [
+      "不断上涨的通货膨胀使购买每周的食品杂货成为许多家庭的重大经济负担。",
+      "许多城市居民现在在线订购食品杂货以节省时间并减少不必要的出行。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0014",
+    "word": "gym",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "健身房；体育馆"
+      }
+    ],
+    "pronunciation": {
+      "us": "/dʒɪm/",
+      "uk": "/dʒɪm/"
+    },
+    "inflections": [
+      "gyms"
+    ],
+    "etymology": "Shortened from gymnasium, from Latin gymnasium, from Greek gymnasion 'exercise place'",
+    "rootGroup": null,
+    "example": "Are you going to the gym today?",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Regular attendance at the gym has been linked to improved cognitive function and mental well-being.",
+      "The university's gym facilities underwent major renovations to accommodate the growing student population."
+    ],
+    "example_cn": "你今天去健身房吗？",
+    "altExamples_cn": [
+      "定期去健身房锻炼与改善认知功能和心理健康有关。",
+      "大学的健身设施进行了大规模翻新，以容纳日益增长的学生人数。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0015",
+    "word": "informative",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɪnˈfɔːrmətɪv/",
+      "uk": "/ɪnˈfɔːmətɪv/"
+    },
+    "inflections": {
+      "comparative": "more informative",
+      "superlative": "most informative"
+    },
+    "etymology": "From Latin \"informare\" (to inform)",
+    "rootGroup": null,
+    "example": "The workshop yesterday was very informative.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The lecture on cognitive neuroscience was highly informative and clarified several complex theoretical concepts.",
+      "Participants found the workshop informative, particularly the segment on statistical analysis methods."
+    ],
+    "example_cn": "昨天的研讨会非常有启发性。",
+    "altExamples_cn": [
+      "那场关于认知神经科学的讲座非常有启发性，澄清了几个复杂的理论概念。",
+      "参与者觉得研讨会很有收获，尤其是关于统计分析方法的部分。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0017",
+    "word": "ability",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "能力；才能"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈbɪləti/",
+      "uk": "/əˈbɪlɪti/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "abilities"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "habilis",
+      "suffix": "-ity",
+      "summary": "源自拉丁语 habilitas，来自 habilis（灵巧的）"
+    },
+    "rootGroup": null,
+    "example": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "The ability to critically evaluate sources is an essential skill for academic success at the university level.",
+      "Language acquisition ability tends to decline with age, though individual variation remains considerable."
+    ],
+    "example_cn": "Gupta 在过去的几节课中，我们一直在讨论社会流动性的概念，它指的是个人或家庭在社会等级中上升或下降的能力。",
+    "altExamples_cn": [
+      "批判性地评估信息来源的能力是大学阶段学业成功的基本技能。",
+      "语言习得能力往往随着年龄增长而下降，但个体差异仍然相当大。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0018",
+    "word": "abroad",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/əˈbrɔːd/",
+      "uk": "/əˈbrɔːd/"
+    },
+    "inflections": {},
+    "etymology": "From Old English \"on brād\" (broad)",
+    "rootGroup": null,
+    "example": "I'm planning to study abroad next year.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Studying abroad exposes students to diverse cultural perspectives that enrich their academic development.",
+      "Many multinational corporations require employees to complete assignments abroad for international experience."
+    ],
+    "example_cn": "我计划明年出国留学。",
+    "altExamples_cn": [
+      "出国留学让学生接触到多元化的文化视角，丰富他们的学术发展。",
+      "许多跨国公司要求员工完成海外任务以获得国际经验。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0019",
+    "word": "absence",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈæbsəns/",
+      "uk": "/ˈæbsəns/"
+    },
+    "inflections": {
+      "plural": "absences"
+    },
+    "etymology": "From Latin \"absentia\"",
+    "rootGroup": null,
+    "example": "- Explain how his absence has affected the group's progress.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "The professor's prolonged absence from the department prompted concerns among faculty and students alike.",
+      "A notable absence of empirical data makes it difficult to draw definitive conclusions from the study."
+    ],
+    "example_cn": "解释他的缺席对小组的进展产生了怎样的影响。",
+    "altExamples_cn": [
+      "教授长期不在系里引起了教职员工和学生的共同担忧。",
+      "经验数据的明显缺失使得从该研究中得出确切结论变得困难。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0020",
+    "word": "accessible",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "可进入的；可使用的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ækˈsɛsəbəl/",
+      "uk": "/əkˈsɛsəbəl/"
+    },
+    "inflections": {
+      "comparative": "more accessible",
+      "superlative": "most accessible"
+    },
+    "etymology": "From Latin \"accessibilis\"",
+    "rootGroup": null,
+    "example": "Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The university library has made its digital archives accessible to researchers worldwide through an online portal.",
+      "Affordable healthcare should be accessible to all citizens regardless of their socioeconomic background."
+    ],
+    "example_cn": "Claire: 虽然数字游民生活方式确实提供了无与伦比的自由，但值得注意的是它高度依赖强大的互联网连接，而这在所有地区可能并非同等可获得。",
+    "altExamples_cn": [
+      "大学图书馆通过在线门户网站使其数字档案可供全球研究人员访问。",
+      "可负担的医疗保健应该对所有公民都可获得，无论其社会经济背景如何。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0022",
+    "word": "acquire",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "获取；获得"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈkwaɪər/",
+      "uk": "/əˈkwaɪə/"
+    },
+    "inflections": {
+      "third": "acquires",
+      "present": "acquiring",
+      "past": "acquired"
+    },
+    "etymology": "From Latin \"acquirere\" (to obtain)",
+    "rootGroup": null,
+    "example": "With a good education, individuals can acquire the knowledge and skills needed to access better job opportunities and improve their social status.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Children acquire language skills most effectively through immersive exposure and meaningful social interaction.",
+      "The corporation sought to acquire several smaller startups to expand its technological capabilities."
+    ],
+    "example_cn": "通过良好的教育，个人可以获得必要的知识和技能，从而获得更好的工作机会并提高社会地位。",
+    "altExamples_cn": [
+      "儿童通过沉浸式接触和有意义的社交互动最有效地获得语言技能。",
+      "该企业寻求收购几家较小的初创公司以扩展其技术能力。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0023",
+    "word": "action",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "行动；动作"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈækʃən/",
+      "uk": "/ˈækʃən/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "actions"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "agere",
+      "suffix": "-tion",
+      "summary": "源自拉丁语 actio，来自 agere（做）"
+    },
+    "rootGroup": null,
+    "example": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "The government's decisive action on environmental regulation has significantly reduced industrial pollution levels.",
+      "Collective action by community members can bring about meaningful social change at the local level."
+    ],
+    "example_cn": "例如，电影和社交媒体可以通过有力的文字、图像和故事引起人们对气候变化的关注，并激发行动。",
+    "altExamples_cn": [
+      "政府在环境监管方面的果断行动显著降低了工业污染水平。",
+      "社区成员的集体行动可以在地方层面带来有意义的社会变革。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0025",
+    "word": "additional",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "额外的；附加的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈdɪʃ.ən.əl/",
+      "uk": "/əˈdɪʃ.ən.əl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "additionally",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "to, toward"
+      },
+      "root": {
+        "form": "dare",
+        "meaning": "give"
+      },
+      "suffix": {
+        "form": "-ition + -al",
+        "meaning": "process + relating to"
+      },
+      "summary": "前缀ad-（朝向）+ 拉丁语dare（给予）→ add（添加）→ additional（附加的），指在原有基础上增加"
+    },
+    "rootGroup": null,
+    "example": "- Ask for additional resources or recommendations for further study.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Researchers requested additional funding to extend their study on the effects of urban pollution.",
+      "The course requires additional reading materials available in the university's online repository."
+    ],
+    "example_cn": "请求额外的资源或推荐资料以供进一步学习。",
+    "altExamples_cn": [
+      "研究人员请求额外资金来扩展他们关于城市污染影响的研究。",
+      "该课程需要额外的阅读材料，可在大学的在线资源库中获取。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0026",
+    "word": "adopting",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "采纳；收养"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈdɑːptɪŋ/",
+      "uk": "/əˈdɒptɪŋ/"
+    },
+    "inflections": {
+      "base": "adopt",
+      "third": "adopts",
+      "past": "adopted"
+    },
+    "etymology": "From Latin \"adoptare\"",
+    "rootGroup": null,
+    "example": "I'm thinking of adopting a dog this summer.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Many companies are adopting flexible work arrangements to improve employee satisfaction and productivity.",
+      "Adopting sustainable agricultural practices can help mitigate the adverse effects of climate change."
+    ],
+    "example_cn": "我在考虑今年夏天领养一只狗。",
+    "altExamples_cn": [
+      "许多公司正在采用灵活的工作安排来提高员工满意度和生产力。",
+      "采用可持续的农业实践有助于减轻气候变化的不利影响。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0027",
+    "word": "advantages",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ædˈvæntɪdʒɪz/",
+      "uk": "/ədˈvɑːntɪdʒɪz/"
+    },
+    "inflections": {
+      "singular": "advantage"
+    },
+    "etymology": "From Old French \"avantage\"",
+    "rootGroup": null,
+    "example": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "The advantages of renewable energy include reduced emissions and long-term cost savings for consumers.",
+      "Bilingual individuals often enjoy cognitive advantages, such as improved executive function and memory."
+    ],
+    "example_cn": "因此，人际关系可以带来工作机会、指导和其他帮助个人攀登社会阶梯的优势。",
+    "altExamples_cn": [
+      "可再生能源的优势包括减少排放和为消费者带来长期成本节约。",
+      "双语者通常享有认知优势，如改善的执行功能和记忆力。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0028",
+    "word": "advice",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ædˈvaɪs/",
+      "uk": "/ədˈvaɪs/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From Old French \"avis\" (opinion)",
+    "rootGroup": null,
+    "example": "- Offer different ways to help her if she needs more advice.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Financial advisors recommend seeking professional advice before making significant investment decisions.",
+      "The counselor's advice on time management strategies greatly improved the student's academic performance."
+    ],
+    "example_cn": "如果她需要更多建议，提供不同的方式来帮助她。",
+    "altExamples_cn": [
+      "财务顾问建议在做出重大投资决策之前寻求专业建议。",
+      "辅导员关于时间管理策略的建议极大地改善了该学生的学业表现。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0029",
+    "word": "affected",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "影响；感染"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈfek.tɪd/",
+      "uk": "/əˈfek.tɪd/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "affect"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "to, toward"
+      },
+      "root": {
+        "form": "facere",
+        "meaning": "do, make"
+      },
+      "suffix": {
+        "form": "-ed",
+        "meaning": "past tense"
+      },
+      "summary": "前缀ad-（朝向）+ 拉丁语facere（做），字面意为「对…施加影响」，引申为受影响"
+    },
+    "rootGroup": null,
+    "example": "- Explain how his absence has affected the group's progress.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Coastal communities are disproportionately affected by rising sea levels caused by global warming.",
+      "The economic recession severely affected employment rates among recent college graduates."
+    ],
+    "example_cn": "解释他的缺席对小组的进展产生了怎样的影响。",
+    "altExamples_cn": [
+      "沿海社区受到全球变暖导致的海平面上升的严重影响。",
+      "经济衰退严重影响了应届大学毕业生的就业率。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0030",
+    "word": "affecting",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "影响；感动（现在分词）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈfɛktɪŋ/",
+      "uk": "/əˈfɛktɪŋ/"
+    },
+    "inflections": {
+      "base": "affect",
+      "third": "affects",
+      "past": "affected"
+    },
+    "etymology": "From Latin \"afficere\"",
+    "rootGroup": null,
+    "example": "- Explain how his lack of participation is affecting the group.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Factors affecting student retention include academic support services and campus climate.",
+      "The new policy changes are affecting small businesses more severely than large corporations."
+    ],
+    "example_cn": "解释他缺乏参与对小组产生了怎样的影响。",
+    "altExamples_cn": [
+      "影响学生留校率的因素包括学术支持服务和校园氛围。",
+      "新政策变化对小型企业的影响比大型企业更为严重。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0031",
+    "word": "afterward",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈæftərwərd/",
+      "uk": "/ˈɑːftəwəd/"
+    },
+    "inflections": {},
+    "etymology": "From Old English \"æfterweard\"",
+    "rootGroup": null,
+    "example": "She finished her homework shortly afterward.",
+    "source": "manually revised",
+    "altExamples": [
+      "The experiment concluded successfully; afterward, the researchers analyzed the data for several weeks.",
+      "She graduated from university in 2020 and afterward pursued a career in environmental science."
+    ],
+    "example_cn": "她之后很快就完成了作业。",
+    "altExamples_cn": [
+      "实验成功结束了；之后，研究人员花了数周时间分析数据。",
+      "她于2020年大学毕业，之后从事了环境科学方面的职业。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0032",
+    "word": "airport",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "机场"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈerpɔːrt/",
+      "uk": "/ˈeəpɔːt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "airports"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "",
+      "suffix": "",
+      "summary": "由 air（航空）+ port（港口）组合而成"
+    },
+    "rootGroup": null,
+    "example": "Can you tell me whether you need a lift to the airport?",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The newly constructed airport terminal can accommodate up to fifty million passengers annually.",
+      "International airports serve as critical infrastructure for global trade and tourism."
+    ],
+    "example_cn": "你能告诉我你是否需要搭车去机场吗？",
+    "altExamples_cn": [
+      "新建的机场航站楼每年可容纳多达五千万名旅客。",
+      "国际机场是全球贸易和旅游业的关键基础设施。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0033",
+    "word": "alternative",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɔːlˈtɜːrnətɪv/",
+      "uk": "/ɒlˈtɜːnətɪv/"
+    },
+    "inflections": {
+      "plural": "alternatives"
+    },
+    "etymology": "From Latin \"alternativus\"",
+    "rootGroup": null,
+    "example": "This alternative approach focuses on managing consequences rather than prevention.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Scientists are exploring alternative energy sources to reduce dependence on fossil fuels.",
+      "The study proposes an alternative methodology that accounts for variables overlooked in prior research."
+    ],
+    "example_cn": "这种替代方法侧重于管理后果而非预防。",
+    "altExamples_cn": [
+      "科学家正在探索替代能源以减少对化石燃料的依赖。",
+      "该研究提出了一种替代方法，考虑到了先前研究中被忽视的变量。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0036",
+    "word": "apparel",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/əˈpærəl/",
+      "uk": "/əˈpærəl/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From Old French \"apareillier\" (to prepare)",
+    "rootGroup": null,
+    "example": "The store next to the post office sells all types of winter apparel\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The apparel industry faces increasing scrutiny over its environmental impact and labor practices.",
+      "Sustainable apparel made from recycled materials is gaining popularity among environmentally conscious consumers."
+    ],
+    "example_cn": "邮局旁边的那家店出售各种冬季服装。",
+    "altExamples_cn": [
+      "服装行业因其环境影响和劳工实践而面临越来越多的审查。",
+      "由回收材料制成的可持续服装在环保意识强的消费者中越来越受欢迎。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0037",
+    "word": "appetizers",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈæpɪtaɪzərz/",
+      "uk": "/ˈæpɪtaɪzəz/"
+    },
+    "inflections": {
+      "singular": "appetizer"
+    },
+    "etymology": "From Latin \"appetitus\" (appetite)",
+    "rootGroup": null,
+    "example": "Did they serve any appetizers before the main course?",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The restaurant's appetizers were creatively prepared and showcased the chef's culinary expertise.",
+      "Guests were served a variety of appetizers before the main conference dinner began."
+    ],
+    "example_cn": "主菜之前他们上了开胃菜吗？",
+    "altExamples_cn": [
+      "餐厅的开胃菜制作精良，展示了厨师的烹饪专业水平。",
+      "在主题晚宴开始之前，宾客们享用了各式开胃菜。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0038",
+    "word": "application",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "申请；应用"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌæp.lɪˈkeɪ.ʃən/",
+      "uk": "/ˌæp.lɪˈkeɪ.ʃən/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "applications"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "to, toward"
+      },
+      "root": {
+        "form": "plicare",
+        "meaning": "to fold, attach"
+      },
+      "suffix": {
+        "form": "-ation",
+        "meaning": "act or process"
+      },
+      "summary": "前缀ad-（朝向）+ 拉丁语plicare（折叠、附加）+ 名词后缀-ation，指将某物应用于实际或提交正式请求的行为"
+    },
+    "rootGroup": null,
+    "example": "I'm going to submit my application today.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The practical application of theoretical physics principles has led to numerous technological innovations.",
+      "Her application for the research grant was meticulously prepared and supported by preliminary data."
+    ],
+    "example_cn": "我今天要提交我的申请。",
+    "altExamples_cn": [
+      "理论物理原理的实际应用带来了众多技术创新。",
+      "她对研究资助的申请准备得极其细致，并有初步数据作为支撑。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0039",
+    "word": "applied",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/əˈplaɪd/",
+      "uk": "/əˈplaɪd/"
+    },
+    "inflections": {
+      "base": "apply",
+      "third": "applies",
+      "present": "applying"
+    },
+    "etymology": "From Old French \"aplier\"",
+    "rootGroup": null,
+    "example": "Have any of your coworkers applied for the position?",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The principles of behavioral economics can be applied to improve public policy decision-making.",
+      "She applied for a fellowship to conduct fieldwork on biodiversity in tropical rainforests."
+    ],
+    "example_cn": "你的同事中有没有人申请这个职位？",
+    "altExamples_cn": [
+      "行为经济学的原理可以应用于改善公共政策决策。",
+      "她申请了一项奖学金，用于在热带雨林进行生物多样性的实地研究。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0040",
+    "word": "approach",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "接近；处理"
+      },
+      {
+        "type": "n",
+        "translation": "方法；途径"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈproʊtʃ/",
+      "uk": "/əˈprəʊtʃ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "approach"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "to, toward"
+      },
+      "root": {
+        "form": "prope",
+        "meaning": "near, close"
+      },
+      "suffix": null,
+      "summary": "前缀ad-（朝向）+ 拉丁语prope（接近），指靠近某人或某物，或处理问题的方式方法"
+    },
+    "rootGroup": null,
+    "example": "This alternative approach focuses on managing consequences rather than prevention.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The interdisciplinary approach adopted by the research team yielded comprehensive and insightful results.",
+      "A proactive approach to public health can prevent the outbreak of infectious diseases."
+    ],
+    "example_cn": "这种替代方法侧重于管理后果而非预防。",
+    "altExamples_cn": [
+      "研究团队采用的跨学科方法产生了全面而富有洞察力的结果。",
+      "对公共卫生采取积极主动的方法可以预防传染病的爆发。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0041",
+    "word": "appropriate",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/əˈproʊpriɪt/",
+      "uk": "/əˈprəʊpriɪt/"
+    },
+    "inflections": {
+      "comparative": "more appropriate",
+      "superlative": "most appropriate"
+    },
+    "etymology": "From Latin \"appropriatus\"",
+    "rootGroup": null,
+    "example": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "The committee determined that the proposed budget was appropriate for the scale of the project.",
+      "It is not appropriate to draw causal conclusions from correlational data without further investigation."
+    ],
+    "example_cn": "你认为艺术和媒体是提高公众对复杂环境问题认识的一种合适方式吗？",
+    "altExamples_cn": [
+      "委员会认为，拟议的预算对于该项目的规模而言是合适的。",
+      "在没有进一步调查的情况下，从相关数据中得出因果结论是不恰当的。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0042",
+    "word": "assignment",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/əˈsaɪnmənt/",
+      "uk": "/əˈsaɪnmənt/"
+    },
+    "inflections": {
+      "plural": "assignments"
+    },
+    "etymology": "From Latin \"assignamentum\"",
+    "rootGroup": null,
+    "example": "I need to submit my assignment by tomorrow.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The final assignment requires students to synthesize their learning into a comprehensive research paper.",
+      "Completing the group assignment ahead of schedule allowed the team to focus on revisions."
+    ],
+    "example_cn": "我需要在明天之前提交我的作业。",
+    "altExamples_cn": [
+      "期末作业要求学生将所学内容综合成一篇全面的研究论文。",
+      "提前完成小组作业让团队能够集中精力进行修改和完善。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0043",
+    "word": "awareness",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "意识；认识"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈwɛrnəs/",
+      "uk": "/əˈweənəs/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From Old English \"gewær\" (aware)",
+    "rootGroup": null,
+    "example": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Public awareness campaigns have significantly increased understanding of mental health issues.",
+      "Environmental awareness among consumers is driving demand for sustainable products."
+    ],
+    "example_cn": "你认为艺术和媒体是提高公众对复杂环境问题认识的一种合适方式吗？",
+    "altExamples_cn": [
+      "公众意识宣传活动显著提高了人们对心理健康问题的认识。",
+      "消费者的环保意识正在推动对可持续产品的需求。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0044",
+    "word": "band",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "乐队；带子；波段"
+      }
+    ],
+    "pronunciation": {
+      "us": "/bænd/",
+      "uk": "/bænd/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "bands"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "bindan",
+      "suffix": "",
+      "summary": "古英语 bend，源自原始日耳曼语 band-"
+    },
+    "rootGroup": null,
+    "example": "How can we find out when that band is performing again?",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The frequency band allocated for emergency communications must remain free of interference.",
+      "A narrow band of scholars holds opposing views on the interpretation of these archaeological findings."
+    ],
+    "example_cn": "我们怎么才能知道那个乐队什么时候再演出？",
+    "altExamples_cn": [
+      "分配给紧急通信的频段必须免受干扰。",
+      "少数学者对考古发现的解读持有相反观点。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0045",
+    "word": "beneficial",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "有益的；有利的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌben.ɪˈfɪʃ.əl/",
+      "uk": "/ˌben.ɪˈfɪʃ.əl/"
+    },
+    "inflections": {
+      "comparative": "more beneficial",
+      "superlative": "most beneficial",
+      "adverb": "beneficially",
+      "noun": "benefit"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "bene-",
+        "meaning": "well, good"
+      },
+      "root": {
+        "form": "facere",
+        "meaning": "to do, make"
+      },
+      "suffix": {
+        "form": "-ficium + -al",
+        "meaning": "making + relating to"
+      },
+      "summary": "拉丁语bene（好）+ facere（做）+ 形容词后缀-al，指产生好结果、有益处的"
+    },
+    "rootGroup": null,
+    "example": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "Regular physical exercise is beneficial for maintaining cardiovascular health and cognitive function.",
+      "International trade agreements can be beneficial for developing economies when structured equitably."
+    ],
+    "example_cn": "有人认为数字媒体总体上产生了有益的影响，因为它极大地改善了全球通信和互联互通。",
+    "altExamples_cn": [
+      "定期体育锻炼对维持心血管健康和认知功能有益。",
+      "国际贸易协定如果结构公平，对发展中经济体可能是有益的。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0046",
+    "word": "bias",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈbaɪəs/",
+      "uk": "/ˈbaɪəs/"
+    },
+    "inflections": {
+      "plural": "biases"
+    },
+    "etymology": "From Old French \"biais\"",
+    "rootGroup": null,
+    "example": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Cognitive bias can significantly affect decision-making processes in professional contexts.",
+      "The researcher implemented blinding procedures to minimize bias in the clinical trial results."
+    ],
+    "example_cn": "Claire: 我担心媒体对环境问题的报道常常带有商业偏见。",
+    "altExamples_cn": [
+      "认知偏见会显著影响职业环境中的决策过程。",
+      "研究人员实施了盲法程序以尽量减少临床试验结果中的偏差。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0047",
+    "word": "biography",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/baɪˈɑːɡrəfi/",
+      "uk": "/baɪˈɒɡrəfi/"
+    },
+    "inflections": {
+      "plural": "biographies"
+    },
+    "etymology": "From Greek \"bios\" (life) + \"graphein\" (write)",
+    "rootGroup": null,
+    "example": "I'm going to start writing a biography.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The biography of the scientist detailed her groundbreaking discoveries and personal struggles.",
+      "Reading a well-researched biography can provide valuable context for understanding historical events."
+    ],
+    "example_cn": "我打算开始写一本传记。",
+    "altExamples_cn": [
+      "这位科学家的传记详述了她开创性的发现和个人的挣扎。",
+      "阅读一本经过深入研究的传记可以为理解历史事件提供宝贵的背景。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0048",
+    "word": "bistro",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "小餐馆；小酒馆"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈbis.troʊ/",
+      "uk": "/ˈbiː.strəʊ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "bistros"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "bistraud",
+        "meaning": "quickly"
+      },
+      "suffix": null,
+      "summary": "俄语bystro（快速的），据传源于俄军士兵在法国催促餐馆上菜时的用语，后指提供简单菜肴的小餐馆"
+    },
+    "rootGroup": null,
+    "example": "Do you know anyone who can give me directions to the Big Tree Bistro?",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The cozy bistro near campus became a popular meeting spot for faculty discussions.",
+      "Authentic French bistros typically offer a limited menu focused on traditional regional cuisine."
+    ],
+    "example_cn": "你知道谁能告诉我怎么去大树小酒馆吗？",
+    "altExamples_cn": [
+      "校园附近那家舒适的小酒馆成为教职员工讨论的热门聚会场所。",
+      "正宗的法国小酒馆通常提供以传统地方菜肴为主的有限菜单。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0049",
+    "word": "blast",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/blæst/",
+      "uk": "/blɑːst/"
+    },
+    "inflections": {
+      "plural": "blasts",
+      "third": "blasts",
+      "present": "blasting",
+      "past": "blasted"
+    },
+    "etymology": "From Old English \"blæst\"",
+    "rootGroup": null,
+    "example": "We had a blast at the national park yesterday.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The volcanic blast ejected ash thousands of meters into the atmosphere.",
+      "Participants had a blast at the interactive science exhibition designed for young learners."
+    ],
+    "example_cn": "昨天我们在国家公园玩得特别开心。",
+    "altExamples_cn": [
+      "火山爆发将火山灰喷射到数千米高的大气中。",
+      "参与者在为年轻学习者设计的互动科学展览中玩得非常开心。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0050",
+    "word": "blog",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/blɑːɡ/",
+      "uk": "/blɒɡ/"
+    },
+    "inflections": {
+      "plural": "blogs"
+    },
+    "etymology": "Blend of \"web\" + \"log\"",
+    "rootGroup": null,
+    "example": "I'm thinking about starting a blog.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The professor's academic blog attracts thousands of readers interested in political philosophy.",
+      "Maintaining a professional blog can help researchers disseminate their findings to broader audiences."
+    ],
+    "example_cn": "我在考虑开一个博客。",
+    "altExamples_cn": [
+      "这位教授的学术博客吸引了成千上万对政治哲学感兴趣的读者。",
+      "维护一个专业博客可以帮助研究人员将他们的发现传播给更广泛的受众。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0051",
+    "word": "bookstore",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "书店"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈbʊk.stɔr/",
+      "uk": "/ˈbʊk.stɔː/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "bookstores"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "bōc + stōr",
+        "meaning": "book + store, shop"
+      },
+      "suffix": null,
+      "summary": "古英语bōc（书）+ 拉丁语store（店铺），指出售书籍的商店"
+    },
+    "rootGroup": null,
+    "example": "The bookstore ________ ________ .",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The independent bookstore hosts weekly literary events featuring emerging authors.",
+      "University bookstores now offer digital textbooks alongside traditional printed editions."
+    ],
+    "example_cn": "那家书店________ ________。",
+    "altExamples_cn": [
+      "这家独立书店每周举办以新兴作家为特色的文学活动。",
+      "大学书店现在除了传统的印刷版教材外，还提供数字教科书。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0052",
+    "word": "breakdown",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈbreɪkdaʊn/",
+      "uk": "/ˈbreɪkdaʊn/"
+    },
+    "inflections": {
+      "plural": "breakdowns"
+    },
+    "etymology": "From phrasal verb \"break down\"",
+    "rootGroup": null,
+    "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The breakdown of diplomatic negotiations led to increased tensions between the two nations.",
+      "A detailed breakdown of the survey data revealed unexpected patterns in consumer preferences."
+    ],
+    "example_cn": "有人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会隔离以及通常存在于小城镇和村庄的紧密社区的瓦解。",
+    "altExamples_cn": [
+      "外交谈判的破裂导致两国之间的紧张局势加剧。",
+      "对调查数据的详细分解揭示了消费者偏好中意想不到的模式。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0053",
+    "word": "campground",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈkæmpɡraʊnd/",
+      "uk": "/ˈkæmpɡraʊnd/"
+    },
+    "inflections": {
+      "plural": "campgrounds"
+    },
+    "etymology": "Compound of \"camp\" + \"ground\"",
+    "rootGroup": null,
+    "example": "We set up our tent at the campground near the lake.",
+    "source": "manually revised",
+    "altExamples": [
+      "The campground was equipped with modern facilities, including showers and a small grocery store.",
+      "They reserved a spot at the national park campground for their summer vacation."
+    ],
+    "example_cn": "我们在湖边的露营地搭起了帐篷。",
+    "altExamples_cn": [
+      "露营地配备了现代化设施，包括淋浴间和一家小型杂货店。",
+      "他们为暑假在国家公园露营地预订了一个位置。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0054",
+    "word": "cannot",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "不能（can not的缩合形式）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkænɑːt/",
+      "uk": "/ˈkænɒt/"
+    },
+    "inflections": {
+      "base": "can"
+    },
+    "etymology": "From \"can\" + \"not\"",
+    "rootGroup": null,
+    "example": "Marcus: I believe creative media can connect with people on an emotional level in ways that facts alone cannot.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Researchers cannot establish causation based solely on observational studies without controlled experiments.",
+      "The human brain cannot process multiple complex tasks simultaneously without a decline in performance."
+    ],
+    "example_cn": "Marcus: 我相信创意媒体可以在情感层面与人产生共鸣，这种方式是单纯的事实所无法做到的。",
+    "altExamples_cn": [
+      "研究人员不能仅凭观察性研究就确定因果关系，而不进行对照实验。",
+      "人脑无法同时处理多个复杂任务而不导致表现下降。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0055",
+    "word": "carbon",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "碳"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkɑːrbən/",
+      "uk": "/ˈkɑːbən/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "carbo",
+      "suffix": "",
+      "summary": "源自拉丁语 carbo（木炭）"
+    },
+    "rootGroup": null,
+    "example": "Innovations like carbon capture to reduce climate change help limit damage while allowing progress.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Carbon emissions from industrial activities contribute significantly to global climate change.",
+      "Forests serve as vital carbon sinks, absorbing large quantities of carbon dioxide from the atmosphere."
+    ],
+    "example_cn": "像碳捕集这样的创新技术可以减少气候变化，在允许发展的同时帮助限制损害。",
+    "altExamples_cn": [
+      "工业活动产生的碳排放对全球气候变化有显著影响。",
+      "森林充当着重要的碳汇，从大气中吸收大量二氧化碳。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0056",
+    "word": "chosen",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "选择（过去分词）"
+      },
+      {
+        "type": "adj",
+        "chinese": "被选中的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtʃoʊzən/",
+      "uk": "/ˈtʃəʊzən/"
+    },
+    "inflections": {
+      "base": "choose",
+      "third": "chooses",
+      "present": "choosing",
+      "past": "chose"
+    },
+    "etymology": "From Old English \"ceosan\"",
+    "rootGroup": null,
+    "example": "Which historical figure have you chosen to write about?",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The chosen methodology for the study ensures replicability and validity of the results.",
+      "Participants were randomly chosen from a diverse pool of applicants to ensure representative sampling."
+    ],
+    "example_cn": "你选择了哪一位历史人物来写作？",
+    "altExamples_cn": [
+      "所选择的研究方法确保了结果的可重复性和有效性。",
+      "参与者是从多样化的申请人群中随机选择的，以确保代表性抽样。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0057",
+    "word": "civic",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈsɪvɪk/",
+      "uk": "/ˈsɪvɪk/"
+    },
+    "inflections": {},
+    "etymology": "From Latin \"civicus\"",
+    "rootGroup": null,
+    "example": "Emma: Yes, I think high schools should require volunteer hours because it helps students build a sense of civic responsibility.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Civic engagement through volunteer work strengthens community bonds and democratic participation.",
+      "The civic center hosted a forum on urban development and sustainable infrastructure planning."
+    ],
+    "example_cn": "Emma: 是的，我认为高中应该要求学生完成志愿小时数，因为这有助于学生培养公民责任感。",
+    "altExamples_cn": [
+      "通过志愿工作进行的公民参与加强了社区纽带和民主参与。",
+      "市政中心举办了一场关于城市发展和可持续基础设施规划的论坛。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0058",
+    "word": "cleanup",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈkliːnʌp/",
+      "uk": "/ˈkliːnʌp/"
+    },
+    "inflections": {
+      "plural": "cleanups"
+    },
+    "etymology": "From phrasal verb \"clean up\"",
+    "rootGroup": null,
+    "example": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The environmental cleanup of contaminated industrial sites requires significant investment and expertise.",
+      "Community volunteers organized a beach cleanup to remove plastic waste from the shoreline."
+    ],
+    "example_cn": "其他人则支持在不妨碍活动的情况下减轻损害的技术和倡议——例如污染清理或森林恢复。",
+    "altExamples_cn": [
+      "对受污染工业场地进行环境清理需要大量投资和专业知识。",
+      "社区志愿者组织了一次海滩清理活动，以清除海岸线上的塑料垃圾。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0059",
+    "word": "colleagues",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "translation": "同事（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkɑliɡz/",
+      "uk": "/ˈkɒliːɡz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "colleague"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "col-",
+        "meaning": "共同"
+      },
+      "root": {
+        "form": "leg",
+        "meaning": "委派"
+      },
+      "suffix": {
+        "form": "-ue",
+        "meaning": "名词后缀"
+      },
+      "summary": "col-（共同）+ leg（委派）+ -ue = 共同被委派的人 → 同事"
+    },
+    "rootGroup": null,
+    "example": "Some colleagues ________ ________ .",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Her colleagues in the research department collaborated on the groundbreaking genetic study.",
+      "The professor consulted with international colleagues to refine her experimental design."
+    ],
+    "example_cn": "有些同事________ ________。",
+    "altExamples_cn": [
+      "她在研究部门的同事们在开创性的基因研究上进行了合作。",
+      "这位教授咨询了国际同事以完善她的实验设计。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0060",
+    "word": "compensation",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌkɑːmpɛnˈseɪʃən/",
+      "uk": "/ˌkɒmpɛnˈseɪʃən/"
+    },
+    "inflections": {
+      "plural": "compensations"
+    },
+    "etymology": "From Latin \"compensatio\"",
+    "rootGroup": null,
+    "example": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Workers demanded fair compensation for overtime hours and hazardous working conditions.",
+      "The compensation package included health benefits and retirement contributions."
+    ],
+    "example_cn": "陈志愿精神指的是不图经济回报，自愿贡献时间和服务以造福社区、组织或事业的行为。",
+    "altExamples_cn": [
+      "工人要求对加班时间和危险工作条件获得公平的经济补偿。",
+      "薪酬待遇包括健康福利和退休金。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0061",
+    "word": "consequences",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈkɑːnsɪkwɛnsɪz/",
+      "uk": "/ˈkɒnsɪkwənsɪz/"
+    },
+    "inflections": {
+      "singular": "consequence"
+    },
+    "etymology": "From Latin \"consequentia\"",
+    "rootGroup": null,
+    "example": "This alternative approach focuses on managing consequences rather than prevention.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The long-term consequences of deforestation include biodiversity loss and climate disruption.",
+      "Economic policies often have unintended consequences that require careful monitoring and adjustment."
+    ],
+    "example_cn": "这种替代方法侧重于管理后果而非预防。",
+    "altExamples_cn": [
+      "森林砍伐的长期后果包括生物多样性丧失和气候紊乱。",
+      "经济政策往往会产生意想不到的后果，需要仔细监控和调整。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0062",
+    "word": "convenience",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/kənˈviːnjəns/",
+      "uk": "/kənˈviːniəns/"
+    },
+    "inflections": {
+      "plural": "conveniences"
+    },
+    "etymology": "From Latin \"convenientia\"",
+    "rootGroup": null,
+    "example": "The convenience and speed of digital media allow people to communicate with ease.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The convenience of online learning platforms has transformed access to higher education.",
+      "Urban planners prioritize pedestrian convenience when designing public transportation systems."
+    ],
+    "example_cn": "数字媒体的便利性和速度使人们能轻松地进行沟通。",
+    "altExamples_cn": [
+      "在线学习平台的便利性改变了高等教育的获取方式。",
+      "城市规划者在设计公共交通系统时优先考虑行人的便利。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0063",
+    "word": "coverage",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "translation": "覆盖范围；报道"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkʌvərɪdʒ/",
+      "uk": "/ˈkʌvərɪdʒ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "coverage"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "cover",
+        "meaning": "覆盖"
+      },
+      "suffix": {
+        "form": "-age",
+        "meaning": "名词后缀"
+      },
+      "summary": "cover（覆盖）+ -age（名词后缀）= 覆盖范围"
+    },
+    "rootGroup": null,
+    "example": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Media coverage of scientific discoveries often oversimplifies complex research findings.",
+      "Health insurance coverage varies significantly across different demographic groups."
+    ],
+    "example_cn": "Claire: 我担心媒体对环境问题的报道常常带有商业偏见。",
+    "altExamples_cn": [
+      "媒体对科学发现的报道往往过度简化复杂的研究发现。",
+      "健康保险覆盖范围在不同人口群体之间存在显著差异。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0064",
+    "word": "coworkers",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈkoʊwɜːrkərz/",
+      "uk": "/ˈkəʊwɜːkəz/"
+    },
+    "inflections": {
+      "singular": "coworker"
+    },
+    "etymology": "From \"co-\" + \"worker\"",
+    "rootGroup": null,
+    "example": "Have any of your coworkers applied for the position?",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "My coworkers and I collaborated on a presentation for the annual industry conference.",
+      "Positive relationships with coworkers can enhance job satisfaction and workplace productivity."
+    ],
+    "example_cn": "你的同事中有没有人申请这个职位？",
+    "altExamples_cn": [
+      "我和同事们为年度行业会议的合作演示进行了协作。",
+      "与同事之间的良好关系可以提高工作满意度和职场生产力。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0065",
+    "word": "deadline",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "截止日期；最后期限"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈdɛdlaɪn/",
+      "uk": "/ˈdɛdlaɪn/"
+    },
+    "inflections": {
+      "plural": "deadlines"
+    },
+    "etymology": "From \"dead\" + \"line\" (originally prison term)",
+    "rootGroup": null,
+    "example": "Why are you asking about the project deadline?",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The project deadline was extended to accommodate additional data collection requirements.",
+      "Meeting the publication deadline required the editorial team to work intensively."
+    ],
+    "example_cn": "你为什么问项目截止日期？",
+    "altExamples_cn": [
+      "项目截止日期被延长以适应额外的数据收集需求。",
+      "赶上出版截止日期需要编辑团队高强度地工作。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0066",
+    "word": "dedicated",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "专注的；专用的；献身的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈdɛdɪkeɪtɪd/",
+      "uk": "/ˈdɛdɪkeɪtɪd/"
+    },
+    "inflections": {
+      "base": "dedicate",
+      "third": "dedicates",
+      "present": "dedicating"
+    },
+    "etymology": "From Latin \"dedicatus\"",
+    "rootGroup": null,
+    "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The research center is dedicated to finding sustainable solutions for water scarcity.",
+      "She dedicated her career to advancing educational opportunities for underprivileged communities."
+    ],
+    "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+    "altExamples_cn": [
+      "该研究中心致力于寻找解决水资源短缺问题的可持续方案。",
+      "她将职业生涯奉献给推动贫困社区的教育机会。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0067",
+    "word": "deforestation",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/diːˌfɔːrɪˈsteɪʃən/",
+      "uk": "/diːˌfɒrɪˈsteɪʃən/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From French \"déforestation\"",
+    "rootGroup": null,
+    "example": "Gupta Human activities like pollution and deforestation harm the environment.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Deforestation in the Amazon rainforest has accelerated despite international conservation efforts.",
+      "Agricultural expansion is the primary driver of deforestation in tropical regions worldwide."
+    ],
+    "example_cn": "Gupta 污染和森林砍伐等人类活动对环境造成危害。",
+    "altExamples_cn": [
+      "尽管国际社会做出了保护努力，亚马逊雨林的森林砍伐仍在加速。",
+      "农业扩张是全球热带地区森林砍伐的主要驱动力。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0068",
+    "word": "delicious",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/dɪˈlɪʃəs/",
+      "uk": "/dɪˈlɪʃəs/"
+    },
+    "inflections": {
+      "comparative": "more delicious",
+      "superlative": "most delicious"
+    },
+    "etymology": "From Old French \"delicios\"",
+    "rootGroup": null,
+    "example": "The diner that opened last week serves many delicious entrees\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The organic produce from the local farm yielded a surprisingly delicious and nutritious meal.",
+      "Critics praised the restaurant for its delicious fusion cuisine blending traditional and modern techniques."
+    ],
+    "example_cn": "上周开的那家餐厅提供许多美味的主菜。",
+    "altExamples_cn": [
+      "来自本地农场的有机农产品做出了一顿令人惊喜的美味且营养的餐食。",
+      "评论家赞扬这家餐厅美味的融合菜系，融合了传统与现代的技巧。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0069",
+    "word": "devices",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "设备；装置（device 的复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/dɪˈvaɪsɪz/",
+      "uk": "/dɪˈvaɪsɪz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": "de-",
+      "root": "videre",
+      "suffix": "",
+      "summary": "源自中古英语 devise（设计）"
+    },
+    "rootGroup": null,
+    "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Portable electronic devices have revolutionized access to information in educational settings.",
+      "Medical devices require rigorous testing and regulatory approval before clinical use."
+    ],
+    "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+    "altExamples_cn": [
+      "便携电子设备彻底改变了教育环境中的信息获取方式。",
+      "医疗设备在临床使用前需要经过严格的测试和监管审批。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0070",
+    "word": "didn",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "contraction",
+        "chinese": "did not（didn't）的缩写"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈdɪdnt/",
+      "uk": "/ˈdɪdnt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "",
+      "suffix": "",
+      "summary": "did not 的缩写形式"
+    },
+    "rootGroup": null,
+    "example": "Why didn't you go to the library today?",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The researchers didn't anticipate the confounding variables that affected their initial hypothesis.",
+      "The committee didn't approve the proposal until additional safety data was provided."
+    ],
+    "example_cn": "你今天为什么没去图书馆？",
+    "altExamples_cn": [
+      "研究人员没有预料到影响他们最初假设的混杂变量。",
+      "在提供额外的安全数据之前，委员会没有批准该提案。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0071",
+    "word": "diner",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈdaɪnər/",
+      "uk": "/ˈdaɪnə/"
+    },
+    "inflections": {
+      "plural": "diners"
+    },
+    "etymology": "From \"dine\" + \"-er\"",
+    "rootGroup": null,
+    "example": "The diner that opened last week serves many delicious entrees\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The historic diner has been a community gathering place for over fifty years.",
+      "Classic American diners are known for their affordable meals and casual atmosphere."
+    ],
+    "example_cn": "上周开的那家小餐馆提供许多美味的主菜。",
+    "altExamples_cn": [
+      "这家历史悠久的小餐馆五十多年来一直是社区的聚会场所。",
+      "经典的美式小餐馆以价格实惠的餐食和休闲氛围而闻名。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0072",
+    "word": "discourage",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/dɪˈskɜːrɪdʒ/",
+      "uk": "/dɪˈskʌrɪdʒ/"
+    },
+    "inflections": {
+      "third": "discourages",
+      "present": "discouraging",
+      "past": "discouraged"
+    },
+    "etymology": "From Old French \"descouragier\"",
+    "rootGroup": null,
+    "example": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "High tuition costs can discourage talented students from pursuing higher education.",
+      "Strict regulations may discourage innovation if compliance becomes overly burdensome."
+    ],
+    "example_cn": "有人认为，全民基本收入让每个人获得相似的收入，可以提供经济保障并减少贫困，而另一些人则认为这会打击人们的工作积极性，并对经济产生负面影响。",
+    "altExamples_cn": [
+      "高昂的学费可能阻碍有才华的学生追求高等教育。",
+      "如果合规成本过高，严格的法规可能会抑制创新。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0073",
+    "word": "distances",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈdɪstənsɪz/",
+      "uk": "/ˈdɪstənsɪz/"
+    },
+    "inflections": {
+      "singular": "distance"
+    },
+    "etymology": "From Latin \"distantia\"",
+    "rootGroup": null,
+    "example": "It allows people to stay in touch over long distances with friends and family with whom they may not have had much contact otherwise.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "Long distances between urban centers pose logistical challenges for infrastructure development.",
+      "The telescope can measure astronomical distances with remarkable precision."
+    ],
+    "example_cn": "它让人们能够跨越遥远的距离与朋友和家人保持联系，否则他们可能不会有太多交流。",
+    "altExamples_cn": [
+      "城市中心之间的长距离给基础设施建设带来了后勤挑战。",
+      "该望远镜能够以非凡的精度测量天文距离。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0074",
+    "word": "download",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈdaʊnloʊd/",
+      "uk": "/ˈdaʊnləʊd/"
+    },
+    "inflections": {
+      "third": "downloads",
+      "present": "downloading",
+      "past": "downloaded",
+      "plural": "downloads"
+    },
+    "etymology": "Compound of \"down\" + \"load\"",
+    "rootGroup": null,
+    "example": "On which website were you able to find the download?",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "Students can download lecture materials from the university's online learning platform.",
+      "The download speed of large research datasets depends on network bandwidth and server capacity."
+    ],
+    "example_cn": "你在哪个网站上找到了这个下载？",
+    "altExamples_cn": [
+      "学生可以从大学的在线学习平台下载课程材料。",
+      "大型研究数据集的下载速度取决于网络带宽和服务器容量。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0075",
+    "word": "downtown",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adverb",
+        "chinese": "往市中心"
+      },
+      {
+        "type": "adjective",
+        "chinese": "市中心的"
+      },
+      {
+        "type": "noun",
+        "chinese": "市中心"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌdaʊnˈtaʊn/",
+      "uk": "/ˌdaʊnˈtaʊn/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "",
+      "suffix": "",
+      "summary": "由 down（向下）+ town（城镇）组合而成"
+    },
+    "rootGroup": null,
+    "example": "The new restaurant downtown has amazing reviews.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The downtown area has undergone significant revitalization with new cultural venues.",
+      "Commuting to downtown during peak hours remains a challenge for many urban residents."
+    ],
+    "example_cn": "市中心新开的那家餐厅评价特别好。",
+    "altExamples_cn": [
+      "市中心区域经历了重大振兴，新增了文化场馆。",
+      "在高峰时段通勤到市中心仍然是许多城市居民面临的挑战。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0076",
+    "word": "drastic",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈdræstɪk/",
+      "uk": "/ˈdrɑːstɪk/"
+    },
+    "inflections": {
+      "comparative": "more drastic",
+      "superlative": "most drastic"
+    },
+    "etymology": "From Greek \"drastikos\" (active)",
+    "rootGroup": null,
+    "example": "This approach supports environmental protection without demanding drastic lifestyle changes.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The company implemented drastic measures to reduce operational costs during the economic downturn.",
+      "Drastic changes in temperature can adversely affect agricultural crop yields."
+    ],
+    "example_cn": "这种方法支持环境保护，而无需要求人们进行剧烈的生活方式改变。",
+    "altExamples_cn": [
+      "该公司在经济衰退期间实施了激烈的措施以降低运营成本。",
+      "温度的剧烈变化会对农作物产量产生不利影响。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0077",
+    "word": "electronic",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "电子的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ɪˌlɛkˈtrɑːnɪk/",
+      "uk": "/ˌɛlɛkˈtrɒnɪk/"
+    },
+    "inflections": {},
+    "etymology": "From Greek \"elektron\" (amber)",
+    "rootGroup": null,
+    "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Electronic waste management has become a critical environmental concern globally.",
+      "The transition from print to electronic media has transformed the publishing industry."
+    ],
+    "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+    "altExamples_cn": [
+      "电子垃圾管理已成为全球关注的重要环境问题。",
+      "从印刷媒体向电子媒体的转变已经改变了出版行业。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0078",
+    "word": "endorphins",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɛnˈdɔːrfɪnz/",
+      "uk": "/ɛnˈdɔːfɪnz/"
+    },
+    "inflections": {
+      "singular": "endorphin"
+    },
+    "etymology": "Blend of \"endogenous\" + \"morphine\"",
+    "rootGroup": null,
+    "example": "It can reduce stress, improve mood, and increase overall well-being by releasing endorphins and promoting a healthy lifestyle.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "Physical exercise stimulates the release of endorphins, which enhance mood and reduce pain.",
+      "The brain's production of endorphins during aerobic activity contributes to feelings of euphoria."
+    ],
+    "example_cn": "它可以通过释放内啡肽和促进健康的生活方式来减轻压力、改善情绪并提升整体幸福感。",
+    "altExamples_cn": [
+      "体育锻炼刺激内啡肽的释放，从而改善情绪并减轻疼痛。",
+      "大脑在有氧运动过程中产生的内啡肽带来愉悦感。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0079",
+    "word": "entrees",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɑːntreɪz/",
+      "uk": "/ˈɒntreɪz/"
+    },
+    "inflections": {
+      "singular": "entree"
+    },
+    "etymology": "From French \"entrée\" (entry)",
+    "rootGroup": null,
+    "example": "The diner that opened last week serves many delicious entrees\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The restaurant's entrees feature locally sourced ingredients prepared with classical techniques.",
+      "Vegetarian entrees have become increasingly popular in mainstream dining establishments."
+    ],
+    "example_cn": "上周开的那家餐厅提供许多美味的主菜。",
+    "altExamples_cn": [
+      "这家餐厅的主菜采用本地采购的食材，以经典技法烹制。",
+      "素食主菜在主流餐饮场所中越来越受欢迎。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0080",
+    "word": "erode",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɪˈroʊd/",
+      "uk": "/ɪˈrəʊd/"
+    },
+    "inflections": {
+      "third": "erodes",
+      "present": "eroding",
+      "past": "eroded"
+    },
+    "etymology": "From Latin \"erodere\" (to gnaw away)",
+    "rootGroup": null,
+    "example": "People often spend more time online than engaging in real-life conversations, which can erode social bonds and reduce the quality of communication with others.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "Constant exposure to coastal waves can erode shorelines over extended periods of time.",
+      "Political scandals can erode public trust in governmental institutions and democratic processes."
+    ],
+    "example_cn": "人们往往花更多时间在网上，而不是进行面对面的交流，这可能侵蚀社会纽带，降低与他人沟通的质量。",
+    "altExamples_cn": [
+      "持续的海浪冲击会长期侵蚀海岸线。",
+      "政治丑闻可能侵蚀公众对政府机构和民主进程的信任。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0082",
+    "word": "exam",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɪɡˈzæm/",
+      "uk": "/ɪɡˈzæm/"
+    },
+    "inflections": {
+      "plural": "exams"
+    },
+    "etymology": "Shortening of \"examination\", from Latin",
+    "rootGroup": null,
+    "example": "How did you prepare for the exam?",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "The final exam will cover material from the entire semester's coursework.",
+      "Preparing for the comprehensive exam required months of dedicated study and review."
+    ],
+    "example_cn": "你是如何准备考试的？",
+    "altExamples_cn": [
+      "期末考试将涵盖整个学期课程的内容。",
+      "准备这次综合性考试需要数月的专注学习和复习。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0083",
+    "word": "fascinating",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adjective",
+        "chinese": "迷人的；极有趣的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈfæsɪneɪtɪŋ/",
+      "uk": "/ˈfæsɪneɪtɪŋ/"
+    },
+    "inflections": {
+      "comparative": "more fascinating",
+      "superlative": "most fascinating",
+      "adverb": "fascinatingly",
+      "noun": "fascination"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "fascinum",
+      "suffix": "-ating",
+      "summary": "源自拉丁语 fascinare（施魔法）"
+    },
+    "rootGroup": null,
+    "example": "The book you lent me was fascinating.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The lecture on neuroplasticity presented fascinating insights into brain development.",
+      "Archaeologists made a fascinating discovery of ancient tools at the excavation site."
+    ],
+    "example_cn": "你借给我的那本书非常引人入胜。",
+    "altExamples_cn": [
+      "关于神经可塑性的讲座提出了关于大脑发育的迷人见解。",
+      "考古学家在挖掘现场发现了令人着迷的古代工具。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0084",
+    "word": "festival",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "节日；庆典"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈfestɪvl/",
+      "uk": "/ˈfestɪvl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "festivals"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "festum",
+      "suffix": "-al",
+      "summary": "源自拉丁语 festum（节日）"
+    },
+    "rootGroup": null,
+    "example": "The film festival this weekend was amazing.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The annual cultural festival draws scholars and artists from around the world to showcase their work.",
+      "Attending the international music festival provided invaluable insight into diverse musical traditions."
+    ],
+    "example_cn": "这个周末的电影节非常精彩。",
+    "altExamples_cn": [
+      "一年一度的文化节吸引了世界各地的学者和艺术家来展示他们的作品。",
+      "参加国际音乐节为了解多元音乐传统提供了宝贵的洞见。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0085",
+    "word": "flexibility",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌflɛksɪˈbɪlɪti/",
+      "uk": "/ˌflɛksɪˈbɪlɪti/"
+    },
+    "inflections": {
+      "plural": "flexibilities"
+    },
+    "etymology": "From Latin \"flexibilitas\"",
+    "rootGroup": null,
+    "example": "These workers often have more flexibility regarding when and where they work, allowing them to become what are known as \"digital nomads\"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Cognitive flexibility enables researchers to adapt their methodologies when unexpected variables emerge during experiments.",
+      "The flexibility of online learning platforms allows students to balance academic pursuits with professional obligations."
+    ],
+    "example_cn": "这些工作者通常在何时何地工作方面有更大的灵活性，使他们能够成为所谓的「数字游民」——即经常旅行并在国内外不同地点工作的人。",
+    "altExamples_cn": [
+      "认知灵活性使研究人员能够在实验中出现意外变量时调整其方法。",
+      "在线学习平台的灵活性使学生能够兼顾学术追求与职业责任。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0086",
+    "word": "fosters",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈfɔːstərz/",
+      "uk": "/ˈfɒstəz/"
+    },
+    "inflections": {
+      "base": "foster",
+      "present": "fostering",
+      "past": "fostered"
+    },
+    "etymology": "From Old English \"fostrian\" (to nourish)",
+    "rootGroup": null,
+    "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "A curriculum that fosters critical thinking prepares students to analyze complex global issues effectively.",
+      "Collaborative research environments foster innovation by encouraging interdisciplinary dialogue among scientists from various fields."
+    ],
+    "example_cn": "有些人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会孤立以及小城镇和村庄中常见的紧密社区的瓦解。",
+    "altExamples_cn": [
+      "培养批判性思维的课程使学生准备好有效地分析复杂的全球性问题。",
+      "协作式研究环境通过鼓励来自不同领域的科学家之间的跨学科对话来促进创新。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0087",
+    "word": "french",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/frɛntʃ/",
+      "uk": "/frɛntʃ/"
+    },
+    "inflections": {},
+    "etymology": "From Old English \"Frencisc\"",
+    "rootGroup": null,
+    "example": "I just started learning French.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The professor's expertise in French Renaissance literature attracted students from across the entire country.",
+      "Enrolling in an advanced French immersion program significantly improved her linguistic proficiency and cultural knowledge."
+    ],
+    "example_cn": "我刚开始学法语。",
+    "altExamples_cn": [
+      "这位教授在法国文艺复兴文学方面的专长吸引了来自全国各地的学生。",
+      "参加高级法语沉浸式课程显著提高了她的语言能力和文化知识。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0088",
+    "word": "graduate",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɡrædʒuɪt/",
+      "uk": "/ˈɡrædʒuət/"
+    },
+    "inflections": [
+      "graduates",
+      "graduated",
+      "graduating"
+    ],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "text": "grad",
+        "origin": "Latin gradus",
+        "meaning": "step / 步"
+      },
+      "suffix": {
+        "text": "-ate",
+        "origin": "Latin -atus",
+        "meaning": "one who / 人"
+      },
+      "summary_cn": "源自拉丁语 gradus（步），-ate 表示完成某阶段的人，即毕业者或研究生"
+    },
+    "rootGroup": null,
+    "example": "High schools are one example, where students may be required to complete a certain number of volunteer hours to graduate.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Upon graduating with honors, she was recruited by a prestigious research institution to continue her studies.",
+      "Graduate programs in environmental science require candidates to demonstrate rigorous analytical and research skills."
+    ],
+    "example_cn": "高中就是一个例子，学生可能需要完成一定数量的志愿者工时才能毕业。",
+    "altExamples_cn": [
+      "以优异成绩毕业后，她被一所著名研究机构招募继续深造。",
+      "环境科学的研究生项目要求候选人展示严谨的分析和研究技能。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0089",
+    "word": "grandparents",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɡrænpɛrənts/",
+      "uk": "/ˈɡrændpɛərənts/"
+    },
+    "inflections": {
+      "singular": "grandparent"
+    },
+    "etymology": "Compound of \"grand\" + \"parent\"",
+    "rootGroup": null,
+    "example": "I'm planning to visit my grandparents next weekend.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The study examined how grandparents contribute to the emotional development of their grandchildren over time.",
+      "Many working parents rely on grandparents for childcare, creating multigenerational household dynamics and bonds."
+    ],
+    "example_cn": "我计划下周末去看望我的祖父母。",
+    "altExamples_cn": [
+      "这项研究考察了祖父母如何随着时间推移为孙辈的情感发展做出贡献。",
+      "许多在职父母依赖祖父母照看孩子，形成了多代同堂的家庭动态和纽带。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0090",
+    "word": "graphic",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɡræfɪk/",
+      "uk": "/ˈɡræfɪk/"
+    },
+    "inflections": {
+      "comparative": "more graphic",
+      "superlative": "most graphic",
+      "plural": "graphics"
+    },
+    "etymology": "From Greek \"graphikos\"",
+    "rootGroup": null,
+    "example": "The workshop on graphic design was very helpful.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The graphic representation of data in the annual report facilitated a clearer understanding of market trends.",
+      "Graphic organizers are effective tools for helping students structure their arguments in academic essays."
+    ],
+    "example_cn": "平面设计的工作坊非常有帮助。",
+    "altExamples_cn": [
+      "年度报告中数据的图形化呈现有助于更清晰地理解市场趋势。",
+      "图形组织器是帮助学生构建学术论文论点的有效工具。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0091",
+    "word": "guides",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ɡaɪdz/",
+      "uk": "/ɡaɪdz/"
+    },
+    "inflections": {
+      "singular": "guide",
+      "base": "guide",
+      "third": "guides",
+      "present": "guiding",
+      "past": "guided"
+    },
+    "etymology": "From Old French \"guider\"",
+    "rootGroup": null,
+    "example": "The tour guides who showed us around the old city were fantastic\\.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Ethical guides in scientific research ensure that experiments adhere to established protocols and standards.",
+      "The guidebook provided comprehensive information about the region's geological formations and historical landmarks."
+    ],
+    "example_cn": "带我们游览古城区的导游们非常棒。",
+    "altExamples_cn": [
+      "科学研究中的伦理指南确保实验遵循既定的规范和标准。",
+      "这本指南提供了关于该地区地质构造和历史地标的全面信息。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0093",
+    "word": "hierarchy",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈhaɪrɑːrki/",
+      "uk": "/ˈhaɪərɑːki/"
+    },
+    "inflections": {
+      "plural": "hierarchies"
+    },
+    "etymology": "From Greek \"hierarchia\"",
+    "rootGroup": null,
+    "example": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "The corporate hierarchy often determines the distribution of resources and decision-making authority within organizations.",
+      "Maslow's hierarchy of needs remains a foundational theory in understanding human motivation and behavior patterns."
+    ],
+    "example_cn": "Gupta 在过去的几节课中，我们一直在讨论社会流动性的概念，它指的是个人或家庭在社会阶层中向上或向下流动的能力。",
+    "altExamples_cn": [
+      "公司的等级制度通常决定了组织内部资源的分配和决策权。",
+      "马斯洛的需求层次理论仍然是理解人类动机和行为模式的基础理论。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0094",
+    "word": "hiking",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "徒步旅行；远足"
+      },
+      {
+        "type": "v",
+        "chinese": "徒步旅行（现在分词）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhaɪkɪŋ/",
+      "uk": "/ˈhaɪkɪŋ/"
+    },
+    "inflections": [
+      "hike",
+      "hikes",
+      "hiked",
+      "hiking"
+    ],
+    "etymology": "From hike (verb, of unknown origin, possibly dialectal) + -ing",
+    "rootGroup": null,
+    "example": "I really enjoyed the hiking trip last weekend.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The ecological survey required extensive hiking through remote mountainous terrain to collect valuable data.",
+      "Regular hiking activities have been linked to improved cardiovascular health and overall mental well-being."
+    ],
+    "example_cn": "我非常喜欢上周末的徒步旅行。",
+    "altExamples_cn": [
+      "生态调查需要在偏远山区进行大量徒步才能收集到有价值的数据。",
+      "定期徒步活动与改善的心血管健康和整体心理健康有关联。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0095",
+    "word": "hub",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/hʌb/",
+      "uk": "/hʌb/"
+    },
+    "inflections": {
+      "plural": "hubs"
+    },
+    "etymology": "From English \"hub\" (wheel hub)",
+    "rootGroup": null,
+    "example": "I'm applying for a position at that new technology hub.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The research hub serves as a central point for collaboration among leading scientists across various disciplines.",
+      "Singapore has emerged as a global financial hub due to its strategic location and favorable economic policies."
+    ],
+    "example_cn": "我正在申请那个新科技中心的一个职位。",
+    "altExamples_cn": [
+      "该研究中心是各学科顶尖科学家之间合作的核心枢纽。",
+      "新加坡因其战略位置和有利的经济政策而崛起为全球金融中心。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0096",
+    "word": "images",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɪmɪdʒɪz/",
+      "uk": "/ˈɪmɪdʒɪz/"
+    },
+    "inflections": [
+      "image"
+    ],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "text": "image",
+        "origin": "Latin imago",
+        "meaning": "likeness / 像"
+      },
+      "suffix": null,
+      "summary_cn": "源自拉丁语 imago（肖像、影像），指视觉再现的图像"
+    },
+    "rootGroup": null,
+    "example": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Satellite images provide researchers with critical data for monitoring deforestation patterns across vast regions.",
+      "The museum's collection of historical images offers a visual record of cultural evolution through the centuries."
+    ],
+    "example_cn": "例如，电影和社交媒体可以通过有力的文字、图像和故事来引起人们对气候变化的关注并激励行动。",
+    "altExamples_cn": [
+      "卫星图像为研究人员监测广阔地区的森林砍伐模式提供了关键数据。",
+      "博物馆收藏的历史影像提供了几个世纪以来文化演变的视觉记录。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0097",
+    "word": "inequality",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌɪnɪˈkwɑːlɪti/",
+      "uk": "/ˌɪnɪˈkwɒlɪti/"
+    },
+    "inflections": {
+      "plural": "inequalities"
+    },
+    "etymology": "From Old French \"inequalite\"",
+    "rootGroup": null,
+    "example": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Income inequality continues to be a central topic in political and economic discourse among policymakers worldwide.",
+      "Educational inequality often perpetuates cycles of poverty across generations and limits social mobility for many."
+    ],
+    "example_cn": "Diaz 我们在课堂上一直在讨论全民基本收入（UBI）作为解决经济不平等问题的一个方案。",
+    "altExamples_cn": [
+      "收入不平等仍然是全球政策制定者政治和经济讨论中的核心议题。",
+      "教育不平等往往使贫困代际循环永续，并限制了许多人的社会流动性。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0098",
+    "word": "initiatives",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "倡议；主动行动（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ɪˈnɪʃɪətɪvz/",
+      "uk": "/ɪˈnɪʃɪətɪvz/"
+    },
+    "inflections": {
+      "singular": "initiative"
+    },
+    "etymology": "From Latin \"initiativus\"",
+    "rootGroup": null,
+    "example": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Grassroots initiatives have proven effective in addressing local environmental concerns and promoting sustainability.",
+      "Government initiatives aimed at reducing carbon emissions require substantial public investment and long-term commitment."
+    ],
+    "example_cn": "另一些人则支持在不停止活动的情况下减轻损害的技术和倡议——例如污染清理或森林恢复。",
+    "altExamples_cn": [
+      "草根倡议已被证明在解决地方环境问题和促进可持续发展方面是有效的。",
+      "旨在减少碳排放的政府倡议需要大量的公共投资和长期承诺。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0099",
+    "word": "instability",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌɪnstəˈbɪlɪti/",
+      "uk": "/ˌɪnstəˈbɪlɪti/"
+    },
+    "inflections": [
+      "instabilities"
+    ],
+    "etymology": {
+      "prefix": {
+        "text": "in-",
+        "origin": "Latin in-",
+        "meaning": "not / 不"
+      },
+      "root": {
+        "text": "stabil",
+        "origin": "Latin stabilis",
+        "meaning": "stable / 稳定的"
+      },
+      "suffix": {
+        "text": "-ity",
+        "origin": "Latin -itas",
+        "meaning": "quality / 性质"
+      },
+      "summary_cn": "由 in-（不）+ stability（稳定性）构成，意为不稳定的状态"
+    },
+    "rootGroup": null,
+    "example": "It would help reduce poverty and give everyone a basic level of security, allowing them to focus on improving their lives without the constant fear of financial instability.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Political instability in the region has deterred foreign investment and significantly slowed economic growth prospects.",
+      "Emotional instability during adolescence can be attributed to rapid hormonal changes and environmental factors."
+    ],
+    "example_cn": "这将有助于减少贫困，给每个人提供基本的安全保障，使他们能够专注于改善生活，而不必时刻担心经济不稳定。",
+    "altExamples_cn": [
+      "该地区的政治不稳定使外国投资望而却步，并显著减缓了经济增长的前景。",
+      "青少年时期的情绪不稳定可归因于快速的激素变化和环境因素。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0100",
+    "word": "isolation",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "隔离；孤立"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌaɪsəˈleɪʃən/",
+      "uk": "/ˌaɪsəˈleɪʃən/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From French \"isolation\"",
+    "rootGroup": null,
+    "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Social isolation among the elderly has become a growing concern in densely populated urban societies worldwide.",
+      "Geographic isolation can limit access to educational resources and healthcare services for rural populations significantly."
+    ],
+    "example_cn": "有些人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会孤立以及小城镇和村庄中常见的紧密社区的瓦解。",
+    "altExamples_cn": [
+      "老年人中的社会孤立已成为全球人口密集的城市社会中日益关注的问题。",
+      "地理上的隔绝会显著限制农村人口获得教育资源和医疗服务的机会。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0103",
+    "word": "knit",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/nɪt/",
+      "uk": "/nɪt/"
+    },
+    "inflections": [
+      "knits",
+      "knitted",
+      "knit",
+      "knitting"
+    ],
+    "etymology": "Old English cnyttan 'to tie, bind'; related to German knüpfen",
+    "rootGroup": null,
+    "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The close-knit research team collaborated effectively to achieve their ambitious project goals ahead of schedule.",
+      "Tightly knit social networks can provide crucial support for individuals during times of economic hardship."
+    ],
+    "example_cn": "有些人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会孤立以及小城镇和村庄中常见的紧密社区的瓦解。",
+    "altExamples_cn": [
+      "这个紧密协作的研究团队有效地合作，提前实现了他们雄心勃勃的项目目标。",
+      "紧密联系的社会网络可以在经济困难时期为个人提供关键支持。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0104",
+    "word": "ladder",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈlædər/",
+      "uk": "/ˈlædə/"
+    },
+    "inflections": [
+      "ladders"
+    ],
+    "etymology": "Old English hlæder; related to Dutch ladder, German Leiter",
+    "rootGroup": null,
+    "example": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Career advancement often requires climbing the corporate ladder through strategic networking and skill development.",
+      "Education is frequently viewed as the most reliable ladder to socioeconomic mobility and professional success."
+    ],
+    "example_cn": "因此，人际关系可以带来工作机会、指导和其它优势，帮助个人攀登社会阶梯。",
+    "altExamples_cn": [
+      "职业晋升通常需要通过战略性社交和技能发展来攀登企业阶梯。",
+      "教育常被视为通向社会经济流动性和职业成功的最可靠阶梯。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0105",
+    "word": "laptop",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "笔记本电脑"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈlæptɑːp/",
+      "uk": "/ˈlæptɒp/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "laptops"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "",
+      "suffix": "",
+      "summary": "由 lap（膝上）+ top（顶部）组合而成"
+    },
+    "rootGroup": null,
+    "example": "I need to buy a new laptop.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "Most university students rely on a laptop for research, writing papers, and attending virtual classes.",
+      "She accidentally left her laptop in the library and realized it contained all her thesis data."
+    ],
+    "example_cn": "我需要买一台新笔记本电脑。",
+    "altExamples_cn": [
+      "大多数大学生依靠笔记本电脑进行研究、写论文和参加虚拟课堂。",
+      "她不小心把笔记本电脑落在了图书馆，然后意识到里面存储了她所有的论文数据。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0106",
+    "word": "larger",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈlɑːrdʒər/",
+      "uk": "/ˈlɑːdʒə/"
+    },
+    "inflections": [
+      "large",
+      "larger",
+      "largest"
+    ],
+    "etymology": "From large + -er; large from Latin largus 'abundant, plentiful'",
+    "rootGroup": null,
+    "example": "Which do you believe plays a larger role in mental health?",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "The larger metropolitan area offers more employment opportunities than rural regions but also higher costs.",
+      "When evaluating policy proposals, one must consider the larger societal implications beyond immediate economic effects."
+    ],
+    "example_cn": "你认为哪个在心理健康中起着更大的作用？",
+    "altExamples_cn": [
+      "较大的都市区比较偏远地区提供更多的就业机会，但生活成本也更高。",
+      "在评估政策提案时，必须考虑其除直接经济影响以外的更大的社会影响。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0107",
+    "word": "leak",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/liːk/",
+      "uk": "/liːk/"
+    },
+    "inflections": [
+      "leaks",
+      "leaked",
+      "leaking"
+    ],
+    "etymology": "Middle English leken, from Old Norse leka 'to drip'; related to German lecken",
+    "rootGroup": null,
+    "example": "He wanted to know where he could find a plumber to fix a leak.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The data leak compromised sensitive information belonging to millions of users across multiple platforms.",
+      "A leak in the laboratory's ventilation system required immediate evacuation of all personnel from the building."
+    ],
+    "example_cn": "他想知道哪里能找到水管工来修漏水。",
+    "altExamples_cn": [
+      "数据泄露危及了多个平台上数百万用户的敏感信息。",
+      "实验室通风系统的泄漏需要立即将大楼内所有人员疏散。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0108",
+    "word": "lessen",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈlɛsən/",
+      "uk": "/ˈlesən/"
+    },
+    "inflections": [
+      "lessens",
+      "lessened",
+      "lessening"
+    ],
+    "etymology": "less + -en (verbal suffix); first recorded 16th century",
+    "rootGroup": null,
+    "example": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Implementing renewable energy sources can lessen dependence on fossil fuels and reduce greenhouse gas emissions.",
+      "Early intervention programs aim to lessen the impact of learning disabilities on academic performance over time."
+    ],
+    "example_cn": "另一些人则支持在不停止活动的情况下减轻损害的技术和倡议——例如污染清理或森林恢复。",
+    "altExamples_cn": [
+      "实施可再生能源可以减少对化石燃料的依赖并降低温室气体排放。",
+      "早期干预计划旨在随着时间的推移减轻学习障碍对学业表现的影响。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0110",
+    "word": "mandatory",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈmændətɔːri/",
+      "uk": "/ˈmændətəri/"
+    },
+    "inflections": [],
+    "etymology": "Late Latin mandatorius, from Latin mandatum 'command'",
+    "rootGroup": null,
+    "example": "While many people volunteer mainly to help others, some institutions have mandatory volunteer programs.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Mandatory attendance policies in universities remain a subject of considerable debate among faculty members.",
+      "Completing a thesis is mandatory for obtaining a master's degree in most graduate programs across disciplines."
+    ],
+    "example_cn": "虽然许多人主要是为了帮助他人而做志愿者，但一些机构有强制性的志愿者项目。",
+    "altExamples_cn": [
+      "大学中的强制出勤政策仍然是教授们之间争论颇多的话题。",
+      "在大多数跨学科的研究生项目中，完成论文是获得硕士学位的强制要求。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0115",
+    "word": "meaningful",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈmiːnɪŋfəl/",
+      "uk": "/ˈmiːnɪŋfəl/"
+    },
+    "inflections": [
+      "more meaningful",
+      "most meaningful"
+    ],
+    "etymology": "meaning + -ful; first recorded mid-19th century",
+    "rootGroup": null,
+    "example": "The fast-paced city life can make it difficult for people to form meaningful connections.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Meaningful dialogue between opposing political factions is essential for maintaining democratic governance and stability.",
+      "The research yielded meaningful data that could transform our understanding of long-term climate patterns."
+    ],
+    "example_cn": "快节奏的城市生活使人难以建立有意义的联系。",
+    "altExamples_cn": [
+      "对立政治派别之间有意义的对话对于维持民主治理和稳定至关重要。",
+      "这项研究产生了有意义的数据，可能会改变我们对长期气候模式的理解。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0116",
+    "word": "mentorship",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈmɛntərʃɪp/",
+      "uk": "/ˈmentəʃɪp/"
+    },
+    "inflections": [],
+    "etymology": "mentor + -ship; from Greek Mentor (friend of Odysseus)",
+    "rootGroup": null,
+    "example": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Effective mentorship programs have been shown to improve student retention rates in universities across disciplines.",
+      "The mentorship relationship between the professor and her doctoral student lasted for many productive years."
+    ],
+    "example_cn": "因此，人际关系可以带来工作机会、指导和其它优势，帮助个人攀登社会阶梯。",
+    "altExamples_cn": [
+      "有效的导师计划已被证明可以提高各学科大学的学生保留率。",
+      "教授与她的博士生之间的师生关系持续了许多卓有成效的年头。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0117",
+    "word": "minimizing",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "最小化，尽量减少"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈmɪnɪmaɪzɪŋ/",
+      "uk": "/ˈmɪnɪmaɪzɪŋ/"
+    },
+    "inflections": [],
+    "etymology": "minimize + -ing; from Latin minimus 'least'",
+    "rootGroup": null,
+    "example": "What do you think is the most effective way to address environmental issues — eliminating harmful activities or minimizing their impact?",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Minimizing cognitive biases in experimental design is crucial for achieving valid and reliable research outcomes.",
+      "The architect focused on minimizing the building's environmental footprint through sustainable materials and energy-efficient systems."
+    ],
+    "example_cn": "你认为解决环境问题最有效的方式是什么——消除有害活动还是将其影响降到最低？",
+    "altExamples_cn": [
+      "在实验设计中尽量减少认知偏差对于获得有效和可靠的研究结果至关重要。",
+      "建筑师专注于通过可持续材料和节能系统来最小化建筑的环境足迹。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0118",
+    "word": "misunderstanding",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌmɪsʌndərˈstændɪŋ/",
+      "uk": "/ˌmɪsʌndəˈstændɪŋ/"
+    },
+    "inflections": [
+      "misunderstandings"
+    ],
+    "etymology": "mis- + understanding; first recorded late 15th century",
+    "rootGroup": null,
+    "example": "News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Cultural misunderstanding often arises when individuals lack awareness of different social norms and communication styles.",
+      "The misunderstanding between the research teams significantly delayed the collaborative publication of their findings."
+    ],
+    "example_cn": "新闻媒体和制作公司可能会过度简化问题以迎合吸引观众的叙事，这可能导致误解而非真正的意识。",
+    "altExamples_cn": [
+      "当个人缺乏对不同社会规范和沟通方式的意识时，文化误解常常产生。",
+      "研究团队之间的误解严重延迟了他们合作发表研究成果的进程。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0119",
+    "word": "mitigate",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "v",
+        "translation": "减轻；缓解"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈmɪtɪɡeɪt/",
+      "uk": "/ˈmɪtɪɡeɪt/"
+    },
+    "inflections": [
+      "mitigates",
+      "mitigated",
+      "mitigating"
+    ],
+    "etymology": "Latin mitigatus, past participle of mitigare 'to soften, make mild'",
+    "rootGroup": null,
+    "example": "Some argue we must reduce or eliminate these actions to mitigate their impact.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Urban planners implement green spaces to mitigate the effects of rising temperatures in densely populated areas.",
+      "Governments impose strict regulations to mitigate the risks associated with excessive financial market speculation."
+    ],
+    "example_cn": "一些人认为我们必须减少或消除这些行为以减轻其影响。",
+    "altExamples_cn": [
+      "城市规划者通过实施绿地来缓解人口密集地区气温上升的影响。",
+      "政府实施严格的监管以减轻与过度金融市场投机相关的风险。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0120",
+    "word": "movies",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈmuːviz/",
+      "uk": "/ˈmuːviz/"
+    },
+    "inflections": [
+      "movie (singular)"
+    ],
+    "etymology": "moving picture, shortened to movie (early 20th century)",
+    "rootGroup": null,
+    "example": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Documentaries are considerably more effective than fictional movies at conveying accurate scientific information.",
+      "Historical movies often sacrifice factual accuracy for dramatic effect, potentially misleading viewers and audiences."
+    ],
+    "example_cn": "例如，电影和社交媒体可以通过有力的文字、图像和故事来引起人们对气候变化的关注并激励行动。",
+    "altExamples_cn": [
+      "纪录片在传达准确科学信息方面远比虚构电影更有效。",
+      "历史电影常常为了戏剧效果而牺牲事实准确性，可能误导观众。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0121",
+    "word": "mutual",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "相互的；共同的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈmjuːtʃuəl/",
+      "uk": "/ˈmjuːtʃuəl/"
+    },
+    "inflections": [],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "mut",
+        "meaning": "mutual, reciprocal (from L. mutuus)"
+      },
+      "suffix": {
+        "form": "-ual",
+        "meaning": "relating to"
+      },
+      "summary": "源自拉丁语mutuus (相互的、交换的)，与mutare (改变) 同源"
+    },
+    "rootGroup": null,
+    "example": "Large cities bring together people from different backgrounds, creating opportunities for cultural interaction and mutual understanding.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The two nations signed a mutual agreement to collaborate on climate research and environmental protection initiatives.",
+      "Mutual respect between colleagues fosters a productive and harmonious work environment that benefits everyone involved."
+    ],
+    "example_cn": "大城市把来自不同背景的人聚集在一起，为文化交流和相互理解创造了机会。",
+    "altExamples_cn": [
+      "两国签署了一项共同协议，在气候研究和环境保护倡议方面进行合作。",
+      "同事之间的相互尊重营造了一个高效和谐的工作环境，使每个参与者都受益。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0122",
+    "word": "nomadism",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈnoʊmædɪzəm/",
+      "uk": "/ˈnəʊmædɪzəm/"
+    },
+    "inflections": [],
+    "etymology": "nomad + -ism; from Greek nomas 'roaming, wandering'",
+    "rootGroup": null,
+    "example": "Do you think digital nomadism is likely to continue increasing?",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Digital nomadism has transformed traditional concepts of workplace productivity and employee engagement across industries.",
+      "The rise of nomadism challenges conventional assumptions about career stability and professional identity development."
+    ],
+    "example_cn": "你认为数字游民生活方式有可能继续增长吗？",
+    "altExamples_cn": [
+      "数字游民生活方式已经改变了各行业对工作场所生产力和员工参与度的传统概念。",
+      "游民生活方式的兴起挑战了关于职业稳定性和职业身份发展的传统假设。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0123",
+    "word": "nomads",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈnoʊmædz/",
+      "uk": "/ˈnəʊmædz/"
+    },
+    "inflections": [
+      "nomad (singular)"
+    ],
+    "etymology": "from Greek nomas 'roaming, wandering'",
+    "rootGroup": null,
+    "example": "These workers often have more flexibility regarding when and where they work, allowing them to become what are known as \"digital nomads\"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Modern nomads leverage technology to maintain professional careers while traveling extensively across different countries.",
+      "Historical nomads developed sophisticated survival strategies adapted to harsh environmental conditions and limited resources."
+    ],
+    "example_cn": "这些工作者通常在何时何地工作方面有更大的灵活性，使他们能够成为所谓的「数字游民」——即经常旅行并在国内外不同地点工作的人。",
+    "altExamples_cn": [
+      "现代游民利用科技在广泛旅行于不同国家的同时维持职业生涯。",
+      "历史上的游牧民族发展出了适应恶劣环境条件和有限资源的复杂生存策略。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0124",
+    "word": "outlets",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈaʊtlɛts/",
+      "uk": "/ˈaʊtlɛts/"
+    },
+    "inflections": [
+      "outlet (singular)"
+    ],
+    "etymology": "out- + let; originally 'a passage for exit' (13th century)",
+    "rootGroup": null,
+    "example": "News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Major news outlets have a responsibility to report information with accuracy and impartiality at all times.",
+      "Creative outlets such as writing and painting provide significant therapeutic benefits for mental health and well-being."
+    ],
+    "example_cn": "新闻媒体和制作公司可能会过度简化问题以迎合吸引观众的叙事，这可能导致误解而非真正的意识。",
+    "altExamples_cn": [
+      "主流新闻媒体有责任始终以准确和公正的方式报道信息。",
+      "写作和绘画等创意表达的途径对心理健康和幸福感具有显著的治疗益处。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0125",
+    "word": "oversimplify",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌoʊvərˈsɪmplɪfaɪ/",
+      "uk": "/ˌəʊvəˈsɪmplɪfaɪ/"
+    },
+    "inflections": [
+      "oversimplifies",
+      "oversimplified",
+      "oversimplifying"
+    ],
+    "etymology": "over- + simplify; first recorded early 20th century",
+    "rootGroup": null,
+    "example": "However, some worry that art and media may oversimplify complex environmental issues or focus too much on negative aspects for dramatic effect.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Textbook summaries tend to oversimplify historical events, omitting crucial contextual details and multiple perspectives.",
+      "Critics argue that the documentary's narrative oversimplifies the complex causes of global economic recession."
+    ],
+    "example_cn": "然而，一些人担心艺术和媒体可能会过度简化复杂的环境问题，或者为了戏剧效果而过度关注负面方面。",
+    "altExamples_cn": [
+      "教科书摘要倾向于过度简化历史事件，忽略了关键的背景细节和多种视角。",
+      "批评者认为这部纪录片的叙事过度简化了全球经济衰退的复杂原因。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0126",
+    "word": "photography",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "摄影（术）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/fəˈtɑːɡrəfi/",
+      "uk": "/fəˈtɒɡrəfi/"
+    },
+    "inflections": [],
+    "etymology": "photo- + -graphy; coined 1839 from Greek phōtos 'light' + graphē 'drawing'",
+    "rootGroup": null,
+    "example": "I'm planning to take a photography class.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Wildlife photography requires immense patience and extensive knowledge of animal behavior patterns and habitats.",
+      "Photography serves as a powerful medium for documenting social and environmental change across generations."
+    ],
+    "example_cn": "我计划参加一个摄影课程。",
+    "altExamples_cn": [
+      "野生动物摄影需要极大的耐心和对动物行为模式及栖息地的广泛知识。",
+      "摄影是记录跨代际社会和环境变化的强大媒介。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0127",
+    "word": "planned",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/plænd/",
+      "uk": "/plænd/"
+    },
+    "inflections": [],
+    "etymology": "plan + -ed; from French plan 'drawing, sketch'",
+    "rootGroup": null,
+    "example": "Can you tell me if there are more trips planned for this month?",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The carefully planned experiment accounted for all potential variables and control conditions in the study.",
+      "Planned urban development must consider long-term environmental sustainability and population growth projections carefully."
+    ],
+    "example_cn": "你能告诉我这个月还有计划更多旅行吗？",
+    "altExamples_cn": [
+      "精心计划的实验考虑了研究中所有潜在的变量和对照条件。",
+      "有规划的城市发展必须仔细考虑长期环境可持续性和人口增长预测。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0128",
+    "word": "plumber",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈplʌmər/",
+      "uk": "/ˈplʌmə/"
+    },
+    "inflections": [
+      "plumbers"
+    ],
+    "etymology": "Latin plumbarius 'worker in lead', from plumbum 'lead'",
+    "rootGroup": null,
+    "example": "He wanted to know where he could find a plumber to fix a leak.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The building supervisor urgently called a plumber to address the persistent drainage issues in the basement.",
+      "Becoming a licensed plumber requires completing a comprehensive apprenticeship and passing rigorous certification examinations."
+    ],
+    "example_cn": "他想知道哪里能找到水管工来修漏水。",
+    "altExamples_cn": [
+      "大楼主管紧急叫来水管工来解决地下室持续存在的排水问题。",
+      "成为一名持证水管工需要完成全面的学徒培训并通过严格的认证考试。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0129",
+    "word": "portable",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈpɔːrtəbəl/",
+      "uk": "/ˈpɔːtəbəl/"
+    },
+    "inflections": [],
+    "etymology": "From Latin portabilis, from portare 'to carry'",
+    "rootGroup": null,
+    "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Portable solar panels provide renewable energy solutions for remote research stations in isolated locations worldwide.",
+      "The portable laboratory equipment enabled researchers to conduct field studies in previously inaccessible locations."
+    ],
+    "example_cn": "Williams 越来越多的人可以在便携式电子设备上远程工作，而不是在专门的办公室里。",
+    "altExamples_cn": [
+      "便携式太阳能电池板为全球偏远地区的研究站提供可再生能源解决方案。",
+      "便携式实验室设备使研究人员能够在以前无法到达的地点进行实地研究。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0130",
+    "word": "practices",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "实践；做法（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈpræktɪsɪz/",
+      "uk": "/ˈpræktɪsɪz/"
+    },
+    "inflections": [
+      "practice"
+    ],
+    "etymology": "From Latin practicus 'practical', from Greek praktikos",
+    "rootGroup": null,
+    "example": "A supportive environment and good mental health practices are crucial for overall well-being.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "Sustainable agricultural practices are essential for preserving soil quality and maintaining long-term biodiversity levels.",
+      "Ethical research practices require informed consent from participants and full transparency throughout the study."
+    ],
+    "example_cn": "支持性的环境和良好的心理健康实践对整体幸福感至关重要。",
+    "altExamples_cn": [
+      "可持续的农业实践对于保护土壤质量和维持长期生物多样性水平至关重要。",
+      "符合伦理的研究实践要求获得参与者的知情同意并在整个研究过程中保持完全透明。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0133",
+    "word": "reliable",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/rɪˈlaɪəbəl/",
+      "uk": "/rɪˈlaɪəbəl/"
+    },
+    "inflections": [],
+    "etymology": "From rely + -able; rely from Latin religare 'to bind tightly'",
+    "rootGroup": null,
+    "example": "I'm hoping you can tell me where I might find some reliable sources.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "Reliable data is fundamental to drawing accurate and meaningful conclusions in scientific research and analysis.",
+      "Establishing reliable transportation networks is crucial for promoting economic development in rural and remote areas."
+    ],
+    "example_cn": "我希望你能告诉我在哪里能找到一些可靠的资料。",
+    "altExamples_cn": [
+      "可靠的数据是在科学研究和分析中得出准确且有意义结论的基础。",
+      "建立可靠的交通网络对于促进农村和偏远地区的经济发展至关重要。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0134",
+    "word": "renovations",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "翻新，装修"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌrɛnəˈveɪʃənz/",
+      "uk": "/ˌrenəˈveɪʃənz/"
+    },
+    "inflections": [
+      "renovation (singular)"
+    ],
+    "etymology": "Latin renovatio, from renovare 'to renew' (re- 'again' + novare 'make new')",
+    "rootGroup": null,
+    "example": "The only library in town is temporarily closed for renovations\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The laboratory renovations included upgrading ventilation systems and installing state-of-the-art research equipment.",
+      "Extensive renovations to the historical building successfully preserved its architectural integrity and cultural significance."
+    ],
+    "example_cn": "镇上唯一的图书馆因翻修而暂时关闭。",
+    "altExamples_cn": [
+      "实验室的翻修包括升级通风系统和安装最先进的研究设备。",
+      "对这座历史建筑的大规模翻修成功地保留了其建筑完整性和文化意义。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0135",
+    "word": "rescheduled",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/riːˈskɛdʒuːld/",
+      "uk": "/riːˈʃɛdjuːld/"
+    },
+    "inflections": [
+      "reschedule",
+      "reschedules",
+      "rescheduling",
+      "rescheduled"
+    ],
+    "etymology": "re- (再) + schedule (安排)，意为\"重新安排\"",
+    "rootGroup": null,
+    "example": "Why was the meeting rescheduled?",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The conference was rescheduled due to unforeseen circumstances regarding the keynote speaker's travel arrangements.",
+      "Examinations are rarely rescheduled unless a significant institutional conflict or emergency situation arises unexpectedly."
+    ],
+    "example_cn": "会议为什么被重新安排？",
+    "altExamples_cn": [
+      "由于主讲人旅行安排的意外情况，会议被重新安排了时间。",
+      "除非出现重大的机构冲突或紧急情况，考试很少被重新安排。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0136",
+    "word": "restoration",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌrɛstəˈreɪʃən/",
+      "uk": "/ˌrestəˈreɪʃən/"
+    },
+    "inflections": [
+      "restorations"
+    ],
+    "etymology": "Latin restauratio, from restaurare 'to restore, repair'",
+    "rootGroup": null,
+    "example": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The restoration of degraded ecosystems requires substantial financial investment and long-term commitment from all stakeholders.",
+      "Coral reef restoration projects aim to revitalize marine biodiversity in areas affected by climate change."
+    ],
+    "example_cn": "另一些人则支持在不停止活动的情况下减轻损害的技术和倡议——例如污染清理或森林恢复。",
+    "altExamples_cn": [
+      "恢复退化的生态系统需要大量资金投入和所有利益相关者的长期承诺。",
+      "珊瑚礁恢复项目旨在恢复受气候变化影响地区的海洋生物多样性。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0137",
+    "word": "retraced",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/riːˈtreɪst/",
+      "uk": "/riːˈtreɪst/"
+    },
+    "inflections": [],
+    "etymology": "re- + trace + -ed; from French tracer 'to trace'",
+    "rootGroup": null,
+    "example": "I retraced all of the steps that I took last night\\.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "The researcher retraced the experimental procedure multiple times to verify the accuracy of initial findings.",
+      "Historians retraced the ancient trade route using archaeological evidence and primary source documents from the era."
+    ],
+    "example_cn": "我回溯了昨晚我走过的所有步骤。",
+    "altExamples_cn": [
+      "研究人员多次回溯实验步骤以验证最初发现的准确性。",
+      "历史学家利用考古证据和该时期的一手文献资料重建了古代贸易路线。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0140",
+    "word": "scarf",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/skɑːrf/",
+      "uk": "/skɑːf/"
+    },
+    "inflections": [
+      "scarves",
+      "scarfs"
+    ],
+    "etymology": "Old French escharpe 'sash, sling'; probably Germanic origin",
+    "rootGroup": null,
+    "example": "Where did you get that scarf?",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "She wore a warm woolen scarf to protect herself from the cold winter wind during her morning commute.",
+      "The designer scarf, made from sustainable materials, became a popular fashion accessory."
+    ],
+    "example_cn": "你那条围巾是哪里买的？",
+    "altExamples_cn": [
+      "她在早晨通勤时戴着一条温暖的羊毛围巾来抵御寒冷的冬风。",
+      "这条用可持续材料制成的设计师围巾成为了一款受欢迎的时尚配饰。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0141",
+    "word": "scenes",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/siːnz/",
+      "uk": "/siːnz/"
+    },
+    "inflections": [
+      "scene (singular)"
+    ],
+    "etymology": "Latin scaena 'stage, scene', from Greek skēnē 'tent, stage'",
+    "rootGroup": null,
+    "example": "Urban areas often have vibrant social scenes that encourage community building.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Crime scenes require meticulous documentation and analysis to preserve evidence for forensic investigation and trials.",
+      "Political scenes in the capital city reflect the diverse perspectives of the nation's multicultural population."
+    ],
+    "example_cn": "城市地区通常有充满活力的社交场景来促进社区建设。",
+    "altExamples_cn": [
+      "犯罪现场需要细致的记录和分析以保存用于法医调查和审判的证据。",
+      "首都的政治场景反映了该国多元文化人口的各种观点。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0142",
+    "word": "seems",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/siːmz/",
+      "uk": "/siːmz/"
+    },
+    "inflections": [],
+    "etymology": "Old Norse sœma 'to honor, conform'; related to same",
+    "rootGroup": null,
+    "example": "Although it seems like a good thing on the surface, I think digital media has led to some serious problems.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "It seems that economic growth alone does not guarantee an improved quality of life for all citizens.",
+      "Although the solution seems straightforward at first, implementing it requires careful consideration of many factors."
+    ],
+    "example_cn": "虽然表面上看似乎是件好事，但我认为数字媒体已经导致了一些严重的问题。",
+    "altExamples_cn": [
+      "似乎仅靠经济增长并不能保证所有公民生活质量的改善。",
+      "虽然这个方案乍看之下似乎很简单，但实施它需要仔细考虑许多因素。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0143",
+    "word": "seminar",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈsɛmɪnɑːr/",
+      "uk": "/ˈsemɪnɑː/"
+    },
+    "inflections": [
+      "seminars"
+    ],
+    "etymology": "Latin seminarium 'seed plot', from semen 'seed'",
+    "rootGroup": null,
+    "example": "Will you attend the seminar tomorrow?",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "The weekly seminar series invites leading scholars from around the world to present their ongoing research.",
+      "Attending the seminar on neuroplasticity deepened her understanding of cognitive development throughout the lifespan."
+    ],
+    "example_cn": "你明天会参加研讨会吗？",
+    "altExamples_cn": [
+      "每周的系列研讨会邀请来自世界各地的顶尖学者来展示他们正在进行的研究。",
+      "参加关于神经可塑性的研讨会加深了她对整个生命周期中认知发展的理解。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0144",
+    "word": "shoes",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ʃuːz/",
+      "uk": "/ʃuːz/"
+    },
+    "inflections": [
+      "shoe"
+    ],
+    "etymology": "From Old English sceōh, from Proto-Germanic *skōhaz",
+    "rootGroup": null,
+    "example": "Where did you get your shoes?",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The company's sustainable shoes are manufactured using recycled ocean plastic materials and eco-friendly processes.",
+      "Finding comfortable walking shoes is absolutely essential for the archaeological field expedition in rough terrain."
+    ],
+    "example_cn": "你的鞋子是哪里买的？",
+    "altExamples_cn": [
+      "该公司的可持续鞋履使用回收的海洋塑料材料和环保工艺制造。",
+      "在崎岖地形进行考古野外考察时，找到舒适的步行鞋是绝对必要的。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0145",
+    "word": "siblings",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈsɪblɪŋz/",
+      "uk": "/ˈsɪblɪŋz/"
+    },
+    "inflections": [
+      "sibling (singular)"
+    ],
+    "etymology": "Old English sibling 'relative', from sibb 'kinship' + -ling",
+    "rootGroup": null,
+    "example": "Some have part-time jobs or take care of younger siblings after school.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "The study examined how siblings influence each other's academic achievement and social skill development over time.",
+      "Older siblings often serve as important role models for their younger brothers and sisters within families."
+    ],
+    "example_cn": "有些人有兼职工作，或者放学后照顾年幼的弟弟妹妹。",
+    "altExamples_cn": [
+      "这项研究考察了兄弟姐妹如何随着时间推移影响彼此的学业成就和社交技能发展。",
+      "在家庭中，年长的兄弟姐妹通常为年幼的弟弟妹妹充当重要的榜样。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0146",
+    "word": "stunning",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈstʌnɪŋ/",
+      "uk": "/ˈstʌnɪŋ/"
+    },
+    "inflections": [
+      "more stunning",
+      "most stunning"
+    ],
+    "etymology": "stun + -ing; from Old French estoner 'to stun, daze'",
+    "rootGroup": null,
+    "example": "The new art exhibit at the museum is stunning.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "The stunning panoramic view from the laboratory windows inspired the research team during their long experiments.",
+      "Her stunning academic performance throughout the program earned her a full scholarship to the university."
+    ],
+    "example_cn": "博物馆的新艺术展令人惊叹。",
+    "altExamples_cn": [
+      "从实验室窗户看到的壮丽全景在漫长的实验过程中激励了研究团队。",
+      "她在整个项目期间令人惊叹的学术表现使她获得了该大学的全部奖学金。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0147",
+    "word": "superstore",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈsuːpərstɔːr/",
+      "uk": "/ˈsuːpəstɔː/"
+    },
+    "inflections": [
+      "superstores"
+    ],
+    "etymology": "super- + store; first recorded mid-20th century",
+    "rootGroup": null,
+    "example": "The new superstore offers a wide variety of products at discounted prices.",
+    "source": "manually revised",
+    "altExamples": [
+      "The new superstore offers a wide range of electronics, groceries, and household items under one roof.",
+      "Local small businesses struggled to compete after the superstore opened on the outskirts of town."
+    ],
+    "example_cn": "新的超级商场以折扣价提供各种各样的产品。",
+    "altExamples_cn": [
+      "新的超级商场提供一站式的电子产品、杂货和家居用品。",
+      "超级商场在城镇郊区开业后，当地的小企业难以与之竞争。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0148",
+    "word": "supervisor",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈsuːpərvaɪzər/",
+      "uk": "/ˈsuːpəvaɪzə/"
+    },
+    "inflections": [
+      "supervisors"
+    ],
+    "etymology": "Latin super- 'over' + visor 'one who sees', from videre 'to see'",
+    "rootGroup": null,
+    "example": "I heard that the supervisor was looking for you.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The research supervisor provided valuable guidance on experimental design and data analysis techniques to students.",
+      "Each doctoral candidate is assigned a faculty supervisor who oversees their dissertation research and progress."
+    ],
+    "example_cn": "我听说主管在找你。",
+    "altExamples_cn": [
+      "研究生导师在实验设计和数据分析技术方面为学生提供了宝贵的指导。",
+      "每位博士候选人都被分配一位指导教授，监督其论文研究和进展。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0149",
+    "word": "supportive",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/səˈpɔːrtɪv/",
+      "uk": "/səˈpɔːtɪv/"
+    },
+    "inflections": [
+      "more supportive",
+      "most supportive"
+    ],
+    "etymology": "support + -ive; from Latin supportare 'to carry, convey'",
+    "rootGroup": null,
+    "example": "A supportive environment and good mental health practices are crucial for overall well-being.",
+    "source": "TPO-04 writing-TPO-04",
+    "altExamples": [
+      "Supportive family environments are strongly correlated with higher academic achievement and emotional stability in children.",
+      "A supportive network of mentors can significantly enhance career development opportunities and professional growth."
+    ],
+    "example_cn": "支持性的环境和良好的心理健康实践对整体幸福感至关重要。",
+    "altExamples_cn": [
+      "支持性的家庭环境与儿童较高的学业成就和情绪稳定性密切相关。",
+      "支持性的导师网络可以显著增加职业发展机会和职业成长。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0150",
+    "word": "tastes",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/teɪsts/",
+      "uk": "/teɪsts/"
+    },
+    "inflections": [],
+    "etymology": "Old French tast 'sense of touch'; from Latin taxare 'to evaluate'",
+    "rootGroup": null,
+    "example": "This coffee tastes better than all of the other brands I've tried\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The critic's tastes in literature evolved significantly after studying comparative literature at the university level.",
+      "Musical tastes often reflect broader cultural and generational identity patterns within a given society."
+    ],
+    "example_cn": "这款咖啡比我尝试过的所有其它品牌都要好喝。",
+    "altExamples_cn": [
+      "在大学阶段学习比较文学后，这位评论家的文学品味发生了显著变化。",
+      "音乐品味通常反映了特定社会中更广泛的文化和代际认同模式。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0151",
+    "word": "temporarily",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌtɛmpəˈrɛrɪli/",
+      "uk": "/ˈtɛmpərərɪli/"
+    },
+    "inflections": [],
+    "etymology": "From Latin temporarius 'of time' + -ly",
+    "rootGroup": null,
+    "example": "The only library in town is temporarily closed for renovations\\.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "The museum will temporarily close its main exhibition hall to complete necessary structural repairs and upgrades.",
+      "Due to budget constraints, the program was temporarily suspended until additional funding could be secured."
+    ],
+    "example_cn": "镇上唯一的图书馆因翻修而暂时关闭。",
+    "altExamples_cn": [
+      "博物馆将暂时关闭其主要展厅以完成必要的结构维修和升级。",
+      "由于预算限制，该项目被暂时中止，直到能够获得额外资金为止。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0152",
+    "word": "ubi",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌjuː biː ˈaɪ/",
+      "uk": "/ˌjuː biː ˈaɪ/"
+    },
+    "inflections": [],
+    "etymology": "Universal Basic Income; acronym coined late 20th century",
+    "rootGroup": null,
+    "example": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+    "source": "TPO-02 writing-TPO-02",
+    "altExamples": [
+      "Implementing a UBI system requires careful analysis of its long-term economic consequences and social implications.",
+      "Critics argue that universal basic income may discourage workforce participation and ultimately reduce national productivity."
+    ],
+    "example_cn": "Diaz 我们在课堂上一直在讨论全民基本收入（UBI）作为解决经济不平等问题的一个方案。",
+    "altExamples_cn": [
+      "实施UBI制度需要仔细分析其长期经济后果和社会影响。",
+      "批评者认为全民基本收入可能会抑制劳动力参与，并最终降低国家生产力。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0153",
+    "word": "unparalleled",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ʌnˈpærəleld/",
+      "uk": "/ʌnˈpærəleld/"
+    },
+    "inflections": [],
+    "etymology": "un- + paralleled; from Greek parallēlos 'alongside one another'",
+    "rootGroup": null,
+    "example": "Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions.",
+    "source": "TPO-08 writing-TPO-08",
+    "altExamples": [
+      "The university offers unparalleled resources for students pursuing advanced research in biotechnology and genetic engineering.",
+      "Her unparalleled dedication to the project ensured its successful completion well ahead of the original schedule."
+    ],
+    "example_cn": "Claire：虽然数字游民生活方式确实提供了无与伦比的自由，但重要的是要注意它严重依赖强大的互联网连接，而这在所有地区可能并不都能平等获得。",
+    "altExamples_cn": [
+      "这所大学为追求生物技术和基因工程高级研究的学生提供了无与伦比的资源。",
+      "她对项目无与伦比的投入确保了它远在原定计划之前成功完成。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0154",
+    "word": "update",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ʌpˈdeɪt/",
+      "uk": "/ʌpˈdeɪt/"
+    },
+    "inflections": [
+      "updates",
+      "updated",
+      "updating"
+    ],
+    "etymology": "From up + date; date from Latin data 'given'",
+    "rootGroup": null,
+    "example": "The new software update looks promising.",
+    "source": "TPO-06 writing-TPO-06",
+    "altExamples": [
+      "The annual update to the curriculum reflects the most recent developments in each academic field and discipline.",
+      "Regular progress updates are essential for maintaining transparency with project stakeholders and funding agencies."
+    ],
+    "example_cn": "新软件的更新看起来很有前景。",
+    "altExamples_cn": [
+      "课程的年度更新反映了每个学术领域和学科的最新发展。",
+      "定期的进度更新对于与项目利益相关方和资助机构保持透明度至关重要。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0155",
+    "word": "upward",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈʌpwərd/",
+      "uk": "/ˈʌpwəd/"
+    },
+    "inflections": [],
+    "etymology": "Old English upweard; from up + -ward",
+    "rootGroup": null,
+    "example": "We have always been taught that education provides a foundation for long-term success and upward mobility.",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Upward social mobility has declined significantly in recent decades across many industrialized nations worldwide.",
+      "The upward trend in global average temperatures strongly correlates with increased carbon emissions from human activities."
+    ],
+    "example_cn": "我们一直被教导说，教育为长期成功和向上流动提供了基础。",
+    "altExamples_cn": [
+      "近几十年来，全球许多工业化国家的向上社会流动性显著下降。",
+      "全球平均气温的上升趋势与人类活动增加的碳排放密切相关。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0156",
+    "word": "urbanization",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "城市化"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌɜːrbənəˈzeɪʃən/",
+      "uk": "/ˌɜːbənaɪˈzeɪʃən/"
+    },
+    "inflections": [],
+    "etymology": "urban + -ization; from Latin urbanus 'of the city', from urbs 'city'",
+    "rootGroup": null,
+    "example": "Diaz Next week we'll be discussing the impact of urbanization on community life.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Rapid urbanization in developing countries places significant strain on existing infrastructure and public service systems.",
+      "Urbanization has fundamentally altered traditional community structures and social relationships across the globe."
+    ],
+    "example_cn": "Diaz 下周我们将讨论城市化对社区生活的影响。",
+    "altExamples_cn": [
+      "发展中国家快速的城市化给现有基础设施和公共服务系统带来了巨大压力。",
+      "城市化已经从根本上改变了全球传统的社区结构和社会关系。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0157",
+    "word": "urgent",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈɜːrdʒənt/",
+      "uk": "/ˈɜːdʒənt/"
+    },
+    "inflections": [],
+    "etymology": "From Latin urgens (present participle of urgere 'to press, drive')",
+    "rootGroup": null,
+    "example": "A powerful documentary or social media campaign can inspire real action and make complex issues feel personal and urgent.",
+    "source": "TPO-09 writing-TPO-09",
+    "altExamples": [
+      "Addressing climate change requires urgent and coordinated action from governments and international organizations worldwide.",
+      "The urgent need for clean water solutions drives continued innovation in desalination and water purification technology."
+    ],
+    "example_cn": "一部有影响力的纪录片或社交媒体宣传活动可以激发实际行动，让复杂的问题变得切身且紧迫。",
+    "altExamples_cn": [
+      "应对气候变化需要各国政府和国际组织采取紧急和协调的行动。",
+      "对清洁水解决方案的迫切需求推动着海水淡化和水净化技术的持续创新。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0158",
+    "word": "vibrant",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈvaɪbrənt/",
+      "uk": "/ˈvaɪbrənt/"
+    },
+    "inflections": [],
+    "etymology": "From Latin vibrant- 'vibrating', from vibrare 'to shake'",
+    "rootGroup": null,
+    "example": "Urban areas often have vibrant social scenes that encourage community building.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "The university's vibrant research community attracts scholars from diverse academic backgrounds around the world.",
+      "A vibrant democracy depends on active citizen participation and well-informed public debate on critical issues."
+    ],
+    "example_cn": "城市地区通常有充满活力的社交场景来促进社区建设。",
+    "altExamples_cn": [
+      "这所大学充满活力的研究社区吸引了来自世界各地不同学术背景的学者。",
+      "一个充满活力的民主制度取决于公民的积极参与和对关键问题的充分知情的公共辩论。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0159",
+    "word": "viewpoint",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈvjuːpɔɪnt/",
+      "uk": "/ˈvjuːpɔɪnt/"
+    },
+    "inflections": [
+      "viewpoints"
+    ],
+    "etymology": "view + point; first recorded mid-19th century",
+    "rootGroup": null,
+    "example": "Which viewpoint do you agree with?",
+    "source": "TPO-01 writing-TPO-01",
+    "altExamples": [
+      "Considering each viewpoint objectively is essential for conducting unbiased research and drawing valid conclusions.",
+      "The author's viewpoint on economic policy has influenced legislative decisions and public opinion for decades."
+    ],
+    "example_cn": "你同意哪种观点？",
+    "altExamples_cn": [
+      "客观地考虑每个观点对于进行无偏见的调查和得出有效的结论至关重要。",
+      "作者对经济政策的观点几十年来一直影响着立法决策和公共舆论。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0160",
+    "word": "villages",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈvɪlɪdʒɪz/",
+      "uk": "/ˈvɪlɪdʒɪz/"
+    },
+    "inflections": [
+      "village (singular)"
+    ],
+    "etymology": "Latin villa 'country house'; via Old French vilage",
+    "rootGroup": null,
+    "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Remote villages often develop unique cultural traditions that remain isolated from mainstream urban influences over time.",
+      "The study compared healthcare access and outcomes between rural villages and densely populated metropolitan areas."
+    ],
+    "example_cn": "有些人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会孤立以及小城镇和村庄中常见的紧密社区的瓦解。",
+    "altExamples_cn": [
+      "偏远村庄往往发展出独特的文化传统，这些传统随着时间的推移仍然与主流城市影响相隔离。",
+      "这项研究比较了农村村庄和人口密集的大都市区之间的医疗保健获取和结果。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0161",
+    "word": "volunteerism",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˌvɑːlənˈtɪrɪzəm/",
+      "uk": "/ˌvɒlənˈtɪərɪzəm/"
+    },
+    "inflections": [],
+    "etymology": "volunteer + -ism; from Latin voluntarius 'voluntary'",
+    "rootGroup": null,
+    "example": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+    "source": "TPO-03 writing-TPO-03",
+    "altExamples": [
+      "Volunteerism contributes significantly to social cohesion and community resilience during times of crisis or hardship.",
+      "Corporate volunteerism programs allow employees to engage meaningfully with local community organizations and nonprofits."
+    ],
+    "example_cn": "Chen 志愿服务是指在不求经济回报的情况下提供时间和服务以造福社区、组织或事业的行为。",
+    "altExamples_cn": [
+      "在危机或困难时期，志愿服务对社会凝聚力和社区韧性做出了重要贡献。",
+      "企业志愿服务项目使员工能够有意义地参与当地社区组织和非营利机构的活动。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0162",
+    "word": "weaken",
+    "subject": "writing",
+    "pos": [],
+    "pronunciation": {
+      "us": "/ˈwiːkən/",
+      "uk": "/ˈwiːkən/"
+    },
+    "inflections": [
+      "weakens (third person)",
+      "weakened (past)",
+      "weakening (present participle)"
+    ],
+    "etymology": "From Old English wāc 'weak' + -en (verbal suffix)",
+    "rootGroup": null,
+    "example": "Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.",
+    "source": "TPO-05 writing-TPO-05",
+    "altExamples": [
+      "Prolonged exposure to chronic stress can significantly weaken the immune system's ability to fight infections.",
+      "Economic recessions tend to weaken consumer confidence and substantially reduce household spending across all sectors."
+    ],
+    "example_cn": "通常存在于小城镇的传统社区纽带在城市环境中趋于弱化。",
+    "altExamples_cn": [
+      "长期暴露于慢性压力会显著削弱免疫系统抵抗感染的能力。",
+      "经济衰退往往会削弱消费者信心，并在各行业大幅减少家庭支出。"
+    ]
+  },
+  {
+    "id": "vocab-writing-0163",
+    "word": "yoga",
+    "subject": "writing",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "瑜伽"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈjoʊɡə/",
+      "uk": "/ˈjəʊɡə/"
+    },
+    "inflections": [],
+    "etymology": "Sanskrit योग (yoga) 'yoking, union'; from yuj 'to join'",
+    "rootGroup": null,
+    "example": "The new yoga class was very relaxing.",
+    "source": "TPO-07 writing-TPO-07",
+    "altExamples": [
+      "Incorporating yoga into the daily routine can significantly improve concentration levels and reduce overall stress.",
+      "The study investigated the long-term effects of yoga on cognitive performance among university student populations."
+    ],
+    "example_cn": "新的瑜伽课非常放松。",
+    "altExamples_cn": [
+      "将瑜伽纳入日常生活可以显著提高注意力水平并减少整体压力。",
+      "这项研究调查了瑜伽对大学生群体认知表现的长期影响。"
+    ]
+  }
+]

@@ -1,0 +1,3146 @@
+{
+  "subject": "reading",
+  "words": {
+    "cleanliness": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "清洁"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈklɛnlinəs/",
+        "uk": "/ˈklɛnlinɪs/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cleanliness"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "clean",
+          "meaning": "干净的"
+        },
+        "root": {
+          "form": "-li-",
+          "meaning": "（连接成分）"
+        },
+        "suffix": {
+          "form": "-ness",
+          "meaning": "…的状态"
+        },
+        "summary": "clean（干净）+ -ness（名词后缀）= 清洁的状态"
+      }
+    },
+    "cloudy": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "多云的；阴天的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈklaʊdi/",
+        "uk": "/ˈklaʊdi/"
+      },
+      "inflections": {
+        "comparative": "cloudier",
+        "superlative": "cloudiest",
+        "adverb": "",
+        "noun": "cloudiness"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cloud",
+          "meaning": "云"
+        },
+        "suffix": {
+          "form": "-y",
+          "meaning": "充满…的"
+        },
+        "summary": "cloud（云）+ -y（形容词后缀）= 多云的"
+      }
+    },
+    "coastal": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "沿海的；海岸的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkoʊstl/",
+        "uk": "/ˈkəʊstl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "coast",
+          "meaning": "海岸"
+        },
+        "suffix": {
+          "form": "-al",
+          "meaning": "…的"
+        },
+        "summary": "coast（海岸）+ -al（形容词后缀）= 沿海的"
+      }
+    },
+    "coexist": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "共存；共处"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkoʊɪɡˈzɪst/",
+        "uk": "/ˌkəʊɪɡˈzɪst/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "coexistence"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "co-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "exist",
+          "meaning": "存在"
+        },
+        "suffix": null,
+        "summary": "co-（共同）+ exist（存在）= 共存"
+      }
+    },
+    "cohesion": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "凝聚力；结合"
+        }
+      ],
+      "pronunciation": {
+        "us": "/koʊˈhiːʒn/",
+        "uk": "/kəʊˈhiːʒn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cohesion"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "co-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "hes",
+          "meaning": "粘附"
+        },
+        "suffix": {
+          "form": "-ion",
+          "meaning": "名词后缀"
+        },
+        "summary": "co-（共同）+ hes（粘附）+ -ion（名词后缀）= 凝聚力"
+      }
+    },
+    "collaborative": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "合作的；协作的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəˈlæbərətɪv/",
+        "uk": "/kəˈlæbərətɪv/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "collaboratively",
+        "noun": "collaboration"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "col-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "labor",
+          "meaning": "劳动"
+        },
+        "suffix": {
+          "form": "-ative",
+          "meaning": "有…性质的"
+        },
+        "summary": "col-（共同）+ labor（劳动）+ -ative（形容词后缀）= 协作的"
+      }
+    },
+    "colleagues": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "同事（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑliɡz/",
+        "uk": "/ˈkɒliːɡz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "colleague"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "col-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "leg",
+          "meaning": "委派"
+        },
+        "suffix": {
+          "form": "-ue",
+          "meaning": "名词后缀"
+        },
+        "summary": "col-（共同）+ leg（委派）+ -ue = 共同被委派的人 → 同事"
+      }
+    },
+    "collective": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "集体的；共同的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəˈlɛktɪv/",
+        "uk": "/kəˈlɛktɪv/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "collectively",
+        "noun": "collective"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "col-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "lect",
+          "meaning": "收集"
+        },
+        "suffix": {
+          "form": "-ive",
+          "meaning": "…的"
+        },
+        "summary": "col-（一起）+ lect（收集）+ -ive（形容词后缀）= 收集到一起的 → 集体的"
+      }
+    },
+    "collectivist": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "集体主义的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəˈlɛktɪvɪst/",
+        "uk": "/kəˈlɛktɪvɪst/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "collectivism"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "col-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "lect",
+          "meaning": "收集"
+        },
+        "suffix": {
+          "form": "-ist",
+          "meaning": "…主义的"
+        },
+        "summary": "collective（集体）+ -ist（…主义的）= 集体主义的"
+      }
+    },
+    "combination": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "结合；组合"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑmbɪˈneɪʃn/",
+        "uk": "/ˌkɒmbɪˈneɪʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "combination"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "bin",
+          "meaning": "两个"
+        },
+        "suffix": {
+          "form": "-ation",
+          "meaning": "名词后缀"
+        },
+        "summary": "com-（一起）+ bin（两个）+ -ation（名词后缀）= 将两个合在一起 → 组合"
+      }
+    },
+    "comedy": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "喜剧"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑmədi/",
+        "uk": "/ˈkɒmədi/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "comedy"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "com(e)",
+          "meaning": "欢宴"
+        },
+        "suffix": {
+          "form": "-edy",
+          "meaning": "名词后缀"
+        },
+        "summary": "来自希腊语komoidia，komos（欢宴）+ oide（歌）→ 喜剧"
+      }
+    },
+    "communal": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "社区的；公共的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəˈmjuːnl/",
+        "uk": "/ˈkɒmjʊnl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "communally",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "mun",
+          "meaning": "服务"
+        },
+        "suffix": {
+          "form": "-al",
+          "meaning": "…的"
+        },
+        "summary": "com-（共同）+ mun（服务）+ -al（形容词后缀）= 共同服务的 → 社区的"
+      }
+    },
+    "compatibility": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "兼容性；相容性"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəmˌpætəˈbɪləti/",
+        "uk": "/kəmˌpætəˈbɪləti/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "compatibility"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "pati",
+          "meaning": "承受"
+        },
+        "suffix": {
+          "form": "-bility",
+          "meaning": "可…性"
+        },
+        "summary": "com-（共同）+ pati（承受）+ -bility（可…性）= 可共同承受 → 兼容性"
+      }
+    },
+    "completion": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "完成；结束"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəmˈpliːʃn/",
+        "uk": "/kəmˈpliːʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "completion"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "ple",
+          "meaning": "充满"
+        },
+        "suffix": {
+          "form": "-tion",
+          "meaning": "名词后缀"
+        },
+        "summary": "com-（完全）+ ple（充满）+ -tion（名词后缀）= 完全充满 → 完成"
+      }
+    },
+    "complexity": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "复杂性；复杂的事物"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kəmˈplɛksəti/",
+        "uk": "/kəmˈplɛksəti/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "complexity"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "plex",
+          "meaning": "编织"
+        },
+        "suffix": {
+          "form": "-ity",
+          "meaning": "名词后缀"
+        },
+        "summary": "com-（一起）+ plex（编织）+ -ity（名词后缀）= 编织在一起 → 复杂性"
+      }
+    },
+    "complicating": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "使复杂化（现在分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑmplɪkeɪtɪŋ/",
+        "uk": "/ˈkɒmplɪkeɪtɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "plic",
+          "meaning": "折叠"
+        },
+        "suffix": {
+          "form": "-ating",
+          "meaning": "动词现在分词"
+        },
+        "summary": "com-（一起）+ plic（折叠）+ -ating = 折叠在一起 → 使复杂化"
+      }
+    },
+    "complimentary": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "免费赠送的；赞美的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑmpləˈmɛntri/",
+        "uk": "/ˌkɒmplɪˈmɛntri/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "complimentarily",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "plen",
+          "meaning": "充满"
+        },
+        "suffix": {
+          "form": "-ary",
+          "meaning": "…的"
+        },
+        "summary": "com-（完全）+ plen（充满）+ -ment + -ary = 充满赞美之词的 → 赞美的/免费的"
+      }
+    },
+    "composting": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "堆肥（制作）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑmpoʊstɪŋ/",
+        "uk": "/ˈkɒmpɒstɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "composting"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "post",
+          "meaning": "放置"
+        },
+        "suffix": {
+          "form": "-ing",
+          "meaning": "动名词"
+        },
+        "summary": "com-（一起）+ post（放置）+ -ing = 放在一起 → 堆肥"
+      }
+    },
+    "comprehensive": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "全面的；综合的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑmprɪˈhɛnsɪv/",
+        "uk": "/ˌkɒmprɪˈhɛnsɪv/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "comprehensively",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "com-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "prehend",
+          "meaning": "抓住"
+        },
+        "suffix": {
+          "form": "-sive",
+          "meaning": "…的"
+        },
+        "summary": "com-（完全）+ prehend（抓住）+ -sive = 完全抓住的 → 全面的"
+      }
+    },
+    "confidential": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "机密的；保密的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑnfɪˈdɛnʃl/",
+        "uk": "/ˌkɒnfɪˈdɛnʃl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "confidentially",
+        "noun": "confidentiality"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "fid",
+          "meaning": "信任"
+        },
+        "suffix": {
+          "form": "-ial",
+          "meaning": "…的"
+        },
+        "summary": "con-（完全）+ fid（信任）+ -ent + -ial = 完全信任的 → 机密的"
+      }
+    },
+    "connectivity": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "连接性；连通性"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑnɛkˈtɪvəti/",
+        "uk": "/ˌkɒnɛkˈtɪvəti/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "connectivity"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "nect",
+          "meaning": "连接"
+        },
+        "suffix": {
+          "form": "-ivity",
+          "meaning": "…性"
+        },
+        "summary": "con-（一起）+ nect（连接）+ -ivity（名词后缀）= 连接性"
+      }
+    },
+    "consciousness": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "意识；知觉"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑnʃəsnəs/",
+        "uk": "/ˈkɒnʃəsnɪs/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "consciousness"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "sci",
+          "meaning": "知道"
+        },
+        "suffix": {
+          "form": "-ness",
+          "meaning": "…的状态"
+        },
+        "summary": "con-（完全）+ sci（知道）+ -ous + -ness = 完全知道的状态 → 意识"
+      }
+    },
+    "conservationists": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "环保主义者（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌkɑnsərˈveɪʃənɪsts/",
+        "uk": "/ˌkɒnsəˈveɪʃənɪsts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "conservationist"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "serv",
+          "meaning": "保持"
+        },
+        "suffix": {
+          "form": "-ist",
+          "meaning": "…主义者"
+        },
+        "summary": "con-（完全）+ serv（保持）+ -ation + -ist = 完全保持的人 → 环保主义者"
+      }
+    },
+    "considerably": {
+      "pos": [
+        {
+          "type": "adverb",
+          "translation": "相当地；显著地"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈsɪdərəbli/",
+        "uk": "/kənˈsɪdərəbli/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "considerably",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "sider",
+          "meaning": "星/考虑"
+        },
+        "suffix": {
+          "form": "-ably",
+          "meaning": "可…地"
+        },
+        "summary": "con-（完全）+ sider（考虑）+ -able + -ly = 可考虑的 → 相当地"
+      }
+    },
+    "contentment": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "满足；满意"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈtɛntmənt/",
+        "uk": "/kənˈtɛntmənt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "contentment"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "ten",
+          "meaning": "保持"
+        },
+        "suffix": {
+          "form": "-ment",
+          "meaning": "名词后缀"
+        },
+        "summary": "con-（完全）+ ten（保持）+ -ment = 完全保持的状态 → 满足"
+      }
+    },
+    "continuous": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "连续的；持续的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈtɪnjuəs/",
+        "uk": "/kənˈtɪnjuəs/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "continuously",
+        "noun": "continuity"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "tin",
+          "meaning": "保持"
+        },
+        "suffix": {
+          "form": "-uous",
+          "meaning": "…的"
+        },
+        "summary": "con-（一起）+ tin（保持）+ -uous = 保持在一起的 → 连续的"
+      }
+    },
+    "convenient": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "方便的；便利的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈviːniənt/",
+        "uk": "/kənˈviːniənt/"
+      },
+      "inflections": {
+        "comparative": "more convenient",
+        "superlative": "most convenient",
+        "adverb": "conveniently",
+        "noun": "convenience"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "ven",
+          "meaning": "来"
+        },
+        "suffix": {
+          "form": "-ient",
+          "meaning": "…的"
+        },
+        "summary": "con-（一起）+ ven（来）+ -ient = 走到一起的 → 方便的"
+      }
+    },
+    "conventional": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "传统的；常规的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈvɛnʃənl/",
+        "uk": "/kənˈvɛnʃənl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "conventionally",
+        "noun": "convention"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "ven",
+          "meaning": "来"
+        },
+        "suffix": {
+          "form": "-al",
+          "meaning": "…的"
+        },
+        "summary": "con-（一起）+ ven（来）+ -tion + -al = 大家来到一起的 → 惯例的 → 传统的"
+      }
+    },
+    "converge": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "汇聚；集中"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈvɜːrdʒ/",
+        "uk": "/kənˈvɜːdʒ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "convergence"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "verg",
+          "meaning": "转向"
+        },
+        "suffix": {
+          "form": "-e",
+          "meaning": ""
+        },
+        "summary": "con-（一起）+ verg（转向）+ -e = 转向一起 → 汇聚"
+      }
+    },
+    "conversely": {
+      "pos": [
+        {
+          "type": "adverb",
+          "translation": "相反地"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑnvɜːrsli/",
+        "uk": "/kənˈvɜːsli/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "conversely",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "vers",
+          "meaning": "转"
+        },
+        "suffix": {
+          "form": "-ly",
+          "meaning": "副词后缀"
+        },
+        "summary": "con-（完全）+ vers（转）+ -e + -ly = 完全转过来的 → 相反地"
+      }
+    },
+    "convey": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "传达；运输"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kənˈveɪ/",
+        "uk": "/kənˈveɪ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "conveyance"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "con-",
+          "meaning": "一起"
+        },
+        "root": {
+          "form": "vey",
+          "meaning": "路"
+        },
+        "suffix": null,
+        "summary": "con-（一起）+ vey（路）= 带到一起来 → 传达"
+      }
+    },
+    "cooperation": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "合作；协作"
+        }
+      ],
+      "pronunciation": {
+        "us": "/koʊˌɑːpəˈreɪʃn/",
+        "uk": "/kəʊˌɒpəˈreɪʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cooperation"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "co-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "oper",
+          "meaning": "工作"
+        },
+        "suffix": {
+          "form": "-ation",
+          "meaning": "名词后缀"
+        },
+        "summary": "co-（共同）+ oper（工作）+ -ation = 共同工作 → 合作"
+      }
+    },
+    "coordinator": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "协调者；协调员"
+        }
+      ],
+      "pronunciation": {
+        "us": "/koʊˈɔːrdɪneɪtər/",
+        "uk": "/kəʊˈɔːdɪneɪtə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "coordinator"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "co-",
+          "meaning": "共同"
+        },
+        "root": {
+          "form": "ordin",
+          "meaning": "顺序"
+        },
+        "suffix": {
+          "form": "-ator",
+          "meaning": "做…的人"
+        },
+        "summary": "co-（共同）+ ordin（顺序）+ -ator（…的人）= 使有共同顺序的人 → 协调者"
+      }
+    },
+    "copper": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "铜"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɑpər/",
+        "uk": "/ˈkɒpə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "copper"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "copper",
+          "meaning": "铜"
+        },
+        "suffix": null,
+        "summary": "来自拉丁语cuprum，源于塞浦路斯（Cyprus）产铜"
+      }
+    },
+    "cordial": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "热忱的；亲切的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkɔːrdʒəl/",
+        "uk": "/ˈkɔːdiəl/"
+      },
+      "inflections": {
+        "comparative": "more cordial",
+        "superlative": "most cordial",
+        "adverb": "cordially",
+        "noun": "cordiality"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cord",
+          "meaning": "心"
+        },
+        "suffix": {
+          "form": "-ial",
+          "meaning": "…的"
+        },
+        "summary": "cord（心）+ -ial（…的）= 发自内心的 → 热忱的"
+      }
+    },
+    "counterparts": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "对应的人或物（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkaʊntərˌpɑːrts/",
+        "uk": "/ˈkaʊntəpɑːts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "counterpart"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "counter-",
+          "meaning": "对应"
+        },
+        "root": {
+          "form": "part",
+          "meaning": "部分"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "复数"
+        },
+        "summary": "counter-（对应）+ part（部分）= 对应的部分 → 对应物"
+      }
+    },
+    "coverage": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "覆盖范围；报道"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkʌvərɪdʒ/",
+        "uk": "/ˈkʌvərɪdʒ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "coverage"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cover",
+          "meaning": "覆盖"
+        },
+        "suffix": {
+          "form": "-age",
+          "meaning": "名词后缀"
+        },
+        "summary": "cover（覆盖）+ -age（名词后缀）= 覆盖范围"
+      }
+    },
+    "cows": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "奶牛（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/kaʊz/",
+        "uk": "/kaʊz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cow"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cow",
+          "meaning": "牛"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "复数"
+        },
+        "summary": "cow（牛）+ -s（复数）= 奶牛复数形式"
+      }
+    },
+    "crystal": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "水晶；晶体"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkrɪstl/",
+        "uk": "/ˈkrɪstl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "crystal"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "crystal",
+          "meaning": "水晶"
+        },
+        "suffix": null,
+        "summary": "来自希腊语krystallos，意为「冰」，因水晶像冰"
+      }
+    },
+    "cultivated": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "培养；耕作（过去分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkʌltɪveɪtɪd/",
+        "uk": "/ˈkʌltɪveɪtɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cultivation"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cult",
+          "meaning": "耕种"
+        },
+        "suffix": {
+          "form": "-ated",
+          "meaning": "动词过去分词"
+        },
+        "summary": "cult（耕种）+ -iv- + -ated = 被耕种的 → 培养的"
+      }
+    },
+    "curating": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "策划（现在分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈkjʊreɪtɪŋ/",
+        "uk": "/ˈkjʊəreɪtɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "curation"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cur",
+          "meaning": "关心"
+        },
+        "suffix": {
+          "form": "-ating",
+          "meaning": "动词现在分词"
+        },
+        "summary": "cur（关心）+ -ating = 关心的 → 精心策划"
+      }
+    },
+    "cyclones": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "气旋（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈsaɪkloʊnz/",
+        "uk": "/ˈsaɪkləʊnz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "cyclone"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "cycl",
+          "meaning": "圆/环"
+        },
+        "suffix": {
+          "form": "-one",
+          "meaning": "名词后缀"
+        },
+        "summary": "cycl（圆/环）+ -one = 旋转的气流 → 气旋"
+      }
+    },
+    "daguerre": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "达盖尔（姓氏）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dəˈɡɛr/",
+        "uk": "/dəˈɡɛə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "daguerre"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Daguerre",
+          "meaning": "法国发明家"
+        },
+        "suffix": null,
+        "summary": "路易·达盖尔，银版摄影术发明者"
+      }
+    },
+    "daguerreotypes": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "银版照片（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dəˈɡɛroʊtaɪps/",
+        "uk": "/dəˈɡɛrəʊtaɪps/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "daguerreotype"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Daguerre",
+          "meaning": "达盖尔"
+        },
+        "suffix": {
+          "form": "-type",
+          "meaning": "类型"
+        },
+        "summary": "Daguerre（达盖尔）+ -type（类型）= 达盖尔式摄影法"
+      }
+    },
+    "databases": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "数据库（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdeɪtəbeɪsɪz/",
+        "uk": "/ˈdeɪtəbeɪsɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "database"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "data",
+          "meaning": "数据"
+        },
+        "suffix": {
+          "form": "base + -s",
+          "meaning": ""
+        },
+        "summary": "data（数据）+ base（基础）= 数据库"
+      }
+    },
+    "dates": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "日期（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/deɪts/",
+        "uk": "/deɪts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "date"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "date",
+          "meaning": "日期"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "复数"
+        },
+        "summary": "date（日期）+ -s（复数）= 多个日期"
+      }
+    },
+    "decode": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "解码；译解"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌdiːˈkoʊd/",
+        "uk": "/ˌdiːˈkəʊd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "decoding"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "去除/解开"
+        },
+        "root": {
+          "form": "code",
+          "meaning": "代码"
+        },
+        "suffix": null,
+        "summary": "de-（解开）+ code（代码）= 解码"
+      }
+    },
+    "delicate": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "精致的；微妙的；脆弱的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɛlɪkət/",
+        "uk": "/ˈdɛlɪkət/"
+      },
+      "inflections": {
+        "comparative": "more delicate",
+        "superlative": "most delicate",
+        "adverb": "delicately",
+        "noun": "delicacy"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "lic",
+          "meaning": "诱惑"
+        },
+        "suffix": {
+          "form": "-ate",
+          "meaning": "形容词后缀"
+        },
+        "summary": "de-（完全）+ lic（诱惑）+ -ate = 令人愉悦的 → 精致的"
+      }
+    },
+    "delighted": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "高兴的；欣喜的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˈlaɪtɪd/",
+        "uk": "/dɪˈlaɪtɪd/"
+      },
+      "inflections": {
+        "comparative": "more delighted",
+        "superlative": "most delighted",
+        "adverb": "delightedly",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "light",
+          "meaning": "光亮"
+        },
+        "suffix": {
+          "form": "-ed",
+          "meaning": "形容词后缀"
+        },
+        "summary": "de-（完全）+ light（光亮）+ -ed = 充满光亮的 → 高兴的"
+      }
+    },
+    "delightful": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "令人愉快的；可爱的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˈlaɪtfəl/",
+        "uk": "/dɪˈlaɪtfəl/"
+      },
+      "inflections": {
+        "comparative": "more delightful",
+        "superlative": "most delightful",
+        "adverb": "delightfully",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "light",
+          "meaning": "光亮"
+        },
+        "suffix": {
+          "form": "-ful",
+          "meaning": "充满…的"
+        },
+        "summary": "delight（高兴）+ -ful（充满…的）= 充满高兴的 → 令人愉快的"
+      }
+    },
+    "democratization": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "民主化"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˌmɑkrətəˈzeɪʃn/",
+        "uk": "/dɪˌmɒkrətaɪˈzeɪʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "democratization"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "demo",
+          "meaning": "人民"
+        },
+        "suffix": {
+          "form": "-ization",
+          "meaning": "…化"
+        },
+        "summary": "demo（人民）+ crat（统治）+ -ization（…化）= 人民统治化 → 民主化"
+      }
+    },
+    "demonstrated": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "证明；示范（过去分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɛmənstreɪtɪd/",
+        "uk": "/ˈdɛmənstreɪtɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "demonstration"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "monstr",
+          "meaning": "展示"
+        },
+        "suffix": {
+          "form": "-ated",
+          "meaning": "动词过去分词"
+        },
+        "summary": "de-（完全）+ monstr（展示）+ -ated = 完全展示 → 证明"
+      }
+    },
+    "densely": {
+      "pos": [
+        {
+          "type": "adverb",
+          "translation": "密集地"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɛnsli/",
+        "uk": "/ˈdɛnsli/"
+      },
+      "inflections": {
+        "comparative": "more densely",
+        "superlative": "most densely",
+        "adverb": "densely",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "dense",
+          "meaning": "密集的"
+        },
+        "suffix": {
+          "form": "-ly",
+          "meaning": "副词后缀"
+        },
+        "summary": "dense（密集的）+ -ly（副词后缀）= 密集地"
+      }
+    },
+    "dental": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "牙齿的；牙科的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɛntl/",
+        "uk": "/ˈdɛntl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "dentistry"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "dent",
+          "meaning": "牙齿"
+        },
+        "suffix": {
+          "form": "-al",
+          "meaning": "…的"
+        },
+        "summary": "dent（牙齿）+ -al（…的）= 牙齿的"
+      }
+    },
+    "depicted": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "描绘（过去分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˈpɪktɪd/",
+        "uk": "/dɪˈpɪktɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "depiction"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "pict",
+          "meaning": "画"
+        },
+        "suffix": {
+          "form": "-ed",
+          "meaning": "过去分词"
+        },
+        "summary": "de-（完全）+ pict（画）+ -ed = 画出来的 → 描绘的"
+      }
+    },
+    "depiction": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "描绘；描写"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˈpɪkʃn/",
+        "uk": "/dɪˈpɪkʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "depiction"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "pict",
+          "meaning": "画"
+        },
+        "suffix": {
+          "form": "-ion",
+          "meaning": "名词后缀"
+        },
+        "summary": "de-（完全）+ pict（画）+ -ion（名词后缀）= 描绘"
+      }
+    },
+    "designated": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "指定的；指派的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɛzɪɡneɪtɪd/",
+        "uk": "/ˈdɛzɪɡneɪtɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "de-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "sign",
+          "meaning": "标记"
+        },
+        "suffix": {
+          "form": "-ated",
+          "meaning": "形容词后缀"
+        },
+        "summary": "de-（完全）+ sign（标记）+ -ated = 被标记的 → 指定的"
+      }
+    },
+    "digestion": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "消化"
+        }
+      ],
+      "pronunciation": {
+        "us": "/daɪˈdʒɛstʃən/",
+        "uk": "/daɪˈdʒɛstʃən/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "digestion"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "di-",
+          "meaning": "分开"
+        },
+        "root": {
+          "form": "gest",
+          "meaning": "携带"
+        },
+        "suffix": {
+          "form": "-ion",
+          "meaning": "名词后缀"
+        },
+        "summary": "di-（分开）+ gest（携带）+ -ion = 分开携带 → 消化"
+      }
+    },
+    "digestive": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "消化的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/daɪˈdʒɛstɪv/",
+        "uk": "/daɪˈdʒɛstɪv/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "di-",
+          "meaning": "分开"
+        },
+        "root": {
+          "form": "gest",
+          "meaning": "携带"
+        },
+        "suffix": {
+          "form": "-ive",
+          "meaning": "…的"
+        },
+        "summary": "di-（分开）+ gest（携带）+ -ive（…的）= 消化的"
+      }
+    },
+    "dimensional": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "维度的；空间的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/daɪˈmɛnʃənl/",
+        "uk": "/daɪˈmɛnʃənl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "dimensionally",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "di-",
+          "meaning": "透过"
+        },
+        "root": {
+          "form": "mens",
+          "meaning": "测量"
+        },
+        "suffix": {
+          "form": "-al",
+          "meaning": "…的"
+        },
+        "summary": "di-（透过）+ mens（测量）+ -ion + -al（…的）= 透过测量得到的 → 维度的"
+      }
+    },
+    "diminish": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "减少；缩小"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪˈmɪnɪʃ/",
+        "uk": "/dɪˈmɪnɪʃ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "diminishment"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "di-",
+          "meaning": "完全"
+        },
+        "root": {
+          "form": "min",
+          "meaning": "小"
+        },
+        "suffix": {
+          "form": "-ish",
+          "meaning": "动词后缀"
+        },
+        "summary": "di-（完全）+ min（小）+ -ish = 使变小 → 减少"
+      }
+    },
+    "dionysus": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "狄俄尼索斯（希腊酒神）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌdaɪəˈnaɪsəs/",
+        "uk": "/ˌdaɪəˈnaɪsəs/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "Dionysus"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Dionysus",
+          "meaning": "希腊神话中的酒神"
+        },
+        "suffix": null,
+        "summary": "来自希腊语Dionysos，希腊神话中的酒神和戏剧之神"
+      }
+    },
+    "dips": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "下降（第三人称单数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪps/",
+        "uk": "/dɪps/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "dip"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "dip",
+          "meaning": "浸/下降"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "第三人称单数"
+        },
+        "summary": "dip（下降）+ -s（第三人称单数）"
+      }
+    },
+    "discount": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "折扣"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdɪskaʊnt/",
+        "uk": "/ˈdɪskaʊnt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "discount"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "dis-",
+          "meaning": "除去"
+        },
+        "root": {
+          "form": "count",
+          "meaning": "计算"
+        },
+        "suffix": null,
+        "summary": "dis-（除去）+ count（计算）= 不计算的部分 → 折扣"
+      }
+    },
+    "disinfecting": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "消毒（现在分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌdɪsɪnˈfɛktɪŋ/",
+        "uk": "/ˌdɪsɪnˈfɛktɪŋ/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "disinfection"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "dis-",
+          "meaning": "除去"
+        },
+        "root": {
+          "form": "infect",
+          "meaning": "感染"
+        },
+        "suffix": {
+          "form": "-ing",
+          "meaning": "动名词"
+        },
+        "summary": "dis-（除去）+ infect（感染）+ -ing = 除去感染 → 消毒"
+      }
+    },
+    "disrupted": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "干扰；中断（过去分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪsˈrʌptɪd/",
+        "uk": "/dɪsˈrʌptɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "disruption"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "dis-",
+          "meaning": "分开"
+        },
+        "root": {
+          "form": "rupt",
+          "meaning": "断裂"
+        },
+        "suffix": {
+          "form": "-ed",
+          "meaning": "过去分词"
+        },
+        "summary": "dis-（分开）+ rupt（断裂）+ -ed = 断裂开 → 中断的"
+      }
+    },
+    "disruption": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "中断；扰乱"
+        }
+      ],
+      "pronunciation": {
+        "us": "/dɪsˈrʌpʃn/",
+        "uk": "/dɪsˈrʌpʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "disruption"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "dis-",
+          "meaning": "分开"
+        },
+        "root": {
+          "form": "rupt",
+          "meaning": "断裂"
+        },
+        "suffix": {
+          "form": "-ion",
+          "meaning": "名词后缀"
+        },
+        "summary": "dis-（分开）+ rupt（断裂）+ -ion = 断裂 → 中断"
+      }
+    },
+    "documentation": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "文件；文档"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌdɑkjʊmɛnˈteɪʃn/",
+        "uk": "/ˌdɒkjʊmɛnˈteɪʃn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "documentation"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "doc",
+          "meaning": "教导"
+        },
+        "suffix": {
+          "form": "-ation",
+          "meaning": "名词后缀"
+        },
+        "summary": "doc（教导）+ -u- + -ment + -ation = 用来教导的东西 → 文档"
+      }
+    },
+    "dopamine": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "多巴胺"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdoʊpəmiːn/",
+        "uk": "/ˈdəʊpəmiːn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "dopamine"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "dopa",
+          "meaning": "多巴"
+        },
+        "suffix": {
+          "form": "-amine",
+          "meaning": "胺"
+        },
+        "summary": "dopa（多巴）+ amine（胺）= 多巴胺"
+      }
+    },
+    "downtown": {
+      "pos": [
+        {
+          "type": "adverb/noun",
+          "translation": "市中心；商业区"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌdaʊnˈtaʊn/",
+        "uk": "/ˌdaʊnˈtaʊn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "downtown",
+        "noun": "downtown"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "down",
+          "meaning": "下"
+        },
+        "suffix": {
+          "form": "town",
+          "meaning": "城镇"
+        },
+        "summary": "down（下）+ town（城镇）= 城镇下方 → 市中心"
+      }
+    },
+    "driven": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "驱动（过去分词）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈdrɪvn/",
+        "uk": "/ˈdrɪvn/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "driv",
+          "meaning": "驱赶"
+        },
+        "suffix": {
+          "form": "-en",
+          "meaning": "过去分词"
+        },
+        "summary": "driv（驱赶）+ -en（过去分词）= 被驱动的"
+      }
+    },
+    "drives": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "驱动（第三人称单数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/draɪvz/",
+        "uk": "/draɪvz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "drive"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "drive",
+          "meaning": "驱动"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "第三人称单数"
+        },
+        "summary": "drive（驱动）+ -s（第三人称单数）"
+      }
+    },
+    "earlier": {
+      "pos": [
+        {
+          "type": "adjective/adverb",
+          "translation": "更早的（比较级）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈɜːrliər/",
+        "uk": "/ˈɜːliə/"
+      },
+      "inflections": {
+        "comparative": "earlier",
+        "superlative": "earliest",
+        "adverb": "early",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "early",
+          "meaning": "早"
+        },
+        "suffix": {
+          "form": "-er",
+          "meaning": "比较级"
+        },
+        "summary": "early（早）+ -er（比较级）= 更早的"
+      }
+    },
+    "earliest": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "最早的（最高级）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈɜːrliɪst/",
+        "uk": "/ˈɜːliɪst/"
+      },
+      "inflections": {
+        "comparative": "earlier",
+        "superlative": "earliest",
+        "adverb": "early",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "early",
+          "meaning": "早"
+        },
+        "suffix": {
+          "form": "-est",
+          "meaning": "最高级"
+        },
+        "summary": "early（早）+ -est（最高级）= 最早的"
+      }
+    },
+    "eastman": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "伊斯曼（姓氏）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈiːstmən/",
+        "uk": "/ˈiːstmən/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "Eastman"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Eastman",
+          "meaning": "乔治·伊斯曼"
+        },
+        "suffix": null,
+        "summary": "乔治·伊斯曼，柯达公司创始人"
+      }
+    },
+    "egyptian": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "埃及的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈdʒɪpʃən/",
+        "uk": "/ɪˈdʒɪpʃən/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "Egyptian"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Egypt",
+          "meaning": "埃及"
+        },
+        "suffix": {
+          "form": "-ian",
+          "meaning": "…的/…人"
+        },
+        "summary": "Egypt（埃及）+ -ian（…的）= 埃及的"
+      }
+    },
+    "egyptians": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "埃及人（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈdʒɪpʃənz/",
+        "uk": "/ɪˈdʒɪpʃənz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "Egyptian"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Egypt",
+          "meaning": "埃及"
+        },
+        "suffix": {
+          "form": "-ians",
+          "meaning": "复数"
+        },
+        "summary": "Egypt（埃及）+ -ian（人）+ -s（复数）= 埃及人"
+      }
+    },
+    "elaborate": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "精心制作的；复杂的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈlæbərət/",
+        "uk": "/ɪˈlæbərət/"
+      },
+      "inflections": {
+        "comparative": "more elaborate",
+        "superlative": "most elaborate",
+        "adverb": "elaborately",
+        "noun": "elaboration"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "e-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "labor",
+          "meaning": "劳动"
+        },
+        "suffix": {
+          "form": "-ate",
+          "meaning": "形容词后缀"
+        },
+        "summary": "e-（出）+ labor（劳动）+ -ate = 付出劳动的 → 精心制作的"
+      }
+    },
+    "electronics": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "电子产品（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˌlɛkˈtrɑnɪks/",
+        "uk": "/ɪˌlɛkˈtrɒnɪks/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "electronics"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "electr",
+          "meaning": "电"
+        },
+        "suffix": {
+          "form": "-onics",
+          "meaning": "…学"
+        },
+        "summary": "electr（电）+ -onics（…学）= 电子学"
+      }
+    },
+    "elephants": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "大象（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈɛlɪfənts/",
+        "uk": "/ˈɛlɪfənts/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "elephant"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "elephant",
+          "meaning": "大象"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "复数"
+        },
+        "summary": "elephant（大象）+ -s（复数）= 大象（复数）"
+      }
+    },
+    "empirical": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "经验主义的；以经验为根据的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪmˈpɪrɪkl/",
+        "uk": "/ɪmˈpɪrɪkl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "empirically",
+        "noun": "empiricism"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "empiri",
+          "meaning": "经验"
+        },
+        "suffix": {
+          "form": "-cal",
+          "meaning": "…的"
+        },
+        "summary": "来自希腊语empiria（经验）+ -cal（…的）= 以经验为根据的"
+      }
+    },
+    "employees": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "员工（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪmˈplɔɪiːz/",
+        "uk": "/ɪmˈplɔɪiːz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "employee"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "em-",
+          "meaning": "使"
+        },
+        "root": {
+          "form": "ploy",
+          "meaning": "折叠"
+        },
+        "suffix": {
+          "form": "-ees",
+          "meaning": "被…的人（复数）"
+        },
+        "summary": "em-（使）+ ploy（折叠）+ -ee（被…的人）+ -s（复数）= 被雇佣的人 → 员工"
+      }
+    },
+    "energize": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "激发；给与能量"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈɛnərdʒaɪz/",
+        "uk": "/ˈɛnədʒaɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "energization"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "en-",
+          "meaning": "使"
+        },
+        "root": {
+          "form": "erg",
+          "meaning": "工作/能量"
+        },
+        "suffix": {
+          "form": "-ize",
+          "meaning": "动词后缀"
+        },
+        "summary": "en-（使）+ erg（能量）+ -ize = 赋予能量 → 激发"
+      }
+    },
+    "enjoyable": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "令人愉快的；有趣的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪnˈdʒɔɪəbl/",
+        "uk": "/ɪnˈdʒɔɪəbl/"
+      },
+      "inflections": {
+        "comparative": "more enjoyable",
+        "superlative": "most enjoyable",
+        "adverb": "enjoyably",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "en-",
+          "meaning": "使"
+        },
+        "root": {
+          "form": "joy",
+          "meaning": "欢乐"
+        },
+        "suffix": {
+          "form": "-able",
+          "meaning": "可…的"
+        },
+        "summary": "en-（使）+ joy（欢乐）+ -able（可…的）= 令人欢乐的"
+      }
+    },
+    "enroll": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "注册；登记"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪnˈroʊl/",
+        "uk": "/ɪnˈrəʊl/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "enrollment"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "en-",
+          "meaning": "使"
+        },
+        "root": {
+          "form": "roll",
+          "meaning": "卷/名单"
+        },
+        "suffix": null,
+        "summary": "en-（使）+ roll（名单）= 使进入名单 → 注册"
+      }
+    },
+    "entertainers": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "演艺人员（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˌɛntərˈteɪnərz/",
+        "uk": "/ˌɛntəˈteɪnəz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "entertainer"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "enter-",
+          "meaning": "在中间"
+        },
+        "root": {
+          "form": "tain",
+          "meaning": "保持"
+        },
+        "suffix": {
+          "form": "-ers",
+          "meaning": "…的人（复数）"
+        },
+        "summary": "enter-（在中间）+ tain（保持）+ -er（人）+ -s（复数）= 使众人欢乐的人 → 演艺人员"
+      }
+    },
+    "equator": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "赤道"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈkweɪtər/",
+        "uk": "/ɪˈkweɪtə/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "equator"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "equ",
+          "meaning": "相等"
+        },
+        "suffix": {
+          "form": "-ator",
+          "meaning": "名词后缀"
+        },
+        "summary": "equ（相等）+ -ator = 使相等之物 → 将地球等分 → 赤道"
+      }
+    },
+    "ethnicities": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "种族（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɛθˈnɪsɪtiz/",
+        "uk": "/ɛθˈnɪsɪtiz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "ethnicity"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "ethn",
+          "meaning": "种族"
+        },
+        "suffix": {
+          "form": "-ities",
+          "meaning": "名词复数"
+        },
+        "summary": "ethn（种族）+ -icity（抽象名词）+ -es（复数）= 种族"
+      }
+    },
+    "europe": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "欧洲"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈjʊrəp/",
+        "uk": "/ˈjʊərəp/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "Europe"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "Europ",
+          "meaning": "欧洲"
+        },
+        "suffix": null,
+        "summary": "来自希腊神话中的公主欧罗巴（Europa）"
+      }
+    },
+    "evade": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "逃避；规避"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˈveɪd/",
+        "uk": "/ɪˈveɪd/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "evasion"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "e-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "vad",
+          "meaning": "走"
+        },
+        "suffix": null,
+        "summary": "e-（出）+ vad（走）= 走出去 → 逃避"
+      }
+    },
+    "evaluations": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "评估（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪˌvæljuˈeɪʃnz/",
+        "uk": "/ɪˌvæljuˈeɪʃnz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "evaluation"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "e-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "val",
+          "meaning": "价值"
+        },
+        "suffix": {
+          "form": "-ations",
+          "meaning": "名词复数"
+        },
+        "summary": "e-（出）+ val（价值）+ -uation = 评出价值 → 评估"
+      }
+    },
+    "exacerbate": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "加剧；恶化"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪɡˈzæsərbeɪt/",
+        "uk": "/ɪɡˈzæsəbeɪt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "exacerbation"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "ex-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "acerb",
+          "meaning": "酸涩"
+        },
+        "suffix": {
+          "form": "-ate",
+          "meaning": "动词后缀"
+        },
+        "summary": "ex-（出）+ acerb（酸涩）+ -ate = 使酸涩出来 → 加剧"
+      }
+    },
+    "exclusionary": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "排外的；排斥的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪkˈskluːʒəneri/",
+        "uk": "/ɪkˈskluːʒənəri/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": {
+          "form": "ex-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "clud",
+          "meaning": "关闭"
+        },
+        "suffix": {
+          "form": "-ionary",
+          "meaning": "…的"
+        },
+        "summary": "ex-（出）+ clud（关闭）+ -ionary（…的）= 关在门外的 → 排外的"
+      }
+    },
+    "exercises": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "练习（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈɛksərsaɪzɪz/",
+        "uk": "/ˈɛksəsaɪzɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "exercise"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "ex-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "erc",
+          "meaning": "限制"
+        },
+        "suffix": {
+          "form": "-ises",
+          "meaning": "名词复数"
+        },
+        "summary": "ex-（出）+ erc（限制）+ -ise = 解除限制 → 练习"
+      }
+    },
+    "exposes": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "暴露（第三人称单数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ɪkˈspoʊzɪz/",
+        "uk": "/ɪkˈspəʊzɪz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "exposure"
+      },
+      "etymology": {
+        "prefix": {
+          "form": "ex-",
+          "meaning": "出"
+        },
+        "root": {
+          "form": "pose",
+          "meaning": "放置"
+        },
+        "suffix": {
+          "form": "-s",
+          "meaning": "第三人称单数"
+        },
+        "summary": "ex-（出）+ pose（放置）= 放置在外面 → 暴露"
+      }
+    },
+    "facilitate": {
+      "pos": [
+        {
+          "type": "verb",
+          "translation": "促进；使便利"
+        }
+      ],
+      "pronunciation": {
+        "us": "/fəˈsɪlɪteɪt/",
+        "uk": "/fəˈsɪlɪteɪt/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "facilitation"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "facil",
+          "meaning": "容易的"
+        },
+        "suffix": {
+          "form": "-itate",
+          "meaning": "使动"
+        },
+        "summary": "facil（容易的）+ -itate = 使容易 → 促进"
+      }
+    },
+    "facilitators": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "引导者（复数）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/fəˈsɪlɪteɪtərz/",
+        "uk": "/fəˈsɪlɪteɪtəz/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "facilitator"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "facil",
+          "meaning": "容易的"
+        },
+        "suffix": {
+          "form": "-ators",
+          "meaning": "做…的人（复数）"
+        },
+        "summary": "facil（容易的）+ -it- + -ator（…的人）+ -s（复数）= 使事情容易的人 → 引导者"
+      }
+    },
+    "fandom": {
+      "pos": [
+        {
+          "type": "noun",
+          "translation": "粉丝圈；粉丝文化"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈfændəm/",
+        "uk": "/ˈfændəm/"
+      },
+      "inflections": {
+        "comparative": "",
+        "superlative": "",
+        "adverb": "",
+        "noun": "fandom"
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "fan",
+          "meaning": "粉丝"
+        },
+        "suffix": {
+          "form": "-dom",
+          "meaning": "领域/状态"
+        },
+        "summary": "fan（粉丝）+ -dom（领域）= 粉丝圈"
+      }
+    },
+    "farther": {
+      "pos": [
+        {
+          "type": "adverb",
+          "translation": "更远（比较级）"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈfɑrðər/",
+        "uk": "/ˈfɑːðə/"
+      },
+      "inflections": {
+        "comparative": "farther",
+        "superlative": "farthest",
+        "adverb": "far",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "far",
+          "meaning": "远"
+        },
+        "suffix": {
+          "form": "-ther",
+          "meaning": "比较级"
+        },
+        "summary": "far（远）+ -ther（比较级）= 更远"
+      }
+    },
+    "fascinating": {
+      "pos": [
+        {
+          "type": "adjective",
+          "translation": "迷人的；极有趣的"
+        }
+      ],
+      "pronunciation": {
+        "us": "/ˈfæsɪneɪtɪŋ/",
+        "uk": "/ˈfæsɪneɪtɪŋ/"
+      },
+      "inflections": {
+        "comparative": "more fascinating",
+        "superlative": "most fascinating",
+        "adverb": "fascinatingly",
+        "noun": ""
+      },
+      "etymology": {
+        "prefix": null,
+        "root": {
+          "form": "fascin",
+          "meaning": "魔力"
+        },
+        "suffix": {
+          "form": "-ating",
+          "meaning": "使…的"
+        },
+        "summary": "fascin（魔力）+ -ating = 有魔力的 → 迷人的"
+      }
+    }
+  }
+}

@@ -1,0 +1,1554 @@
+{
+  "subject": "writing",
+  "words": {
+    "concert": {
+      "sentence": "Did you get tickets for the concert?",
+      "pos": {
+        "type": "noun",
+        "chinese": "音乐会"
+      },
+      "pronunciation": {
+        "us": "/ˈkɑːnsərt/",
+        "uk": "/ˈkɒnsət/"
+      },
+      "inflections": {
+        "plural": "concerts"
+      },
+      "etymology": "From French \"concert\", from Italian \"concerto\""
+    },
+    "reduce": {
+      "sentence": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+      "pos": {
+        "type": "verb",
+        "chinese": "减少；降低"
+      },
+      "pronunciation": {
+        "us": "/rɪˈduːs/",
+        "uk": "/rɪˈdjuːs/"
+      },
+      "inflections": {
+        "third": "reduces",
+        "present": "reducing",
+        "past": "reduced"
+      },
+      "etymology": "From Latin \"reducere\" (to lead back)"
+    },
+    "lent": {
+      "sentence": "Did you finish reading the book I lent you?",
+      "pos": {
+        "type": "verb",
+        "chinese": "借出（lend的过去式）"
+      },
+      "pronunciation": {
+        "us": "/lɛnt/",
+        "uk": "/lɛnt/"
+      },
+      "inflections": {
+        "base": "lend",
+        "third": "lends",
+        "present": "lending",
+        "past": "lent"
+      },
+      "etymology": "From Old English \"lænan\""
+    },
+    "bonds": {
+      "sentence": "Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.",
+      "pos": {
+        "type": "noun",
+        "chinese": "纽带；债券"
+      },
+      "pronunciation": {
+        "us": "/bɑːndz/",
+        "uk": "/bɒndz/"
+      },
+      "inflections": {
+        "singular": "bond"
+      },
+      "etymology": "From Old English \"bonda\" (householder)"
+    },
+    "chen": {
+      "sentence": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "陈（姓氏）"
+      },
+      "pronunciation": {
+        "us": "/tʃɛn/",
+        "uk": "/tʃɛn/"
+      },
+      "inflections": {},
+      "etymology": "Chinese surname 陈"
+    },
+    "connectivity": {
+      "sentence": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+      "pos": {
+        "type": "noun",
+        "chinese": "连接性；连通性"
+      },
+      "pronunciation": {
+        "us": "/ˌkɑːnɛkˈtɪvɪti/",
+        "uk": "/ˌkɒnɛkˈtɪvɪti/"
+      },
+      "inflections": {
+        "plural": "connectivities"
+      },
+      "etymology": "From Latin \"connectere\" (to join together)"
+    },
+    "diaz": {
+      "sentence": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "迪亚兹（姓氏）"
+      },
+      "pronunciation": {
+        "us": "/ˈdiːɑːz/",
+        "uk": "/ˈdiːæz/"
+      },
+      "inflections": {},
+      "etymology": "Spanish surname Díaz"
+    },
+    "documentary": {
+      "sentence": "I really enjoyed the documentary we watched yesterday.",
+      "pos": {
+        "type": [
+          "noun",
+          "adjective"
+        ],
+        "chinese": "纪录片；文献的"
+      },
+      "pronunciation": {
+        "us": "/ˌdɑːkjəˈmɛntəri/",
+        "uk": "/ˌdɒkjʊˈmɛntəri/"
+      },
+      "inflections": {
+        "plural": "documentaries"
+      },
+      "etymology": "From Latin \"documentum\" (example, proof)"
+    },
+    "emma": {
+      "sentence": "- Give Emma suggestions on how she can make new friends.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "艾玛（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈɛmə/",
+        "uk": "/ˈɛmə/"
+      },
+      "inflections": {},
+      "etymology": "Germanic name, meaning \"whole\" or \"universal\""
+    },
+    "europe": {
+      "sentence": "I'm planning a trip to Europe this summer.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "欧洲"
+      },
+      "pronunciation": {
+        "us": "/ˈjʊrəp/",
+        "uk": "/ˈjʊərəp/"
+      },
+      "inflections": {},
+      "etymology": "From Latin \"Europa\", from Greek \"Εὐρώπη\""
+    },
+    "furniture": {
+      "sentence": "I found it in the back of the furniture section at the local superstore\\.",
+      "pos": {
+        "type": "noun",
+        "chinese": "家具"
+      },
+      "pronunciation": {
+        "us": "/ˈfɜːrnɪtʃər/",
+        "uk": "/ˈfɜːnɪtʃə/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From French \"fourniture\" (supply)"
+    },
+    "groceries": {
+      "sentence": "I need to buy groceries today.",
+      "pos": {
+        "type": "noun",
+        "chinese": "杂货；食品杂货"
+      },
+      "pronunciation": {
+        "us": "/ˈɡroʊsəriz/",
+        "uk": "/ˈɡrəʊsəriz/"
+      },
+      "inflections": {
+        "singular": "grocery"
+      },
+      "etymology": "From Old French \"grossier\" (wholesale)"
+    },
+    "gupta": {
+      "sentence": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "古普塔（姓氏）"
+      },
+      "pronunciation": {
+        "us": "/ˈɡʊptə/",
+        "uk": "/ˈɡʊptɑː/"
+      },
+      "inflections": {},
+      "etymology": "Indian surname गुप्ता"
+    },
+    "gym": {
+      "sentence": "Are you going to the gym today?",
+      "pos": {
+        "type": "noun",
+        "chinese": "健身房；体育馆"
+      },
+      "pronunciation": {
+        "us": "/dʒɪm/",
+        "uk": "/dʒɪm/"
+      },
+      "inflections": {
+        "plural": "gyms"
+      },
+      "etymology": "Short for \"gymnasium\", from Greek \"gymnasion\""
+    },
+    "informative": {
+      "sentence": "The workshop yesterday was very informative.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "提供信息的；增长知识的"
+      },
+      "pronunciation": {
+        "us": "/ɪnˈfɔːrmətɪv/",
+        "uk": "/ɪnˈfɔːmətɪv/"
+      },
+      "inflections": {
+        "comparative": "more informative",
+        "superlative": "most informative"
+      },
+      "etymology": "From Latin \"informare\" (to inform)"
+    },
+    "marcus": {
+      "sentence": "Marcus: While Claire makes a good point, Internet technologies and speed are always improving, even in remote areas.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "马库斯（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈmɑːrkəs/",
+        "uk": "/ˈmɑːkəs/"
+      },
+      "inflections": {},
+      "etymology": "Latin given name Marcus"
+    },
+    "ability": {
+      "sentence": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+      "pos": {
+        "type": "noun",
+        "chinese": "能力"
+      },
+      "pronunciation": {
+        "us": "/əˈbɪləti/",
+        "uk": "/əˈbɪləti/"
+      },
+      "inflections": {
+        "plural": "abilities"
+      },
+      "etymology": "From Latin \"habilitas\" (aptitude)"
+    },
+    "abroad": {
+      "sentence": "I'm planning to study abroad next year.",
+      "pos": {
+        "type": "adverb",
+        "chinese": "在国外；到国外"
+      },
+      "pronunciation": {
+        "us": "/əˈbrɔːd/",
+        "uk": "/əˈbrɔːd/"
+      },
+      "inflections": {},
+      "etymology": "From Old English \"on brād\" (broad)"
+    },
+    "absence": {
+      "sentence": "- Explain how his absence has affected the group's progress.",
+      "pos": {
+        "type": "noun",
+        "chinese": "缺席；缺乏"
+      },
+      "pronunciation": {
+        "us": "/ˈæbsəns/",
+        "uk": "/ˈæbsəns/"
+      },
+      "inflections": {
+        "plural": "absences"
+      },
+      "etymology": "From Latin \"absentia\""
+    },
+    "accessible": {
+      "sentence": "Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "可进入的；易接近的"
+      },
+      "pronunciation": {
+        "us": "/ækˈsɛsəbəl/",
+        "uk": "/əkˈsɛsəbəl/"
+      },
+      "inflections": {
+        "comparative": "more accessible",
+        "superlative": "most accessible"
+      },
+      "etymology": "From Latin \"accessibilis\""
+    },
+    "achebe": {
+      "sentence": "Achebe Next week we'll be discussing the impact of digital media on traditional forms of communication.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "阿契贝（姓氏）"
+      },
+      "pronunciation": {
+        "us": "/əˈtʃeɪbeɪ/",
+        "uk": "/əˈtʃeɪbeɪ/"
+      },
+      "inflections": {},
+      "etymology": "Nigerian surname (Chinua Achebe)"
+    },
+    "acquire": {
+      "sentence": "With a good education, individuals can acquire the knowledge and skills needed to access better job opportunities and improve their social status.",
+      "pos": {
+        "type": "verb",
+        "chinese": "获得；学到"
+      },
+      "pronunciation": {
+        "us": "/əˈkwaɪər/",
+        "uk": "/əˈkwaɪə/"
+      },
+      "inflections": {
+        "third": "acquires",
+        "present": "acquiring",
+        "past": "acquired"
+      },
+      "etymology": "From Latin \"acquirere\" (to obtain)"
+    },
+    "action": {
+      "sentence": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+      "pos": {
+        "type": "noun",
+        "chinese": "行动；作用"
+      },
+      "pronunciation": {
+        "us": "/ˈækʃən/",
+        "uk": "/ˈækʃən/"
+      },
+      "inflections": {
+        "plural": "actions"
+      },
+      "etymology": "From Latin \"actio\""
+    },
+    "additional": {
+      "sentence": "- Ask for additional resources or recommendations for further study.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "附加的；额外的"
+      },
+      "pronunciation": {
+        "us": "/əˈdɪʃənəl/",
+        "uk": "/əˈdɪʃənəl/"
+      },
+      "inflections": {},
+      "etymology": "From Latin \"additio\" (addition)"
+    },
+    "adopting": {
+      "sentence": "I'm thinking of adopting a dog this summer.",
+      "pos": {
+        "type": "verb",
+        "chinese": "收养；采纳（adopt的现在分词）"
+      },
+      "pronunciation": {
+        "us": "/əˈdɑːptɪŋ/",
+        "uk": "/əˈdɒptɪŋ/"
+      },
+      "inflections": {
+        "base": "adopt",
+        "third": "adopts",
+        "past": "adopted"
+      },
+      "etymology": "From Latin \"adoptare\""
+    },
+    "advantages": {
+      "sentence": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+      "pos": {
+        "type": "noun",
+        "chinese": "优势；有利条件"
+      },
+      "pronunciation": {
+        "us": "/ædˈvæntɪdʒɪz/",
+        "uk": "/ədˈvɑːntɪdʒɪz/"
+      },
+      "inflections": {
+        "singular": "advantage"
+      },
+      "etymology": "From Old French \"avantage\""
+    },
+    "advice": {
+      "sentence": "- Offer different ways to help her if she needs more advice.",
+      "pos": {
+        "type": "noun",
+        "chinese": "建议；忠告"
+      },
+      "pronunciation": {
+        "us": "/ædˈvaɪs/",
+        "uk": "/ədˈvaɪs/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From Old French \"avis\" (opinion)"
+    },
+    "affected": {
+      "sentence": "- Explain how his absence has affected the group's progress.",
+      "pos": {
+        "type": "verb",
+        "chinese": "影响（affect的过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/əˈfɛktɪd/",
+        "uk": "/əˈfɛktɪd/"
+      },
+      "inflections": {
+        "base": "affect",
+        "third": "affects",
+        "present": "affecting"
+      },
+      "etymology": "From Latin \"afficere\" (to influence)"
+    },
+    "affecting": {
+      "sentence": "- Explain how his lack of participation is affecting the group.",
+      "pos": {
+        "type": "verb",
+        "chinese": "影响（affect的现在分词）"
+      },
+      "pronunciation": {
+        "us": "/əˈfɛktɪŋ/",
+        "uk": "/əˈfɛktɪŋ/"
+      },
+      "inflections": {
+        "base": "affect",
+        "third": "affects",
+        "past": "affected"
+      },
+      "etymology": "From Latin \"afficere\""
+    },
+    "afterward": {
+      "sentence": "She finished her homework shortly afterward.",
+      "pos": {
+        "type": "adverb",
+        "chinese": "之后；后来"
+      },
+      "pronunciation": {
+        "us": "/ˈæftərwərd/",
+        "uk": "/ˈɑːftəwəd/"
+      },
+      "inflections": {},
+      "etymology": "From Old English \"æfterweard\""
+    },
+    "airport": {
+      "sentence": "Can you tell me whether you need a lift to the airport?",
+      "pos": {
+        "type": "noun",
+        "chinese": "机场"
+      },
+      "pronunciation": {
+        "us": "/ˈɛrpɔːrt/",
+        "uk": "/ˈɛəpɔːt/"
+      },
+      "inflections": {
+        "plural": "airports"
+      },
+      "etymology": "Compound of \"air\" + \"port\""
+    },
+    "alternative": {
+      "sentence": "This alternative approach focuses on managing consequences rather than prevention.",
+      "pos": {
+        "type": [
+          "noun",
+          "adjective"
+        ],
+        "chinese": "替代方案；替代的"
+      },
+      "pronunciation": {
+        "us": "/ɔːlˈtɜːrnətɪv/",
+        "uk": "/ɒlˈtɜːnətɪv/"
+      },
+      "inflections": {
+        "plural": "alternatives"
+      },
+      "etymology": "From Latin \"alternativus\""
+    },
+    "andre": {
+      "sentence": "What did Andre ask you at the party?",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "安德烈（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈɑːndreɪ/",
+        "uk": "/ˈændreɪ/"
+      },
+      "inflections": {},
+      "etymology": "French form of Andrew"
+    },
+    "anna": {
+      "sentence": "I heard Anna got a promotion.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "安娜（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈænə/",
+        "uk": "/ˈɑːnə/"
+      },
+      "inflections": {},
+      "etymology": "From Hebrew Hannah, meaning \"grace\""
+    },
+    "apparel": {
+      "sentence": "The store next to the post office sells all types of winter apparel\\.",
+      "pos": {
+        "type": "noun",
+        "chinese": "服装；衣物"
+      },
+      "pronunciation": {
+        "us": "/əˈpærəl/",
+        "uk": "/əˈpærəl/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From Old French \"apareillier\" (to prepare)"
+    },
+    "appetizers": {
+      "sentence": "Did they serve any appetizers before the main course?",
+      "pos": {
+        "type": "noun",
+        "chinese": "开胃菜"
+      },
+      "pronunciation": {
+        "us": "/ˈæpɪtaɪzərz/",
+        "uk": "/ˈæpɪtaɪzəz/"
+      },
+      "inflections": {
+        "singular": "appetizer"
+      },
+      "etymology": "From Latin \"appetitus\" (appetite)"
+    },
+    "application": {
+      "sentence": "I'm going to submit my application today.",
+      "pos": {
+        "type": "noun",
+        "chinese": "申请；应用程序"
+      },
+      "pronunciation": {
+        "us": "/ˌæplɪˈkeɪʃən/",
+        "uk": "/ˌæplɪˈkeɪʃən/"
+      },
+      "inflections": {
+        "plural": "applications"
+      },
+      "etymology": "From Latin \"applicatio\""
+    },
+    "applied": {
+      "sentence": "Have any of your coworkers applied for the position?",
+      "pos": {
+        "type": "verb",
+        "chinese": "申请；应用（apply的过去式/过去分词）"
+      },
+      "pronunciation": {
+        "us": "/əˈplaɪd/",
+        "uk": "/əˈplaɪd/"
+      },
+      "inflections": {
+        "base": "apply",
+        "third": "applies",
+        "present": "applying"
+      },
+      "etymology": "From Old French \"aplier\""
+    },
+    "approach": {
+      "sentence": "This alternative approach focuses on managing consequences rather than prevention.",
+      "pos": {
+        "type": [
+          "noun",
+          "verb"
+        ],
+        "chinese": "方法；接近"
+      },
+      "pronunciation": {
+        "us": "/əˈproʊtʃ/",
+        "uk": "/əˈprəʊtʃ/"
+      },
+      "inflections": {
+        "plural": "approaches",
+        "third": "approaches",
+        "present": "approaching",
+        "past": "approached"
+      },
+      "etymology": "From Old French \"aprochier\""
+    },
+    "appropriate": {
+      "sentence": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+      "pos": {
+        "type": "adjective",
+        "chinese": "适当的"
+      },
+      "pronunciation": {
+        "us": "/əˈproʊpriɪt/",
+        "uk": "/əˈprəʊpriɪt/"
+      },
+      "inflections": {
+        "comparative": "more appropriate",
+        "superlative": "most appropriate"
+      },
+      "etymology": "From Latin \"appropriatus\""
+    },
+    "assignment": {
+      "sentence": "I need to submit my assignment by tomorrow.",
+      "pos": {
+        "type": "noun",
+        "chinese": "作业；任务"
+      },
+      "pronunciation": {
+        "us": "/əˈsaɪnmənt/",
+        "uk": "/əˈsaɪnmənt/"
+      },
+      "inflections": {
+        "plural": "assignments"
+      },
+      "etymology": "From Latin \"assignamentum\""
+    },
+    "awareness": {
+      "sentence": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+      "pos": {
+        "type": "noun",
+        "chinese": "意识；认识"
+      },
+      "pronunciation": {
+        "us": "/əˈwɛrnəs/",
+        "uk": "/əˈweənəs/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From Old English \"gewær\" (aware)"
+    },
+    "band": {
+      "sentence": "How can we find out when that band is performing again?",
+      "pos": {
+        "type": "noun",
+        "chinese": "乐队；带子"
+      },
+      "pronunciation": {
+        "us": "/bænd/",
+        "uk": "/bænd/"
+      },
+      "inflections": {
+        "plural": "bands"
+      },
+      "etymology": "From Old French \"bande\""
+    },
+    "beneficial": {
+      "sentence": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "有益的"
+      },
+      "pronunciation": {
+        "us": "/ˌbɛnəˈfɪʃəl/",
+        "uk": "/ˌbɛnɪˈfɪʃəl/"
+      },
+      "inflections": {
+        "comparative": "more beneficial",
+        "superlative": "most beneficial"
+      },
+      "etymology": "From Latin \"beneficialis\""
+    },
+    "bias": {
+      "sentence": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+      "pos": {
+        "type": "noun",
+        "chinese": "偏见"
+      },
+      "pronunciation": {
+        "us": "/ˈbaɪəs/",
+        "uk": "/ˈbaɪəs/"
+      },
+      "inflections": {
+        "plural": "biases"
+      },
+      "etymology": "From Old French \"biais\""
+    },
+    "biography": {
+      "sentence": "I'm going to start writing a biography.",
+      "pos": {
+        "type": "noun",
+        "chinese": "传记"
+      },
+      "pronunciation": {
+        "us": "/baɪˈɑːɡrəfi/",
+        "uk": "/baɪˈɒɡrəfi/"
+      },
+      "inflections": {
+        "plural": "biographies"
+      },
+      "etymology": "From Greek \"bios\" (life) + \"graphein\" (write)"
+    },
+    "bistro": {
+      "sentence": "Do you know anyone who can give me directions to the Big Tree Bistro?",
+      "pos": {
+        "type": "noun",
+        "chinese": "小餐馆"
+      },
+      "pronunciation": {
+        "us": "/ˈbɪstroʊ/",
+        "uk": "/ˈbiːstrəʊ/"
+      },
+      "inflections": {
+        "plural": "bistros"
+      },
+      "etymology": "From French \"bistro\""
+    },
+    "blast": {
+      "sentence": "We had a blast at the national park yesterday.",
+      "pos": {
+        "type": [
+          "noun",
+          "verb"
+        ],
+        "chinese": "爆炸；狂欢；一阵强风"
+      },
+      "pronunciation": {
+        "us": "/blæst/",
+        "uk": "/blɑːst/"
+      },
+      "inflections": {
+        "plural": "blasts",
+        "third": "blasts",
+        "present": "blasting",
+        "past": "blasted"
+      },
+      "etymology": "From Old English \"blæst\""
+    },
+    "blog": {
+      "sentence": "I'm thinking about starting a blog.",
+      "pos": {
+        "type": "noun",
+        "chinese": "博客"
+      },
+      "pronunciation": {
+        "us": "/blɑːɡ/",
+        "uk": "/blɒɡ/"
+      },
+      "inflections": {
+        "plural": "blogs"
+      },
+      "etymology": "Blend of \"web\" + \"log\""
+    },
+    "bookstore": {
+      "sentence": "The bookstore ________ ________ .",
+      "pos": {
+        "type": "noun",
+        "chinese": "书店"
+      },
+      "pronunciation": {
+        "us": "/ˈbʊkstɔːr/",
+        "uk": "/ˈbʊkstɔː/"
+      },
+      "inflections": {
+        "plural": "bookstores"
+      },
+      "etymology": "Compound of \"book\" + \"store\""
+    },
+    "breakdown": {
+      "sentence": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "pos": {
+        "type": "noun",
+        "chinese": "崩溃；分解；故障"
+      },
+      "pronunciation": {
+        "us": "/ˈbreɪkdaʊn/",
+        "uk": "/ˈbreɪkdaʊn/"
+      },
+      "inflections": {
+        "plural": "breakdowns"
+      },
+      "etymology": "From phrasal verb \"break down\""
+    },
+    "campground": {
+      "sentence": "We set up our tent at the campground near the lake.",
+      "pos": {
+        "type": "noun",
+        "chinese": "露营地"
+      },
+      "pronunciation": {
+        "us": "/ˈkæmpɡraʊnd/",
+        "uk": "/ˈkæmpɡraʊnd/"
+      },
+      "inflections": {
+        "plural": "campgrounds"
+      },
+      "etymology": "Compound of \"camp\" + \"ground\""
+    },
+    "cannot": {
+      "sentence": "Marcus: I believe creative media can connect with people on an emotional level in ways that facts alone cannot.",
+      "pos": {
+        "type": "verb",
+        "chinese": "不能"
+      },
+      "pronunciation": {
+        "us": "/ˈkænɑːt/",
+        "uk": "/ˈkænɒt/"
+      },
+      "inflections": {
+        "base": "can"
+      },
+      "etymology": "From \"can\" + \"not\""
+    },
+    "carbon": {
+      "sentence": "Innovations like carbon capture to reduce climate change help limit damage while allowing progress.",
+      "pos": {
+        "type": "noun",
+        "chinese": "碳"
+      },
+      "pronunciation": {
+        "us": "/ˈkɑːrbən/",
+        "uk": "/ˈkɑːbən/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From Latin \"carbo\" (coal)"
+    },
+    "chosen": {
+      "sentence": "Which historical figure have you chosen to write about?",
+      "pos": {
+        "type": "verb",
+        "chinese": "选择（choose的过去分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈtʃoʊzən/",
+        "uk": "/ˈtʃəʊzən/"
+      },
+      "inflections": {
+        "base": "choose",
+        "third": "chooses",
+        "present": "choosing",
+        "past": "chose"
+      },
+      "etymology": "From Old English \"ceosan\""
+    },
+    "civic": {
+      "sentence": "Emma: Yes, I think high schools should require volunteer hours because it helps students build a sense of civic responsibility.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "公民的；市政的"
+      },
+      "pronunciation": {
+        "us": "/ˈsɪvɪk/",
+        "uk": "/ˈsɪvɪk/"
+      },
+      "inflections": {},
+      "etymology": "From Latin \"civicus\""
+    },
+    "cleanup": {
+      "sentence": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+      "pos": {
+        "type": "noun",
+        "chinese": "清理；清扫"
+      },
+      "pronunciation": {
+        "us": "/ˈkliːnʌp/",
+        "uk": "/ˈkliːnʌp/"
+      },
+      "inflections": {
+        "plural": "cleanups"
+      },
+      "etymology": "From phrasal verb \"clean up\""
+    },
+    "colleagues": {
+      "sentence": "Some colleagues ________ ________ .",
+      "pos": {
+        "type": "noun",
+        "chinese": "同事"
+      },
+      "pronunciation": {
+        "us": "/ˈkɑːliːɡz/",
+        "uk": "/ˈkɒliːɡz/"
+      },
+      "inflections": {
+        "singular": "colleague"
+      },
+      "etymology": "From French \"collègue\", from Latin \"collega\""
+    },
+    "compensation": {
+      "sentence": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+      "pos": {
+        "type": "noun",
+        "chinese": "补偿；报酬"
+      },
+      "pronunciation": {
+        "us": "/ˌkɑːmpɛnˈseɪʃən/",
+        "uk": "/ˌkɒmpɛnˈseɪʃən/"
+      },
+      "inflections": {
+        "plural": "compensations"
+      },
+      "etymology": "From Latin \"compensatio\""
+    },
+    "consequences": {
+      "sentence": "This alternative approach focuses on managing consequences rather than prevention.",
+      "pos": {
+        "type": "noun",
+        "chinese": "后果；结果"
+      },
+      "pronunciation": {
+        "us": "/ˈkɑːnsɪkwɛnsɪz/",
+        "uk": "/ˈkɒnsɪkwənsɪz/"
+      },
+      "inflections": {
+        "singular": "consequence"
+      },
+      "etymology": "From Latin \"consequentia\""
+    },
+    "convenience": {
+      "sentence": "The convenience and speed of digital media allow people to communicate with ease.",
+      "pos": {
+        "type": "noun",
+        "chinese": "便利；方便"
+      },
+      "pronunciation": {
+        "us": "/kənˈviːnjəns/",
+        "uk": "/kənˈviːniəns/"
+      },
+      "inflections": {
+        "plural": "conveniences"
+      },
+      "etymology": "From Latin \"convenientia\""
+    },
+    "coverage": {
+      "sentence": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+      "pos": {
+        "type": "noun",
+        "chinese": "覆盖范围；新闻报道"
+      },
+      "pronunciation": {
+        "us": "/ˈkʌvərɪdʒ/",
+        "uk": "/ˈkʌvərɪdʒ/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From \"cover\" + \"-age\""
+    },
+    "coworkers": {
+      "sentence": "Have any of your coworkers applied for the position?",
+      "pos": {
+        "type": "noun",
+        "chinese": "同事"
+      },
+      "pronunciation": {
+        "us": "/ˈkoʊwɜːrkərz/",
+        "uk": "/ˈkəʊwɜːkəz/"
+      },
+      "inflections": {
+        "singular": "coworker"
+      },
+      "etymology": "From \"co-\" + \"worker\""
+    },
+    "deadline": {
+      "sentence": "Why are you asking about the project deadline?",
+      "pos": {
+        "type": "noun",
+        "chinese": "截止日期"
+      },
+      "pronunciation": {
+        "us": "/ˈdɛdlaɪn/",
+        "uk": "/ˈdɛdlaɪn/"
+      },
+      "inflections": {
+        "plural": "deadlines"
+      },
+      "etymology": "From \"dead\" + \"line\" (originally prison term)"
+    },
+    "dedicated": {
+      "sentence": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "专用的；献身的"
+      },
+      "pronunciation": {
+        "us": "/ˈdɛdɪkeɪtɪd/",
+        "uk": "/ˈdɛdɪkeɪtɪd/"
+      },
+      "inflections": {
+        "base": "dedicate",
+        "third": "dedicates",
+        "present": "dedicating"
+      },
+      "etymology": "From Latin \"dedicatus\""
+    },
+    "deforestation": {
+      "sentence": "Gupta Human activities like pollution and deforestation harm the environment.",
+      "pos": {
+        "type": "noun",
+        "chinese": "森林砍伐"
+      },
+      "pronunciation": {
+        "us": "/diːˌfɔːrɪˈsteɪʃən/",
+        "uk": "/diːˌfɒrɪˈsteɪʃən/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From French \"déforestation\""
+    },
+    "delicious": {
+      "sentence": "The diner that opened last week serves many delicious entrees\\.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "美味的"
+      },
+      "pronunciation": {
+        "us": "/dɪˈlɪʃəs/",
+        "uk": "/dɪˈlɪʃəs/"
+      },
+      "inflections": {
+        "comparative": "more delicious",
+        "superlative": "most delicious"
+      },
+      "etymology": "From Old French \"delicios\""
+    },
+    "devices": {
+      "sentence": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "pos": {
+        "type": "noun",
+        "chinese": "设备；装置"
+      },
+      "pronunciation": {
+        "us": "/dɪˈvaɪsɪz/",
+        "uk": "/dɪˈvaɪsɪz/"
+      },
+      "inflections": {
+        "singular": "device"
+      },
+      "etymology": "From Old French \"devis\" (division, plan)"
+    },
+    "didn": {
+      "sentence": "Why didn't you go to the library today?",
+      "pos": {
+        "type": "contraction",
+        "chinese": "没有（did not的缩写）"
+      },
+      "pronunciation": {
+        "us": "/ˈdɪdənt/",
+        "uk": "/ˈdɪdənt/"
+      },
+      "inflections": {
+        "full": "did not"
+      },
+      "etymology": "Contraction of \"did not\""
+    },
+    "diner": {
+      "sentence": "The diner that opened last week serves many delicious entrees\\.",
+      "pos": {
+        "type": "noun",
+        "chinese": "小餐馆；用餐者"
+      },
+      "pronunciation": {
+        "us": "/ˈdaɪnər/",
+        "uk": "/ˈdaɪnə/"
+      },
+      "inflections": {
+        "plural": "diners"
+      },
+      "etymology": "From \"dine\" + \"-er\""
+    },
+    "discourage": {
+      "sentence": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+      "pos": {
+        "type": "verb",
+        "chinese": "劝阻；使气馁"
+      },
+      "pronunciation": {
+        "us": "/dɪˈskɜːrɪdʒ/",
+        "uk": "/dɪˈskʌrɪdʒ/"
+      },
+      "inflections": {
+        "third": "discourages",
+        "present": "discouraging",
+        "past": "discouraged"
+      },
+      "etymology": "From Old French \"descouragier\""
+    },
+    "distances": {
+      "sentence": "It allows people to stay in touch over long distances with friends and family with whom they may not have had much contact otherwise.",
+      "pos": {
+        "type": "noun",
+        "chinese": "距离"
+      },
+      "pronunciation": {
+        "us": "/ˈdɪstənsɪz/",
+        "uk": "/ˈdɪstənsɪz/"
+      },
+      "inflections": {
+        "singular": "distance"
+      },
+      "etymology": "From Latin \"distantia\""
+    },
+    "download": {
+      "sentence": "On which website were you able to find the download?",
+      "pos": {
+        "type": [
+          "verb",
+          "noun"
+        ],
+        "chinese": "下载"
+      },
+      "pronunciation": {
+        "us": "/ˈdaʊnloʊd/",
+        "uk": "/ˈdaʊnləʊd/"
+      },
+      "inflections": {
+        "third": "downloads",
+        "present": "downloading",
+        "past": "downloaded",
+        "plural": "downloads"
+      },
+      "etymology": "Compound of \"down\" + \"load\""
+    },
+    "downtown": {
+      "sentence": "The new restaurant downtown has amazing reviews.",
+      "pos": {
+        "type": [
+          "noun",
+          "adverb",
+          "adjective"
+        ],
+        "chinese": "市中心；往市中心"
+      },
+      "pronunciation": {
+        "us": "/ˌdaʊnˈtaʊn/",
+        "uk": "/ˌdaʊnˈtaʊn/"
+      },
+      "inflections": {},
+      "etymology": "From \"down\" + \"town\""
+    },
+    "drastic": {
+      "sentence": "This approach supports environmental protection without demanding drastic lifestyle changes.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "剧烈的；极端的"
+      },
+      "pronunciation": {
+        "us": "/ˈdræstɪk/",
+        "uk": "/ˈdrɑːstɪk/"
+      },
+      "inflections": {
+        "comparative": "more drastic",
+        "superlative": "most drastic"
+      },
+      "etymology": "From Greek \"drastikos\" (active)"
+    },
+    "electronic": {
+      "sentence": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "电子的"
+      },
+      "pronunciation": {
+        "us": "/ɪˌlɛkˈtrɑːnɪk/",
+        "uk": "/ˌɛlɛkˈtrɒnɪk/"
+      },
+      "inflections": {},
+      "etymology": "From Greek \"elektron\" (amber)"
+    },
+    "endorphins": {
+      "sentence": "It can reduce stress, improve mood, and increase overall well-being by releasing endorphins and promoting a healthy lifestyle.",
+      "pos": {
+        "type": "noun",
+        "chinese": "内啡肽"
+      },
+      "pronunciation": {
+        "us": "/ɛnˈdɔːrfɪnz/",
+        "uk": "/ɛnˈdɔːfɪnz/"
+      },
+      "inflections": {
+        "singular": "endorphin"
+      },
+      "etymology": "Blend of \"endogenous\" + \"morphine\""
+    },
+    "entrees": {
+      "sentence": "The diner that opened last week serves many delicious entrees\\.",
+      "pos": {
+        "type": "noun",
+        "chinese": "主菜"
+      },
+      "pronunciation": {
+        "us": "/ˈɑːntreɪz/",
+        "uk": "/ˈɒntreɪz/"
+      },
+      "inflections": {
+        "singular": "entree"
+      },
+      "etymology": "From French \"entrée\" (entry)"
+    },
+    "erode": {
+      "sentence": "People often spend more time online than engaging in real-life conversations, which can erode social bonds and reduce the quality of communication with others.",
+      "pos": {
+        "type": "verb",
+        "chinese": "侵蚀；削弱"
+      },
+      "pronunciation": {
+        "us": "/ɪˈroʊd/",
+        "uk": "/ɪˈrəʊd/"
+      },
+      "inflections": {
+        "third": "erodes",
+        "present": "eroding",
+        "past": "eroded"
+      },
+      "etymology": "From Latin \"erodere\" (to gnaw away)"
+    },
+    "evan": {
+      "sentence": "Evan said you have a question for me.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "埃文（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈɛvən/",
+        "uk": "/ˈɛvən/"
+      },
+      "inflections": {},
+      "etymology": "Welsh name, form of John"
+    },
+    "exam": {
+      "sentence": "How did you prepare for the exam?",
+      "pos": {
+        "type": "noun",
+        "chinese": "考试"
+      },
+      "pronunciation": {
+        "us": "/ɪɡˈzæm/",
+        "uk": "/ɪɡˈzæm/"
+      },
+      "inflections": {
+        "plural": "exams"
+      },
+      "etymology": "Shortening of \"examination\", from Latin"
+    },
+    "fascinating": {
+      "sentence": "The book you lent me was fascinating.",
+      "pos": {
+        "type": "adjective",
+        "chinese": "迷人的"
+      },
+      "pronunciation": {
+        "us": "/ˈfæsɪneɪtɪŋ/",
+        "uk": "/ˈfæsɪneɪtɪŋ/"
+      },
+      "inflections": {
+        "comparative": "more fascinating",
+        "superlative": "most fascinating"
+      },
+      "etymology": "From Latin \"fascinare\" (to bewitch)"
+    },
+    "festival": {
+      "sentence": "The film festival this weekend was amazing.",
+      "pos": {
+        "type": "noun",
+        "chinese": "节日；庆典"
+      },
+      "pronunciation": {
+        "us": "/ˈfɛstɪvəl/",
+        "uk": "/ˈfɛstɪvəl/"
+      },
+      "inflections": {
+        "plural": "festivals"
+      },
+      "etymology": "From Latin \"festivus\" (festive)"
+    },
+    "flexibility": {
+      "sentence": "These workers often have more flexibility regarding when and where they work, allowing them to become what are known as \"digital nomads\"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries.",
+      "pos": {
+        "type": "noun",
+        "chinese": "灵活性；弹性"
+      },
+      "pronunciation": {
+        "us": "/ˌflɛksɪˈbɪlɪti/",
+        "uk": "/ˌflɛksɪˈbɪlɪti/"
+      },
+      "inflections": {
+        "plural": "flexibilities"
+      },
+      "etymology": "From Latin \"flexibilitas\""
+    },
+    "fosters": {
+      "sentence": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "pos": {
+        "type": "verb",
+        "chinese": "促进；培养（foster的第三人称单数）"
+      },
+      "pronunciation": {
+        "us": "/ˈfɔːstərz/",
+        "uk": "/ˈfɒstəz/"
+      },
+      "inflections": {
+        "base": "foster",
+        "present": "fostering",
+        "past": "fostered"
+      },
+      "etymology": "From Old English \"fostrian\" (to nourish)"
+    },
+    "french": {
+      "sentence": "I just started learning French.",
+      "pos": {
+        "type": [
+          "adjective",
+          "proper noun"
+        ],
+        "chinese": "法国的；法语"
+      },
+      "pronunciation": {
+        "us": "/frɛntʃ/",
+        "uk": "/frɛntʃ/"
+      },
+      "inflections": {},
+      "etymology": "From Old English \"Frencisc\""
+    },
+    "graduate": {
+      "sentence": "High schools are one example, where students may be required to complete a certain number of volunteer hours to graduate.",
+      "pos": {
+        "type": [
+          "verb",
+          "noun"
+        ],
+        "chinese": "毕业；毕业生"
+      },
+      "pronunciation": {
+        "us": "/ˈɡrædʒuɪt/",
+        "uk": "/ˈɡrædʒuət/"
+      },
+      "inflections": {
+        "third": "graduates",
+        "present": "graduating",
+        "past": "graduated",
+        "plural": "graduates"
+      },
+      "etymology": "From Latin \"graduari\" (to take a degree)"
+    },
+    "grandparents": {
+      "sentence": "I'm planning to visit my grandparents next weekend.",
+      "pos": {
+        "type": "noun",
+        "chinese": "祖父母；外祖父母"
+      },
+      "pronunciation": {
+        "us": "/ˈɡrænpɛrənts/",
+        "uk": "/ˈɡrændpɛərənts/"
+      },
+      "inflections": {
+        "singular": "grandparent"
+      },
+      "etymology": "Compound of \"grand\" + \"parent\""
+    },
+    "graphic": {
+      "sentence": "The workshop on graphic design was very helpful.",
+      "pos": {
+        "type": [
+          "adjective",
+          "noun"
+        ],
+        "chinese": "图形的；图表"
+      },
+      "pronunciation": {
+        "us": "/ˈɡræfɪk/",
+        "uk": "/ˈɡræfɪk/"
+      },
+      "inflections": {
+        "comparative": "more graphic",
+        "superlative": "most graphic",
+        "plural": "graphics"
+      },
+      "etymology": "From Greek \"graphikos\""
+    },
+    "guides": {
+      "sentence": "The tour guides who showed us around the old city were fantastic\\.",
+      "pos": {
+        "type": [
+          "noun",
+          "verb"
+        ],
+        "chinese": "导游；指南；引导"
+      },
+      "pronunciation": {
+        "us": "/ɡaɪdz/",
+        "uk": "/ɡaɪdz/"
+      },
+      "inflections": {
+        "singular": "guide",
+        "base": "guide",
+        "third": "guides",
+        "present": "guiding",
+        "past": "guided"
+      },
+      "etymology": "From Old French \"guider\""
+    },
+    "gustavo": {
+      "sentence": "Why did Gustavo call you this morning?",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "古斯塔沃（名字）"
+      },
+      "pronunciation": {
+        "us": "/ɡʊˈstɑːvoʊ/",
+        "uk": "/ɡʊˈstɑːvəʊ/"
+      },
+      "inflections": {},
+      "etymology": "Spanish/Italian given name Gustavo"
+    },
+    "hierarchy": {
+      "sentence": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+      "pos": {
+        "type": "noun",
+        "chinese": "等级制度"
+      },
+      "pronunciation": {
+        "us": "/ˈhaɪrɑːrki/",
+        "uk": "/ˈhaɪərɑːki/"
+      },
+      "inflections": {
+        "plural": "hierarchies"
+      },
+      "etymology": "From Greek \"hierarchia\""
+    },
+    "hiking": {
+      "sentence": "I really enjoyed the hiking trip last weekend.",
+      "pos": {
+        "type": [
+          "noun",
+          "verb"
+        ],
+        "chinese": "徒步旅行（hike的现在分词）"
+      },
+      "pronunciation": {
+        "us": "/ˈhaɪkɪŋ/",
+        "uk": "/ˈhaɪkɪŋ/"
+      },
+      "inflections": {
+        "base": "hike",
+        "third": "hikes",
+        "past": "hiked"
+      },
+      "etymology": "From English \"hike\""
+    },
+    "hub": {
+      "sentence": "I'm applying for a position at that new technology hub.",
+      "pos": {
+        "type": "noun",
+        "chinese": "中心；枢纽"
+      },
+      "pronunciation": {
+        "us": "/hʌb/",
+        "uk": "/hʌb/"
+      },
+      "inflections": {
+        "plural": "hubs"
+      },
+      "etymology": "From English \"hub\" (wheel hub)"
+    },
+    "images": {
+      "sentence": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+      "pos": {
+        "type": "noun",
+        "chinese": "图像；影像"
+      },
+      "pronunciation": {
+        "us": "/ˈɪmɪdʒɪz/",
+        "uk": "/ˈɪmɪdʒɪz/"
+      },
+      "inflections": {
+        "singular": "image"
+      },
+      "etymology": "From Latin \"imago\""
+    },
+    "inequality": {
+      "sentence": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+      "pos": {
+        "type": "noun",
+        "chinese": "不平等"
+      },
+      "pronunciation": {
+        "us": "/ˌɪnɪˈkwɑːlɪti/",
+        "uk": "/ˌɪnɪˈkwɒlɪti/"
+      },
+      "inflections": {
+        "plural": "inequalities"
+      },
+      "etymology": "From Old French \"inequalite\""
+    },
+    "initiatives": {
+      "sentence": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+      "pos": {
+        "type": "noun",
+        "chinese": "倡议；措施"
+      },
+      "pronunciation": {
+        "us": "/ɪˈnɪʃɪətɪvz/",
+        "uk": "/ɪˈnɪʃɪətɪvz/"
+      },
+      "inflections": {
+        "singular": "initiative"
+      },
+      "etymology": "From Latin \"initiativus\""
+    },
+    "instability": {
+      "sentence": "It would help reduce poverty and give everyone a basic level of security, allowing them to focus on improving their lives without the constant fear of financial instability.",
+      "pos": {
+        "type": "noun",
+        "chinese": "不稳定"
+      },
+      "pronunciation": {
+        "us": "/ˌɪnstəˈbɪlɪti/",
+        "uk": "/ˌɪnstəˈbɪlɪti/"
+      },
+      "inflections": {
+        "plural": "instabilities"
+      },
+      "etymology": "From Latin \"instabilitas\""
+    },
+    "isolation": {
+      "sentence": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "pos": {
+        "type": "noun",
+        "chinese": "孤立；隔离"
+      },
+      "pronunciation": {
+        "us": "/ˌaɪsəˈleɪʃən/",
+        "uk": "/ˌaɪsəˈleɪʃən/"
+      },
+      "inflections": {
+        "note": "uncountable noun"
+      },
+      "etymology": "From French \"isolation\""
+    },
+    "jenna": {
+      "sentence": "My friend Jenna is wondering when it is going to open.",
+      "pos": {
+        "type": "proper noun",
+        "chinese": "詹娜（名字）"
+      },
+      "pronunciation": {
+        "us": "/ˈdʒɛnə/",
+        "uk": "/ˈdʒɛnə/"
+      },
+      "inflections": {},
+      "etymology": "English feminine given name"
+    }
+  }
+}

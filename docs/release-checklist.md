@@ -125,6 +125,7 @@ git push origin v1.2.5
 - [ ] Release Assets 包含：`latest.yml` + `latest-mac.yml` + `.exe` + `.dmg` + `.zip`
 - [ ] 安装包文件名中的版本号与 `package.json` 一致（如 `toefl-practice-system-setup-1.2.5.exe`）
 - [ ] 打开旧版本 App → 等待 5 秒或菜单 **帮助 → 检查更新** → 弹窗提示新版本
+- [ ] **（仅 macOS 切换到无签名版本时）** 手动下载 DMG 覆盖安装一次，验证后续自动更新正常
 
 ---
 
@@ -178,6 +179,58 @@ releaseDate: 2026-06-24T13:19:33Z
 > **常见报错**：若只构建 DMG，`latest-mac.yml` 中无 zip 引用，`electron-updater`（MacUpdater）将抛出
 > `"ZIP file not provided"`，导致用户更新失败。
 
+### macOS 代码签名与自动更新的关系
+
+#### 背景
+
+macOS 自动更新组件（ShipIt）会在安装更新前**验证新旧 App 的代码签名是否匹配**。签名验证是 Squirrel.Mac 原生行为，无法跳过。
+
+#### 当前状态（无 Apple 开发者证书）
+
+GitHub Actions CI 上没有 Apple Developer ID 证书，`electron-builder` 默认使用 **ad-hoc 签名**（自签名）。但内置的 `@electron/osx-sign@1.0.5` 在 ad-hoc 模式下创建的签名不完整——`_CodeSignature/CodeResources` 为空，导致 `codesign --verify` 报错：
+
+```
+Code signature did not pass validation:
+code has no resources but signature indicates they must be present
+```
+
+#### 修复方案：跳过签名（Plan A）
+
+在 `package.json` 的 `build.mac` 中设置：
+
+```json
+"mac": {
+  "identity": null,
+  ...
+}
+```
+
+`identity: null` 告诉 `electron-builder` **完全不签名**，构建出无签名的 `.app`。
+
+#### One-time 手动安装流程
+
+由于当前已安装的版本（v1.2.6 及之前）包含残缺签名，ShipIt 会要求更新包也必须签名。无签名的新版本会被 ShipIt 拒绝。因此需要**做一次手动覆盖安装**：
+
+| 阶段 | 版本 | 签名状态 | 更新方式 |
+|------|------|---------|---------|
+| 现状 | v1.2.6- | 残缺 ad-hoc 签名 | — |
+| 过渡 | v1.2.7 (identity: null) | **无签名** | 手动下载 DMG 覆盖安装 |
+| 之后 | v1.2.8+ | 无签名 | ✅ **全自动更新** |
+
+手动安装步骤：
+1. 从 GitHub Releases 下载 `toefl-practice-system-1.2.7-mac.dmg`
+2. 双击挂载，将 `托福模考系统.app` 拖入 `/Applications` 覆盖
+3. 启动新版本（首次可能弹 Gatekeeper 警告 → 右键 → 打开）
+4. **从此以后，每次新版本都会通过 ShipIt 自动更新，无需再手动操作**
+
+#### 原理说明
+
+ShipIt 调用 `SecCodeCopyDesignatedRequirement` 检查运行中 App 的签名：
+- 若 App **有有效签名** → 要求更新包签名完全匹配
+- 若 App **无签名** → 直接跳过验证
+
+从 v1.2.7 开始，所有构建均为无签名版本，ShipIt 进入"无条件放行"模式，后续自动更新彻底畅通。
+
 ---
 
 ## 五、特殊情况处理
@@ -221,6 +274,8 @@ releaseDate: 2026-06-24T13:19:33Z
 | Release 变成 Draft | 删了远程 tag 但没删 Release | 先删除旧 Release 再重推 tag |
 | `latest.yml` 下载次数很高 | **正常现象**，是 App 轮询检查更新 | 无需处理 |
 | macOS 更新报错 `ZIP file not provided` | 只构建了 dmg，缺 zip | `package.json` 中 `mac.target` 改为 `["dmg", "zip"]` |
+| macOS 更新报错 `did not pass validation: code has no resources but signature indicates they must be present` | 无 Apple 证书时 ad-hoc 签名不完整 | `mac.identity: null` 跳过签名，并做一次手动覆盖安装 |
+| macOS 更新报错 `did not pass validation: code object is not signed at all` | 下载的更新包完全无签名，但已安装 App 有签名 | 检查 `latest-mac.yml` 的 `url` 指向正确的 zip 文件；重新发布 |
 
 ---
 

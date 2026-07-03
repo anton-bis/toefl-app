@@ -1,0 +1,495 @@
+{
+  "subject": "reading",
+  "words": {
+    "tables": {
+      "sentence": "Our outdoor area includes a playground and picnic tables, which can be set up to your preference.",
+      "pos": { "type": "noun", "chn": "桌子；表格" },
+      "pronunciation": { "us": "/ˈteɪbəlz/", "uk": "/ˈteɪbəlz/" },
+      "inflections": ["table (singular)"],
+      "etymology": "Middle English, from Old English tabele, from Latin tabula 'a board, plank'"
+    },
+    "talbot": {
+      "sentence": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "pos": { "type": "noun", "chn": "塔尔博特（姓氏）" },
+      "pronunciation": { "us": "/ˈtɔːlbət/", "uk": "/ˈtɔːlbət/" },
+      "inflections": [],
+      "etymology": "English surname, from Old English tæfl 'table' + bot 'dwelling'"
+    },
+    "tanaka": {
+      "sentence": "Miko Tanaka (10:05 A.",
+      "pos": { "type": "noun", "chn": "田中（日本姓氏）" },
+      "pronunciation": { "us": "/təˈnɑːkə/", "uk": "/ˈtænəkə/" },
+      "inflections": [],
+      "etymology": "Japanese surname 田中, meaning 'center of the rice field'"
+    },
+    "techhub": {
+      "sentence": "TechHub has shipped the order you placed on Thursday.",
+      "pos": { "type": "noun", "chn": "科技中心" },
+      "pronunciation": { "us": "/ˈtekˌhʌb/", "uk": "/ˈtekˌhʌb/" },
+      "inflections": [],
+      "etymology": "Compound of 'tech' (technology) + 'hub'"
+    },
+    "technician": {
+      "sentence": "Our technician will visit your apartment on June 10th between 1:00 PM and 3:00 PM.",
+      "pos": { "type": "noun", "chn": "技术员；技师" },
+      "pronunciation": { "us": "/tekˈnɪʃən/", "uk": "/tekˈnɪʃən/" },
+      "inflections": ["technicians (plural)"],
+      "etymology": "From Greek tekhnikos 'of art' + -ian, via Latin and French"
+    },
+    "technological": {
+      "sentence": "The history of photography is marked by significant technological progress and artistic innovation.",
+      "pos": { "type": "adjective", "chn": "技术的；科技的" },
+      "pronunciation": { "us": "/ˌteknəˈlɑːdʒɪkəl/", "uk": "/ˌteknəˈlɒdʒɪkəl/" },
+      "inflections": [],
+      "etymology": "From Greek tekhnologia 'systematic treatment' + -ical"
+    },
+    "tempera": {
+      "sentence": "Because oil paints dry more slowly than tempera paints, artists could use blending and layering to create more texture and richer colors.",
+      "pos": { "type": "noun", "chn": "蛋彩画；蛋彩画法" },
+      "pronunciation": { "us": "/ˈtɛmpərə/", "uk": "/ˈtɛmpərə/" },
+      "inflections": [],
+      "etymology": "Italian tempera, from temperare 'to mix, to temper'"
+    },
+    "temporarily": {
+      "sentence": "During this window, access to network drives and cloud storage services will be temporarily unavailable.",
+      "pos": { "type": "adverb", "chn": "暂时地；临时地" },
+      "pronunciation": { "us": "/ˌtɛmpəˈrɛrɪli/", "uk": "/ˈtɛmpərərɪli/" },
+      "inflections": [],
+      "etymology": "From Latin temporarius 'of time' + -ly"
+    },
+    "tempos": {
+      "sentence": "Fast-paced music can energize us, while slower tempos can calm us down.",
+      "pos": { "type": "noun", "chn": "节奏；速度（复数）" },
+      "pronunciation": { "us": "/ˈtɛmpoʊz/", "uk": "/ˈtɛmpəʊz/" },
+      "inflections": ["tempo (singular)"],
+      "etymology": "Italian tempo 'time', from Latin tempus"
+    },
+    "tenant": {
+      "sentence": "You must be present during that time, as our policy is that only the primary tenant can let the technician in.",
+      "pos": { "type": "noun", "chn": "承租人；房客" },
+      "pronunciation": { "us": "/ˈtɛnənt/", "uk": "/ˈtɛnənt/" },
+      "inflections": ["tenants (plural)"],
+      "etymology": "Old French, from Latin tenere 'to hold'"
+    },
+    "textiles": {
+      "sentence": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "pos": { "type": "noun", "chn": "纺织品；纺织业" },
+      "pronunciation": { "us": "/ˈtɛkstaɪlz/", "uk": "/ˈtɛkstaɪlz/" },
+      "inflections": ["textile (singular)"],
+      "etymology": "From Latin textilis 'woven', from texere 'to weave'"
+    },
+    "texture": {
+      "sentence": "Because oil paints dry more slowly than tempera paints, artists could use blending and layering to create more texture and richer colors.",
+      "pos": { "type": "noun", "chn": "质地；纹理" },
+      "pronunciation": { "us": "/ˈtɛkstʃər/", "uk": "/ˈtɛkstʃə/" },
+      "inflections": ["textures (plural)"],
+      "etymology": "From Latin textura 'weaving, structure', from texere 'to weave'"
+    },
+    "theoretical": {
+      "sentence": "[D] The theoretical use of sunstones remains a fascinating example of Viking ingenuity.",
+      "pos": { "type": "adjective", "chn": "理论上的" },
+      "pronunciation": { "us": "/ˌθiːəˈrɛtɪkəl/", "uk": "/ˌθɪəˈrɛtɪkəl/" },
+      "inflections": [],
+      "etymology": "From Greek theōrētikos 'contemplative', from theōros 'spectator'"
+    },
+    "tier": {
+      "sentence": "This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training.",
+      "pos": { "type": "noun", "chn": "层；等级" },
+      "pronunciation": { "us": "/tɪr/", "uk": "/tɪə/" },
+      "inflections": ["tiers (plural)"],
+      "etymology": "Old French tire 'rank, sequence', from Germanic"
+    },
+    "tigers": {
+      "sentence": "(D) In contrast, predators such as lions and tigers can afford longer, deeper sleep because they face fewer threats.",
+      "pos": { "type": "noun", "chn": "老虎（复数）" },
+      "pronunciation": { "us": "/ˈtaɪɡərz/", "uk": "/ˈtaɪɡəz/" },
+      "inflections": ["tiger (singular)"],
+      "etymology": "From Greek tigris, from Old Iranian"
+    },
+    "tolman": {
+      "sentence": "This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness.",
+      "pos": { "type": "noun", "chn": "托尔曼（姓氏）" },
+      "pronunciation": { "us": "/ˈtoʊlmən/", "uk": "/ˈtəʊlmən/" },
+      "inflections": [],
+      "etymology": "English surname, variant of Tollman, from toll + man"
+    },
+    "transparent": {
+      "sentence": "Iceland spar is a transparent variety of calcite that possesses unique optical properties.",
+      "pos": { "type": "adjective", "chn": "透明的" },
+      "pronunciation": { "us": "/trænsˈpærənt/", "uk": "/trænsˈpærənt/" },
+      "inflections": [],
+      "etymology": "Medieval Latin transparent-, from trans- 'through' + parent- 'appearing'"
+    },
+    "trees": {
+      "sentence": "In the latter, the illuminated main figures contrast with the deep brown shadows of the rocks and trees in the background.",
+      "pos": { "type": "noun", "chn": "树（复数）" },
+      "pronunciation": { "us": "/triːz/", "uk": "/triːz/" },
+      "inflections": ["tree (singular)"],
+      "etymology": "Old English trēow 'tree', from Proto-Germanic"
+    },
+    "triggering": {
+      "sentence": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "pos": { "type": "verb", "chn": "触发；引起" },
+      "pronunciation": { "us": "/ˈtrɪɡərɪŋ/", "uk": "/ˈtrɪɡərɪŋ/" },
+      "inflections": ["trigger (base)", "triggers (third person)", "triggered (past)"],
+      "etymology": "From Dutch trekker 'trigger', from trekken 'to pull'"
+    },
+    "trillions": {
+      "sentence": "The human microbiome consists of trillions of microorganisms living in and on our bodies.",
+      "pos": { "type": "noun", "chn": "数万亿" },
+      "pronunciation": { "us": "/ˈtrɪljənz/", "uk": "/ˈtrɪljənz/" },
+      "inflections": ["trillion (singular)"],
+      "etymology": "From French trillion, from tri- 'three' + (m)illion"
+    },
+    "tuberculosis": {
+      "sentence": "As a result, urban areas became hot spots for diseases such as cholera and tuberculosis.",
+      "pos": { "type": "noun", "chn": "结核病" },
+      "pronunciation": { "us": "/tuːˌbɜːrkjəˈloʊsɪs/", "uk": "/tjuːˌbɜːkjʊˈləʊsɪs/" },
+      "inflections": [],
+      "etymology": "From Latin tuberculum 'small swelling' + -osis 'disease condition'"
+    },
+    "tumors": {
+      "sentence": "Ancient texts describe procedures like the removal of tumors and the setting of broken bones.",
+      "pos": { "type": "noun", "chn": "肿瘤（复数）" },
+      "pronunciation": { "us": "/ˈtuːmərz/", "uk": "/ˈtjuːməz/" },
+      "inflections": ["tumor (singular)"],
+      "etymology": "From Latin tumor 'swelling', from tumere 'to swell'"
+    },
+    "twentieth": {
+      "sentence": "(A) In the late nineteenth and early twentieth centuries, the introduction of film and roll cameras made photography more accessible to the public.",
+      "pos": { "type": "adjective", "chn": "第二十的" },
+      "pronunciation": { "us": "/ˈtwɛntiɪθ/", "uk": "/ˈtwɛntiɪθ/" },
+      "inflections": [],
+      "etymology": "From Old English twentigoða, from twentig 'twenty' + -th"
+    },
+    "twilight": {
+      "sentence": "One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways.",
+      "pos": { "type": "noun", "chn": "暮光；黄昏" },
+      "pronunciation": { "us": "/ˈtwaɪlaɪt/", "uk": "/ˈtwaɪlaɪt/" },
+      "inflections": [],
+      "etymology": "Old English twi- 'half' + lēoht 'light'"
+    },
+    "unaffected": {
+      "sentence": "As a result, there has been a noticeable increase in Vibrio-related infections in regions previously unaffected.",
+      "pos": { "type": "adjective", "chn": "未受影响的；自然的" },
+      "pronunciation": { "us": "/ˌʌnəˈfɛktɪd/", "uk": "/ˌʌnəˈfɛktɪd/" },
+      "inflections": [],
+      "etymology": "un- 'not' + affected, from Latin affectare 'to influence'"
+    },
+    "unblocking": {
+      "sentence": "Treatments focused on unblocking channels using herbal remedies and physical interventions.",
+      "pos": { "type": "verb", "chn": "疏通；解除阻塞" },
+      "pronunciation": { "us": "/ʌnˈblɒkɪŋ/", "uk": "/ʌnˈblɒkɪŋ/" },
+      "inflections": ["unblock (base)", "unblocks (third person)", "unblocked (past)"],
+      "etymology": "un- 'reverse' + block, from Old French bloc 'block'"
+    },
+    "uncover": {
+      "sentence": "Archaeologists have yet to uncover these stones in the remains of Viking settlements or ships.",
+      "pos": { "type": "verb", "chn": "发现；揭开" },
+      "pronunciation": { "us": "/ʌnˈkʌvər/", "uk": "/ʌnˈkʌvə/" },
+      "inflections": ["uncovers (third person)", "uncovered (past)", "uncovering (present participle)"],
+      "etymology": "un- 'reverse' + cover, from Old French covrir 'to cover'"
+    },
+    "undeniably": {
+      "sentence": "While urbanization presented numerous obstacles, it undeniably laid the groundwork for modern society.",
+      "pos": { "type": "adverb", "chn": "不可否认地" },
+      "pronunciation": { "us": "/ˌʌndɪˈnaɪəbli/", "uk": "/ˌʌndɪˈnaɪəbli/" },
+      "inflections": [],
+      "etymology": "un- 'not' + deniable + -ly, from Latin denegare 'to deny'"
+    },
+    "undergone": {
+      "sentence": "Agricultural economics has undergone significant changes, driven by advancements in technology and shifts in consumer demand.",
+      "pos": { "type": "verb", "chn": "经历（过去分词）" },
+      "pronunciation": { "us": "/ˌʌndərˈɡɔːn/", "uk": "/ˌʌndəˈɡɒn/" },
+      "inflections": ["undergo (base)", "undergoes (third person)", "underwent (past)"],
+      "etymology": "Old English undergān, from under- + gān 'to go'"
+    },
+    "uneven": {
+      "sentence": "The jet stream's dynamics are influenced by factors like the Earth's rotation and uneven heating of its surface.",
+      "pos": { "type": "adjective", "chn": "不均匀的；不平坦的" },
+      "pronunciation": { "us": "/ʌnˈiːvən/", "uk": "/ʌnˈiːvən/" },
+      "inflections": [],
+      "etymology": "Old English unefen, from un- 'not' + efen 'even'"
+    },
+    "unfamiliar": {
+      "sentence": "Studies involving brain imaging have shown that when people navigate through unfamiliar environments, the hippocampus becomes highly active.",
+      "pos": { "type": "adjective", "chn": "不熟悉的；陌生的" },
+      "pronunciation": { "us": "/ˌʌnfəˈmɪljər/", "uk": "/ˌʌnfəˈmɪljə/" },
+      "inflections": [],
+      "etymology": "un- 'not' + familiar, from Latin familiaris 'of a household'"
+    },
+    "unify": {
+      "sentence": "Chanting and singing have been used in protests and rallies to motivate and unify participants.",
+      "pos": { "type": "verb", "chn": "统一；使一致" },
+      "pronunciation": { "us": "/ˈjuːnɪfaɪ/", "uk": "/ˈjuːnɪfaɪ/" },
+      "inflections": ["unifies (third person)", "unified (past)", "unifying (present participle)"],
+      "etymology": "From Late Latin unificare, from unus 'one' + facere 'to make'"
+    },
+    "unihemispheric": {
+      "sentence": "Dolphins practice unihemispheric slow-wave sleep, meaning one half of their brain sleeps while the other remains awake.",
+      "pos": { "type": "adjective", "chn": "单半球的" },
+      "pronunciation": { "us": "/ˌjuːnɪˌhɛmɪˈsfɪrɪk/", "uk": "/ˌjuːnɪˌhɛmɪˈsfɛrɪk/" },
+      "inflections": [],
+      "etymology": "uni- 'one' + hemispheric, from Greek hēmisphairion 'hemisphere'"
+    },
+    "upbeat": {
+      "sentence": "This is why workout playlists often feature upbeat songs, while relaxation playlists include soothing melodies.",
+      "pos": { "type": "adjective", "chn": "乐观的；欢快的" },
+      "pronunciation": { "us": "/ˈʌpbiːt/", "uk": "/ˈʌpbiːt/" },
+      "inflections": [],
+      "etymology": "up- + beat, originally musical term referring to an unaccented beat"
+    },
+    "update": {
+      "sentence": "The deadline for the software update is tomorrow.",
+      "pos": { "type": "noun", "chn": "更新" },
+      "pronunciation": { "us": "/ˈʌpdeɪt/", "uk": "/ˈʌpdeɪt/" },
+      "inflections": ["updates (plural)"],
+      "etymology": "up- + date, from Latin data 'given'"
+    },
+    "upgrade": {
+      "sentence": "This essential work is part of our seasonal inspection and efficiency upgrade initiative to ensure optimal performance during the colder months.",
+      "pos": { "type": "noun", "chn": "升级" },
+      "pronunciation": { "us": "/ˈʌpɡreɪd/", "uk": "/ˈʌpɡreɪd/" },
+      "inflections": ["upgrades (plural)", "upgraded (past)", "upgrading (present participle)"],
+      "etymology": "up- + grade, from Latin gradus 'step'"
+    },
+    "username": {
+      "sentence": "username：Sofia Baker Every Saturday, our local farmer's market is the place to be!",
+      "pos": { "type": "noun", "chn": "用户名" },
+      "pronunciation": { "us": "/ˈjuːzərˌneɪm/", "uk": "/ˈjuːzəˌneɪm/" },
+      "inflections": ["usernames (plural)"],
+      "etymology": "Compound of 'user' + 'name'"
+    },
+    "utilizes": {
+      "sentence": "Precision farming utilizes satellite imagery to enhance crop yields by analyzing soil and weather conditions.",
+      "pos": { "type": "verb", "chn": "利用（第三人称单数）" },
+      "pronunciation": { "us": "/ˈjuːtɪlaɪzɪz/", "uk": "/ˈjuːtɪlaɪzɪz/" },
+      "inflections": ["utilize (base)", "utilized (past)", "utilizing (present participle)"],
+      "etymology": "From French utiliser, from Italian utilizzare, from utile 'useful'"
+    },
+    "validated": {
+      "sentence": "Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.",
+      "pos": { "type": "verb", "chn": "验证；确认（过去分词）" },
+      "pronunciation": { "us": "/ˈvælɪdeɪtɪd/", "uk": "/ˈvælɪdeɪtɪd/" },
+      "inflections": ["validate (base)", "validates (third person)", "validating (present participle)"],
+      "etymology": "From Latin validus 'strong', from valere 'to be strong'"
+    },
+    "vanishing": {
+      "sentence": "Artists created the illusion of depth by using vanishing points on horizon lines, which are points in the background where parallel lines converge.",
+      "pos": { "type": "adjective", "chn": "消失的；消逝的" },
+      "pronunciation": { "us": "/ˈvænɪʃɪŋ/", "uk": "/ˈvænɪʃɪŋ/" },
+      "inflections": ["vanish (base)", "vanishes (third person)", "vanished (past)"],
+      "etymology": "From Latin evanescere 'to disappear', from e- 'out' + vanescere 'to vanish'"
+    },
+    "vegan": {
+      "sentence": "Don't miss the bakery stall—get there early for the best bread and pastries, including gluten-free and vegan options.",
+      "pos": { "type": "adjective", "chn": "纯素的；素食的" },
+      "pronunciation": { "us": "/ˈviːɡən/", "uk": "/ˈviːɡən/" },
+      "inflections": [],
+      "etymology": "Coined 1944 from 'vegetarian', taking first and last syllables"
+    },
+    "vegetables": {
+      "sentence": "Their stall is always bustling with customers eager to buy fresh, pesticide-free vegetables from the welcoming staff.",
+      "pos": { "type": "noun", "chn": "蔬菜（复数）" },
+      "pronunciation": { "us": "/ˈvɛdʒtəbəlz/", "uk": "/ˈvɛdʒɪtəbəlz/" },
+      "inflections": ["vegetable (singular)"],
+      "etymology": "From Latin vegetabilis 'growing, enlivening', from vegetare 'to enliven'"
+    },
+    "veggies": {
+      "sentence": "Fresh fruits, veggies, homemade goodies, and unique crafts await you.",
+      "pos": { "type": "noun", "chn": "蔬菜（非正式复数）" },
+      "pronunciation": { "us": "/ˈvɛdʒiz/", "uk": "/ˈvɛdʒiz/" },
+      "inflections": ["veggie (singular)"],
+      "etymology": "Clipping of 'vegetables' with -ie diminutive"
+    },
+    "velez": {
+      "sentence": "Larissa Velez (10:00 A.",
+      "pos": { "type": "noun", "chn": "韦莱斯（姓氏）" },
+      "pronunciation": { "us": "/vɛˈlɛz/", "uk": "/vəˈlɛz/" },
+      "inflections": [],
+      "etymology": "Spanish surname, from place name Vélez"
+    },
+    "vendors": {
+      "sentence": "A variety of food and beverages will be available for purchase from local food trucks and vendors.",
+      "pos": { "type": "noun", "chn": "供应商；小贩（复数）" },
+      "pronunciation": { "us": "/ˈvɛndərz/", "uk": "/ˈvɛndəz/" },
+      "inflections": ["vendor (singular)"],
+      "etymology": "From Anglo-Norman vendor, from Latin vendere 'to sell'"
+    },
+    "vibrant": {
+      "sentence": "Talented local musicians help create a vibrant atmosphere, and the community spirit makes it a delightful experience for all.",
+      "pos": { "type": "adjective", "chn": "充满活力的；鲜艳的" },
+      "pronunciation": { "us": "/ˈvaɪbrənt/", "uk": "/ˈvaɪbrənt/" },
+      "inflections": [],
+      "etymology": "From Latin vibrant- 'vibrating', from vibrare 'to shake'"
+    },
+    "vibrio": {
+      "sentence": "Vibrio bacteria are a type of bacteria commonly found in coastal waters.",
+      "pos": { "type": "noun", "chn": "弧菌" },
+      "pronunciation": { "us": "/ˈvɪbrioʊ/", "uk": "/ˈvɪbriəʊ/" },
+      "inflections": ["vibrios (plural)"],
+      "etymology": "From Latin vibrare 'to vibrate', referring to their vibrating motion"
+    },
+    "vigilance": {
+      "sentence": "The balance between rest and vigilance is crucial for survival, revealing the intricate adaptations across the animal kingdom.",
+      "pos": { "type": "noun", "chn": "警惕；警觉" },
+      "pronunciation": { "us": "/ˈvɪdʒɪləns/", "uk": "/ˈvɪdʒɪləns/" },
+      "inflections": [],
+      "etymology": "From Latin vigilantia, from vigil 'awake, watchful'"
+    },
+    "vigilant": {
+      "sentence": "For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators.",
+      "pos": { "type": "adjective", "chn": "警惕的；警觉的" },
+      "pronunciation": { "us": "/ˈvɪdʒɪlənt/", "uk": "/ˈvɪdʒɪlənt/" },
+      "inflections": [],
+      "etymology": "From Latin vigilant- 'keeping awake', from vigil 'watchful'"
+    },
+    "viking": {
+      "sentence": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "pos": { "type": "noun", "chn": "维京人" },
+      "pronunciation": { "us": "/ˈvaɪkɪŋ/", "uk": "/ˈvaɪkɪŋ/" },
+      "inflections": ["vikings (plural)"],
+      "etymology": "Old Norse víkingr, from vík 'creek, inlet' + -ingr 'belonging to'"
+    },
+    "vikings": {
+      "sentence": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "pos": { "type": "noun", "chn": "维京人（复数）" },
+      "pronunciation": { "us": "/ˈvaɪkɪŋz/", "uk": "/ˈvaɪkɪŋz/" },
+      "inflections": ["viking (singular)"],
+      "etymology": "Old Norse víkingr, from vík 'creek, inlet' + -ingr 'belonging to'"
+    },
+    "vinci": {
+      "sentence": "The Italian artist Leonardo da Vinci used this technique in such works as the Mona Lisa and The Virgin of the Rocks.",
+      "pos": { "type": "noun", "chn": "芬奇（意大利地名）" },
+      "pronunciation": { "us": "/ˈvɪntʃi/", "uk": "/ˈvɪntʃi/" },
+      "inflections": [],
+      "etymology": "Italian place name, from Latin vincium 'vineyard'"
+    },
+    "virgin": {
+      "sentence": "The Italian artist Leonardo da Vinci used this technique in such works as the Mona Lisa and The Virgin of the Rocks.",
+      "pos": { "type": "noun", "chn": "处女；圣母" },
+      "pronunciation": { "us": "/ˈvɜːrdʒɪn/", "uk": "/ˈvɜːdʒɪn/" },
+      "inflections": ["virgins (plural)"],
+      "etymology": "From Latin virgo 'young woman, maiden'"
+    },
+    "volumes": {
+      "sentence": "Birds living in cities often sing at higher pitches and volumes than their rural counterparts.",
+      "pos": { "type": "noun", "chn": "音量；卷册（复数）" },
+      "pronunciation": { "us": "/ˈvɑːljuːmz/", "uk": "/ˈvɒljuːmz/" },
+      "inflections": ["volume (singular)"],
+      "etymology": "From Latin volumen 'roll, scroll', from volvere 'to roll'"
+    },
+    "vulnerability": {
+      "sentence": "However, this interdependency can lead to economic vulnerability when global supply chains are disrupted by political instability or natural disasters.",
+      "pos": { "type": "noun", "chn": "脆弱性；弱点" },
+      "pronunciation": { "us": "/ˌvʌlnərəˈbɪləti/", "uk": "/ˌvʌlnərəˈbɪləti/" },
+      "inflections": ["vulnerabilities (plural)"],
+      "etymology": "From Late Latin vulnerabilitas, from Latin vulnus 'wound'"
+    },
+    "vulnificus": {
+      "sentence": "There are more than twenty different species of Vibrio bacteria, with Vibrio cholerae, Vibrio parahaemolyticus, and Vibrio vulnificus being the most well-known.",
+      "pos": { "type": "noun", "chn": "创伤弧菌" },
+      "pronunciation": { "us": "/vʌlˈnɪfɪkəs/", "uk": "/vʌlˈnɪfɪkəs/" },
+      "inflections": [],
+      "etymology": "From Latin vulnus 'wound' + -ficus 'making, causing'"
+    },
+    "wages": {
+      "sentence": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "pos": { "type": "noun", "chn": "工资（复数）" },
+      "pronunciation": { "us": "/ˈweɪdʒɪz/", "uk": "/ˈweɪdʒɪz/" },
+      "inflections": ["wage (singular)"],
+      "etymology": "From Old North French wagier 'to pledge', from Germanic"
+    },
+    "waived": {
+      "sentence": "00 charge at the door for the night's live musical entertainment is waived.",
+      "pos": { "type": "verb", "chn": "免除（过去式/分词）" },
+      "pronunciation": { "us": "/weɪvd/", "uk": "/weɪvd/" },
+      "inflections": ["waive (base)", "waives (third person)", "waiving (present participle)"],
+      "etymology": "Anglo-Norman weyver, from Old French weyver 'to abandon'"
+    },
+    "warriors": {
+      "sentence": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "pos": { "type": "noun", "chn": "勇士；战士（复数）" },
+      "pronunciation": { "us": "/ˈwɔːriərz/", "uk": "/ˈwɒriəz/" },
+      "inflections": ["warrior (singular)"],
+      "etymology": "Old North French werreior, from werre 'war'"
+    },
+    "weaken": {
+      "sentence": "The warming Arctic reduces the temperature difference between polar and tropical air masses, which may weaken the jet stream.",
+      "pos": { "type": "verb", "chn": "削弱；变弱" },
+      "pronunciation": { "us": "/ˈwiːkən/", "uk": "/ˈwiːkən/" },
+      "inflections": ["weakens (third person)", "weakened (past)", "weakening (present participle)"],
+      "etymology": "From Old English wāc 'weak' + -en (verbal suffix)"
+    },
+    "weakened": {
+      "sentence": "This disruption can lead to health issues like digestive problems and weakened immunity.",
+      "pos": { "type": "adjective", "chn": "削弱的；变弱的" },
+      "pronunciation": { "us": "/ˈwiːkənd/", "uk": "/ˈwiːkənd/" },
+      "inflections": ["weaken (base)", "weakens (third person)", "weakening (present participle)"],
+      "etymology": "From Old English wāc 'weak' + -en + -ed"
+    },
+    "webinar": {
+      "sentence": "I am writing about the upcoming training webinar on advanced project management techniques, which was originally scheduled for next Tuesday at 1:00 PM.",
+      "pos": { "type": "noun", "chn": "网络研讨会" },
+      "pronunciation": { "us": "/ˈwɛbɪnɑːr/", "uk": "/ˈwɛbɪnɑː/" },
+      "inflections": ["webinars (plural)"],
+      "etymology": "Blend of 'web' + 'seminar'"
+    },
+    "weekdays": {
+      "sentence": "on weekdays and offers coffee, pastries, and light meals alongside its selection of books, magazines, and gifts.",
+      "pos": { "type": "noun", "chn": "工作日（复数）" },
+      "pronunciation": { "us": "/ˈwiːkdeɪz/", "uk": "/ˈwiːkdeɪz/" },
+      "inflections": ["weekday (singular)"],
+      "etymology": "Old English wice 'week' + dæg 'day'"
+    },
+    "wellness": {
+      "sentence": "It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels.",
+      "pos": { "type": "noun", "chn": "健康；康乐" },
+      "pronunciation": { "us": "/ˈwɛlnəs/", "uk": "/ˈwɛlnəs/" },
+      "inflections": [],
+      "etymology": "From well (adverb) + -ness"
+    },
+    "william": {
+      "sentence": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "pos": { "type": "noun", "chn": "威廉（人名）" },
+      "pronunciation": { "us": "/ˈwɪljəm/", "uk": "/ˈwɪljəm/" },
+      "inflections": [],
+      "etymology": "Old French Willame, from Germanic will 'will' + helm 'helmet'"
+    },
+    "willow": {
+      "sentence": "They used substances like honey and willow bark to treat ailments.",
+      "pos": { "type": "noun", "chn": "柳树" },
+      "pronunciation": { "us": "/ˈwɪloʊ/", "uk": "/ˈwɪləʊ/" },
+      "inflections": ["willows (plural)"],
+      "etymology": "Old English welig, from Proto-Germanic"
+    },
+    "workbook": {
+      "sentence": "Workshop includes comprehensive workbook and light refreshments.",
+      "pos": { "type": "noun", "chn": "练习册；工作手册" },
+      "pronunciation": { "us": "/ˈwɜːrkbʊk/", "uk": "/ˈwɜːkbʊk/" },
+      "inflections": ["workbooks (plural)"],
+      "etymology": "Compound of 'work' + 'book'"
+    },
+    "workforce": {
+      "sentence": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "pos": { "type": "noun", "chn": "劳动力" },
+      "pronunciation": { "us": "/ˈwɜːrkfɔːrs/", "uk": "/ˈwɜːkfɔːs/" },
+      "inflections": ["workforces (plural)"],
+      "etymology": "Compound of 'work' + 'force'"
+    },
+    "workplace": {
+      "sentence": "Title: Effective Communication in the Modern Workplace A one-day intensive workshop for managers and team leaders.",
+      "pos": { "type": "noun", "chn": "工作场所" },
+      "pronunciation": { "us": "/ˈwɜːrkpleɪs/", "uk": "/ˈwɜːkpleɪs/" },
+      "inflections": ["workplaces (plural)"],
+      "etymology": "Compound of 'work' + 'place'"
+    },
+    "yuki": {
+      "sentence": "Yuki Matsuda(9:15 A.",
+      "pos": { "type": "noun", "chn": "由纪/由希（日本名）" },
+      "pronunciation": { "us": "/ˈjuːki/", "uk": "/ˈjuːki/" },
+      "inflections": [],
+      "etymology": "Japanese given name, meaning 'snow' (雪) or 'happiness' (幸)"
+    }
+  }
+}

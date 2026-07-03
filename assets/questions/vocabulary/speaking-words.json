@@ -1,0 +1,2330 @@
+[
+  {
+    "id": "vocab-speaking-0001",
+    "word": "affect",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "影响；感动"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈfekt/",
+      "uk": "/əˈfekt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "affectation"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "朝向"
+      },
+      "root": {
+        "form": "facere",
+        "meaning": "做，使"
+      },
+      "suffix": null,
+      "summary": "源自拉丁语afficere（ad-朝向+facere做），意为对……施加影响"
+    },
+    "rootGroup": null,
+    "example": "Cities affect people in different ways.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "城市以不同的方式影响着人们。"
+  },
+  {
+    "id": "vocab-speaking-0003",
+    "word": "beneficial",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "有益的；有利的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌben.ɪˈfɪʃ.əl/",
+      "uk": "/ˌben.ɪˈfɪʃ.əl/"
+    },
+    "inflections": {
+      "comparative": "more beneficial",
+      "superlative": "most beneficial",
+      "adverb": "beneficially",
+      "noun": "benefit"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "bene-",
+        "meaning": "well, good"
+      },
+      "root": {
+        "form": "facere",
+        "meaning": "to do, make"
+      },
+      "suffix": {
+        "form": "-ficium + -al",
+        "meaning": "making + relating to"
+      },
+      "summary": "拉丁语bene（好）+ facere（做）+ 形容词后缀-al，指产生好结果、有益处的"
+    },
+    "rootGroup": null,
+    "example": "Do you agree with this idea or do you think indoor activities can be just as beneficial for children?",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "你同意这个观点，还是认为室内活动对儿童同样有益？"
+  },
+  {
+    "id": "vocab-speaking-0004",
+    "word": "cardio",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "有氧运动"
+      },
+      {
+        "type": "adj",
+        "chinese": "心脏的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkɑːrdioʊ/",
+      "uk": "/ˈkɑːdiəʊ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "kardia",
+        "meaning": "心脏"
+      },
+      "suffix": null,
+      "summary": "源自希腊语kardia（心脏），现代英语中简写为cardio，常指有氧运动"
+    },
+    "rootGroup": null,
+    "example": "Cardio machines are near the entrance.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "有氧运动器械靠近入口处。"
+  },
+  {
+    "id": "vocab-speaking-0005",
+    "word": "fitness",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "健康；健身"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈfɪtnəs/",
+      "uk": "/ˈfɪtnəs/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "",
+      "suffix": "-ness",
+      "summary": "由 fit（适合的）+ -ness 组成"
+    },
+    "rootGroup": null,
+    "example": "Our fitness instructors hold exercise classes over here.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "我们的健身教练在这边开设运动课程。"
+  },
+  {
+    "id": "vocab-speaking-0006",
+    "word": "hiking",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "徒步旅行；远足"
+      },
+      {
+        "type": "v",
+        "chinese": "徒步旅行（现在分词）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhaɪkɪŋ/",
+      "uk": "/ˈhaɪkɪŋ/"
+    },
+    "inflections": [
+      "hike",
+      "hikes",
+      "hiked",
+      "hiking"
+    ],
+    "etymology": "From hike (verb, of unknown origin, possibly dialectal) + -ing",
+    "rootGroup": null,
+    "example": "For example, do you like hiking, cycling, tennis or other types of?",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "例如，你喜欢徒步、骑行、网球还是其他类型的运动？"
+  },
+  {
+    "id": "vocab-speaking-0007",
+    "word": "isolation",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "隔离；孤立"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌaɪsəˈleɪʃən/",
+      "uk": "/ˌaɪsəˈleɪʃən/"
+    },
+    "inflections": {
+      "note": "uncountable noun"
+    },
+    "etymology": "From French \"isolation\"",
+    "rootGroup": null,
+    "example": "Some people believe that social media can help people stay connected, while others think it can lead to feelings of isolation.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "有些人认为社交媒体有助于人们保持联系，而另一些人则认为它可能导致孤立感。"
+  },
+  {
+    "id": "vocab-speaking-0008",
+    "word": "adjust",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "调整，适应"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈdʒʌst/",
+      "uk": "/əˈdʒʌst/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "adjustment"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "朝向"
+      },
+      "root": {
+        "form": "juxta",
+        "meaning": "靠近"
+      },
+      "suffix": null,
+      "summary": "源自拉丁语adjuxtare（ad-朝向+juxta靠近），意为使靠近、使适合"
+    },
+    "rootGroup": null,
+    "example": "Here is how to start and adjust the treadmill.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "以下是启动和调节跑步机的方法。"
+  },
+  {
+    "id": "vocab-speaking-0009",
+    "word": "adopt",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "采纳；收养"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈdɑːpt/",
+      "uk": "/əˈdɒpt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "adoption"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "朝向"
+      },
+      "root": {
+        "form": "optare",
+        "meaning": "选择"
+      },
+      "suffix": null,
+      "summary": "源自拉丁语adoptare（ad-朝向+optare选择），意为选择并接受"
+    },
+    "rootGroup": null,
+    "example": "Do you think that in the future more people will adopt eco-friendly travel?",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "你认为未来会有更多人选择环保出行吗？"
+  },
+  {
+    "id": "vocab-speaking-0010",
+    "word": "amenities",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "便利设施；宜人条件"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈmenətiz/",
+      "uk": "/əˈmiːnətiz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "amoenus",
+        "meaning": "令人愉悦的"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自拉丁语amoenitas（宜人），由amoenus（愉悦的）+复数后缀-s构成"
+    },
+    "rootGroup": null,
+    "example": "Our amenities and services are listed on the notice boards throughout the building.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "我们的设施和服务列在大楼各处的公告板上。"
+  },
+  {
+    "id": "vocab-speaking-0011",
+    "word": "artificial",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "人造的；人工的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌɑr.tɪˈfɪʃ.əl/",
+      "uk": "/ˌɑː.tɪˈfɪʃ.əl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "artificially",
+      "noun": "artificiality"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "ars + facere",
+        "meaning": "skill + to make"
+      },
+      "suffix": {
+        "form": "-ficium + -al",
+        "meaning": "making + relating to"
+      },
+      "summary": "拉丁语ars（技艺）+ facere（制作），指通过人工技艺而非自然方式制造而成的"
+    },
+    "rootGroup": null,
+    "example": "Some people believe that artificial intelligence will greatly change the kinds of jobs available in the future.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "有些人认为人工智能将极大地改变未来可从事的工作类型。"
+  },
+  {
+    "id": "vocab-speaking-0012",
+    "word": "assistance",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "帮助，援助"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈsɪstəns/",
+      "uk": "/əˈsɪstəns/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "朝向"
+      },
+      "root": {
+        "form": "sistere",
+        "meaning": "站立"
+      },
+      "suffix": {
+        "form": "-ance",
+        "meaning": "动作/状态名词"
+      },
+      "summary": "源自拉丁语assistere（ad-旁边+sistere站立→站在旁边协助），加名词后缀-ance"
+    },
+    "rootGroup": null,
+    "example": "If you have any questions, please seek assistance from the attendants at the help desk.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "如有任何问题，请向服务台的工作人员寻求帮助。"
+  },
+  {
+    "id": "vocab-speaking-0013",
+    "word": "attendants",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "服务员；随从人员"
+      }
+    ],
+    "pronunciation": {
+      "us": "/əˈtendənts/",
+      "uk": "/əˈtendənts/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "ad-",
+        "meaning": "朝向"
+      },
+      "root": {
+        "form": "tendere",
+        "meaning": "伸展"
+      },
+      "suffix": {
+        "form": "-ants",
+        "meaning": "施动者（复数）"
+      },
+      "summary": "源自拉丁语attendere（ad-朝向+tendere伸展→关注、照料），加施动者后缀-ant和复数-s"
+    },
+    "rootGroup": null,
+    "example": "If you have any questions, please seek assistance from the attendants at the help desk.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "如有任何问题，请向服务台的工作人员寻求帮助。"
+  },
+  {
+    "id": "vocab-speaking-0014",
+    "word": "banging",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "砰砰作响的"
+      },
+      {
+        "type": "n",
+        "chinese": "撞击声"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈbæŋɪŋ/",
+      "uk": "/ˈbæŋɪŋ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "bang",
+        "meaning": "重击声（拟声词）"
+      },
+      "suffix": {
+        "form": "-ing",
+        "meaning": "动名词/现在分词"
+      },
+      "summary": "拟声词bang（重击声）+动名词后缀-ing构成，表持续的撞击声"
+    },
+    "rootGroup": null,
+    "example": "Avoid banging or tapping on the displays and enclosures.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "请勿敲打或拍击展示柜和围栏。"
+  },
+  {
+    "id": "vocab-speaking-0015",
+    "word": "basketball",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "篮球"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈbæskɪtbɔːl/",
+      "uk": "/ˈbɑːskɪtbɔːl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "basket + ball",
+        "meaning": "篮子 + 球"
+      },
+      "suffix": null,
+      "summary": "复合词：basket（篮子）+ ball（球），因最初投篮目标为篮子而得名"
+    },
+    "rootGroup": null,
+    "example": "Have they traveled to see a football game, basketball game or other types of sports?",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "他们是否曾远行去看足球比赛、篮球比赛或其他类型的体育赛事？"
+  },
+  {
+    "id": "vocab-speaking-0016",
+    "word": "benches",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "长凳（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈbentʃɪz/",
+      "uk": "/ˈbentʃɪz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "benc",
+        "meaning": "长凳"
+      },
+      "suffix": {
+        "form": "-es",
+        "meaning": "复数"
+      },
+      "summary": "源自古英语benc（长凳），加复数后缀-es构成"
+    },
+    "rootGroup": null,
+    "example": "There are many benches in the weightlifting area.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "举重区有很多长凳。"
+  },
+  {
+    "id": "vocab-speaking-0017",
+    "word": "bikes",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "自行车（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/baɪks/",
+      "uk": "/baɪks/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "bi- + kyklos",
+        "meaning": "二 + 轮子"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "缩写自bicycle（bi-二+希腊语kyklos轮子），加复数后缀-s"
+    },
+    "rootGroup": null,
+    "example": "We have plenty of exercise bikes for cardio training.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "我们有很多健身自行车供有氧训练使用。"
+  },
+  {
+    "id": "vocab-speaking-0018",
+    "word": "calendar",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "noun",
+        "chinese": "日历；日程表"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈkælɪndər/",
+      "uk": "/ˈkælɪndə/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "calendars"
+    },
+    "etymology": {
+      "prefix": "",
+      "root": "calare",
+      "suffix": "-ar",
+      "summary": "源自拉丁语 kalendarium（账本）"
+    },
+    "rootGroup": null,
+    "example": "Check out our calendar of upcoming events, many of which are family friendly.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "请查看我们的近期活动日历，其中许多活动适合全家参与。"
+  },
+  {
+    "id": "vocab-speaking-0019",
+    "word": "cats",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "猫（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/kæts/",
+      "uk": "/kæts/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "cattus",
+        "meaning": "猫"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自拉丁语cattus（猫），加复数后缀-s构成"
+    },
+    "rootGroup": null,
+    "example": "Bears, wolves, and large cats are to the right.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "熊、狼和大型猫科动物在右侧。"
+  },
+  {
+    "id": "vocab-speaking-0020",
+    "word": "choices",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "选择（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/tʃɔɪsɪz/",
+      "uk": "/tʃɔɪsɪz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "choice"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "choise",
+        "meaning": "choice (from OF choisir, to choose)"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "plural marker"
+      },
+      "summary": "源自古法语choisir (选择)，choices为其复数形式"
+    },
+    "rootGroup": null,
+    "example": "I'd like to ask you some questions about career choices.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "我想问你一些关于职业选择的问题。"
+  },
+  {
+    "id": "vocab-speaking-0021",
+    "word": "chosen",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "选择（过去分词）"
+      },
+      {
+        "type": "adj",
+        "chinese": "被选中的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtʃoʊzən/",
+      "uk": "/ˈtʃəʊzən/"
+    },
+    "inflections": {
+      "base": "choose",
+      "third": "chooses",
+      "present": "choosing",
+      "past": "chose"
+    },
+    "etymology": "From Old English \"ceosan\"",
+    "rootGroup": null,
+    "example": "Do you think this trend will continue in your chosen field?",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "你认为这一趋势会在你所选择的领域继续下去吗？"
+  },
+  {
+    "id": "vocab-speaking-0022",
+    "word": "classical",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "古典的；经典的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈklæsɪkəl/",
+      "uk": "/ˈklæsɪkəl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "classically",
+      "noun": "classicism"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "classicus",
+        "meaning": "最高等级的"
+      },
+      "suffix": {
+        "form": "-al",
+        "meaning": "……的（形容词）"
+      },
+      "summary": "源自拉丁语classicus（第一等的、经典的），加形容词后缀-al构成"
+    },
+    "rootGroup": null,
+    "example": "Classical paintings are located on the second floor.",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "古典绘画位于二楼。"
+  },
+  {
+    "id": "vocab-speaking-0023",
+    "word": "commute",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "通勤"
+      },
+      {
+        "type": "n",
+        "chinese": "通勤路程"
+      }
+    ],
+    "pronunciation": {
+      "us": "/kəˈmjuːt/",
+      "uk": "/kəˈmjuːt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "commuter"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "com-",
+        "meaning": "完全"
+      },
+      "root": {
+        "form": "mutare",
+        "meaning": "改变"
+      },
+      "suffix": null,
+      "summary": "源自拉丁语commutare（com-完全+mutare改变），原指替换、交换，后引申为通勤往返"
+    },
+    "rootGroup": null,
+    "example": "Imagine that you could choose to commute by car, which is faster but more expensive, or by public transportation, which is slower but less expensive.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "想象一下，你可以选择开车通勤，这种方式更快但更贵，或者选择公共交通，这种方式更慢但更便宜。"
+  },
+  {
+    "id": "vocab-speaking-0024",
+    "word": "drain",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "排出；耗尽"
+      },
+      {
+        "type": "n",
+        "chinese": "排水管；流失"
+      }
+    ],
+    "pronunciation": {
+      "us": "/dreɪn/",
+      "uk": "/dreɪn/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "drainage"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "dreahnian",
+        "meaning": "排干，过滤"
+      },
+      "suffix": null,
+      "summary": "源自古英语dreahnian（排干液体），与dry同源，均表去除水分"
+    },
+    "rootGroup": null,
+    "example": "Others find that cities are overwhelming and drain them of energy.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "另一些人则觉得城市令人不堪重负，耗尽了他们的精力。"
+  },
+  {
+    "id": "vocab-speaking-0025",
+    "word": "dynamic",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "translation": "动态的；不断变化的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/daɪˈnæmɪk/",
+      "uk": "/daɪˈnæmɪk/"
+    },
+    "inflections": {
+      "comparative": "more dynamic",
+      "superlative": "most dynamic",
+      "adverb": "dynamically",
+      "noun": "dynamics"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "dynam",
+        "meaning": "power, force (from Gk. dynamis)"
+      },
+      "suffix": {
+        "form": "-ic",
+        "meaning": "pertaining to"
+      },
+      "summary": "dynam (力量) + -ic (……的)，意为［有动力的、动态的］"
+    },
+    "rootGroup": null,
+    "example": "Some people find cities dynamic and exciting.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "有些人觉得城市充满活力、令人兴奋。"
+  },
+  {
+    "id": "vocab-speaking-0026",
+    "word": "eco",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "生态的；环保的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈiːkoʊ/",
+      "uk": "/ˈiːkəʊ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "oikos",
+        "meaning": "家，栖息地"
+      },
+      "suffix": null,
+      "summary": "源自希腊语oikos（家、栖息地），缩写自ecology（生态学），表示与环境相关"
+    },
+    "rootGroup": null,
+    "example": "In recent years, there has been a trend towards eco-friendly travel where people try to minimize their environmental impact while traveling, like using public transport instead of taking a taxi.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "近年来，出现了一种环保出行的趋势，人们在旅行时尽量减少对环境的影响，例如使用公共交通而不是乘坐出租车。"
+  },
+  {
+    "id": "vocab-speaking-0027",
+    "word": "elephants",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "noun",
+        "translation": "大象（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈɛlɪfənts/",
+      "uk": "/ˈɛlɪfənts/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "elephant"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "elephant",
+        "meaning": "大象"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "elephant（大象）+ -s（复数）= 大象（复数）"
+    },
+    "rootGroup": null,
+    "example": "You can find sea lions and elephants further down the path.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "沿着小路往前走，你可以看到海狮和大象。"
+  },
+  {
+    "id": "vocab-speaking-0028",
+    "word": "elevators",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "电梯（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈelɪveɪtərz/",
+      "uk": "/ˈelɪveɪtəz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "e-",
+        "meaning": "向外，向上"
+      },
+      "root": {
+        "form": "levare",
+        "meaning": "举起"
+      },
+      "suffix": {
+        "form": "-ors",
+        "meaning": "工具/施动者（复数）"
+      },
+      "summary": "源自拉丁语elevare（e-向上+levare举起），加工具后缀-or和复数-s"
+    },
+    "rootGroup": null,
+    "example": "The elevators are located just off the main lobby.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "电梯就在主大厅旁边。"
+  },
+  {
+    "id": "vocab-speaking-0029",
+    "word": "enclosures",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "围场；封闭区域（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ɪnˈkloʊʒərz/",
+      "uk": "/ɪnˈkləʊʒəz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "en-",
+        "meaning": "使进入"
+      },
+      "root": {
+        "form": "claudere",
+        "meaning": "关闭"
+      },
+      "suffix": {
+        "form": "-ures",
+        "meaning": "动作/结果（复数）"
+      },
+      "summary": "源自古法语enclos（围起来），由前缀en-（使）+拉丁词根claudere（关闭）+后缀-ure和复数-s构成"
+    },
+    "rootGroup": null,
+    "example": "Avoid banging or tapping on the displays and enclosures.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "请勿敲打或拍击展示柜和围栏。"
+  },
+  {
+    "id": "vocab-speaking-0030",
+    "word": "enjoyable",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adjective",
+        "translation": "令人愉快的；有趣的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ɪnˈdʒɔɪəbl/",
+      "uk": "/ɪnˈdʒɔɪəbl/"
+    },
+    "inflections": {
+      "comparative": "more enjoyable",
+      "superlative": "most enjoyable",
+      "adverb": "enjoyably",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "en-",
+        "meaning": "使"
+      },
+      "root": {
+        "form": "joy",
+        "meaning": "欢乐"
+      },
+      "suffix": {
+        "form": "-able",
+        "meaning": "可…的"
+      },
+      "summary": "en-（使）+ joy（欢乐）+ -able（可…的）= 令人欢乐的"
+    },
+    "rootGroup": null,
+    "example": "What do you think are one or two different ways to make commuting more enjoyable?",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "你认为有哪些一两种方法可以让通勤变得更有趣？"
+  },
+  {
+    "id": "vocab-speaking-0031",
+    "word": "equipped",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "配备的"
+      },
+      {
+        "type": "v",
+        "chinese": "装备（过去式/过去分词）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ɪˈkwɪpt/",
+      "uk": "/ɪˈkwɪpt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "equipment"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "skip",
+        "meaning": "船（日耳曼语）"
+      },
+      "suffix": {
+        "form": "-ed",
+        "meaning": "过去分词/形容词"
+      },
+      "summary": "源自古法语équiper（为船只配备），源自日耳曼语skip（船），加过去分词后缀-ed"
+    },
+    "rootGroup": null,
+    "example": "All of our locker rooms are equipped with showers and towels.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "我们所有的更衣室都配备了淋浴和毛巾。"
+  },
+  {
+    "id": "vocab-speaking-0032",
+    "word": "fee",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "费用；酬金"
+      }
+    ],
+    "pronunciation": {
+      "us": "/fiː/",
+      "uk": "/fiː/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "fee"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "fe",
+        "meaning": "cattle, property (from OE feoh)"
+      },
+      "suffix": null,
+      "summary": "源自古英语feoh (牲畜、财产)，原指以牲畜为支付手段，引申为［费用］"
+    },
+    "rootGroup": null,
+    "example": "To avoid being charged a late-departure fee, be sure to check out of your room on time.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "为避免被收取延迟退房费，请务必按时退房。"
+  },
+  {
+    "id": "vocab-speaking-0033",
+    "word": "gym",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "健身房；体育馆"
+      }
+    ],
+    "pronunciation": {
+      "us": "/dʒɪm/",
+      "uk": "/dʒɪm/"
+    },
+    "inflections": [
+      "gyms"
+    ],
+    "etymology": "Shortened from gymnasium, from Latin gymnasium, from Greek gymnasion 'exercise place'",
+    "rootGroup": null,
+    "example": "Welcome to our campus gym.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "欢迎来到我们的校园健身房。"
+  },
+  {
+    "id": "vocab-speaking-0034",
+    "word": "happier",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "更快乐的；更幸福的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhæpiər/",
+      "uk": "/ˈhæpiə/"
+    },
+    "inflections": [
+      "happy",
+      "happiest"
+    ],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "text": "hap",
+        "origin": "Old Norse happ",
+        "meaning": "luck, chance / 运气"
+      },
+      "suffix": {
+        "text": "-y + -er",
+        "origin": "Old English -ig + -ra",
+        "meaning": "having + comparative / 有…的 + 比较级"
+      },
+      "summary_cn": "hap（好运）+-y（有…性质）+-er（比较级），字面意为更有好运的，即更快乐的"
+    },
+    "rootGroup": null,
+    "example": "For some time now, researchers have been interested in whether green spaces, such as parks, make people who live in cities happier.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "一段时间以来，研究人员一直对绿地（如公园）是否让城市居民更幸福这一问题感兴趣。"
+  },
+  {
+    "id": "vocab-speaking-0035",
+    "word": "healthcare",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "医疗保健"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhelθker/",
+      "uk": "/ˈhelθkeə/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "health + care",
+        "meaning": "健康 + 照护"
+      },
+      "suffix": null,
+      "summary": "复合词：health（健康，源自古英语hǣlþ）+ care（照护，源自古英语caru）"
+    },
+    "rootGroup": null,
+    "example": "For example, do they work in healthcare, education, technology, or something else?",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "例如，他们是在医疗、教育、科技领域工作，还是从事其他行业？"
+  },
+  {
+    "id": "vocab-speaking-0036",
+    "word": "healthier",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "更健康的（比较级）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhelθiər/",
+      "uk": "/ˈhelθiə/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "healthiest",
+      "adverb": "healthily",
+      "noun": "healthiness"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "hǣlþ",
+        "meaning": "健康"
+      },
+      "suffix": {
+        "form": "-ier",
+        "meaning": "比较级"
+      },
+      "summary": "由health（健康）+形容词后缀-y构成healthy（健康的），再加比较级后缀-ier"
+    },
+    "rootGroup": null,
+    "example": "Do you think people today have healthier eating habits than in the past?",
+    "source": "TPO-06 speaking-TPO-06",
+    "example_cn": "你认为如今人们的饮食习惯比过去更健康吗？"
+  },
+  {
+    "id": "vocab-speaking-0037",
+    "word": "hurtful",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "伤人的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈhɜːrtfəl/",
+      "uk": "/ˈhɜːtfʊl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "hurtfully",
+      "noun": "hurtfulness"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "hurt",
+        "meaning": "伤害"
+      },
+      "suffix": {
+        "form": "-ful",
+        "meaning": "充满……的"
+      },
+      "summary": "由hurt（伤害）+形容词后缀-ful构成，表具有伤害性质的"
+    },
+    "rootGroup": null,
+    "example": "Do you think it's helpful or hurtful to workers?",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "你认为这对工人是有益的还是有害的？"
+  },
+  {
+    "id": "vocab-speaking-0038",
+    "word": "indoor",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "室内的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈɪndɔːr/",
+      "uk": "/ˈɪndɔː/"
+    },
+    "inflections": [],
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "text": "in + door",
+        "origin": "Old English in + duru",
+        "meaning": "in + door / 在门内"
+      },
+      "suffix": null,
+      "summary_cn": "由 in（在内）+ door（门）构成，指在门内的"
+    },
+    "rootGroup": null,
+    "example": "Do you agree with this idea or do you think indoor activities can be just as beneficial for children?",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "你同意这个观点，还是认为室内活动对儿童同样有益？"
+  },
+  {
+    "id": "vocab-speaking-0039",
+    "word": "lions",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "狮子"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈlaɪənz/",
+      "uk": "/ˈlaɪənz/"
+    },
+    "inflections": {
+      "singular": "lion",
+      "plural": "lions",
+      "noun": "lion"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "leon",
+        "meaning": "lion (from L. leo, Gk. leon)"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "plural marker"
+      },
+      "summary": "源自拉丁语leo (狮子)，经由希腊语leon进入英语"
+    },
+    "rootGroup": null,
+    "example": "You can find sea lions and elephants further down the path.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "沿着小路往前走，你可以看到海狮和大象。"
+  },
+  {
+    "id": "vocab-speaking-0040",
+    "word": "lobby",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "大厅；游说团体"
+      },
+      {
+        "type": "v",
+        "chinese": "游说"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈlɑːbi/",
+      "uk": "/ˈlɒbi/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "lobbyist"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "lobium",
+        "meaning": "回廊，门廊"
+      },
+      "suffix": null,
+      "summary": "源自中世纪拉丁语lobium（门廊），后引申为议会休息厅，进而产生游说义"
+    },
+    "rootGroup": null,
+    "example": "The elevators are located just off the main lobby.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "电梯就在主大厅旁边。"
+  },
+  {
+    "id": "vocab-speaking-0041",
+    "word": "lounge",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "休息室；起居室"
+      },
+      {
+        "type": "v",
+        "chinese": "倚靠；闲逛"
+      }
+    ],
+    "pronunciation": {
+      "us": "/laʊndʒ/",
+      "uk": "/laʊndʒ/"
+    },
+    "inflections": [
+      "lounges"
+    ],
+    "etymology": "From French allonger 'to lengthen'",
+    "rootGroup": null,
+    "example": "Our hotel lounge is available for relaxation.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "我们的酒店休息室可供您放松使用。"
+  },
+  {
+    "id": "vocab-speaking-0042",
+    "word": "luggage",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "行李"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈlʌɡɪdʒ/",
+      "uk": "/ˈlʌɡɪdʒ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "lug",
+        "meaning": "拖拽"
+      },
+      "suffix": {
+        "form": "-age",
+        "meaning": "集合名词后缀"
+      },
+      "summary": "由lug（用力拖拽）+名词后缀-age构成，指需要拖拽搬运的物品"
+    },
+    "rootGroup": null,
+    "example": "If needed, we can store your bags in the luggage storage room.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "如有需要，我们可以将您的行李存放在行李寄存室。"
+  },
+  {
+    "id": "vocab-speaking-0043",
+    "word": "machines",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "机器"
+      }
+    ],
+    "pronunciation": {
+      "us": "/məˈʃiːnz/",
+      "uk": "/məˈʃiːnz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "machina",
+        "meaning": "装置，机器"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自拉丁语machina，经希腊语mēkhanē（装置）传入，-s为复数形式"
+    },
+    "rootGroup": null,
+    "example": "Cardio machines are near the entrance.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "有氧运动器械靠近入口处。"
+  },
+  {
+    "id": "vocab-speaking-0044",
+    "word": "maps",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "地图"
+      }
+    ],
+    "pronunciation": {
+      "us": "/mæps/",
+      "uk": "/mæps/"
+    },
+    "inflections": {
+      "singular": "map",
+      "plural": "maps",
+      "noun": "map"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "map",
+        "meaning": "from L. mappa (cloth, napkin)"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "plural marker"
+      },
+      "summary": "源自拉丁语mappa (布、餐巾)，早期地图绘制在布上，故得名"
+    },
+    "rootGroup": null,
+    "example": "We have maps to help you find your way.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "我们提供地图帮助您找到方向。"
+  },
+  {
+    "id": "vocab-speaking-0045",
+    "word": "mats",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "垫子；地垫（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/mæt/",
+      "uk": "/mæt/"
+    },
+    "inflections": [
+      "mats"
+    ],
+    "etymology": "From Old English matt, from Latin matta, from Phoenician or Aramaic",
+    "rootGroup": null,
+    "example": "We do encourage the use of yoga mats for stretching out.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "我们非常鼓励使用瑜伽垫进行拉伸活动。"
+  },
+  {
+    "id": "vocab-speaking-0046",
+    "word": "minimize",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "v",
+        "chinese": "最小化，尽量减少"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈmɪnɪmaɪz/",
+      "uk": "/ˈmɪnɪmaɪz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": "minimization"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "minimus",
+        "meaning": "最小的"
+      },
+      "suffix": {
+        "form": "-ize",
+        "meaning": "使……化"
+      },
+      "summary": "源自拉丁语minimus（最小），加动词后缀-ize构成，表使变到最小"
+    },
+    "rootGroup": null,
+    "example": "In recent years, there has been a trend towards eco-friendly travel where people try to minimize their environmental impact while traveling, like using public transport instead of taking a taxi.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "近年来，出现了一种环保出行的趋势，人们在旅行时尽量减少对环境的影响，例如使用公共交通而不是乘坐出租车。"
+  },
+  {
+    "id": "vocab-speaking-0047",
+    "word": "photography",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "摄影（术）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/fəˈtɑːɡrəfi/",
+      "uk": "/fəˈtɒɡrəfi/"
+    },
+    "inflections": [],
+    "etymology": "photo- + -graphy; coined 1839 from Greek phōtos 'light' + graphē 'drawing'",
+    "rootGroup": null,
+    "example": "This week is your last chance to see the special exhibit on photography.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "本周是您参观摄影专题展览的最后机会。"
+  },
+  {
+    "id": "vocab-speaking-0048",
+    "word": "picnic",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "野餐"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈpɪknɪk/",
+      "uk": "/ˈpɪknɪk/"
+    },
+    "inflections": [
+      "picnics",
+      "picnicked",
+      "picnicking"
+    ],
+    "etymology": "From French pique-nique, of unknown origin",
+    "rootGroup": null,
+    "example": "The picnic area's a perfect place to enjoy your lunch.",
+    "source": "TPO-06 speaking-TPO-06",
+    "example_cn": "野餐区是享用午餐的绝佳场所。"
+  },
+  {
+    "id": "vocab-speaking-0049",
+    "word": "renovation",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "翻新，装修"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˌrenəˈveɪʃən/",
+      "uk": "/ˌrenəˈveɪʃən/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": {
+        "form": "re-",
+        "meaning": "再次"
+      },
+      "root": {
+        "form": "novus",
+        "meaning": "新的"
+      },
+      "suffix": {
+        "form": "-ation",
+        "meaning": "动作/状态名词"
+      },
+      "summary": "由前缀re-（再次）+拉丁词根nov（新）+名词后缀-ation构成，表使重新变新"
+    },
+    "rootGroup": null,
+    "example": "The sculpture hall is currently under renovation.",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "雕塑大厅目前正在翻新中。"
+  },
+  {
+    "id": "vocab-speaking-0050",
+    "word": "respect",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "translation": "尊重；敬意"
+      }
+    ],
+    "pronunciation": {
+      "us": "/rɪˈspɛkt/",
+      "uk": "/rɪˈspɛkt/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "respectfully",
+      "noun": "respect"
+    },
+    "etymology": {
+      "prefix": {
+        "form": "re-",
+        "meaning": "back, again"
+      },
+      "root": {
+        "form": "spect",
+        "meaning": "look, see (from L. specere)"
+      },
+      "suffix": null,
+      "summary": "re- (回头) + spect (看)，意为［回头看、尊重］"
+    },
+    "rootGroup": null,
+    "example": "While you're exploring the grounds, please respect all wildlife and follow the posted rules at all times.",
+    "source": "TPO-06 speaking-TPO-06",
+    "example_cn": "在探索园区时，请尊重所有野生动物，并始终遵守张贴的规定。"
+  },
+  {
+    "id": "vocab-speaking-0051",
+    "word": "restroom",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "洗手间，卫生间"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈrestruːm/",
+      "uk": "/ˈrestruːm/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "rest + room",
+        "meaning": "休息 + 房间"
+      },
+      "suffix": null,
+      "summary": "复合词：rest（休息）+ room（房间），最初指可休息的公共房间，后委婉指洗手间"
+    },
+    "rootGroup": null,
+    "example": "Our restroom facilities are located just beside the entrance.",
+    "source": "TPO-06 speaking-TPO-06",
+    "example_cn": "我们的卫生间设施就在入口旁边。"
+  },
+  {
+    "id": "vocab-speaking-0052",
+    "word": "rules",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "规则，规定"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ruːlz/",
+      "uk": "/ruːlz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "regula",
+        "meaning": "直尺，规则"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自拉丁语regula（直尺、规范），经古法语reule传入，-s为复数形式"
+    },
+    "rootGroup": null,
+    "example": "While you're exploring the grounds, please respect all wildlife and follow the posted rules at all times.",
+    "source": "TPO-06 speaking-TPO-06",
+    "example_cn": "在探索园区时，请尊重所有野生动物，并始终遵守张贴的规定。"
+  },
+  {
+    "id": "vocab-speaking-0053",
+    "word": "sculpture",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "雕塑"
+      },
+      {
+        "type": "v",
+        "chinese": "雕刻"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈskʌlptʃər/",
+      "uk": "/ˈskʌlptʃə/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "sculpere",
+        "meaning": "雕刻"
+      },
+      "suffix": {
+        "form": "-ure",
+        "meaning": "动作/结果名词"
+      },
+      "summary": "源自拉丁语sculpere（雕刻），加名词后缀-ure构成，表雕刻的行为或成果"
+    },
+    "rootGroup": null,
+    "example": "The sculpture hall is currently under renovation.",
+    "source": "TPO-01 speaking-TPO-01",
+    "example_cn": "雕塑大厅目前正在翻新中。"
+  },
+  {
+    "id": "vocab-speaking-0054",
+    "word": "services",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "服务，服务设施"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈsɜːrvɪsɪz/",
+      "uk": "/ˈsɜːvɪsɪz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "servus",
+        "meaning": "奴隶，仆人"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自拉丁语servus（仆人）→ servitium（奴役/服务），加复数后缀-s"
+    },
+    "rootGroup": null,
+    "example": "Our amenities and services are listed on the notice boards throughout the building.",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "我们的设施和服务列在大楼各处的公告板上。"
+  },
+  {
+    "id": "vocab-speaking-0055",
+    "word": "spaces",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "空间；场所（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈspeɪsɪz/",
+      "uk": "/ˈspeɪsɪz/"
+    },
+    "inflections": [
+      "space (singular)"
+    ],
+    "etymology": "源自拉丁语spatium（空间），-s为复数标记",
+    "rootGroup": null,
+    "example": "For some time now, researchers have been interested in whether green spaces, such as parks, make people who live in cities happier.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "一段时间以来，研究人员一直对绿地（如公园）是否让城市居民更幸福这一问题感兴趣。"
+  },
+  {
+    "id": "vocab-speaking-0056",
+    "word": "spontaneous",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "自发的，自然而然的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/spɑːnˈteɪniəs/",
+      "uk": "/spɒnˈteɪniəs/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "spontaneously",
+      "noun": "spontaneity"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "sponte",
+        "meaning": "自愿地，自发地"
+      },
+      "suffix": {
+        "form": "-aneous",
+        "meaning": "……性质的"
+      },
+      "summary": "源自拉丁语sponte（自愿地），加形容词后缀-aneous构成，表发自内在意志的"
+    },
+    "rootGroup": null,
+    "example": "When you travel, do you prefer to plan the details of your trip in advance or do you prefer to be spontaneous and explore your destination without sticking to a plan?",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "旅行时，你更喜欢提前规划好旅程的细节，还是更喜欢随性而行、不拘泥于计划地探索目的地？"
+  },
+  {
+    "id": "vocab-speaking-0057",
+    "word": "stressful",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "adj",
+        "chinese": "有压力的，紧张的"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈstresfəl/",
+      "uk": "/ˈstresfʊl/"
+    },
+    "inflections": {
+      "comparative": "more stressful",
+      "superlative": "most stressful",
+      "adverb": "stressfully",
+      "noun": "stressfulness"
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "stress",
+        "meaning": "压力，紧张"
+      },
+      "suffix": {
+        "form": "-ful",
+        "meaning": "充满……的"
+      },
+      "summary": "由stress（压力）+形容词后缀-ful构成，表充满压力的"
+    },
+    "rootGroup": null,
+    "example": "Some people believe that commuting can be stressful and tiring.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "有些人认为通勤可能充满压力、令人疲惫。"
+  },
+  {
+    "id": "vocab-speaking-0058",
+    "word": "tapping",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "轻敲"
+      },
+      {
+        "type": "v",
+        "chinese": "轻敲（现在分词）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtæpɪŋ/",
+      "uk": "/ˈtæpɪŋ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "tap",
+        "meaning": "轻敲"
+      },
+      "suffix": {
+        "form": "-ing",
+        "meaning": "动名词/现在分词"
+      },
+      "summary": "拟声词tap（轻敲的声音）+动名词后缀-ing构成"
+    },
+    "rootGroup": null,
+    "example": "Avoid banging or tapping on the displays and enclosures.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "请勿敲打或拍击展示柜和围栏。"
+  },
+  {
+    "id": "vocab-speaking-0059",
+    "word": "taxi",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "出租车"
+      },
+      {
+        "type": "v",
+        "chinese": "（飞机）滑行"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtæksi/",
+      "uk": "/ˈtæksi/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "taximeter",
+        "meaning": "计程器"
+      },
+      "suffix": null,
+      "summary": "缩写自taximeter cab（装有计程器的马车），taximeter源自法语taximètre（计费表）"
+    },
+    "rootGroup": null,
+    "example": "In recent years, there has been a trend towards eco-friendly travel where people try to minimize their environmental impact while traveling, like using public transport instead of taking a taxi.",
+    "source": "TPO-02 speaking-TPO-02",
+    "example_cn": "近年来，出现了一种环保出行的趋势，人们在旅行时尽量减少对环境的影响，例如使用公共交通而不是乘坐出租车。"
+  },
+  {
+    "id": "vocab-speaking-0060",
+    "word": "timings",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "时间安排，时机（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtaɪmɪŋz/",
+      "uk": "/ˈtaɪmɪŋz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "time",
+        "meaning": "时间"
+      },
+      "suffix": {
+        "form": "-ings",
+        "meaning": "动作/过程（复数）"
+      },
+      "summary": "由time（时间）+动名词后缀-ing构成，-s为复数形式"
+    },
+    "rootGroup": null,
+    "example": "You can check the schedule for available classes and timings.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "您可以查看课程安排及上课时间。"
+  },
+  {
+    "id": "vocab-speaking-0061",
+    "word": "towels",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "毛巾"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtaʊəlz/",
+      "uk": "/ˈtaʊəlz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "toaille",
+        "meaning": "布，毛巾"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数"
+      },
+      "summary": "源自古法语toaille（布），经日耳曼语传入，-s为复数形式"
+    },
+    "rootGroup": null,
+    "example": "All of our locker rooms are equipped with showers and towels.",
+    "source": "TPO-04 speaking-TPO-04",
+    "example_cn": "我们所有的更衣室都配备了淋浴和毛巾。"
+  },
+  {
+    "id": "vocab-speaking-0062",
+    "word": "treadmill",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "跑步机"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈtredmɪl/",
+      "uk": "/ˈtredmɪl/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "tread + mill",
+        "meaning": "踩踏 + 磨坊"
+      },
+      "suffix": null,
+      "summary": "复合词：tread（踩踏）+ mill（磨坊），原指由人踩踏驱动的磨粉机，后指健身跑步机"
+    },
+    "rootGroup": null,
+    "example": "Here is how to start and adjust the treadmill.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "以下是启动和调节跑步机的方法。"
+  },
+  {
+    "id": "vocab-speaking-0063",
+    "word": "usage",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "使用，用法"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈjuːsɪdʒ/",
+      "uk": "/ˈjuːsɪdʒ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "usus",
+        "meaning": "使用"
+      },
+      "suffix": {
+        "form": "-age",
+        "meaning": "行为/状态名词"
+      },
+      "summary": "源自古法语usage，由拉丁词根us（使用）+名词后缀-age构成"
+    },
+    "rootGroup": null,
+    "example": "Finally, do you think social media use will continue to grow in the future, or will people start to limit their usage?",
+    "source": "TPO-05 speaking-TPO-05",
+    "example_cn": "最后，你认为社交媒体的使用在未来会继续增长，还是人们会开始限制使用？"
+  },
+  {
+    "id": "vocab-speaking-0064",
+    "word": "weightlifting",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "举重"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈweɪtˌlɪftɪŋ/",
+      "uk": "/ˈweɪtˌlɪftɪŋ/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "weight + lift",
+        "meaning": "重量 + 举起"
+      },
+      "suffix": {
+        "form": "-ing",
+        "meaning": "动名词"
+      },
+      "summary": "复合词：weight（重量）+ lifting（举起），由lift加动名词后缀-ing构成"
+    },
+    "rootGroup": null,
+    "example": "There are many benches in the weightlifting area.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "举重区有很多长凳。"
+  },
+  {
+    "id": "vocab-speaking-0065",
+    "word": "wipes",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "湿巾，擦拭布"
+      },
+      {
+        "type": "v",
+        "chinese": "擦拭（第三人称单数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/waɪps/",
+      "uk": "/waɪps/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "wipian",
+        "meaning": "擦拭"
+      },
+      "suffix": {
+        "form": "-s",
+        "meaning": "复数/第三人称单数"
+      },
+      "summary": "源自古英语wipian（擦拭），-s为复数或第三人称单数后缀"
+    },
+    "rootGroup": null,
+    "example": "Please use the wipes provided at each station for cleaning equipment after use.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "请使用各站点提供的消毒湿巾在使用后清洁器材。"
+  },
+  {
+    "id": "vocab-speaking-0066",
+    "word": "wolves",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "狼（复数）"
+      }
+    ],
+    "pronunciation": {
+      "us": "/wʊlvz/",
+      "uk": "/wʊlvz/"
+    },
+    "inflections": {
+      "comparative": "",
+      "superlative": "",
+      "adverb": "",
+      "noun": ""
+    },
+    "etymology": {
+      "prefix": null,
+      "root": {
+        "form": "wulf",
+        "meaning": "狼"
+      },
+      "suffix": {
+        "form": "-es",
+        "meaning": "复数"
+      },
+      "summary": "源自古英语wulf（狼），不规则复数形式wolves，f→v+es"
+    },
+    "rootGroup": null,
+    "example": "Bears, wolves, and large cats are to the right.",
+    "source": "TPO-03 speaking-TPO-03",
+    "example_cn": "熊、狼和大型猫科动物在右侧。"
+  },
+  {
+    "id": "vocab-speaking-0067",
+    "word": "yoga",
+    "subject": "speaking",
+    "pos": [
+      {
+        "type": "n",
+        "chinese": "瑜伽"
+      }
+    ],
+    "pronunciation": {
+      "us": "/ˈjoʊɡə/",
+      "uk": "/ˈjəʊɡə/"
+    },
+    "inflections": [],
+    "etymology": "Sanskrit योग (yoga) 'yoking, union'; from yuj 'to join'",
+    "rootGroup": null,
+    "example": "We do encourage the use of yoga mats for stretching out.",
+    "source": "TPO-07 speaking-TPO-07",
+    "example_cn": "我们非常鼓励使用瑜伽垫进行拉伸活动。"
+  }
+]

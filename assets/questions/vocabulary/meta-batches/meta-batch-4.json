@@ -1,0 +1,705 @@
+{
+  "subject": "reading",
+  "words": {
+    "fate": {
+      "sentence": "Tragedies by Aeschylus and others explored themes of fate, justice, and suffering.",
+      "pos": { "type": "noun", "chinese": "命运" },
+      "pronunciation": { "us": "/feɪt/", "uk": "/feɪt/" },
+      "inflections": ["fates"],
+      "etymology": { "prefix": null, "root": { "text": "fat", "origin": "Latin fātum", "meaning": "that which has been spoken / 神谕之言" }, "suffix": null, "summary_cn": "源自拉丁语 fātum（神谕所言），指命中注定之事" }
+    },
+    "fatigue": {
+      "sentence": "While the freedom to choose is fundamental to consumer culture, an overabundance of choices—from groceries to electronics—can overwhelm individuals, causing anxiety and decision fatigue.",
+      "pos": { "type": "noun", "chinese": "疲劳" },
+      "pronunciation": { "us": "/fəˈtiːɡ/", "uk": "/fəˈtiːɡ/" },
+      "inflections": ["fatigues", "fatigued", "fatiguing"],
+      "etymology": { "prefix": null, "root": { "text": "fatig", "origin": "Latin fatigāre", "meaning": "to tire / 使疲倦" }, "suffix": null, "summary_cn": "源自拉丁语 fatigāre（使疲倦），fatim（充足地）+ agere（驱使），意为过度驱使导致疲倦" }
+    },
+    "favoritism": {
+      "sentence": "Competitive environments can sometimes exacerbate social tensions, particularly when favoritism or exclusionary practices are present.",
+      "pos": { "type": "noun", "chinese": "偏袒" },
+      "pronunciation": { "us": "/ˈfeɪvərɪtɪzəm/", "uk": "/ˈfeɪvərɪtɪzəm/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "favor", "origin": "Latin favor", "meaning": "good will / 好意" }, "suffix": { "text": "-ism", "origin": "Latin -ismus", "meaning": "doctrine or practice / 主义、行为" }, "summary_cn": "由 favor（好感）+ -ite（形容词后缀）+ -ism（行为/主义）构成，意为偏袒行为" }
+    },
+    "feats": {
+      "sentence": "Aqueducts were designed to transport water from distant sources into cities and agricultural areas, and they were crucial engineering feats in ancient civilizations.",
+      "pos": { "type": "noun", "chinese": "功绩" },
+      "pronunciation": { "us": "/fiːts/", "uk": "/fiːts/" },
+      "inflections": ["feat"],
+      "etymology": { "prefix": null, "root": { "text": "feat", "origin": "Latin factum", "meaning": "deed, achievement / 事迹、成就" }, "suffix": null, "summary_cn": "源自拉丁语 factum（已做的事），与 fact 同源，指值得称道的功绩" }
+    },
+    "fertilizers": {
+      "sentence": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "pos": { "type": "noun", "chinese": "肥料" },
+      "pronunciation": { "us": "/ˈfɜːrtəlaɪzərz/", "uk": "/ˈfɜːtɪlaɪzəz/" },
+      "inflections": ["fertilizer"],
+      "etymology": { "prefix": null, "root": { "text": "fertil", "origin": "Latin fertilis", "meaning": "fruitful, productive / 肥沃的" }, "suffix": { "text": "-izer", "origin": "Latin -izare + -er", "meaning": "agent that makes / 使…之物" }, "summary_cn": "源自拉丁语 fertilis（肥沃的），-ize（使成为）+-er（物），即使土壤肥沃之物" }
+    },
+    "festival": {
+      "sentence": "Title: Summer Book Festival Subtitle: July 18 / 10:00 A.",
+      "pos": { "type": "noun", "chinese": "节日" },
+      "pronunciation": { "us": "/ˈfestɪvəl/", "uk": "/ˈfestɪvəl/" },
+      "inflections": ["festivals"],
+      "etymology": { "prefix": null, "root": { "text": "fest", "origin": "Latin festum", "meaning": "feast, holiday / 宴会、节日" }, "suffix": { "text": "-ival", "origin": "Latin -ivus + -alis", "meaning": "relating to / 与…相关的" }, "summary_cn": "源自拉丁语 festum（宴会、节日），-ival 构成形容词/名词，指庆祝活动" }
+    },
+    "figures": {
+      "sentence": "In the latter, the illuminated main figures contrast with the deep brown shadows of the rocks and trees in the background.",
+      "pos": { "type": "noun", "chinese": "人物" },
+      "pronunciation": { "us": "/ˈfɪɡjərz/", "uk": "/ˈfɪɡəz/" },
+      "inflections": ["figure"],
+      "etymology": { "prefix": null, "root": { "text": "fig", "origin": "Latin figura", "meaning": "shape, form / 形状、形式" }, "suffix": null, "summary_cn": "源自拉丁语 figura（形状），与 fingere（塑造）同源，引申为人物的外形" }
+    },
+    "finalized": {
+      "sentence": ") Hey team, just a reminder that the marketing materials for our client's new-product launch need to be finalized by tomorrow.",
+      "pos": { "type": "verb", "chinese": "完成定案" },
+      "pronunciation": { "us": "/ˈfaɪnəlaɪzd/", "uk": "/ˈfaɪnəlaɪzd/" },
+      "inflections": ["finalize", "finalizes", "finalizing"],
+      "etymology": { "prefix": null, "root": { "text": "fin", "origin": "Latin finis", "meaning": "end, boundary / 结束、界限" }, "suffix": { "text": "-ize", "origin": "Latin -izare", "meaning": "to make / 使成为" }, "summary_cn": "源自拉丁语 finis（终点），-al（形容词后缀）+-ize（使成为），意为使最终确定" }
+    },
+    "fitness": {
+      "sentence": "This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments.",
+      "pos": { "type": "noun", "chinese": "健康" },
+      "pronunciation": { "us": "/ˈfɪtnəs/", "uk": "/ˈfɪtnəs/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "fit", "origin": "Middle English fitten", "meaning": "be suitable / 适合" }, "suffix": { "text": "-ness", "origin": "Old English -nes", "meaning": "state or quality / 状态" }, "summary_cn": "由 fit（适合）+-ness（状态/性质）构成，指身体适合的状态，即健康" }
+    },
+    "flawless": {
+      "sentence": "Let's make sure we deliver a flawless update.",
+      "pos": { "type": "adjective", "chinese": "完美的" },
+      "pronunciation": { "us": "/ˈflɔːləs/", "uk": "/ˈflɔːləs/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "flaw", "origin": "Old Norse flaga", "meaning": "defect, crack / 缺陷、裂缝" }, "suffix": { "text": "-less", "origin": "Old English -lēas", "meaning": "without / 无" }, "summary_cn": "由 flaw（缺陷）+-less（无）构成，意为没有缺陷的" }
+    },
+    "flexible": {
+      "sentence": "Learn a new language, meet people from different cultural backgrounds, and swap languages in a fun, flexible, and relaxed way.",
+      "pos": { "type": "adjective", "chinese": "灵活的" },
+      "pronunciation": { "us": "/ˈfleksəbəl/", "uk": "/ˈfleksɪbəl/" },
+      "inflections": ["flexibility"],
+      "etymology": { "prefix": null, "root": { "text": "flex", "origin": "Latin flectere", "meaning": "to bend / 弯曲" }, "suffix": { "text": "-ible", "origin": "Latin -ibilis", "meaning": "able to / 能够" }, "summary_cn": "源自拉丁语 flectere（弯曲）+-ibilis（能够），意为可弯曲的，引申为灵活的" }
+    },
+    "flourishing": {
+      "sentence": "However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.",
+      "pos": { "type": "adjective", "chinese": "繁荣的" },
+      "pronunciation": { "us": "/ˈflɜːrɪʃɪŋ/", "uk": "/ˈflʌrɪʃɪŋ/" },
+      "inflections": ["flourish", "flourishes", "flourished"],
+      "etymology": { "prefix": null, "root": { "text": "flour", "origin": "Latin florere", "meaning": "to bloom / 开花" }, "suffix": { "text": "-ish", "origin": "Latin -iscere", "meaning": "inchoative suffix / 开始做" }, "summary_cn": "源自拉丁语 florere（开花），-ish 表示动作开始，意为如花朵般繁荣茂盛" }
+    },
+    "fluctuations": {
+      "sentence": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "pos": { "type": "noun", "chinese": "波动" },
+      "pronunciation": { "us": "/ˌflʌktʃuˈeɪʃənz/", "uk": "/ˌflʌktʃuˈeɪʃənz/" },
+      "inflections": ["fluctuation"],
+      "etymology": { "prefix": null, "root": { "text": "fluctuat", "origin": "Latin fluctuare", "meaning": "to wave / 波动" }, "suffix": { "text": "-ion", "origin": "Latin -io", "meaning": "action or process / 行为或过程" }, "summary_cn": "源自拉丁语 fluere（流动）的反复动词 fluctuare（波动），-ion 构成名词，指起伏变化" }
+    },
+    "fluent": {
+      "sentence": "We will pair you with a fluent speaker of a language of your choice.",
+      "pos": { "type": "adjective", "chinese": "流利的" },
+      "pronunciation": { "us": "/ˈfluːənt/", "uk": "/ˈfluːənt/" },
+      "inflections": ["fluently", "fluency"],
+      "etymology": { "prefix": null, "root": { "text": "flu", "origin": "Latin fluere", "meaning": "to flow / 流动" }, "suffix": { "text": "-ent", "origin": "Latin -ens", "meaning": "present participle / 进行" }, "summary_cn": "源自拉丁语 fluere（流动），-ent 表示正在进行的，喻指语言如流水般顺畅" }
+    },
+    "forfeit": {
+      "sentence": "Cancellations made outside this window will forfeit the down payment.",
+      "pos": { "type": "verb", "chinese": "丧失" },
+      "pronunciation": { "us": "/ˈfɔːrfɪt/", "uk": "/ˈfɔːfɪt/" },
+      "inflections": ["forfeits", "forfeited", "forfeiting"],
+      "etymology": { "prefix": { "text": "for-", "origin": "Latin foris", "meaning": "outside, away / 在外、离开" }, "root": { "text": "feit", "origin": "Latin facere", "meaning": "to do / 做" }, "suffix": null, "summary_cn": "源自拉丁语 foris（在外）+ facere（做），字面意为」在法外行事」，引申为因违规而丧失权利" }
+    },
+    "format": {
+      "sentence": "This era was marked by groundbreaking shows that experimented with new formats and storytelling techniques.",
+      "pos": { "type": "noun", "chinese": "格式" },
+      "pronunciation": { "us": "/ˈfɔːrmæt/", "uk": "/ˈfɔːmæt/" },
+      "inflections": ["formats", "formatted", "formatting"],
+      "etymology": { "prefix": null, "root": { "text": "form", "origin": "Latin forma", "meaning": "shape, mold / 形状、模具" }, "suffix": null, "summary_cn": "源自拉丁语 forma（形状），指事物的形式或编排格式" }
+    },
+    "forthcoming": {
+      "sentence": "More details will be forthcoming.",
+      "pos": { "type": "adjective", "chinese": "即将到来的" },
+      "pronunciation": { "us": "/ˌfɔːrθˈkʌmɪŋ/", "uk": "/ˌfɔːθˈkʌmɪŋ/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "forth-", "origin": "Old English forþ", "meaning": "forward / 向前" }, "root": { "text": "come", "origin": "Old English cuman", "meaning": "to come / 来" }, "suffix": { "text": "-ing", "origin": "Old English -ing", "meaning": "present participle / 现在分词" }, "summary_cn": "由 forth（向前）+ coming（到来）构成，直译为正向我们走来的，即即将到来的" }
+    },
+    "fostering": {
+      "sentence": "These events often highlight stories of athletes overcoming adversity, inspiring spectators and fostering a collective sense of achievement.",
+      "pos": { "type": "verb", "chinese": "培养" },
+      "pronunciation": { "us": "/ˈfɔːstərɪŋ/", "uk": "/ˈfɒstərɪŋ/" },
+      "inflections": ["foster", "fosters", "fostered"],
+      "etymology": { "prefix": null, "root": { "text": "foster", "origin": "Old English fōstrian", "meaning": "to nourish, rear / 养育" }, "suffix": null, "summary_cn": "源自 Old English fōstrian（养育），与 food（食物）同源，引申为培养、促进" }
+    },
+    "fourteen": {
+      "sentence": "If you need to cancel your booking, please notify us at least fourteen days in advance.",
+      "pos": { "type": "numeral", "chinese": "十四" },
+      "pronunciation": { "us": "/ˌfɔːrˈtiːn/", "uk": "/ˌfɔːˈtiːn/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "four + teen", "origin": "Old English fēowertīene", "meaning": "four + ten / 四加十" }, "suffix": null, "summary_cn": "由 four（四）+ teen（十的后缀变体）构成，意为四加十" }
+    },
+    "fourteenth": {
+      "sentence": "During the European Renaissance (the period between the fourteenth and the seventeenth centuries), artists developed techniques that made their paintings appear more realistic.",
+      "pos": { "type": "adjective", "chinese": "第十四" },
+      "pronunciation": { "us": "/ˌfɔːrˈtiːnθ/", "uk": "/ˌfɔːˈtiːnθ/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "fourteen", "origin": "Old English fēowertīene", "meaning": "fourteen / 十四" }, "suffix": { "text": "-th", "origin": "Old English -ða", "meaning": "ordinal suffix / 序数后缀" }, "summary_cn": "由 fourteen（十四）+ -th（序数后缀）构成，表示第十四" }
+    },
+    "fox": {
+      "sentence": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "pos": { "type": "noun", "chinese": "狐狸" },
+      "pronunciation": { "us": "/fɒks/", "uk": "/fɒks/" },
+      "inflections": ["foxes"],
+      "etymology": { "prefix": null, "root": { "text": "fox", "origin": "Old English fox", "meaning": "fox / 狐狸" }, "suffix": null, "summary_cn": "源自西日耳曼语，与德语 Fuchs 同源，指狐狸（此处为人名中段）" }
+    },
+    "fran": {
+      "sentence": "Please look over the attached menu and submit your selection to Fran Paloma in the HR department.",
+      "pos": { "type": "noun", "chinese": "弗兰（人名）" },
+      "pronunciation": { "us": "/fræn/", "uk": "/fræn/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Fran", "origin": "Germanic", "meaning": "free / 自由（人名缩写）" }, "suffix": null, "summary_cn": "Frances 或 Francis 的昵称，日耳曼语源，意为」自由人」" }
+    },
+    "france": {
+      "sentence": "Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills.",
+      "pos": { "type": "noun", "chinese": "法国" },
+      "pronunciation": { "us": "/fræns/", "uk": "/frɑːns/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "France", "origin": "Latin Francia", "meaning": "land of the Franks / 法兰克人之地" }, "suffix": null, "summary_cn": "源自拉丁语 Francia，意为法兰克人的土地" }
+    },
+    "fungi": {
+      "sentence": "These include bacteria, viruses, fungi, and other microbes.",
+      "pos": { "type": "noun", "chinese": "真菌" },
+      "pronunciation": { "us": "/ˈfʌndʒaɪ/", "uk": "/ˈfʌŋɡiː/" },
+      "inflections": ["fungus"],
+      "etymology": { "prefix": null, "root": { "text": "fung", "origin": "Latin fungus", "meaning": "mushroom, fungus / 蘑菇、真菌" }, "suffix": null, "summary_cn": "源自拉丁语 fungus（蘑菇），fungi 为复数形式" }
+    },
+    "games": {
+      "sentence": "Our team can organize activities for people of all ages, including arts and crafts, board games, and more.",
+      "pos": { "type": "noun", "chinese": "游戏" },
+      "pronunciation": { "us": "/ɡeɪmz/", "uk": "/ɡeɪmz/" },
+      "inflections": ["game"],
+      "etymology": { "prefix": null, "root": { "text": "game", "origin": "Old English gamen", "meaning": "joy, amusement / 欢乐、娱乐" }, "suffix": null, "summary_cn": "源自 Old English gamen（欢乐、娱乐），指有规则的游戏活动" }
+    },
+    "gaps": {
+      "sentence": "Sports can promote social integration by bridging gaps between people of various backgrounds.",
+      "pos": { "type": "noun", "chinese": "差距" },
+      "pronunciation": { "us": "/ɡæps/", "uk": "/ɡæps/" },
+      "inflections": ["gap"],
+      "etymology": { "prefix": null, "root": { "text": "gap", "origin": "Old Norse gap", "meaning": "chasm, opening / 裂缝、开口" }, "suffix": null, "summary_cn": "源自 Old Norse gap（裂口、空隙），指两者之间的差距" }
+    },
+    "gard": {
+      "sentence": "Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills.",
+      "pos": { "type": "noun", "chinese": "加尔河（地名）" },
+      "pronunciation": { "us": "/ɡɑːrd/", "uk": "/ɡɑːd/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Gard", "origin": "Latin Gard, or Provençal", "meaning": "river name / 河名" }, "suffix": null, "summary_cn": "法国南部河流及省份名，Pont du Gard（加尔桥）为其上的罗马水道桥" }
+    },
+    "gastroenteritis": {
+      "sentence": "These bacteria are known for their ability to cause a variety of infections in humans, ranging from mild gastroenteritis to severe wound infections.",
+      "pos": { "type": "noun", "chinese": "胃肠炎" },
+      "pronunciation": { "us": "/ˌɡæstroʊˌentəˈraɪtɪs/", "uk": "/ˌɡæstrəʊˌentəˈraɪtɪs/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "gastro-", "origin": "Greek gastēr", "meaning": "stomach / 胃" }, "root": { "text": "enter-", "origin": "Greek enteron", "meaning": "intestine / 肠" }, "suffix": { "text": "-itis", "origin": "Greek -itis", "meaning": "inflammation / 炎症" }, "summary_cn": "由希腊语 gastēr（胃）+ enteron（肠）+-itis（炎症）构成，意为胃肠发炎" }
+    },
+    "gender": {
+      "sentence": "Despite its simple format, the show tackled complex social issues including gender roles and family dynamics.",
+      "pos": { "type": "noun", "chinese": "性别" },
+      "pronunciation": { "us": "/ˈdʒendər/", "uk": "/ˈdʒendə/" },
+      "inflections": ["genders"],
+      "etymology": { "prefix": null, "root": { "text": "gen", "origin": "Latin genus", "meaning": "kind, race / 种类、族" }, "suffix": null, "summary_cn": "源自拉丁语 genus（种类），通过古法语 genre 进入英语，指性别分类" }
+    },
+    "genres": {
+      "sentence": "The Greeks developed distinct genres: tragedy and comedy.",
+      "pos": { "type": "noun", "chinese": "类型" },
+      "pronunciation": { "us": "/ˈʒɑːnrəz/", "uk": "/ˈʒɒnrəz/" },
+      "inflections": ["genre"],
+      "etymology": { "prefix": null, "root": { "text": "genr", "origin": "Latin genus", "meaning": "kind, type / 种类" }, "suffix": null, "summary_cn": "源自法语 genre，来自拉丁语 genus（种类、类型），指艺术作品的分类" }
+    },
+    "george": {
+      "sentence": "(B) George Eastman's establishment of the Kodak company in 1888 played a crucial role in this democratization, as his cameras were simple to use and affordable.",
+      "pos": { "type": "noun", "chinese": "乔治（人名）" },
+      "pronunciation": { "us": "/dʒɔːrdʒ/", "uk": "/dʒɔːdʒ/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "George", "origin": "Greek geōrgos", "meaning": "farmer / 农夫" }, "suffix": null, "summary_cn": "源自希腊语 geōrgos（农夫），由 gē（土地）+ ergein（劳作）构成" }
+    },
+    "gluten": {
+      "sentence": "Don't miss the bakery stall—get there early for the best bread and pastries, including gluten-free and vegan options.",
+      "pos": { "type": "noun", "chinese": "麸质" },
+      "pronunciation": { "us": "/ˈɡluːtən/", "uk": "/ˈɡluːtən/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "glut", "origin": "Latin gluten", "meaning": "glue / 胶水" }, "suffix": null, "summary_cn": "源自拉丁语 gluten（胶水），指小麦中的粘性蛋白质" }
+    },
+    "gods": {
+      "sentence": "Many treatments involved prayers and rituals to invoke the favor of the gods.",
+      "pos": { "type": "noun", "chinese": "神" },
+      "pronunciation": { "us": "/ɡɒdz/", "uk": "/ɡɒdz/" },
+      "inflections": ["god"],
+      "etymology": { "prefix": null, "root": { "text": "god", "origin": "Old English god", "meaning": "deity / 神" }, "suffix": null, "summary_cn": "源自日耳曼语，与德语 Gott 同源，指神祇" }
+    },
+    "goodies": {
+      "sentence": "Fresh fruits, veggies, homemade goodies, and unique crafts await you.",
+      "pos": { "type": "noun", "chinese": "好东西" },
+      "pronunciation": { "us": "/ˈɡʊdiz/", "uk": "/ˈɡʊdiz/" },
+      "inflections": ["goody"],
+      "etymology": { "prefix": null, "root": { "text": "good", "origin": "Old English gōd", "meaning": "good / 好的" }, "suffix": { "text": "-y", "origin": "Old English -ig", "meaning": "diminutive or familiar / 小称或亲昵" }, "summary_cn": "由 good（好）+ -ie/-y（亲昵后缀）构成，指好吃的东西或好东西" }
+    },
+    "gradients": {
+      "sentence": "These structures used a combination of gravity and meticulously calculated gradients to ensure a steady flow of water.",
+      "pos": { "type": "noun", "chinese": "坡度" },
+      "pronunciation": { "us": "/ˈɡreɪdiənts/", "uk": "/ˈɡreɪdiənts/" },
+      "inflections": ["gradient"],
+      "etymology": { "prefix": null, "root": { "text": "grad", "origin": "Latin gradus", "meaning": "step, degree / 步、程度" }, "suffix": { "text": "-ient", "origin": "Latin -iens", "meaning": "present participle / 现在分词" }, "summary_cn": "源自拉丁语 gradus（步），意为「渐进的坡度」或「变化率」" }
+    },
+    "graduate": {
+      "sentence": "We are excited to announce the return of poster sessions this year, where graduate students and early-career researchers will present their work.",
+      "pos": { "type": "noun", "chinese": "研究生" },
+      "pronunciation": { "us": "/ˈɡrædʒuɪt/", "uk": "/ˈɡrædʒuət/" },
+      "inflections": ["graduates", "graduated", "graduating"],
+      "etymology": { "prefix": null, "root": { "text": "grad", "origin": "Latin gradus", "meaning": "step / 步" }, "suffix": { "text": "-ate", "origin": "Latin -atus", "meaning": "one who / 人" }, "summary_cn": "源自拉丁语 gradus（步），-ate 表示完成某阶段的人，即毕业者或研究生" }
+    },
+    "gravity": {
+      "sentence": "These structures used a combination of gravity and meticulously calculated gradients to ensure a steady flow of water.",
+      "pos": { "type": "noun", "chinese": "重力" },
+      "pronunciation": { "us": "/ˈɡrævɪti/", "uk": "/ˈɡrævɪti/" },
+      "inflections": ["gravities"],
+      "etymology": { "prefix": null, "root": { "text": "grav", "origin": "Latin gravis", "meaning": "heavy / 重的" }, "suffix": { "text": "-ity", "origin": "Latin -itas", "meaning": "state or quality / 状态或性质" }, "summary_cn": "源自拉丁语 gravis（重的），-ity 构成名词，指重力或其严肃性" }
+    },
+    "grazing": {
+      "sentence": "For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators.",
+      "pos": { "type": "verb", "chinese": "吃草" },
+      "pronunciation": { "us": "/ˈɡreɪzɪŋ/", "uk": "/ˈɡreɪzɪŋ/" },
+      "inflections": ["graze", "grazes", "grazed"],
+      "etymology": { "prefix": null, "root": { "text": "graze", "origin": "Old English grasian", "meaning": "to eat grass / 吃草" }, "suffix": null, "summary_cn": "源自 Old English gras（草），grasian（吃草），与 grass（草）同源" }
+    },
+    "greece": {
+      "sentence": "The earliest performances took place in ancient Greece, where festivals honoring the god Dionysus included dramatic contests.",
+      "pos": { "type": "noun", "chinese": "希腊" },
+      "pronunciation": { "us": "/ɡriːs/", "uk": "/ɡriːs/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Greec", "origin": "Latin Graecia", "meaning": "land of the Greeks / 希腊人之地" }, "suffix": null, "summary_cn": "源自拉丁语 Graecia，意为希腊人的土地" }
+    },
+    "greek": {
+      "sentence": "The Greeks developed distinct genres: tragedy and comedy.",
+      "pos": { "type": "adjective", "chinese": "希腊的" },
+      "pronunciation": { "us": "/ɡriːk/", "uk": "/ɡriːk/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Greek", "origin": "Latin Graecus", "meaning": "Greek / 希腊人" }, "suffix": null, "summary_cn": "源自拉丁语 Graecus，指希腊人或其语言" }
+    },
+    "greeks": {
+      "sentence": "The Greeks developed distinct genres: tragedy and comedy.",
+      "pos": { "type": "noun", "chinese": "希腊人" },
+      "pronunciation": { "us": "/ɡriːks/", "uk": "/ɡriːks/" },
+      "inflections": ["Greek"],
+      "etymology": { "prefix": null, "root": { "text": "Greek", "origin": "Latin Graecus", "meaning": "Greek person / 希腊人" }, "suffix": null, "summary_cn": "Greek 的复数形式，指希腊民族" }
+    },
+    "grenstar": {
+      "sentence": "I think we should generate some real excitement for Grenstar's new smart-tracking water bottle.",
+      "pos": { "type": "noun", "chinese": "品牌名" },
+      "pronunciation": { "us": "/ˈɡrenstɑːr/", "uk": "/ˈɡrenstɑː/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "gren + star", "origin": "Modern coinage", "meaning": "possibly green + star / 绿+星" }, "suffix": null, "summary_cn": "现代造词，可能由 green（绿色）和 star（明星）组合而成" }
+    },
+    "groceries": {
+      "sentence": "While the freedom to choose is fundamental to consumer culture, an overabundance of choices—from groceries to electronics—can overwhelm individuals, causing anxiety and decision fatigue.",
+      "pos": { "type": "noun", "chinese": "杂货" },
+      "pronunciation": { "us": "/ˈɡroʊsəriz/", "uk": "/ˈɡrəʊsəriz/" },
+      "inflections": ["grocery"],
+      "etymology": { "prefix": null, "root": { "text": "groc", "origin": "Old French grossier", "meaning": "wholesale / 批发" }, "suffix": { "text": "-ery", "origin": "Latin -arius", "meaning": "place of / 场所" }, "summary_cn": "源自 Old French grossier（批发商），原义为批发商品，后泛指食品杂货" }
+    },
+    "groundbreaking": {
+      "sentence": "This era was marked by groundbreaking shows that experimented with new formats and storytelling techniques.",
+      "pos": { "type": "adjective", "chinese": "开创性的" },
+      "pronunciation": { "us": "/ˈɡraʊndˌbreɪkɪŋ/", "uk": "/ˈɡraʊndˌbreɪkɪŋ/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "ground + break", "origin": "Old English grund + brecan", "meaning": "ground + break / 地 + 破" }, "suffix": null, "summary_cn": "由 ground（地面）+ breaking（打破）构成，原指破土动工，比喻开创性工作" }
+    },
+    "guidelines": {
+      "sentence": "Please adhere to the following guidelines: Noise Levels: Please keep noise to a minimum.",
+      "pos": { "type": "noun", "chinese": "指导方针" },
+      "pronunciation": { "us": "/ˈɡaɪdˌlaɪnz/", "uk": "/ˈɡaɪdˌlaɪnz/" },
+      "inflections": ["guideline"],
+      "etymology": { "prefix": null, "root": { "text": "guide + line", "origin": "Old French guider + Old English līne", "meaning": "guide + line / 引导 + 线" }, "suffix": null, "summary_cn": "由 guide（引导）+ line（线/方针）构成，意为指导行为的准则" }
+    },
+    "handmade": {
+      "sentence": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "pos": { "type": "adjective", "chinese": "手工制作的" },
+      "pronunciation": { "us": "/ˌhændˈmeɪd/", "uk": "/ˌhændˈmeɪd/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "hand + made", "origin": "Old English hand + macian", "meaning": "hand + make / 手 + 制作" }, "suffix": null, "summary_cn": "由 hand（手）+ made（制作）构成，意为手工制作的" }
+    },
+    "happier": {
+      "sentence": "This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.",
+      "pos": { "type": "adjective", "chinese": "更快乐的" },
+      "pronunciation": { "us": "/ˈhæpiər/", "uk": "/ˈhæpiə/" },
+      "inflections": ["happy", "happiest"],
+      "etymology": { "prefix": null, "root": { "text": "hap", "origin": "Old Norse happ", "meaning": "luck, chance / 运气" }, "suffix": { "text": "-y + -er", "origin": "Old English -ig + -ra", "meaning": "having + comparative / 有…的 + 比较级" }, "summary_cn": "hap（好运）+-y（有…性质）+-er（比较级），字面意为更有好运的，即更快乐的" }
+    },
+    "harvesting": {
+      "sentence": "This allows farmers to make informed decisions about planting, watering, and harvesting, which in turn increase efficiency and reduce waste.",
+      "pos": { "type": "verb", "chinese": "收获" },
+      "pronunciation": { "us": "/ˈhɑːrvɪstɪŋ/", "uk": "/ˈhɑːvɪstɪŋ/" },
+      "inflections": ["harvest", "harvests", "harvested"],
+      "etymology": { "prefix": null, "root": { "text": "harvest", "origin": "Old English hærfest", "meaning": "autumn, harvest season / 秋天、收获季节" }, "suffix": null, "summary_cn": "源自 Old English hærfest（秋天、收获季节），与德语 Herbst（秋天）同源" }
+    },
+    "heatwaves": {
+      "sentence": "A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.",
+      "pos": { "type": "noun", "chinese": "热浪" },
+      "pronunciation": { "us": "/ˈhiːtˌweɪvz/", "uk": "/ˈhiːtˌweɪvz/" },
+      "inflections": ["heatwave"],
+      "etymology": { "prefix": null, "root": { "text": "heat + wave", "origin": "Old English hǣtu + wafian", "meaning": "heat + wave / 热 + 波浪" }, "suffix": null, "summary_cn": "由 heat（热）+ wave（波浪）构成，指持续高温天气" }
+    },
+    "heliography": {
+      "sentence": "The first permanent photograph was created by Joseph-Nicéphore Niépce in 1826 using a process called heliography, which required several hours of exposure to light.",
+      "pos": { "type": "noun", "chinese": "日光胶版术" },
+      "pronunciation": { "us": "/ˌhiːliˈɒɡrəfi/", "uk": "/ˌhiːliˈɒɡrəfi/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "helio-", "origin": "Greek hēlios", "meaning": "sun / 太阳" }, "root": { "text": "graph", "origin": "Greek graphē", "meaning": "writing / 书写" }, "suffix": { "text": "-y", "origin": "Greek -ia", "meaning": "art or process / 艺术或过程" }, "summary_cn": "由希腊语 hēlios（太阳）+ graphē（书写）+ -y（名词后缀）构成，意为」用太阳书写」，即早期的摄影术" }
+    },
+    "hemisphere": {
+      "sentence": "In the northern hemisphere, when the jet stream dips southward, it brings cold air and storms to lower latitudes.",
+      "pos": { "type": "noun", "chinese": "半球" },
+      "pronunciation": { "us": "/ˈhemɪsfɪr/", "uk": "/ˈhemɪsfɪə/" },
+      "inflections": ["hemispheres"],
+      "etymology": { "prefix": { "text": "hemi-", "origin": "Greek hēmi-", "meaning": "half / 半" }, "root": { "text": "sphere", "origin": "Greek sphaira", "meaning": "ball, sphere / 球" }, "suffix": null, "summary_cn": "由希腊语 hēmi-（半）+ sphaira（球）构成，意为半个球体" }
+    },
+    "henry": {
+      "sentence": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "pos": { "type": "noun", "chinese": "亨利（人名）" },
+      "pronunciation": { "us": "/ˈhenri/", "uk": "/ˈhenri/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Henry", "origin": "Germanic Heimerich", "meaning": "home ruler / 家中的统治者" }, "suffix": null, "summary_cn": "源自日耳曼语 Heimerich，由 heim（家）+ rīhhi（统治者）组成" }
+    },
+    "herbal": {
+      "sentence": "Treatments focused on unblocking channels using herbal remedies and physical interventions.",
+      "pos": { "type": "adjective", "chinese": "草药的" },
+      "pronunciation": { "us": "/ˈɜːrbəl/", "uk": "/ˈhɜːbəl/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "herb", "origin": "Latin herba", "meaning": "grass, herb / 草" }, "suffix": { "text": "-al", "origin": "Latin -alis", "meaning": "relating to / 与…有关的" }, "summary_cn": "源自拉丁语 herba（草），-al（形容词后缀），意为与草本植物相关的" }
+    },
+    "hippocampus": {
+      "sentence": "Neuroscientists have discovered that the hippocampus, a region of the brain associated with memory, plays a crucial role in this process.",
+      "pos": { "type": "noun", "chinese": "海马体" },
+      "pronunciation": { "us": "/ˌhɪpəˈkæmpəs/", "uk": "/ˌhɪpəˈkæmpəs/" },
+      "inflections": ["hippocampi"],
+      "etymology": { "prefix": { "text": "hippo-", "origin": "Greek hippos", "meaning": "horse / 马" }, "root": { "text": "camp", "origin": "Greek kampos", "meaning": "sea monster / 海怪" }, "suffix": null, "summary_cn": "源自希腊语 hippos（马）+ kampos（海怪），因其形状像海马而得名" }
+    },
+    "homemade": {
+      "sentence": "Fresh fruits, veggies, homemade goodies, and unique crafts await you.",
+      "pos": { "type": "adjective", "chinese": "自制的" },
+      "pronunciation": { "us": "/ˌhoʊmˈmeɪd/", "uk": "/ˌhəʊmˈmeɪd/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "home + made", "origin": "Old English hām + macian", "meaning": "home + made / 家 + 制作" }, "suffix": null, "summary_cn": "由 home（家）+ made（制作）构成，意为家里制作的" }
+    },
+    "honey": {
+      "sentence": "They used substances like honey and willow bark to treat ailments.",
+      "pos": { "type": "noun", "chinese": "蜂蜜" },
+      "pronunciation": { "us": "/ˈhʌni/", "uk": "/ˈhʌni/" },
+      "inflections": ["honeys"],
+      "etymology": { "prefix": null, "root": { "text": "honey", "origin": "Old English hunig", "meaning": "honey / 蜂蜜" }, "suffix": null, "summary_cn": "源自日耳曼语，与德语 Honig 同源" }
+    },
+    "horses": {
+      "sentence": "For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators.",
+      "pos": { "type": "noun", "chinese": "马" },
+      "pronunciation": { "us": "/ˈhɔːrsɪz/", "uk": "/ˈhɔːsɪz/" },
+      "inflections": ["horse"],
+      "etymology": { "prefix": null, "root": { "text": "hors", "origin": "Old English hors", "meaning": "horse / 马" }, "suffix": null, "summary_cn": "源自日耳曼语 hors，与德语 Ross 同源" }
+    },
+    "hospitable": {
+      "sentence": "These efforts aim to create a more hospitable environment for birds, allowing them to coexist with humans in urban settings.",
+      "pos": { "type": "adjective", "chinese": "好客的" },
+      "pronunciation": { "us": "/hɒˈspɪtəbəl/", "uk": "/hɒˈspɪtəbəl/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "hospit", "origin": "Latin hospes (hospit-)", "meaning": "host, guest / 主人、客人" }, "suffix": { "text": "-able", "origin": "Latin -abilis", "meaning": "capable of / 能够的" }, "summary_cn": "源自拉丁语 hospes（主人、客人），-able（能够），意为好客的、宜人的" }
+    },
+    "hygiene": {
+      "sentence": "They supplied water to public baths, helping to maintain hygiene in densely populated urban areas.",
+      "pos": { "type": "noun", "chinese": "卫生" },
+      "pronunciation": { "us": "/ˈhaɪdʒiːn/", "uk": "/ˈhaɪdʒiːn/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "hygiene", "origin": "Greek hygieinē", "meaning": "health / 健康" }, "suffix": null, "summary_cn": "源自希腊语 hygieinē（健康），来自 Hygieia（健康女神）的名字" }
+    },
+    "iceland": {
+      "sentence": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "pos": { "type": "noun", "chinese": "冰岛" },
+      "pronunciation": { "us": "/ˈaɪslənd/", "uk": "/ˈaɪslənd/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "ice + land", "origin": "Old English īs + land", "meaning": "ice + land / 冰 + 土地" }, "suffix": null, "summary_cn": "由 ice（冰）+ land（土地）构成，意为」冰的土地」" }
+    },
+    "icelandic": {
+      "sentence": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "pos": { "type": "adjective", "chinese": "冰岛的" },
+      "pronunciation": { "us": "/aɪsˈlændɪk/", "uk": "/aɪsˈlændɪk/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Iceland", "origin": "Old English īsland", "meaning": "Iceland / 冰岛" }, "suffix": { "text": "-ic", "origin": "Latin -icus", "meaning": "relating to / 与…相关的" }, "summary_cn": "由 Iceland（冰岛）+-ic（形容词后缀）构成，意为冰岛的" }
+    },
+    "ideal": {
+      "sentence": "Rising sea temperatures and changing salinity levels create ideal conditions for these bacteria to multiply.",
+      "pos": { "type": "adjective", "chinese": "理想的" },
+      "pronunciation": { "us": "/aɪˈdiːəl/", "uk": "/aɪˈdiːəl/" },
+      "inflections": ["ideals"],
+      "etymology": { "prefix": null, "root": { "text": "idea", "origin": "Greek idea", "meaning": "form, pattern / 形式、概念" }, "suffix": null, "summary_cn": "源自希腊语 idea（形式、概念），通过拉丁语 idealis 进入英语，指完美标准的理想状态" }
+    },
+    "illuminated": {
+      "sentence": "In the latter, the illuminated main figures contrast with the deep brown shadows of the rocks and trees in the background.",
+      "pos": { "type": "adjective", "chinese": "被照亮的" },
+      "pronunciation": { "us": "/ɪˈluːmɪneɪtɪd/", "uk": "/ɪˈluːmɪneɪtɪd/" },
+      "inflections": ["illuminate", "illuminates", "illuminating"],
+      "etymology": { "prefix": { "text": "il-", "origin": "Latin in-", "meaning": "into / 向内" }, "root": { "text": "lumin", "origin": "Latin lumen (lumin-)", "meaning": "light / 光" }, "suffix": { "text": "-ate", "origin": "Latin -atus", "meaning": "past participle / 过去分词" }, "summary_cn": "源自拉丁语 in-（向内）+ lumen（光）+ -atus，意为被光照亮的" }
+    },
+    "illusion": {
+      "sentence": "Artists created the illusion of depth by using vanishing points on horizon lines, which are points in the background where parallel lines converge.",
+      "pos": { "type": "noun", "chinese": "幻觉" },
+      "pronunciation": { "us": "/ɪˈluːʒən/", "uk": "/ɪˈluːʒən/" },
+      "inflections": ["illusions"],
+      "etymology": { "prefix": { "text": "il-", "origin": "Latin in-", "meaning": "against / 反对" }, "root": { "text": "lus", "origin": "Latin ludere", "meaning": "to play, mock / 玩耍、嘲弄" }, "suffix": { "text": "-ion", "origin": "Latin -io", "meaning": "noun suffix / 名词后缀" }, "summary_cn": "源自拉丁语 illudere（戏弄），由 in-（对…）+ ludere（玩耍）构成，引申为使人误解的视觉幻象" }
+    },
+    "imagery": {
+      "sentence": "Precision farming utilizes satellite imagery to enhance crop yields by analyzing soil and weather conditions.",
+      "pos": { "type": "noun", "chinese": "图像" },
+      "pronunciation": { "us": "/ˈɪmɪdʒəri/", "uk": "/ˈɪmɪdʒəri/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "image", "origin": "Latin imago", "meaning": "likeness / 像" }, "suffix": { "text": "-ry", "origin": "Latin -arius", "meaning": "collection / 集合" }, "summary_cn": "由 image（图像）+-ry（表示集合）构成，指图像的总称" }
+    },
+    "images": {
+      "sentence": "It began in the early nineteenth century with the invention of the camera obscura, a device that projected images onto a surface.",
+      "pos": { "type": "noun", "chinese": "图像" },
+      "pronunciation": { "us": "/ˈɪmɪdʒɪz/", "uk": "/ˈɪmɪdʒɪz/" },
+      "inflections": ["image"],
+      "etymology": { "prefix": null, "root": { "text": "image", "origin": "Latin imago", "meaning": "likeness / 像" }, "suffix": null, "summary_cn": "源自拉丁语 imago（肖像、影像），指视觉再现的图像" }
+    },
+    "imbalance": {
+      "sentence": "An imbalance in these bacteria may be linked to conditions like depression and anxiety.",
+      "pos": { "type": "noun", "chinese": "不平衡" },
+      "pronunciation": { "us": "/ɪmˈbæləns/", "uk": "/ɪmˈbæləns/" },
+      "inflections": ["imbalances"],
+      "etymology": { "prefix": { "text": "im-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "balance", "origin": "Latin bilanx", "meaning": "having two scales / 天平" }, "suffix": null, "summary_cn": "由否定前缀 im-（不）+ balance（平衡）构成，意为不平衡" }
+    },
+    "immunity": {
+      "sentence": "They play a pivotal role in functions such as digestion, immunity, and mood regulation.",
+      "pos": { "type": "noun", "chinese": "免疫力" },
+      "pronunciation": { "us": "/ɪˈmjuːnɪti/", "uk": "/ɪˈmjuːnɪti/" },
+      "inflections": ["immunities"],
+      "etymology": { "prefix": null, "root": { "text": "immun", "origin": "Latin immunis", "meaning": "exempt from public service / 免除的" }, "suffix": { "text": "-ity", "origin": "Latin -itas", "meaning": "quality / 性质" }, "summary_cn": "源自拉丁语 immunis（免除义务的），由 in-（不）+ munus（义务）构成，比喻免除疾病的免疫力" }
+    },
+    "imperative": {
+      "sentence": "Therefore, it is imperative to find solutions that help birds adapt to city life.",
+      "pos": { "type": "adjective", "chinese": "必要的" },
+      "pronunciation": { "us": "/ɪmˈperətɪv/", "uk": "/ɪmˈperətɪv/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "im-", "origin": "Latin in-", "meaning": "toward / 朝向" }, "root": { "text": "per", "origin": "Latin parare", "meaning": "to prepare, command / 准备、命令" }, "suffix": { "text": "-ative", "origin": "Latin -ativus", "meaning": "relating to / 相关的" }, "summary_cn": "源自拉丁语 imperare（命令），引申义为必须做事的" }
+    },
+    "imperial": {
+      "sentence": "Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family.",
+      "pos": { "type": "adjective", "chinese": "帝国的" },
+      "pronunciation": { "us": "/ɪmˈpɪriəl/", "uk": "/ɪmˈpɪəriəl/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "imperi", "origin": "Latin imperium", "meaning": "empire, command / 帝国、命令" }, "suffix": { "text": "-al", "origin": "Latin -alis", "meaning": "relating to / 关于" }, "summary_cn": "源自拉丁语 imperium（帝国），-al 构成形容词，意为帝国的" }
+    },
+    "impractical": {
+      "sentence": "This method produced detailed images on silver-plated copper, but daguerreotypes needed delicate handling, and the exposure times required, although much shorter, still remained impractical for recording images of moving objects.",
+      "pos": { "type": "adjective", "chinese": "不切实际的" },
+      "pronunciation": { "us": "/ɪmˈpræktɪkəl/", "uk": "/ɪmˈpræktɪkəl/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "im-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "practical", "origin": "Latin practicus", "meaning": "practical, active / 实际的" }, "suffix": null, "summary_cn": "由否定前缀 im-（不）+ practical（实际的）构成，意为不实际的" }
+    },
+    "inadequate": {
+      "sentence": "Cities expanded rapidly, leading to overcrowded living conditions and inadequate infrastructure.",
+      "pos": { "type": "adjective", "chinese": "不足的" },
+      "pronunciation": { "us": "/ɪnˈædɪkwɪt/", "uk": "/ɪnˈædɪkwɪt/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "adequate", "origin": "Latin adaequatus", "meaning": "equal to / 相等的" }, "suffix": null, "summary_cn": "由否定前缀 in-（不）+ adequate（充足的）构成，意为不够的" }
+    },
+    "inbox": {
+      "sentence": "I'll keep an eye on my inbox.",
+      "pos": { "type": "noun", "chinese": "收件箱" },
+      "pronunciation": { "us": "/ˈɪnbɒks/", "uk": "/ˈɪnbɒks/" },
+      "inflections": ["inboxes"],
+      "etymology": { "prefix": null, "root": { "text": "in + box", "origin": "Old English in + box (Latin buxis)", "meaning": "in + box / 在里 + 盒子" }, "suffix": null, "summary_cn": "由 in（内）+ box（盒子）构成，指接收消息的信箱" }
+    },
+    "inconvenience": {
+      "sentence": "We apologize for the inconvenience.",
+      "pos": { "type": "noun", "chinese": "不便" },
+      "pronunciation": { "us": "/ˌɪnkənˈviːniəns/", "uk": "/ˌɪnkənˈviːniəns/" },
+      "inflections": ["inconveniences"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "conveni", "origin": "Latin convenire", "meaning": "to come together, be suitable / 聚集、适合" }, "suffix": { "text": "-ence", "origin": "Latin -entia", "meaning": "state / 状态" }, "summary_cn": "由 in-（不）+ convenience（便利）构成，意为不方便之处" }
+    },
+    "indelible": {
+      "sentence": "Nonetheless, the period left an indelible mark on the television industry, setting standards for future programming and contributing to the medium's evolution.",
+      "pos": { "type": "adjective", "chinese": "不可磨灭的" },
+      "pronunciation": { "us": "/ɪnˈdelɪbəl/", "uk": "/ɪnˈdelɪbəl/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "del", "origin": "Latin delere", "meaning": "to destroy, erase / 毁灭、擦除" }, "suffix": { "text": "-ible", "origin": "Latin -ibilis", "meaning": "able / 能" }, "summary_cn": "源自拉丁语 indelebilis，由 in-（不）+ delere（擦除）+-ibilis（能），意为无法擦除的" }
+    },
+    "indicates": {
+      "sentence": "Recent research indicates that cognitive mapping is more complex than initially thought.",
+      "pos": { "type": "verb", "chinese": "表明" },
+      "pronunciation": { "us": "/ˈɪndɪkeɪts/", "uk": "/ˈɪndɪkeɪts/" },
+      "inflections": ["indicate", "indicated", "indicating"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "toward / 朝向" }, "root": { "text": "dic", "origin": "Latin dicere", "meaning": "to say / 说" }, "suffix": { "text": "-ate", "origin": "Latin -atus", "meaning": "verb suffix / 动词后缀" }, "summary_cn": "源自拉丁语 indicare（指出），由 in-（朝向）+ dicare（宣告）构成，意为表明、指示" }
+    },
+    "individualistic": {
+      "sentence": "In individualistic cultures, where personal choice is highly valued, the burden of decision-making can be significant.",
+      "pos": { "type": "adjective", "chinese": "个人主义的" },
+      "pronunciation": { "us": "/ˌɪndɪˌvɪdʒuəˈlɪstɪk/", "uk": "/ˌɪndɪˌvɪdʒuəˈlɪstɪk/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "individual", "origin": "Latin individuus", "meaning": "indivisible / 不可分割的" }, "suffix": { "text": "-istic", "origin": "Latin -isticus", "meaning": "relating to / 关于的" }, "summary_cn": "由 individual（个人）+ -istic（形容词后缀）构成，意为个人主义色彩的" }
+    },
+    "indoor": {
+      "sentence": "Please note that the heating system will be offline throughout the day, and indoor temperatures will drop noticeably.",
+      "pos": { "type": "adjective", "chinese": "室内的" },
+      "pronunciation": { "us": "/ˈɪndɔːr/", "uk": "/ˈɪndɔː/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "in + door", "origin": "Old English in + duru", "meaning": "in + door / 在门内" }, "suffix": null, "summary_cn": "由 in（在内）+ door（门）构成，指在门内的" }
+    },
+    "industrialization": {
+      "sentence": "Industrialization played a crucial role in this transformation, drawing people from rural areas to cities in search of employment and better living conditions.",
+      "pos": { "type": "noun", "chinese": "工业化" },
+      "pronunciation": { "us": "/ɪnˌdʌstriəlaɪˈzeɪʃən/", "uk": "/ɪnˌdʌstriəlaɪˈzeɪʃən/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "industry", "origin": "Latin industria", "meaning": "diligence / 勤勉" }, "suffix": { "text": "-al + -ization", "origin": "Latin -alis + Greek -izein + Latin -io", "meaning": "process of making / 使成为的过程" }, "summary_cn": "由 industry（工业）+-al（形容词）+-ization（化）构成，意为工业化的进程" }
+    },
+    "influences": {
+      "sentence": "The jet stream also influences cyclones and anticyclones, affecting precipitation and wind patterns.",
+      "pos": { "type": "verb", "chinese": "影响" },
+      "pronunciation": { "us": "/ˈɪnfluənsɪz/", "uk": "/ˈɪnfluənsɪz/" },
+      "inflections": ["influence", "influenced", "influencing"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "into / 进入" }, "root": { "text": "flu", "origin": "Latin fluere", "meaning": "to flow / 流" }, "suffix": { "text": "-ence", "origin": "Latin -entia", "meaning": "state / 状态" }, "summary_cn": "源自拉丁语 influentia（流入），由 in-（入）+ fluere（流）构成，比喻对事物产生的流动影响" }
+    },
+    "influential": {
+      "sentence": "One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways.",
+      "pos": { "type": "adjective", "chinese": "有影响力的" },
+      "pronunciation": { "us": "/ˌɪnfluˈenʃəl/", "uk": "/ˌɪnfluˈenʃəl/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "influence", "origin": "Latin influentia", "meaning": "influence / 影响" }, "suffix": { "text": "-ial", "origin": "Latin -ialis", "meaning": "having the quality / 有…性质的" }, "summary_cn": "由 influence（影响）+-ial（形容词后缀）构成，意为具有影响力的" }
+    },
+    "influx": {
+      "sentence": "The influx of people into cities also led to major cultural shifts and the rise of new social classes.",
+      "pos": { "type": "noun", "chinese": "涌入" },
+      "pronunciation": { "us": "/ˈɪnflʌks/", "uk": "/ˈɪnflʌks/" },
+      "inflections": ["influxes"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "into / 进入" }, "root": { "text": "flux", "origin": "Latin fluxus", "meaning": "flow / 流" }, "suffix": null, "summary_cn": "源自拉丁语 influxus（流入），由 in-（入）+ fluxus（流动）构成，指大量涌入" }
+    },
+    "ingenuity": {
+      "sentence": "[D] The theoretical use of sunstones remains a fascinating example of Viking ingenuity.",
+      "pos": { "type": "noun", "chinese": "创造力" },
+      "pronunciation": { "us": "/ˌɪndʒəˈnuːɪti/", "uk": "/ˌɪndʒəˈnjuːɪti/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "ingenu", "origin": "Latin ingenuitas", "meaning": "frankness, noble nature / 坦率、高尚" }, "suffix": { "text": "-ity", "origin": "Latin -itas", "meaning": "quality / 性质" }, "summary_cn": "源自拉丁语 ingenuitas（天生的品质），与 ingenious（天才的）同源，指聪明才智" }
+    },
+    "inhospitable": {
+      "sentence": "This engineering marvel allowed civilizations to thrive in otherwise inhospitable environments.",
+      "pos": { "type": "adjective", "chinese": "不适宜居住的" },
+      "pronunciation": { "us": "/ˌɪnhɒˈspɪtəbəl/", "uk": "/ˌɪnhɒˈspɪtəbəl/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "hospit", "origin": "Latin hospes", "meaning": "host, guest / 主人、客人" }, "suffix": { "text": "-able", "origin": "Latin -abilis", "meaning": "capable of / 能" }, "summary_cn": "由 in-（不）+ hospitable（好客的）构成，意为不好客的、不适宜居住的" }
+    },
+    "inspection": {
+      "sentence": "This essential work is part of our seasonal inspection and efficiency upgrade initiative to ensure optimal performance during the colder months.",
+      "pos": { "type": "noun", "chinese": "检查" },
+      "pronunciation": { "us": "/ɪnˈspekʃən/", "uk": "/ɪnˈspekʃən/" },
+      "inflections": ["inspections"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "into / 向内" }, "root": { "text": "spect", "origin": "Latin specere", "meaning": "to look / 看" }, "suffix": { "text": "-ion", "origin": "Latin -io", "meaning": "noun suffix / 名词后缀" }, "summary_cn": "源自拉丁语 inspectio（查看），由 in-（向内）+ specere（看）构成，意为仔细查看" }
+    },
+    "instability": {
+      "sentence": "However, this interdependency can lead to economic vulnerability when global supply chains are disrupted by political instability or natural disasters.",
+      "pos": { "type": "noun", "chinese": "不稳定性" },
+      "pronunciation": { "us": "/ˌɪnstəˈbɪlɪti/", "uk": "/ˌɪnstəˈbɪlɪti/" },
+      "inflections": ["instabilities"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "not / 不" }, "root": { "text": "stabil", "origin": "Latin stabilis", "meaning": "stable / 稳定的" }, "suffix": { "text": "-ity", "origin": "Latin -itas", "meaning": "quality / 性质" }, "summary_cn": "由 in-（不）+ stability（稳定性）构成，意为不稳定的状态" }
+    },
+    "integration": {
+      "sentence": "Sports can promote social integration by bridging gaps between people of various backgrounds.",
+      "pos": { "type": "noun", "chinese": "整合" },
+      "pronunciation": { "us": "/ˌɪntɪˈɡreɪʃən/", "uk": "/ˌɪntɪˈɡreɪʃən/" },
+      "inflections": ["integrations"],
+      "etymology": { "prefix": null, "root": { "text": "integr", "origin": "Latin integrare", "meaning": "to make whole / 使完整" }, "suffix": { "text": "-ation", "origin": "Latin -atio", "meaning": "process / 过程" }, "summary_cn": "源自拉丁语 integrare（使完整），由 in-（不）+ tangere（触碰）构成原形 integer（完整的），意为整合成一体的过程" }
+    },
+    "interdependency": {
+      "sentence": "However, this interdependency can lead to economic vulnerability when global supply chains are disrupted by political instability or natural disasters.",
+      "pos": { "type": "noun", "chinese": "相互依赖" },
+      "pronunciation": { "us": "/ˌɪntərdɪˈpendənsi/", "uk": "/ˌɪntədɪˈpendənsi/" },
+      "inflections": ["interdependencies"],
+      "etymology": { "prefix": { "text": "inter-", "origin": "Latin inter", "meaning": "between, mutual / 相互之间" }, "root": { "text": "depend", "origin": "Latin dependere", "meaning": "to hang from / 悬挂于" }, "suffix": { "text": "-ency", "origin": "Latin -entia", "meaning": "state / 状态" }, "summary_cn": "由 inter-（相互）+ dependency（依赖）构成，意为互相依赖的关系" }
+    },
+    "intertwined": {
+      "sentence": "While Egyptians demonstrated an impressive body of knowledge, Egyptian medicine was also intertwined with religion.",
+      "pos": { "type": "adjective", "chinese": "交织的" },
+      "pronunciation": { "us": "/ˌɪntərˈtwaɪnd/", "uk": "/ˌɪntəˈtwaɪnd/" },
+      "inflections": ["intertwine", "intertwines", "intertwining"],
+      "etymology": { "prefix": { "text": "inter-", "origin": "Latin inter", "meaning": "mutually / 相互" }, "root": { "text": "twine", "origin": "Old English twin", "meaning": "twisted thread / 捻线" }, "suffix": null, "summary_cn": "由 inter-（相互）+ twine（缠绕）构成，意为互相缠绕、紧密交织的" }
+    },
+    "intricate": {
+      "sentence": "The balance between rest and vigilance is crucial for survival, revealing the intricate adaptations across the animal kingdom.",
+      "pos": { "type": "adjective", "chinese": "复杂的" },
+      "pronunciation": { "us": "/ˈɪntrɪkɪt/", "uk": "/ˈɪntrɪkɪt/" },
+      "inflections": ["intricacy"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "in / 在内" }, "root": { "text": "tric", "origin": "Latin tricae", "meaning": "tricks, perplexities / 诡计、困惑" }, "suffix": { "text": "-ate", "origin": "Latin -atus", "meaning": "adjective suffix / 形容词后缀" }, "summary_cn": "源自拉丁语 intricare（纠缠），由 in-（在内）+ tricae（琐碎、困惑）构成，意为错综复杂的" }
+    },
+    "introductory": {
+      "sentence": "The webinar will give an introductory overview of topics such as risk management, resource allocation, and performance tracking.",
+      "pos": { "type": "adjective", "chinese": "介绍性的" },
+      "pronunciation": { "us": "/ˌɪntrəˈdʌktəri/", "uk": "/ˌɪntrəˈdʌktəri/" },
+      "inflections": [],
+      "etymology": { "prefix": { "text": "intro-", "origin": "Latin intro", "meaning": "inward / 向内" }, "root": { "text": "duct", "origin": "Latin ducere", "meaning": "to lead / 引导" }, "suffix": { "text": "-ory", "origin": "Latin -orius", "meaning": "relating to / 关于的" }, "summary_cn": "由 intro-（向内）+ ducere（引导）+-ory（形容词后缀）构成，意为引导入门的介绍性的" }
+    },
+    "invention": {
+      "sentence": "It began in the early nineteenth century with the invention of the camera obscura, a device that projected images onto a surface.",
+      "pos": { "type": "noun", "chinese": "发明" },
+      "pronunciation": { "us": "/ɪnˈvenʃən/", "uk": "/ɪnˈvenʃən/" },
+      "inflections": ["inventions"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "in / 进入" }, "root": { "text": "vent", "origin": "Latin venire", "meaning": "to come / 来" }, "suffix": { "text": "-ion", "origin": "Latin -io", "meaning": "noun suffix / 名词后缀" }, "summary_cn": "源自拉丁语 invenire（发现、发明），由 in-（进入）+ venire（来）构成，意为找到新事物" }
+    },
+    "inventory": {
+      "sentence": "com Branscomb Technology's annual inventory audit will be performed on Thursday, April 19, beginning promptly at 8:00 a.",
+      "pos": { "type": "noun", "chinese": "库存" },
+      "pronunciation": { "us": "/ˈɪnvəntɔːri/", "uk": "/ˈɪnvəntəri/" },
+      "inflections": ["inventories"],
+      "etymology": { "prefix": null, "root": { "text": "invent", "origin": "Latin inventarium", "meaning": "list of things found / 清单" }, "suffix": { "text": "-ory", "origin": "Latin -orium", "meaning": "place or thing / 场所或物" }, "summary_cn": "源自拉丁语 inventarium（物品清单），与 invention（发明）同源，指盘点出的物资清单" }
+    },
+    "invoke": {
+      "sentence": "Many treatments involved prayers and rituals to invoke the favor of the gods.",
+      "pos": { "type": "verb", "chinese": "祈求" },
+      "pronunciation": { "us": "/ɪnˈvoʊk/", "uk": "/ɪnˈvəʊk/" },
+      "inflections": ["invokes", "invoked", "invoking"],
+      "etymology": { "prefix": { "text": "in-", "origin": "Latin in-", "meaning": "toward / 朝向" }, "root": { "text": "voke", "origin": "Latin vocare", "meaning": "to call / 呼叫" }, "suffix": null, "summary_cn": "源自拉丁语 invocare（召唤），由 in-（朝向）+ vocare（呼叫）构成，意为祈求、调用" }
+    },
+    "irrigation": {
+      "sentence": "In addition to providing water for drinking and irrigation, aqueducts were integral to public health and sanitation.",
+      "pos": { "type": "noun", "chinese": "灌溉" },
+      "pronunciation": { "us": "/ˌɪrɪˈɡeɪʃən/", "uk": "/ˌɪrɪˈɡeɪʃən/" },
+      "inflections": ["irrigations"],
+      "etymology": { "prefix": { "text": "ir-", "origin": "Latin in-", "meaning": "into / 进入" }, "root": { "text": "rig", "origin": "Latin rigare", "meaning": "to water / 浇水" }, "suffix": { "text": "-ation", "origin": "Latin -atio", "meaning": "process / 过程" }, "summary_cn": "源自拉丁语 irrigare（引水），由 in-（进入）+ rigare（给水）构成，意为灌溉过程" }
+    },
+    "iyengar": {
+      "sentence": "In an experiment, psychologist Sheena Iyengar found that shoppers were more likely to purchase jam when offered 6 varieties instead of 24.",
+      "pos": { "type": "noun", "chinese": "艾扬格（人名）" },
+      "pronunciation": { "us": "/aɪˈjɛŋɡər/", "uk": "/aɪˈjɛŋɡə/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Iyengar", "origin": "Indian surname", "meaning": "a Brahmin surname / 婆罗门姓氏" }, "suffix": null, "summary_cn": "印度姓氏，属婆罗门种姓" }
+    },
+    "janet": {
+      "sentence": "Owner Janet Miller explains, \"We noticed many people wanted to browse books after work but couldn't make it during our traditional hours.",
+      "pos": { "type": "noun", "chinese": "珍妮特（人名）" },
+      "pronunciation": { "us": "/ˈdʒænɪt/", "uk": "/ˈdʒænɪt/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Janet", "origin": "Hebrew Yohanan", "meaning": "God is gracious / 神恩赐的" }, "suffix": null, "summary_cn": "Jane 的昵称形式，最终源自希伯来语 Yohanan（神是仁慈的）" }
+    },
+    "jewelry": {
+      "sentence": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "pos": { "type": "noun", "chinese": "珠宝" },
+      "pronunciation": { "us": "/ˈdʒuːəlri/", "uk": "/ˈdʒuːəlri/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "jewel", "origin": "Old French joel, from Latin jocus", "meaning": "jewel, plaything / 宝石、玩物" }, "suffix": { "text": "-ry", "origin": "Latin -arius", "meaning": "collection / 集合" }, "summary_cn": "源自 Old French joel（宝石），-ry 表示集合，意为珠宝首饰的总称" }
+    },
+    "joseph": {
+      "sentence": "The first permanent photograph was created by Joseph-Nicéphore Niépce in 1826 using a process called heliography, which required several hours of exposure to light.",
+      "pos": { "type": "noun", "chinese": "约瑟夫（人名）" },
+      "pronunciation": { "us": "/ˈdʒoʊzɪf/", "uk": "/ˈdʒəʊzɪf/" },
+      "inflections": [],
+      "etymology": { "prefix": null, "root": { "text": "Joseph", "origin": "Hebrew Yosef", "meaning": "may He add / 愿上帝增添" }, "suffix": null, "summary_cn": "源自希伯来语 Yosef，意为」愿上帝增添（子嗣）\"" }
+    },
+    "kept": {
+      "sentence": "The volume on headphones must be kept low.",
+      "pos": { "type": "verb", "chinese": "保持" },
+      "pronunciation": { "us": "/kept/", "uk": "/kept/" },
+      "inflections": ["keep", "keeps", "keeping"],
+      "etymology": { "prefix": null, "root": { "text": "keep", "origin": "Old English cēpan", "meaning": "to seize, hold / 抓住、持有" }, "suffix": null, "summary_cn": "源自 Old English cēpan（抓住、持有），kept 为其过去分词，意为保持某种状态" }
+    }
+  }
+}

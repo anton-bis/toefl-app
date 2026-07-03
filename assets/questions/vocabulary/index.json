@@ -1,0 +1,22 @@
+{
+  "reading": {
+    "totalWords": 665,
+    "totalSets": 27,
+    "setSize": 25
+  },
+  "listening": {
+    "totalWords": 190,
+    "totalSets": 8,
+    "setSize": 25
+  },
+  "writing": {
+    "totalWords": 141,
+    "totalSets": 6,
+    "setSize": 25
+  },
+  "speaking": {
+    "totalWords": 66,
+    "totalSets": 3,
+    "setSize": 25
+  }
+}
