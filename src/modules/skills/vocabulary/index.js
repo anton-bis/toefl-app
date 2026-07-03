@@ -86,7 +86,11 @@ export default {
     for (var i = 0; i < subjects.length; i++) {
       var s = subjects[i];
       try {
-        var resp = await fetch('assets/questions/vocabulary/' + s + '-words.json');
+        var vocabPath = 'assets/questions/vocabulary/' + s + '-words.json';
+        if (window.location.protocol === 'file:' && typeof window.electronAPI !== 'undefined') {
+          vocabPath = '../' + vocabPath;
+        }
+        var resp = await fetch(vocabPath);
         var words = await resp.json();
         wordData[s] = words;
         var totalSets = Math.ceil(words.length / 25);
