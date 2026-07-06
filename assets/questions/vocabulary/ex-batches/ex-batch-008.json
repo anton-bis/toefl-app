@@ -1,0 +1,330 @@
+{
+  "subject": "reading",
+  "start": 640,
+  "words": {
+    "veggies": {
+      "example": "Fresh fruits, veggies, homemade goodies, and unique crafts await you.",
+      "example_cn": "新鲜水果、蔬菜、自制美食和独特的手工艺品等着您。",
+      "altExamples": [
+        "The community garden produces fresh veggies that are distributed to local families each weekend.",
+        "Including leafy green veggies in one's diet is associated with improved cardiovascular health outcomes."
+      ],
+      "altExamples_cn": [
+        "社区菜园种植的新鲜蔬菜每个周末都会分发给当地家庭。",
+        "在饮食中加入绿叶蔬菜与改善心血管健康指标密切相关。"
+      ]
+    },
+    "velez": {
+      "example": "Larissa Velez (10:00 A.",
+      "example_cn": "Larissa Velez（上午10:00",
+      "altExamples": [
+        "Dr. Velez published a groundbreaking study on coral reef recovery after bleaching events.",
+        "Velez's analysis of sediment cores provided new insights into historical climate patterns."
+      ],
+      "altExamples_cn": [
+        "Velez博士发表了一项关于珊瑚礁白化后恢复的突破性研究。",
+        "Velez对沉积物岩心的分析为历史气候模式提供了新的见解。"
+      ]
+    },
+    "vendors": {
+      "example": "A variety of food and beverages will be available for purchase from local food trucks and vendors.",
+      "example_cn": "当地餐车和摊贩将提供各种可供购买的美食和饮品。",
+      "altExamples": [
+        "Street vendors in the historic district offer handmade crafts and traditional foods to tourists.",
+        "The conference will feature vendors displaying the latest educational technology and classroom resources."
+      ],
+      "altExamples_cn": [
+        "历史街区的小摊贩向游客出售手工制品和传统食品。",
+        "此次会议将设有展位，由参展商展示最新的教育科技和课堂资源。"
+      ]
+    },
+    "vibrant": {
+      "example": "Talented local musicians help create a vibrant atmosphere, and the community spirit makes it a delightful experience for all.",
+      "example_cn": "才华横溢的当地音乐家营造出充满活力的氛围，社区精神让所有人都感到愉快。",
+      "altExamples": [
+        "The university's vibrant research community attracts scholars from diverse academic backgrounds around the world.",
+        "A vibrant democracy depends on active citizen participation and well-informed public debate on critical issues."
+      ],
+      "altExamples_cn": [
+        "这所大学充满活力的研究社区吸引了来自世界各地不同学术背景的学者。",
+        "一个充满活力的民主制度依赖于公民的积极参与和对关键问题的充分公共讨论。"
+      ]
+    },
+    "vibrio": {
+      "example": "Vibrio bacteria are a type of bacteria commonly found in coastal waters.",
+      "example_cn": "弧菌是一种常见于沿海水域的细菌。",
+      "altExamples": [
+        "Vibrio bacteria thrive in warm coastal waters and can cause foodborne illness from undercooked seafood.",
+        "Rising ocean temperatures have expanded the geographic range of pathogenic Vibrio species."
+      ],
+      "altExamples_cn": [
+        "弧菌在温暖的沿海水域大量繁殖，摄入未煮熟的贝类海鲜可能导致食源性疾病。",
+        "海洋温度上升扩大了致病性弧菌种类的地理分布范围。"
+      ]
+    },
+    "vigilance": {
+      "example": "The balance between rest and vigilance is crucial for survival, revealing the intricate adaptations across the animal kingdom.",
+      "example_cn": "休息与警惕之间的平衡对生存至关重要，揭示了动物界中精妙的适应机制。",
+      "altExamples": [
+        "Maintaining constant vigilance is crucial for security personnel monitoring sensitive installations.",
+        "The species' survival depends on its vigilance against predators while foraging for food."
+      ],
+      "altExamples_cn": [
+        "对监控敏感设施的安保人员来说，时刻保持警惕至关重要。",
+        "该物种的生存取决于其在觅食时对捕食者保持的警惕。"
+      ]
+    },
+    "vigilant": {
+      "example": "For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators.",
+      "example_cn": "例如，像牛和马这样的食草动物睡眠极少，通常站着睡觉，这有助于它们对捕食者保持警惕。",
+      "altExamples": [
+        "Parents must remain vigilant about the content their children access on the internet.",
+        "The security guard remained vigilant throughout the night shift, checking each monitor carefully."
+      ],
+      "altExamples_cn": [
+        "父母必须对其子女在互联网上访问的内容保持警惕。",
+        "保安整夜保持警惕，仔细检查每台监控屏幕。"
+      ]
+    },
+    "viking": {
+      "example": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "example_cn": "维京人是来自斯堪的纳维亚的海上战士，据信他们在中世纪时期（约公元500年至1500年）以非凡的精确度驾船横渡北大西洋。",
+      "altExamples": [
+        "The Viking expansion across Europe was driven by a combination of trade, exploration, and raiding.",
+        "Viking shipbuilding techniques were remarkably advanced for their time, enabling long-distance ocean voyages."
+      ],
+      "altExamples_cn": [
+        "维京人在欧洲的扩张是由贸易、探险和掠夺共同驱动的。",
+        "维京人的造船技术在当时极为先进，使得远距离海上航行成为可能。"
+      ]
+    },
+    "vikings": {
+      "example": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "example_cn": "维京人是来自斯堪的纳维亚的海上战士，据信他们在中世纪时期（约公元500年至1500年）以非凡的精确度驾船横渡北大西洋。",
+      "altExamples": [
+        "The Vikings established trade routes that connected Scandinavia with the Byzantine Empire.",
+        "Archaeological evidence suggests that Vikings reached North America centuries before Columbus."
+      ],
+      "altExamples_cn": [
+        "维京人建立了连接斯堪的纳维亚与拜占庭帝国的贸易路线。",
+        "考古证据表明，维京人比哥伦布早几个世纪就已经到达了北美。"
+      ]
+    },
+    "vinci": {
+      "example": "The Italian artist Leonardo da Vinci used this technique in such works as the Mona Lisa and The Virgin of the Rocks.",
+      "example_cn": "意大利艺术家列奥纳多·达·芬奇在《蒙娜丽莎》和《岩间圣母》等作品中运用了这一技法。",
+      "altExamples": [
+        "Da Vinci's notebooks reveal a mind extraordinarily curious about anatomy, engineering, and art.",
+        "The Renaissance polymath Leonardo da Vinci combined artistic mastery with scientific inquiry."
+      ],
+      "altExamples_cn": [
+        "达·芬奇的笔记本揭示了他对解剖学、工程学和艺术怀有非凡好奇心的头脑。",
+        "文艺复兴时期的博学家列奥纳多·达·芬奇将艺术造诣与科学探究融为一体。"
+      ]
+    },
+    "virgin": {
+      "example": "The Italian artist Leonardo da Vinci used this technique in such works as the Mona Lisa and The Virgin of the Rocks.",
+      "example_cn": "意大利艺术家列奥纳多·达·芬奇在《蒙娜丽莎》和《岩间圣母》等作品中运用了这一技法。",
+      "altExamples": [
+        "The Virgin of the Rocks by Leonardo da Vinci exemplifies the sfumato technique in painting.",
+        "Virgin forests, untouched by logging, serve as critical carbon sinks in the global ecosystem."
+      ],
+      "altExamples_cn": [
+        "列奥纳多·达·芬奇的《岩间圣母》体现了绘画中的晕涂法（sfumato）技法。",
+        "未经砍伐的原始森林是全球生态系统中关键的碳汇。"
+      ]
+    },
+    "volumes": {
+      "example": "Birds living in cities often sing at higher pitches and volumes than their rural counterparts.",
+      "example_cn": "生活在城市中的鸟类鸣叫的音高和音量通常高于它们乡村的同族。",
+      "altExamples": [
+        "The library's rare book collection includes volumes dating back to the sixteenth century.",
+        "Large volumes of data are processed daily by the research team's specialized computing cluster."
+      ],
+      "altExamples_cn": [
+        "图书馆的珍本馆藏包含可追溯至十六世纪的卷册。",
+        "研究团队的专业计算集群每天处理海量数据。"
+      ]
+    },
+    "vulnerability": {
+      "example": "However, this interdependency can lead to economic vulnerability when global supply chains are disrupted by political instability or natural disasters.",
+      "example_cn": "然而，当全球供应链因政治动荡或自然灾害而中断时，这种相互依赖可能导致经济脆弱性。",
+      "altExamples": [
+        "The vulnerability of coastal cities to rising sea levels has prompted urgent planning discussions.",
+        "Economic vulnerability increases when a nation depends heavily on a single export commodity."
+      ],
+      "altExamples_cn": [
+        "沿海城市面对海平面上升的脆弱性已引发紧急规划讨论。",
+        "当一个国家严重依赖单一出口商品时，其经济脆弱性就会增加。"
+      ]
+    },
+    "vulnificus": {
+      "example": "There are more than twenty different species of Vibrio bacteria, with Vibrio cholerae, Vibrio parahaemolyticus, and Vibrio vulnificus being the most well-known.",
+      "example_cn": "弧菌有二十多种，其中霍乱弧菌、副溶血性弧菌和创伤弧菌最为人所知。",
+      "altExamples": [
+        "Vibrio vulnificus infections can be severe in individuals with compromised immune systems.",
+        "Health officials warn that Vibrio vulnificus thrives in warmer waters during summer months."
+      ],
+      "altExamples_cn": [
+        "创伤弧菌感染对免疫系统受损的个体可能非常严重。",
+        "卫生官员警告说，创伤弧菌在夏季温暖的月份里繁殖更旺盛。"
+      ]
+    },
+    "wages": {
+      "example": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "example_cn": "工厂的激增和更高工资的承诺吸引了包括妇女和儿童在内的多样化劳动力。",
+      "altExamples": [
+        "The debate over minimum wages centers on balancing worker compensation with business sustainability.",
+        "Real wages have stagnated in many developed economies despite steady growth in productivity."
+      ],
+      "altExamples_cn": [
+        "关于最低工资的争论集中在平衡工人薪酬与企业可持续性之间。",
+        "尽管生产率稳步增长，许多发达经济体的实际工资却停滞不前。"
+      ]
+    },
+    "waived": {
+      "example": "00 charge at the door for the night's live musical entertainment is waived.",
+      "example_cn": "当晚现场音乐表演的门票费用已免除。",
+      "altExamples": [
+        "The enrollment fee will be waived for students who submit their applications before the deadline.",
+        "The airline waived the cancellation penalty due to the passenger's documented medical emergency."
+      ],
+      "altExamples_cn": [
+        "凡在截止日期前提交申请的学生，将免除注册费。",
+        "鉴于该旅客有记录的医疗紧急情况，航空公司免除了取消费。"
+      ]
+    },
+    "warriors": {
+      "example": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "example_cn": "维京人是来自斯堪的纳维亚的海上战士，据信他们在中世纪时期（约公元500年至1500年）以非凡的精确度驾船横渡北大西洋。",
+      "altExamples": [
+        "Ancient Greek warriors fought in phalanx formations that required extensive training and discipline.",
+        "The samurai warriors of feudal Japan adhered to a strict code of honor and loyalty."
+      ],
+      "altExamples_cn": [
+        "古希腊战士以密集方阵阵型作战，这需要大量的训练和纪律。",
+        "封建日本时期的武士阶层恪守严格的荣誉和忠诚准则。"
+      ]
+    },
+    "weaken": {
+      "example": "The warming Arctic reduces the temperature difference between polar and tropical air masses, which may weaken the jet stream.",
+      "example_cn": "北极变暖缩小了极地与热带气团之间的温差，这可能削弱急流。",
+      "altExamples": [
+        "Prolonged exposure to chronic stress can significantly weaken the immune system's ability to fight infections.",
+        "Economic recessions tend to weaken consumer confidence and substantially reduce household spending across all sectors."
+      ],
+      "altExamples_cn": [
+        "长期承受慢性压力会显著削弱免疫系统抵抗感染的能力。",
+        "经济衰退往往会削弱消费者信心，并大幅减少所有行业的家庭支出。"
+      ]
+    },
+    "webinar": {
+      "example": "I am writing about the upcoming training webinar on advanced project management techniques, which was originally scheduled for next Tuesday at 1:00 PM.",
+      "example_cn": "我来信是关于即将举行的先进项目管理技术培训网络研讨会，该研讨会原定于下周二下午1:00举行。",
+      "altExamples": [
+        "The university hosted a webinar on research methodologies for graduate students across all disciplines.",
+        "Participants in the webinar can ask questions through an interactive chat interface during the presentation."
+      ],
+      "altExamples_cn": [
+        "大学为所有学科的研究生举办了一场关于研究方法论的网络研讨会。",
+        "网络研讨会的参与者可以在演示过程中通过互动聊天界面提问。"
+      ]
+    },
+    "weekdays": {
+      "example": "on weekdays and offers coffee, pastries, and light meals alongside its selection of books, magazines, and gifts.",
+      "example_cn": "在工作日营业，提供咖啡、糕点和简餐，以及精选的书籍、杂志和礼品。",
+      "altExamples": [
+        "The library extends its hours on weekdays during final examination periods each semester.",
+        "Public transportation runs more frequently on weekdays to accommodate commuting workers and students."
+      ],
+      "altExamples_cn": [
+        "图书馆在每学期期末考试期间延长工作日的开放时间。",
+        "公共交通在工作日班次更频繁，以满足通勤工人和学生的需求。"
+      ]
+    },
+    "wellness": {
+      "example": "It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels.",
+      "example_cn": "这是体验我们以社区为中心的健康理念的绝佳机会，并向他人介绍这个专为所有健身水平设计的空间。",
+      "altExamples": [
+        "Many corporations now invest in employee wellness programs to reduce healthcare costs and absenteeism.",
+        "The wellness center offers workshops on stress management and nutrition for the campus community."
+      ],
+      "altExamples_cn": [
+        "许多企业现在投资员工健康计划，以降低医疗费用和缺勤率。",
+        "健康中心为校园社区提供压力管理和营养方面的研习班。"
+      ]
+    },
+    "william": {
+      "example": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "example_cn": "威廉·亨利·福克斯·塔尔博特在19世纪40年代发明的卡罗法使得从一张底片制作多张复制照片成为可能，彻底改变了这一领域。",
+      "altExamples": [
+        "William Shakespeare's plays continue to be performed worldwide more than four centuries after his death.",
+        "The astronomer William Herschel discovered the planet Uranus in 1781 using a telescope."
+      ],
+      "altExamples_cn": [
+        "威廉·莎士比亚的戏剧在他逝世四个多世纪后仍在世界各地上演。",
+        "天文学家威廉·赫歇尔于1781年使用望远镜发现了天王星。"
+      ]
+    },
+    "willow": {
+      "example": "They used substances like honey and willow bark to treat ailments.",
+      "example_cn": "他们使用蜂蜜和柳树皮等物质来治疗疾病。",
+      "altExamples": [
+        "Willow bark contains salicylic acid, a compound with well-documented anti-inflammatory properties.",
+        "The weeping willow's drooping branches create a distinctive silhouette along the riverbank."
+      ],
+      "altExamples_cn": [
+        "柳树皮含有水杨酸，一种具有充分文献记载的抗炎特性的化合物。",
+        "垂柳下垂的枝条在河岸边构成独特的风姿。"
+      ]
+    },
+    "workbook": {
+      "example": "Workshop includes comprehensive workbook and light refreshments.",
+      "example_cn": "研讨会包含全面的练习册和茶点。",
+      "altExamples": [
+        "Each participant in the workshop receives a workbook containing case studies and practice exercises.",
+        "The workbook supplements the textbook by providing additional problems for students to solve independently."
+      ],
+      "altExamples_cn": [
+        "研讨会的每位参与者都会收到一本包含案例研究和实践练习的练习册。",
+        "这本练习册通过提供额外的问题供学生独立解答来补充教材。"
+      ]
+    },
+    "workforce": {
+      "example": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "example_cn": "工厂的激增和更高工资的承诺吸引了包括妇女和儿童在内的多样化劳动力。",
+      "altExamples": [
+        "An aging workforce poses significant challenges for industries requiring specialized technical skills.",
+        "Companies are investing in retraining programs to help the workforce adapt to automation."
+      ],
+      "altExamples_cn": [
+        "老龄化的劳动力对需要专业技术技能的行业构成了重大挑战。",
+        "企业正在投资再培训计划，帮助劳动力适应自动化。"
+      ]
+    },
+    "workplace": {
+      "example": "Title: Effective Communication in the Modern Workplace A one-day intensive workshop for managers and team leaders.",
+      "example_cn": "标题：现代工作场所中的有效沟通——面向经理和团队领导的全天密集研讨会。",
+      "altExamples": [
+        "Effective communication in the workplace reduces misunderstandings and improves overall team productivity.",
+        "Workplace diversity initiatives aim to create inclusive environments where all employees can thrive."
+      ],
+      "altExamples_cn": [
+        "工作场所中的有效沟通能减少误解，提高团队整体生产效率。",
+        "工作场所多样性倡议旨在创造包容的环境，让所有员工都能发挥所长。"
+      ]
+    },
+    "yuki": {
+      "example": "Yuki Matsuda(9:15 A.",
+      "example_cn": "Yuki Matsuda（上午9:15",
+      "altExamples": [
+        "Yuki's research on quantum computing earned her a prestigious fellowship at the university.",
+        "Dr. Yuki presented her findings on neural plasticity at the international neuroscience conference."
+      ],
+      "altExamples_cn": [
+        "Yuki的量子计算研究为她赢得了大学的一项著名奖学金。",
+        "Yuki博士在国际神经科学大会上发表了关于神经可塑性的研究成果。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,966 @@
+{
+  "subject": "reading",
+  "start": 480,
+  "words": {
+    "paloma": {
+      "example": "Please look over the attached menu and submit your selection to Fran Paloma in the HR department.",
+      "example_cn": "请查看附带的菜单，并将您的选择提交给人力资源部的 Fran Paloma。",
+      "altExamples": [
+        "Fran Paloma coordinates the annual employee wellness program, organizing health screenings and fitness challenges for staff.",
+        "Ms. Paloma's efficient management of the human resources department earned her recognition from senior leadership."
+      ],
+      "altExamples_cn": [
+        "Fran Paloma 负责协调年度员工健康计划，为员工组织健康筛查和健身挑战活动。",
+        "Paloma 女士在人力资源部的高效管理为她赢得了高层领导的认可。"
+      ]
+    },
+    "paperless": {
+      "example": "Title：Municipal Charter Subtitle：Sign up for paperless billing statements today.",
+      "example_cn": "标题：市政宪章　副标题：立即注册无纸化账单。",
+      "altExamples": [
+        "The transition to a paperless office has significantly reduced the organization's environmental footprint and operational costs.",
+        "Many universities now offer paperless billing and registration systems to streamline administrative processes for students."
+      ],
+      "altExamples_cn": [
+        "向无纸化办公的转型显著降低了该组织的环境足迹和运营成本。",
+        "许多大学现在提供无纸化账单和注册系统，以简化学生的行政流程。"
+      ]
+    },
+    "paradox": {
+      "example": "The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction.",
+      "example_cn": "选择悖论这一由心理学家 Barry Schwartz 推广的概念表明，更多的选项可能导致更低的满意度。",
+      "altExamples": [
+        "The paradox of thrift describes a situation where increased saving during a recession can worsen the economic downturn.",
+        "There exists a curious paradox wherein consumers simultaneously demand both lower prices and higher product quality."
+      ],
+      "altExamples_cn": [
+        "节俭悖论描述了在经济衰退期间增加储蓄反而会加剧经济下滑的情况。",
+        "存在一个奇怪的悖论：消费者同时要求更低的价格和更高的产品质量。"
+      ]
+    },
+    "parahaemolyticus": {
+      "example": "There are more than twenty different species of Vibrio bacteria, with Vibrio cholerae, Vibrio parahaemolyticus, and Vibrio vulnificus being the most well-known.",
+      "example_cn": "弧菌有二十多种不同的种类，其中霍乱弧菌、副溶血弧菌和创伤弧菌最为人所知。",
+      "altExamples": [
+        "Vibrio parahaemolyticus infections are commonly associated with the consumption of raw or undercooked seafood.",
+        "Rising ocean temperatures have expanded the geographical range of Vibrio parahaemolyticus, affecting coastal communities worldwide."
+      ],
+      "altExamples_cn": [
+        "副溶血弧菌感染通常与食用生的或未煮熟的海鲜有关。",
+        "不断上升的海洋温度扩大了副溶血弧菌的地理分布范围，影响了全球沿海社区。"
+      ]
+    },
+    "pathway": {
+      "example": "This suggests that cognitive mapping is not just a mental representation but also involves distinct neural pathways.",
+      "example_cn": "这表明认知地图不仅仅是一种心理表征，还涉及不同的神经通路。",
+      "altExamples": [
+        "The metabolic pathway responsible for converting glucose into energy involves a complex series of enzymatic reactions.",
+        "Identifying the neural pathways involved in fear conditioning has important implications for treating anxiety disorders."
+      ],
+      "altExamples_cn": [
+        "负责将葡萄糖转化为能量的代谢通路涉及一系列复杂的酶促反应。",
+        "识别参与恐惧条件反射的神经通路对治疗焦虑症具有重要意义。"
+      ]
+    },
+    "patrons": {
+      "example": "This area is specifically designated for quiet reading and study to ensure a peaceful environment for all patrons.",
+      "example_cn": "此区域专门用于安静阅读和学习，以确保所有读者拥有宁静的环境。",
+      "altExamples": [
+        "The library offers extended evening hours to accommodate patrons who work during the day.",
+        "Generous patrons of the arts have funded the restoration of the historic theater's ornate ceiling frescoes."
+      ],
+      "altExamples_cn": [
+        "图书馆延长了晚间开放时间，以方便白天工作的读者。",
+        "慷慨的艺术赞助人资助了这座历史剧院华丽天花板壁画的修复工作。"
+      ]
+    },
+    "pce": {
+      "example": "The first permanent photograph was created by Joseph-Nicéphore Niépce in 1826 using a process called heliography, which required several hours of exposure to light.",
+      "example_cn": "第一张永久性照片由 Joseph-Nicéphore Niépce 于 1826 年使用一种称为日光摄影术的工艺创作，该工艺需要数小时的曝光时间。",
+      "altExamples": [
+        "The heliographic process developed by Nicéphore Niépce required exposure times lasting several hours in bright sunlight.",
+        "Historians regard Niépce's heliograph as the first successful attempt to permanently capture an image using light."
+      ],
+      "altExamples_cn": [
+        "Nicéphore Niépce 开发的日光摄影工艺需要在明亮阳光下持续数小时的曝光时间。",
+        "历史学家将 Niépce 的日光摄影视为首次成功利用光线永久捕捉图像的尝试。"
+      ]
+    },
+    "pdf": {
+      "example": "Enroll in paperless billing to receive monthly savings account statements in an electronic PDF document.",
+      "example_cn": "注册无纸化账单，以电子 PDF 文档形式接收月度储蓄账户对账单。",
+      "altExamples": [
+        "The instructor uploaded the lecture slides as a PDF file for students to download and review at their convenience.",
+        "Submitting a PDF version of the manuscript ensures that formatting remains consistent across different computer systems."
+      ],
+      "altExamples_cn": [
+        "讲师将讲座幻灯片以 PDF 文件形式上传，供学生方便时下载和复习。",
+        "提交手稿的 PDF 版本可以确保在不同计算机系统上格式保持一致。"
+      ]
+    },
+    "pedro": {
+      "example": "Pedro Alvarez (10:10 A.",
+      "example_cn": "Pedro Alvarez（上午 10:10）",
+      "altExamples": [
+        "Pedro Alvarez's research on sustainable agriculture focuses on improving soil health through organic farming practices.",
+        "Professor Alvarez delivered a compelling lecture on the economic implications of climate change for developing nations."
+      ],
+      "altExamples_cn": [
+        "Pedro Alvarez 关于可持续农业的研究侧重于通过有机耕作实践改善土壤健康。",
+        "Alvarez 教授就气候变化对发展中国家的经济影响发表了一场引人入胜的讲座。"
+      ]
+    },
+    "performances": {
+      "example": "The earliest performances took place in ancient Greece, where festivals honoring the god Dionysus included dramatic contests.",
+      "example_cn": "最早的戏剧表演出现在古希腊，那里纪念酒神狄俄尼索斯的节日中包含了戏剧比赛。",
+      "altExamples": [
+        "The theater company's performances of Shakespearean plays draw audiences from across the metropolitan area.",
+        "Live musical performances have been shown to elicit stronger emotional responses than recorded versions of the same pieces."
+      ],
+      "altExamples_cn": [
+        "该剧团演出的莎士比亚戏剧吸引了来自大都市区各地的观众。",
+        "研究表明，现场音乐表演比同一曲目的录制版本能引发更强烈的情感反应。"
+      ]
+    },
+    "personalized": {
+      "example": "Limited to 25 participants to ensure personalized attention.",
+      "example_cn": "限 25 人参加，以确保个性化的关注。",
+      "altExamples": [
+        "Personalized learning plans allow students to progress at their own pace, addressing individual strengths and weaknesses.",
+        "Advances in genomic medicine are paving the way for personalized cancer treatments tailored to each patient's tumor profile."
+      ],
+      "altExamples_cn": [
+        "个性化学习计划允许学生按照自己的节奏学习，针对个人的优势和不足。",
+        "基因组医学的进步为针对每位患者肿瘤特征量身定制的个性化癌症治疗铺平了道路。"
+      ]
+    },
+    "pest": {
+      "example": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "example_cn": "有机农业避免使用合成农药和化肥，侧重于轮作、堆肥和生物害虫防治。",
+      "altExamples": [
+        "Integrated pest management strategies combine biological controls with minimal chemical intervention to protect crops.",
+        "The introduction of natural predators is an effective method for controlling pest populations without harming beneficial insects."
+      ],
+      "altExamples_cn": [
+        "综合害虫管理策略将生物防治与最少的化学干预相结合以保护作物。",
+        "引入天敌是一种在不伤害益虫的情况下控制害虫种群的有效方法。"
+      ]
+    },
+    "pesticide": {
+      "example": "Their stall is always bustling with customers eager to buy fresh, pesticide-free vegetables from the welcoming staff.",
+      "example_cn": "他们的摊位总是熙熙攘攘，顾客们热切地从热情友好的工作人员那里购买新鲜、无农药的蔬菜。",
+      "altExamples": [
+        "Prolonged exposure to certain pesticides has been linked to neurological disorders among agricultural workers.",
+        "Organic certification standards strictly prohibit the use of synthetic pesticides and genetically modified organisms."
+      ],
+      "altExamples_cn": [
+        "长期接触某些农药与农业工人的神经系统疾病有关联。",
+        "有机认证标准严格禁止使用合成农药和转基因生物。"
+      ]
+    },
+    "pharmacology": {
+      "example": "In addition to surgery, Egyptians were skilled in pharmacology.",
+      "example_cn": "除了外科手术之外，埃及人还精通药理学。",
+      "altExamples": [
+        "The field of pharmacology investigates how drugs interact with biological systems to produce therapeutic effects.",
+        "Ancient Egyptian pharmacology relied heavily on plant-based remedies, many of which are still used in modern medicine."
+      ],
+      "altExamples_cn": [
+        "药理学领域研究药物如何与生物系统相互作用以产生治疗效果。",
+        "古埃及药理学在很大程度上依赖植物性药物，其中许多至今仍用于现代医学。"
+      ]
+    },
+    "phones": {
+      "example": "Electronic Devices: Ensure that all electronic devices, such as phones and laptops, are set to silent mode.",
+      "example_cn": "电子设备：请确保所有电子设备（如手机和笔记本电脑）已设为静音模式。",
+      "altExamples": [
+        "The excessive use of mobile phones has been associated with decreased attention span and disrupted sleep patterns.",
+        "University policy requires that phones be silenced during lectures to minimize distractions for other students."
+      ],
+      "altExamples_cn": [
+        "过度使用手机与注意力持续时间缩短和睡眠模式紊乱有关联。",
+        "大学政策要求在讲座期间将手机静音，以尽量减少对其他学生的干扰。"
+      ]
+    },
+    "phore": {
+      "example": "The first permanent photograph was created by Joseph-Nicéphore Niépce in 1826 using a process called heliography, which required several hours of exposure to light.",
+      "example_cn": "第一张永久性照片由 Joseph-Nicéphore Niépce 于 1826 年使用一种称为日光摄影术的工艺创作，该工艺需要数小时的曝光时间。",
+      "altExamples": [
+        "The contributions of Joseph Nicéphore Niépce to early photography remain highly regarded among art historians.",
+        "Nicéphore Niépce's experiments with light-sensitive materials paved the way for his partner Daguerre's later innovations."
+      ],
+      "altExamples_cn": [
+        "Joseph Nicéphore Niépce 对早期摄影的贡献至今仍受到艺术史学家的高度评价。",
+        "Nicéphore Niépce 对感光材料的实验为其合作伙伴 Daguerre 后来的创新铺平了道路。"
+      ]
+    },
+    "picnic": {
+      "example": "Our outdoor area includes a playground and picnic tables, which can be set up to your preference.",
+      "example_cn": "我们的户外区域设有游乐场和野餐桌，可根据您的喜好进行布置。",
+      "altExamples": [
+        "The community organized a picnic in the park to celebrate the end of the school year and welcome the summer season.",
+        "Outdoor picnic areas provide an informal setting for colleagues to socialize and strengthen workplace relationships."
+      ],
+      "altExamples_cn": [
+        "社区在公园组织了一次野餐活动，庆祝学年结束并迎接夏季的到来。",
+        "户外野餐区为同事们提供了社交和加强职场关系的非正式场合。"
+      ]
+    },
+    "pigeons": {
+      "example": "Some species, such as pigeons and sparrows, have adapted well to urban environments, taking advantage of the new resources and structures.",
+      "example_cn": "一些物种（如鸽子和麻雀）已很好地适应了城市环境，充分利用了新的资源和建筑结构。",
+      "altExamples": [
+        "Urban pigeons have adapted remarkably to city life, nesting on ledges and feeding on discarded human food.",
+        "Pigeons possess an extraordinary homing ability that has been utilized for carrying messages throughout human history."
+      ],
+      "altExamples_cn": [
+        "城市鸽子异常出色地适应了城市生活，在窗台筑巢并以人类丢弃的食物为食。",
+        "鸽子拥有非凡的归巢能力，在人类历史上一直被用于传递信息。"
+      ]
+    },
+    "planners": {
+      "example": "Despite the challenges faced by urban planners and legislators, urbanization brought significant advancements in public transportation, communication, and commerce.",
+      "example_cn": "尽管城市规划者和立法者面临诸多挑战，但城市化在公共交通、通信和商业方面带来了显著的进步。",
+      "altExamples": [
+        "Urban planners must carefully balance economic development with environmental preservation when designing new neighborhoods.",
+        "Event planners coordinate numerous logistical details, from venue selection to catering, ensuring seamless execution of conferences."
+      ],
+      "altExamples_cn": [
+        "城市规划者在设计新社区时必须仔细平衡经济发展与环境保护。",
+        "活动策划者协调大量的后勤细节，从场地选择到餐饮服务，确保会议的顺利举行。"
+      ]
+    },
+    "playlists": {
+      "example": "This is why workout playlists often feature upbeat songs, while relaxation playlists include soothing melodies.",
+      "example_cn": "这就是为什么健身歌单通常以快节奏的歌曲为特色，而放松歌单则包含舒缓的旋律。",
+      "altExamples": [
+        "Curating personalized playlists has become a popular method for individuals to manage their mood and energy levels.",
+        "Streaming platforms use sophisticated algorithms to generate recommended playlists based on users' listening history."
+      ],
+      "altExamples_cn": [
+        "精心策划个性化歌单已成为个人管理情绪和精力水平的流行方法。",
+        "流媒体平台使用复杂的算法根据用户的收听历史生成推荐歌单。"
+      ]
+    },
+    "polar": {
+      "example": "Flowing west to east at speeds of up to 200 miles per hour, it forms due to the temperature contrast between cold polar air and warm tropical air, which creates pressure differences that generate strong winds.",
+      "example_cn": "它以高达每小时 200 英里的速度自西向东流动，是由于寒冷的极地空气与温暖的热带空气之间的温差而形成的，这种温差产生压力差并形成强风。",
+      "altExamples": [
+        "Polar ice caps are melting at an accelerating rate due to rising global temperatures, contributing to sea level rise.",
+        "The polar vortex occasionally weakens, allowing frigid Arctic air to descend into mid-latitude regions."
+      ],
+      "altExamples_cn": [
+        "由于全球气温上升，极地冰盖正在以加速的速率融化，导致海平面上升。",
+        "极地涡旋偶尔会减弱，使得寒冷的北极空气下降到中纬度地区。"
+      ]
+    },
+    "polarizes": {
+      "example": "[B] It polarizes light by splitting light into two beams, creating a double image when the stone is held up to the sky.",
+      "example_cn": "[B] 它通过将光线分成两束来使光偏振，当把石头举向天空时会产生双重影像。",
+      "altExamples": [
+        "Iceland spar polarizes incoming light by splitting it into two perpendicular beams traveling at different velocities.",
+        "The issue of immigration reform polarizes public opinion, sparking heated debates across the political spectrum."
+      ],
+      "altExamples_cn": [
+        "冰洲石通过将入射光分成两束以不同速度传播的垂直光束来使光偏振。",
+        "移民改革问题使公众舆论两极分化，在政治光谱中引发了激烈的辩论。"
+      ]
+    },
+    "poles": {
+      "example": "Seasonal changes play a role; it's stronger in winter due to the greater temperature contrast between the poles and the equator.",
+      "example_cn": "季节变化起着重要作用；冬季由于两极与赤道之间温差更大，所以它更强。",
+      "altExamples": [
+        "Magnetic poles have reversed polarity numerous times throughout Earth's geological history, leaving records in rock formations.",
+        "Explorers faced extreme conditions traveling to the poles, enduring months of darkness and temperatures far below freezing."
+      ],
+      "altExamples_cn": [
+        "磁极在地球地质历史中多次反转极性，在岩层中留下了记录。",
+        "探险家前往两极时面临极端条件，要忍受数月的黑暗和远低于冰点的温度。"
+      ]
+    },
+    "pont": {
+      "example": "Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills.",
+      "example_cn": "一些罗马渡槽，如法国的加尔桥，至今仍然屹立，展示了罗马人非凡的工程技艺。",
+      "altExamples": [
+        "The Pont du Gard stands as a testament to Roman engineering prowess, transporting water across a river valley.",
+        "Tourists visiting southern France marvel at the Pont du Gard's three tiers of perfectly preserved stone arches."
+      ],
+      "altExamples_cn": [
+        "加尔桥是罗马工程实力的见证，将水输送穿过河谷。",
+        "游览法国南部的游客惊叹于加尔桥三层保存完好的石拱。"
+      ]
+    },
+    "popularized": {
+      "example": "The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction.",
+      "example_cn": "选择悖论这一由心理学家 Barry Schwartz 推广的概念表明，更多的选项可能导致更低的满意度。",
+      "altExamples": [
+        "The concept of gravitational waves was popularized by Einstein's theory of general relativity a century before their detection.",
+        "Social media platforms have popularized the practice of microlearning, delivering educational content in short digestible formats."
+      ],
+      "altExamples_cn": [
+        "引力波的概念在被探测到之前的一个世纪就由爱因斯坦的广义相对论加以推广。",
+        "社交媒体平台推广了微学习的实践，以简短易吸收的形式传递教育内容。"
+      ]
+    },
+    "populated": {
+      "example": "They supplied water to public baths, helping to maintain hygiene in densely populated urban areas.",
+      "example_cn": "它们向公共浴场供水，有助于在人口稠密的城市地区保持卫生。",
+      "altExamples": [
+        "The coastal regions of the continent remain sparsely populated due to their harsh climatic conditions and rugged terrain.",
+        "Archaeologists discovered that the valley was once heavily populated during the early Bronze Age settlement period."
+      ],
+      "altExamples_cn": [
+        "由于恶劣的气候条件和崎岖的地形，该大陆的沿海地区仍然人口稀少。",
+        "考古学家发现该山谷在青铜时代早期聚居期间曾人口密集。"
+      ]
+    },
+    "postponed": {
+      "example": "Due to a schedule conflict, the presenter has asked that the webinar be postponed until next Wednesday at the same time.",
+      "example_cn": "由于日程冲突，主讲人要求将网络研讨会推迟到下周三同一时间。",
+      "altExamples": [
+        "The conference was postponed indefinitely after the lead researcher announced she would be taking a sabbatical.",
+        "Due to inclement weather conditions, the field expedition has been postponed until the spring semester."
+      ],
+      "altExamples_cn": [
+        "在首席研究员宣布她将休学术假期后，会议被无限期推迟。",
+        "由于恶劣的天气条件，野外考察已被推迟到春季学期。"
+      ]
+    },
+    "pottery": {
+      "example": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "example_cn": "除了食品外，市场还出售手工工艺品，如珠宝、陶器和纺织品。",
+      "altExamples": [
+        "Excavations at the ancient site revealed intricately decorated pottery dating back to the Neolithic period.",
+        "The study of early Chinese pottery provides invaluable insights into the technological advancements of prehistoric civilizations."
+      ],
+      "altExamples_cn": [
+        "在该古代遗址的发掘中发现了可追溯到新石器时代的精美装饰陶器。",
+        "对中国早期陶器的研究为史前文明的技术进步提供了宝贵的见解。"
+      ]
+    },
+    "prebiotics": {
+      "example": "Bacteria that aid digestion, known as probiotics and prebiotics, are also beneficial.",
+      "example_cn": "有助于消化的细菌，即益生菌和益生元，也是有益的。",
+      "altExamples": [
+        "Recent studies suggest that consuming prebiotics can significantly enhance the growth of beneficial gut microorganisms.",
+        "Dietary fibers known as prebiotics serve as fuel for intestinal bacteria, promoting overall digestive health."
+      ],
+      "altExamples_cn": [
+        "最近的研究表明，摄入益生元可以显著促进有益肠道微生物的生长。",
+        "被称为益生元的膳食纤维充当肠道细菌的燃料，促进整体消化健康。"
+      ]
+    },
+    "precedents": {
+      "example": "Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family.",
+      "example_cn": "罗马戏剧借鉴了希腊的先例，但引入了新的元素，如精致的舞台设计，包括英雄雕像或皇室成员的肖像。",
+      "altExamples": [
+        "The Supreme Court often looks to historical precedents when deliberating on cases involving constitutional interpretation.",
+        "Early navigational techniques set important precedents for the sophisticated mapping technologies used by modern explorers."
+      ],
+      "altExamples_cn": [
+        "最高法院在审议涉及宪法解释的案件时经常参考历史先例。",
+        "早期的航海技术为现代探险家使用的精密制图技术奠定了重要的先例。"
+      ]
+    },
+    "precipitation": {
+      "example": "The jet stream also influences cyclones and anticyclones, affecting precipitation and wind patterns.",
+      "example_cn": "急流还会影响气旋和反气旋，进而影响降水和风型。",
+      "altExamples": [
+        "Climate models predict that annual precipitation levels will decrease substantially across Mediterranean regions.",
+        "The amount of precipitation a region receives directly influences its agricultural productivity and biodiversity."
+      ],
+      "altExamples_cn": [
+        "气候模型预测地中海地区的年降水量将大幅减少。",
+        "一个地区的降水量直接影响其农业生产力和生物多样性。"
+      ]
+    },
+    "precursor": {
+      "example": "Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.",
+      "example_cn": "现代科学验证了一些古老的疗法；例如，柳树皮含有水杨苷，它是阿司匹林的前体，具有缓解疼痛的特性。",
+      "altExamples": [
+        "The steam engine is widely regarded as a crucial precursor to the Industrial Revolution in eighteenth-century Europe.",
+        "Early philosophical writings from ancient Greece served as a precursor to modern empirical scientific methods."
+      ],
+      "altExamples_cn": [
+        "蒸汽机被广泛认为是十八世纪欧洲工业革命的关键前身。",
+        "古希腊的早期哲学著作是现代实证科学方法的先驱。"
+      ]
+    },
+    "predators": {
+      "example": "This adaptation allows them to surface for air and stay alert for predators even while resting.",
+      "example_cn": "这种适应性使它们能够在休息时仍浮出水面呼吸空气并对捕食者保持警惕。",
+      "altExamples": [
+        "To evade predators, many prey species have evolved sophisticated camouflage mechanisms over millions of years.",
+        "The introduction of invasive predators into island ecosystems has caused dramatic declines in native bird populations."
+      ],
+      "altExamples_cn": [
+        "为了躲避捕食者，许多猎物物种在数百万年中进化出了复杂的伪装机制。",
+        "入侵性捕食者被引入岛屿生态系统导致了本地鸟类种群的急剧下降。"
+      ]
+    },
+    "preferences": {
+      "example": "Access your Municipal Charter account through the mobile app and select account preferences in the upper right-hand corner to enroll.",
+      "example_cn": "通过手机应用程序访问您的 Municipal Charter 账户，并选择右上角的账户偏好设置来注册。",
+      "altExamples": [
+        "Consumer preferences for organic products have shifted dramatically over the past two decades across developed nations.",
+        "Researchers designed a survey to determine whether students' academic preferences correlate with their career aspirations."
+      ],
+      "altExamples_cn": [
+        "过去二十年中，发达国家消费者对有机产品的偏好发生了巨大转变。",
+        "研究人员设计了一项调查，以确定学生的学术偏好是否与他们的职业志向相关联。"
+      ]
+    },
+    "pressures": {
+      "example": "TV networks navigated the balance between artistic innovation and commercial pressures.",
+      "example_cn": "电视台在艺术创新与商业压力之间寻找平衡。",
+      "altExamples": [
+        "Marine organisms must adapt to the immense pressures found in deep-sea environments to survive and reproduce.",
+        "Economic pressures often force small farming communities to abandon traditional agricultural practices in favor of monoculture."
+      ],
+      "altExamples_cn": [
+        "海洋生物必须适应深海环境中巨大的压力才能生存和繁殖。",
+        "经济压力往往迫使小农社区放弃传统农业实践而转向单一作物种植。"
+      ]
+    },
+    "prices": {
+      "example": "Nations depend on importing and exporting food to meet domestic needs and take advantage of international prices.",
+      "example_cn": "各国依赖食品进出口来满足国内需求并利用国际价格。",
+      "altExamples": [
+        "Fluctuating oil prices have a cascading effect on global transportation costs and supply chain logistics.",
+        "The sharp increase in housing prices has made it increasingly difficult for young adults to enter the property market."
+      ],
+      "altExamples_cn": [
+        "油价的波动对全球运输成本和供应链物流产生连锁效应。",
+        "房价的急剧上涨使年轻人越来越难以进入房地产市场。"
+      ]
+    },
+    "probiotics": {
+      "example": "Bacteria that aid digestion, known as probiotics and prebiotics, are also beneficial.",
+      "example_cn": "有助于消化的细菌，即益生菌和益生元，也是有益的。",
+      "altExamples": [
+        "Fermented foods such as yogurt and kimchi are natural sources of probiotics that support immune system function.",
+        "Clinical trials have demonstrated that regular consumption of probiotics can alleviate symptoms of irritable bowel syndrome."
+      ],
+      "altExamples_cn": [
+        "酸奶和泡菜等发酵食品是益生菌的天然来源，有助于免疫系统功能。",
+        "临床试验表明，定期摄入益生菌可以缓解肠易激综合征的症状。"
+      ]
+    },
+    "procedures": {
+      "example": "Ancient texts describe procedures like the removal of tumors and the setting of broken bones.",
+      "example_cn": "古代文献描述了诸如切除肿瘤和接合骨折等手术程序。",
+      "altExamples": [
+        "Laboratory safety procedures must be strictly followed to prevent contamination of sensitive biological samples.",
+        "Standardized testing procedures ensure that all participants are evaluated under the same conditions and criteria."
+      ],
+      "altExamples_cn": [
+        "必须严格遵守实验室安全规程，以防止敏感的生物学样品受到污染。",
+        "标准化的测试程序确保所有参与者在相同的条件和标准下接受评估。"
+      ]
+    },
+    "profound": {
+      "example": "Urbanization has had a profound impact on bird populations worldwide.",
+      "example_cn": "城市化对全球鸟类种群产生了深远的影响。",
+      "altExamples": [
+        "The discovery of penicillin had a profound effect on the treatment of bacterial infections worldwide.",
+        "Rapid technological advancements have brought about profound changes in the way individuals communicate and access information."
+      ],
+      "altExamples_cn": [
+        "青霉素的发现对全球细菌感染的治疗产生了深远的影响。",
+        "快速的技术进步给人们的沟通方式和获取信息途径带来了深刻的变化。"
+      ]
+    },
+    "prohibitive": {
+      "example": "Precision farming requires significant investment in technology, which can be prohibitive for small-scale farmers.",
+      "example_cn": "精准农业需要大量的技术投资，这对小规模农户来说可能负担不起。",
+      "altExamples": [
+        "The cost of specialized medical equipment remains prohibitive for many hospitals in developing regions.",
+        "Tuition fees at private universities can be prohibitive for students from low-income socioeconomic backgrounds."
+      ],
+      "altExamples_cn": [
+        "专业医疗设备的费用对发展中地区的许多医院来说仍然高得令人望而却步。",
+        "私立大学的学费对于来自低收入社会经济背景的学生来说可能难以承受。"
+      ]
+    },
+    "proliferation": {
+      "example": "The proliferation of factories and the promise of higher wages attracted a diverse workforce, including women and children.",
+      "example_cn": "工厂的激增和更高工资的承诺吸引了多样化的劳动力，包括妇女和儿童。",
+      "altExamples": [
+        "The proliferation of smartphones has fundamentally transformed how people access information and interact socially.",
+        "Historians attribute the proliferation of printing presses to the rapid spread of literacy across Renaissance Europe."
+      ],
+      "altExamples_cn": [
+        "智能手机的普及从根本上改变了人们获取信息和社交互动的方式。",
+        "历史学家将印刷机的迅速普及归因于文艺复兴时期欧洲识字率的快速传播。"
+      ]
+    },
+    "prolonged": {
+      "example": "A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.",
+      "example_cn": "较弱的急流会导致天气系统移动缓慢，从而造成极端天气的持续时期，如热浪或暴雨。",
+      "altExamples": [
+        "Prolonged exposure to ultraviolet radiation can cause irreversible damage to human skin cells.",
+        "The patient's recovery was complicated by a prolonged infection that failed to respond to conventional antibiotics."
+      ],
+      "altExamples_cn": [
+        "长时间暴露于紫外线辐射会对人体皮肤细胞造成不可逆的损伤。",
+        "患者的康复因一种对常规抗生素没有反应的长期感染而变得复杂。"
+      ]
+    },
+    "provoking": {
+      "example": "One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways.",
+      "example_cn": "一部有影响力的选集系列是《迷离时空》，它以发人深省的方式融合了科幻、恐怖和戏剧元素。",
+      "altExamples": [
+        "The professor's lecture on quantum mechanics was both intellectually provoking and deeply challenging for the students.",
+        "Artists have long used provocative imagery as a means of provoking public discourse on pressing social issues."
+      ],
+      "altExamples_cn": [
+        "教授关于量子力学的讲座既在智力上发人深省，又对学生有极大的挑战性。",
+        "艺术家长期以来一直使用具有挑衅性的图像作为引发公众对紧迫社会问题讨论的手段。"
+      ]
+    },
+    "rainfall": {
+      "example": "A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.",
+      "example_cn": "较弱的急流会导致天气系统移动缓慢，从而造成极端天气的持续时期，如热浪或暴雨。",
+      "altExamples": [
+        "The distribution of annual rainfall across the continent determines which crops can be cultivated in each region.",
+        "Deforestation in tropical regions has been linked to significant decreases in local rainfall patterns over time."
+      ],
+      "altExamples_cn": [
+        "整个大陆年降雨量的分布决定了每个地区可以种植哪些作物。",
+        "热带地区的森林砍伐随着时间的推移与当地降雨模式的显著减少有关联。"
+      ]
+    },
+    "rallies": {
+      "example": "Chanting and singing have been used in protests and rallies to motivate and unify participants.",
+      "example_cn": "在抗议和集会中，呼喊口号和唱歌一直被用来激励和团结参与者。",
+      "altExamples": [
+        "Political rallies during the election season drew massive crowds from diverse demographic backgrounds and regions.",
+        "The student organization held rallies on campus to raise awareness about climate change and environmental sustainability."
+      ],
+      "altExamples_cn": [
+        "选举季期间的政治集会吸引了来自不同人口背景和地区的大量人群。",
+        "学生组织在校园内举行集会，以提高人们对气候变化和环境可持续性的认识。"
+      ]
+    },
+    "readily": {
+      "example": "Please ensure that all inventory logs from your department are updated and will be readily accessible two days prior to the event.",
+      "example_cn": "请确保您部门的所有库存日志已更新，并在活动前两天随时可供查阅。",
+      "altExamples": [
+        "Information that is readily available online has reduced the need for students to visit physical libraries.",
+        "The experiment's results were readily reproducible by other laboratories using the same methodology and equipment."
+      ],
+      "altExamples_cn": [
+        "在线随时可获得的信息减少了学生前往实体图书馆的需求。",
+        "该实验的结果可以被其他实验室使用相同的方法和设备轻松重现。"
+      ]
+    },
+    "refraining": {
+      "example": "This includes refraining from loud conversations and phone calls.",
+      "example_cn": "这包括避免大声交谈和接打电话。",
+      "altExamples": [
+        "Participants were asked to practice refraining from interrupting others during the group discussion exercise.",
+        "Refraining from making hasty judgments allows researchers to maintain objectivity in their scientific investigations."
+      ],
+      "altExamples_cn": [
+        "参与者被要求在小组讨论练习中练习克制不打断他人。",
+        "避免做出仓促的判断使研究人员能够在科学研究中保持客观性。"
+      ]
+    },
+    "refund": {
+      "example": "If you cannot make the new date, please respond to this email and we will process a refund for you.",
+      "example_cn": "如果您无法参加新日期，请回复此邮件，我们将为您办理退款。",
+      "altExamples": [
+        "Customers who are dissatisfied with their purchase may request a full refund within thirty days.",
+        "The university's policy states that tuition refunds are only available during the first week of classes."
+      ],
+      "altExamples_cn": [
+        "对购买不满意的顾客可以在三十天内要求全额退款。",
+        "大学的政策规定，学费退款仅在上课的第一周内可办理。"
+      ]
+    },
+    "relatives": {
+      "example": "Apes are close relatives of humans, but in recent years, scientists have discovered that other animals also pass the \"mirror test.",
+      "example_cn": "猿类是人类的近亲，但近年来科学家发现其他动物也能通过「镜子测试」。",
+      "altExamples": [
+        "Linguists have shown that certain languages share a common ancestor with their modern relatives from the same family tree.",
+        "The domestic dog and the gray wolf are close relatives, sharing nearly identical genetic sequences and behavioral traits."
+      ],
+      "altExamples_cn": [
+        "语言学家已经证明，某些语言与它们同系族谱中的现代亲属语言共享一个共同的祖先。",
+        "家犬和灰狼是近亲，它们拥有几乎相同的基因序列和行为特征。"
+      ]
+    },
+    "reliability": {
+      "example": "We appreciate your understanding as we strive to ensure the security and reliability of our IT infrastructure.",
+      "example_cn": "感谢您的理解，我们将努力确保 IT 基础设施的安全性和可靠性。",
+      "altExamples": [
+        "The reliability of the experimental results was called into question after discrepancies were found in the raw data.",
+        "Engineers are constantly working to improve the reliability of renewable energy systems to make them viable alternatives."
+      ],
+      "altExamples_cn": [
+        "在原始数据中发现差异后，实验结果的可靠性受到了质疑。",
+        "工程师们不断努力提高可再生能源系统的可靠性，使其成为可行的替代方案。"
+      ]
+    },
+    "reliance": {
+      "example": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "example_cn": "此外，对全球贸易的依赖使各国面临国际市场的波动，因此需要稳健的经济政策来管理这些风险。",
+      "altExamples": [
+        "The country's heavy reliance on fossil fuels has made it vulnerable to volatile energy price fluctuations.",
+        "Over-reliance on a single crop for export revenue can destabilize a nation's economy during market downturns."
+      ],
+      "altExamples_cn": [
+        "该国对化石燃料的严重依赖使其容易受到能源价格剧烈波动的影响。",
+        "过度依赖单一作物的出口收入可能在市场低迷时期破坏一个国家的经济稳定。"
+      ]
+    },
+    "reschedule": {
+      "example": "To reschedule or cancel, call us at 756-8793.",
+      "example_cn": "如需重新安排或取消，请致电 756-8793。",
+      "altExamples": [
+        "Students who miss the exam must contact the registrar within 48 hours to reschedule their test.",
+        "Due to unforeseen circumstances, the committee has decided to reschedule the hearing for the following month."
+      ],
+      "altExamples_cn": [
+        "错过考试的学生必须在 48 小时内联系注册处重新安排考试。",
+        "由于不可预见的情况，委员会决定将听证会重新安排到下个月。"
+      ]
+    },
+    "resurgence": {
+      "example": "However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.",
+      "example_cn": "然而，它在随后的文艺复兴时期经历了复兴，导致戏剧的繁荣，为现代戏剧奠定了基础。",
+      "altExamples": [
+        "There has been a notable resurgence of interest in traditional crafts among younger generations seeking authentic experiences.",
+        "The recent resurgence of infectious diseases can be partly attributed to declining vaccination rates in certain communities."
+      ],
+      "altExamples_cn": [
+        "在寻求真实体验的年轻一代中，对传统手工艺的兴趣有了显著的复苏。",
+        "最近传染病的重新抬头可以部分归因于某些社区疫苗接种率的下降。"
+      ]
+    },
+    "retailers": {
+      "example": "This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.",
+      "example_cn": "这一现象表明，有时更少的选择可以让消费者更快乐，这对营销人员和零售商来说是一个宝贵的见解，他们可以通过精心策划产品来提升满意度。",
+      "altExamples": [
+        "Online retailers have fundamentally altered the shopping landscape by offering personalized recommendations through data analytics.",
+        "To stay competitive, brick-and-mortar retailers are increasingly adopting omnichannel strategies to reach more customers."
+      ],
+      "altExamples_cn": [
+        "在线零售商通过数据分析提供个性化推荐，从根本上改变了购物格局。",
+        "为了保持竞争力，实体零售商越来越多地采用全渠道策略来接触更多顾客。"
+      ]
+    },
+    "revolutionized": {
+      "example": "This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness.",
+      "example_cn": "这一概念最早由心理学家 Edward Tolman 在 20 世纪 40 年代提出，彻底改变了人们对导航和空间意识的理解。",
+      "altExamples": [
+        "The invention of the printing press revolutionized the dissemination of knowledge across medieval European society.",
+        "Modern DNA sequencing technologies have revolutionized the field of evolutionary biology and phylogenetic research."
+      ],
+      "altExamples_cn": [
+        "印刷机的发明彻底改变了中世纪欧洲社会知识的传播方式。",
+        "现代 DNA 测序技术彻底改变了进化生物学和系统发育研究领域。"
+      ]
+    },
+    "revolutionizing": {
+      "example": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "example_cn": "William Henry Fox Talbot 在 19 世纪 40 年代发明的卡罗式摄影法使得可以从一张底片制作多份图像，彻底改变了该领域。",
+      "altExamples": [
+        "Artificial intelligence is revolutionizing the healthcare industry by enabling faster and more accurate diagnoses.",
+        "The advent of renewable battery storage technology is revolutionizing how electrical power is distributed and consumed."
+      ],
+      "altExamples_cn": [
+        "人工智能通过实现更快速、更准确的诊断，正在彻底改变医疗保健行业。",
+        "可再生电池储能技术的出现正在彻底改变电力的分配和消费方式。"
+      ]
+    },
+    "ribbon": {
+      "example": "The jet stream is a fast-moving ribbon of air high in the atmosphere that affects global weather.",
+      "example_cn": "急流是大气层高处一条快速移动的带状气流，影响全球天气。",
+      "altExamples": [
+        "The highway stretched like a concrete ribbon across the vast desert landscape for hundreds of miles.",
+        "A ribbon of lush vegetation followed the river's course through the otherwise arid mountainous terrain."
+      ],
+      "altExamples_cn": [
+        "这条公路像一条混凝土丝带一样绵延数百英里，横跨广阔的沙漠景观。",
+        "一条郁郁葱葱的植被带沿着河流的走向穿过原本干旱的山区。"
+      ]
+    },
+    "riverdale": {
+      "example": "Riverdale Parks Department seeks dedicated volunteers to assist with weekend nature programs for families.",
+      "example_cn": "Riverdale 公园管理局招募热心的志愿者，协助开展面向家庭的周末自然项目。",
+      "altExamples": [
+        "The Riverdale community center offers after-school programs for children from low-income families in the area.",
+        "Residents of Riverdale have petitioned the city council to install additional traffic lights near the elementary school."
+      ],
+      "altExamples_cn": [
+        "Riverdale 社区中心为该地区低收入家庭的儿童提供课后项目。",
+        "Riverdale 的居民已向市议会请愿，要求在该小学附近安装额外的交通信号灯。"
+      ]
+    },
+    "robust": {
+      "example": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "example_cn": "此外，对全球贸易的依赖使各国面临国际市场的波动，因此需要稳健的经济政策来管理这些风险。",
+      "altExamples": [
+        "A robust immune system is essential for fighting off infections and maintaining long-term human health.",
+        "The researchers collected a robust data set spanning twenty years to support their hypothesis about climate patterns."
+      ],
+      "altExamples_cn": [
+        "强大的免疫系统对于抵抗感染和维持人类长期健康至关重要。",
+        "研究人员收集了一个跨越二十年的稳健数据集，以支持他们关于气候模式的假设。"
+      ]
+    },
+    "romans": {
+      "example": "The Romans, in particular, mastered the construction of aqueducts, building extensive networks that supplied water to urban centers.",
+      "example_cn": "尤其是罗马人，他们精通渡槽的建造，建立了广泛的网络为城市中心供水。",
+      "altExamples": [
+        "The Romans developed an extensive network of roads that connected distant provinces across their vast empire.",
+        "Unlike the Greeks, the Romans placed greater emphasis on practical engineering and administrative organization in their society."
+      ],
+      "altExamples_cn": [
+        "罗马人开发了广泛的公路网络，将广阔帝国中的遥远省份连接起来。",
+        "与希腊人不同，罗马人在其社会中更加重视实用工程和行政组织。"
+      ]
+    },
+    "rotating": {
+      "example": "By rotating the crystal, the Vikings could determine the location of the sun in the sky on cloudy days, which would help them maintain their course.",
+      "example_cn": "通过旋转水晶，维京人可以在阴天确定太阳在天空中的位置，这有助于他们保持航向。",
+      "altExamples": [
+        "The Earth's rotating motion on its axis is responsible for the alternating cycles of day and night.",
+        "Farmers practice rotating their crops between fields to maintain soil fertility and prevent nutrient depletion."
+      ],
+      "altExamples_cn": [
+        "地球绕其轴心的旋转运动是昼夜交替的原因。",
+        "农民在田地之间实行轮作，以保持土壤肥力并防止养分耗竭。"
+      ]
+    },
+    "sagas": {
+      "example": "[A] One key to their navigational success may have been the use of so-called \"sunstones,\" as described in Icelandic sagas (medieval Icelandic texts).",
+      "example_cn": "[A] 他们航海成功的一个关键可能在于使用了所谓的「太阳石」，正如冰岛传奇（中世纪冰岛文献）中所描述的。",
+      "altExamples": [
+        "The ancient Norse sagas provide historians with valuable accounts of early medieval Scandinavian culture and exploration.",
+        "Family sagas spanning multiple generations often illuminate broader social and economic changes within a society."
+      ],
+      "altExamples_cn": [
+        "古代北欧传奇为历史学家提供了有关中世纪早期斯堪的纳维亚文化和探索的宝贵记述。",
+        "跨越数代的家族传奇往往能揭示一个社会中更广泛的社会和经济变迁。"
+      ]
+    },
+    "salicin": {
+      "example": "Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.",
+      "example_cn": "现代科学验证了一些古老的疗法；例如，柳树皮含有水杨苷，它是阿司匹林的前体，具有缓解疼痛的特性。",
+      "altExamples": [
+        "Willow bark extracts containing salicin were used by ancient physicians to reduce fevers and inflammation.",
+        "The isolation of salicin from willow bark marked an early milestone in the development of modern pharmacology."
+      ],
+      "altExamples_cn": [
+        "含有水杨苷的柳树皮提取物被古代医生用于退烧和减轻炎症。",
+        "从柳树皮中分离出水杨苷标志着现代药理学发展的一个早期里程碑。"
+      ]
+    },
+    "salinity": {
+      "example": "Rising sea temperatures and changing salinity levels create ideal conditions for these bacteria to multiply.",
+      "example_cn": "不断上升的海水温度和变化的盐度水平为这些细菌的繁殖创造了理想的条件。",
+      "altExamples": [
+        "Increased salinity in agricultural soils can severely reduce crop yields and compromise food security.",
+        "Marine biologists monitor ocean salinity to track changes in water density and global current patterns."
+      ],
+      "altExamples_cn": [
+        "农业土壤盐度的增加会严重降低作物产量并危及粮食安全。",
+        "海洋生物学家监测海洋盐度以追踪水密度和全球洋流模式的变化。"
+      ]
+    },
+    "salty": {
+      "example": "Vibrio species thrive in warm, salty environments, making them particularly prevalent in tropical and subtropical regions.",
+      "example_cn": "弧菌物种在温暖、咸性的环境中大量繁殖，使它们在热带和亚热带地区尤为普遍。",
+      "altExamples": [
+        "The salty waters of the Dead Sea make it impossible for most aquatic organisms to survive there.",
+        "Certain species of bacteria thrive in extremely salty conditions that would be inhospitable to other life forms."
+      ],
+      "altExamples_cn": [
+        "死海的咸水使大多数水生生物无法在那里生存。",
+        "某些细菌物种在极咸的条件下也能大量繁殖，而这种条件对其他生命形式来说是不宜居的。"
+      ]
+    },
+    "sank": {
+      "example": "But an Iceland spar sunstone was recovered from a ship that sank in 1592, suggesting that this navigational tool was indeed used for quite some time.",
+      "example_cn": "但从一艘 1592 年沉没的船上发现了一块冰洲石太阳石，这表明这种导航工具确实被使用了相当长的时间。",
+      "altExamples": [
+        "The Titanic sank on its maiden voyage after colliding with an iceberg in the North Atlantic Ocean.",
+        "When the continental plate sank beneath the oceanic crust, it triggered a series of violent volcanic eruptions."
+      ],
+      "altExamples_cn": [
+        "泰坦尼克号在其首航中与北大西洋的一座冰山相撞后沉没。",
+        "当大陆板块沉入大洋地壳之下时，触发了一系列剧烈的火山喷发。"
+      ]
+    },
+    "sarah": {
+      "example": "Contact Sarah Mitchell at 555-0199 for more information.",
+      "example_cn": "如需更多信息，请致电 555-0199 联系 Sarah Mitchell。",
+      "altExamples": [
+        "Sarah presented her research on neural plasticity at the annual cognitive science conference last March.",
+        "Professor Sarah Chen was awarded a prestigious grant to study the effects of climate change on coral reefs."
+      ],
+      "altExamples_cn": [
+        "Sarah 在去年三月的年度认知科学会议上展示了她在神经可塑性方面的研究。",
+        "Sarah Chen 教授获得了一笔著名的研究资助，用于研究气候变化对珊瑚礁的影响。"
+      ]
+    },
+    "satirized": {
+      "example": "Comedies, like those by Aristophanes, satirized society and politics.",
+      "example_cn": "喜剧，如 Aristophanes 的作品，讽刺了社会和政治。",
+      "altExamples": [
+        "The cartoonist cleverly satirized government corruption through a series of widely circulated political illustrations.",
+        "Eighteenth-century playwrights frequently satirized the aristocracy to critique social inequality and institutional hypocrisy."
+      ],
+      "altExamples_cn": [
+        "这位漫画家通过一系列广为流传的政治插画巧妙地讽刺了政府腐败。",
+        "十八世纪的剧作家经常讽刺贵族阶级，以批判社会不平等和制度的虚伪。"
+      ]
+    },
+    "scandinavia": {
+      "example": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "example_cn": "维京人，来自斯堪的纳维亚的海上战士，据信在中世纪时期（约公元 500-1500 年）以非凡的精度在北大西洋航行。",
+      "altExamples": [
+        "The countries of Scandinavia share a common cultural heritage rooted in Viking history and Nordic traditions.",
+        "Glaciers in Scandinavia have been retreating at an alarming rate due to rising global temperatures over recent decades."
+      ],
+      "altExamples_cn": [
+        "斯堪的纳维亚各国共享植根于维京历史和北欧传统的共同文化遗产。",
+        "近几十年来，由于全球气温上升，斯堪的纳维亚的冰川正以惊人的速度退缩。"
+      ]
+    },
+    "scarce": {
+      "example": "[C] However, evidence of actual sunstone use remains scarce.",
+      "example_cn": "[C] 然而，实际使用太阳石的证据仍然稀少。",
+      "altExamples": [
+        "Fresh water is becoming increasingly scarce in many arid regions due to prolonged drought conditions.",
+        "Fossil fuel reserves are scarce resources that require careful management to ensure long-term energy sustainability."
+      ],
+      "altExamples_cn": [
+        "由于长期的干旱条件，许多干旱地区的淡水正变得越来越稀缺。",
+        "化石燃料储量是稀缺资源，需要精心管理以确保长期能源可持续性。"
+      ]
+    },
+    "scenarios": {
+      "example": "Experienced facilitators will guide participants through interactive exercises and real-world scenarios.",
+      "example_cn": "经验丰富的引导员将通过互动练习和真实场景指导参与者。",
+      "altExamples": [
+        "Economists use various theoretical scenarios to predict market behavior under different regulatory conditions.",
+        "The simulation software allows pilots to practice emergency scenarios without the risks associated with real flight."
+      ],
+      "altExamples_cn": [
+        "经济学家使用各种理论情景来预测不同监管条件下的市场行为。",
+        "模拟软件允许飞行员练习紧急情况场景，而无需承担与实际飞行相关的风险。"
+      ]
+    },
+    "schwartz": {
+      "example": "The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction.",
+      "example_cn": "选择悖论这一由心理学家 Barry Schwartz 推广的概念表明，更多的选项可能导致更低的满意度。",
+      "altExamples": [
+        "Schwartz argued that excessive choice can lead to anxiety and decision paralysis among modern consumers.",
+        "According to Schwartz's research, individuals facing too many options often experience lower overall satisfaction levels."
+      ],
+      "altExamples_cn": [
+        "Schwartz 认为，过多的选择可能导致现代消费者的焦虑和决策瘫痪。",
+        "根据 Schwartz 的研究，面临过多选择的人通常总体满意度更低。"
+      ]
+    },
+    "scrape": {
+      "example": "But in a more recent experiment, a type of fish called the cleaner fish tried to scrape a mark off its body when it saw itself in the mirror.",
+      "example_cn": "但在最近的一项实验中，一种叫做清洁鱼的鱼类在看到镜子中的自己时，试图刮掉身上的一个标记。",
+      "altExamples": [
+        "Glaciers slowly scrape away layers of rock as they move across the landscape over thousands of years.",
+        "The archaeologist used a small tool to carefully scrape dirt from the surface of the ancient pottery fragment."
+      ],
+      "altExamples_cn": [
+        "冰川在数千年的时间里缓慢移动穿过地貌，逐渐刮掉一层层岩石。",
+        "考古学家使用一个小工具小心地刮去古代陶器碎片表面的泥土。"
+      ]
+    },
+    "seafaring": {
+      "example": "The Vikings, seafaring warriors from Scandinavia, are believed to have navigated their ships with remarkable precision across the North Atlantic during the medieval period (about 500-1500 C.",
+      "example_cn": "维京人，来自斯堪的纳维亚的海上战士，据信在中世纪时期（约公元 500-1500 年）以非凡的精度在北大西洋航行。",
+      "altExamples": [
+        "The seafaring traditions of Polynesian navigators enabled them to colonize islands across the vast Pacific Ocean.",
+        "Advances in seafaring technology during the Age of Exploration allowed European powers to establish global trade networks."
+      ],
+      "altExamples_cn": [
+        "波利尼西亚航海者的航海传统使他们能够在广阔的太平洋上殖民各个岛屿。",
+        "大航海时代航海技术的进步使欧洲列强能够建立全球贸易网络。"
+      ]
+    },
+    "semi": {
+      "example": "A reminder: Routine maintenance windows take place on a semi-monthly basis.",
+      "example_cn": "提醒：例行维护窗口每半月进行一次。",
+      "altExamples": [
+        "The seminar will be held semi-annually to ensure that all students receive up-to-date training on research methods.",
+        "Semi-arid regions receive limited rainfall, making them particularly vulnerable to desertification and drought."
+      ],
+      "altExamples_cn": [
+        "研讨会将每半年举行一次，以确保所有学生都能接受最新的研究方法培训。",
+        "半干旱地区降雨有限，使它们特别容易受到荒漠化和干旱的影响。"
+      ]
+    },
+    "serene": {
+      "example": "Your cooperation helps maintain a serene environment for everyone.",
+      "example_cn": "您的配合有助于为每个人维持宁静的环境。",
+      "altExamples": [
+        "The serene landscape of the national park provides an ideal setting for ecological research and wildlife observation.",
+        "Despite the chaotic surroundings, the scholar maintained a serene demeanor while delivering his lecture on philosophy."
+      ],
+      "altExamples_cn": [
+        "国家公园宁静的景观为生态研究和野生动物观察提供了理想的环境。",
+        "尽管周围环境混乱，这位学者在发表哲学讲座时仍保持着安详的举止。"
+      ]
+    },
+    "serotonin": {
+      "example": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "example_cn": "音乐通过触发多巴胺和血清素等神经递质的释放来影响大脑，这些神经递质与愉悦感和情绪调节有关。",
+      "altExamples": [
+        "Low levels of serotonin in the brain have been linked to mood disorders such as depression and anxiety.",
+        "Regular aerobic exercise is known to boost serotonin production, which can enhance overall emotional well-being."
+      ],
+      "altExamples_cn": [
+        "大脑中血清素水平低与抑郁和焦虑等情绪障碍有关联。",
+        "众所周知，有规律的有氧运动可以促进血清素的产生，从而增强整体情绪健康。"
+      ]
+    },
+    "server": {
+      "example": "com The next university server maintenance is scheduled on May 22 from 2 AM to 6 AM.",
+      "example_cn": "com 下一次大学服务器维护定于 5 月 22 日凌晨 2 点至 6 点进行。",
+      "altExamples": [
+        "The company's primary server crashed, causing a temporary disruption in email services for all employees.",
+        "Data is automatically backed up to a remote server every evening to prevent irreversible information loss."
+      ],
+      "altExamples_cn": [
+        "公司的主服务器崩溃，导致所有员工的电子邮件服务暂时中断。",
+        "数据每天晚上自动备份到远程服务器，以防止不可逆的信息丢失。"
+      ]
+    },
+    "seventeenth": {
+      "example": "During the European Renaissance (the period between the fourteenth and the seventeenth centuries), artists developed techniques that made their paintings appear more realistic.",
+      "example_cn": "在欧洲文艺复兴时期（十四世纪到十七世纪之间的时期），艺术家们发展出使画作看起来更加逼真的技术。",
+      "altExamples": [
+        "The seventeenth century witnessed remarkable advances in astronomy, including Galileo's observations of Jupiter's moons.",
+        "Philosophers in the seventeenth century began to challenge traditional authority and promote rational inquiry and empiricism."
+      ],
+      "altExamples_cn": [
+        "十七世纪见证了天文学的显著进步，包括 Galileo 对木星卫星的观测。",
+        "十七世纪的哲学家开始挑战传统权威，并提倡理性探究和经验主义。"
+      ]
+    },
+    "sheena": {
+      "example": "In an experiment, psychologist Sheena Iyengar found that shoppers were more likely to purchase jam when offered 6 varieties instead of 24.",
+      "example_cn": "在一项实验中，心理学家 Sheena Iyengar 发现，当提供 6 种果酱而非 24 种时，购物者更有可能购买。",
+      "altExamples": [
+        "Sheena conducted a landmark study on how cultural differences influence the way individuals make decisions.",
+        "In her research, Sheena demonstrated that offering too many choices can reduce consumer motivation to purchase."
+      ],
+      "altExamples_cn": [
+        "Sheena 进行了一项具有里程碑意义的研究，探讨文化差异如何影响个人的决策方式。",
+        "在她的研究中，Sheena 证明提供过多的选择会降低消费者的购买动机。"
+      ]
+    }
+  }
+}

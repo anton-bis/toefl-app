@@ -1,0 +1,966 @@
+{
+  "subject": "reading",
+  "start": 0,
+  "words": {
+    "additionally": {
+      "example": "Additionally, reliance on global trade exposes countries to fluctuations in international markets, necessitating robust economic policies to manage these risks.",
+      "example_cn": "此外，对全球贸易的依赖使各国暴露于国际市场波动的风险之中，因此必须制定稳健的经济政策来应对这些风险。",
+      "altExamples": [
+        "The research findings indicate that climate change accelerates coastal erosion; additionally, rising sea levels exacerbate the problem.",
+        "Students are expected to submit their essays by Friday; additionally, they must include a bibliography of at least five sources."
+      ],
+      "altExamples_cn": [
+        "研究结果表明，气候变化加速了海岸侵蚀；此外，海平面上升进一步加剧了这一问题。",
+        "学生们须在周五前提交论文；此外，他们还必须附上至少包含五个来源的参考文献目录。"
+      ]
+    },
+    "challenges": {
+      "example": "Innovations and global dynamics can also pose other challenges.",
+      "example_cn": "创新和全球动态也可能带来其他挑战。",
+      "altExamples": [
+        "Developing nations face considerable challenges in establishing reliable infrastructure while managing limited financial resources.",
+        "One of the primary challenges confronting modern educators is integrating technology into traditional curricula effectively."
+      ],
+      "altExamples_cn": [
+        "发展中国家在管理有限财政资源的同时建立可靠的基础设施，面临着巨大的挑战。",
+        "当今教育工作者面临的主要挑战之一是如何将技术有效地融入传统课程。"
+      ]
+    },
+    "ability": {
+      "example": "Music has the remarkable ability to influence our emotions, behavior, and physical health.",
+      "example_cn": "音乐有着影响我们情绪、行为和身体健康的非凡能力。",
+      "altExamples": [
+        "The ability to critically evaluate sources is an essential skill for academic success at the university level.",
+        "Language acquisition ability tends to decline with age, though individual variation remains considerable."
+      ],
+      "altExamples_cn": [
+        "批判性地评估信息来源的能力是大学阶段取得学业成功的关键技能。",
+        "语言习得能力往往随着年龄的增长而下降，但个体差异依然相当大。"
+      ]
+    },
+    "accommodate": {
+      "example": "Title: Downtown Books Subtitle: May 16 BRUCKVILLE (May 16) Downtown Books, a family-owned bookstore operating for 15 years, recently added a café area and expanded its evening hours to accommodate working customers.",
+      "example_cn": "标题：市中心书店 副标题：5月16日 布鲁克维尔（5月16日）市中心书店是一家经营了15年的家族书店，最近新增了咖啡区和延长了晚间营业时间，以方便上班族顾客。",
+      "altExamples": [
+        "Urban planners must design public transportation systems that can accommodate the growing population of commuters.",
+        "The university expanded its scholarship program to accommodate students from diverse socioeconomic backgrounds."
+      ],
+      "altExamples_cn": [
+        "城市规划者必须设计能够容纳不断增长的通勤人口需求的公共交通系统。",
+        "这所大学扩大了奖学金计划，以惠及来自不同社会经济背景的学生。"
+      ]
+    },
+    "adaptation": {
+      "example": "This dynamic nature of cognitive mapping underscores its importance in learning and adaptation.",
+      "example_cn": "认知地图的这种动态特性突显了它在学习和适应过程中的重要性。",
+      "altExamples": [
+        "The rapid adaptation of businesses to remote work environments demonstrated remarkable organizational resilience.",
+        "Darwin's theory of natural selection explains how adaptation enables species to survive in changing environments."
+      ],
+      "altExamples_cn": [
+        "企业迅速适应远程工作环境，展现了卓越的组织韧性。",
+        "达尔文的自然选择理论解释了适应如何使物种在不断变化的环境中生存下来。"
+      ]
+    },
+    "addition": {
+      "example": "In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles.",
+      "example_cn": "除了食品外，这个市场还出售手工制作的首饰、陶器和纺织品等工艺品。",
+      "altExamples": [
+        "In addition to its academic programs, the institution offers extensive research opportunities for graduate students.",
+        "The construction of a new laboratory wing is a welcome addition to the university's scientific facilities."
+      ],
+      "altExamples_cn": [
+        "除学术课程外，该机构还为研究生提供了广泛的研究机会。",
+        "新实验楼的建设为这所大学的科研设施增添了可喜的一笔。"
+      ]
+    },
+    "affecting": {
+      "example": "Certain gut bacteria produce neurotransmitters affecting brain function.",
+      "example_cn": "某些肠道细菌会产生影响大脑功能的神经递质。",
+      "altExamples": [
+        "Factors affecting student retention include academic support services and campus climate.",
+        "The new policy changes are affecting small businesses more severely than large corporations."
+      ],
+      "altExamples_cn": [
+        "影响学生留校率的因素包括学业支持服务和校园氛围。",
+        "新政策的变化对小企业的影响比对大公司更为严重。"
+      ]
+    },
+    "affects": {
+      "example": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "example_cn": "音乐通过触发多巴胺和血清素等神经递质的释放来影响大脑，这些神经递质与愉悦感和情绪调节有关。",
+      "altExamples": [
+        "The quality of early childhood education profoundly affects long-term academic achievement and social development.",
+        "Sleep deprivation negatively affects cognitive performance, particularly in areas such as memory and decision-making."
+      ],
+      "altExamples_cn": [
+        "早期儿童教育的质量对长期的学业成就和社交发展有着深远的影响。",
+        "睡眠不足会对认知表现产生负面影响，特别是在记忆力和决策能力等方面。"
+      ]
+    },
+    "ancient": {
+      "example": "Ancient Egyptian medicine was advanced for its time and laid the foundation for many modern practices.",
+      "example_cn": "古埃及医学在当时是先进的，为许多现代医学实践奠定了基础。",
+      "altExamples": [
+        "Archaeologists uncovered an ancient settlement that provides valuable insight into early agricultural practices.",
+        "The ancient trade routes across Central Asia facilitated the exchange of goods, ideas, and cultural traditions."
+      ],
+      "altExamples_cn": [
+        "考古学家发掘出一个古代定居点，为了解早期农业实践提供了宝贵的线索。",
+        "穿越中亚的古代贸易路线促进了商品、思想和文化传统的交流。"
+      ]
+    },
+    "annual": {
+      "example": "I am writing to inform you that the annual employee performance evaluations are scheduled for next Wednesday through Friday, from 10:00 A.",
+      "example_cn": "我写信通知您，年度员工绩效考核定于下周星期三至星期五，从上午10：00开始。",
+      "altExamples": [
+        "The annual conference attracts leading researchers from around the globe to discuss recent scientific breakthroughs.",
+        "Companies are required to publish an annual financial report detailing their revenue, expenditures, and future projections."
+      ],
+      "altExamples_cn": [
+        "年度会议吸引了来自全球各地的顶尖研究人员，共同探讨最新的科学突破。",
+        "公司必须发布年度财务报告，详细说明收入、支出和未来预测。"
+      ]
+    },
+    "anxiety": {
+      "example": "Loud and aggressive music can sometimes increase stress and anxiety levels.",
+      "example_cn": "喧闹且激进的音乐有时会加剧压力和焦虑水平。",
+      "altExamples": [
+        "Public speaking often triggers anxiety in individuals, even those who are highly competent in their fields.",
+        "Excessive reliance on social media has been linked to increased levels of anxiety among adolescents."
+      ],
+      "altExamples_cn": [
+        "公开演讲常常会引发个人的焦虑情绪，即使是那些在各自领域能力出众的人也不例外。",
+        "过度依赖社交媒体与青少年焦虑水平的上升有关。"
+      ]
+    },
+    "associated": {
+      "example": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "example_cn": "音乐通过触发多巴胺和血清素等神经递质的释放来影响大脑，这些神经递质与愉悦感和情绪调节有关。",
+      "altExamples": [
+        "Regular physical exercise is associated with a lower risk of developing chronic diseases such as diabetes.",
+        "The risks associated with nuclear energy have prompted many countries to invest in renewable alternatives."
+      ],
+      "altExamples_cn": [
+        "经常进行体育锻炼与患糖尿病等慢性病的风险降低有关。",
+        "与核能相关的风险已促使许多国家投资于可再生能源替代方案。"
+      ]
+    },
+    "availability": {
+      "example": "This leads to a significant reduction in the availability of nesting sites and food sources for birds.",
+      "example_cn": "这导致鸟类的筑巢地点和食物来源的可用性大幅减少。",
+      "altExamples": [
+        "The availability of clean drinking water remains a critical issue in many developing regions worldwide.",
+        "Scholarship availability varies significantly across institutions, influencing students' decisions about where to apply."
+      ],
+      "altExamples_cn": [
+        "清洁饮用水的获取在世界许多发展中地区仍然是一个关键问题。",
+        "不同院校的奖学金机会差异很大，影响着学生选择申请哪所学校。"
+      ]
+    },
+    "infrastructure": {
+      "example": "Cities expanded rapidly, leading to overcrowded living conditions and inadequate infrastructure.",
+      "example_cn": "城市迅速扩张，导致居住条件过度拥挤和基础设施不足。",
+      "altExamples": [
+        "Aging infrastructure in many industrialized nations requires substantial investment to prevent system failures.",
+        "The government allocated significant funds to improve rural infrastructure, including roads, bridges, and internet connectivity."
+      ],
+      "altExamples_cn": [
+        "许多工业化国家老化的基础设施需要大量投资以防止系统故障。",
+        "政府拨出大量资金用于改善农村基础设施，包括道路、桥梁和互联网连接。"
+      ]
+    },
+    "interactive": {
+      "example": "Please ensure you have access to a computer with internet connectivity and functioning cameras and headphones to ensure participation during the interactive segments of the webinar.",
+      "example_cn": "请确保您有具备互联网连接、可正常使用的摄像头和耳机的电脑，以确保在研讨会的互动环节中能够参与。",
+      "altExamples": [
+        "The museum's interactive exhibits allow visitors to engage with scientific concepts through hands-on experimentation.",
+        "Online courses that incorporate interactive elements tend to maintain higher student engagement and retention rates."
+      ],
+      "altExamples_cn": [
+        "博物馆的互动展品让参观者通过动手实验来接触科学概念。",
+        "融入了互动元素的在线课程往往能保持更高的学生参与度和留存率。"
+      ]
+    },
+    "laid": {
+      "example": "While urbanization presented numerous obstacles, it undeniably laid the groundwork for modern society.",
+      "example_cn": "尽管城市化带来了诸多障碍，但它无疑为现代社会奠定了基础。",
+      "altExamples": [
+        "The foundation for modern democratic governance was laid during the Enlightenment period.",
+        "Her groundbreaking research laid the groundwork for subsequent discoveries in genetic engineering."
+      ],
+      "altExamples_cn": [
+        "现代民主治理的基础是在启蒙运动时期奠定的。",
+        "她开创性的研究为基因工程领域的后续发现奠定了基础。"
+      ]
+    },
+    "practices": {
+      "example": "Competitive environments can sometimes exacerbate social tensions, particularly when favoritism or exclusionary practices are present.",
+      "example_cn": "竞争环境有时会加剧社会紧张关系，尤其是在存在偏袒或排他性做法的情况下。",
+      "altExamples": [
+        "Sustainable agricultural practices are essential for preserving soil quality and maintaining long-term biodiversity levels.",
+        "Ethical research practices require informed consent from participants and full transparency throughout the study."
+      ],
+      "altExamples_cn": [
+        "可持续的农业实践对于保持土壤质量和维持长期的生物多样性水平至关重要。",
+        "合乎伦理的研究实践要求参与者知情同意，并在整个研究过程中做到完全透明。"
+      ]
+    },
+    "accessible": {
+      "example": "Please ensure that all inventory logs from your department are updated and will be readily accessible two days prior to the event.",
+      "example_cn": "请确保您部门的所有库存记录都已更新，并在活动前两天随时可供查阅。",
+      "altExamples": [
+        "The university library has made its digital archives accessible to researchers worldwide through an online portal.",
+        "Affordable healthcare should be accessible to all citizens regardless of their socioeconomic background."
+      ],
+      "altExamples_cn": [
+        "大学图书馆通过在线门户向全球研究人员开放了其数字档案。",
+        "无论社会经济背景如何，所有公民都应该能够获得负担得起的医疗服务。"
+      ]
+    },
+    "adapted": {
+      "example": "Some species, such as pigeons and sparrows, have adapted well to urban environments, taking advantage of the new resources and structures.",
+      "example_cn": "一些物种，如鸽子和麻雀，已经很好地适应了城市环境，利用新的资源和结构来生存。",
+      "altExamples": [
+        "Many plant species have adapted to arid environments by developing extensive root systems to capture water.",
+        "The novel was adapted into a film that preserved the original themes while appealing to a contemporary audience."
+      ],
+      "altExamples_cn": [
+        "许多植物物种通过发展广泛的根系来捕获水分，从而适应了干旱环境。",
+        "这部小说被改编成电影，在保留原作主题的同时吸引了当代观众。"
+      ]
+    },
+    "advancements": {
+      "example": "Agricultural economics has undergone significant changes, driven by advancements in technology and shifts in consumer demand.",
+      "example_cn": "在技术进步和消费者需求变化的推动下，农业经济学经历了重大变革。",
+      "altExamples": [
+        "Recent advancements in artificial intelligence have transformed industries ranging from healthcare to transportation.",
+        "Technological advancements in renewable energy have made solar panels significantly more efficient and affordable."
+      ],
+      "altExamples_cn": [
+        "人工智能的最新进展已经改变了从医疗保健到交通运输等多个行业。",
+        "可再生能源技术的进步使太阳能电池板的效率和可负担性显著提高。"
+      ]
+    },
+    "agricultural": {
+      "example": "Agricultural economics has undergone significant changes, driven by advancements in technology and shifts in consumer demand.",
+      "example_cn": "在技术进步和消费者需求变化的推动下，农业经济学经历了重大变革。",
+      "altExamples": [
+        "The agricultural sector employs a substantial portion of the workforce in developing economies.",
+        "Climate change poses a serious threat to agricultural productivity, particularly in regions dependent on rainfall."
+      ],
+      "altExamples_cn": [
+        "农业部门雇佣了发展中经济体的相当大一部分劳动力。",
+        "气候变化对农业生产构成严重威胁，尤其是在依赖降雨的地区。"
+      ]
+    },
+    "antibiotics": {
+      "example": "One of the most concerning aspects of Vibrio bacteria is their increasing resistance to antibiotics.",
+      "example_cn": "弧菌最令人担忧的方面之一是它们对抗生素的耐药性日益增强。",
+      "altExamples": [
+        "The overuse of antibiotics in livestock farming has contributed to the emergence of drug-resistant bacterial strains.",
+        "Physicians caution patients against demanding antibiotics for viral infections, as they are ineffective against such illnesses."
+      ],
+      "altExamples_cn": [
+        "畜牧业中抗生素的过度使用导致了耐药菌株的出现。",
+        "医生告诫患者不要因病毒感染而要求使用抗生素，因为抗生素对此类疾病无效。"
+      ]
+    },
+    "appreciate": {
+      "example": "We appreciate your preparation and look forward to a productive discussion.",
+      "example_cn": "我们感谢您的准备工作，并期待一次富有成效的讨论。",
+      "altExamples": [
+        "We appreciate the opportunity to collaborate with international partners on this cross-cultural research project.",
+        "To fully appreciate the complexity of ecosystems, one must study the intricate relationships between organisms."
+      ],
+      "altExamples_cn": [
+        "我们十分珍惜与国际合作伙伴在这个跨文化研究项目上合作的机会。",
+        "要充分理解生态系统的复杂性，就必须研究生物之间错综复杂的关系。"
+      ]
+    },
+    "apron": {
+      "example": "All necessary arts supplies will be provided, but please bring your own apron or smock.",
+      "example_cn": "我们会提供所有必要的美术用品，但请自带围裙或工作罩衫。",
+      "altExamples": [
+        "The chef tied her apron securely before beginning the elaborate preparation of the multi-course meal.",
+        "Participants in the pottery workshop were advised to wear an apron to protect their clothing from clay stains."
+      ],
+      "altExamples_cn": [
+        "厨师在开始精心准备多道菜的餐食之前，系紧了围裙。",
+        "陶艺工作坊的参与者被建议穿围裙，以保护衣物不被陶土弄脏。"
+      ]
+    },
+    "arise": {
+      "example": ") I can help with any critical issues that arise.",
+      "example_cn": "我可以帮助处理出现的任何关键问题。",
+      "altExamples": [
+        "Economic disparities often arise from unequal access to educational resources and employment opportunities.",
+        "Complications may arise during surgical procedures, requiring the medical team to adapt quickly."
+      ],
+      "altExamples_cn": [
+        "经济差距往往源于教育资源和就业机会的不平等获取。",
+        "外科手术过程中可能会出现并发症，这要求医疗团队迅速调整应对。"
+      ]
+    },
+    "arrival": {
+      "example": "Late arrival (more than 15 minutes) results in automatic cancellation.",
+      "example_cn": "迟到（超过15分钟）将导致自动取消。",
+      "altExamples": [
+        "Upon their arrival at the research station, scientists began setting up sophisticated monitoring equipment.",
+        "The arrival of digital technology fundamentally altered the landscape of publishing and journalism."
+      ],
+      "altExamples_cn": [
+        "科学家们抵达研究站后，立即开始安装精密的监测设备。",
+        "数字技术的到来从根本上改变了出版业和新闻业的格局。"
+      ]
+    },
+    "artistic": {
+      "example": "TV networks navigated the balance between artistic innovation and commercial pressures.",
+      "example_cn": "电视网络在艺术创新和商业压力之间寻求平衡。",
+      "altExamples": [
+        "The Renaissance period witnessed an extraordinary flourishing of artistic achievement across Europe.",
+        "Critics praised the film for its artistic vision, particularly its innovative use of lighting and color."
+      ],
+      "altExamples_cn": [
+        "文艺复兴时期见证了欧洲各地艺术成就的非凡繁荣。",
+        "评论家称赞这部电影的艺术视野，特别是在灯光和色彩的创新运用方面。"
+      ]
+    },
+    "arts": {
+      "example": "All necessary arts supplies will be provided, but please bring your own apron or smock.",
+      "example_cn": "我们会提供所有必要的美术用品，但请自带围裙或工作罩衫。",
+      "altExamples": [
+        "The liberal arts curriculum encourages students to develop critical thinking skills across multiple disciplines.",
+        "Funding for the arts is often among the first budgets to be reduced during economic downturns."
+      ],
+      "altExamples_cn": [
+        "通识教育课程鼓励学生在多个学科中发展批判性思维能力。",
+        "对艺术的资助往往是经济低迷时期首先被削减的预算之一。"
+      ]
+    },
+    "assist": {
+      "example": "All department heads like yourself are required to attend and assist with the audit process.",
+      "example_cn": "所有像您这样的部门主管都需要参加并协助审计过程。",
+      "altExamples": [
+        "Teaching assistants are hired to assist professors with grading and conducting laboratory sessions.",
+        "Nonprofit organizations frequently assist communities affected by natural disasters with relief supplies."
+      ],
+      "altExamples_cn": [
+        "聘用助教是为了协助教授进行评分和开展实验课程。",
+        "非营利组织经常向受自然灾害影响的社区提供救灾物资援助。"
+      ]
+    },
+    "attendees": {
+      "example": "We're offering a special one-day-only discount on memberships for all attendees.",
+      "example_cn": "我们为所有与会者提供仅限一天的特别会员折扣。",
+      "altExamples": [
+        "The conference organizers provided attendees with detailed schedules and access to presentation materials.",
+        "All attendees are required to register in advance to ensure adequate seating and catering arrangements."
+      ],
+      "altExamples_cn": [
+        "会议组织者为与会者提供了详细的日程安排和演示材料的获取权限。",
+        "所有与会者必须提前注册，以确保有足够的座位和餐饮安排。"
+      ]
+    },
+    "awareness": {
+      "example": "This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness.",
+      "example_cn": "这个概念由心理学家爱德华·托尔曼在20世纪40年代首次提出，彻底改变了人们对导航和空间意识的理解。",
+      "altExamples": [
+        "Public awareness campaigns have significantly increased understanding of mental health issues.",
+        "Environmental awareness among consumers is driving demand for sustainable products."
+      ],
+      "altExamples_cn": [
+        "公众意识宣传活动显著增进了人们对心理健康问题的理解。",
+        "消费者的环保意识正在推动对可持续产品的需求。"
+      ]
+    },
+    "bacteria": {
+      "example": "Vibrio bacteria are a type of bacteria commonly found in coastal waters.",
+      "example_cn": "弧菌是一种常见于沿海水域的细菌。",
+      "altExamples": [
+        "Certain bacteria found in soil play a crucial role in decomposing organic matter and recycling nutrients.",
+        "Probiotic foods contain beneficial bacteria that support digestive health and boost the immune system."
+      ],
+      "altExamples_cn": [
+        "土壤中发现的某些细菌在分解有机物和循环营养物质方面发挥着关键作用。",
+        "益生菌食品含有有益细菌，有助于支持消化健康并增强免疫系统。"
+      ]
+    },
+    "basis": {
+      "example": "Basic stations are available on a first-come first-served basis same day only.",
+      "example_cn": "基本站点按先到先得的原则当天提供服务。",
+      "altExamples": [
+        "The theory provides a scientific basis for understanding the mechanisms behind climate change patterns.",
+        "Admission to the program is granted on a competitive basis, considering both academic records and extracurricular achievements."
+      ],
+      "altExamples_cn": [
+        "该理论为理解气候变化模式背后的机制提供了科学依据。",
+        "该项目的录取基于竞争性选拔，综合考虑学业成绩和课外成就。"
+      ]
+    },
+    "cancellation": {
+      "example": "You will be charged cancellation fees if you fail to show up for your appointment.",
+      "example_cn": "如果您未能按时赴约，将被收取取消费用。",
+      "altExamples": [
+        "The cancellation of the funding program had severe consequences for ongoing medical research projects.",
+        "Passengers are entitled to a full refund in the event of a flight cancellation by the airline."
+      ],
+      "altExamples_cn": [
+        "资助项目的取消对正在进行的医学研究项目造成了严重后果。",
+        "在航空公司取消航班的情况下，乘客有权获得全额退款。"
+      ]
+    },
+    "cannot": {
+      "example": "If you cannot make the new date, please respond to this email and we will process a refund for you.",
+      "example_cn": "如果您无法在新的日期参加，请回复此邮件，我们将为您办理退款。",
+      "altExamples": [
+        "Researchers cannot establish causation based solely on observational studies without controlled experiments.",
+        "The human brain cannot process multiple complex tasks simultaneously without a decline in performance."
+      ],
+      "altExamples_cn": [
+        "仅凭观察研究而没有对照实验，研究人员无法确定因果关系。",
+        "人脑无法同时处理多项复杂任务而不出现性能下降。"
+      ]
+    },
+    "certificate": {
+      "example": "Certificate of completion provided for continuing education requirements.",
+      "example_cn": "提供完成证书，用于满足继续教育要求。",
+      "altExamples": [
+        "Upon completing the training program, participants receive a certificate recognizing their newly acquired skills.",
+        "A teaching certificate is typically required for individuals seeking employment in public school systems."
+      ],
+      "altExamples_cn": [
+        "完成培训项目后，参与者将获得一张认可其新技能的证书。",
+        "寻求在公立学校系统就业的个人通常需要持有教师资格证书。"
+      ]
+    },
+    "choices": {
+      "example": "Understanding the power of music and its effects can help us make informed choices about what we listen to and how we use it in our daily lives.",
+      "example_cn": "了解音乐的力量及其影响，可以帮助我们对自己听什么以及在日常生活中如何使用音乐做出明智的选择。",
+      "altExamples": [
+        "Consumers today face an overwhelming array of choices when selecting electronic devices.",
+        "The dietary choices individuals make can have a profound impact on their long-term health outcomes."
+      ],
+      "altExamples_cn": [
+        "如今的消费者在选择电子设备时面临着琳琅满目的选择。",
+        "个人的饮食选择可能对其长期健康结果产生深远影响。"
+      ]
+    },
+    "cognitive": {
+      "example": "Studies show that listening to music can reduce stress, alleviate pain, and improve cognitive function.",
+      "example_cn": "研究表明，听音乐可以减轻压力、缓解疼痛并改善认知功能。",
+      "altExamples": [
+        "Playing musical instruments has been shown to enhance cognitive development in young children.",
+        "Cognitive behavioral therapy is an effective treatment for patients suffering from anxiety disorders."
+      ],
+      "altExamples_cn": [
+        "研究表明，演奏乐器有助于促进幼儿的认知发展。",
+        "认知行为疗法是治疗焦虑症患者的一种有效方法。"
+      ]
+    },
+    "constructive": {
+      "example": "We have also collected comments from supervisors and colleagues, based on which you will receive constructive feedback.",
+      "example_cn": "我们还收集了主管和同事的反馈意见，据此您将收到建设性的反馈。",
+      "altExamples": [
+        "Constructive criticism, when delivered appropriately, can significantly improve a student's academic performance.",
+        "The committee engaged in a constructive dialogue that ultimately led to a mutually agreeable solution."
+      ],
+      "altExamples_cn": [
+        "建设性的批评如果以恰当的方式提出，可以显著提高学生的学业成绩。",
+        "委员会进行了建设性的对话，最终达成了双方都满意的解决方案。"
+      ]
+    },
+    "cultures": {
+      "example": "In individualistic cultures, where personal choice is highly valued, the burden of decision-making can be significant.",
+      "example_cn": "在个人主义文化中，个人选择受到高度重视，决策的负担可能相当大。",
+      "altExamples": [
+        "The exchange program aims to foster understanding between different cultures through immersive experiences.",
+        "Indigenous cultures possess extensive knowledge of local ecosystems that is invaluable for conservation efforts."
+      ],
+      "altExamples_cn": [
+        "该交流项目旨在通过沉浸式体验促进不同文化之间的相互理解。",
+        "原住民文化对当地生态系统拥有广博的知识，这对保护工作具有不可估量的价值。"
+      ]
+    },
+    "deadline": {
+      "example": "The deadline for the software update is tomorrow.",
+      "example_cn": "软件更新的截止日期是明天。",
+      "altExamples": [
+        "The project deadline was extended to accommodate additional data collection requirements.",
+        "Meeting the publication deadline required the editorial team to work intensively."
+      ],
+      "altExamples_cn": [
+        "项目截止日期被延长，以容纳额外的数据收集需求。",
+        "为了赶上出版截止日期，编辑团队不得不全力以赴地工作。"
+      ]
+    },
+    "dedicated": {
+      "example": "Riverdale Parks Department seeks dedicated volunteers to assist with weekend nature programs for families.",
+      "example_cn": "Riverdale公园管理局正在招募热心志愿者，协助为家庭举办周末自然项目。",
+      "altExamples": [
+        "The research center is dedicated to finding sustainable solutions for water scarcity.",
+        "She dedicated her career to advancing educational opportunities for underprivileged communities."
+      ],
+      "altExamples_cn": [
+        "该研究中心致力于为水资源短缺问题寻找可持续的解决方案。",
+        "她将自己的一生奉献给了推动贫困社区教育机会的事业。"
+      ]
+    },
+    "demonstrations": {
+      "example": "This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments.",
+      "example_cn": "这场专为尊贵会员及其嘉宾举办的庆祝活动将包括导览参观、现场健身展示和免费茶点。",
+      "altExamples": [
+        "The science fair featured live demonstrations of chemical reactions that captivated the audience.",
+        "Teaching assistants often conduct laboratory demonstrations to illustrate complex theoretical concepts."
+      ],
+      "altExamples_cn": [
+        "科学博览会上展示了令人着迷的化学反应现场演示。",
+        "助教经常进行实验室演示，以阐释复杂的理论概念。"
+      ]
+    },
+    "devices": {
+      "example": "I will check the compatibility on different devices.",
+      "example_cn": "我会检查在不同设备上的兼容性。",
+      "altExamples": [
+        "Portable electronic devices have revolutionized access to information in educational settings.",
+        "Medical devices require rigorous testing and regulatory approval before clinical use."
+      ],
+      "altExamples_cn": [
+        "便携式电子设备彻底改变了教育环境中人们获取信息的方式。",
+        "医疗设备在投入临床使用前需要经过严格的测试和监管审批。"
+      ]
+    },
+    "dietary": {
+      "example": "We offer a variety of dining options that suit different dietary needs.",
+      "example_cn": "我们提供多种餐饮选择，以满足不同的饮食需求。",
+      "altExamples": [
+        "The nutritionist recommended several dietary adjustments to help the patient manage their cholesterol levels.",
+        "Dietary supplements should not replace a balanced diet but may address specific nutritional deficiencies."
+      ],
+      "altExamples_cn": [
+        "营养师推荐了几项饮食调整，以帮助患者控制胆固醇水平。",
+        "膳食补充剂不应替代均衡的饮食，但可以解决特定的营养缺乏问题。"
+      ]
+    },
+    "diseases": {
+      "example": "As a result, urban areas became hot spots for diseases such as cholera and tuberculosis.",
+      "example_cn": "因此，城市地区成为霍乱和肺结核等疾病的热点地区。",
+      "altExamples": [
+        "Vaccination programs have successfully eradicated several infectious diseases that once caused widespread mortality.",
+        "Cardiovascular diseases remain the leading cause of death in industrialized nations worldwide."
+      ],
+      "altExamples_cn": [
+        "疫苗接种计划已经成功根除了几种曾造成大规模死亡的传染病。",
+        "心血管疾病仍然是全球工业化国家最主要的死亡原因。"
+      ]
+    },
+    "disrupt": {
+      "example": "Antibiotics, while effective against harmful bacteria, can disrupt the balance of beneficial microbes.",
+      "example_cn": "抗生素虽然对有害细菌有效，但可能会破坏有益微生物的平衡。",
+      "altExamples": [
+        "The introduction of invasive species can disrupt local ecosystems and threaten native biodiversity.",
+        "Technological innovations have the potential to disrupt established industries and create new markets."
+      ],
+      "altExamples_cn": [
+        "入侵物种的引入会破坏当地生态系统，威胁本土生物多样性。",
+        "技术创新有潜力颠覆现有行业并创造新的市场。"
+      ]
+    },
+    "dolphins": {
+      "example": "\u201d Elephants and dolphins have shown signs of self-recognition.",
+      "example_cn": "大象和海豚已表现出自我识别的迹象。",
+      "altExamples": [
+        "Dolphins communicate using a complex system of clicks and whistles that researchers are still working to understand.",
+        "Studies have demonstrated that dolphins possess remarkable problem-solving abilities and social intelligence."
+      ],
+      "altExamples_cn": [
+        "海豚通过复杂的咔嗒声和口哨声系统进行交流，研究人员仍在努力理解这一系统。",
+        "研究表明，海豚具有出色的解决问题能力和社交智慧。"
+      ]
+    },
+    "dynamic": {
+      "example": "This dynamic nature of cognitive mapping underscores its importance in learning and adaptation.",
+      "example_cn": "认知地图的这种动态特性突显了它在学习和适应过程中的重要性。",
+      "altExamples": [
+        "The dynamic nature of the global economy requires businesses to remain adaptable and innovative.",
+        "Classroom dynamics shift considerably when students are encouraged to participate in collaborative learning activities."
+      ],
+      "altExamples_cn": [
+        "全球经济的动态特性要求企业保持适应能力和创新精神。",
+        "当学生被鼓励参与协作学习活动时，课堂动态会发生显著变化。"
+      ]
+    },
+    "edward": {
+      "example": "This concept, first proposed by psychologist Edward Tolman in the 1940s, revolutionized the understanding of navigation and spatial awareness.",
+      "example_cn": "这个概念由心理学家爱德华·托尔曼在20世纪40年代首次提出，彻底改变了人们对导航和空间意识的理解。",
+      "altExamples": [
+        "Edward Tolman's experiments with rats challenged prevailing behaviorist theories of his time.",
+        "The psychologist Edward Tolman proposed that learning could occur without immediate reinforcement, a concept he termed latent learning."
+      ],
+      "altExamples_cn": [
+        "爱德华·托尔曼用老鼠进行的实验挑战了他那个时代盛行的行为主义理论。",
+        "心理学家爱德华·托尔曼提出，学习可以在没有即时强化的情况下发生，他将这一概念称为潜伏学习。"
+      ]
+    },
+    "electronic": {
+      "example": "Enroll in paperless billing to receive monthly savings account statements in an electronic PDF document.",
+      "example_cn": "注册无纸化账单，即可每月收到电子PDF格式的储蓄账户对账单。",
+      "altExamples": [
+        "Electronic waste management has become a critical environmental concern globally.",
+        "The transition from print to electronic media has transformed the publishing industry."
+      ],
+      "altExamples_cn": [
+        "电子废物管理已成为全球关注的关键环境问题。",
+        "从印刷媒体到电子媒体的转变已经改变了出版业的格局。"
+      ]
+    },
+    "enhance": {
+      "example": "Precision farming utilizes satellite imagery to enhance crop yields by analyzing soil and weather conditions.",
+      "example_cn": "精准农业利用卫星图像分析土壤和天气状况，以提高作物产量。",
+      "altExamples": [
+        "Adding interactive elements to online courses can enhance student engagement and knowledge retention.",
+        "The new software update is designed to enhance system security and protect against emerging cyber threats."
+      ],
+      "altExamples_cn": [
+        "在在线课程中加入互动元素可以提高学生的参与度和知识留存率。",
+        "新的软件更新旨在增强系统安全性，防范新兴网络威胁。"
+      ]
+    },
+    "european": {
+      "example": "European theater has ancient roots, evolving from the rituals and storytelling of early societies.",
+      "example_cn": "欧洲戏剧有着悠久的根源，它从早期社会的仪式和讲故事传统演变而来。",
+      "altExamples": [
+        "The European Union has implemented stringent regulations to reduce carbon emissions across member states.",
+        "European universities have a long tradition of attracting international students through generous scholarship programs."
+      ],
+      "altExamples_cn": [
+        "欧盟已实施严格的法规，以减少各成员国的碳排放。",
+        "欧洲大学通过慷慨的奖学金项目吸引国际学生有着悠久的传统。"
+      ]
+    },
+    "fee": {
+      "example": "Your registration fee will be refunded if you have a scheduling conflict.",
+      "example_cn": "如果您的时间安排有冲突，您的注册费将予以退还。",
+      "altExamples": [
+        "The registration fee covers access to all conference sessions, workshops, and networking events.",
+        "Late payment of tuition fees may result in additional charges or suspension of enrollment privileges."
+      ],
+      "altExamples_cn": [
+        "注册费涵盖所有会议场次、研讨会和交流活动的入场权限。",
+        "逾期缴纳学费可能会产生额外费用，或者导致学籍注册权限被暂停。"
+      ]
+    },
+    "groundwork": {
+      "example": "While urbanization presented numerous obstacles, it undeniably laid the groundwork for modern society.",
+      "example_cn": "尽管城市化带来了诸多障碍，但它无疑为现代社会奠定了基础。",
+      "altExamples": [
+        "The preliminary research laid the groundwork for subsequent clinical trials of the innovative treatment.",
+        "Effective teamwork during the planning phase established the groundwork for the project's eventual success."
+      ],
+      "altExamples_cn": [
+        "这项初步研究为该创新治疗方法的后续临床试验奠定了基础。",
+        "规划阶段的有效团队合作确立了该项目最终成功的基础。"
+      ]
+    },
+    "habitats": {
+      "example": "As cities expand, natural habitats are replaced with buildings, roads, and other infrastructure.",
+      "example_cn": "随着城市扩张，自然栖息地被建筑物、道路和其他基础设施所取代。",
+      "altExamples": [
+        "Coastal habitats such as mangroves and salt marshes provide essential protection against storm surges.",
+        "The destruction of natural habitats remains the primary threat to endangered species worldwide."
+      ],
+      "altExamples_cn": [
+        "红树林和盐沼等沿海栖息地提供了抵御风暴潮的关键保护。",
+        "自然栖息地的破坏仍然是全球濒危物种面临的主要威胁。"
+      ]
+    },
+    "headphones": {
+      "example": "Please ensure you have access to a computer with internet connectivity and functioning cameras and headphones to ensure participation during the interactive segments of the webinar.",
+      "example_cn": "请确保您有具备互联网连接、可正常使用的摄像头和耳机的电脑，以确保在研讨会的互动环节中能够参与。",
+      "altExamples": [
+        "Students are required to bring their own headphones for the language laboratory listening exercises.",
+        "Noise-canceling headphones enable users to concentrate in noisy environments by reducing ambient sounds."
+      ],
+      "altExamples_cn": [
+        "学生需要自带耳机用于语言实验室的听力练习。",
+        "降噪耳机通过减少环境噪音，使使用者能够在嘈杂环境中集中注意力。"
+      ]
+    },
+    "initiatives": {
+      "example": "Despite these issues, many initiatives aim to use sports as a platform for social change.",
+      "example_cn": "尽管存在这些问题，许多倡议旨在利用体育作为社会变革的平台。",
+      "altExamples": [
+        "Grassroots initiatives have proven effective in addressing local environmental concerns and promoting sustainability.",
+        "Government initiatives aimed at reducing carbon emissions require substantial public investment and long-term commitment."
+      ],
+      "altExamples_cn": [
+        "基层倡议在解决地方环境问题和促进可持续发展方面已被证明是有效的。",
+        "旨在减少碳排放的政府倡议需要大量的公共投资和长期的承诺。"
+      ]
+    },
+    "integral": {
+      "example": "It is no surprise that music therapy has become an integral part of treatment for various conditions.",
+      "example_cn": "音乐疗法已成为治疗多种疾病不可或缺的组成部分，这并不令人意外。",
+      "altExamples": [
+        "Photosynthesis is an integral process for plant survival, converting sunlight into chemical energy.",
+        "Critical thinking skills are integral to success in higher education and professional careers."
+      ],
+      "altExamples_cn": [
+        "光合作用是植物生存不可或缺的过程，它将阳光转化为化学能。",
+        "批判性思维能力对于在高等教育和职业生涯中取得成功至关重要。"
+      ]
+    },
+    "intensive": {
+      "example": "Title: Effective Communication in the Modern Workplace A one-day intensive workshop for managers and team leaders.",
+      "example_cn": "标题：现代职场中的有效沟通 面向经理和团队领导者的一日强化研讨会。",
+      "altExamples": [
+        "The intensive language program requires students to attend classes six hours daily for eight weeks.",
+        "Intensive care units are equipped with specialized staff and technology to treat critically ill patients."
+      ],
+      "altExamples_cn": [
+        "该强化语言课程要求学生每天上课六小时，持续八周。",
+        "重症监护病房配备了专业人员和先进技术来治疗危重病人。"
+      ]
+    },
+    "involves": {
+      "example": "This suggests that cognitive mapping is not just a mental representation but also involves distinct neural pathways.",
+      "example_cn": "这表明认知地图不仅是一种心理表征，还涉及不同的神经通路。",
+      "altExamples": [
+        "Conducting a scientific experiment involves formulating hypotheses, collecting data, and analyzing results.",
+        "The process of urbanization involves the migration of populations from rural to metropolitan areas."
+      ],
+      "altExamples_cn": [
+        "进行科学实验涉及提出假设、收集数据和分析结果。",
+        "城市化进程涉及人口从农村地区向都市地区的迁移。"
+      ]
+    },
+    "italian": {
+      "example": "The Italian artist Leonardo da Vinci used this technique in such works as the Mona Lisa and The Virgin of the Rocks.",
+      "example_cn": "意大利艺术家列奥纳多·达·芬奇在《蒙娜丽莎》和《岩间圣母》等作品中运用了这一技巧。",
+      "altExamples": [
+        "Italian cuisine is renowned worldwide for its emphasis on fresh ingredients and regional variations.",
+        "The Italian Renaissance produced some of the most celebrated works of art in human history."
+      ],
+      "altExamples_cn": [
+        "意大利菜以注重新鲜食材和地域多样性而享誉全球。",
+        "意大利文艺复兴时期产生了人类历史上一些最受赞誉的艺术作品。"
+      ]
+    },
+    "login": {
+      "example": "Login details will be sent a day before the course begins.",
+      "example_cn": "登录信息将在课程开始前一天发送。",
+      "altExamples": [
+        "Students receive a unique login and password to access the university's online learning platform.",
+        "For security purposes, users should change their login credentials periodically to prevent unauthorized access."
+      ],
+      "altExamples_cn": [
+        "学生会收到唯一的登录名和密码，用于访问大学的在线学习平台。",
+        "出于安全考虑，用户应定期更改登录凭证，以防止未经授权的访问。"
+      ]
+    },
+    "mitigate": {
+      "example": "This trend underscores the importance of monitoring environmental changes and implementing public-health strategies to mitigate the impact of these bacteria.",
+      "example_cn": "这一趋势突显了监测环境变化和实施公共卫生策略以减轻这些细菌影响的重要性。",
+      "altExamples": [
+        "Urban planners implement green spaces to mitigate the effects of rising temperatures in densely populated areas.",
+        "Governments impose strict regulations to mitigate the risks associated with excessive financial market speculation."
+      ],
+      "altExamples_cn": [
+        "城市规划者通过建设绿地来缓解人口密集地区气温上升的影响。",
+        "各国政府实施严格监管，以降低过度金融投机带来的风险。"
+      ]
+    },
+    "narratives": {
+      "example": "During this time period, TV saw the rise of anthology series, which presented different stories and characters in each episode, in contrast to traditional ongoing narratives.",
+      "example_cn": "在此期间，电视上兴起了选集剧系列，每集呈现不同的故事和人物，与传统的连续叙事形成了鲜明对比。",
+      "altExamples": [
+        "Historical narratives often reflect the perspectives and biases of those who chronicle them.",
+        "Personal narratives can provide valuable insight into the lived experiences of individuals from different cultures."
+      ],
+      "altExamples_cn": [
+        "历史叙事往往反映了记载者的观点和偏见。",
+        "个人叙事可以为来自不同文化的个体的生活经历提供宝贵的洞见。"
+      ]
+    },
+    "navigate": {
+      "example": "Tolman suggested that individuals create internal maps that help them navigate their surroundings efficiently.",
+      "example_cn": "托尔曼提出，个体会创建内部地图以帮助他们高效地在周围环境中导航。",
+      "altExamples": [
+        "Migratory birds use the Earth's magnetic field to navigate thousands of miles during seasonal migrations.",
+        "International students must navigate complex visa procedures before beginning their studies abroad."
+      ],
+      "altExamples_cn": [
+        "候鸟利用地球磁场在季节性迁徙中导航数千英里。",
+        "国际学生在开始海外学习之前，必须理清复杂的签证程序。"
+      ]
+    },
+    "neurotransmitters": {
+      "example": "Music affects the brain by triggering the release of neurotransmitters such as dopamine and serotonin, which are associated with pleasure and mood regulation.",
+      "example_cn": "音乐通过触发多巴胺和血清素等神经递质的释放来影响大脑，这些神经递质与愉悦感和情绪调节有关。",
+      "altExamples": [
+        "Neurotransmitters such as serotonin and dopamine play a crucial role in regulating mood and emotions.",
+        "Imbalances in neurotransmitter levels have been associated with various psychiatric disorders."
+      ],
+      "altExamples_cn": [
+        "血清素和多巴胺等神经递质在调节情绪和情感方面起着关键作用。",
+        "神经递质水平的失衡与多种精神疾病有关。"
+      ]
+    },
+    "nineteenth": {
+      "example": "The nineteenth century witnessed a dramatic shift in population dynamics because of urbanization.",
+      "example_cn": "由于城市化，19世纪见证了人口动态的剧烈转变。",
+      "altExamples": [
+        "The nineteenth century saw the rise of the Industrial Revolution and profound social transformation.",
+        "Nineteenth-century literature often grappled with themes of urbanization and social inequality."
+      ],
+      "altExamples_cn": [
+        "19世纪见证了工业革命的兴起和深刻的社会变革。",
+        "19世纪的文学作品常常探讨城市化和社会不平等的主题。"
+      ]
+    },
+    "paperwork": {
+      "example": "Please arrive 15 minutes early to fill out some paperwork.",
+      "example_cn": "请提前15分钟到达，以便填写一些文件。",
+      "altExamples": [
+        "Researchers must complete extensive paperwork to obtain ethical approval for studies involving human subjects.",
+        "The transfer of property requires a considerable amount of paperwork to ensure legal compliance."
+      ],
+      "altExamples_cn": [
+        "研究人员必须完成大量的文书工作才能获得涉及人类受试者研究的伦理批准。",
+        "财产转让需要大量的文件工作以确保法律合规。"
+      ]
+    },
+    "pastries": {
+      "example": "Don't miss the bakery stall\u2014get there early for the best bread and pastries, including gluten-free and vegan options.",
+      "example_cn": "别错过面包摊位——早点去可以买到最好的面包和糕点，包括无麸质和纯素选择。",
+      "altExamples": [
+        "French pastries are celebrated for their delicate textures and intricate preparation techniques.",
+        "The local bakery offers a wide selection of pastries, including croissants, danishes, and éclairs."
+      ],
+      "altExamples_cn": [
+        "法式糕点以其细腻的口感和复杂的制作工艺而闻名。",
+        "当地面包店提供各式糕点，包括羊角面包、丹麦酥和闪电泡芙。"
+      ]
+    },
+    "pivotal": {
+      "example": "This class played a pivotal role in advocating for social reforms, including improved working conditions and public-health measures.",
+      "example_cn": "这个阶级在倡导社会改革方面发挥了关键作用，包括改善工作条件和公共卫生措施。",
+      "altExamples": [
+        "The discovery of penicillin was a pivotal moment in the history of modern medicine.",
+        "Effective communication plays a pivotal role in the success of collaborative research projects."
+      ],
+      "altExamples_cn": [
+        "青霉素的发现是现代医学史上的一个关键时刻。",
+        "有效的沟通在协作研究项目的成功中起着关键作用。"
+      ]
+    },
+    "precision": {
+      "example": "Precision farming utilizes satellite imagery to enhance crop yields by analyzing soil and weather conditions.",
+      "example_cn": "精准农业利用卫星图像分析土壤和天气状况，以提高作物产量。",
+      "altExamples": [
+        "Surgical procedures require extreme precision to avoid damaging surrounding tissues and organs.",
+        "The precision of modern laboratory instruments allows scientists to measure quantities at the molecular level."
+      ],
+      "altExamples_cn": [
+        "外科手术需要极高的精确度，以避免损伤周围的健康组织和器官。",
+        "现代实验室仪器的精度使科学家能够在分子水平上进行测量。"
+      ]
+    },
+    "prevalent": {
+      "example": "Housing was often substandard, and sanitation issues were prevalent.",
+      "example_cn": "住房条件往往不达标，卫生问题普遍存在。",
+      "altExamples": [
+        "Antibiotic resistance is becoming increasingly prevalent in hospitals, posing serious health risks.",
+        "Sedentary lifestyles are prevalent among office workers who spend prolonged hours at their desks."
+      ],
+      "altExamples_cn": [
+        "抗生素耐药性在医院中变得越来越普遍，构成了严重的健康风险。",
+        "久坐的生活方式在长时间伏案工作的办公室员工中普遍存在。"
+      ]
+    },
+    "reduce": {
+      "example": "Studies show that listening to music can reduce stress, alleviate pain, and improve cognitive function.",
+      "example_cn": "研究表明，听音乐可以减轻压力、缓解疼痛并改善认知功能。",
+      "altExamples": [
+        "Urban planners are implementing green roofing initiatives to reduce the heat island effect in densely populated areas.",
+        "Many governments have pledged to reduce carbon emissions by transitioning to renewable energy sources."
+      ],
+      "altExamples_cn": [
+        "城市规划者正在实施绿色屋顶项目，以减少人口密集地区的热岛效应。",
+        "许多政府已承诺通过转向可再生能源来减少碳排放。"
+      ]
+    },
+    "refreshments": {
+      "example": "This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments.",
+      "example_cn": "这场专为尊贵会员及其嘉宾举办的庆祝活动将包括导览参观、现场健身展示和免费茶点。",
+      "altExamples": [
+        "Light refreshments will be served during the intermission of the academic symposium.",
+        "The organizing committee arranged for refreshments to be available throughout the conference."
+      ],
+      "altExamples_cn": [
+        "学术研讨会中场休息期间将提供简餐茶点。",
+        "组织委员会安排了整个会议期间都提供茶点。"
+      ]
+    },
+    "renaissance": {
+      "example": "However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.",
+      "example_cn": "然而，在随后的文艺复兴时期，戏剧迎来了复兴，并蓬勃发展，为现代戏剧奠定了基础。",
+      "altExamples": [
+        "The Renaissance marked a period of extraordinary cultural and intellectual achievement in European history.",
+        "There has been a renaissance of interest in traditional crafts as consumers seek authentic handmade goods."
+      ],
+      "altExamples_cn": [
+        "文艺复兴标志着欧洲历史上文化和智力成就非凡的时期。",
+        "随着消费者追求正宗的手工制品，人们对传统工艺的兴趣出现了复兴。"
+      ]
+    },
+    "respect": {
+      "example": "For example, community soccer leagues often bring together people from different ethnicities, creating an environment where cultural differences are celebrated and mutual respect is cultivated.",
+      "example_cn": "例如，社区足球联赛经常将来自不同种族的人们聚集在一起，创造一个文化差异得到庆祝、相互尊重得以培养的环境。",
+      "altExamples": [
+        "Mutual respect between colleagues is essential for fostering a productive and collaborative work environment.",
+        "The indigenous community demands respect for their territorial rights and cultural heritage."
+      ],
+      "altExamples_cn": [
+        "同事之间的相互尊重对于营造富有成效和协作的工作环境至关重要。",
+        "原住民社区要求尊重他们的领土权利和文化遗产。"
+      ]
+    },
+    "roles": {
+      "example": "Spectatorship and fandom also play significant roles in uniting people.",
+      "example_cn": "观众和粉丝群体在团结人心方面也发挥着重要作用。",
+      "altExamples": [
+        "Hormones play crucial roles in regulating metabolism, growth, and reproductive processes in the human body.",
+        "The roles of women in the workforce have evolved considerably over the past century."
+      ],
+      "altExamples_cn": [
+        "人体内的激素在调节新陈代谢、生长和生殖过程中发挥着关键作用。",
+        "女性在职场中的角色在过去一个世纪里发生了巨大的演变。"
+      ]
+    },
+    "roman": {
+      "example": "The tradition of theater continued in the ancient Roman Empire, where it became popular entertainment.",
+      "example_cn": "戏剧传统在古罗马帝国得以延续，成为广受欢迎的娱乐活动。",
+      "altExamples": [
+        "The Roman Empire's extensive road network facilitated trade and communication across vast territories.",
+        "Roman architecture introduced innovations such as arches and aqueducts that influenced later civilizations."
+      ],
+      "altExamples_cn": [
+        "罗马帝国庞大的道路网络促进了广阔疆域内的贸易和通信。",
+        "罗马建筑引入了拱门和输水道等创新技术，影响了后来的文明。"
+      ]
+    },
+    "rotation": {
+      "example": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "example_cn": "有机农业避免使用合成农药和化肥，注重轮作、堆肥和生物害虫防治。",
+      "altExamples": [
+        "Crop rotation is an agricultural practice that helps maintain soil fertility and reduce pest infestations.",
+        "Medical students complete a clinical rotation in each major specialty during their training."
+      ],
+      "altExamples_cn": [
+        "轮作是一种农业实践，有助于保持土壤肥力并减少病虫害。",
+        "医学生在培训期间需在每个主要专科完成临床轮转。"
+      ]
+    }
+  }
+}

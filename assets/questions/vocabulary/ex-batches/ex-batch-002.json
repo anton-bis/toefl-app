@@ -1,0 +1,954 @@
+{
+  "subject": "reading",
+  "start": 160,
+  "words": {
+    "beverages": {
+      "example": "A variety of food and beverages will be available for purchase from local food trucks and vendors.",
+      "example_cn": "各种食品和饮料将从当地餐车和摊贩处供购买。",
+      "altExamples": [
+        "The consumption of sugary beverages has been linked to increased rates of obesity and type two diabetes.",
+        "Fermented beverages such as kombucha contain probiotics that may contribute to improved digestive health."
+      ],
+      "altExamples_cn": [
+        "含糖饮料的消费与肥胖症和二型糖尿病发病率的上升有关。",
+        "康普茶等发酵饮料含有益生菌，可能有助于改善消化健康。"
+      ]
+    },
+    "biological": {
+      "example": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "example_cn": "有机农业避免使用合成农药和化肥，注重轮作、堆肥和生物害虫防治。",
+      "altExamples": [
+        "The biological clock regulates sleep-wake cycles through complex interactions between genes and environmental light cues.",
+        "Biological diversity is essential for ecosystem resilience, enabling adaptation to changing environmental conditions."
+      ],
+      "altExamples_cn": [
+        "生物钟通过基因与环境光信号之间的复杂相互作用来调节睡眠-觉醒周期。",
+        "生物多样性对生态系统的恢复力至关重要，使其能够适应不断变化的环境条件。"
+      ]
+    },
+    "birthday": {
+      "example": "com We are pleased that you are considering our facility for your mother's birthday party.",
+      "example_cn": "我们很高兴您考虑将我们的场地用于您母亲的生日聚会。",
+      "altExamples": [
+        "The tradition of celebrating one's birthday with cake and candles dates back to ancient Greek customs.",
+        "She received a birthday grant from the foundation to continue her research on marine conservation."
+      ],
+      "altExamples_cn": [
+        "用蛋糕和蜡烛庆祝生日的传统可以追溯到古希腊习俗。",
+        "她从基金会获得了一笔生日资助金，以继续她的海洋保护研究。"
+      ]
+    },
+    "bistro": {
+      "example": "Because the audit is expected to take the entire day, we will be providing lunch from Beasly Bistro for participants.",
+      "example_cn": "由于审计预计需要一整天时间，我们将为参与者提供来自比斯利小餐馆的午餐。",
+      "altExamples": [
+        "The cozy bistro near campus became a popular meeting spot for faculty discussions.",
+        "Authentic French bistros typically offer a limited menu focused on traditional regional cuisine."
+      ],
+      "altExamples_cn": [
+        "校园附近那家舒适的小餐馆成了教师们进行讨论的热门聚会地点。",
+        "正宗的法国小餐馆通常提供有限的菜单，专注于传统的地方菜肴。"
+      ]
+    },
+    "blend": {
+      "example": "This blend of empirical practice and spiritual belief shows the complexity of ancient Egyptian medicine.",
+      "example_cn": "这种经验实践与精神信仰的融合展现了古埃及医学的复杂性。",
+      "altExamples": [
+        "The architect's design achieved a remarkable blend of modern aesthetics and traditional cultural elements.",
+        "Successful environmental policy requires a careful blend of scientific evidence and economic considerations."
+      ],
+      "altExamples_cn": [
+        "建筑师的设计实现了现代美学与传统文化元素的卓越融合。",
+        "成功的环境政策需要将科学证据与经济考量谨慎地融合在一起。"
+      ]
+    },
+    "blended": {
+      "example": "One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways.",
+      "example_cn": "一部有影响力的选集系列是《迷离时空》，它以发人深省的方式融合了科幻、恐怖和戏剧。",
+      "altExamples": [
+        "The artist blended oil paints directly on the canvas to achieve smooth transitions between contrasting colors.",
+        "Her research blended quantitative data analysis with qualitative interviews to provide a comprehensive understanding of the issue."
+      ],
+      "altExamples_cn": [
+        "艺术家在画布上直接调和油画颜料，以实现对比色之间的平滑过渡。",
+        "她的研究将定量数据分析与定性访谈相结合，以提供对该问题的全面理解。"
+      ]
+    },
+    "blockages": {
+      "example": "Illness was thought to be caused by blockages in these channels, like a blocked canal causing flooding.",
+      "example_cn": "疾病被认为是由这些通道中的堵塞引起的，就像堵塞的运河会导致洪水一样。",
+      "altExamples": [
+        "Arterial blockages can lead to heart attacks if they prevent adequate blood flow to the cardiac muscle.",
+        "Plumbers were called to clear the blockages in the main sewer line that had caused extensive water damage."
+      ],
+      "altExamples_cn": [
+        "动脉阻塞如果阻止了足够的血液流向心肌，就可能导致心脏病发作。",
+        "水管工被叫来清理主下水道中的堵塞物，这些堵塞物已造成了严重的水渍损害。"
+      ]
+    },
+    "bonds": {
+      "example": "It can strengthen bonds, create a sense of unity, and influence social movements.",
+      "example_cn": "它可以加强纽带，创造团结感，并影响社会运动。",
+      "altExamples": [
+        "Strong social bonds among community members contribute to higher resilience during economic downturns.",
+        "The chemical bonds between hydrogen and oxygen atoms determine the unique properties of water molecules."
+      ],
+      "altExamples_cn": [
+        "社区成员之间牢固的社会纽带有助于在经济衰退期间提高韧性。",
+        "氢原子和氧原子之间的化学键决定了水分子的独特性质。"
+      ]
+    },
+    "bones": {
+      "example": "Ancient texts describe procedures like the removal of tumors and the setting of broken bones.",
+      "example_cn": "古代文献描述了诸如切除肿瘤和接骨等手术。",
+      "altExamples": [
+        "The anthropologist studied the fragmented bones to determine the individual's age and diet.",
+        "Calcium deficiency can cause bones to become brittle and more susceptible to fractures over time."
+      ],
+      "altExamples_cn": [
+        "人类学家研究了这些碎骨，以确定该个体的年龄和饮食。",
+        "钙缺乏会导致骨骼随时间变得脆弱，更容易发生骨折。"
+      ]
+    },
+    "bookstore": {
+      "example": "Title: Downtown Books Subtitle: May 16 BRUCKVILLE (May 16) Downtown Books, a family-owned bookstore operating for 15 years, recently added a café area and expanded its evening hours to accommodate working customers.",
+      "example_cn": "标题：Downtown Books 副标题：5月16日 布鲁克维尔（5月16日）Downtown Books是一家经营了15年的家族书店，最近增设了咖啡区并延长了晚间营业时间，以方便上班族顾客。",
+      "altExamples": [
+        "The independent bookstore hosts weekly literary events featuring emerging authors.",
+        "University bookstores now offer digital textbooks alongside traditional printed editions."
+      ],
+      "altExamples_cn": [
+        "这家独立书店每周举办文学活动，邀请新兴作家参与。",
+        "大学书店现在除了传统的印刷版教材外，还提供数字教材。"
+      ]
+    },
+    "boost": {
+      "example": "This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.",
+      "example_cn": "这一现象揭示了更少的选择有时能让消费者更快乐，这对于旨在通过精选产品来提高满意度的营销人员和零售商来说是一个宝贵的洞见。",
+      "altExamples": [
+        "Governments often invest in infrastructure projects to boost employment and stimulate economic growth.",
+        "Regular physical activity can significantly boost cognitive function and memory retention in older adults."
+      ],
+      "altExamples_cn": [
+        "政府经常投资基础设施项目以促进就业和刺激经济增长。",
+        "定期的体育锻炼可以显著提升老年人的认知功能和记忆力。"
+      ]
+    },
+    "borrowed": {
+      "example": "Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family.",
+      "example_cn": "罗马戏剧借鉴了希腊的先例，但引入了新的元素，如精美的舞台设计，包括英雄雕像或皇室家族肖像等。",
+      "altExamples": [
+        "The architect borrowed design principles from Gothic cathedrals when constructing the modern chapel.",
+        "Many scientific terminologies were borrowed from Latin and Greek to maintain international consistency."
+      ],
+      "altExamples_cn": [
+        "建筑师在建造这座现代教堂时借鉴了哥特式大教堂的设计原则。",
+        "许多科学术语借自拉丁语和希腊语，以保持国际一致性。"
+      ]
+    },
+    "boulevard": {
+      "example": "in the warehouse on Kramer Boulevard.",
+      "example_cn": "在克雷默大道上的仓库里。",
+      "altExamples": [
+        "The city council planted rows of maple trees along the boulevard to reduce urban heat absorption.",
+        "Protests marched down the central boulevard, drawing attention to the proposed environmental policy changes."
+      ],
+      "altExamples_cn": [
+        "市议会沿林荫大道种植了一排排枫树，以减少城市热量吸收。",
+        "抗议游行沿中央大道行进，引起了人们对拟议环境政策变化的关注。"
+      ]
+    },
+    "breakthroughs": {
+      "example": "As understanding of the microbiome grows, it may lead to breakthroughs in treating diseases and improving health.",
+      "example_cn": "随着对微生物组理解的加深，它可能会在治疗疾病和改善健康方面带来突破。",
+      "altExamples": [
+        "Recent breakthroughs in gene-editing technology have opened new avenues for treating hereditary disorders.",
+        "The laboratory's breakthroughs in battery chemistry could revolutionize the electric vehicle industry."
+      ],
+      "altExamples_cn": [
+        "基因编辑技术的最新突破为治疗遗传性疾病开辟了新途径。",
+        "该实验室在电池化学方面的突破可能彻底改变电动汽车行业。"
+      ]
+    },
+    "bridges": {
+      "example": "Workers had to carve channels through mountains and construct bridges over valleys.",
+      "example_cn": "工人们不得不在山中开凿渠道，并在山谷上建造桥梁。",
+      "altExamples": [
+        "Engineers designed the bridges to withstand seismic activity and extreme weather conditions.",
+        "The construction of steel bridges drastically reduced travel time between the two previously isolated regions."
+      ],
+      "altExamples_cn": [
+        "工程师设计了能够承受地震活动和极端天气条件的桥梁。",
+        "钢铁桥梁的建设大幅缩短了之前两个孤立地区之间的通行时间。"
+      ]
+    },
+    "brochure": {
+      "example": "I'll finish the brochure design today.",
+      "example_cn": "我今天会完成宣传册的设计。",
+      "altExamples": [
+        "The university published an informative brochure outlining the admission requirements and scholarship opportunities.",
+        "Tourists picked up a colorful brochure at the information center to plan their museum visits."
+      ],
+      "altExamples_cn": [
+        "该大学发布了一份信息宣传册，概述了入学要求和奖学金机会。",
+        "游客们在信息中心拿了一份彩色宣传册，以规划他们的博物馆参观行程。"
+      ]
+    },
+    "browse": {
+      "example": "Owner Janet Miller explains, \"We noticed many people wanted to browse books after work but couldn't make it during our traditional hours.",
+      "example_cn": "店主珍妮特·米勒解释道：\"我们注意到很多人想在下班后浏览书籍，但在我们传统的营业时间内赶不过来。\"",
+      "altExamples": [
+        "Students can browse the digital library catalogue from any device connected to the campus network.",
+        "Consumers tend to browse multiple online stores before committing to a major purchase decision."
+      ],
+      "altExamples_cn": [
+        "学生可以通过任何连接到校园网络的设备浏览数字图书馆目录。",
+        "消费者在做重大的购买决定之前，往往会浏览多家网店。"
+      ]
+    },
+    "bruckville": {
+      "example": "Title: Downtown Books Subtitle: May 16 BRUCKVILLE (May 16) Downtown Books, a family-owned bookstore operating for 15 years, recently added a café area and expanded its evening hours to accommodate working customers.",
+      "example_cn": "标题：Downtown Books 副标题：5月16日 布鲁克维尔（5月16日）Downtown Books是一家经营了15年的家族书店，最近增设了咖啡区并延长了晚间营业时间，以方便上班族顾客。",
+      "altExamples": [
+        "The mayor of Bruckville announced a new initiative to revitalize the historic downtown district.",
+        "Bruckville's annual harvest festival draws visitors from neighboring towns and generates significant local revenue."
+      ],
+      "altExamples_cn": [
+        "布鲁克维尔市长宣布了一项旨在振兴历史悠久的市中心区的新倡议。",
+        "布鲁克维尔一年一度的丰收节吸引了来自邻近城镇的游客，并产生了可观的当地收入。"
+      ]
+    },
+    "burden": {
+      "example": "In individualistic cultures, where personal choice is highly valued, the burden of decision-making can be significant.",
+      "example_cn": "在高度重视个人选择的个人主义文化中，决策的负担可能相当沉重。",
+      "altExamples": [
+        "The financial burden of tuition often forces students to take on part-time employment during semesters.",
+        "Shifting the administrative burden onto automated systems allowed staff to focus on more strategic tasks."
+      ],
+      "altExamples_cn": [
+        "学费的经济负担常常迫使学生在上课期间从事兼职工作。",
+        "将行政负担转移到自动化系统上，使员工能够专注于更具战略性的任务。"
+      ]
+    },
+    "burgeoning": {
+      "example": "A burgeoning middle class emerged, distinguished by its economic power and influence.",
+      "example_cn": "一个新兴的中产阶级兴起了，以其经济实力和影响力而著称。",
+      "altExamples": [
+        "The burgeoning demand for renewable energy has spurred investment in solar and wind technologies.",
+        "A burgeoning population in urban centers puts considerable strain on existing public transportation systems."
+      ],
+      "altExamples_cn": [
+        "对可再生能源的迅速增长的需求刺激了对太阳能和风能技术的投资。",
+        "城市中心迅速增长的人口给现有的公共交通系统带来了相当大的压力。"
+      ]
+    },
+    "bustling": {
+      "example": "Their stall is always bustling with customers eager to buy fresh, pesticide-free vegetables from the welcoming staff.",
+      "example_cn": "他们的摊位总是熙熙攘攘，挤满了渴望从热情的店员那里购买新鲜无农药蔬菜的顾客。",
+      "altExamples": [
+        "The bustling marketplace offered an array of fresh produce, spices, and handcrafted goods.",
+        "Despite the bustling activity in the lab, researchers maintained precise records of every experiment."
+      ],
+      "altExamples_cn": [
+        "熙熙攘攘的市场提供了各种新鲜农产品、香料和手工艺品。",
+        "尽管实验室里活动繁忙，研究人员仍对每一项实验保持精确记录。"
+      ]
+    },
+    "caf": {
+      "example": "Title: Downtown Books Subtitle: May 16 BRUCKVILLE (May 16) Downtown Books, a family-owned bookstore operating for 15 years, recently added a café area and expanded its evening hours to accommodate working customers.",
+      "example_cn": "标题：Downtown Books 副标题：5月16日 布鲁克维尔（5月16日）Downtown Books是一家经营了15年的家族书店，最近增设了咖啡区并延长了晚间营业时间，以方便上班族顾客。",
+      "altExamples": [
+        "Students gathered at the campus caf to discuss their group project over coffee and sandwiches.",
+        "The outdoor seating at the caf provides a pleasant atmosphere for casual meetings and study sessions."
+      ],
+      "altExamples_cn": [
+        "学生们聚集在校园咖啡馆里，一边喝咖啡吃三明治，一边讨论他们的小组项目。",
+        "咖啡馆的户外座位为休闲会议和学习活动提供了愉快的氛围。"
+      ]
+    },
+    "calcite": {
+      "example": "Iceland spar is a transparent variety of calcite that possesses unique optical properties.",
+      "example_cn": "冰洲石是方解石的一种透明变种，具有独特的光学性质。",
+      "altExamples": [
+        "Geologists identified calcite deposits in the cave formations, indicating the region's limestone composition.",
+        "The presence of calcite in the sediment suggests that the water was rich in dissolved calcium carbonate."
+      ],
+      "altExamples_cn": [
+        "地质学家在洞穴构造中发现了方解石沉积物，表明该地区的石灰岩成分。",
+        "沉积物中方解石的存在表明水中富含溶解的碳酸钙。"
+      ]
+    },
+    "calculated": {
+      "example": "These structures used a combination of gravity and meticulously calculated gradients to ensure a steady flow of water.",
+      "example_cn": "这些结构利用重力和经过精心计算的坡度相结合，以确保水流的稳定。",
+      "altExamples": [
+        "The engineers calculated the precise load capacity of the bridge before construction began.",
+        "Her calculated decision to invest in research yielded substantial returns for the pharmaceutical company."
+      ],
+      "altExamples_cn": [
+        "工程师在施工开始前精确计算了桥梁的荷载能力。",
+        "她经过深思熟虑后决定投资研究，为这家制药公司带来了可观的回报。"
+      ]
+    },
+    "calotype": {
+      "example": "The invention of the calotype by William Henry Fox Talbot in the 1840s allowed for multiple copies of an image to be made from a single negative, revolutionizing the field.",
+      "example_cn": "威廉·亨利·福克斯·塔尔博特在19世纪40年代发明的卡罗式照相法，使得从一张负片中可以制作出多份图像副本，彻底改变了这一领域。",
+      "altExamples": [
+        "The calotype process allowed photographers to produce multiple positive prints from a single paper negative.",
+        "Unlike the daguerreotype, the calotype sacrificed some sharpness in favor of reproducibility."
+      ],
+      "altExamples_cn": [
+        "卡罗式照相法使摄影师能够从单张纸基负片制作出多张正片照片。",
+        "与达盖尔银版法不同，卡罗式照相法牺牲了一定的清晰度以换取可复制性。"
+      ]
+    },
+    "canal": {
+      "example": "Illness was thought to be caused by blockages in these channels, like a blocked canal causing flooding.",
+      "example_cn": "疾病被认为是由这些通道中的堵塞引起的，就像堵塞的运河会导致洪水一样。",
+      "altExamples": [
+        "The irrigation canal diverted water from the river to farmlands located several miles away.",
+        "Construction of the canal facilitated trade by connecting two major river systems in the region."
+      ],
+      "altExamples_cn": [
+        "灌溉渠将河水引到几英里外的农田。",
+        "运河的建设通过连接该地区两大河流系统促进了贸易。"
+      ]
+    },
+    "captivating": {
+      "example": "The technique added drama and emotional intensity, captivating viewers and drawing them into the scene.",
+      "example_cn": "这种技法增添了戏剧性和情感张力，吸引了观众，并将他们带入场景之中。",
+      "altExamples": [
+        "The professor delivered a captivating lecture on the origins of the universe that held everyone's attention.",
+        "Her captivating narrative style made complex historical events accessible and engaging to readers."
+      ],
+      "altExamples_cn": [
+        "教授就宇宙起源做了一场引人入胜的讲座，牢牢吸引了每个人的注意力。",
+        "她引人入胜的叙事风格使复杂的历史事件对读者来说变得易懂且引人入胜。"
+      ]
+    },
+    "carlos": {
+      "example": "Carlos Mendez(9:10 A.",
+      "example_cn": "卡洛斯·门德斯（上午9:10",
+      "altExamples": [
+        "Carlos presented his research findings at the international conference on marine biology.",
+        "Professor Carlos has been recognized for his contributions to sustainable fisheries management."
+      ],
+      "altExamples_cn": [
+        "卡洛斯在海洋生物学国际会议上展示了他的研究成果。",
+        "卡洛斯教授因其对可持续渔业管理的贡献而受到认可。"
+      ]
+    },
+    "carve": {
+      "example": "Workers had to carve channels through mountains and construct bridges over valleys.",
+      "example_cn": "工人们不得不在山中开凿渠道，并在山谷上建造桥梁。",
+      "altExamples": [
+        "Artisans would carve intricate patterns into the stone pillars using only simple handheld tools.",
+        "The river continues to carve deep canyons through the plateau over millions of years."
+      ],
+      "altExamples_cn": [
+        "工匠们仅使用简单的手持工具就能在石柱上雕刻出复杂的图案。",
+        "这条河流在数百万年的时间里持续在高原上切割出深邃的峡谷。"
+      ]
+    },
+    "cavity": {
+      "example": "Your appointment for having a cavity filled is scheduled for December 3 at 11:00 A.",
+      "example_cn": "您补牙的预约安排在12月3日上午11点。",
+      "altExamples": [
+        "The dentist detected a small cavity during the routine examination and recommended immediate treatment.",
+        "A cavity in the tooth develops when bacteria produce acids that erode the enamel surface."
+      ],
+      "altExamples_cn": [
+        "牙医在常规检查中发现了一个小蛀洞，并建议立即治疗。",
+        "当细菌产生的酸侵蚀牙釉质表面时，牙齿就会形成蛀洞。"
+      ]
+    },
+    "chanting": {
+      "example": "Chanting and singing have been used in protests and rallies to motivate and unify participants.",
+      "example_cn": "吟唱和歌唱被用于抗议和集会中，以激励和团结参与者。",
+      "altExamples": [
+        "The rhythmic chanting of the crowd created an electric atmosphere during the championship match.",
+        "Chanting ancient hymns formed an integral part of the religious ceremony observed by the community."
+      ],
+      "altExamples_cn": [
+        "在锦标赛比赛期间，人群有节奏的吟唱营造出一种令人振奋的氛围。",
+        "吟唱古老的赞美诗是社区所遵循的宗教仪式中不可或缺的一部分。"
+      ]
+    },
+    "chef": {
+      "example": "Bring an apron, a chef's knife, and a notebook.",
+      "example_cn": "请带上围裙、主厨刀和笔记本。",
+      "altExamples": [
+        "The executive chef designed a seasonal menu that highlights locally sourced ingredients.",
+        "A skilled chef must balance flavor, texture, and presentation to create a memorable dining experience."
+      ],
+      "altExamples_cn": [
+        "行政主厨设计了一份季节菜单，突出本地采购的食材。",
+        "一名技艺精湛的厨师必须平衡味道、口感和摆盘，才能创造出令人难忘的用餐体验。"
+      ]
+    },
+    "chiaroscuro": {
+      "example": "Another innovation was chiaroscuro, the use of strong contrasts between light and dark to give the impression of volume.",
+      "example_cn": "另一项创新是明暗对照法，即运用光与暗之间的强烈对比来赋予立体感。",
+      "altExamples": [
+        "Caravaggio's masterful use of chiaroscuro added dramatic tension to his religious paintings.",
+        "The chiaroscuro technique creates a three-dimensional illusion by contrasting light and shadow."
+      ],
+      "altExamples_cn": [
+        "卡拉瓦乔对明暗对照法的精湛运用为他的宗教画作增添了戏剧张力。",
+        "明暗对照法通过光影对比创造出三维立体的错觉。"
+      ]
+    },
+    "cholera": {
+      "example": "As a result, urban areas became hot spots for diseases such as cholera and tuberculosis.",
+      "example_cn": "因此，城市地区成了霍乱和结核病等疾病的高发区。",
+      "altExamples": [
+        "Cholera outbreaks in the nineteenth century prompted major reforms in urban sanitation systems.",
+        "The spread of cholera was linked to contaminated drinking water sources in overcrowded districts."
+      ],
+      "altExamples_cn": [
+        "十九世纪的霍乱爆发促使城市卫生系统进行了重大改革。",
+        "霍乱的传播与过度拥挤地区受污染的饮用水源有关。"
+      ]
+    },
+    "cholerae": {
+      "example": "There are more than twenty different species of Vibrio bacteria, with Vibrio cholerae, Vibrio parahaemolyticus, and Vibrio vulnificus being the most well-known.",
+      "example_cn": "弧菌有二十多种不同的种类，其中霍乱弧菌、副溶血性弧菌和创伤弧菌最为人所熟知。",
+      "altExamples": [
+        "Vibrio cholerae thrives in warm coastal waters where salinity levels are moderate.",
+        "Researchers identified a new strain of cholerae that exhibits resistance to common antibiotics."
+      ],
+      "altExamples_cn": [
+        "霍乱弧菌在盐度适中的温暖沿海水域中大量繁殖。",
+        "研究人员发现了一种对常见抗生素表现出耐药性的新型霍乱弧菌株。"
+      ]
+    },
+    "chorus": {
+      "example": "The structure of Greek theater, with its chorus and masks, had a lasting impact on later cultures.",
+      "example_cn": "希腊戏剧的结构，包括其合唱队和面具，对后世文化产生了持久的影响。",
+      "altExamples": [
+        "The chorus in ancient Greek drama served as a commentator on the moral implications of the plot.",
+        "Singing in the chorus improved the students' ability to harmonize and follow complex musical arrangements."
+      ],
+      "altExamples_cn": [
+        "古希腊戏剧中的合唱队充当了剧情道德寓意的评论者。",
+        "在合唱团中歌唱提高了学生们和声以及跟随复杂音乐编排的能力。"
+      ]
+    },
+    "circadian": {
+      "example": "Additionally, the artificial lighting in cities can disrupt the natural circadian (daily time-related) rhythms of birds, affecting their breeding and feeding behaviors.",
+      "example_cn": "此外，城市中的人工照明会扰乱鸟类自然的昼夜（与每日时间相关的）节律，影响它们的繁殖和觅食行为。",
+      "altExamples": [
+        "Disruption of the circadian rhythm has been linked to an increased risk of metabolic disorders.",
+        "Exposure to blue light from screens at night can suppress melatonin and disturb circadian cycles."
+      ],
+      "altExamples_cn": [
+        "昼夜节律的紊乱与代谢紊乱风险的增加有关。",
+        "夜间接触屏幕发出的蓝光会抑制褪黑激素并扰乱昼夜节律周期。"
+      ]
+    },
+    "civilizations": {
+      "example": "Aqueducts were designed to transport water from distant sources into cities and agricultural areas, and they were crucial engineering feats in ancient civilizations.",
+      "example_cn": "引水渠被设计用于将水从远处的水源输送到城市和农业区，它们是古代文明中至关重要的工程壮举。",
+      "altExamples": [
+        "Ancient civilizations developed sophisticated irrigation systems to sustain agriculture in arid regions.",
+        "The exchange of ideas between civilizations accelerated technological and cultural progress across continents."
+      ],
+      "altExamples_cn": [
+        "古代文明开发了复杂的灌溉系统，以维持干旱地区的农业。",
+        "文明之间的思想交流加速了跨大陆的技术和文化进步。"
+      ]
+    },
+    "clashed": {
+      "example": "Advertisers sought to influence content to appeal to mass audiences, which sometimes clashed with creative visions.",
+      "example_cn": "广告商试图影响内容以吸引大众观众，这有时与创意愿景发生冲突。",
+      "altExamples": [
+        "The researchers' findings clashed with the prevailing theory, sparking considerable academic debate.",
+        "Environmental priorities often clashed with industrial expansion during the early stages of economic development."
+      ],
+      "altExamples_cn": [
+        "研究人员的发现与主流理论相冲突，引发了相当大的学术争论。",
+        "在经济发展的早期阶段，环境优先事项常常与工业扩张发生冲突。"
+      ]
+    },
+    "cleanliness": {
+      "example": "This suggests that Egyptian doctors understood the connection between cleanliness and preventing infections, a concept widely accepted only much later in history.",
+      "example_cn": "这表明埃及医生理解清洁与预防感染之间的联系，这一概念直到历史上很晚之后才被广泛接受。",
+      "altExamples": [
+        "Maintaining cleanliness in food processing facilities is critical to preventing contamination.",
+        "Hospital cleanliness protocols were significantly enhanced to reduce the risk of postoperative infections."
+      ],
+      "altExamples_cn": [
+        "保持食品加工设施的清洁对于防止污染至关重要。",
+        "医院的清洁规程得到了显著加强，以降低术后感染的风险。"
+      ]
+    },
+    "cloudy": {
+      "example": "By rotating the crystal, the Vikings could determine the location of the sun in the sky on cloudy days, which would help them maintain their course.",
+      "example_cn": "通过旋转晶体，维京人能够在阴天确定太阳在天空中的位置，这有助于他们保持航向。",
+      "altExamples": [
+        "The satellite image showed a cloudy system moving eastward, likely bringing precipitation to the coast.",
+        "Even on cloudy days, solar panels can generate a substantial portion of their rated capacity."
+      ],
+      "altExamples_cn": [
+        "卫星图像显示一个多云天气系统正在向东移动，可能给海岸带来降水。",
+        "即使在阴天，太阳能电池板也能产生其额定容量的相当一部分电力。"
+      ]
+    },
+    "coastal": {
+      "example": "Vibrio bacteria are a type of bacteria commonly found in coastal waters.",
+      "example_cn": "弧菌是一种常见于沿海水域的细菌。",
+      "altExamples": [
+        "Coastal ecosystems provide essential habitats for a wide variety of marine and bird species.",
+        "Rising sea levels pose a significant threat to coastal communities and their infrastructure."
+      ],
+      "altExamples_cn": [
+        "沿海生态系统为各种海洋和鸟类物种提供了必要的栖息地。",
+        "海平面上升对沿海社区及其基础设施构成了重大威胁。"
+      ]
+    },
+    "coexist": {
+      "example": "These efforts aim to create a more hospitable environment for birds, allowing them to coexist with humans in urban settings.",
+      "example_cn": "这些努力旨在为鸟类创造一个更宜居的环境，使它们能够在城市环境中与人类共存。",
+      "altExamples": [
+        "The challenge is to design urban environments where humans and wildlife can coexist sustainably.",
+        "Different religious traditions have managed to coexist peacefully in this multicultural society."
+      ],
+      "altExamples_cn": [
+        "挑战在于设计出人类和野生动物能够可持续共存的城市环境。",
+        "在这个多元文化社会中，不同的宗教传统已经实现了和平共存。"
+      ]
+    },
+    "cohesion": {
+      "example": "Participation in sports can lead to increased social cohesion and improved relationships among diverse groups.",
+      "example_cn": "参与体育运动可以增强社会凝聚力，并改善不同群体之间的关系。",
+      "altExamples": [
+        "Team cohesion is essential for effective collaboration, particularly in high-pressure work environments.",
+        "Social cohesion within the community strengthened after the successful implementation of the neighborhood program."
+      ],
+      "altExamples_cn": [
+        "团队凝聚力对于有效协作至关重要，尤其是在高压工作环境中。",
+        "社区计划成功实施后，社区内的社会凝聚力得到了加强。"
+      ]
+    },
+    "collaborative": {
+      "example": "One such initiative is the Sport for Peace program, which focuses on conflict resolution through team-building activities and collaborative sports events.",
+      "example_cn": "其中一项倡议是\"体育促进和平\"计划，该计划侧重于通过团队建设活动和协作性体育赛事来解决冲突。",
+      "altExamples": [
+        "The collaborative project between the two universities produced groundbreaking research in renewable energy.",
+        "Collaborative learning environments encourage students to develop critical thinking and communication skills."
+      ],
+      "altExamples_cn": [
+        "两所大学之间的合作项目在可再生能源领域产生了开创性的研究成果。",
+        "协作学习环境鼓励学生发展批判性思维和沟通技能。"
+      ]
+    },
+    "colleagues": {
+      "example": "We have also collected comments from supervisors and colleagues, based on which you will receive constructive feedback.",
+      "example_cn": "我们还收集了主管和同事的意见，您将据此收到建设性的反馈。",
+      "altExamples": [
+        "Her colleagues in the research department collaborated on the groundbreaking genetic study.",
+        "The professor consulted with international colleagues to refine her experimental design."
+      ],
+      "altExamples_cn": [
+        "她在研究部门的同事合作进行了这项开创性的遗传学研究。",
+        "这位教授咨询了国际同行，以完善她的实验设计。"
+      ]
+    },
+    "collective": {
+      "example": "These events often highlight stories of athletes overcoming adversity, inspiring spectators and fostering a collective sense of achievement.",
+      "example_cn": "这些赛事常常突出运动员克服逆境的故事，激励观众并培养集体成就感。",
+      "altExamples": [
+        "The collective effort of volunteers restored the park to its former condition within a month.",
+        "Collective bargaining allows workers to negotiate fair wages and benefits through their union representatives."
+      ],
+      "altExamples_cn": [
+        "志愿者的集体努力在一个月内将公园恢复到了原来的状态。",
+        "集体谈判使工人能够通过工会代表协商公平的工资和福利。"
+      ]
+    },
+    "collectivist": {
+      "example": "Conversely, collectivist cultures, which often provide fewer choices, report higher levels of contentment.",
+      "example_cn": "相反，集体主义文化通常提供较少的选择，却报告了更高水平的满足感。",
+      "altExamples": [
+        "In collectivist societies, group harmony and familial obligations often take precedence over individual aspirations.",
+        "The collectivist approach to problem-solving emphasizes consensus-building rather than independent decision-making."
+      ],
+      "altExamples_cn": [
+        "在集体主义社会中，群体和谐与家庭义务往往优先于个人抱负。",
+        "集体主义解决问题的方法强调建立共识，而非独立决策。"
+      ]
+    },
+    "combination": {
+      "example": "These structures used a combination of gravity and meticulously calculated gradients to ensure a steady flow of water.",
+      "example_cn": "这些结构利用重力和经过精心计算的坡度相结合，以确保水流的稳定。",
+      "altExamples": [
+        "The combination of rising temperatures and reduced rainfall created ideal conditions for wildfires.",
+        "A combination of genetic and environmental factors contributes to the development of many chronic diseases."
+      ],
+      "altExamples_cn": [
+        "气温上升与降雨减少相结合，为野火创造了理想的条件。",
+        "遗传因素和环境因素的结合导致了许多慢性疾病的发展。"
+      ]
+    },
+    "comedy": {
+      "example": "The Greeks developed distinct genres: tragedy and comedy.",
+      "example_cn": "希腊人发展出了独特的戏剧类型：悲剧和喜剧。",
+      "altExamples": [
+        "Shakespeare's comedies often explore themes of mistaken identity and romantic misunderstandings.",
+        "Greek comedy used satire to critique political figures and social norms of the time."
+      ],
+      "altExamples_cn": [
+        "莎士比亚的喜剧常常探讨身份误认和浪漫误解的主题。",
+        "希腊喜剧利用讽刺来批评当时的政治人物和社会规范。"
+      ]
+    },
+    "communal": {
+      "example": "These performances were essential to communal life and aimed to convey moral lessons.",
+      "example_cn": "这些表演对社区生活至关重要，旨在传达道德教训。",
+      "altExamples": [
+        "The communal garden provides fresh vegetables for residents while fostering neighborhood interaction.",
+        "Communal living arrangements were common in early settlements where resources were shared among members."
+      ],
+      "altExamples_cn": [
+        "公共菜园为居民提供新鲜蔬菜，同时促进邻里互动。",
+        "在早期定居点中，公共居住安排很常见，资源在成员之间共享。"
+      ]
+    },
+    "compatibility": {
+      "example": "I will check the compatibility on different devices.",
+      "example_cn": "我会检查在不同设备上的兼容性。",
+      "altExamples": [
+        "The software update ensures compatibility with the latest operating system versions.",
+        "Compatibility between the two systems was tested thoroughly before the integration began."
+      ],
+      "altExamples_cn": [
+        "此次软件更新确保了与最新操作系统版本的兼容性。",
+        "在集成开始之前，两个系统之间的兼容性经过了彻底的测试。"
+      ]
+    },
+    "completion": {
+      "example": "Certificate of completion provided for continuing education requirements.",
+      "example_cn": "提供结业证书以满足继续教育要求。",
+      "altExamples": [
+        "The completion of the bridge marked a significant milestone in the region's infrastructure development.",
+        "Upon completion of the training program, participants receive a certificate recognized by the industry."
+      ],
+      "altExamples_cn": [
+        "这座桥的竣工标志着该地区基础设施发展的一个重要里程碑。",
+        "培训项目完成后，参与者将获得行业认可的证书。"
+      ]
+    },
+    "complexity": {
+      "example": "This blend of empirical practice and spiritual belief shows the complexity of ancient Egyptian medicine.",
+      "example_cn": "这种经验实践与精神信仰的融合展现了古埃及医学的复杂性。",
+      "altExamples": [
+        "The complexity of the human brain makes it one of the most challenging subjects in neuroscience.",
+        "As the project grew, the complexity of coordinating multiple teams became increasingly apparent."
+      ],
+      "altExamples_cn": [
+        "人类大脑的复杂性使其成为神经科学中最具挑战性的研究对象之一。",
+        "随着项目的扩大，协调多个团队的复杂性变得越来越明显。"
+      ]
+    },
+    "complicating": {
+      "example": "Organic farming often yields lower outputs than conventional methods, complicating the balance between sustainability and food security.",
+      "example_cn": "有机农业的产量通常低于传统方法，这使可持续性与粮食安全之间的平衡变得更加复杂。",
+      "altExamples": [
+        "New regulations are complicating the process of obtaining permits for scientific research in protected areas.",
+        "The unexpected arrival of a second virus strain is complicating public health officials' containment efforts."
+      ],
+      "altExamples_cn": [
+        "新法规使在保护区获得科学研究许可的过程变得更加复杂。",
+        "第二种病毒株的意外出现使公共卫生官员的防控工作变得更加复杂。"
+      ]
+    },
+    "complimentary": {
+      "example": "This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments.",
+      "example_cn": "此次庆典专为我们尊贵的会员及其嘉宾举办，将包括导览参观、现场健身演示和免费茶点。",
+      "altExamples": [
+        "The conference provided complimentary refreshments during the networking breaks between sessions.",
+        "Passengers in business class receive complimentary access to the airline's exclusive lounge."
+      ],
+      "altExamples_cn": [
+        "会议在分会场之间的社交休息时间提供了免费茶点。",
+        "商务舱乘客可免费进入航空公司的专属休息室。"
+      ]
+    },
+    "composting": {
+      "example": "Organic farming avoids synthetic pesticides and fertilizers, focusing on crop rotation, composting, and biological pest control.",
+      "example_cn": "有机农业避免使用合成农药和化肥，注重轮作、堆肥和生物害虫防治。",
+      "altExamples": [
+        "Composting kitchen waste reduces methane emissions from landfills and enriches soil quality.",
+        "The city launched a composting program to encourage residents to recycle organic household waste."
+      ],
+      "altExamples_cn": [
+        "堆肥厨余垃圾可以减少垃圾填埋场的甲烷排放，并丰富土壤质量。",
+        "该市启动了一项堆肥计划，鼓励居民回收有机生活垃圾。"
+      ]
+    },
+    "comprehensive": {
+      "example": "Workshop includes comprehensive workbook and light refreshments.",
+      "example_cn": "工作坊包括全面的练习册和清淡茶点。",
+      "altExamples": [
+        "The report provides a comprehensive analysis of climate change impacts on coastal ecosystems.",
+        "Students are required to take a comprehensive exam at the end of the academic year."
+      ],
+      "altExamples_cn": [
+        "该报告对气候变化对沿海生态系统的影响进行了全面分析。",
+        "学生需要在学年末参加综合考试。"
+      ]
+    },
+    "confidential": {
+      "example": "Additionally, as external technicians will be on-site, please ensure all confidential materials are secured appropriately.",
+      "example_cn": "此外，由于外部技术人员将在现场，请确保所有机密材料得到妥善保管。",
+      "altExamples": [
+        "Employees must sign a confidentiality agreement before accessing sensitive company documents.",
+        "All confidential patient information is stored in encrypted databases to prevent unauthorized access."
+      ],
+      "altExamples_cn": [
+        "员工在访问敏感的公司文件之前必须签署保密协议。",
+        "所有机密的患者信息都存储在加密数据库中，以防止未经授权的访问。"
+      ]
+    },
+    "connectivity": {
+      "example": "Please ensure you have access to a computer with internet connectivity and functioning cameras and headphones to ensure participation during the interactive segments of the webinar.",
+      "example_cn": "请确保您可以使用具有互联网连接、能正常工作的摄像头和耳机的计算机，以确保参与网络研讨会的互动环节。",
+      "altExamples": [
+        "The expansion of rural broadband infrastructure has significantly improved digital connectivity for underserved populations.",
+        "Ecological connectivity between protected habitats is essential for maintaining biodiversity across fragmented landscapes."
+      ],
+      "altExamples_cn": [
+        "农村宽带基础设施的扩展显著改善了服务不足人群的数字连接。",
+        "受保护栖息地之间的生态连通性对于维持破碎化景观中的生物多样性至关重要。"
+      ]
+    },
+    "consciousness": {
+      "example": "The ability to recognize oneself in the mirror is considered to be a key component of self-awareness and consciousness for humans.",
+      "example_cn": "在镜子中认出自己的能力被认为是人类自我意识和意识的关键组成部分。",
+      "altExamples": [
+        "The patient regained consciousness several hours after the surgery with no apparent complications.",
+        "The study explores how meditation practices can alter states of consciousness and improve mental focus."
+      ],
+      "altExamples_cn": [
+        "患者在手术后几个小时恢复了意识，没有明显并发症。",
+        "这项研究探讨了冥想练习如何改变意识状态并提高精神专注力。"
+      ]
+    },
+    "conservationists": {
+      "example": "Conservationists are working to mitigate the negative effects of urbanization on birds.",
+      "example_cn": "自然保护主义者正在努力减轻城市化对鸟类的负面影响。",
+      "altExamples": [
+        "Conservationists are working to restore wetlands that serve as critical habitats for migratory birds.",
+        "Local conservationists successfully lobbied for the establishment of a marine protected area along the coast."
+      ],
+      "altExamples_cn": [
+        "自然保护主义者正在努力恢复作为候鸟关键栖息地的湿地。",
+        "当地自然保护主义者成功游说在沿海地区建立了一个海洋保护区。"
+      ]
+    },
+    "considerably": {
+      "example": "Sleep patterns vary considerably among different animal species.",
+      "example_cn": "不同动物物种之间的睡眠模式差异很大。",
+      "altExamples": [
+        "The cost of solar energy has decreased considerably over the past decade, making it more accessible.",
+        "Temperatures in the desert can vary considerably between daytime and nighttime hours."
+      ],
+      "altExamples_cn": [
+        "太阳能的成本在过去十年中大幅下降，使其更加普及。",
+        "沙漠中的温度在白天和夜间之间可能差异很大。"
+      ]
+    },
+    "contentment": {
+      "example": "This paradox implies that the vast array of possibilities available today might actually diminish consumer contentment, as the fear of making the wrong choice looms large.",
+      "example_cn": "这一悖论意味着，当今可用的众多可能性实际上可能降低消费者的满足感，因为担心做出错误选择的恐惧笼罩心头。",
+      "altExamples": [
+        "The survey measured participants' levels of contentment with their work-life balance.",
+        "Philosophers have long debated whether material wealth is necessary for genuine human contentment."
+      ],
+      "altExamples_cn": [
+        "这项调查测量了参与者对其工作与生活平衡的满足程度。",
+        "哲学家们长期以来一直在争论物质财富是否是真正的人类满足感的必要条件。"
+      ]
+    },
+    "continuous": {
+      "example": "(B) Additionally, certain birds can sleep with both hemispheres of their brain but in short bursts, allowing them to maintain continuous flight for extended periods.",
+      "example_cn": "（B）此外，某些鸟类可以用大脑的两个半球睡觉，但以短暂爆发的方式进行，使它们能够长时间维持连续飞行。",
+      "altExamples": [
+        "The machine requires continuous maintenance to operate at peak efficiency without unexpected breakdowns.",
+        "Continuous exposure to loud noise can cause irreversible damage to the auditory system."
+      ],
+      "altExamples_cn": [
+        "这台机器需要持续维护，才能以最高效率运行，避免意外故障。",
+        "持续暴露在巨大噪音中会对听觉系统造成不可逆转的损伤。"
+      ]
+    },
+    "convenient": {
+      "example": "Safe, convenient, easy.",
+      "example_cn": "安全、便捷、简单。",
+      "altExamples": [
+        "Online learning platforms offer a convenient way for students to access educational resources from anywhere.",
+        "The convenient location of the new library makes it a popular study spot among university students."
+      ],
+      "altExamples_cn": [
+        "在线学习平台为学生提供了一种从任何地方获取教育资源的便捷方式。",
+        "新图书馆的便利位置使其成为大学生中受欢迎的学习场所。"
+      ]
+    },
+    "conventional": {
+      "example": "Organic farming often yields lower outputs than conventional methods, complicating the balance between sustainability and food security.",
+      "example_cn": "有机农业的产量通常低于传统方法，这使可持续性与粮食安全之间的平衡变得更加复杂。",
+      "altExamples": [
+        "Conventional farming methods rely heavily on chemical fertilizers and pesticides to maximize crop yields.",
+        "The architect rejected conventional design approaches in favor of a more experimental structural system."
+      ],
+      "altExamples_cn": [
+        "传统农业方法严重依赖化肥和农药以实现作物产量最大化。",
+        "建筑师拒绝了传统的设计方法，转而采用了更具实验性的结构系统。"
+      ]
+    },
+    "converge": {
+      "example": "Artists created the illusion of depth by using vanishing points on horizon lines, which are points in the background where parallel lines converge.",
+      "example_cn": "艺术家通过使用地平线上的消失点来创造深度错觉，消失点是背景中平行线汇聚的点。",
+      "altExamples": [
+        "The three major rivers converge at the delta, creating one of the most fertile regions on the continent.",
+        "As the meeting progressed, the committee members' opinions began to converge on a single proposal."
+      ],
+      "altExamples_cn": [
+        "三条主要河流在三角洲汇合，形成了该大陆最肥沃的地区之一。",
+        "随着会议的进行，委员会成员的意见开始趋同于一项提议。"
+      ]
+    },
+    "conversely": {
+      "example": "Conversely, collectivist cultures, which often provide fewer choices, report higher levels of contentment.",
+      "example_cn": "相反，集体主义文化通常提供较少的选择，却报告了更高水平的满足感。",
+      "altExamples": [
+        "Urban areas tend to have higher crime rates, whereas rural regions often report stronger community bonds.",
+        "Some studies suggest stress impairs memory, but conversely, moderate stress may enhance cognitive performance."
+      ],
+      "altExamples_cn": [
+        "城市地区的犯罪率往往较高，而农村地区通常报告更强的社区纽带。",
+        "一些研究表明压力会损害记忆力，但相反，适度的压力可能会提高认知表现。"
+      ]
+    },
+    "cooperation": {
+      "example": "Your cooperation helps maintain a serene environment for everyone.",
+      "example_cn": "您的配合有助于为每个人维持一个宁静的环境。",
+      "altExamples": [
+        "International cooperation is essential for addressing global challenges like climate change and pandemics.",
+        "The success of the rescue mission depended on close cooperation between multiple government agencies."
+      ],
+      "altExamples_cn": [
+        "国际合作对于应对气候变化和大流行病等全球性挑战至关重要。",
+        "救援任务的成功取决于多个政府机构之间的密切合作。"
+      ]
+    },
+    "coordinator": {
+      "example": "If there are specific questions that you would like to ask, please submit them to our training coordinator at least one day prior.",
+      "example_cn": "如果您有想要提问的具体问题，请至少提前一天提交给我们的培训协调员。",
+      "altExamples": [
+        "The event coordinator managed logistics for the conference, including scheduling and vendor arrangements.",
+        "As project coordinator, her responsibilities included tracking deadlines and facilitating communication among teams."
+      ],
+      "altExamples_cn": [
+        "活动协调员负责会议的后勤工作，包括日程安排和供应商协调。",
+        "作为项目协调员，她的职责包括跟踪截止日期和促进团队之间的沟通。"
+      ]
+    },
+    "copper": {
+      "example": "This method produced detailed images on silver-plated copper, but daguerreotypes needed delicate handling, and the exposure times required, although much shorter, still remained impractical for recording images of moving objects.",
+      "example_cn": "这种方法在镀银铜板上产生细致的图像，但达盖尔银版照片需要小心处理，且所需的曝光时间虽然短了很多，但对于记录移动物体的图像仍然不切实际。",
+      "altExamples": [
+        "Copper is an excellent conductor of electricity, making it essential for wiring and electronic components.",
+        "Ancient metallurgists discovered that alloying copper with tin produced a harder material known as bronze."
+      ],
+      "altExamples_cn": [
+        "铜是极好的导电体，使其对布线和电子元件至关重要。",
+        "古代冶金学家发现，将铜与锡熔合可以产生一种更硬的材料，即青铜。"
+      ]
+    },
+    "cordial": {
+      "example": "The Thompson family's organic produce is a must-try, known for its quality and cordial service.",
+      "example_cn": "汤普森家的有机农产品值得一试，以其品质和热忱的服务而闻名。",
+      "altExamples": [
+        "The negotiators maintained a cordial atmosphere despite their deep disagreements on trade policy.",
+        "A cordial relationship between the faculty and administration is vital for the smooth operation of the university."
+      ],
+      "altExamples_cn": [
+        "尽管在贸易政策上存在深刻分歧，谈判者仍保持了友好的气氛。",
+        "教职员工与行政部门之间的友好关系对大学的顺利运转至关重要。"
+      ]
+    },
+    "counterparts": {
+      "example": "Birds living in cities often sing at higher pitches and volumes than their rural counterparts.",
+      "example_cn": "生活在城市中的鸟类通常比它们在乡村的同类以更高的音调和音量歌唱。",
+      "altExamples": [
+        "Urban birds sing at higher frequencies than their rural counterparts to overcome background noise.",
+        "Digital textbooks are gradually replacing their printed counterparts in modern classrooms."
+      ],
+      "altExamples_cn": [
+        "城市鸟类比乡村同类以更高的频率歌唱，以克服背景噪音。",
+        "数字教材正在逐步取代现代教室中的印刷版教材。"
+      ]
+    },
+    "coverage": {
+      "example": "There was also a new focus on live broadcasts, providing viewers with real-time coverage of events and entertainers.",
+      "example_cn": "还有一个新的焦点是现场直播，为观众提供对事件和娱乐人士的实时报道。",
+      "altExamples": [
+        "Media coverage of scientific discoveries often oversimplifies complex research findings.",
+        "Health insurance coverage varies significantly across different demographic groups."
+      ],
+      "altExamples_cn": [
+        "媒体对科学发现的报道常常过度简化复杂的研究成果。",
+        "不同人口群体的医疗保险覆盖范围差异很大。"
+      ]
+    },
+    "cows": {
+      "example": "For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators.",
+      "example_cn": "例如，像牛和马这样的食草动物睡眠极少，通常是站着的，这有助于它们对捕食者保持警惕。",
+      "altExamples": [
+        "Dairy cows require a carefully balanced diet to maintain milk production and overall health.",
+        "The herd of cows grazed across the pasture, contributing to the natural fertilization of the soil."
+      ],
+      "altExamples_cn": [
+        "奶牛需要精心均衡的饮食来维持产奶量和整体健康。",
+        "牛群在牧场上吃草，有助于土壤的自然施肥。"
+      ]
+    },
+    "crystal": {
+      "example": "Some argue the sagas' content is mythical, while others suggest these stones were real tools used by the Vikings, probably crystals, such as Iceland spar.",
+      "example_cn": "有些人认为这些传奇故事的内容是神话，而另一些人则认为这些石头是维京人使用的真实工具，很可能是晶体，比如冰洲石。",
+      "altExamples": [
+        "The crystal structure of the mineral determines its physical properties, including hardness and cleavage.",
+        "X-ray diffraction revealed the arrangement of atoms within the crystal lattice of the compound."
+      ],
+      "altExamples_cn": [
+        "矿物的晶体结构决定了其物理性质，包括硬度和解理。",
+        "X射线衍射揭示了化合物晶格内原子的排列方式。"
+      ]
+    },
+    "cultivated": {
+      "example": "For example, community soccer leagues often bring together people from different ethnicities, creating an environment where cultural differences are celebrated and mutual respect is cultivated.",
+      "example_cn": "例如，社区足球联赛常常将来自不同种族的人们聚集在一起，创造了一个庆祝文化差异、培养相互尊重的环境。",
+      "altExamples": [
+        "The cultivated fields stretched for miles, producing wheat and barley for the regional market.",
+        "She cultivated strong relationships with mentors who guided her career progression in academia."
+      ],
+      "altExamples_cn": [
+        "耕种的田地绵延数英里，为区域市场生产小麦和大麦。",
+        "她与指导她学术职业发展的导师培养了牢固的关系。"
+      ]
+    },
+    "curating": {
+      "example": "This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.",
+      "example_cn": "这一现象揭示了更少的选择有时能让消费者更快乐，这对于旨在通过精选产品来提高满意度的营销人员和零售商来说是一个宝贵的洞见。",
+      "altExamples": [
+        "The museum director spent years curating the exhibition to tell a coherent narrative about modern art.",
+        "Curating digital content requires a keen understanding of audience preferences and emerging trends."
+      ],
+      "altExamples_cn": [
+        "博物馆馆长花了多年时间策划这场展览，以讲述一个关于现代艺术的连贯叙事。",
+        "策划数字内容需要对受众偏好和新兴趋势有敏锐的理解。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,605 @@
+{
+  "subject": "reading",
+  "words": {
+    "keynote": {
+      "pos": [{"type": "n", "translation": "主题演讲；基调"}],
+      "pronunciation": {"us": "/ˈkiːnoʊt/", "uk": "/ˈkiːnəʊt/"},
+      "inflections": {"plural": "keynotes", "noun": "keynote"},
+      "etymology": {"prefix": null, "root": {"form": "key + note", "meaning": "main note, fundamental tone"}, "suffix": null, "summary": "key (关键的) + note (音符/要点)，原指音乐中的主调，后引申为「主题演讲」"}
+    },
+    "kim": {
+      "pos": [{"type": "n", "translation": "金（姓氏/人名）"}],
+      "pronunciation": {"us": "/kɪm/", "uk": "/kɪm/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Kim", "meaning": "common Korean/English surname"}, "suffix": null, "summary": "英语中常见姓氏，也可为 Kimberly 的昵称；韩语中为金姓的拉丁化拼写"}
+    },
+    "kingdom": {
+      "pos": [{"type": "n", "translation": "王国；领域"}],
+      "pronunciation": {"us": "/ˈkɪŋdəm/", "uk": "/ˈkɪŋdəm/"},
+      "inflections": {"plural": "kingdoms", "noun": "kingdom"},
+      "etymology": {"prefix": null, "root": {"form": "king", "meaning": "king (from OE cyning)"}, "suffix": {"form": "-dom", "meaning": "realm, state, condition"}, "summary": "king (国王) + -dom (领域)，意为「王国」"}
+    },
+    "kodak": {
+      "pos": [{"type": "n", "translation": "柯达（公司/品牌名）"}],
+      "pronunciation": {"us": "/ˈkoʊdæk/", "uk": "/ˈkəʊdæk/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Kodak", "meaning": "trademark coined by George Eastman, 1888"}, "suffix": null, "summary": "乔治·伊士曼自创的品牌名，无特定词源含义，因其独特发音而易于记忆"}
+    },
+    "kramer": {
+      "pos": [{"type": "n", "translation": "克拉默（姓氏）"}],
+      "pronunciation": {"us": "/ˈkreɪmər/", "uk": "/ˈkreɪmə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Kramer", "meaning": "German/Dutch surname"}, "suffix": null, "summary": "德语/荷兰语姓氏，源自中古荷兰语kramer，意为「小贩、商人」"}
+    },
+    "landscapes": {
+      "pos": [{"type": "n", "translation": "风景；景观；山水"}],
+      "pronunciation": {"us": "/ˈlændskeɪps/", "uk": "/ˈlændskeɪps/"},
+      "inflections": {"singular": "landscape", "plural": "landscapes", "noun": "landscape"},
+      "etymology": {"prefix": null, "root": {"form": "land + scap", "meaning": "land + shape (from D. schap)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "land (土地) + -scape (景色，源自荷兰语 -schap)，意为「风景」"}
+    },
+    "languages": {
+      "pos": [{"type": "n", "translation": "语言"}],
+      "pronunciation": {"us": "/ˈlæŋɡwɪdʒɪz/", "uk": "/ˈlæŋɡwɪdʒɪz/"},
+      "inflections": {"singular": "language", "plural": "languages", "noun": "language"},
+      "etymology": {"prefix": null, "root": {"form": "lang", "meaning": "tongue (from L. lingua)"}, "suffix": {"form": "-age + -s", "meaning": "related to + plural"}, "summary": "源自拉丁语lingua (舌头，语言)，经古法语language进入英语"}
+    },
+    "laptops": {
+      "pos": [{"type": "n", "translation": "笔记本电脑"}],
+      "pronunciation": {"us": "/ˈlæptɒps/", "uk": "/ˈlæptɒps/"},
+      "inflections": {"singular": "laptop", "plural": "laptops", "noun": "laptop"},
+      "etymology": {"prefix": null, "root": {"form": "lap + top", "meaning": "lap + top (surface)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "lap (膝盖) + top (上面)，意为」可放在膝盖上使用的电脑」"}
+    },
+    "larissa": {
+      "pos": [{"type": "n", "translation": "拉里萨（人名）"}],
+      "pronunciation": {"us": "/ləˈrɪsə/", "uk": "/ləˈrɪsə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Larissa", "meaning": "from Greek Larisa, name of a nymph"}, "suffix": null, "summary": "源自希腊神话中的仙女Λάρισα，现代常用作女性名字"}
+    },
+    "latitudes": {
+      "pos": [{"type": "n", "translation": "纬度；范围"}],
+      "pronunciation": {"us": "/ˈlætɪtuːdz/", "uk": "/ˈlætɪtjuːdz/"},
+      "inflections": {"singular": "latitude", "plural": "latitudes", "noun": "latitude"},
+      "etymology": {"prefix": null, "root": {"form": "latit", "meaning": "wide, broad (from L. latus)"}, "suffix": {"form": "-ude + -s", "meaning": "state of + plural"}, "summary": "源自拉丁语latitudo (宽度)，latus意为「宽的」"}
+    },
+    "leagues": {
+      "pos": [{"type": "n", "translation": "联盟；联赛"}],
+      "pronunciation": {"us": "/liːɡz/", "uk": "/liːɡz/"},
+      "inflections": {"singular": "league", "plural": "leagues", "noun": "league"},
+      "etymology": {"prefix": null, "root": {"form": "lig", "meaning": "to bind (from L. ligare)"}, "suffix": {"form": "-ue + -s", "meaning": "noun suffix + plural"}, "summary": "源自拉丁语ligare (捆绑)，经由意大利语liga进入英语"}
+    },
+    "legislators": {
+      "pos": [{"type": "n", "translation": "立法者；立法委员"}],
+      "pronunciation": {"us": "/ˈlɛdʒɪsleɪtərz/", "uk": "/ˈlɛdʒɪsleɪtəz/"},
+      "inflections": {"singular": "legislator", "plural": "legislators", "noun": "legislator"},
+      "etymology": {"prefix": null, "root": {"form": "legis + lator", "meaning": "law + proposer (from L. lex + latus)"}, "suffix": {"form": "-or + -s", "meaning": "agent + plural"}, "summary": "源自拉丁语legis lator (法律的提出者)：legis (法律) + lator (提出者)"}
+    },
+    "leonardo": {
+      "pos": [{"type": "n", "translation": "莱昂纳多（人名）"}],
+      "pronunciation": {"us": "/ˌliːəˈnɑːrdoʊ/", "uk": "/ˌliːəˈnɑːdəʊ/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Leonardo", "meaning": "Italian given name, from L. leo (lion) + hard (brave, strong)"}, "suffix": null, "summary": "意大利语名字，源自日耳曼语元素 leo (狮子) + hard (勇敢的、强壮的)"}
+    },
+    "linear": {
+      "pos": [{"type": "adj", "translation": "线性的；直线的"}],
+      "pronunciation": {"us": "/ˈlɪniər/", "uk": "/ˈlɪniə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "line", "meaning": "line (from L. linea)"}, "suffix": {"form": "-ar", "meaning": "relating to"}, "summary": "源自拉丁语linearis，linea (线) + -aris (形容词后缀)，意为「线的」"}
+    },
+    "lions": {
+      "pos": [{"type": "n", "translation": "狮子"}],
+      "pronunciation": {"us": "/ˈlaɪənz/", "uk": "/ˈlaɪənz/"},
+      "inflections": {"singular": "lion", "plural": "lions", "noun": "lion"},
+      "etymology": {"prefix": null, "root": {"form": "leon", "meaning": "lion (from L. leo, Gk. leon)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "源自拉丁语leo (狮子)，经由希腊语leon进入英语"}
+    },
+    "lisa": {
+      "pos": [{"type": "n", "translation": "丽莎（人名）"}],
+      "pronunciation": {"us": "/ˈliːsə/", "uk": "/ˈliːsə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Lisa", "meaning": "short form of Elizabeth"}, "suffix": null, "summary": "Elizabeth的简称，源自希伯来语Elisheva，意为「上帝的誓言」"}
+    },
+    "logs": {
+      "pos": [{"type": "n", "translation": "日志；记录；原木"}],
+      "pronunciation": {"us": "/lɔːɡz/", "uk": "/lɒɡz/"},
+      "inflections": {"singular": "log", "plural": "logs", "noun": "log"},
+      "etymology": {"prefix": null, "root": {"form": "log", "meaning": "piece of wood; record"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "原义为「原木」，航海时代用原木记录航速，后引申为「日志」"}
+    },
+    "looms": {
+      "pos": [{"type": "v", "translation": "赫然出现；逼近"}],
+      "pronunciation": {"us": "/luːmz/", "uk": "/luːmz/"},
+      "inflections": {"base": "loom", "thirdPerson": "looms", "presentParticiple": "looming", "pastTense": "loomed", "noun": "loom"},
+      "etymology": {"prefix": null, "root": {"form": "loom", "meaning": "to appear indistinctly; to threaten"}, "suffix": {"form": "-s", "meaning": "third person singular"}, "summary": "词源不确定，可能与中古英语lome (隐约出现) 或斯堪的纳维亚语有关"}
+    },
+    "louis": {
+      "pos": [{"type": "n", "translation": "路易（人名）"}],
+      "pronunciation": {"us": "/ˈluːɪs/", "uk": "/ˈluːɪ/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Louis", "meaning": "from Frankish Hlodwig (famous warrior)"}, "suffix": null, "summary": "源自法兰克语Hlodwig (hlod- 名声 + wig- 战争)，经法语演变为Louis"}
+    },
+    "lucy": {
+      "pos": [{"type": "n", "translation": "露西（人名）"}],
+      "pronunciation": {"us": "/ˈluːsi/", "uk": "/ˈluːsi/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Lucy", "meaning": "from L. lux (light)"}, "suffix": {"form": "-y", "meaning": "feminine suffix"}, "summary": "源自拉丁语lux (光)，女性名字，意为「光明之女」"}
+    },
+    "magazines": {
+      "pos": [{"type": "n", "translation": "杂志"}],
+      "pronunciation": {"us": "/ˈmæɡəziːnz/", "uk": "/ˌmæɡəˈziːnz/"},
+      "inflections": {"singular": "magazine", "plural": "magazines", "noun": "magazine"},
+      "etymology": {"prefix": null, "root": {"form": "makhzan", "meaning": "storehouse (from Ar. مخزن)"}, "suffix": {"form": "-ine + -s", "meaning": "diminutive + plural"}, "summary": "源自阿拉伯语مخزن (makhzan, 仓库)，经由意大利语magazzino进入英语，原义「仓库」
+    },
+    "mapping": {
+      "pos": [{"type": "n", "translation": "映射；绘图；认知地图"}],
+      "pronunciation": {"us": "/ˈmæpɪŋ/", "uk": "/ˈmæpɪŋ/"},
+      "inflections": {"base": "map", "noun": "mapping", "plural": "mappings"},
+      "etymology": {"prefix": null, "root": {"form": "map", "meaning": "map (from L. mappa, cloth/napkin)"}, "suffix": {"form": "-ing", "meaning": "gerund/verbal noun"}, "summary": "map (地图) + -ing (动名词后缀)，意为「绘制地图、映射」"}
+    },
+    "maps": {
+      "pos": [{"type": "n", "translation": "地图"}],
+      "pronunciation": {"us": "/mæps/", "uk": "/mæps/"},
+      "inflections": {"singular": "map", "plural": "maps", "noun": "map"},
+      "etymology": {"prefix": null, "root": {"form": "map", "meaning": "from L. mappa (cloth, napkin)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "源自拉丁语mappa (布、餐巾)，早期地图绘制在布上，故得名"}
+    },
+    "marketers": {
+      "pos": [{"type": "n", "translation": "市场营销人员"}],
+      "pronunciation": {"us": "/ˈmɑːrkɪtərz/", "uk": "/ˈmɑːkɪtəz/"},
+      "inflections": {"singular": "marketer", "plural": "marketers", "noun": "marketer"},
+      "etymology": {"prefix": null, "root": {"form": "market", "meaning": "market (from L. mercatus)"}, "suffix": {"form": "-er + -s", "meaning": "agent + plural"}, "summary": "market (市场) + -er (人) + -s (复数)，意为「市场营销者」"}
+    },
+    "marvel": {
+      "pos": [{"type": "n", "translation": "奇迹；令人惊奇的事物"}],
+      "pronunciation": {"us": "/ˈmɑːrvəl/", "uk": "/ˈmɑːvəl/"},
+      "inflections": {"plural": "marvels", "noun": "marvel"},
+      "etymology": {"prefix": null, "root": {"form": "mir", "meaning": "to wonder (from L. mirari)"}, "suffix": {"form": "-vel", "meaning": "diminutive suffix"}, "summary": "源自拉丁语mirabilia (奇妙事物)，经由古法语merveille进入英语"}
+    },
+    "matsuda": {
+      "pos": [{"type": "n", "translation": "松田（日本姓氏）"}],
+      "pronunciation": {"us": "/ˈmætsuːdɑː/", "uk": "/ˈmætsuːdɑː/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Matsuda", "meaning": "松田 (pine + rice field in Japanese)"}, "suffix": null, "summary": "日本姓氏，由松 (matsu, 松树) + 田 (da, 田地) 组成"}
+    },
+    "medication": {
+      "pos": [{"type": "n", "translation": "药物；药物治疗"}],
+      "pronunciation": {"us": "/ˌmɛdɪˈkeɪʃən/", "uk": "/ˌmɛdɪˈkeɪʃən/"},
+      "inflections": {"plural": "medications", "noun": "medication"},
+      "etymology": {"prefix": null, "root": {"form": "medic", "meaning": "to heal (from L. medicus, physician)"}, "suffix": {"form": "-ation", "meaning": "act or process"}, "summary": "源自拉丁语medicari (治疗)，medicus (医生) + -ation (名词后缀)"}
+    },
+    "medieval": {
+      "pos": [{"type": "adj", "translation": "中世纪的"}],
+      "pronunciation": {"us": "/ˌmɛdɪˈiːvəl/", "uk": "/ˌmɛdɪˈiːvəl/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "medi-", "meaning": "middle (from L. medius)"}, "root": {"form": "ev", "meaning": "age, era (from L. aevum)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "medi- (中间) + ev (时代) + -al (形容词后缀)，意为「中世纪的」"}
+    },
+    "melodies": {
+      "pos": [{"type": "n", "translation": "旋律；悦耳的音调"}],
+      "pronunciation": {"us": "/ˈmɛlədiz/", "uk": "/ˈmɛlədiz/"},
+      "inflections": {"singular": "melody", "plural": "melodies", "noun": "melody"},
+      "etymology": {"prefix": null, "root": {"form": "melōid", "meaning": "singing, song (from Gk. μελωδία)"}, "suffix": {"form": "-y + -es", "meaning": "abstract noun + plural"}, "summary": "源自希腊语μελωδία (melōidia, 歌唱)，由μέλος (melos, 歌) + ᾠδή (ōidē, 唱) 组成"}
+    },
+    "mendez": {
+      "pos": [{"type": "n", "translation": "门德斯（姓氏）"}],
+      "pronunciation": {"us": "/ˈmɛndɛz/", "uk": "/ˈmɛndɛz/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Mendez", "meaning": "Spanish surname, patronymic of Menendo"}, "suffix": {"form": "-ez", "meaning": "son of (patronymic)"}, "summary": "西班牙语姓氏，Mendo/ Menendo的儿子，-ez表示「……之子」"}
+    },
+    "meteorologists": {
+      "pos": [{"type": "n", "translation": "气象学家"}],
+      "pronunciation": {"us": "/ˌmiːtiəˈrɑːlədʒɪsts/", "uk": "/ˌmiːtiəˈrɒlədʒɪsts/"},
+      "inflections": {"singular": "meteorologist", "plural": "meteorologists", "noun": "meteorologist"},
+      "etymology": {"prefix": null, "root": {"form": "meteor + log", "meaning": "high in air + study (from Gk. μετέωρος + λόγος)"}, "suffix": {"form": "-ist + -s", "meaning": "one who studies + plural"}, "summary": "meteor (气象现象) + -logist (学者)，源自希腊语μετέωρος (高空) + λόγος (学问)"}
+    },
+    "meticulously": {
+      "pos": [{"type": "adv", "translation": "一丝不苟地；细致地"}],
+      "pronunciation": {"us": "/məˈtɪkjələsli/", "uk": "/məˈtɪkjələsli/"},
+      "inflections": {"adjective": "meticulous", "adverb": "meticulously"},
+      "etymology": {"prefix": null, "root": {"form": "metic", "meaning": "fearful, timid (from L. metus, fear)"}, "suffix": {"form": "-ous + -ly", "meaning": "full of + in manner"}, "summary": "源自拉丁语metus (恐惧)，古义为「胆小的」，后演变为「一丝不苟的」；-ous + -ly 构成副词"}
+    },
+    "microbes": {
+      "pos": [{"type": "n", "translation": "微生物"}],
+      "pronunciation": {"us": "/ˈmaɪkroʊbz/", "uk": "/ˈmaɪkrəʊbz/"},
+      "inflections": {"singular": "microbe", "plural": "microbes", "noun": "microbe"},
+      "etymology": {"prefix": {"form": "micro-", "meaning": "small (from Gk. μικρός)"}, "root": {"form": "bio", "meaning": "life (from Gk. βίος)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "micro- (微小的) + bio (生命) + -s，意为「微生物」"}
+    },
+    "microbiome": {
+      "pos": [{"type": "n", "translation": "微生物组；微生物群"}],
+      "pronunciation": {"us": "/ˌmaɪkroʊˈbaɪoʊm/", "uk": "/ˌmaɪkrəʊˈbaɪəʊm/"},
+      "inflections": {"plural": "microbiomes", "noun": "microbiome"},
+      "etymology": {"prefix": {"form": "micro-", "meaning": "small (from Gk. μικρός)"}, "root": {"form": "bio + ome", "meaning": "life + mass (from Gk. βίος + -ωμα)"}, "suffix": null, "summary": "micro- (微小的) + biome (生物群系)，意为「微生物生态群系」"}
+    },
+    "microorganisms": {
+      "pos": [{"type": "n", "translation": "微生物"}],
+      "pronunciation": {"us": "/ˌmaɪkroʊˈɔːrɡənɪzəmz/", "uk": "/ˌmaɪkrəʊˈɔːɡənɪzəmz/"},
+      "inflections": {"singular": "microorganism", "plural": "microorganisms", "noun": "microorganism"},
+      "etymology": {"prefix": {"form": "micro-", "meaning": "small (from Gk. μικρός)"}, "root": {"form": "organ", "meaning": "organ, instrument"}, "suffix": {"form": "-ism + -s", "meaning": "system/state + plural"}, "summary": "micro- (微小的) + organism (有机体)，意为「微生物」"}
+    },
+    "migratory": {
+      "pos": [{"type": "adj", "translation": "迁徙的；迁移性的"}],
+      "pronunciation": {"us": "/ˈmaɪɡrətɔːri/", "uk": "/ˈmaɪɡrətəri/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "migrat", "meaning": "to move from place to place (from L. migrare)"}, "suffix": {"form": "-ory", "meaning": "relating to, characterized by"}, "summary": "源自拉丁语migrare (迁移)，-ory (形容词后缀)，意为「迁徙的」"}
+    },
+    "miko": {
+      "pos": [{"type": "n", "translation": "美子（日本名字）"}],
+      "pronunciation": {"us": "/ˈmiːkoʊ/", "uk": "/ˈmiːkəʊ/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Miko", "meaning": "美子 (beautiful + child in Japanese)"}, "suffix": null, "summary": "日本女性名字，美(mi, 美丽) + 子(ko, 孩子)"}
+    },
+    "miles": {
+      "pos": [{"type": "n", "translation": "英里"}],
+      "pronunciation": {"us": "/maɪlz/", "uk": "/maɪlz/"},
+      "inflections": {"singular": "mile", "plural": "miles", "noun": "mile"},
+      "etymology": {"prefix": null, "root": {"form": "mil", "meaning": "thousand (from L. mille)"}, "suffix": {"form": "-e + -s", "meaning": "noun suffix + plural"}, "summary": "源自拉丁语mille passus (一千步)，古罗马的长度单位"}
+    },
+    "milestone": {
+      "pos": [{"type": "n", "translation": "里程碑；重要事件"}],
+      "pronunciation": {"us": "/ˈmaɪlstoʊn/", "uk": "/ˈmaɪlstəʊn/"},
+      "inflections": {"plural": "milestones", "noun": "milestone"},
+      "etymology": {"prefix": null, "root": {"form": "mile + stone", "meaning": "mile + stone"}, "suffix": null, "summary": "mile (英里) + stone (石头)，原指路边标记距离的石碑，引申为「重大事件」"}
+    },
+    "mindful": {
+      "pos": [{"type": "adj", "translation": "留心的；注意的"}],
+      "pronunciation": {"us": "/ˈmaɪndfəl/", "uk": "/ˈmaɪndfəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "mind", "meaning": "memory, thought (from OE gemynd)"}, "suffix": {"form": "-ful", "meaning": "full of"}, "summary": "mind (注意、心智) + -ful (充满的)，意为「留心的」"}
+    },
+    "minimally": {
+      "pos": [{"type": "adv", "translation": "最小限度地；极少地"}],
+      "pronunciation": {"us": "/ˈmɪnɪməli/", "uk": "/ˈmɪnɪməli/"},
+      "inflections": {"adjective": "minimal", "adverb": "minimally"},
+      "etymology": {"prefix": null, "root": {"form": "minim", "meaning": "smallest (from L. minimus)"}, "suffix": {"form": "-al + -ly", "meaning": "relating to + in manner"}, "summary": "源自拉丁语minimus (最小的)，-al (形容词) + -ly (副词后缀)"}
+    },
+    "mobile": {
+      "pos": [{"type": "adj", "translation": "移动的；可移动的"}],
+      "pronunciation": {"us": "/ˈmoʊbəl/", "uk": "/ˈməʊbaɪl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "mob", "meaning": "to move (from L. movere)"}, "suffix": {"form": "-ile", "meaning": "capable of, able to"}, "summary": "源自拉丁语mobilis (可移动的)，movere (移动) + -bilis (能够的)"}
+    },
+    "mona": {
+      "pos": [{"type": "n", "translation": "蒙娜（人名，用于Mona Lisa）"}],
+      "pronunciation": {"us": "/ˈmoʊnə/", "uk": "/ˈməʊnə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Mona", "meaning": "from It. mona (madonna/my lady)"}, "suffix": null, "summary": "意大利语mona (madonna的缩写)，意为「夫人、女士」，用于Mona Lisa (丽莎夫人)"}
+    },
+    "multiply": {
+      "pos": [{"type": "v", "translation": "繁殖；乘；增多"}],
+      "pronunciation": {"us": "/ˈmʌltɪplaɪ/", "uk": "/ˈmʌltɪplaɪ/"},
+      "inflections": {"base": "multiply", "thirdPerson": "multiplies", "presentParticiple": "multiplying", "pastTense": "multiplied", "noun": "multiplication"},
+      "etymology": {"prefix": {"form": "multi-", "meaning": "many (from L. multus)"}, "root": {"form": "ply", "meaning": "to fold (from L. plicare)"}, "suffix": {"form": "-y", "meaning": "verbal suffix"}, "summary": "multi- (多的) + ply (折叠)，意为「折叠多次」，引申为「增多、繁殖」"}
+    },
+    "municipal": {
+      "pos": [{"type": "adj", "translation": "市政的；市的"}],
+      "pronunciation": {"us": "/mjuːˈnɪsɪpəl/", "uk": "/mjuːˈnɪsɪpəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "muni + cip", "meaning": "duty + take (from L. munus + capere)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "源自拉丁语municipalis，munus (职责) + capere (承担)，意为「承担公共职责的」"}
+    },
+    "mutations": {
+      "pos": [{"type": "n", "translation": "突变；变异"}],
+      "pronunciation": {"us": "/mjuːˈteɪʃənz/", "uk": "/mjuːˈteɪʃənz/"},
+      "inflections": {"singular": "mutation", "plural": "mutations", "noun": "mutation"},
+      "etymology": {"prefix": null, "root": {"form": "mut", "meaning": "to change (from L. mutare)"}, "suffix": {"form": "-ation + -s", "meaning": "act/process + plural"}, "summary": "源自拉丁语mutatio，mutare (改变) + -tion (名词后缀)"}
+    },
+    "mutual": {
+      "pos": [{"type": "adj", "translation": "相互的；共同的"}],
+      "pronunciation": {"us": "/ˈmjuːtʃuəl/", "uk": "/ˈmjuːtʃuəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "mut", "meaning": "mutual, reciprocal (from L. mutuus)"}, "suffix": {"form": "-ual", "meaning": "relating to"}, "summary": "源自拉丁语mutuus (相互的、交换的)，与mutare (改变) 同源"}
+    },
+    "mythical": {
+      "pos": [{"type": "adj", "translation": "神话的；虚构的"}],
+      "pronunciation": {"us": "/ˈmɪθɪkəl/", "uk": "/ˈmɪθɪkəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "myth", "meaning": "myth, story (from Gk. μῦθος)"}, "suffix": {"form": "-ical", "meaning": "relating to"}, "summary": "myth (神话) + -ical (形容词后缀)，源自希腊语μῦθος (故事、神话)"}
+    },
+    "navigation": {
+      "pos": [{"type": "n", "translation": "导航；航海"}],
+      "pronunciation": {"us": "/ˌnævɪˈɡeɪʃən/", "uk": "/ˌnævɪˈɡeɪʃən/"},
+      "inflections": {"plural": "navigations", "noun": "navigation"},
+      "etymology": {"prefix": null, "root": {"form": "nav + ig", "meaning": "ship + drive (from L. navis + agere)"}, "suffix": {"form": "-ation", "meaning": "act/process"}, "summary": "源自拉丁语navigatio，navis (船) + agere (驾驶) + -ation (名词后缀)"}
+    },
+    "navigational": {
+      "pos": [{"type": "adj", "translation": "导航的；航海的"}],
+      "pronunciation": {"us": "/ˌnævɪˈɡeɪʃənəl/", "uk": "/ˌnævɪˈɡeɪʃənəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "navigation", "meaning": "navigation (from L. navigatio)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "navigation (导航) + -al (形容词后缀)，意为「导航的」"}
+    },
+    "necessitating": {
+      "pos": [{"type": "v", "translation": "使成为必需（现在分词）"}],
+      "pronunciation": {"us": "/nəˈsɛsɪteɪtɪŋ/", "uk": "/nəˈsɛsɪteɪtɪŋ/"},
+      "inflections": {"base": "necessitate", "thirdPerson": "necessitates", "presentParticiple": "necessitating", "pastTense": "necessitated", "noun": "necessity"},
+      "etymology": {"prefix": null, "root": {"form": "necess", "meaning": "necessary (from L. necesse)"}, "suffix": {"form": "-it + -ate + -ing", "meaning": "abstract noun + verbal + present participle"}, "summary": "源自拉丁语necesse (不可避免的)，-ate (动词后缀) + -ing (现在分词)"}
+    },
+    "nesting": {
+      "pos": [{"type": "n", "translation": "筑巢；嵌套"}],
+      "pronunciation": {"us": "/ˈnɛstɪŋ/", "uk": "/ˈnɛstɪŋ/"},
+      "inflections": {"base": "nest", "noun": "nesting", "verb": "nest"},
+      "etymology": {"prefix": null, "root": {"form": "nest", "meaning": "nest (from OE nest)"}, "suffix": {"form": "-ing", "meaning": "gerund/verbal noun"}, "summary": "nest (巢) + -ing (动名词后缀)，意为「筑巢」"}
+    },
+    "neural": {
+      "pos": [{"type": "adj", "translation": "神经的"}],
+      "pronunciation": {"us": "/ˈnʊrəl/", "uk": "/ˈnjʊərəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "neur", "meaning": "nerve (from Gk. νεῦρον)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "neur (神经) + -al (形容词后缀)，源自希腊语νεῦρον (神经)"}
+    },
+    "neuroscientists": {
+      "pos": [{"type": "n", "translation": "神经科学家"}],
+      "pronunciation": {"us": "/ˌnʊroʊˈsaɪəntɪsts/", "uk": "/ˌnjʊərəʊˈsaɪəntɪsts/"},
+      "inflections": {"singular": "neuroscientist", "plural": "neuroscientists", "noun": "neuroscientist"},
+      "etymology": {"prefix": {"form": "neuro-", "meaning": "nerve (from Gk. νεῦρον)"}, "root": {"form": "scient", "meaning": "knowing (from L. scientia)"}, "suffix": {"form": "-ist + -s", "meaning": "one who + plural"}, "summary": "neuro- (神经) + scientist (科学家)，意为「神经科学家」"}
+    },
+    "nguyen": {
+      "pos": [{"type": "n", "translation": "阮（越南姓氏）"}],
+      "pronunciation": {"us": "/ˈwɪn/", "uk": "/ˈwɪn/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Nguyễn", "meaning": "Vietnamese surname, from Chinese 阮 (Ruǎn)"}, "suffix": null, "summary": "越南最常见的姓氏，源自中文「阮」（Ruǎn）"}
+    },
+    "nic": {
+      "pos": [{"type": "n", "translation": "尼埃普斯（人名缩写，Joseph-Nicéphore Niépce）"}],
+      "pronunciation": {"us": "/niːs/", "uk": "/niːs/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Nic", "meaning": "short for Nicéphore, from Gk. νίκη (victory) + φέρω (to bear)"}, "suffix": null, "summary": "Joseph-Nicéphore Niépce 的名字缩写，希腊语νίκη (胜利) + φέρω (带来)，意为「带来胜利的」"}
+    },
+    "niche": {
+      "pos": [{"type": "n", "translation": "生态位；利基市场；合适的位置"}],
+      "pronunciation": {"us": "/niːʃ/", "uk": "/niːʃ/"},
+      "inflections": {"plural": "niches", "noun": "niche"},
+      "etymology": {"prefix": null, "root": {"form": "nich", "meaning": "recess (from L. nidus, nest)"}, "suffix": null, "summary": "源自法语niche (壁龛)，拉丁语nidus (巢)，引申为「合适的位置、生态位」"}
+    },
+    "nile": {
+      "pos": [{"type": "n", "translation": "尼罗河（河流名）"}],
+      "pronunciation": {"us": "/naɪl/", "uk": "/naɪl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Nile", "meaning": "from Gk. Νεῖλος, of Semitic origin"}, "suffix": null, "summary": "源自希腊语Νεῖλος (Neilos)，闪语词根nhl意为「河流、山谷」"}
+    },
+    "nominal": {
+      "pos": [{"type": "adj", "translation": "名义上的；象征性的"}],
+      "pronunciation": {"us": "/ˈnɑːmɪnəl/", "uk": "/ˈnɒmɪnəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "nomin", "meaning": "name (from L. nomen)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "源自拉丁语nominalis，nomen (名字) + -alis (形容词后缀)，意为「名义上的」"}
+    },
+    "notable": {
+      "pos": [{"type": "adj", "translation": "显著的；著名的"}],
+      "pronunciation": {"us": "/ˈnoʊtəbəl/", "uk": "/ˈnəʊtəbəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "not", "meaning": "to mark (from L. notare)"}, "suffix": {"form": "-able", "meaning": "capable of"}, "summary": "源自拉丁语notabilis，notare (标记) + -abilis (能够的)，意为「值得注意的」"}
+    },
+    "notebook": {
+      "pos": [{"type": "n", "translation": "笔记本"}],
+      "pronunciation": {"us": "/ˈnoʊtbʊk/", "uk": "/ˈnəʊtbʊk/"},
+      "inflections": {"plural": "notebooks", "noun": "notebook"},
+      "etymology": {"prefix": null, "root": {"form": "note + book", "meaning": "note + book"}, "suffix": null, "summary": "note (笔记) + book (本子)，意为「笔记本」"}
+    },
+    "noticeable": {
+      "pos": [{"type": "adj", "translation": "明显的；显著的"}],
+      "pronunciation": {"us": "/ˈnoʊtɪsəbəl/", "uk": "/ˈnəʊtɪsəbəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "notice", "meaning": "notice (from L. notitia)"}, "suffix": {"form": "-able", "meaning": "capable of"}, "summary": "notice (注意) + -able (能够的)，意为「能够被注意到的」"}
+    },
+    "noticeably": {
+      "pos": [{"type": "adv", "translation": "显著地；明显地"}],
+      "pronunciation": {"us": "/ˈnoʊtɪsəbli/", "uk": "/ˈnəʊtɪsəbli/"},
+      "inflections": {"adjective": "noticeable", "adverb": "noticeably"},
+      "etymology": {"prefix": null, "root": {"form": "notice", "meaning": "notice (from L. notitia)"}, "suffix": {"form": "-able + -ly", "meaning": "capable of + in manner"}, "summary": "notice (注意) + -able (能够) + -ly (副词后缀)"}
+    },
+    "notification": {
+      "pos": [{"type": "n", "translation": "通知；通告"}],
+      "pronunciation": {"us": "/ˌnoʊtɪfɪˈkeɪʃən/", "uk": "/ˌnəʊtɪfɪˈkeɪʃən/"},
+      "inflections": {"plural": "notifications", "noun": "notification"},
+      "etymology": {"prefix": null, "root": {"form": "not + fic", "meaning": "to mark + to make (from L. notus + facere)"}, "suffix": {"form": "-ation", "meaning": "act/process"}, "summary": "源自拉丁语notificare，notus (知道的) + facere (使)，-ation (名词后缀)"}
+    },
+    "notify": {
+      "pos": [{"type": "v", "translation": "通知；告知"}],
+      "pronunciation": {"us": "/ˈnoʊtɪfaɪ/", "uk": "/ˈnəʊtɪfaɪ/"},
+      "inflections": {"base": "notify", "thirdPerson": "notifies", "presentParticiple": "notifying", "pastTense": "notified", "noun": "notification"},
+      "etymology": {"prefix": null, "root": {"form": "not + fy", "meaning": "known + to make (from L. notus + facere)"}, "suffix": null, "summary": "源自拉丁语notificare，notus (知道的) + ficare (使……)，意为「使知道」"}
+    },
+    "obscura": {
+      "pos": [{"type": "adj", "translation": "暗的（来自camera obscura，暗箱）"}],
+      "pronunciation": {"us": "/əbˈskjʊrə/", "uk": "/əbˈskjʊərə/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "ob-", "meaning": "over, completely"}, "root": {"form": "scur", "meaning": "dark (from L. obscurus)"}, "suffix": {"form": "-a", "meaning": "feminine suffix"}, "summary": "源自拉丁语obscurus (黑暗的)，ob- (完全) + scurus (覆盖的)"}
+    },
+    "obsolete": {
+      "pos": [{"type": "adj", "translation": "过时的；淘汰的"}],
+      "pronunciation": {"us": "/ˌɒbsəˈliːt/", "uk": "/ˌɒbsəˈliːt/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "ob-", "meaning": "away, completely"}, "root": {"form": "solet", "meaning": "to be used (from L. solere)"}, "suffix": null, "summary": "源自拉丁语obsoletus (废弃的、褪色的)，ob- (完全) + solere (使用)"}
+    },
+    "obstacles": {
+      "pos": [{"type": "n", "translation": "障碍；阻碍"}],
+      "pronunciation": {"us": "/ˈɒbstəkəlz/", "uk": "/ˈɒbstəkəlz/"},
+      "inflections": {"singular": "obstacle", "plural": "obstacles", "noun": "obstacle"},
+      "etymology": {"prefix": {"form": "ob-", "meaning": "against, in front of"}, "root": {"form": "st", "meaning": "to stand (from L. stare)"}, "suffix": {"form": "-acle + -s", "meaning": "instrument + plural"}, "summary": "源自拉丁语obstaculum，ob- (在对面) + stare (站立)，意为「挡在面前的障碍物」"}
+    },
+    "occurred": {
+      "pos": [{"type": "v", "translation": "发生（过去式/过去分词）"}],
+      "pronunciation": {"us": "/əˈkɜːrd/", "uk": "/əˈkɜːd/"},
+      "inflections": {"base": "occur", "thirdPerson": "occurs", "presentParticiple": "occurring", "pastTense": "occurred", "noun": "occurrence"},
+      "etymology": {"prefix": {"form": "oc-", "meaning": "toward, upon (from L. ob-)"}, "root": {"form": "cur", "meaning": "to run (from L. currere)"}, "suffix": {"form": "-ed", "meaning": "past tense"}, "summary": "oc- (朝向) + cur (跑) + -ed，原义「跑向」，引申为「发生」"}
+    },
+    "offline": {
+      "pos": [{"type": "adj", "translation": "离线的；未联网的"}],
+      "pronunciation": {"us": "/ˌɒfˈlaɪn/", "uk": "/ˌɒfˈlaɪn/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "off-", "meaning": "away from, not on"}, "root": {"form": "line", "meaning": "line, connection"}, "suffix": null, "summary": "off (离开) + line (线路)，意为「不在线路上的」"}
+    },
+    "olympics": {
+      "pos": [{"type": "n", "translation": "奥林匹克运动会"}],
+      "pronunciation": {"us": "/əˈlɪmpɪks/", "uk": "/əˈlɪmpɪks/"},
+      "inflections": {"singular": "Olympic", "plural": "Olympics", "noun": "Olympics"},
+      "etymology": {"prefix": null, "root": {"form": "Olymp", "meaning": "Olympus (mountain in Greece)"}, "suffix": {"form": "-ic + -s", "meaning": "relating to + plural"}, "summary": "源自希腊语Ὄλυμπος (奥林匹斯山)，Olympic Games (奥林匹克运动会) 的简称"}
+    },
+    "oneself": {
+      "pos": [{"type": "pron", "translation": "自己；自身"}],
+      "pronunciation": {"us": "/wʌnˈsɛlf/", "uk": "/wʌnˈsɛlf/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "one + self", "meaning": "one + self"}, "suffix": null, "summary": "one (一个人) + self (自身)，反身代词，意为「自己」"}
+    },
+    "optical": {
+      "pos": [{"type": "adj", "translation": "光学的；视觉的"}],
+      "pronunciation": {"us": "/ˈɒptɪkəl/", "uk": "/ˈɒptɪkəl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "opt", "meaning": "sight, eye (from Gk. ὀπτικός)"}, "suffix": {"form": "-ical", "meaning": "relating to"}, "summary": "源自希腊语ὀπτικός (视觉的)，opt- (看) + -ical (形容词后缀)"}
+    },
+    "optimal": {
+      "pos": [{"type": "adj", "translation": "最佳的；最理想的"}],
+      "pronunciation": {"us": "/ˈɒptɪməl/", "uk": "/ˈɒptɪməl/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "optim", "meaning": "best (from L. optimus)"}, "suffix": {"form": "-al", "meaning": "relating to"}, "summary": "源自拉丁语optimus (最好的)，-al (形容词后缀)"}
+    },
+    "optimize": {
+      "pos": [{"type": "v", "translation": "优化；使最优化"}],
+      "pronunciation": {"us": "/ˈɒptɪmaɪz/", "uk": "/ˈɒptɪmaɪz/"},
+      "inflections": {"base": "optimize", "thirdPerson": "optimizes", "presentParticiple": "optimizing", "pastTense": "optimized", "noun": "optimization"},
+      "etymology": {"prefix": null, "root": {"form": "optim", "meaning": "best (from L. optimus)"}, "suffix": {"form": "-ize", "meaning": "to make, cause to become"}, "summary": "optim (最好) + -ize (使动后缀)，意为「使达到最佳」"}
+    },
+    "orchid": {
+      "pos": [{"type": "n", "translation": "兰花"}],
+      "pronunciation": {"us": "/ˈɔːrkɪd/", "uk": "/ˈɔːkɪd/"},
+      "inflections": {"plural": "orchids", "noun": "orchid"},
+      "etymology": {"prefix": null, "root": {"form": "orchis", "meaning": "testicle (from Gk. ὄρχις)"}, "suffix": {"form": "-id", "meaning": "belonging to"}, "summary": "源自希腊语ὄρχις (睾丸)，因兰花块茎形状相似而得名"}
+    },
+    "outweighed": {
+      "pos": [{"type": "v", "translation": "超过；重于（过去式/过去分词）"}],
+      "pronunciation": {"us": "/ˌaʊtˈweɪd/", "uk": "/ˌaʊtˈweɪd/"},
+      "inflections": {"base": "outweigh", "thirdPerson": "outweighs", "presentParticiple": "outweighing", "pastTense": "outweighed"},
+      "etymology": {"prefix": {"form": "out-", "meaning": "beyond, exceed"}, "root": {"form": "weigh", "meaning": "to weigh (from OE wegan)"}, "suffix": {"form": "-ed", "meaning": "past tense"}, "summary": "out- (超过) + weigh (称重)，意为「比……更重要、超过」"}
+    },
+    "overabundance": {
+      "pos": [{"type": "n", "translation": "过多；过剩"}],
+      "pronunciation": {"us": "/ˌoʊvərəˈbʌndəns/", "uk": "/ˌəʊvərəˈbʌndəns/"},
+      "inflections": {"plural": "overabundances", "noun": "overabundance"},
+      "etymology": {"prefix": {"form": "over-", "meaning": "excessive, too much"}, "root": {"form": "abund", "meaning": "abundant, plentiful (from L. abundare)"}, "suffix": {"form": "-ance", "meaning": "state or quality"}, "summary": "over- (过度) + abundance (丰富)，意为「过多」"}
+    },
+    "overcrowded": {
+      "pos": [{"type": "adj", "translation": "过度拥挤的"}],
+      "pronunciation": {"us": "/ˌoʊvərˈkraʊdɪd/", "uk": "/ˌəʊvəˈkraʊdɪd/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "over-", "meaning": "too much, excessive"}, "root": {"form": "crowd", "meaning": "crowd (from OE crūdan, to press)"}, "suffix": {"form": "-ed", "meaning": "past participle (adjectival)"}, "summary": "over- (过度) + crowd (拥挤) + -ed (形容词化)，意为「过度拥挤的」"}
+    },
+    "overview": {
+      "pos": [{"type": "n", "translation": "概述；概观"}],
+      "pronunciation": {"us": "/ˈoʊvərvjuː/", "uk": "/ˈəʊvəvjuː/"},
+      "inflections": {"plural": "overviews", "noun": "overview"},
+      "etymology": {"prefix": {"form": "over-", "meaning": "over, across"}, "root": {"form": "view", "meaning": "view, sight (from L. videre)"}, "suffix": null, "summary": "over- (全面) + view (看)，意为「概览、总览」"}
+    },
+    "packet": {
+      "pos": [{"type": "n", "translation": "数据包；小包；包裹"}],
+      "pronunciation": {"us": "/ˈpækɪt/", "uk": "/ˈpækɪt/"},
+      "inflections": {"plural": "packets", "noun": "packet"},
+      "etymology": {"prefix": null, "root": {"form": "pack", "meaning": "to pack (from D. pak / MLG pak)"}, "suffix": {"form": "-et", "meaning": "diminutive suffix"}, "summary": "pack (包装) + -et (小后缀)，意为「小包裹」"}
+    },
+    "paloma": {
+      "pos": [{"type": "n", "translation": "帕洛玛（人名）"}],
+      "pronunciation": {"us": "/pəˈloʊmə/", "uk": "/pəˈləʊmə/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Paloma", "meaning": "dove (from L. palumba)"}, "suffix": null, "summary": "西班牙语女性名字，意为「鸽子」，源自拉丁语palumba"}
+    },
+    "paperless": {
+      "pos": [{"type": "adj", "translation": "无纸化的"}],
+      "pronunciation": {"us": "/ˈpeɪpərləs/", "uk": "/ˈpeɪpələs/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "paper", "meaning": "paper (from L. papyrus)"}, "suffix": {"form": "-less", "meaning": "without"}, "summary": "paper (纸) + -less (没有)，意为「无纸的」"}
+    },
+    "paradox": {
+      "pos": [{"type": "n", "translation": "悖论；自相矛盾的说法"}],
+      "pronunciation": {"us": "/ˈpærədɒks/", "uk": "/ˈpærədɒks/"},
+      "inflections": {"plural": "paradoxes", "noun": "paradox"},
+      "etymology": {"prefix": {"form": "para-", "meaning": "contrary, beyond (from Gk. παρά)"}, "root": {"form": "dox", "meaning": "opinion, belief (from Gk. δόξα)"}, "suffix": null, "summary": "para- (相反的) + doxa (意见)，意为「与普遍意见相反的陈述」"}
+    },
+    "parahaemolyticus": {
+      "pos": [{"type": "adj", "translation": "副溶血性的（拉丁学名）"}],
+      "pronunciation": {"us": "/ˌpærəhiːməˈlɪtɪkəs/", "uk": "/ˌpærəhiːməˈlɪtɪkəs/"},
+      "inflections": null,
+      "etymology": {"prefix": {"form": "para-", "meaning": "beside, near (from Gk. παρά)"}, "root": {"form": "haemo + lytic", "meaning": "blood (Gk. αἷμα) + dissolving (Gk. λύσις)"}, "suffix": {"form": "-us", "meaning": "Latin masculine suffix"}, "summary": "para- (副) + haemo (血) + lytic (溶解) + -us (拉丁语后缀)，意为「副溶血的」，细菌学名"}
+    },
+    "pathway": {
+      "pos": [{"type": "n", "translation": "路径；通路；途径"}],
+      "pronunciation": {"us": "/ˈpæθweɪ/", "uk": "/ˈpɑːθweɪ/"},
+      "inflections": {"plural": "pathways", "noun": "pathway"},
+      "etymology": {"prefix": null, "root": {"form": "path + way", "meaning": "path + way"}, "suffix": null, "summary": "path (小路) + way (道路)，意为「路径、通道」"}
+    },
+    "patrons": {
+      "pos": [{"type": "n", "translation": "顾客；赞助人；常客"}],
+      "pronunciation": {"us": "/ˈpeɪtrənz/", "uk": "/ˈpeɪtrənz/"},
+      "inflections": {"singular": "patron", "plural": "patrons", "noun": "patron"},
+      "etymology": {"prefix": null, "root": {"form": "patr", "meaning": "father (from L. pater)"}, "suffix": {"form": "-on + -s", "meaning": "agent + plural"}, "summary": "源自拉丁语patronus (保护人)，pater (父亲) + -onus (名词后缀)"}
+    },
+    "pce": {
+      "pos": [{"type": "n", "translation": "尼埃普斯（Joseph-Nicéphore Niépce 的截断）"}],
+      "pronunciation": {"us": "/niːɛps/", "uk": "/niːɛps/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Niépce", "meaning": "French surname"}, "suffix": null, "summary": "Joseph-Nicéphore Niépce 姓氏的截断形式，法国发明家，摄影术的发明者"}
+    },
+    "pdf": {
+      "pos": [{"type": "n", "translation": "便携式文档格式（PDF文件）"}],
+      "pronunciation": {"us": "/ˌpiː diː ˈɛf/", "uk": "/ˌpiː diː ˈɛf/"},
+      "inflections": {"plural": "PDFs", "noun": "PDF"},
+      "etymology": {"prefix": null, "root": {"form": "PDF", "meaning": "acronym for Portable Document Format"}, "suffix": null, "summary": "Portable Document Format (便携式文档格式) 的首字母缩写，Adobe公司于1993年推出"}
+    },
+    "pedro": {
+      "pos": [{"type": "n", "translation": "佩德罗（人名）"}],
+      "pronunciation": {"us": "/ˈpɛdroʊ/", "uk": "/ˈpɛdrəʊ/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "Pedro", "meaning": "from L. petra (rock)"}, "suffix": null, "summary": "西班牙语/葡萄牙语名字，源自拉丁语petra (岩石)，等同于英语的Peter"}
+    },
+    "performances": {
+      "pos": [{"type": "n", "translation": "表演；表现；性能"}],
+      "pronunciation": {"us": "/pərˈfɔːrmənsɪz/", "uk": "/pəˈfɔːmənsɪz/"},
+      "inflections": {"singular": "performance", "plural": "performances", "noun": "performance"},
+      "etymology": {"prefix": {"form": "per-", "meaning": "thoroughly (from L. per)"}, "root": {"form": "form", "meaning": "to form (from L. formare)"}, "suffix": {"form": "-ance + -s", "meaning": "act/state + plural"}, "summary": "per- (完全) + form (做/形式) + -ance (名词后缀)，意为「完成、表现」"}
+    },
+    "personalized": {
+      "pos": [{"type": "adj", "translation": "个性化的；定制的"}],
+      "pronunciation": {"us": "/ˈpɜːrsənəlaɪzd/", "uk": "/ˈpɜːsənəlaɪzd/"},
+      "inflections": {"base": "personalize", "noun": "personalization", "verb": "personalize"},
+      "etymology": {"prefix": null, "root": {"form": "person", "meaning": "person (from L. persona)"}, "suffix": {"form": "-al + -ize + -ed", "meaning": "relating to + to make + past participle"}, "summary": "person (人) + -al (形容词) + -ize (使动) + -ed (形容词化)，意为「个性化的」"}
+    },
+    "pest": {
+      "pos": [{"type": "n", "translation": "害虫；有害生物"}],
+      "pronunciation": {"us": "/pɛst/", "uk": "/pɛst/"},
+      "inflections": {"plural": "pests", "noun": "pest"},
+      "etymology": {"prefix": null, "root": {"form": "pest", "meaning": "plague, pestilence (from L. pestis)"}, "suffix": null, "summary": "源自拉丁语pestis (瘟疫、传染病)"}
+    },
+    "pesticide": {
+      "pos": [{"type": "n", "translation": "杀虫剂；农药"}],
+      "pronunciation": {"us": "/ˈpɛstɪsaɪd/", "uk": "/ˈpɛstɪsaɪd/"},
+      "inflections": {"plural": "pesticides", "noun": "pesticide"},
+      "etymology": {"prefix": null, "root": {"form": "pest + cid", "meaning": "pest + to kill (from L. caedere)"}, "suffix": {"form": "-e", "meaning": "noun suffix"}, "summary": "pest (害虫) + -cide (杀)，意为「杀虫剂」"}
+    },
+    "pharmacology": {
+      "pos": [{"type": "n", "translation": "药理学；药物学"}],
+      "pronunciation": {"us": "/ˌfɑːrməˈkɒlədʒi/", "uk": "/ˌfɑːməˈkɒlədʒi/"},
+      "inflections": {"plural": "pharmacologies", "noun": "pharmacology"},
+      "etymology": {"prefix": null, "root": {"form": "pharmaco", "meaning": "drug, medicine (from Gk. φάρμακον)"}, "suffix": {"form": "-logy", "meaning": "study of (from Gk. -λογία)"}, "summary": "pharmaco- (药物) + -logy (学科)，意为「药理学」"}
+    },
+    "phones": {
+      "pos": [{"type": "n", "translation": "电话；手机"}],
+      "pronunciation": {"us": "/foʊnz/", "uk": "/fəʊnz/"},
+      "inflections": {"singular": "phone", "plural": "phones", "noun": "phone"},
+      "etymology": {"prefix": null, "root": {"form": "phon", "meaning": "sound, voice (from Gk. φωνή)"}, "suffix": {"form": "-e + -s", "meaning": "noun suffix + plural"}, "summary": "telephone的缩略，源自希腊语φωνή (声音)"}
+    },
+    "phore": {
+      "pos": [{"type": "n", "translation": "尼埃普斯（的截断）"}],
+      "pronunciation": {"us": "/niːɛps/", "uk": "/niːɛps/"},
+      "inflections": null,
+      "etymology": {"prefix": null, "root": {"form": "phore", "meaning": "part of Niépce surname"}, "suffix": null, "summary": "Joseph-Nicéphore Niépce 名字的截断部分，非独立词"}
+    },
+    "picnic": {
+      "pos": [{"type": "n", "translation": "野餐"}],
+      "pronunciation": {"us": "/ˈpɪknɪk/", "uk": "/ˈpɪknɪk/"},
+      "inflections": {"plural": "picnics", "verb": "picnic", "pastTense": "picnicked", "noun": "picnic"},
+      "etymology": {"prefix": null, "root": {"form": "picnic", "meaning": "from F. pique-nique (trivial, of little value)"}, "suffix": null, "summary": "源自法语pique-nique，原指「每人自带食物的聚会」"}
+    },
+    "pigeons": {
+      "pos": [{"type": "n", "translation": "鸽子"}],
+      "pronunciation": {"us": "/ˈpɪdʒɪnz/", "uk": "/ˈpɪdʒɪnz/"},
+      "inflections": {"singular": "pigeon", "plural": "pigeons", "noun": "pigeon"},
+      "etymology": {"prefix": null, "root": {"form": "pigeon", "meaning": "young bird, dove (from L. pipio, chirping bird)"}, "suffix": {"form": "-s", "meaning": "plural marker"}, "summary": "源自拉丁语pipio (啾啾叫的幼鸟)，pīpīre (啾啾叫)"}
+    },
+    "planners": {
+      "pos": [{"type": "n", "translation": "规划者；计划者"}],
+      "pronunciation": {"us": "/ˈplænərz/", "uk": "/ˈplænəz/"},
+      "inflections": {"singular": "planner", "plural": "planners", "noun": "planner"},
+      "etymology": {"prefix": null, "root": {"form": "plan", "meaning": "plan (from L. planus, flat)"}, "suffix": {"form": "-er + -s", "meaning": "agent + plural"}, "summary": "plan (计划) + -er (人) + -s (复数)，意为「规划者」"}
+    }
+  }
+}

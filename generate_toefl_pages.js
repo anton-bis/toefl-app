@@ -1816,6 +1816,11 @@ function generateMainIndexPage(tpoSummaries) {
             </div>
           </div>
           <div class="log-entry">
+            <div class="log-version">V1.3.1</div>
+            <div class="log-date">2026-07-06</div>
+            <div class="log-detail">修复 Listening LCAR 题型时间戳失效问题（TPO 01-04）。generate_listening_pages.js 中 AUDIO_START/AUDIO_END 硬编码为 0/999 导致共享音频文件无法定位到每题对应片段，现已恢复正确的 q.audioStart/q.audioEnd 时间戳传递。</div>
+          </div>
+          <div class="log-entry">
             <div class="log-version">V1.3.0</div>
             <div class="log-date">2026-07-03</div>
             <div class="log-detail">全新 Skills - 真题单词背诵系统（Vocabulary）。<br>覆盖 Reading(665词) / Listening(190词) / Speaking(66词) / Writing(141词) 四模块核心词汇。听音辨义、看音选义、中英互译、原句拼写四种学习模式 × SM-2 间隔复习算法。词根词缀模式：按前缀(28组) / 后缀(65组) / 词根(93组) + 25个推荐词根分类记忆。每日提醒 + 全局模块级复习入口，单日上限 50 词。WordDetail 详情页渲染修复（缺失翻译/IPA/词源兼容多schema）。清除 29 个人名等非词汇数据。AudioLearning / CardLearning 中英键名统一。Spell 输入框自适应宽度。Mac 签名修复（identity: null 免除签名校验）。</div>

@@ -1,0 +1,966 @@
+{
+  "subject": "writing",
+  "start": 0,
+  "words": {
+    "concert": {
+      "example": "Did you get tickets for the concert?",
+      "example_cn": "你买到音乐会的票了吗？",
+      "altExamples": [
+        "The symphony orchestra's final concert of the season attracted music enthusiasts from across the region.",
+        "Attending a live concert can be an immersive cultural experience that transcends mere auditory pleasure."
+      ],
+      "altExamples_cn": [
+        "交响乐团本季最后一场音乐会吸引了来自各地的音乐爱好者。",
+        "参加现场音乐会可以是一种沉浸式的文化体验，超越单纯的听觉享受。"
+      ]
+    },
+    "reduce": {
+      "example": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+      "example_cn": "有人认为，全民基本收入让每个人获得相似的收入，可以提供经济保障并减少贫困，而另一些人则认为这会打击人们的工作积极性，并对经济产生负面影响。",
+      "altExamples": [
+        "Urban planners are implementing green roofing initiatives to reduce the heat island effect in densely populated areas.",
+        "Many governments have pledged to reduce carbon emissions by transitioning to renewable energy sources."
+      ],
+      "altExamples_cn": [
+        "城市规划者正在推行绿色屋顶计划，以减轻人口密集地区的热岛效应。",
+        "许多政府已承诺通过转向可再生能源来减少碳排放。"
+      ]
+    },
+    "lent": {
+      "example": "Did you finish reading the book I lent you?",
+      "example_cn": "你读完我借给你的那本书了吗？",
+      "altExamples": [
+        "The professor kindly lent her personal research notes to the graduate student for his dissertation.",
+        "Having lent his laboratory equipment to the neighboring department, he could not conduct the experiment."
+      ],
+      "altExamples_cn": [
+        "教授慷慨地把她个人的研究笔记借给了那位研究生用于他的论文。",
+        "由于他把实验室设备借给了隔壁系，他无法进行实验。"
+      ]
+    },
+    "bonds": {
+      "example": "Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.",
+      "example_cn": "传统社区纽带通常存在于小城镇，但在城市环境中往往会减弱。",
+      "altExamples": [
+        "Strong social bonds among community members contribute to higher resilience during economic downturns.",
+        "The chemical bonds between hydrogen and oxygen atoms determine the unique properties of water molecules."
+      ],
+      "altExamples_cn": [
+        "社区成员之间牢固的社会纽带有助于在经济衰退期间提高韧性。",
+        "氢原子和氧原子之间的化学键决定了水分子的独特性质。"
+      ]
+    },
+    "chen": {
+      "example": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+      "example_cn": "陈志愿精神指的是不图经济回报，自愿贡献时间和服务以造福社区、组织或事业的行为。",
+      "altExamples": [
+        "Professor Chen's groundbreaking research on quantum computing has been widely cited in academic journals.",
+        "Chen presented her findings on urban sustainability at the international conference last November."
+      ],
+      "altExamples_cn": [
+        "陈教授关于量子计算的开创性研究在学术期刊中被广泛引用。",
+        "陈在去年十一月的国际会议上展示了她关于城市可持续性的研究成果。"
+      ]
+    },
+    "connectivity": {
+      "example": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+      "example_cn": "有人认为数字媒体总体上产生了有益的影响，因为它极大地改善了全球通信和互联互通。",
+      "altExamples": [
+        "The expansion of rural broadband infrastructure has significantly improved digital connectivity for underserved populations.",
+        "Ecological connectivity between protected habitats is essential for maintaining biodiversity across fragmented landscapes."
+      ],
+      "altExamples_cn": [
+        "农村宽带基础设施的扩展显著改善了服务不足人群的数字连接。",
+        "保护区栖息地之间的生态连通性对于维持破碎化景观中的生物多样性至关重要。"
+      ]
+    },
+    "diaz": {
+      "example": "Diaz We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality.",
+      "example_cn": "Diaz 我们在课堂上一直在讨论全民基本收入的概念，作为解决经济不平等的一种方案。",
+      "altExamples": [
+        "Dr. Diaz argued that early childhood education programs yield substantial long-term economic returns for society.",
+        "In her latest publication, Diaz examines the correlation between socioeconomic status and academic achievement."
+      ],
+      "altExamples_cn": [
+        "Diaz 博士认为，儿童早期教育项目能为社会带来可观的长期经济回报。",
+        "在她最新的出版物中，Diaz 研究了社会经济地位与学业成就之间的相关性。"
+      ]
+    },
+    "documentary": {
+      "example": "I really enjoyed the documentary we watched yesterday.",
+      "example_cn": "我真的很喜欢昨天我们看的那个纪录片。",
+      "altExamples": [
+        "The documentary exploring climate change effects on Arctic ecosystems received critical acclaim at the festival.",
+        "Watching a well-produced documentary can enhance one's understanding of complex historical events."
+      ],
+      "altExamples_cn": [
+        "那部探讨气候变化对北极生态系统影响的纪录片在电影节上获得了一致好评。",
+        "观看制作精良的纪录片可以加深人们对复杂历史事件的理解。"
+      ]
+    },
+    "emma": {
+      "example": "- Give Emma suggestions on how she can make new friends.",
+      "example_cn": "给 Emma 一些关于她如何结交新朋友的建议。",
+      "altExamples": [
+        "Emma's research on marine biology has contributed significantly to understanding coral reef ecosystems.",
+        "The committee appointed Emma to lead the investigation into sustainable agricultural practices."
+      ],
+      "altExamples_cn": [
+        "Emma 在海洋生物学方面的研究对理解珊瑚礁生态系统做出了重要贡献。",
+        "委员会任命 Emma 领导可持续农业实践的调查。"
+      ]
+    },
+    "europe": {
+      "example": "I'm planning a trip to Europe this summer.",
+      "example_cn": "我计划今年夏天去欧洲旅行。",
+      "altExamples": [
+        "The European Union has implemented stringent regulations to protect personal data privacy across member states.",
+        "Western Europe's industrial revolution fundamentally transformed global economic structures in the nineteenth century."
+      ],
+      "altExamples_cn": [
+        "欧盟实施了严格的法规来保护各成员国的个人数据隐私。",
+        "西欧的工业革命在十九世纪根本性地改变了全球经济结构。"
+      ]
+    },
+    "furniture": {
+      "example": "I found it in the back of the furniture section at the local superstore\\.",
+      "example_cn": "我在本地大卖场的家具区后面找到了它。",
+      "altExamples": [
+        "Ergonomic office furniture has become increasingly important as more professionals work remotely from home.",
+        "The museum's collection of antique furniture provides valuable insights into eighteenth-century craftsmanship."
+      ],
+      "altExamples_cn": [
+        "随着越来越多的专业人士远程在家工作，符合人体工学的办公家具变得越来越重要。",
+        "博物馆收藏的古董家具为理解十八世纪的工艺水平提供了宝贵的见解。"
+      ]
+    },
+    "groceries": {
+      "example": "I need to buy groceries today.",
+      "example_cn": "我今天需要去买食品杂货。",
+      "altExamples": [
+        "Rising inflation has made purchasing weekly groceries a significant financial burden for many families.",
+        "Many urban residents now order their groceries online to save time and reduce unnecessary trips."
+      ],
+      "altExamples_cn": [
+        "不断上涨的通货膨胀使购买每周的食品杂货成为许多家庭的重大经济负担。",
+        "许多城市居民现在在线订购食品杂货以节省时间并减少不必要的出行。"
+      ]
+    },
+    "gupta": {
+      "example": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+      "example_cn": "Gupta 在过去的几节课中，我们一直在讨论社会流动性的概念，它指的是个人或家庭在社会等级中上升或下降的能力。",
+      "altExamples": [
+        "Gupta's analysis of migration patterns revealed unexpected trends in urban population distribution.",
+        "The methodology proposed by Gupta has been adopted by researchers studying economic inequality worldwide."
+      ],
+      "altExamples_cn": [
+        "Gupta 对移民模式的分析揭示了城市人口分布的意外趋势。",
+        "Gupta 提出的方法论已被全球研究经济不平等的学者所采用。"
+      ]
+    },
+    "gym": {
+      "example": "Are you going to the gym today?",
+      "example_cn": "你今天去健身房吗？",
+      "altExamples": [
+        "Regular attendance at the gym has been linked to improved cognitive function and mental well-being.",
+        "The university's gym facilities underwent major renovations to accommodate the growing student population."
+      ],
+      "altExamples_cn": [
+        "定期去健身房锻炼与改善认知功能和心理健康有关。",
+        "大学的健身设施进行了大规模翻新，以容纳日益增长的学生人数。"
+      ]
+    },
+    "informative": {
+      "example": "The workshop yesterday was very informative.",
+      "example_cn": "昨天的研讨会非常有启发性。",
+      "altExamples": [
+        "The lecture on cognitive neuroscience was highly informative and clarified several complex theoretical concepts.",
+        "Participants found the workshop informative, particularly the segment on statistical analysis methods."
+      ],
+      "altExamples_cn": [
+        "那场关于认知神经科学的讲座非常有启发性，澄清了几个复杂的理论概念。",
+        "参与者觉得研讨会很有收获，尤其是关于统计分析方法的部分。"
+      ]
+    },
+    "marcus": {
+      "example": "Marcus: While Claire makes a good point, Internet technologies and speed are always improving, even in remote areas.",
+      "example_cn": "Marcus: 虽然 Claire 说得有道理，但互联网技术和网速一直在不断进步，即使在偏远地区也是如此。",
+      "altExamples": [
+        "Marcus challenged the prevailing theory by presenting compelling evidence from his longitudinal study.",
+        "According to Marcus, the correlation between social media usage and anxiety warrants further investigation."
+      ],
+      "altExamples_cn": [
+        "Marcus 通过展示他纵向研究中令人信服的证据，挑战了主流理论。",
+        "根据 Marcus 的观点，社交媒体使用与焦虑之间的相关性值得进一步研究。"
+      ]
+    },
+    "ability": {
+      "example": "Gupta For the past few classes, we have been discussing the concept of social mobility which refers to the ability of individuals or families to move up or down the social hierarchy.",
+      "example_cn": "Gupta 在过去的几节课中，我们一直在讨论社会流动性的概念，它指的是个人或家庭在社会等级中上升或下降的能力。",
+      "altExamples": [
+        "The ability to critically evaluate sources is an essential skill for academic success at the university level.",
+        "Language acquisition ability tends to decline with age, though individual variation remains considerable."
+      ],
+      "altExamples_cn": [
+        "批判性地评估信息来源的能力是大学阶段学业成功的基本技能。",
+        "语言习得能力往往随着年龄增长而下降，但个体差异仍然相当大。"
+      ]
+    },
+    "abroad": {
+      "example": "I'm planning to study abroad next year.",
+      "example_cn": "我计划明年出国留学。",
+      "altExamples": [
+        "Studying abroad exposes students to diverse cultural perspectives that enrich their academic development.",
+        "Many multinational corporations require employees to complete assignments abroad for international experience."
+      ],
+      "altExamples_cn": [
+        "出国留学让学生接触到多元化的文化视角，丰富他们的学术发展。",
+        "许多跨国公司要求员工完成海外任务以获得国际经验。"
+      ]
+    },
+    "absence": {
+      "example": "- Explain how his absence has affected the group's progress.",
+      "example_cn": "解释他的缺席对小组的进展产生了怎样的影响。",
+      "altExamples": [
+        "The professor's prolonged absence from the department prompted concerns among faculty and students alike.",
+        "A notable absence of empirical data makes it difficult to draw definitive conclusions from the study."
+      ],
+      "altExamples_cn": [
+        "教授长期不在系里引起了教职员工和学生的共同担忧。",
+        "经验数据的明显缺失使得从该研究中得出确切结论变得困难。"
+      ]
+    },
+    "accessible": {
+      "example": "Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions.",
+      "example_cn": "Claire: 虽然数字游民生活方式确实提供了无与伦比的自由，但值得注意的是它高度依赖强大的互联网连接，而这在所有地区可能并非同等可获得。",
+      "altExamples": [
+        "The university library has made its digital archives accessible to researchers worldwide through an online portal.",
+        "Affordable healthcare should be accessible to all citizens regardless of their socioeconomic background."
+      ],
+      "altExamples_cn": [
+        "大学图书馆通过在线门户网站使其数字档案可供全球研究人员访问。",
+        "可负担的医疗保健应该对所有公民都可获得，无论其社会经济背景如何。"
+      ]
+    },
+    "achebe": {
+      "example": "Achebe Next week we'll be discussing the impact of digital media on traditional forms of communication.",
+      "example_cn": "Achebe 下周我们将讨论数字媒体对传统交流形式的影响。",
+      "altExamples": [
+        "Achebe's novels offer profound insights into postcolonial identity and African cultural heritage.",
+        "The literary techniques employed by Achebe have influenced generations of writers across the continent."
+      ],
+      "altExamples_cn": [
+        "Achebe 的小说对后殖民身份认同和非洲文化遗产提供了深刻的见解。",
+        "Achebe 所采用的文学技巧影响了几代非洲大陆的作家。"
+      ]
+    },
+    "acquire": {
+      "example": "With a good education, individuals can acquire the knowledge and skills needed to access better job opportunities and improve their social status.",
+      "example_cn": "通过良好的教育，个人可以获得必要的知识和技能，从而获得更好的工作机会并提高社会地位。",
+      "altExamples": [
+        "Children acquire language skills most effectively through immersive exposure and meaningful social interaction.",
+        "The corporation sought to acquire several smaller startups to expand its technological capabilities."
+      ],
+      "altExamples_cn": [
+        "儿童通过沉浸式接触和有意义的社交互动最有效地获得语言技能。",
+        "该企业寻求收购几家较小的初创公司以扩展其技术能力。"
+      ]
+    },
+    "action": {
+      "example": "For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories.",
+      "example_cn": "例如，电影和社交媒体可以通过有力的文字、图像和故事引起人们对气候变化的关注，并激发行动。",
+      "altExamples": [
+        "The government's decisive action on environmental regulation has significantly reduced industrial pollution levels.",
+        "Collective action by community members can bring about meaningful social change at the local level."
+      ],
+      "altExamples_cn": [
+        "政府在环境监管方面的果断行动显著降低了工业污染水平。",
+        "社区成员的集体行动可以在地方层面带来有意义的社会变革。"
+      ]
+    },
+    "additional": {
+      "example": "- Ask for additional resources or recommendations for further study.",
+      "example_cn": "请求额外的资源或推荐资料以供进一步学习。",
+      "altExamples": [
+        "Researchers requested additional funding to extend their study on the effects of urban pollution.",
+        "The course requires additional reading materials available in the university's online repository."
+      ],
+      "altExamples_cn": [
+        "研究人员请求额外资金来扩展他们关于城市污染影响的研究。",
+        "该课程需要额外的阅读材料，可在大学的在线资源库中获取。"
+      ]
+    },
+    "adopting": {
+      "example": "I'm thinking of adopting a dog this summer.",
+      "example_cn": "我在考虑今年夏天领养一只狗。",
+      "altExamples": [
+        "Many companies are adopting flexible work arrangements to improve employee satisfaction and productivity.",
+        "Adopting sustainable agricultural practices can help mitigate the adverse effects of climate change."
+      ],
+      "altExamples_cn": [
+        "许多公司正在采用灵活的工作安排来提高员工满意度和生产力。",
+        "采用可持续的农业实践有助于减轻气候变化的不利影响。"
+      ]
+    },
+    "advantages": {
+      "example": "Therefore, personal connections can lead to job offers, mentorship, and other advantages that help individuals climb the social ladder.",
+      "example_cn": "因此，人际关系可以带来工作机会、指导和其他帮助个人攀登社会阶梯的优势。",
+      "altExamples": [
+        "The advantages of renewable energy include reduced emissions and long-term cost savings for consumers.",
+        "Bilingual individuals often enjoy cognitive advantages, such as improved executive function and memory."
+      ],
+      "altExamples_cn": [
+        "可再生能源的优势包括减少排放和为消费者带来长期成本节约。",
+        "双语者通常享有认知优势，如改善的执行功能和记忆力。"
+      ]
+    },
+    "advice": {
+      "example": "- Offer different ways to help her if she needs more advice.",
+      "example_cn": "如果她需要更多建议，提供不同的方式来帮助她。",
+      "altExamples": [
+        "Financial advisors recommend seeking professional advice before making significant investment decisions.",
+        "The counselor's advice on time management strategies greatly improved the student's academic performance."
+      ],
+      "altExamples_cn": [
+        "财务顾问建议在做出重大投资决策之前寻求专业建议。",
+        "辅导员关于时间管理策略的建议极大地改善了该学生的学业表现。"
+      ]
+    },
+    "affected": {
+      "example": "- Explain how his absence has affected the group's progress.",
+      "example_cn": "解释他的缺席对小组的进展产生了怎样的影响。",
+      "altExamples": [
+        "Coastal communities are disproportionately affected by rising sea levels caused by global warming.",
+        "The economic recession severely affected employment rates among recent college graduates."
+      ],
+      "altExamples_cn": [
+        "沿海社区受到全球变暖导致的海平面上升的严重影响。",
+        "经济衰退严重影响了应届大学毕业生的就业率。"
+      ]
+    },
+    "affecting": {
+      "example": "- Explain how his lack of participation is affecting the group.",
+      "example_cn": "解释他缺乏参与对小组产生了怎样的影响。",
+      "altExamples": [
+        "Factors affecting student retention include academic support services and campus climate.",
+        "The new policy changes are affecting small businesses more severely than large corporations."
+      ],
+      "altExamples_cn": [
+        "影响学生留校率的因素包括学术支持服务和校园氛围。",
+        "新政策变化对小型企业的影响比大型企业更为严重。"
+      ]
+    },
+    "afterward": {
+      "example": "She finished her homework shortly afterward.",
+      "example_cn": "她之后很快就完成了作业。",
+      "altExamples": [
+        "The experiment concluded successfully; afterward, the researchers analyzed the data for several weeks.",
+        "She graduated from university in 2020 and afterward pursued a career in environmental science."
+      ],
+      "altExamples_cn": [
+        "实验成功结束了；之后，研究人员花了数周时间分析数据。",
+        "她于2020年大学毕业，之后从事了环境科学方面的职业。"
+      ]
+    },
+    "airport": {
+      "example": "Can you tell me whether you need a lift to the airport?",
+      "example_cn": "你能告诉我你是否需要搭车去机场吗？",
+      "altExamples": [
+        "The newly constructed airport terminal can accommodate up to fifty million passengers annually.",
+        "International airports serve as critical infrastructure for global trade and tourism."
+      ],
+      "altExamples_cn": [
+        "新建的机场航站楼每年可容纳多达五千万名旅客。",
+        "国际机场是全球贸易和旅游业的关键基础设施。"
+      ]
+    },
+    "alternative": {
+      "example": "This alternative approach focuses on managing consequences rather than prevention.",
+      "example_cn": "这种替代方法侧重于管理后果而非预防。",
+      "altExamples": [
+        "Scientists are exploring alternative energy sources to reduce dependence on fossil fuels.",
+        "The study proposes an alternative methodology that accounts for variables overlooked in prior research."
+      ],
+      "altExamples_cn": [
+        "科学家正在探索替代能源以减少对化石燃料的依赖。",
+        "该研究提出了一种替代方法，考虑到了先前研究中被忽视的变量。"
+      ]
+    },
+    "andre": {
+      "example": "What did Andre ask you at the party?",
+      "example_cn": "Andre 在派对上问了你什么？",
+      "altExamples": [
+        "Andre's dissertation on behavioral economics challenged several long-standing assumptions in the field.",
+        "The committee recognized Andre for his outstanding contributions to community development research."
+      ],
+      "altExamples_cn": [
+        "Andre 关于行为经济学的论文挑战了该领域几个长期存在的假设。",
+        "委员会表彰了 Andre 对社区发展研究的杰出贡献。"
+      ]
+    },
+    "anna": {
+      "example": "I heard Anna got a promotion.",
+      "example_cn": "我听说 Anna 升职了。",
+      "altExamples": [
+        "Anna's analysis of voter behavior revealed significant demographic shifts in the electorate.",
+        "The scholarship awarded to Anna will support her research on marine conservation strategies."
+      ],
+      "altExamples_cn": [
+        "Anna 对选民行为的分析揭示了选民群体中显著的人口结构变化。",
+        "授予 Anna 的奖学金将支持她关于海洋保护策略的研究。"
+      ]
+    },
+    "apparel": {
+      "example": "The store next to the post office sells all types of winter apparel\\.",
+      "example_cn": "邮局旁边的那家店出售各种冬季服装。",
+      "altExamples": [
+        "The apparel industry faces increasing scrutiny over its environmental impact and labor practices.",
+        "Sustainable apparel made from recycled materials is gaining popularity among environmentally conscious consumers."
+      ],
+      "altExamples_cn": [
+        "服装行业因其环境影响和劳工实践而面临越来越多的审查。",
+        "由回收材料制成的可持续服装在环保意识强的消费者中越来越受欢迎。"
+      ]
+    },
+    "appetizers": {
+      "example": "Did they serve any appetizers before the main course?",
+      "example_cn": "主菜之前他们上了开胃菜吗？",
+      "altExamples": [
+        "The restaurant's appetizers were creatively prepared and showcased the chef's culinary expertise.",
+        "Guests were served a variety of appetizers before the main conference dinner began."
+      ],
+      "altExamples_cn": [
+        "餐厅的开胃菜制作精良，展示了厨师的烹饪专业水平。",
+        "在主题晚宴开始之前，宾客们享用了各式开胃菜。"
+      ]
+    },
+    "application": {
+      "example": "I'm going to submit my application today.",
+      "example_cn": "我今天要提交我的申请。",
+      "altExamples": [
+        "The practical application of theoretical physics principles has led to numerous technological innovations.",
+        "Her application for the research grant was meticulously prepared and supported by preliminary data."
+      ],
+      "altExamples_cn": [
+        "理论物理原理的实际应用带来了众多技术创新。",
+        "她对研究资助的申请准备得极其细致，并有初步数据作为支撑。"
+      ]
+    },
+    "applied": {
+      "example": "Have any of your coworkers applied for the position?",
+      "example_cn": "你的同事中有没有人申请这个职位？",
+      "altExamples": [
+        "The principles of behavioral economics can be applied to improve public policy decision-making.",
+        "She applied for a fellowship to conduct fieldwork on biodiversity in tropical rainforests."
+      ],
+      "altExamples_cn": [
+        "行为经济学的原理可以应用于改善公共政策决策。",
+        "她申请了一项奖学金，用于在热带雨林进行生物多样性的实地研究。"
+      ]
+    },
+    "approach": {
+      "example": "This alternative approach focuses on managing consequences rather than prevention.",
+      "example_cn": "这种替代方法侧重于管理后果而非预防。",
+      "altExamples": [
+        "The interdisciplinary approach adopted by the research team yielded comprehensive and insightful results.",
+        "A proactive approach to public health can prevent the outbreak of infectious diseases."
+      ],
+      "altExamples_cn": [
+        "研究团队采用的跨学科方法产生了全面而富有洞察力的结果。",
+        "对公共卫生采取积极主动的方法可以预防传染病的爆发。"
+      ]
+    },
+    "appropriate": {
+      "example": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+      "example_cn": "你认为艺术和媒体是提高公众对复杂环境问题认识的一种合适方式吗？",
+      "altExamples": [
+        "The committee determined that the proposed budget was appropriate for the scale of the project.",
+        "It is not appropriate to draw causal conclusions from correlational data without further investigation."
+      ],
+      "altExamples_cn": [
+        "委员会认为，拟议的预算对于该项目的规模而言是合适的。",
+        "在没有进一步调查的情况下，从相关数据中得出因果结论是不恰当的。"
+      ]
+    },
+    "assignment": {
+      "example": "I need to submit my assignment by tomorrow.",
+      "example_cn": "我需要在明天之前提交我的作业。",
+      "altExamples": [
+        "The final assignment requires students to synthesize their learning into a comprehensive research paper.",
+        "Completing the group assignment ahead of schedule allowed the team to focus on revisions."
+      ],
+      "altExamples_cn": [
+        "期末作业要求学生将所学内容综合成一篇全面的研究论文。",
+        "提前完成小组作业让团队能够集中精力进行修改和完善。"
+      ]
+    },
+    "awareness": {
+      "example": "Do you think art and media are an appropriate way to increase public awareness of complex environmental issues?",
+      "example_cn": "你认为艺术和媒体是提高公众对复杂环境问题认识的一种合适方式吗？",
+      "altExamples": [
+        "Public awareness campaigns have significantly increased understanding of mental health issues.",
+        "Environmental awareness among consumers is driving demand for sustainable products."
+      ],
+      "altExamples_cn": [
+        "公众意识宣传活动显著提高了人们对心理健康问题的认识。",
+        "消费者的环保意识正在推动对可持续产品的需求。"
+      ]
+    },
+    "band": {
+      "example": "How can we find out when that band is performing again?",
+      "example_cn": "我们怎么才能知道那个乐队什么时候再演出？",
+      "altExamples": [
+        "The frequency band allocated for emergency communications must remain free of interference.",
+        "A narrow band of scholars holds opposing views on the interpretation of these archaeological findings."
+      ],
+      "altExamples_cn": [
+        "分配给紧急通信的频段必须免受干扰。",
+        "少数学者对考古发现的解读持有相反观点。"
+      ]
+    },
+    "beneficial": {
+      "example": "Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity.",
+      "example_cn": "有人认为数字媒体总体上产生了有益的影响，因为它极大地改善了全球通信和互联互通。",
+      "altExamples": [
+        "Regular physical exercise is beneficial for maintaining cardiovascular health and cognitive function.",
+        "International trade agreements can be beneficial for developing economies when structured equitably."
+      ],
+      "altExamples_cn": [
+        "定期体育锻炼对维持心血管健康和认知功能有益。",
+        "国际贸易协定如果结构公平，对发展中经济体可能是有益的。"
+      ]
+    },
+    "bias": {
+      "example": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+      "example_cn": "Claire: 我担心媒体对环境问题的报道常常带有商业偏见。",
+      "altExamples": [
+        "Cognitive bias can significantly affect decision-making processes in professional contexts.",
+        "The researcher implemented blinding procedures to minimize bias in the clinical trial results."
+      ],
+      "altExamples_cn": [
+        "认知偏见会显著影响职业环境中的决策过程。",
+        "研究人员实施了盲法程序以尽量减少临床试验结果中的偏差。"
+      ]
+    },
+    "biography": {
+      "example": "I'm going to start writing a biography.",
+      "example_cn": "我打算开始写一本传记。",
+      "altExamples": [
+        "The biography of the scientist detailed her groundbreaking discoveries and personal struggles.",
+        "Reading a well-researched biography can provide valuable context for understanding historical events."
+      ],
+      "altExamples_cn": [
+        "这位科学家的传记详述了她开创性的发现和个人的挣扎。",
+        "阅读一本经过深入研究的传记可以为理解历史事件提供宝贵的背景。"
+      ]
+    },
+    "bistro": {
+      "example": "Do you know anyone who can give me directions to the Big Tree Bistro?",
+      "example_cn": "你知道谁能告诉我怎么去大树小酒馆吗？",
+      "altExamples": [
+        "The cozy bistro near campus became a popular meeting spot for faculty discussions.",
+        "Authentic French bistros typically offer a limited menu focused on traditional regional cuisine."
+      ],
+      "altExamples_cn": [
+        "校园附近那家舒适的小酒馆成为教职员工讨论的热门聚会场所。",
+        "正宗的法国小酒馆通常提供以传统地方菜肴为主的有限菜单。"
+      ]
+    },
+    "blast": {
+      "example": "We had a blast at the national park yesterday.",
+      "example_cn": "昨天我们在国家公园玩得特别开心。",
+      "altExamples": [
+        "The volcanic blast ejected ash thousands of meters into the atmosphere.",
+        "Participants had a blast at the interactive science exhibition designed for young learners."
+      ],
+      "altExamples_cn": [
+        "火山爆发将火山灰喷射到数千米高的大气中。",
+        "参与者在为年轻学习者设计的互动科学展览中玩得非常开心。"
+      ]
+    },
+    "blog": {
+      "example": "I'm thinking about starting a blog.",
+      "example_cn": "我在考虑开一个博客。",
+      "altExamples": [
+        "The professor's academic blog attracts thousands of readers interested in political philosophy.",
+        "Maintaining a professional blog can help researchers disseminate their findings to broader audiences."
+      ],
+      "altExamples_cn": [
+        "这位教授的学术博客吸引了成千上万对政治哲学感兴趣的读者。",
+        "维护一个专业博客可以帮助研究人员将他们的发现传播给更广泛的受众。"
+      ]
+    },
+    "bookstore": {
+      "example": "The bookstore ________ ________ .",
+      "example_cn": "那家书店________ ________。",
+      "altExamples": [
+        "The independent bookstore hosts weekly literary events featuring emerging authors.",
+        "University bookstores now offer digital textbooks alongside traditional printed editions."
+      ],
+      "altExamples_cn": [
+        "这家独立书店每周举办以新兴作家为特色的文学活动。",
+        "大学书店现在除了传统的印刷版教材外，还提供数字教科书。"
+      ]
+    },
+    "breakdown": {
+      "example": "Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages.",
+      "example_cn": "有人认为城市化促进了社区意识和文化交流，而另一些人则认为它导致社会隔离以及通常存在于小城镇和村庄的紧密社区的瓦解。",
+      "altExamples": [
+        "The breakdown of diplomatic negotiations led to increased tensions between the two nations.",
+        "A detailed breakdown of the survey data revealed unexpected patterns in consumer preferences."
+      ],
+      "altExamples_cn": [
+        "外交谈判的破裂导致两国之间的紧张局势加剧。",
+        "对调查数据的详细分解揭示了消费者偏好中意想不到的模式。"
+      ]
+    },
+    "campground": {
+      "example": "We set up our tent at the campground near the lake.",
+      "example_cn": "我们在湖边的露营地搭起了帐篷。",
+      "altExamples": [
+        "The campground was equipped with modern facilities, including showers and a small grocery store.",
+        "They reserved a spot at the national park campground for their summer vacation."
+      ],
+      "altExamples_cn": [
+        "露营地配备了现代化设施，包括淋浴间和一家小型杂货店。",
+        "他们为暑假在国家公园露营地预订了一个位置。"
+      ]
+    },
+    "cannot": {
+      "example": "Marcus: I believe creative media can connect with people on an emotional level in ways that facts alone cannot.",
+      "example_cn": "Marcus: 我相信创意媒体可以在情感层面与人产生共鸣，这种方式是单纯的事实所无法做到的。",
+      "altExamples": [
+        "Researchers cannot establish causation based solely on observational studies without controlled experiments.",
+        "The human brain cannot process multiple complex tasks simultaneously without a decline in performance."
+      ],
+      "altExamples_cn": [
+        "研究人员不能仅凭观察性研究就确定因果关系，而不进行对照实验。",
+        "人脑无法同时处理多个复杂任务而不导致表现下降。"
+      ]
+    },
+    "carbon": {
+      "example": "Innovations like carbon capture to reduce climate change help limit damage while allowing progress.",
+      "example_cn": "像碳捕集这样的创新技术可以减少气候变化，在允许发展的同时帮助限制损害。",
+      "altExamples": [
+        "Carbon emissions from industrial activities contribute significantly to global climate change.",
+        "Forests serve as vital carbon sinks, absorbing large quantities of carbon dioxide from the atmosphere."
+      ],
+      "altExamples_cn": [
+        "工业活动产生的碳排放对全球气候变化有显著影响。",
+        "森林充当着重要的碳汇，从大气中吸收大量二氧化碳。"
+      ]
+    },
+    "chosen": {
+      "example": "Which historical figure have you chosen to write about?",
+      "example_cn": "你选择了哪一位历史人物来写作？",
+      "altExamples": [
+        "The chosen methodology for the study ensures replicability and validity of the results.",
+        "Participants were randomly chosen from a diverse pool of applicants to ensure representative sampling."
+      ],
+      "altExamples_cn": [
+        "所选择的研究方法确保了结果的可重复性和有效性。",
+        "参与者是从多样化的申请人群中随机选择的，以确保代表性抽样。"
+      ]
+    },
+    "civic": {
+      "example": "Emma: Yes, I think high schools should require volunteer hours because it helps students build a sense of civic responsibility.",
+      "example_cn": "Emma: 是的，我认为高中应该要求学生完成志愿小时数，因为这有助于学生培养公民责任感。",
+      "altExamples": [
+        "Civic engagement through volunteer work strengthens community bonds and democratic participation.",
+        "The civic center hosted a forum on urban development and sustainable infrastructure planning."
+      ],
+      "altExamples_cn": [
+        "通过志愿工作进行的公民参与加强了社区纽带和民主参与。",
+        "市政中心举办了一场关于城市发展和可持续基础设施规划的论坛。"
+      ]
+    },
+    "cleanup": {
+      "example": "Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration.",
+      "example_cn": "其他人则支持在不妨碍活动的情况下减轻损害的技术和倡议——例如污染清理或森林恢复。",
+      "altExamples": [
+        "The environmental cleanup of contaminated industrial sites requires significant investment and expertise.",
+        "Community volunteers organized a beach cleanup to remove plastic waste from the shoreline."
+      ],
+      "altExamples_cn": [
+        "对受污染工业场地进行环境清理需要大量投资和专业知识。",
+        "社区志愿者组织了一次海滩清理活动，以清除海岸线上的塑料垃圾。"
+      ]
+    },
+    "colleagues": {
+      "example": "Some colleagues ________ ________ .",
+      "example_cn": "有些同事________ ________。",
+      "altExamples": [
+        "Her colleagues in the research department collaborated on the groundbreaking genetic study.",
+        "The professor consulted with international colleagues to refine her experimental design."
+      ],
+      "altExamples_cn": [
+        "她在研究部门的同事们在开创性的基因研究上进行了合作。",
+        "这位教授咨询了国际同事以完善她的实验设计。"
+      ]
+    },
+    "compensation": {
+      "example": "Chen Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause.",
+      "example_cn": "陈志愿精神指的是不图经济回报，自愿贡献时间和服务以造福社区、组织或事业的行为。",
+      "altExamples": [
+        "Workers demanded fair compensation for overtime hours and hazardous working conditions.",
+        "The compensation package included health benefits and retirement contributions."
+      ],
+      "altExamples_cn": [
+        "工人要求对加班时间和危险工作条件获得公平的经济补偿。",
+        "薪酬待遇包括健康福利和退休金。"
+      ]
+    },
+    "consequences": {
+      "example": "This alternative approach focuses on managing consequences rather than prevention.",
+      "example_cn": "这种替代方法侧重于管理后果而非预防。",
+      "altExamples": [
+        "The long-term consequences of deforestation include biodiversity loss and climate disruption.",
+        "Economic policies often have unintended consequences that require careful monitoring and adjustment."
+      ],
+      "altExamples_cn": [
+        "森林砍伐的长期后果包括生物多样性丧失和气候紊乱。",
+        "经济政策往往会产生意想不到的后果，需要仔细监控和调整。"
+      ]
+    },
+    "convenience": {
+      "example": "The convenience and speed of digital media allow people to communicate with ease.",
+      "example_cn": "数字媒体的便利性和速度使人们能轻松地进行沟通。",
+      "altExamples": [
+        "The convenience of online learning platforms has transformed access to higher education.",
+        "Urban planners prioritize pedestrian convenience when designing public transportation systems."
+      ],
+      "altExamples_cn": [
+        "在线学习平台的便利性改变了高等教育的获取方式。",
+        "城市规划者在设计公共交通系统时优先考虑行人的便利。"
+      ]
+    },
+    "coverage": {
+      "example": "Claire: I worry that media coverage of environmental issues often comes with commercial bias.",
+      "example_cn": "Claire: 我担心媒体对环境问题的报道常常带有商业偏见。",
+      "altExamples": [
+        "Media coverage of scientific discoveries often oversimplifies complex research findings.",
+        "Health insurance coverage varies significantly across different demographic groups."
+      ],
+      "altExamples_cn": [
+        "媒体对科学发现的报道往往过度简化复杂的研究发现。",
+        "健康保险覆盖范围在不同人口群体之间存在显著差异。"
+      ]
+    },
+    "coworkers": {
+      "example": "Have any of your coworkers applied for the position?",
+      "example_cn": "你的同事中有没有人申请这个职位？",
+      "altExamples": [
+        "My coworkers and I collaborated on a presentation for the annual industry conference.",
+        "Positive relationships with coworkers can enhance job satisfaction and workplace productivity."
+      ],
+      "altExamples_cn": [
+        "我和同事们为年度行业会议的合作演示进行了协作。",
+        "与同事之间的良好关系可以提高工作满意度和职场生产力。"
+      ]
+    },
+    "deadline": {
+      "example": "Why are you asking about the project deadline?",
+      "example_cn": "你为什么问项目截止日期？",
+      "altExamples": [
+        "The project deadline was extended to accommodate additional data collection requirements.",
+        "Meeting the publication deadline required the editorial team to work intensively."
+      ],
+      "altExamples_cn": [
+        "项目截止日期被延长以适应额外的数据收集需求。",
+        "赶上出版截止日期需要编辑团队高强度地工作。"
+      ]
+    },
+    "dedicated": {
+      "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+      "altExamples": [
+        "The research center is dedicated to finding sustainable solutions for water scarcity.",
+        "She dedicated her career to advancing educational opportunities for underprivileged communities."
+      ],
+      "altExamples_cn": [
+        "该研究中心致力于寻找解决水资源短缺问题的可持续方案。",
+        "她将职业生涯奉献给推动贫困社区的教育机会。"
+      ]
+    },
+    "deforestation": {
+      "example": "Gupta Human activities like pollution and deforestation harm the environment.",
+      "example_cn": "Gupta 污染和森林砍伐等人类活动对环境造成危害。",
+      "altExamples": [
+        "Deforestation in the Amazon rainforest has accelerated despite international conservation efforts.",
+        "Agricultural expansion is the primary driver of deforestation in tropical regions worldwide."
+      ],
+      "altExamples_cn": [
+        "尽管国际社会做出了保护努力，亚马逊雨林的森林砍伐仍在加速。",
+        "农业扩张是全球热带地区森林砍伐的主要驱动力。"
+      ]
+    },
+    "delicious": {
+      "example": "The diner that opened last week serves many delicious entrees\\.",
+      "example_cn": "上周开的那家餐厅提供许多美味的主菜。",
+      "altExamples": [
+        "The organic produce from the local farm yielded a surprisingly delicious and nutritious meal.",
+        "Critics praised the restaurant for its delicious fusion cuisine blending traditional and modern techniques."
+      ],
+      "altExamples_cn": [
+        "来自本地农场的有机农产品做出了一顿令人惊喜的美味且营养的餐食。",
+        "评论家赞扬这家餐厅美味的融合菜系，融合了传统与现代的技巧。"
+      ]
+    },
+    "devices": {
+      "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+      "altExamples": [
+        "Portable electronic devices have revolutionized access to information in educational settings.",
+        "Medical devices require rigorous testing and regulatory approval before clinical use."
+      ],
+      "altExamples_cn": [
+        "便携电子设备彻底改变了教育环境中的信息获取方式。",
+        "医疗设备在临床使用前需要经过严格的测试和监管审批。"
+      ]
+    },
+    "didn": {
+      "example": "Why didn't you go to the library today?",
+      "example_cn": "你今天为什么没去图书馆？",
+      "altExamples": [
+        "The researchers didn't anticipate the confounding variables that affected their initial hypothesis.",
+        "The committee didn't approve the proposal until additional safety data was provided."
+      ],
+      "altExamples_cn": [
+        "研究人员没有预料到影响他们最初假设的混杂变量。",
+        "在提供额外的安全数据之前，委员会没有批准该提案。"
+      ]
+    },
+    "diner": {
+      "example": "The diner that opened last week serves many delicious entrees\\.",
+      "example_cn": "上周开的那家小餐馆提供许多美味的主菜。",
+      "altExamples": [
+        "The historic diner has been a community gathering place for over fifty years.",
+        "Classic American diners are known for their affordable meals and casual atmosphere."
+      ],
+      "altExamples_cn": [
+        "这家历史悠久的小餐馆五十多年来一直是社区的聚会场所。",
+        "经典的美式小餐馆以价格实惠的餐食和休闲氛围而闻名。"
+      ]
+    },
+    "discourage": {
+      "example": "Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy.",
+      "example_cn": "有人认为，全民基本收入让每个人获得相似的收入，可以提供经济保障并减少贫困，而另一些人则认为这会打击人们的工作积极性，并对经济产生负面影响。",
+      "altExamples": [
+        "High tuition costs can discourage talented students from pursuing higher education.",
+        "Strict regulations may discourage innovation if compliance becomes overly burdensome."
+      ],
+      "altExamples_cn": [
+        "高昂的学费可能阻碍有才华的学生追求高等教育。",
+        "如果合规成本过高，严格的法规可能会抑制创新。"
+      ]
+    },
+    "distances": {
+      "example": "It allows people to stay in touch over long distances with friends and family with whom they may not have had much contact otherwise.",
+      "example_cn": "它让人们能够跨越遥远的距离与朋友和家人保持联系，否则他们可能不会有太多交流。",
+      "altExamples": [
+        "Long distances between urban centers pose logistical challenges for infrastructure development.",
+        "The telescope can measure astronomical distances with remarkable precision."
+      ],
+      "altExamples_cn": [
+        "城市中心之间的长距离给基础设施建设带来了后勤挑战。",
+        "该望远镜能够以非凡的精度测量天文距离。"
+      ]
+    },
+    "download": {
+      "example": "On which website were you able to find the download?",
+      "example_cn": "你在哪个网站上找到了这个下载？",
+      "altExamples": [
+        "Students can download lecture materials from the university's online learning platform.",
+        "The download speed of large research datasets depends on network bandwidth and server capacity."
+      ],
+      "altExamples_cn": [
+        "学生可以从大学的在线学习平台下载课程材料。",
+        "大型研究数据集的下载速度取决于网络带宽和服务器容量。"
+      ]
+    },
+    "downtown": {
+      "example": "The new restaurant downtown has amazing reviews.",
+      "example_cn": "市中心新开的那家餐厅评价特别好。",
+      "altExamples": [
+        "The downtown area has undergone significant revitalization with new cultural venues.",
+        "Commuting to downtown during peak hours remains a challenge for many urban residents."
+      ],
+      "altExamples_cn": [
+        "市中心区域经历了重大振兴，新增了文化场馆。",
+        "在高峰时段通勤到市中心仍然是许多城市居民面临的挑战。"
+      ]
+    },
+    "drastic": {
+      "example": "This approach supports environmental protection without demanding drastic lifestyle changes.",
+      "example_cn": "这种方法支持环境保护，而无需要求人们进行剧烈的生活方式改变。",
+      "altExamples": [
+        "The company implemented drastic measures to reduce operational costs during the economic downturn.",
+        "Drastic changes in temperature can adversely affect agricultural crop yields."
+      ],
+      "altExamples_cn": [
+        "该公司在经济衰退期间实施了激烈的措施以降低运营成本。",
+        "温度的剧烈变化会对农作物产量产生不利影响。"
+      ]
+    },
+    "electronic": {
+      "example": "Williams More and more people can work remotely on portable electronic devices rather than in a dedicated office.",
+      "example_cn": "Williams 越来越多的人可以在便携电子设备上远程工作，而不是在专门的办公室里。",
+      "altExamples": [
+        "Electronic waste management has become a critical environmental concern globally.",
+        "The transition from print to electronic media has transformed the publishing industry."
+      ],
+      "altExamples_cn": [
+        "电子垃圾管理已成为全球关注的重要环境问题。",
+        "从印刷媒体向电子媒体的转变已经改变了出版行业。"
+      ]
+    },
+    "endorphins": {
+      "example": "It can reduce stress, improve mood, and increase overall well-being by releasing endorphins and promoting a healthy lifestyle.",
+      "example_cn": "它可以通过释放内啡肽和促进健康的生活方式来减轻压力、改善情绪并提升整体幸福感。",
+      "altExamples": [
+        "Physical exercise stimulates the release of endorphins, which enhance mood and reduce pain.",
+        "The brain's production of endorphins during aerobic activity contributes to feelings of euphoria."
+      ],
+      "altExamples_cn": [
+        "体育锻炼刺激内啡肽的释放，从而改善情绪并减轻疼痛。",
+        "大脑在有氧运动过程中产生的内啡肽带来愉悦感。"
+      ]
+    },
+    "entrees": {
+      "example": "The diner that opened last week serves many delicious entrees\\.",
+      "example_cn": "上周开的那家餐厅提供许多美味的主菜。",
+      "altExamples": [
+        "The restaurant's entrees feature locally sourced ingredients prepared with classical techniques.",
+        "Vegetarian entrees have become increasingly popular in mainstream dining establishments."
+      ],
+      "altExamples_cn": [
+        "这家餐厅的主菜采用本地采购的食材，以经典技法烹制。",
+        "素食主菜在主流餐饮场所中越来越受欢迎。"
+      ]
+    },
+    "erode": {
+      "example": "People often spend more time online than engaging in real-life conversations, which can erode social bonds and reduce the quality of communication with others.",
+      "example_cn": "人们往往花更多时间在网上，而不是进行面对面的交流，这可能侵蚀社会纽带，降低与他人沟通的质量。",
+      "altExamples": [
+        "Constant exposure to coastal waves can erode shorelines over extended periods of time.",
+        "Political scandals can erode public trust in governmental institutions and democratic processes."
+      ],
+      "altExamples_cn": [
+        "持续的海浪冲击会长期侵蚀海岸线。",
+        "政治丑闻可能侵蚀公众对政府机构和民主进程的信任。"
+      ]
+    },
+    "evan": {
+      "example": "Evan said you have a question for me.",
+      "example_cn": "Evan 说你有问题要问我。",
+      "altExamples": [
+        "Evan's presentation on neural networks impressed the selection committee.",
+        "The laboratory directed by Evan focuses on renewable energy storage solutions."
+      ],
+      "altExamples_cn": [
+        "Evan 关于神经网络的演示给选拔委员会留下了深刻印象。",
+        "由 Evan 领导的实验室专注于可再生能源存储解决方案。"
+      ]
+    }
+  }
+}

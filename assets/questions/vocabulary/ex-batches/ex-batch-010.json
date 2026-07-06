@@ -1,0 +1,486 @@
+{
+  "subject": "listening",
+  "start": 80,
+  "words": {
+    "fabulous": {
+      "example": "The steak we ate at your parents' place last week was fabulous.",
+      "example_cn": "上周我们在你父母家吃的牛排棒极了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "fake": {
+      "example": "Clinical trials use various placebos, including creams, gels, or even fake devices.",
+      "example_cn": "临床试验使用各种安慰剂，包括乳膏、凝胶，甚至假设备。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "farther": {
+      "example": "According to basic physics, the farther a star is from the center of a galaxy, the slower it should rotate.",
+      "example_cn": "根据基础物理学，恒星离星系中心越远，其旋转速度应该越慢。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "fascination": {
+      "example": "What I experienced is what psychologists call hard fascination.",
+      "example_cn": "我所经历的正是心理学家所说的硬性着迷。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "features": {
+      "example": "This year features a special guest performer, internationally renowned cellist Ben Bernal, who graduated from our university twenty years ago.",
+      "example_cn": "今年的活动特邀一位客座表演者——国际知名大提琴家Ben Bernal，他二十年前毕业于我们学校。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "fees": {
+      "example": "The daily use fees are higher than I expected.",
+      "example_cn": "每日使用费用比我预期的要高。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "festival": {
+      "example": "I think she'll be at the spring festival in a couple weeks, so don't make any other plans.",
+      "example_cn": "我想她几周后会去参加春节庆典，所以别做其他安排了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "finalize": {
+      "example": "I still need to finalize my slides and add a couple more visuals to make it engaging.",
+      "example_cn": "我还需要完善我的幻灯片，再添加一些视觉元素来让它更吸引人。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "fitness": {
+      "example": "Well, if you think you'll go regularly … Yeah, the fitness book I'm reading says that's the way to get in shape anyway.",
+      "example_cn": "嗯，如果你觉得你会经常去的话……对，我正在读的那本健身书上说，这反正是塑形的方法。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "flew": {
+      "example": "The bird flew across the sky and disappeared into the clouds.",
+      "example_cn": "那只鸟飞过天空，消失在云层中。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "forecast": {
+      "example": "Apparently the forecast is terrible next Wednesday...",
+      "example_cn": "显然下周三的天气预报很糟糕……",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "forgot": {
+      "example": "I guess I forgot to tell you!",
+      "example_cn": "我猜我忘了告诉你了！",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "frustrating": {
+      "example": "It was frustrating to lose the game after leading for most of the match.",
+      "example_cn": "在大部分时间领先的情况下输掉比赛，真是令人沮丧。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "functional": {
+      "example": "There are two main types of neuroplasticity: structural and functional.",
+      "example_cn": "神经可塑性主要有两种类型：结构可塑性和功能可塑性。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "galaxy": {
+      "example": "Well, all the stars in a galaxy rotate around the center of their galaxy.",
+      "example_cn": "嗯，星系中所有的恒星都围绕其星系中心旋转。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "games": {
+      "example": "Whether it's TV programs, video games...",
+      "example_cn": "无论是电视节目还是电子游戏……",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "gels": {
+      "example": "Clinical trials use various placebos, including creams, gels, or even fake devices.",
+      "example_cn": "临床试验使用各种安慰剂，包括乳膏、凝胶，甚至假设备。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "genres": {
+      "example": "As always, the event will feature a lineup of your fellow students performing music from various genres, including rock, jazz, and country.",
+      "example_cn": "和往常一样，本次活动将呈现一系列由同学们表演的不同风格的音乐，包括摇滚、爵士和乡村。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "gladstone": {
+      "example": "Tickets for this year's spring music extravaganza at Gladstone Auditorium are now available for purchase online and at the student union box office.",
+      "example_cn": "今年在Gladstone礼堂举办的春季音乐盛典的门票现已可通过网络和学生会售票处购买。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "graduated": {
+      "example": "This year features a special guest performer, internationally renowned cellist Ben Bernal, who graduated from our university twenty years ago.",
+      "example_cn": "今年的活动特邀一位客座表演者——国际知名大提琴家Ben Bernal，他二十年前毕业于我们学校。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "gravitational": {
+      "example": "This anomaly suggests that a massive, unseen matter is exerting gravitational force, keeping the stars moving faster than expected.",
+      "example_cn": "这种异常现象表明，一种巨大的、看不见的物质正在施加引力，使恒星的运动速度比预期的要快。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "greenhouse": {
+      "example": "A carbon footprint measures the total amount of greenhouse gases produced directly and indirectly by human activities, usually expressed in equivalent tons of carbon dioxide.",
+      "example_cn": "碳足迹衡量的是人类活动直接和间接产生的温室气体总量，通常以等量吨二氧化碳来表示。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "guidelines": {
+      "example": "Before we get started, I wanted to remind you of the guidelines for our upcoming short-story contest.",
+      "example_cn": "在我们开始之前，我想提醒大家注意我们即将举行的短篇小说比赛的指南。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "gym": {
+      "example": "I've been eyeing the new gym downtown … Have you checked their facilities?",
+      "example_cn": "我一直盯着市中心那家新健身房……你去看过他们的设施了吗？",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "handmade": {
+      "example": "Yes, I love looking at handmade items and unique crafts.",
+      "example_cn": "是的，我喜欢看手工制品和独特的手工艺品。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "hardware": {
+      "example": "It's always a relief when it's something simple and not hardware-related.",
+      "example_cn": "当问题很简单、与硬件无关时，总是让人松一口气。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "hectares": {
+      "example": "It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares.",
+      "example_cn": "它计算的是人类活动消耗的自然资源量和产生的废物量，通常以全球公顷为单位表示。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "hiking": {
+      "example": "Just a reminder that our club's annual hiking trip will be this Saturday.",
+      "example_cn": "提醒一下，我们俱乐部的年度徒步旅行将在本周六进行。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "hive": {
+      "example": "Today's topic is the intriguing behavior of honeybees and their communication methods within the hive.",
+      "example_cn": "今天的话题是蜜蜂的有趣行为及其在蜂巢内的交流方式。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "hmm": {
+      "example": "Hmm, I don't think the Johnsons eat meat.",
+      "example_cn": "嗯，我觉得Johnson一家不吃肉。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "holes": {
+      "example": "Though the reviews of the sneakers I bought last month said they're super-durable, and yet I have holes in them already.",
+      "example_cn": "虽然我上个月买的运动鞋的评论说它们超级耐用，但我的已经磨出洞了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "honeybees": {
+      "example": "Today's topic is the intriguing behavior of honeybees and their communication methods within the hive.",
+      "example_cn": "今天的话题是蜜蜂的有趣行为及其在蜂巢内的交流方式。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "huh": {
+      "example": "\"Huh, I never knew that!\" she exclaimed in surprise.",
+      "example_cn": "“哈，我从来不知道这个！”她惊讶地喊道。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "imitating": {
+      "example": "Biomimicry is the human practice of learning from and imitating things found in nature in order to create new inventions.",
+      "example_cn": "仿生学是人类通过向自然界中的事物学习并模仿它们来创造新发明的一种实践。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "inconvenience": {
+      "example": "We apologize for any inconvenience this may cause.",
+      "example_cn": "对此可能造成的任何不便，我们深表歉意。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "indirectly": {
+      "example": "A carbon footprint measures the total amount of greenhouse gases produced directly and indirectly by human activities, usually expressed in equivalent tons of carbon dioxide.",
+      "example_cn": "碳足迹衡量的是人类活动直接和间接产生的温室气体总量，通常以等量吨二氧化碳来表示。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "intriguing": {
+      "example": "Today's topic is the intriguing behavior of honeybees and their communication methods within the hive.",
+      "example_cn": "今天的话题是蜜蜂的有趣行为及其在蜂巢内的交流方式。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "inventions": {
+      "example": "Biomimicry is the human practice of learning from and imitating things found in nature in order to create new inventions.",
+      "example_cn": "仿生学是人类通过向自然界中的事物学习并模仿它们来创造新发明的一种实践。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "invisible": {
+      "example": "Dark matter is a type of matter that doesn't emit, absorb, or reflect light, making it invisible to current instruments.",
+      "example_cn": "暗物质是一种不发射、不吸收也不反射光的物质，因此目前的仪器无法观测到它。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "janet": {
+      "example": "Hey, did you end up making it to Janet's concert last night?",
+      "example_cn": "嘿，你昨晚最后去成Janet的演唱会了吗？",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "julie": {
+      "example": "Julie and Max, we'll just move you to Monday, and those scheduled for Monday will move to Wednesday, and so on.",
+      "example_cn": "Julie和Max，我们把你们挪到周一，原定周一的人挪到周三，以此类推。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "larger": {
+      "example": "But I like the larger screen on a tablet for watching videos and reading.",
+      "example_cn": "但我喜欢平板电脑更大的屏幕，方便看视频和阅读。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lasagna": {
+      "example": "I was thinking more along the lines of veggie lasagna.",
+      "example_cn": "我更像是在考虑蔬菜千层面这类的。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lease": {
+      "example": "My lease is up at the end of the month.",
+      "example_cn": "我的租约月底就到期了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lemme": {
+      "example": "Lemme look it up on my phone.",
+      "example_cn": "让我用手机查一下。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lifestyles": {
+      "example": "By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation.",
+      "example_cn": "通过比较生态足迹，我们可以了解不同的生活方式和实践方式如何导致资源枯竭和环境退化。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lineup": {
+      "example": "As always, the event will feature a lineup of your fellow students performing music from various genres, including rock, jazz, and country.",
+      "example_cn": "和往常一样，本次活动将呈现一系列由同学们表演的不同风格的音乐，包括摇滚、爵士和乡村。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "lounge": {
+      "example": "The student lounge will be closed tomorrow from one P.",
+      "example_cn": "学生休息室明天下午一点起关闭。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "mat": {
+      "example": "Yes, I am, but I realized my old mat is completely worn out.",
+      "example_cn": "对，我是，但我发现我的旧垫子已经完全磨坏了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "max": {
+      "example": "Julie and Max, we'll just move you to Monday, and those scheduled for Monday will move to Wednesday, and so on.",
+      "example_cn": "Julie和Max，我们把你们挪到周一，原定周一的人挪到周三，以此类推。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "neural": {
+      "example": "Today we're exploring neuroplasticity, which means the brain's ability to reorganize itself by forming new neural connections throughout life.",
+      "example_cn": "今天我们探讨的是神经可塑性，即大脑通过在一生中不断形成新的神经连接来重组自身的能力。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "neuroplasticity": {
+      "example": "Today we're exploring neuroplasticity, which means the brain's ability to reorganize itself by forming new neural connections throughout life.",
+      "example_cn": "今天我们探讨的是神经可塑性，即大脑通过在一生中不断形成新的神经连接来重组自身的能力。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "notifications": {
+      "example": "Doing so will ensure that you receive important notifications, including about class cancellations and emergency alerts.",
+      "example_cn": "这样做将确保你收到重要通知，包括课程取消和紧急警报。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "occurred": {
+      "example": "Not a single thought occurred to me that was unrelated to the movie.",
+      "example_cn": "我脑中没有任何一个念头是与电影无关的。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "originated": {
+      "example": "It originated in the early 20th century in the city of New Orleans, blending elements of different kinds of music like African rhythms, blues and ragtime.",
+      "example_cn": "它起源于20世纪初的新奥尔良市，融合了非洲节奏、布鲁斯和拉格泰姆等不同音乐类型的元素。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "orleans": {
+      "example": "It originated in the early 20th century in the city of New Orleans, blending elements of different kinds of music like African rhythms, blues and ragtime.",
+      "example_cn": "它起源于20世纪初的新奥尔良市，融合了非洲节奏、布鲁斯和拉格泰姆等不同音乐类型的元素。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "picnic": {
+      "example": "I just got an email saying that the company picnic at Emerald Park has been rescheduled.",
+      "example_cn": "我刚收到一封邮件，说在Emerald公园举办的公司野餐已经改期了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "pill": {
+      "example": "The placebo effect occurs when people experience real health improvements after receiving a treatment with no medical value — like a sugar pill — simply because they believe it's real.",
+      "example_cn": "安慰剂效应是指人们在接受没有医疗价值的治疗（如糖丸）后，仅仅因为相信它是真的，就体验到真实的健康改善。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "placebo": {
+      "example": "The placebo effect occurs when people experience real health improvements after receiving a treatment with no medical value — like a sugar pill — simply because they believe it's real.",
+      "example_cn": "安慰剂效应是指人们在接受没有医疗价值的治疗（如糖丸）后，仅仅因为相信它是真的，就体验到真实的健康改善。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "portable": {
+      "example": "If you want something portable and easy to use on the go a smartphone is better.",
+      "example_cn": "如果你想要便携、外出时使用方便的设备，智能手机更好。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "practices": {
+      "example": "By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation.",
+      "example_cn": "通过比较生态足迹，我们可以了解不同的生活方式和实践方式如何导致资源枯竭和环境退化。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "preliminary": {
+      "example": "This draft should include your thesis statement, main arguments, and a preliminary list of sources.",
+      "example_cn": "这份草稿应包含你的论文陈述、主要论点以及初步的资料来源列表。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "prices": {
+      "example": "Are the prices reasonable?",
+      "example_cn": "价格合理吗？",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "ragtime": {
+      "example": "It originated in the early 20th century in the city of New Orleans, blending elements of different kinds of music like African rhythms, blues and ragtime.",
+      "example_cn": "它起源于20世纪初的新奥尔良市，融合了非洲节奏、布鲁斯和拉格泰姆等不同音乐类型的元素。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "randomly": {
+      "example": "It keeps freezing and shutting down randomly.",
+      "example_cn": "它老是随机死机然后关机。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "receptacle": {
+      "example": "Environmentally minded students will be happy to know that compost collection bins have been placed next to every paper and plastic recycling receptacle in the student center food court.",
+      "example_cn": "有环保意识的学生将会高兴地得知，在学生中心美食广场的每个纸张和塑料回收容器旁，都已经放置了堆肥收集箱。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "recycling": {
+      "example": "Environmentally minded students will be happy to know that compost collection bins have been placed next to every paper and plastic recycling receptacle in the student center food court.",
+      "example_cn": "有环保意识的学生将会高兴地得知，在学生中心美食广场的每个纸张和塑料回收容器旁，都已经放置了堆肥收集箱。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "reduce": {
+      "example": "It helps identify areas where changes can be made to reduce environmental impact.",
+      "example_cn": "它有助于识别哪些方面可以做出改变以减少对环境的影响。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "refine": {
+      "example": "The goal is to get feedback and refine your ideas.",
+      "example_cn": "目标是获得反馈并完善你的想法。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "relativism": {
+      "example": "Cultural relativism is the idea that a person's beliefs and activities should be understood based on that person's own culture, rather than be judged against the criteria of another culture.",
+      "example_cn": "文化相对主义是指一个人的信仰和行为应根据其自身的文化来理解，而不是用另一种文化的标准来评判。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "reliable": {
+      "example": "This ensures that participants can't tell whether they're receiving the real treatment or the placebo, which in turn keeps the study fair and the results scientifically reliable.",
+      "example_cn": "这确保参与者无法辨别自己接受的是真实治疗还是安慰剂，从而保证研究的公平性以及结果的科学可靠性。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "reorganize": {
+      "example": "Today we're exploring neuroplasticity, which means the brain's ability to reorganize itself by forming new neural connections throughout life.",
+      "example_cn": "今天我们探讨的是神经可塑性，即大脑通过在一生中不断形成新的神经连接来重组自身的能力。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "rescheduled": {
+      "example": "I just got an email saying that the company picnic at Emerald Park has been rescheduled.",
+      "example_cn": "我刚收到一封邮件，说在Emerald公园举办的公司野餐已经改期了。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "restarting": {
+      "example": "Have you tried restarting it or running a virus scan?",
+      "example_cn": "你试过重启它或者运行病毒扫描吗？",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "reused": {
+      "example": "This means they don't become part of the final product, so they can be reused again and again in multiple reactions.",
+      "example_cn": "这意味着它们不会成为最终产品的一部分，因此可以在多次反应中反复使用。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "roles": {
+      "example": "Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint.",
+      "example_cn": "能源使用、交通、食物消费和住房等因素在决定生态足迹大小时发挥着重要作用。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "rotate": {
+      "example": "Well, all the stars in a galaxy rotate around the center of their galaxy.",
+      "example_cn": "嗯，星系中所有的恒星都围绕其星系中心旋转。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "salmon": {
+      "example": "How about salmon and salad?",
+      "example_cn": "三文鱼配沙拉怎么样？",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "saxophonist": {
+      "example": "She added a saxophonist to her band.",
+      "example_cn": "她给她的乐队增加了一位萨克斯手。",
+      "altExamples": [],
+      "altExamples_cn": []
+    },
+    "scan": {
+      "example": "Have you tried restarting it or running a virus scan?",
+      "example_cn": "你试过重启它或者运行病毒扫描吗？",
+      "altExamples": [],
+      "altExamples_cn": []
+    }
+  }
+}
