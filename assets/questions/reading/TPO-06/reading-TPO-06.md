@@ -242,11 +242,11 @@ C
 
 ### Task 4 Read an Academic Passage – The Origins of Theater (Questions 16–20)
 
-European theater has ancient roots, evolving from the rituals and storytelling of early societies. The earliest performances took place in ancient Greece, where festivals honoring the god Dionysus included dramatic contests. These performances were essential to communal life and aimed to convey moral lessons. The Greeks developed distinct genres: tragedy and comedy. Tragedies by Aeschylus and others explored themes of fate, justice, and suffering. Comedies, like those by Aristophanes, satirized society and politics. The structure of Greek theater, with its chorus and masks, had a lasting impact on later cultures.
+European theater has ancient roots, evolving from the rituals and storytelling of early societies. (A) The earliest performances took place in ancient Greece, where festivals honoring the god Dionysus included dramatic contests. These performances were essential to communal life and aimed to convey moral lessons. The Greeks developed distinct genres: tragedy and comedy. Tragedies by Aeschylus and others explored themes of fate, justice, and suffering. Comedies, like those by Aristophanes, satirized society and politics. The structure of Greek theater, with its chorus and masks, had a lasting impact on later cultures. (B)
 
-The tradition of theater continued in the ancient Roman Empire, where it became popular entertainment. Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family. These added layers of meaning and context to the plays and helped to convey the themes and narratives more effectively.
+The tradition of theater continued in the ancient Roman Empire, where it became popular entertainment. Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family. These added layers of meaning and context to the plays and helped to convey the themes and narratives more effectively. (C)
 
-Despite its rich history, theater faced decline during the Middle Ages in Europe (the period between 500 and 1500 C.E.). However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.
+Despite its rich history, theater faced decline during the Middle Ages in Europe (the period between 500 and 1500 C.E.). (D) However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.
 
 16. A goal of the earliest theater performances in ancient Greece was to
 A. tell stories about the ancient societies that Greece evolved from

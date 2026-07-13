@@ -246,6 +246,16 @@ function parseMarkdown(markdownText) {
         const questions = [];
         const questionSections = questionsContent.split(/\n(?=\d+\.)/);
 
+        // Detect grouped answer format (one [ANSWER] block for all questions in a task)
+        const taskAnswerMatch = questionsContent.match(/\[ANSWER\]([\s\S]*?)\[\/ANSWER\]/);
+        let groupedAnswers = null;
+        if (taskAnswerMatch) {
+          const lines = taskAnswerMatch[1].trim().split('\n').map(s => s.trim()).filter(Boolean);
+          if (lines.length > 1 && lines.every(a => /^[A-D]$/i.test(a))) {
+            groupedAnswers = lines;
+          }
+        }
+
         for (const qSection of questionSections) {
           if (!qSection.trim()) continue;
 
@@ -264,11 +274,15 @@ function parseMarkdown(markdownText) {
             options[optLetter] = optText;
           }
 
-          const answerStart = qSection.indexOf('[ANSWER]');
-          const answerEnd = qSection.indexOf('[/ANSWER]');
           let correctAnswer = '';
-          if (answerStart !== -1 && answerEnd !== -1) {
-            correctAnswer = qSection.substring(answerStart + 8, answerEnd).trim();
+          if (groupedAnswers) {
+            correctAnswer = groupedAnswers[questions.length] || '';
+          } else {
+            const answerStart = qSection.indexOf('[ANSWER]');
+            const answerEnd = qSection.indexOf('[/ANSWER]');
+            if (answerStart !== -1 && answerEnd !== -1) {
+              correctAnswer = qSection.substring(answerStart + 8, answerEnd).trim();
+            }
           }
 
           questions.push({
@@ -772,12 +786,14 @@ function generateTPO(tpoNum, markdownFile) {
             }
 
             // Insert the sentence into the passage 题型检测
-            const insertMatch = question.text.match(/Insert the sentence into the passage/i);
+            const insertMatch = question.text.match(/Insert the sentence into the passage/i) ||
+                                question.text.match(/There are four locations/i);
             if (insertMatch) {
-              const sentMatch = question.text.match(/Insert this sentence:\s*"(.+?)"/i);
-              const insertSentence = sentMatch ? sentMatch[1].replace(/"/g, '&quot;') : '';
+              const sentMatch = question.text.match(/Insert this sentence:\s*"(.+?)"/i) ||
+                                question.text.match(/following sentence could be added:\s*(.+?)(?:\n|$)/i);
+              const insertSentence = sentMatch ? sentMatch[1].replace(/"/g, '&quot;').trim() : '';
 
-              passageHTML = passageHTML.replace(/\(([ABCD])\)/g, '<span class="insertion-marker" data-insert-pos="$1">$&</span>');
+              passageHTML = passageHTML.replace(/[\(\[]([ABCD])[\)\]]/g, '<span class="insertion-marker" data-insert-pos="$1">$&</span>');
               html = html.replace('{{INSERTION_SENTENCE}}', insertSentence);
             } else {
               html = html.replace('{{INSERTION_SENTENCE}}', '');
@@ -1814,6 +1830,11 @@ function generateMainIndexPage(tpoSummaries) {
                 <span class="update-progress" id="update-progress" style="display:none;"></span>
               </div>
             </div>
+          </div>
+          <div class="log-entry">
+            <div class="log-version">V1.3.2</div>
+            <div class="log-date">2026-07-06</div>
+            <div class="log-detail">修复 Reading 模块多项问题：① grouped [ANSWER] 分组答案格式支持（TPO 06/07 答案全部识别为错误）；② 插入句子题兼容 [A] 方括号标记与"There are four locations"题头（TPO 07 M1 Q20 点击选项无反应）；③ 修复 TPO 05/08/09 markdown 文件头错误；④ TPO 06 M2 添加缺失的插入位置标记(A)(B)(C)(D)。</div>
           </div>
           <div class="log-entry">
             <div class="log-version">V1.3.1</div>
