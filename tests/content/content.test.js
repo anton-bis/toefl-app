@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { buildQuestionManifest } from '../../src/content/manifest.js';
@@ -9,6 +10,7 @@ import {
   generateQuestionManifest,
   scanQuestionFiles
 } from '../../scripts/generate-question-manifest.js';
+import { copyRuntimeContent } from '../../vite.config.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const manifest = generateQuestionManifest(root);
@@ -24,6 +26,38 @@ test('manifest discovery is deterministic and complete', () => {
   assert.deepEqual(buildQuestionManifest([...paths].reverse()).entries, manifest.entries);
   assert.deepEqual(manifest.entries, committedManifest.entries);
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
+});
+
+test('runtime asset copy excludes development directories without leaving empty shells', t => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'toefl-runtime-assets-'));
+  const source = path.join(temporaryRoot, 'assets');
+  const destination = path.join(temporaryRoot, 'dist', 'assets');
+  t.after(() => fs.rmSync(temporaryRoot, { recursive: true, force: true }));
+
+  const fixtures = [
+    ['images/qr.jpg', 'development image'],
+    ['icons/icon.png', 'runtime icon'],
+    ['questions/reading/TPO-01/reading-TPO-01.md', '# reading'],
+    ['questions/vocabulary/manifest.json', '{}'],
+    ['questions/vocabulary/ex-batches/batch.json', '{}'],
+    ['questions/vocabulary/ex-batches/manifest.json', '{}']
+  ];
+  for (const [relativePath, contents] of fixtures) {
+    const filePath = path.join(source, relativePath);
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    fs.writeFileSync(filePath, contents);
+  }
+
+  copyRuntimeContent(source, destination);
+
+  assert.equal(fs.existsSync(path.join(destination, 'images')), false);
+  assert.equal(fs.existsSync(path.join(destination, 'icons/icon.png')), true);
+  assert.equal(
+    fs.existsSync(path.join(destination, 'questions/reading/TPO-01/reading-TPO-01.md')),
+    true
+  );
+  assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/manifest.json')), true);
+  assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/ex-batches')), false);
 });
 
 test('all current Markdown documents parse into valid unified models', async t => {

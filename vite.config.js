@@ -6,24 +6,25 @@ import { RUNTIME_CONTENT_EXTENSIONS } from './electron/services/runtime-content.
 
 const isElectron = process.env.ELECTRON === 'true';
 const assetsRoot = path.resolve(import.meta.dirname, 'assets');
-const vocabularyRuntimeFiles = new Set([
-  'manifest.json',
-  'reading-words.json',
-  'listening-words.json',
-  'writing-words.json',
-  'speaking-words.json'
-]);
+const vocabularyRuntimeFiles = new Set(
+  [
+    'manifest.json',
+    'reading-words.json',
+    'listening-words.json',
+    'writing-words.json',
+    'speaking-words.json'
+  ].map(file => `questions/vocabulary/${file}`)
+);
 
-function isRuntimeAsset(source) {
-  const relative = path.relative(assetsRoot, source).split(path.sep).join('/');
+export function isRuntimeAsset(source, sourceRoot = assetsRoot) {
+  const relative = path.relative(sourceRoot, source).split(path.sep).join('/');
   if (!relative) return true;
   if (fs.statSync(source).isDirectory()) {
     if (relative === 'images' || relative.startsWith('images/')) return false;
-    if (relative.startsWith('questions/vocabulary/')) return false;
     return true;
   }
   if (relative.startsWith('questions/vocabulary/')) {
-    return vocabularyRuntimeFiles.has(path.basename(relative));
+    return vocabularyRuntimeFiles.has(relative);
   }
   if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(relative).toLowerCase())) return false;
   return (
@@ -31,6 +32,25 @@ function isRuntimeAsset(source) {
     relative.startsWith('audio/vocab/') ||
     relative.startsWith('icons/')
   );
+}
+
+export function copyRuntimeContent(sourceRoot, destinationRoot) {
+  function copyDirectory(directory) {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const source = path.join(directory, entry.name);
+      if (entry.isSymbolicLink()) continue;
+      if (!isRuntimeAsset(source, sourceRoot)) continue;
+      if (entry.isDirectory()) {
+        copyDirectory(source);
+        continue;
+      }
+      const destination = path.join(destinationRoot, path.relative(sourceRoot, source));
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.copyFileSync(source, destination);
+    }
+  }
+
+  copyDirectory(sourceRoot);
 }
 
 export default defineConfig({
@@ -65,11 +85,7 @@ export default defineConfig({
     {
       name: 'copy-runtime-content',
       closeBundle() {
-        fs.cpSync(assetsRoot, path.resolve(import.meta.dirname, 'dist/assets'), {
-          recursive: true,
-          force: true,
-          filter: isRuntimeAsset
-        });
+        copyRuntimeContent(assetsRoot, path.resolve(import.meta.dirname, 'dist/assets'));
       }
     }
   ],
