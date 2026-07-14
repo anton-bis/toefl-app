@@ -1,0 +1,173 @@
+@font-face {
+  font-family: 'TOEFL Icons';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url('../../../webfonts/fa-solid-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'TOEFL Brands';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../../../webfonts/fa-brands-400.woff2') format('woff2');
+}
+
+.fas,
+.far {
+  display: inline-block;
+  font-family: 'TOEFL Icons';
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fab {
+  display: inline-block;
+  font-family: 'TOEFL Brands';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fa-arrow-left::before {
+  content: '\f060';
+}
+.fa-arrow-right::before {
+  content: '\f061';
+}
+.fa-book::before {
+  content: '\f02d';
+}
+.fa-book-open::before {
+  content: '\f518';
+}
+.fa-bookmark::before {
+  content: '\f02e';
+}
+.fa-check-circle::before {
+  content: '\f058';
+}
+.fa-circle-exclamation::before {
+  content: '\f06a';
+}
+.fa-clipboard-check::before {
+  content: '\f46c';
+}
+.fa-clock::before {
+  content: '\f017';
+}
+.fa-cut::before {
+  content: '\f0c4';
+}
+.fa-ellipsis-h::before {
+  content: '\f141';
+}
+.fa-eye::before {
+  content: '\f06e';
+}
+.fa-eye-slash::before {
+  content: '\f070';
+}
+.fa-flag::before {
+  content: '\f024';
+}
+.fa-handshake::before {
+  content: '\f2b5';
+}
+.fa-history::before {
+  content: '\f1da';
+}
+.fa-home::before {
+  content: '\f015';
+}
+.fa-inbox::before {
+  content: '\f01c';
+}
+.fa-keyboard::before {
+  content: '\f11c';
+}
+.fa-layer-group::before {
+  content: '\f5fd';
+}
+.fa-lock::before {
+  content: '\f023';
+}
+.fa-list-check::before {
+  content: '\f0ae';
+}
+.fa-microphone::before {
+  content: '\f130';
+}
+.fa-newspaper::before {
+  content: '\f1ea';
+}
+.fa-paste::before {
+  content: '\f0ea';
+}
+.fa-pause::before {
+  content: '\f04c';
+}
+.fa-pencil-alt::before {
+  content: '\f303';
+}
+.fa-play::before {
+  content: '\f04b';
+}
+.fa-question-circle::before {
+  content: '\f059';
+}
+.fa-redo::before {
+  content: '\f01e';
+}
+.fa-redo-alt::before {
+  content: '\f2f9';
+}
+.fa-rotate-right::before {
+  content: '\f2f9';
+}
+.fa-scroll::before {
+  content: '\f70e';
+}
+.fa-sign-out-alt::before {
+  content: '\f2f5';
+}
+.fa-spinner::before {
+  content: '\f110';
+}
+.fa-times::before {
+  content: '\f00d';
+}
+.fa-tools::before {
+  content: '\f7d9';
+}
+.fa-undo::before {
+  content: '\f0e2';
+}
+.fa-user::before {
+  content: '\f007';
+}
+.fa-user-circle::before {
+  content: '\f2bd';
+}
+.fa-volume-up::before {
+  content: '\f028';
+}
+.fa-chart-bar::before {
+  content: '\f080';
+}
+.fa-weixin::before {
+  content: '\f1d7';
+}
+
+.fa-spin {
+  animation: fa-spin 1.5s linear infinite;
+}
+@keyframes fa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

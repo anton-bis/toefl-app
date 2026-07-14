@@ -4,9 +4,10 @@
 |------|------|
 | **版本** | 1.0 |
 | **日期** | 2026-06-23 |
-| **状态** | 初稿 |
+| **状态** | 产品需求参考 |
 | **前置文档** | `docs/skills-typing-research.md` |
-| **下一阶段** | TDD（技术设计文档） |
+
+> 本文保留产品需求与交互背景。第 6–7 节的数据键和技术路径记录的是迁移前方案，当前实现以 `AGENTS.md` 和 `src/vue` 为准。
 
 ---
 
@@ -65,7 +66,7 @@
 | F-05 | 动态计时器 | 每篇文章的计时时长根据词数 × 难度系数自动计算 | ① Beginner 不限速 / Intermediate ~35 WPM / Advanced ~45 WPM<br>② 计时归零自动结束<br>③ < 10 秒视觉警示 |
 | F-06 | 暂停/继续 | 用户可随时暂停，计时器冻结，内容保留可见 | ① 点击暂停 → 计时器停止<br>② 点击继续 → 计时器恢复<br>③ 暂停期间内容可查看不可编辑 |
 | F-07 | 结果统计（基础） | Raw WPM、准确率 | ① 练习结束后自动展现<br>② 数值清晰可读 |
-| F-08 | 历史记录 | 每次练习的结果存入 localStorage | ① 存储日期、文章 ID、Raw WPM、Net WPM、准确率<br>② 历史记录可查看 |
+| F-08 | 历史记录 | 每次练习的结果持久化到 IndexedDB | ① 存储日期、文章 ID、Raw WPM、Net WPM、准确率<br>② 历史记录可查看 |
 | F-09 | 重试 | 用户可随时重新开始当前文章 | ① 清除已输入内容<br>② 计时器重置<br>③ 全文恢复灰色初始状态 |
 | F-10 | Beginner 语料 20 篇 | 50-80 词/篇，不限速 | ① 语料存入 corpus.json<br>② 可被文章列表加载和展示 |
 
@@ -255,9 +256,9 @@ Skills  ← 新增分区（fa-keyboard 图标）
 | wordCount | number | 词数 |
 | content | string | 完整原文（含标点和大小写） |
 
-### 6.2 localStorage Schema
+### 6.2 IndexedDB 记录结构
 
-Key: `skills_typing_history`
+Store: `typingHistory`
 
 ```javascript
 [
@@ -280,7 +281,7 @@ Key: `skills_typing_history`
 ]
 ```
 
-Key: `skills_typing_best`
+各难度最佳成绩由历史记录派生：
 
 ```javascript
 {
@@ -296,25 +297,13 @@ Key: `skills_typing_best`
 
 | 层面 | 方案 | 理由 |
 |------|------|------|
-| 模块架构 | `src/modules/skills/typing/index.js` | 与四大模块一致，统一路由注册 |
-| 页面渲染 | 原生 JS + DOM 操作 | 项目无框架，沿用现有模式 |
-| 路由 | `src/core/router.js` 注册 `/skills/typing` | 复用现有 HashRouter |
+| 模块架构 | Vue 3 视图与可复用组件 | 与当前前端架构一致 |
+| 页面渲染 | Vue 3 Composition API | 保持状态与 UI 同步 |
+| 路由 | Vue Router | 复用应用级路由 |
 | 语料加载 | `fetch('assets/questions/typing/corpus.json')` | 一次性加载，60 篇约 30-50KB |
-| 数据持久化 | localStorage | 第一阶段统一方案 |
+| 数据持久化 | IndexedDB repository | 避免同步存储阻塞主线程 |
 | 时间计算 | `Date.now()` 差值，不做 `setInterval` 密集更新 | 避免漂移 |
-| 图标 | Font Awesome `fa-keyboard`（侧边栏） | 复用现有 CDN |
-| CSS 设计令牌 | 沿用 `index.html` 的 `:root` 变量 | 保证视觉统一 |
-
-### 7.1 文件清单（新增/修改）
-
-| 文件 | 说明 |
-|------|------|
-| `src/modules/skills/typing/index.js` | 模块主入口（新增） |
-| `src/modules/skills/typing/styles.css` | 打字模块专有样式（新增） |
-| `assets/questions/typing/corpus.json` | 语料库（已建骨架，待填充） |
-| `index.html` | 侧边栏新增 Skills 分区 + Typing 面板（修改） |
-| `src/main.js` | 注册 `/skills/typing` 路由（修改） |
-| `src/core/store.js` | 扩展 `AppStore` 以支持 typing 历史（修改） |
+| 图标与样式 | 本地 Font Awesome 与 Vue 样式 | 离线可用并保持视觉统一 |
 
 ---
 
@@ -326,7 +315,7 @@ Key: `skills_typing_best`
 | corpus.json 体积 | < 50KB（60 篇全文） |
 | 页面加载 | < 200ms（含 JSON fetch） |
 | 外部依赖 | 无新增（Font Awesome 复用已有） |
-| localStorage 占用 | < 100KB（历史记录按 500 次练习估算） |
+| IndexedDB 占用 | < 100KB（历史记录按 500 次练习估算） |
 | 错误检测精度 | 100%（无漏判空格/大小写/标点） |
 
 ---

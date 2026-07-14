@@ -405,18 +405,13 @@ async function main() {
   const grandSets = Object.values(allStats).reduce((s, v) => s + v.totalSets, 0);
   log(`总计: ${grandTotal} 词, ${grandSets} 个 Set`);
 
-  // Write a set index JSON for all subjects
-  const indexData = {};
+  const manifest = {};
   for (const subject of subjects) {
     const entries = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, `${subject}-words.json`), 'utf-8'));
-    indexData[subject] = {
-      totalWords: entries.length,
-      totalSets: Math.ceil(entries.length / SET_SIZE),
-      setSize: SET_SIZE
-    };
+    manifest[subject] = entries.length;
   }
-  fs.writeFileSync(path.join(OUTPUT_DIR, 'index.json'), JSON.stringify(indexData, null, 2), 'utf-8');
-  log(`写入: ${path.join(OUTPUT_DIR, 'index.json')}`);
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf-8');
+  log(`写入: ${path.join(OUTPUT_DIR, 'manifest.json')}`);
 }
 
 main().catch(err => {

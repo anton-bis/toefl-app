@@ -2,59 +2,55 @@ import path from 'path';
 import { app } from 'electron';
 import { fileURLToPath } from 'url';
 
-let Database = null;
-import('better-sqlite3').then(m => { Database = m.default; }).catch(() => { console.warn('better-sqlite3 不可用'); });
+let databaseConstructorPromise;
+
+function loadDatabaseConstructor() {
+  databaseConstructorPromise ??= import('better-sqlite3')
+    .then(module => module.default)
+    .catch(error => {
+      databaseConstructorPromise = undefined;
+      throw new Error('SQLite 扩展尚未安装；启用数据库功能前请添加 better-sqlite3', {
+        cause: error
+      });
+    });
+  return databaseConstructorPromise;
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // 数据库实例
 let db = null;
-
-// 模拟数据库（当 better-sqlite3 不可用时）
-function createMockDb() {
-  const noop = () => ({ get: () => null, run: () => ({ lastInsertRowid: 0 }) });
-  return {
-    prepare: () => noop(),
-    pragma: () => {},
-    exec: () => {},
-    close: () => {}
-  };
-}
+let initializationPromise;
 
 // 初始化数据库
-export async function initDatabase() {
-  if (!Database) {
-    console.warn('SQLite 不可用，跳过数据库初始化');
-    db = createMockDb();
-    return db;
-  }
-  try {
-    // 确定数据库路径
-    const dbPath = app?.isPackaged
-      ? path.join(app.getPath('userData'), 'toefl_data.db')
-      : path.join(__dirname, '../../toefl_data.db');
+export function initDatabase() {
+  if (initializationPromise) return initializationPromise;
+  if (db) return db;
+  initializationPromise ??= (async () => {
+    try {
+      const Database = await loadDatabaseConstructor();
+      const dbPath = app?.isPackaged
+        ? path.join(app.getPath('userData'), 'toefl_data.db')
+        : path.join(__dirname, '../../toefl_data.db');
 
-    console.log('数据库路径:', dbPath);
-
-    // 创建数据库连接
-    db = new Database(dbPath, {
-      verbose: process.env.NODE_ENV === 'development' ? console.log : null
-    });
-
-    // 启用WAL模式提高性能
-    db.pragma('journal_mode = WAL');
-    db.pragma('synchronous = NORMAL');
-    db.pragma('foreign_keys = ON');
-
-    // 创建表
-    await createTables();
-
-    console.log('数据库初始化完成');
-    return db;
-  } catch (error) {
-    console.error('数据库初始化失败:', error);
-    throw error;
-  }
+      const connection = new Database(dbPath, {
+        verbose: process.env.NODE_ENV === 'development' ? console.log : null
+      });
+      db = connection;
+      connection.pragma('journal_mode = WAL');
+      connection.pragma('synchronous = NORMAL');
+      connection.pragma('foreign_keys = ON');
+      await createTables();
+      return connection;
+    } catch (error) {
+      db?.close();
+      db = null;
+      throw error;
+    } finally {
+      initializationPromise = undefined;
+    }
+  })();
+  return initializationPromise;
 }
 
 // 创建表
@@ -434,14 +430,11 @@ export async function backupDatabase(backupPath) {
     throw new Error('数据库未初始化');
   }
 
-  const backupDb = new Database(backupPath);
-  db.backup(backupDb, {
+  await db.backup(backupPath, {
     progress: ({ totalPages, remainingPages }) => {
       const progress = ((totalPages - remainingPages) / totalPages) * 100;
       console.log(`备份进度: ${progress.toFixed(2)}%`);
     }
   });
-
-  backupDb.close();
   console.log('数据库备份完成:', backupPath);
 }

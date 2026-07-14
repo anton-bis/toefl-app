@@ -736,19 +736,4 @@ initializeAutoSave()
 
 ---
 
-## 附录：各页面关键文件映射
-
-| 功能点          | 核心文件                     | 关键函数/类                                 |
-| --------------- | ---------------------------- | ------------------------------------------- |
-| P0-1 题目交互   | fill模板 / letter-box相关CSS | initializeLetterBoxes()                     |
-| P0-2 计时器     | 所有题目页模板               | startTimer(), toggleTimer()                 |
-| P0-3 导航跳转   | generate_toefl_pages.js      | getBackPage(), getNextPage()                |
-| P0-4 结果统计   | results-page-template.html   | calculateSummary(), renderQuestionLists()   |
-| P1-5 Review面板 | 题目页模板                   | toggleReviewPanel(), jumpToQuestion()       |
-| P1-6 Check答案  | fill模板                     | checkAllAnswers(), generateAnswersDetails() |
-| P1-7 标记功能   | 题目页JS                     | toggleQuestionMark(), markAllQuestions()    |
-| P1-8 自动保存   | 题目页JS                     | saveCurrentAnswers(), loadSavedAnswers()    |
-
----
-
-_本文档为交互设计详述，配合 `docs/toefl_mock_requirements.md` 中的功能需求一起使用。_
+_本文档只描述产品交互，当前文件映射以 `AGENTS.md` 为准。_

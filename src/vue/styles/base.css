@@ -1,0 +1,83 @@
+:root {
+  --bg: #f5f5f7;
+  --surface: #fff;
+  --text: #1d1d1f;
+  --muted: #86868b;
+  --teal: #008080;
+  --teal-dark: #006666;
+  --teal-light: rgba(0, 128, 128, 0.08);
+  --border: #e5e5e7;
+  --danger: #cc0000;
+  --sidebar-w: 220px;
+  --header-h: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#vue-app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    'Roboto Variable',
+    Arial,
+    'Microsoft YaHei',
+    -apple-system,
+    BlinkMacSystemFont,
+    'SF Pro Display',
+    'Segoe UI',
+    sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.skill-loading,
+.skill-error {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.skill-error {
+  color: #c62828;
+}
+
+.fatal-error {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.fatal-error i {
+  color: var(--danger);
+  font-size: 48px;
+}
+
+.fatal-error button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--teal);
+  color: #fff;
+  padding: 10px 22px;
+}

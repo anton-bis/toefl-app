@@ -1,8 +1,7 @@
 import crypto from 'crypto';
 import os from 'os';
 import { app } from 'electron';
-import { getDatabase } from './database.js';
-import { settingsService } from './database.js';
+import { getDatabase, settingsService } from './database.js';
 
 // 许可证类型
 export const LicenseType = {
@@ -19,11 +18,9 @@ export const LicenseStatus = {
   INVALID: 'invalid'
 };
 
-// 阶段控制：true=测试版(无限试用) false=正式版(启用付费)
-const DEV_MODE = true;
-
-// 试用期天数（正式版使用）
-const TRIAL_DAYS = DEV_MODE ? 99999 : 14;
+// 安全的服务端签名/公钥验签尚未实现，禁止通过环境变量意外启用。
+const LICENSE_ENFORCEMENT_ENABLED = false;
+const TRIAL_DAYS = 14;
 
 // 生成设备指纹
 export function generateDeviceFingerprint() {
@@ -44,7 +41,7 @@ function getMacAddress() {
   try {
     const networkInterfaces = os.networkInterfaces();
     for (const name of Object.keys(networkInterfaces)) {
-      for (const net of networkInterfaces[name]) {
+      for (const net of networkInterfaces[name] || []) {
         if (!net.internal && net.mac && net.mac !== '00:00:00:00:00:00') {
           return net.mac;
         }
@@ -58,6 +55,15 @@ function getMacAddress() {
 
 // 检查许可证状态
 export async function checkLicense() {
+  if (!LICENSE_ENFORCEMENT_ENABLED) {
+    return {
+      valid: true,
+      type: LicenseType.PERPETUAL,
+      status: LicenseStatus.ACTIVE,
+      message: '许可证功能未启用',
+      is_trial: false
+    };
+  }
   try {
     const db = getDatabase();
 
@@ -134,7 +140,11 @@ export async function checkLicense() {
     const now = new Date();
     const expirationDate = new Date(license.expiration_date);
 
-    if (!DEV_MODE && expirationDate < now && license.license_type !== LicenseType.PERPETUAL) {
+    if (
+      LICENSE_ENFORCEMENT_ENABLED &&
+      expirationDate < now &&
+      license.license_type !== LicenseType.PERPETUAL
+    ) {
       // 许可证已过期
       const updateLicense = db.prepare(`
         UPDATE licenses SET status = ? WHERE id = ?
@@ -189,6 +199,9 @@ export async function checkLicense() {
 
 // 激活许可证
 export async function activateLicense(licenseKey) {
+  if (!LICENSE_ENFORCEMENT_ENABLED) {
+    return { success: false, message: '许可证扩展尚未启用' };
+  }
   try {
     const db = getDatabase();
 
@@ -337,6 +350,9 @@ export async function getLicenseInfo() {
 
 // 重置试用许可证（仅用于测试）
 export async function resetTrialLicense() {
+  if (!LICENSE_ENFORCEMENT_ENABLED) {
+    return { success: false, message: '许可证扩展尚未启用' };
+  }
   try {
     const db = getDatabase();
     const deviceFingerprint = generateDeviceFingerprint();
@@ -365,7 +381,7 @@ export async function resetTrialLicense() {
 
 // 检查是否需要显示许可证提醒
 export function shouldShowLicenseReminder(_licenseStatus) {
-  if (DEV_MODE) return false;
+  if (!LICENSE_ENFORCEMENT_ENABLED) return false;
   if (!_licenseStatus.valid) return true;
   if (_licenseStatus.is_trial && _licenseStatus.days_remaining !== null) {
     if (_licenseStatus.days_remaining <= 3) return true;

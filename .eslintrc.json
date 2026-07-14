@@ -4,14 +4,14 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": ["eslint:recommended", "plugin:vue/vue3-recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": "off",
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": ["warn", { "allow": ["log", "warn", "error"] }],
@@ -28,6 +28,12 @@
     "complexity": ["warn", 10]
   },
   "overrides": [
+    {
+      "files": ["src/vue/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": "off"
+      }
+    },
     {
       "files": ["src/core/**/*.js"],
       "rules": {

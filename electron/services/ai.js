@@ -1,8 +1,11 @@
-// Plan A: Sisyphus Task A - ESL ETS Rubrics & scoring scaffolding
-// This file provides ES Module exports for AI-based scoring utilities.
+// Reserved scoring extension. Rubrics below are product placeholders and must be
+// validated against the applicable scoring guide before this service is enabled.
 
 const API_URL = 'https://integrate.api.nvidia.com/v1/chat/completions';
 const DEFAULT_MODEL = 'meta/llama-3.1-405b-instruct';
+const ALLOWED_ENDPOINTS = new Set([API_URL]);
+const MAX_PROMPT_BYTES = 100 * 1024;
+const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 
 // 4 套独立 ETS rubric 常量（官方原文 + Typical features）
 const RUBRIC_LISTEN_REPEAT = `
@@ -63,9 +66,29 @@ const RUBRIC_ACADEMIC_DISCUSSION = `
 
 // 保留的通用 AI 调用入口
 export async function callAI(apiKey, prompt, options = {}) {
-  const { model = DEFAULT_MODEL, temperature = 0.7, max_tokens = 2048 } = options;
-  const response = await fetch(API_URL, {
+  if (!apiKey || !prompt) throw new Error('API key 和 prompt 不能为空');
+  const {
+    endpoint = API_URL,
+    model = DEFAULT_MODEL,
+    temperature = 0.7,
+    maxTokens = 2048,
+    signal: externalSignal
+  } = options;
+  if (!ALLOWED_ENDPOINTS.has(endpoint)) throw new Error('AI endpoint 不在允许列表中');
+  if (Buffer.byteLength(prompt, 'utf8') > MAX_PROMPT_BYTES) throw new Error('Prompt 过大');
+  if (!Number.isInteger(maxTokens) || maxTokens < 1 || maxTokens > 8192) {
+    throw new Error('maxTokens 必须是 1 到 8192 之间的整数');
+  }
+  if (!Number.isFinite(temperature) || temperature < 0 || temperature > 2) {
+    throw new Error('temperature 必须在 0 到 2 之间');
+  }
+  const timeoutSignal = AbortSignal.timeout(30_000);
+  const signal = externalSignal
+    ? AbortSignal.any([timeoutSignal, externalSignal])
+    : timeoutSignal;
+  const response = await fetch(endpoint, {
     method: 'POST',
+    signal,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`
@@ -73,18 +96,25 @@ export async function callAI(apiKey, prompt, options = {}) {
     body: JSON.stringify({
       model,
       messages: [{ role: 'user', content: prompt }],
-      max_tokens,
+      max_tokens: maxTokens,
       temperature
     })
   });
 
+  const body = await response.text();
+  if (Buffer.byteLength(body, 'utf8') > MAX_RESPONSE_BYTES) throw new Error('AI 响应过大');
+  let json;
+  try {
+    json = JSON.parse(body);
+  } catch {
+    throw new Error(`AI 返回了无效的 JSON（HTTP ${response.status}）`);
+  }
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || `API错误: ${response.status}`);
+    const error = json || {};
+    throw new Error(error.error?.message || error.message || `API错误: ${response.status}`);
   }
 
-  const json = await response.json();
-  if (json.choices && json.choices[0]) {
+  if (typeof json.choices?.[0]?.message?.content === 'string') {
     return json.choices[0].message.content;
   }
   throw new Error('API 返回格式异常');
@@ -92,67 +122,40 @@ export async function callAI(apiKey, prompt, options = {}) {
 
 // 将 Total05 转换为 final30 + final6（Speaking）
 export function convertTotal05_to_final30_final6_for_speaking(total05_speaking) {
-  const final30_speaking = Math.round(total05_speaking * 3);
-  const final6_speaking = Math.round(total05_speaking * 0.6);
+  const final30_speaking = Math.round(total05_speaking * 6);
+  const final6_speaking = Math.round(total05_speaking * 1.2);
   return { final30_speaking, final6_speaking };
 }
 
 // 将 Total05 转换为 final30 + final6（Writing）
 export function convertTotal05_to_final30_final6_for_writing(total05_writing) {
-  const final30_writing = Math.round(total05_writing * 3);
-  const final6_writing = Math.round(total05_writing * 0.6);
+  const final30_writing = Math.round(total05_writing * 6);
+  const final6_writing = Math.round(total05_writing * 1.2);
   return { final30_writing, final6_writing };
 }
 
 // 评分函数：Listen & Repeat
-export async function scoreListenAndRepeat(apiKey, sentences = [], userTranscripts = []) {
-  // 简单的基于文本长度的占位评分，避免外部依赖
-  const content = [
-    sentences && sentences.length
-      ? `Sentences: ${sentences.map((s, i) => `${i + 1}. ${s}`).join(' | ')}`
-      : '',
-    userTranscripts && userTranscripts.length
-      ? `User transcripts: ${userTranscripts.join(' | ')}`
-      : ''
-  ]
-    .filter(Boolean)
-    .join('\n');
-  // 基于文本长度给出 0-5 的简易打分
-  const len = content.length;
-  const score05 = Math.max(0, Math.min(5, Math.round(len / 100)));
-  return { score05 };
+export async function scoreListenAndRepeat(_apiKey, _sentences = [], _userTranscripts = []) {
+  throw new Error('AI 评分扩展尚未启用');
 }
 
 // 评分函数：Take Interview
-export async function scoreTakeInterview(apiKey, question, userResponse, responseTime) {
-  const content = [
-    `Question: ${question}`,
-    `Response: ${userResponse}`,
-    `Time: ${responseTime ?? 'unknown'}s`
-  ].join('\n');
-  const len = content.length;
-  const score05 = Math.max(0, Math.min(5, Math.round(len / 120)));
-  return { score05 };
+export async function scoreTakeInterview(_apiKey, _question, _userResponse, _responseTime) {
+  throw new Error('AI 评分扩展尚未启用');
 }
 
 // 评分函数：Write Email
-export async function scoreWriteEmail(apiKey, emailPrompt, userEssay) {
-  const wordCount = userEssay ? userEssay.split(/\s+/).filter(w => w).length : 0;
-  const score05 = Math.max(0, Math.min(5, Math.floor(wordCount / 50)));
-  return { score05 };
+export async function scoreWriteEmail(_apiKey, _emailPrompt, _userEssay) {
+  throw new Error('AI 评分扩展尚未启用');
 }
 
 // 评分函数：Academic Discussion
-export async function scoreAcademicDiscussion(apiKey, discussionPrompt, userEssay) {
-  const wordCount = userEssay ? userEssay.split(/\s+/).filter(w => w).length : 0;
-  const score05 = Math.max(0, Math.min(5, Math.floor(wordCount / 60)));
-  return { score05 };
+export async function scoreAcademicDiscussion(_apiKey, _discussionPrompt, _userEssay) {
+  throw new Error('AI 评分扩展尚未启用');
 }
 
-export async function correctSpeaking(apiKey, response, question, time) {
-  const wordCount = response ? response.split(/\s+/).filter(w => w).length : 0;
-  const score05 = Math.max(0, Math.min(5, Math.floor(wordCount / 60)));
-  return { score05 };
+export async function correctSpeaking(_apiKey, _response, _question, _time) {
+  throw new Error('AI 评分扩展尚未启用');
 }
 
 /** 题目解析/答疑：保持不变 */
@@ -170,7 +173,7 @@ ${correctAnswer}
  
 请用中文简要解释为什么答案是 ${correctAnswer}，解题关键点是什么。控制在100字以内。`;
 
-  return callAI(apiKey, prompt, { max_tokens: 500 });
+  return callAI(apiKey, prompt, { maxTokens: 500 });
 }
 
 /**
@@ -190,7 +193,7 @@ ${correctAnswer}
  
 请用中文详细解释错误原因和正确思路，控制在150字以内。`;
 
-  return callAI(apiKey, prompt, { max_tokens: 600 });
+  return callAI(apiKey, prompt, { maxTokens: 600 });
 }
 
 export default {

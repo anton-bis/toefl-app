@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { glob } from 'glob';
 import JavaScriptObfuscator from 'javascript-obfuscator';
 import { fileURLToPath, pathToFileURL } from 'url';
+import { spawnSync } from 'child_process';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -20,26 +20,29 @@ try {
 
 // 要混淆的目录
 const distDir = path.join(__dirname, '../dist');
-const electronDir = path.join(__dirname, '../electron');
+const electronSourceDir = path.join(__dirname, '../electron');
+const electronDir = path.join(__dirname, '../build/electron');
 
 // 查找JavaScript文件
 async function findJsFiles(dir) {
   try {
-    const files = await glob('**/*.js', {
-      cwd: dir,
-      absolute: true,
-      ignore: [
-        '**/node_modules/**',
-        '**/*.map',
-        '**/*.min.js',
-        '**/test/**',
-        '**/tests/**',
-        '**/spec/**',
-        '**/*.spec.js',
-        '**/*.test.js'
-      ]
-    });
-    return files;
+    const entries = await fs.promises.readdir(dir, { withFileTypes: true });
+    const nested = await Promise.all(
+      entries.map(entry => {
+        const filePath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          return ['node_modules', 'test', 'tests', 'spec'].includes(entry.name)
+            ? []
+            : findJsFiles(filePath);
+        }
+        return /\.(?:js|cjs)$/.test(entry.name) &&
+          !entry.name.endsWith('.min.js') &&
+          !/\.(?:spec|test)\.js$/.test(entry.name)
+          ? [filePath]
+          : [];
+      })
+    );
+    return nested.flat();
   } catch (error) {
     console.error(`查找文件失败 ${dir}:`, error);
     return [];
@@ -54,7 +57,7 @@ function obfuscateFile(filePath) {
     // 跳过已经混淆的文件（包含特定的混淆标记）
     if (content.includes('JavaScript Obfuscator') || content.includes('obfuscated')) {
       console.log(`⏭️  跳过已混淆文件: ${path.relative(process.cwd(), filePath)}`);
-      return false;
+      return 'skipped';
     }
 
     // 跳过空文件或非常小的文件
@@ -62,7 +65,7 @@ function obfuscateFile(filePath) {
       console.log(
         `⏭️  跳过小文件: ${path.relative(process.cwd(), filePath)} (${content.length} 字节)`
       );
-      return false;
+      return 'skipped';
     }
 
     // 应用混淆
@@ -84,10 +87,10 @@ function obfuscateFile(filePath) {
     console.log(
       `✅ 混淆完成: ${path.relative(process.cwd(), filePath)} (${content.length} → ${obfuscatedContent.length} 字节)`
     );
-    return true;
+    return 'obfuscated';
   } catch (error) {
     console.error(`❌ 混淆失败 ${filePath}:`, error.message);
-    return false;
+    return 'failed';
   }
 }
 
@@ -102,10 +105,17 @@ async function main() {
     process.exit(1);
   }
 
+  // Electron source files are copied before obfuscation so a package build never mutates the repo.
+  fs.rmSync(electronDir, { recursive: true, force: true });
+  fs.mkdirSync(path.dirname(electronDir), { recursive: true });
+  fs.cpSync(electronSourceDir, electronDir, { recursive: true });
+
   // 查找所有JavaScript文件
-  const distFiles = await findJsFiles(distDir);
   const electronFiles = await findJsFiles(electronDir);
-  const allFiles = [...distFiles, ...electronFiles];
+  // Vite already minifies and code-splits renderer chunks. Re-obfuscating them doubles their
+  // size and can break native ESM boundaries, so only the staged Electron main-process code is
+  // obfuscated here.
+  const allFiles = electronFiles;
 
   if (allFiles.length === 0) {
     console.log('⚠️  未找到JavaScript文件');
@@ -121,12 +131,20 @@ async function main() {
 
   for (const file of allFiles) {
     const result = obfuscateFile(file);
-    if (result === true) {
+    if (result === 'obfuscated') {
       successCount++;
-    } else if (result === false) {
+    } else if (result === 'skipped') {
       skipCount++;
     } else {
       errorCount++;
+    }
+  }
+
+  for (const file of allFiles) {
+    const check = spawnSync(process.execPath, ['--check', file], { encoding: 'utf8' });
+    if (check.status !== 0) {
+      errorCount++;
+      console.error(`❌ 语法检查失败 ${file}:`, check.stderr.trim());
     }
   }
 
