@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ExamView from '../../src/vue/views/ExamView.vue';
 import ExamHeader from '../../src/vue/exam/shared/ExamHeader.vue';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
-import { useExamStore } from '../../src/vue/stores/exam.js';
+import { examStorageKey, useExamStore } from '../../src/vue/stores/exam.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 const document = {
@@ -116,6 +116,77 @@ const listeningDocument = {
     }
   ]
 };
+const readingNavigationDocument = {
+  ...document,
+  pages: [
+    ...document.pages.slice(0, 2),
+    { ...document.pages[2], next: 'q2' },
+    {
+      id: 'q2',
+      type: 'question',
+      moduleId: 'module-1',
+      taskId: 'task-1',
+      previous: 'q1',
+      next: 'module-2-intro',
+      questionIds: ['q2']
+    },
+    {
+      id: 'module-2-intro',
+      type: 'intro',
+      moduleId: 'module-2',
+      previous: 'q2',
+      next: 'q3',
+      questionIds: []
+    },
+    {
+      id: 'q3',
+      type: 'question',
+      moduleId: 'module-2',
+      taskId: 'task-2',
+      previous: 'module-2-intro',
+      next: 'results',
+      questionIds: ['q3']
+    },
+    { id: 'results', type: 'results', previous: 'q3', next: null, questionIds: [] }
+  ],
+  modules: [
+    {
+      ...document.modules[0],
+      tasks: [
+        {
+          ...document.modules[0].tasks[0],
+          questions: [
+            document.modules[0].tasks[0].questions[0],
+            {
+              ...document.modules[0].tasks[0].questions[0],
+              id: 'q2',
+              number: 2,
+              prompt: 'When does it close?'
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'module-2',
+      title: 'Module 2',
+      tasks: [
+        {
+          ...document.modules[0].tasks[0],
+          id: 'task-2',
+          questions: [
+            {
+              ...document.modules[0].tasks[0].questions[0],
+              id: 'q3',
+              number: 1,
+              prompt: 'When is it closed?'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
 
 async function mountRoute(path, loadedDocument = document) {
   const pinia = createPinia();
@@ -173,6 +244,127 @@ describe('ExamView route guard and flow', () => {
     expect(router.currentRoute.value.params.pageId).toBe('q1');
     await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
     expect(wrapper.find('.exam-page--contained').exists()).toBe(true);
+    expect(wrapper.text()).not.toContain('Check Answers');
+  });
+
+  it('uses Questions as a current-module navigator with per-question marks', async () => {
+    const { wrapper, router, exam } = await mountRoute(
+      '/exam/03/reading/start',
+      readingNavigationDocument
+    );
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(globalThis.document, 'Begin');
+    await clickButton(wrapper.element, 'Questions');
+
+    await vi.waitFor(() =>
+      expect(globalThis.document.querySelectorAll('.question-navigator__item')).toHaveLength(2)
+    );
+    expect(globalThis.document.querySelector('.question-navigator__stats').textContent).toContain(
+      '0 / 2'
+    );
+
+    globalThis.document.querySelectorAll('.question-navigator__mark')[1].click();
+    await flushPromises();
+    expect(exam.activeSession.marks.q2).toBe(true);
+
+    globalThis.document.querySelectorAll('.question-navigator__question')[1].click();
+    await flushPromises();
+    expect(router.currentRoute.value.params.pageId).toBe('q2');
+    expect(globalThis.document.querySelector('.question-navigator')).toBeNull();
+
+    exam.complete();
+    await flushPromises();
+    expect(wrapper.text()).not.toContain('Questions');
+    const next = [...wrapper.element.querySelectorAll('button')].find(
+      button => button.textContent.trim() === 'Next'
+    );
+    expect(next.disabled).toBe(true);
+    await clickButton(wrapper.element, 'Results');
+    expect(router.currentRoute.value.params.pageId).toBe('results');
+  });
+
+  it('keeps report links read-only and routes back to results', async () => {
+    localStorage.setItem(
+      examStorageKey('03', 'reading'),
+      JSON.stringify({
+        tpoId: '03',
+        section: 'reading',
+        pageId: 'results',
+        status: 'completed',
+        answers: { q1: 'B' },
+        completedAt: 100,
+        updatedAt: 100
+      })
+    );
+    const { wrapper, router } = await mountRoute('/exam/03/reading/q1?mode=report');
+    await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
+    expect(wrapper.text()).not.toContain('Questions');
+    expect(
+      wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
+    ).toBe(true);
+    expect(wrapper.find('.option-item-apple.correct').attributes('data-option')).toBe('A');
+
+    await clickButton(wrapper.element, 'Results');
+    expect(router.currentRoute.value.params.pageId).toBe('results');
+    expect(router.currentRoute.value.query.mode).toBe('report');
+
+    await vi.waitFor(() => expect(wrapper.text()).toContain('Restart Test'));
+    await clickButton(wrapper.element, 'Restart Test');
+    const confirm = [...globalThis.document.querySelectorAll('button')]
+      .filter(button => button.textContent.trim() === 'Restart Test')
+      .at(-1);
+    confirm.click();
+    await flushPromises();
+    expect(router.currentRoute.value.params.pageId).toBe('start');
+    expect(router.currentRoute.value.query).toEqual({});
+  });
+
+  it('rejects report access for an unfinished session without moving its saved page', async () => {
+    const key = examStorageKey('03', 'reading');
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        tpoId: '03',
+        section: 'reading',
+        pageId: 'q2',
+        status: 'in-progress',
+        answers: { q1: 'A' },
+        updatedAt: 100
+      })
+    );
+
+    const { wrapper, router } = await mountRoute('/exam/03/reading/q1?mode=report');
+    await vi.waitFor(() => expect(router.currentRoute.value.path).toBe('/'));
+    expect(wrapper.text()).toBe('Home');
+    expect(JSON.parse(localStorage.getItem(key)).pageId).toBe('q2');
+  });
+
+  it('does not complete an unstarted session through a direct results route', async () => {
+    const { router, exam } = await mountRoute('/exam/03/reading/results');
+    await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('start'));
+    expect(exam.activeSession.status).toBe('not-started');
+    expect(exam.activeSession.pageId).toBe('start');
+  });
+
+  it('returns a direct results route to the saved in-progress page', async () => {
+    const key = examStorageKey('03', 'reading');
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        tpoId: '03',
+        section: 'reading',
+        pageId: 'q1',
+        status: 'in-progress',
+        answers: { q1: 'B' },
+        updatedAt: 100
+      })
+    );
+
+    const { router, exam } = await mountRoute('/exam/03/reading/results');
+    await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('q1'));
+    expect(exam.activeSession.status).toBe('in-progress');
+    expect(exam.activeSession.answers.q1).toBe('B');
   });
 
   it('advances an unanswered listening question on timeout without revealing its answer', async () => {
@@ -189,13 +381,18 @@ describe('ExamView route guard and flow', () => {
     await flushPromises();
     expect(router.currentRoute.value.params.pageId).toBe('lq2');
     expect(exam.activeSession.answers.lq1).toBeUndefined();
-    expect(exam.activeSession.lockedQuestionIds.lq1).toBe('hidden');
-
-    await clickButton(wrapper.element, 'Back');
-    expect(router.currentRoute.value.params.pageId).toBe('lq1');
-    expect(
-      wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
-    ).toBe(true);
+    expect(exam.activeSession.lockedQuestionIds.lq1).toBe(true);
+    await vi.waitFor(() => expect(wrapper.find('[data-option="A"]').exists()).toBe(true));
     expect(wrapper.find('.option-item-apple.correct').exists()).toBe(false);
+    expect(wrapper.find('.option-item-apple.incorrect').exists()).toBe(false);
+    await wrapper.find('[data-option="A"]').trigger('click');
+    expect(exam.activeSession.answers.lq2).toBe('A');
+
+    expect(wrapper.text()).not.toContain('Questions');
+    expect(wrapper.text()).not.toContain('Back');
+
+    await router.push('/exam/03/listening/lq1');
+    await flushPromises();
+    expect(router.currentRoute.value.params.pageId).toBe('lq2');
   });
 });

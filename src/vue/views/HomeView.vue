@@ -48,8 +48,13 @@ function openReport(test) {
     if (!test.sections[id]) return false;
     return readExamSession(test.tpoId, id)?.status === 'completed';
   })?.[0];
-  router.push(
-    `/exam/${test.tpoId}/${section || sections.find(([id]) => test.sections[id])?.[0]}/results?mode=report`
+  if (section) router.push(`/exam/${test.tpoId}/${section}/results?mode=report`);
+}
+
+function hasReport(test) {
+  return sections.some(
+    ([section]) =>
+      test.sections[section] && readExamSession(test.tpoId, section)?.status === 'completed'
   );
 }
 </script>
@@ -135,7 +140,14 @@ function openReport(test) {
                     <span v-else class="mod-na">—</span>
                   </td>
                   <td class="report-cell">
-                    <button class="mod-btn available" @click="openReport(test)">测试报告</button>
+                    <button
+                      class="mod-btn"
+                      :class="{ available: hasReport(test) }"
+                      :disabled="!hasReport(test)"
+                      @click="openReport(test)"
+                    >
+                      测试报告
+                    </button>
                   </td>
                 </tr>
               </tbody>

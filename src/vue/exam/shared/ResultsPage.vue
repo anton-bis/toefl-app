@@ -15,7 +15,7 @@ const props = defineProps({
   reportPrevious: { type: Boolean, default: false },
   reportNext: { type: Boolean, default: false }
 });
-defineEmits(['review', 'restart', 'exit', 'report-previous', 'report-next']);
+defineEmits(['select-question', 'restart', 'exit', 'report-previous', 'report-next']);
 const section = computed(() => props.document.section);
 const questions = computed(() => examQuestions(props.document));
 const moduleGroups = computed(() =>
@@ -99,8 +99,8 @@ const restartText = computed(() => {
   if (section.value === 'writing')
     return 'Are you sure you want to restart? Your writing responses will be cleared.';
   if (section.value === 'listening')
-    return 'Are you sure you want to restart the listening test? This will clear all your answers, marked questions, and timer data.';
-  return 'Are you sure you want to restart the test? This will clear all your answers, marked questions, and timer data.';
+    return 'Are you sure you want to restart the listening test? This will clear all your answers and timer data.';
+  return 'Are you sure you want to restart the test? This will clear all your answers and timer data.';
 });
 function releaseSpeakingUrls() {
   Object.values(speakingUrls.value).forEach(url => URL.revokeObjectURL(url));
@@ -203,7 +203,7 @@ onBeforeUnmount(() => {
       </div>
       <div v-if="['reading', 'listening'].includes(section)" class="results-legend">
         <span><i class="correct" /> Correct</span><span><i class="incorrect" /> Incorrect</span
-        ><span><i class="marked" /> Marked</span><span><i class="unanswered" /> Unanswered</span>
+        ><span><i class="unanswered" /> Unanswered</span>
       </div>
       <div v-if="['reading', 'listening'].includes(section)" class="results-module-list">
         <section v-for="group in moduleGroups" :key="group.id" class="results-module">
@@ -230,10 +230,9 @@ onBeforeUnmount(() => {
               :class="{
                 correct: questionCorrect(question),
                 incorrect: isAnswered(session.answers?.[question.id]) && !questionCorrect(question),
-                unanswered: !isAnswered(session.answers?.[question.id]),
-                marked: session.marks?.[question.id]
+                unanswered: !isAnswered(session.answers?.[question.id])
               }"
-              @click="$emit('review', questionPageId(question), question)"
+              @click="$emit('select-question', questionPageId(question))"
             >
               {{ question.number }}
             </button>
@@ -268,7 +267,7 @@ onBeforeUnmount(() => {
                     ? 'incorrect'
                     : 'unanswered'
               "
-              @click="$emit('review', questionPageId(question), question)"
+              @click="$emit('select-question', questionPageId(question))"
             >
               {{ question.number }}
             </button>
@@ -305,7 +304,7 @@ onBeforeUnmount(() => {
           </header>
           <div class="speaking-results-list">
             <article v-for="question in group.questions" :key="question.id">
-              <button type="button" @click="$emit('review', questionPageId(question), question)">
+              <button type="button" @click="$emit('select-question', questionPageId(question))">
                 Question {{ question.number }}
               </button>
               <p>{{ question.transcript || question.prompt || '(No transcript available)' }}</p>
@@ -324,9 +323,9 @@ onBeforeUnmount(() => {
           v-if="questions.length"
           class="exam-primary-button"
           type="button"
-          @click="$emit('review', questionPageId(questions[0]), questions[0])"
+          @click="$emit('select-question', questionPageId(questions[0]))"
         >
-          <i class="fas fa-chart-bar" /> Detailed Review
+          <i class="fas fa-chart-bar" /> Review Answers
         </button>
         <button class="exam-secondary-button" type="button" @click="restartOpen = true">
           <i class="fas fa-redo" /> Restart Test

@@ -79,7 +79,6 @@ describe('writing components', () => {
 
     await wrapper.setProps({ answer: { slots: [6, 0, 1, 3, 5, 4, 7] }, checked: true });
     expect(wrapper.findAll('.blank-slot.correct')).toHaveLength(7);
-    expect(wrapper.find('.check-button').exists()).toBe(false);
   });
 
   it('filters CJK, reports words and supports toolbar undo/redo', async () => {
@@ -198,7 +197,6 @@ describe('SpeakingPage', () => {
         task,
         question: null,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -215,7 +213,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -253,7 +250,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -311,7 +307,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }

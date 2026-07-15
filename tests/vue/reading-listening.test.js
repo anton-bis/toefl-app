@@ -86,7 +86,6 @@ describe('ReadingPage', () => {
         task: { type: 'notice', title: 'Notice', passage: 'Title: Campus News\nClosed today.' },
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -118,7 +117,6 @@ describe('ReadingPage', () => {
         task: { type: 'complete-words', passage: fillQuestion.prompt, questions: [fillQuestion] },
         question: fillQuestion,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -239,7 +237,6 @@ describe('listening section', () => {
         task,
         question: listenQuestion,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.5
       }
@@ -249,7 +246,7 @@ describe('listening section', () => {
     expect(wrapper.emitted('answer')).toEqual([['lq1', 'A']]);
     expect(wrapper.emitted('media-state').some(([state]) => state.state === 'playing')).toBe(true);
 
-    await wrapper.setProps({ checked: {}, locked: { lq1: 'hidden' } });
+    await wrapper.setProps({ checked: {}, locked: { lq1: true } });
     expect(
       wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
     ).toBe(true);

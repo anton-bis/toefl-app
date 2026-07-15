@@ -54,7 +54,6 @@ export function createExamSession({
     pageId: String(pageId || 'start'),
     answers: {},
     marks: {},
-    check: { revealed: false, revealedScopes: {}, checkedAt: null },
     lockedQuestionIds: {},
     timer: {
       mode: finiteDuration ? 'countdown' : 'unlimited',
@@ -82,9 +81,11 @@ function normalizeSession(value, expected) {
     return null;
   }
   const fresh = createExamSession(expected);
+  const restored = { ...value };
+  delete restored.check;
   return {
     ...fresh,
-    ...value,
+    ...restored,
     tpoId: fresh.tpoId,
     section: fresh.section,
     pageId: typeof value.pageId === 'string' && value.pageId.length <= 200 ? value.pageId : 'start',
@@ -93,11 +94,6 @@ function normalizeSession(value, expected) {
       : 'not-started',
     answers: isPlainObject(value.answers) ? value.answers : {},
     marks: isPlainObject(value.marks) ? value.marks : {},
-    check: {
-      revealed: Boolean(value.check?.revealed),
-      revealedScopes: isPlainObject(value.check?.revealedScopes) ? value.check.revealedScopes : {},
-      checkedAt: Number.isFinite(value.check?.checkedAt) ? value.check.checkedAt : null
-    },
     timer: { ...fresh.timer, ...(isPlainObject(value.timer) ? value.timer : {}) },
     lockedQuestionIds: isPlainObject(value.lockedQuestionIds) ? value.lockedQuestionIds : {}
   };
@@ -132,13 +128,6 @@ function compactSession(session) {
   if (Object.keys(session.marks).length) compact.marks = session.marks;
   if (Object.keys(session.lockedQuestionIds).length)
     compact.lockedQuestionIds = session.lockedQuestionIds;
-  if (
-    session.check.revealed ||
-    session.check.checkedAt != null ||
-    Object.keys(session.check.revealedScopes).length
-  ) {
-    compact.check = session.check;
-  }
   if (session.status !== 'not-started') {
     compact.startedAt = session.startedAt;
     compact.completedAt = session.completedAt;
@@ -211,9 +200,7 @@ export const useExamStore = defineStore('exam', {
   getters: {
     activeSession: state => state.sessions[state.activeId] || null,
     session: state => (tpoId, section) => state.sessions[examSessionId(tpoId, section)] || null,
-    answer: state => questionId => state.sessions[state.activeId]?.answers[String(questionId)],
-    isMarked: state => questionId =>
-      Boolean(state.sessions[state.activeId]?.marks[String(questionId)])
+    answer: state => questionId => state.sessions[state.activeId]?.answers[String(questionId)]
   },
   actions: {
     openSession(options) {
@@ -266,35 +253,10 @@ export const useExamStore = defineStore('exam', {
       this.touch();
       return marked;
     },
-    setAllMarks(questionIds, marked) {
+    lockQuestions(questionIds) {
       const session = this.requireActive();
       for (const questionId of questionIds) {
-        if (marked) session.marks[String(questionId)] = true;
-        else delete session.marks[String(questionId)];
-      }
-      this.touch();
-    },
-    setCheck({ revealed, checkedAt } = {}) {
-      const check = this.requireActive().check;
-      if (revealed !== undefined) check.revealed = Boolean(revealed);
-      if (checkedAt !== undefined) check.checkedAt = Number.isFinite(checkedAt) ? checkedAt : null;
-      this.touch();
-    },
-    revealScope(scopeId, revealed = true) {
-      const check = this.requireActive().check;
-      if (revealed) check.revealedScopes[String(scopeId)] = true;
-      else delete check.revealedScopes[String(scopeId)];
-      check.revealed = Object.keys(check.revealedScopes).length > 0;
-      check.checkedAt = revealed ? Date.now() : null;
-      this.touch();
-    },
-    lockQuestions(questionIds, revealAnswers = true) {
-      const session = this.requireActive();
-      for (const questionId of questionIds) {
-        const id = String(questionId);
-        if (revealAnswers || !session.lockedQuestionIds[id]) {
-          session.lockedQuestionIds[id] = revealAnswers ? true : 'hidden';
-        }
+        session.lockedQuestionIds[String(questionId)] = true;
       }
       this.touch();
     },
@@ -311,18 +273,6 @@ export const useExamStore = defineStore('exam', {
       session.timer.expiredAt = null;
       session.timer.scopeType = null;
       session.timer.scopeId = null;
-      this.touch();
-    },
-    clearAnswers(questionIds, scopeId = null) {
-      const session = this.requireActive();
-      for (const questionId of questionIds) {
-        delete session.answers[String(questionId)];
-        delete session.lockedQuestionIds[String(questionId)];
-      }
-      if (scopeId) delete session.check.revealedScopes[String(scopeId)];
-      else session.check.revealedScopes = {};
-      session.check.revealed = Object.keys(session.check.revealedScopes).length > 0;
-      session.check.checkedAt = null;
       this.touch();
     },
     expire(now = Date.now()) {

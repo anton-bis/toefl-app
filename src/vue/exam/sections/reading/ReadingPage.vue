@@ -9,7 +9,6 @@ defineProps({
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  marks: { type: [Object, Array], default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }

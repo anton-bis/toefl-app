@@ -111,23 +111,23 @@ const QUESTION_HELP = {
   'complete-words':
     '1. Fill in the missing letters in the green-bordered boxes\n2. Each small box represents one missing letter\n3. Use Tab or arrow keys to move between boxes\n4. Numbers below boxes indicate question order',
   notice:
-    '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Review to mark questions for later\n4. Check Answers to verify your response',
+    '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   advertisement:
-    '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Review to mark questions for later\n4. Check Answers to verify your response',
+    '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'social-media':
-    '1. Read the social media post on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Review to mark questions for later\n4. Check Answers to verify your response',
+    '1. Read the social media post on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'text-chain':
-    '1. Read the text chain conversation on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Review to mark questions for later\n4. Check Answers to verify your response',
+    '1. Read the text chain conversation on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   email:
-    '1. Read the email carefully\n2. Answer the question on the right by clicking one of the options\n3. Use Review to mark questions for later\n4. Check Answers to verify your response',
+    '1. Read the email carefully\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'academic-passage':
-    '1. Read the academic passage carefully\n2. Select the best answer\n3. Use Review button to mark questions\n4. Click Next to continue',
+    '1. Read the academic passage carefully\n2. Select the best answer\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'build-sentence':
-    'Build a Sentence\n\n• Click a word to place it into the first empty blank.\n• Click a filled blank to return the word.\n• Drag and drop to rearrange or swap.\n• Click Check Answers to verify.',
+    'Build a Sentence\n\n• Click a word to place it into the first empty blank.\n• Click a filled blank to return the word.\n• Drag and drop to rearrange or swap.\n• Use Questions to revisit or mark sentences.\n• Click Next to continue.',
   'write-email':
-    '1. Read the prompt on the left carefully.\n2. Write your email in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Review to see your written response, mark the question, or retry.\n6. Click Next when you have finished writing.',
+    '1. Read the prompt on the left carefully.\n2. Write your email in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Next when you have finished writing.',
   'academic-discussion':
-    '1. Read the professor\'s question and other students\' responses on the left.\n2. Write your own contribution to the discussion in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Review to see your written response, mark the question, or retry.\n6. Click Next when you have finished writing.'
+    '1. Read the professor\'s question and other students\' responses on the left.\n2. Write your own contribution to the discussion in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Next when you have finished writing.'
 };
 
 const WRITING_INTRO_HELP = {

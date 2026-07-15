@@ -252,17 +252,6 @@ function slotText(index) {
   opacity: 0.45;
   background: #e8e8ed;
 }
-.check-button {
-  display: block;
-  margin: 22px auto 0;
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 18px;
-  background: #008080;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-}
 @media (max-width: 700px) {
   .build-sentence h2 {
     margin-bottom: 35px;

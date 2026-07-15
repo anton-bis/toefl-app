@@ -80,8 +80,7 @@ body:has(.exam-overlay) {
 .exam-nav-button,
 .exam-primary-button,
 .exam-secondary-button,
-.exam-danger-button,
-.exam-warning-button {
+.exam-danger-button {
   border: 0;
   border-radius: 7px;
   padding: 9px 16px;
@@ -146,11 +145,6 @@ button:disabled {
   background: #c9342d;
   color: #fff;
 }
-.exam-warning-button {
-  background: #ffc107;
-  color: #222;
-}
-
 .exam-timer-row {
   min-height: 50px;
   padding: 8px 30px;
@@ -185,23 +179,6 @@ button:disabled {
   display: grid;
   gap: 10px;
   margin-top: 16px;
-}
-.review-context {
-  display: grid;
-  gap: 8px;
-  margin: 0 16px 12px;
-  padding: 12px;
-  border: 1px solid #dedee3;
-  border-radius: 8px;
-  background: #fafafa;
-}
-.review-context p {
-  margin: 0;
-  white-space: pre-wrap;
-}
-.review-written-response {
-  max-height: 180px;
-  overflow: auto;
 }
 .writing-answer-details article {
   display: grid;
@@ -313,7 +290,7 @@ button:disabled {
   flex-direction: column;
 }
 .exam-dialog__header,
-.review-drawer__header {
+.question-navigator__header {
   padding: 17px 22px;
   border-bottom: 1px solid var(--exam-border);
   display: flex;
@@ -321,7 +298,7 @@ button:disabled {
   justify-content: space-between;
 }
 .exam-dialog__header h3,
-.review-drawer__header h3 {
+.question-navigator__header h3 {
   margin: 0;
   font-size: 17px;
 }
@@ -331,8 +308,7 @@ button:disabled {
   line-height: 1.65;
   overflow: auto;
 }
-.exam-dialog__actions,
-.review-drawer__actions {
+.exam-dialog__actions {
   padding: 13px 22px;
   border-top: 1px solid var(--exam-border);
   background: #fafafa;
@@ -342,7 +318,7 @@ button:disabled {
   flex-wrap: wrap;
 }
 
-.review-drawer {
+.question-navigator {
   width: min(760px, 96vw);
   max-height: calc(100dvh - 48px);
   border-radius: 14px;
@@ -352,24 +328,22 @@ button:disabled {
   display: flex;
   flex-direction: column;
 }
-.review-stats,
-.check-stats {
+.question-navigator__stats {
   flex: none;
   padding: 15px 22px;
   background: #f8f9fa;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   text-align: center;
 }
-.review-stats span {
+.question-navigator__stats span {
   display: flex;
   flex-direction: column;
   color: #777;
   font-size: 12px;
 }
-.review-stats b,
-.check-stats b {
+.question-navigator__stats b {
   color: #222;
   font-size: 20px;
 }
@@ -383,7 +357,7 @@ button:disabled {
 .is-incorrect {
   color: #c62828 !important;
 }
-.review-list {
+.question-navigator__list {
   min-height: 0;
   flex: 1;
   overflow: auto;
@@ -391,37 +365,39 @@ button:disabled {
   display: grid;
   gap: 7px;
 }
-.review-context {
-  min-height: 0;
-  max-height: min(240px, 30dvh);
-  overflow: auto;
+.question-navigator__header {
   flex: none;
 }
-.review-drawer__header,
-.review-drawer__actions {
-  flex: none;
-}
-.review-question {
+.question-navigator__item {
   width: 100%;
-  padding: 10px;
   border: 1px solid var(--exam-border);
   border-radius: 6px;
   background: #fff;
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-align: left;
-  cursor: pointer;
+  overflow: hidden;
 }
-.review-question.selected {
+.question-navigator__item.current {
   border-color: var(--exam-teal);
   box-shadow: 0 0 0 1px var(--exam-teal);
 }
-.review-question.marked {
+.question-navigator__item.marked {
   background: #fff9df;
 }
-.review-question__number,
-.check-number {
+.question-navigator__question {
+  min-width: 0;
+  flex: 1;
+  padding: 10px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.question-navigator__number {
   width: 28px;
   height: 28px;
   flex: 0 0 28px;
@@ -432,61 +408,31 @@ button:disabled {
   font-size: 12px;
   font-weight: 700;
 }
-.review-question.answered .review-question__number {
+.question-navigator__item.answered .question-navigator__number {
   background: #d4edda;
   color: #155724;
 }
-.review-question__label {
+.question-navigator__label {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.review-question > i {
-  color: #d59b00;
+.question-navigator__question small {
+  color: var(--exam-muted);
 }
-
-.check-stats span {
-  display: flex;
-  flex-direction: column;
-}
-.check-stats small {
-  color: #888;
-  text-transform: uppercase;
-}
-.check-list {
-  display: grid;
-  gap: 8px;
-}
-.check-list > button {
-  padding: 10px;
-  border: 1px solid var(--exam-border);
-  border-radius: 7px;
-  background: #fff;
-  text-align: left;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.question-navigator__mark {
+  align-self: stretch;
+  width: 46px;
+  flex: 0 0 46px;
+  border: 0;
+  border-left: 1px solid var(--exam-border);
+  background: transparent;
+  color: var(--exam-muted);
   cursor: pointer;
 }
-.check-list > button > span:last-child {
-  display: grid;
-  gap: 2px;
-}
-.check-list small {
-  color: #666;
-}
-.check-number.correct {
-  background: #d4edda;
-  color: #155724;
-}
-.check-number.wrong {
-  background: #f8d7da;
-  color: #721c24;
-}
-.check-number.empty {
-  background: #fff3cd;
-  color: #856404;
+.question-navigator__mark.active {
+  color: #ca8a04;
 }
 
 .exam-introduction {
@@ -648,10 +594,6 @@ button:disabled {
   background: #f8d7da;
   border: 2px solid #dc3545;
 }
-.results-legend .marked {
-  background: #fff3cd;
-  border: 2px solid #ffc107;
-}
 .results-legend .unanswered {
   background: #f8f9fa;
   border: 2px solid #bbb;
@@ -675,9 +617,6 @@ button:disabled {
 .results-grid button.incorrect {
   background: #f8d7da;
   border-color: #dc3545;
-}
-.results-grid button.marked {
-  box-shadow: inset 0 -5px #ffc107;
 }
 .results-module-list,
 .results-section-list {
@@ -785,8 +724,7 @@ button:disabled {
   .exam-timer-row {
     padding: 8px 15px;
   }
-  .review-stats,
-  .check-stats {
+  .question-navigator__stats {
     grid-template-columns: repeat(2, 1fr);
   }
   .results-summary {
@@ -798,7 +736,6 @@ button:disabled {
 }
 @media (max-width: 480px) {
   .exam-dialog__actions > button,
-  .review-drawer__actions > button,
   .results-actions > button {
     flex: 1 1 auto;
   }

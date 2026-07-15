@@ -12,13 +12,12 @@ const props = defineProps({
   task: { type: Object, default: null },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  marks: { type: Object, default: () => ({}) },
   checked: { type: [Boolean, Object], default: false },
   locked: { type: [Boolean, Object], default: false },
   volume: { type: Number, default: 0.8 },
   readOnly: { type: Boolean, default: false }
 });
-const emit = defineEmits(['answer', 'check', 'mark', 'navigate', 'navigation-state']);
+const emit = defineEmits(['answer', 'navigation-state']);
 const recorder = useRecorder({ sessionId: computed(() => props.document.id) });
 const audio = ref();
 const audioPlayed = ref(false);
@@ -157,9 +156,6 @@ async function rerecord() {
 }
 function togglePlayback() {
   recorder.play();
-}
-function toggleMark() {
-  if (props.question) emit('mark', props.question.id, !props.marks[props.question.id]);
 }
 async function resetQuestion() {
   const currentReset = ++resetGeneration;
@@ -309,14 +305,6 @@ onBeforeUnmount(() => {
         </button>
       </div>
     </div>
-    <button
-      type="button"
-      class="mark-button"
-      :class="{ marked: marks[question.id] }"
-      @click="toggleMark"
-    >
-      <i class="fas fa-bookmark" /> {{ marks[question.id] ? 'Marked' : 'Mark' }}
-    </button>
   </section>
   <section v-else class="speaking-intro">
     <h1>{{ task?.title || 'Speaking' }}</h1>
@@ -515,19 +503,6 @@ onBeforeUnmount(() => {
 .response-action.playback {
   background: #008080;
   color: #fff;
-}
-.mark-button {
-  align-self: center;
-  margin-top: 12px;
-  border: 1px solid #ddd;
-  background: #f5f5f7;
-  border-radius: 6px;
-  padding: 6px 14px;
-  color: #555;
-}
-.mark-button.marked {
-  background: #fff3cd;
-  color: #856404;
 }
 .speaking-intro {
   text-align: center;

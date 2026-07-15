@@ -9,13 +9,12 @@ const props = defineProps({
   task: { type: Object, default: null },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  marks: { type: Object, default: () => ({}) },
   checked: { type: [Boolean, Object], default: false },
   locked: { type: [Boolean, Object], default: false },
   volume: { type: Number, default: 0.8 },
   readOnly: { type: Boolean, default: false }
 });
-const emit = defineEmits(['answer', 'mark', 'navigate']);
+const emit = defineEmits(['answer']);
 const answer = computed(() => (props.question ? props.answers[props.question.id] : null));
 function save(value) {
   if (props.question) emit('answer', props.question.id, value);

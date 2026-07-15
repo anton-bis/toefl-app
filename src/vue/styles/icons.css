@@ -54,9 +54,6 @@
 .fa-circle-exclamation::before {
   content: '\f06a';
 }
-.fa-clipboard-check::before {
-  content: '\f46c';
-}
 .fa-clock::before {
   content: '\f017';
 }
