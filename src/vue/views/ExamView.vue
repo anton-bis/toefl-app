@@ -428,7 +428,14 @@ watch(
     <p>{{ error }}</p>
     <RouterLink to="/">返回首页</RouterLink>
   </div>
-  <div v-else-if="document && page && session" class="exam-page">
+  <div
+    v-else-if="document && page && session"
+    class="exam-page"
+    :class="{
+      'exam-page--academic':
+        isContentPage && normalizedSection === 'reading' && task?.type === 'academic-passage'
+    }"
+  >
     <StartPage
       v-if="page.type === 'start'"
       :document="document"

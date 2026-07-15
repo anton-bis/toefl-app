@@ -48,7 +48,7 @@ function highlightedParts(paragraph) {
     </div>
     <div class="two-column-layout">
       <div class="left-column">
-        <article class="academic-passage-container">
+        <article class="academic-passage-container" aria-label="Academic passage" tabindex="0">
           <p v-for="(paragraph, index) in paragraphs" :key="index" class="academic-passage-content">
             <template v-if="mode === 'point-sentence' && pointParagraph === index + 1">
               <button
@@ -88,7 +88,12 @@ function highlightedParts(paragraph) {
           </p>
         </article>
       </div>
-      <div class="right-column">
+      <div
+        class="right-column"
+        role="region"
+        aria-label="Question and answer choices"
+        tabindex="0"
+      >
         <div class="question-container-apple">
           <div class="question-text-apple">{{ question.prompt }}</div>
           <div v-if="inserted" class="insertion-sentence">{{ inserted }}</div>

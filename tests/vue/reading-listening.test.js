@@ -91,6 +91,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
+    expect(wrapper.classes()).not.toContain('reading-page--academic');
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
@@ -143,6 +144,16 @@ describe('ReadingPage', () => {
         answers: {},
         checked: false
       }
+    });
+    expect(point.classes()).toContain('reading-page--academic');
+    expect(point.find('.academic-passage-container').attributes()).toMatchObject({
+      'aria-label': 'Academic passage',
+      tabindex: '0'
+    });
+    expect(point.find('.right-column').attributes()).toMatchObject({
+      'aria-label': 'Question and answer choices',
+      role: 'region',
+      tabindex: '0'
     });
     expect(point.findAll('.sentence-option-row')).toHaveLength(2);
     await point.findAll('.sentence-option-row')[1].trigger('click');

@@ -17,7 +17,11 @@ const emit = defineEmits(['answer', 'media-state']);
 </script>
 
 <template>
-  <main class="reading-page main-content" :data-page-id="page.id">
+  <main
+    class="reading-page main-content"
+    :class="{ 'reading-page--academic': task.type === 'academic-passage' }"
+    :data-page-id="page.id"
+  >
     <CompleteWords
       v-if="task.type === 'complete-words'"
       :task="task"
