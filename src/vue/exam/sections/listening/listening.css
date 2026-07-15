@@ -111,6 +111,17 @@
 .listening-page audio {
   display: none;
 }
+@media (min-width: 801px) {
+  .listening-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .listening-page .two-column-layout,
+  .listening-stimulus {
+    min-height: 0;
+    flex: 1;
+  }
+}
 @media (max-width: 800px) {
   .listening-page .two-column-layout {
     flex-direction: column;

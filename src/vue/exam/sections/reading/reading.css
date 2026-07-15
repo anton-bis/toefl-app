@@ -265,46 +265,29 @@
   background: #008080;
 }
 @media (min-width: 801px) {
-  .exam-page--academic {
-    height: 100dvh;
-    min-height: 0;
-    overflow: hidden;
-    display: grid;
-    grid-template-rows: auto auto minmax(0, 1fr);
-  }
-  .reading-page--academic {
-    height: auto;
-    min-height: 0;
-    overflow: hidden;
+  .reading-page {
     display: flex;
   }
-  .reading-page--academic .academic-reading-page {
+  .reading-page .academic-reading-page,
+  .reading-page .daily-reading-page,
+  .reading-page .complete-words-page {
     min-height: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  .reading-page--academic .two-column-layout {
+  .reading-page .two-column-layout {
     min-height: 0;
     flex: 1;
   }
-  .reading-page--academic .left-column {
+  .reading-page .complete-words-page .question-paragraph {
+    flex: 1;
+  }
+  .reading-page .academic-reading-page .left-column {
     overflow: hidden;
   }
-  .reading-page--academic .academic-passage-container {
+  .reading-page .academic-passage-container {
     height: 100%;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-gutter: stable;
-  }
-  .reading-page--academic .academic-passage-container:focus-visible,
-  .reading-page--academic .right-column:focus-visible {
-    outline: 2px solid #008080;
-    outline-offset: -2px;
-  }
-  .reading-page--academic .right-column {
-    overflow-y: auto;
-    overscroll-behavior: contain;
   }
 }
 @media (max-width: 800px) {

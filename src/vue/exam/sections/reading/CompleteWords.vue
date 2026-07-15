@@ -77,7 +77,11 @@ function paste(token, event) {
 <template>
   <section id="question-module" class="complete-words-page">
     <p class="question-instruction">Fill in the missing letters in a paragraph</p>
-    <div class="question-paragraph">
+    <div
+      class="question-paragraph exam-scroll-region"
+      aria-label="Complete words passage"
+      tabindex="0"
+    >
       <template v-for="(token, tokenIndex) in tokens" :key="tokenIndex">
         <span v-if="token.type === 'text'">{{ token.text }}</span>
         <span

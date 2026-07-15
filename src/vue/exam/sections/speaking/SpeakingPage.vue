@@ -1,7 +1,10 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
+import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../../utils/time.js';
+import { normalizeVolume } from '../../../utils/volume.js';
 import { useRecorder } from '../../composables/useRecorder.js';
+import { examQuestions } from '../../shared/model.js';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -41,11 +44,8 @@ const duration = computed(() => responseDuration(props.question));
 const circumference = 2 * Math.PI * 34;
 const ringOffset = computed(() => circumference * (1 - ringProgress.value));
 const questionNumber = computed(() => props.question?.number || 0);
-const questionTotal = computed(
-  () =>
-    props.document.modules.flatMap(module => module.tasks).flatMap(task => task.questions).length
-);
-const displayTime = computed(() => formatClock(remaining.value));
+const questionTotal = computed(() => examQuestions(props.document).length);
+const displayTime = computed(() => formatHoursMinutesSeconds(Math.ceil(remaining.value)));
 const statusText = computed(() => {
   if (recorder.error.value) return microphoneError(recorder.error.value);
   if (recorder.status.value === 'requesting') return 'Requesting microphone...';
@@ -56,24 +56,11 @@ const statusText = computed(() => {
 const imageUrl = computed(() => assetUrl(props.question?.image || props.page.scenario?.image));
 const audioUrl = computed(() => assetUrl(props.question?.media?.file || props.task?.media?.file));
 
-function normalizedVolume(value) {
-  const numeric = Number(value);
-  return Math.max(0, Math.min(1, numeric > 1 ? numeric / 100 : numeric));
-}
-
 function assetUrl(filename) {
   return resolveQuestionAsset(props.document, filename);
 }
-function formatClock(value) {
-  const seconds = Math.max(0, Math.ceil(Number(value) || 0));
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
-  return [hours, minutes, secs].map(part => String(part).padStart(2, '0')).join(':');
-}
-function formatShort(value) {
-  const seconds = Math.max(0, Math.floor(Number(value) || 0));
-  return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+function applyVolume(value) {
+  if (audio.value) audio.value.volume = normalizeVolume(value);
 }
 function microphoneError(error) {
   if (error?.name === 'NotAllowedError' || error?.name === 'SecurityError')
@@ -99,7 +86,7 @@ async function playPrompt() {
   if (!audio.value || audioPlayed.value || phase.value !== 'listen') return;
   const bounds = segmentBounds();
   audio.value.currentTime = bounds.start;
-  audio.value.volume = normalizedVolume(props.volume);
+  applyVolume(props.volume);
   audioPlayed.value = true;
   try {
     await audio.value.play();
@@ -209,7 +196,7 @@ async function resetQuestion() {
     }
   }
   await nextTick();
-  if (audio.value) audio.value.volume = normalizedVolume(props.volume);
+  applyVolume(props.volume);
 }
 
 watch(() => props.question?.id, resetQuestion, { immediate: true });
@@ -218,12 +205,7 @@ watch(
   status => emit('navigation-state', { busy: status === 'requesting' || status === 'recording' }),
   { immediate: true }
 );
-watch(
-  () => props.volume,
-  value => {
-    if (audio.value) audio.value.volume = normalizedVolume(value);
-  }
-);
+watch(() => props.volume, applyVolume);
 onBeforeUnmount(() => {
   resetGeneration += 1;
   cancelAnimationFrame(animationFrame);
@@ -232,12 +214,19 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section v-if="page.type === 'scenario'" class="scenario-page">
+  <section
+    v-if="page.type === 'scenario'"
+    class="scenario-page exam-content-pane exam-scroll-region"
+  >
     <div class="section-label">Speaking</div>
     <h2>{{ page.scenario?.title || task?.scenario?.title }}</h2>
     <img v-if="imageUrl" :src="imageUrl" alt="Scenario Image" />
   </section>
-  <section v-else-if="question" class="speaking-question" data-testid="speaking-question">
+  <section
+    v-else-if="question"
+    class="speaking-question exam-content-pane exam-scroll-region"
+    data-testid="speaking-question"
+  >
     <div class="question-progress">Question {{ questionNumber }} of {{ questionTotal }}</div>
     <h2>
       {{
@@ -270,7 +259,9 @@ onBeforeUnmount(() => {
       <div class="audio-track">
         <span :style="{ width: `${audioProgress * 100}%` }" />
       </div>
-      <span>{{ formatShort(audioElapsed) }} / {{ formatShort(audioDuration) }}</span>
+      <span>
+        {{ formatMinutesSeconds(audioElapsed) }} / {{ formatMinutesSeconds(audioDuration) }}
+      </span>
     </div>
     <div class="response-container">
       <div class="response-header">Response Time</div>
@@ -547,6 +538,19 @@ onBeforeUnmount(() => {
   }
   .speaking-question > h2 {
     font-size: 24px;
+  }
+}
+@media (min-width: 801px) {
+  .scenario-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .scenario-page img {
+    min-height: 0;
+    flex: 1;
+  }
+  .question-image-area {
+    min-height: 0;
   }
 }
 </style>

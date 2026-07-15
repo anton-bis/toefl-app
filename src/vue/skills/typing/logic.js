@@ -56,11 +56,6 @@ export function maxSecondsFor(article) {
   return rate ? Math.ceil((article.wordCount / rate) * 60) : null;
 }
 
-export function formatDuration(ms) {
-  const seconds = Math.max(0, Math.floor(ms / 1000));
-  return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
-}
-
 export function estimateLabel(article) {
   const config = DIFFICULTY_CONFIG[article.difficulty];
   const seconds = config.rate

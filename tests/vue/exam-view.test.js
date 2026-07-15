@@ -117,5 +117,6 @@ describe('ExamView route guard and flow', () => {
     await clickButton(globalThis.document, 'Begin');
     expect(router.currentRoute.value.params.pageId).toBe('q1');
     await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
+    expect(wrapper.find('.exam-page--contained').exists()).toBe(true);
   });
 });

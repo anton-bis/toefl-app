@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
-import { computeMetrics, formatDuration } from './logic.js';
+import { formatMinutesSeconds } from '../../utils/time.js';
+import { computeMetrics } from './logic.js';
 
 const props = defineProps({ result: { type: Object, required: true } });
 defineEmits(['retry', 'back']);
@@ -32,7 +33,9 @@ const maxError = computed(() => Math.max(1, ...Object.values(metrics.value.error
           <div class="typing-metric-label">Accuracy</div>
         </div>
         <div class="typing-metric-card">
-          <div class="typing-metric-value">{{ formatDuration(result.timeSpent) }}</div>
+          <div class="typing-metric-value">
+            {{ formatMinutesSeconds(result.timeSpent / 1000) }}
+          </div>
           <div class="typing-metric-label">Time</div>
         </div>
       </div>

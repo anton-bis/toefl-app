@@ -106,7 +106,7 @@ function slotText(index) {
 </script>
 
 <template>
-  <section class="build-sentence" data-testid="build-sentence">
+  <section class="build-sentence exam-content-pane exam-scroll-region" data-testid="build-sentence">
     <h2>Make an appropriate sentence</h2>
     <div class="dialogue-row">
       <div class="avatar">

@@ -4,9 +4,13 @@
   --exam-border: #e5e5e7;
   --exam-muted: #86868b;
 }
+body:has(.exam-overlay) {
+  overflow: hidden;
+}
 
 .exam-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: #fff;
   color: #1d1d1f;
   font-family:
@@ -17,6 +21,33 @@
     BlinkMacSystemFont,
     'Segoe UI',
     sans-serif;
+}
+@media (min-width: 801px) {
+  .exam-page--contained {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .exam-page--contained:not(:has(> .exam-timer-row)) {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .exam-page--contained > .exam-content-pane {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .exam-page--contained .exam-scroll-region {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+}
+.exam-scroll-region:focus-visible {
+  outline: 2px solid var(--exam-teal);
+  outline-offset: -2px;
 }
 .exam-header {
   min-height: 60px;
@@ -239,6 +270,8 @@ button:disabled {
 }
 .exam-volume input {
   width: 120px;
+  min-width: 0;
+  flex: 1;
   accent-color: var(--exam-teal);
 }
 .exam-volume span {
@@ -267,10 +300,11 @@ button:disabled {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 .exam-dialog {
   width: min(var(--dialog-width), 94vw);
-  max-height: 88vh;
+  max-height: calc(100dvh - 48px);
   overflow: hidden;
   border-radius: 14px;
   background: #fff;
@@ -292,6 +326,7 @@ button:disabled {
   font-size: 17px;
 }
 .exam-dialog__body {
+  min-height: 0;
   padding: 22px;
   line-height: 1.65;
   overflow: auto;
@@ -304,11 +339,12 @@ button:disabled {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .review-drawer {
   width: min(760px, 96vw);
-  max-height: 90vh;
+  max-height: calc(100dvh - 48px);
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
@@ -318,6 +354,7 @@ button:disabled {
 }
 .review-stats,
 .check-stats {
+  flex: none;
   padding: 15px 22px;
   background: #f8f9fa;
   display: grid;
@@ -347,11 +384,22 @@ button:disabled {
   color: #c62828 !important;
 }
 .review-list {
-  min-height: 180px;
+  min-height: 0;
+  flex: 1;
   overflow: auto;
   padding: 12px 22px;
   display: grid;
   gap: 7px;
+}
+.review-context {
+  min-height: 0;
+  max-height: min(240px, 30dvh);
+  overflow: auto;
+  flex: none;
+}
+.review-drawer__header,
+.review-drawer__actions {
+  flex: none;
 }
 .review-question {
   width: 100%;
@@ -709,9 +757,15 @@ button:disabled {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 800px) {
+  .exam-volume {
+    top: 72px;
+    right: 14px;
+    left: 14px;
+  }
   .exam-header {
     padding: 10px 15px;
     align-items: flex-start;
@@ -740,6 +794,13 @@ button:disabled {
   }
   .results-legend {
     gap: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .exam-dialog__actions > button,
+  .review-drawer__actions > button,
+  .results-actions > button {
+    flex: 1 1 auto;
   }
 }
 .reading-page .options-container-apple,

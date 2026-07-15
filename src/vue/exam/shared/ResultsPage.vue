@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
           type="button"
           @click="helpOpen = true"
         >
-          Help <i class="fas fa-question-circle" />
+          <span>Help</span><i class="fas fa-question-circle" />
         </button>
         <button
           v-if="reportPrevious"
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
           type="button"
           @click="$emit('report-previous')"
         >
-          Back <i class="fas fa-arrow-left" />
+          <span>Back</span><i class="fas fa-arrow-left" />
         </button>
         <button
           v-if="reportNext"
@@ -160,10 +160,10 @@ onBeforeUnmount(() => {
           type="button"
           @click="$emit('report-next')"
         >
-          Next <i class="fas fa-arrow-right" />
+          <span>Next</span><i class="fas fa-arrow-right" />
         </button>
         <button class="exam-nav-button exam-nav-button--dark" type="button" @click="$emit('exit')">
-          Home <i class="fas fa-home" />
+          <span>Home</span><i class="fas fa-home" />
         </button>
       </nav>
     </header>

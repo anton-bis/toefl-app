@@ -1,13 +1,14 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import { formatDuration, maxSecondsFor } from './logic.js';
+import { formatMinutesSeconds } from '../../utils/time.js';
+import { maxSecondsFor } from './logic.js';
 
 const props = defineProps({ store: { type: Object, required: true } });
 const emit = defineEmits(['back']);
 const now = ref(Date.now());
 let ticker;
 
-const displayTime = computed(() => formatDuration(props.store.remaining(now.value)));
+const displayTime = computed(() => formatMinutesSeconds(props.store.remaining(now.value) / 1000));
 const maxSeconds = computed(() => maxSecondsFor(props.store.article));
 
 function onKeydown(event) {

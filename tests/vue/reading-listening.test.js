@@ -91,7 +91,13 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(wrapper.classes()).not.toContain('reading-page--academic');
+    expect(wrapper.classes()).toContain('exam-content-pane');
+    expect(wrapper.find('.left-column').classes()).toContain('exam-scroll-region');
+    expect(wrapper.find('.left-column').attributes()).toMatchObject({
+      'aria-label': 'Reading passage',
+      role: 'region',
+      tabindex: '0'
+    });
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
@@ -116,6 +122,10 @@ describe('ReadingPage', () => {
         checked: false,
         volume: 0.8
       }
+    });
+    expect(wrapper.find('.question-paragraph').attributes()).toMatchObject({
+      'aria-label': 'Complete words passage',
+      tabindex: '0'
     });
     expect(wrapper.findAll('.letter-box')).toHaveLength(3);
     await wrapper.findAll('.letter-box')[0].setValue('g');
@@ -145,7 +155,8 @@ describe('ReadingPage', () => {
         checked: false
       }
     });
-    expect(point.classes()).toContain('reading-page--academic');
+    expect(point.classes()).toContain('exam-content-pane');
+    expect(point.find('.academic-passage-container').classes()).toContain('exam-scroll-region');
     expect(point.find('.academic-passage-container').attributes()).toMatchObject({
       'aria-label': 'Academic passage',
       tabindex: '0'
@@ -266,6 +277,11 @@ describe('listening section', () => {
       question: talkQuestion
     });
     expect(wrapper.find('.question-text-apple').text()).toBe('What is the main idea?');
+    expect(wrapper.find('.right-column').attributes()).toMatchObject({
+      'aria-label': 'Question and answer choices',
+      role: 'region',
+      tabindex: '0'
+    });
     expect(wrapper.find('.audio-inline-player').exists()).toBe(false);
   });
 

@@ -3,8 +3,7 @@ import { computed, defineAsyncComponent, markRaw, ref, shallowRef, watch } from 
 import { useRoute, useRouter } from 'vue-router';
 import ExamDialog from '../exam/shared/ExamDialog.vue';
 import ExamHeader from '../exam/shared/ExamHeader.vue';
-import IntroPage from '../exam/shared/IntroPage.vue';
-import StartPage from '../exam/shared/StartPage.vue';
+import InstructionPage from '../exam/shared/InstructionPage.vue';
 import { expirationCopy, readyPrompt } from '../exam/shared/directions.js';
 import { examQuestions, isCorrectAnswer } from '../exam/shared/model.js';
 import { listeningResponseSeconds } from '../exam/sections/listening/helpers.js';
@@ -61,6 +60,11 @@ const module = computed(() =>
   document.value?.modules.find(item => item.id === page.value?.moduleId)
 );
 const task = computed(() => module.value?.tasks.find(item => item.id === page.value?.taskId));
+const instructionPage = computed(() =>
+  page.value?.type === 'intro'
+    ? { ...page.value, title: task.value?.title || module.value?.title }
+    : page.value
+);
 const expiredMessage = computed(() => expirationCopy(normalizedSection.value));
 const readyMessage = computed(() => readyPrompt(normalizedSection.value, page.value, task.value));
 const question = computed(() => {
@@ -315,6 +319,11 @@ function openCheck() {
   checkOpen.value = true;
 }
 
+function beginInstruction() {
+  if (page.value.type === 'start') begin();
+  else readyOpen.value = true;
+}
+
 function retryPage() {
   const currentQuestions =
     task.value?.questions.filter(item => page.value.questionIds?.includes(item.id)) || [];
@@ -431,25 +440,14 @@ watch(
   <div
     v-else-if="document && page && session"
     class="exam-page"
-    :class="{
-      'exam-page--academic':
-        isContentPage && normalizedSection === 'reading' && task?.type === 'academic-passage'
-    }"
+    :class="{ 'exam-page--contained': isContentPage }"
   >
-    <StartPage
-      v-if="page.type === 'start'"
+    <InstructionPage
+      v-if="['start', 'intro'].includes(page.type)"
       :document="document"
-      :page="page"
-      @begin="begin"
-      @help="helpOpen = true"
-      @volume="volumeOpen = true"
-    />
-    <IntroPage
-      v-else-if="page.type === 'intro'"
-      :document="document"
-      :page="{ ...page, title: task?.title || module?.title }"
+      :page="instructionPage"
       :task="task"
-      @begin="readyOpen = true"
+      @begin="beginInstruction"
       @help="helpOpen = true"
       @volume="volumeOpen = true"
     />

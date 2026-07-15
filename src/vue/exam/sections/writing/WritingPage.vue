@@ -29,8 +29,16 @@ function save(value) {
     :checked="checked"
     @answer="save"
   />
-  <section v-else-if="question?.type === 'write-email'" class="writing-response email">
-    <div class="prompt-card">
+  <section
+    v-else-if="question?.type === 'write-email'"
+    class="writing-response email exam-content-pane"
+  >
+    <div
+      class="prompt-card exam-scroll-region"
+      role="region"
+      aria-label="Writing prompt"
+      tabindex="0"
+    >
       <p>{{ question.identity }}</p>
       <strong>Write an email to {{ question.to }}. In your email, do the following:</strong>
       <ul>
@@ -51,8 +59,16 @@ function save(value) {
       />
     </div>
   </section>
-  <section v-else-if="question?.type === 'academic-discussion'" class="writing-response discussion">
-    <div class="prompt-card">
+  <section
+    v-else-if="question?.type === 'academic-discussion'"
+    class="writing-response discussion exam-content-pane"
+  >
+    <div
+      class="prompt-card exam-scroll-region"
+      role="region"
+      aria-label="Writing prompt"
+      tabindex="0"
+    >
       <p>
         Your professor is teaching a class on {{ question.subject }}. Write a post responding to the
         professor's questions.
@@ -62,12 +78,18 @@ function save(value) {
       <em>An effective response will contain at least 100 words.</em>
     </div>
     <div class="response-column">
-      <div v-for="student in question.students" :key="student.name" class="student">
-        <span class="mini-avatar"><i class="fas fa-user-circle" /></span>
-        <p>
-          <strong>{{ student.name }}</strong
-          ><br />{{ student.text }}
-        </p>
+      <div
+        class="discussion-context exam-scroll-region"
+        aria-label="Student responses"
+        tabindex="0"
+      >
+        <div v-for="student in question.students" :key="student.name" class="student">
+          <span class="mini-avatar"><i class="fas fa-user-circle" /></span>
+          <p>
+            <strong>{{ student.name }}</strong
+            ><br />{{ student.text }}
+          </p>
+        </div>
       </div>
       <ResponseEditor
         :model-value="answer || ''"
@@ -156,6 +178,14 @@ function save(value) {
   .prompt-card {
     width: 100%;
     max-height: 40vh;
+  }
+}
+@media (min-width: 801px) {
+  .response-column {
+    min-height: 0;
+  }
+  .discussion-context {
+    max-height: 40%;
   }
 }
 </style>
