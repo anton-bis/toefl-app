@@ -1,4 +1,5 @@
 import {
+  isPlainObject,
   removeLocalValue,
   readLocalJson,
   scheduleLocalJson,
@@ -14,13 +15,11 @@ const DEFAULT_SETTINGS = {
   reminderDate: '',
   preferredAccent: 'us'
 };
-const plainObject = value => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-
 export const loadSettings = () => {
   const value = readLocalJson(VOCAB_SETTINGS_KEY, {});
   return {
     ...DEFAULT_SETTINGS,
-    ...(plainObject(value) ? value : {}),
+    ...(isPlainObject(value) ? value : {}),
     mode: value?.mode === 'root' ? 'root' : 'random',
     preferredAccent: value?.preferredAccent === 'uk' ? 'uk' : 'us',
     reminderEnabled: value?.reminderEnabled !== false
@@ -29,7 +28,7 @@ export const loadSettings = () => {
 export const saveSettings = settings => writeLocalJson(VOCAB_SETTINGS_KEY, settings);
 export const loadSession = () => {
   const value = readLocalJson(VOCAB_SESSION_KEY, null);
-  if (!plainObject(value) || !Array.isArray(value.queueIds) || value.queueIds.length > 200)
+  if (!isPlainObject(value) || !Array.isArray(value.queueIds) || value.queueIds.length > 200)
     return null;
   const pages = [
     'subject-select',

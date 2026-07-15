@@ -1,5 +1,11 @@
 import { dataRepository } from './dataRepository.js';
-import { flushLocalWrites, resumeLocalWrites, suspendLocalWrites } from './localPersistence.js';
+import {
+  flushLocalWrites,
+  isPlainObject,
+  isSafeStorageKey,
+  resumeLocalWrites,
+  suspendLocalWrites
+} from './localPersistence.js';
 
 const MAX_ENTRY_COUNT = 200;
 const MAX_ENTRY_SIZE = 2_000_000;
@@ -11,17 +17,13 @@ const MAX_RECORDINGS_SIZE = 20 * 1024 * 1024;
 const USER_DATA_KEY =
   /^toefl:(?:exam:[^:]+:[^:]+|settings|typing:session|vocabulary:(?:settings|session))$/;
 
-function plainObject(value) {
-  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-}
-
 function assertBoundedJson(value) {
   let nodes = 0;
   const visit = (item, depth) => {
     if (depth > 10 || ++nodes > 50_000) throw new Error('用户数据结构过于复杂');
     if (typeof item === 'string' && item.length > 500_000) throw new Error('用户数据字段过大');
     if (Array.isArray(item)) item.forEach(child => visit(child, depth + 1));
-    else if (plainObject(item)) Object.values(item).forEach(child => visit(child, depth + 1));
+    else if (isPlainObject(item)) Object.values(item).forEach(child => visit(child, depth + 1));
   };
   visit(value, 0);
 }
@@ -38,7 +40,7 @@ function validateEntry(key, serialized) {
     throw new Error('用户数据包含无效 JSON');
   }
   assertBoundedJson(value);
-  if (value !== null && !plainObject(value)) throw new Error('用户数据格式无效');
+  if (value !== null && !isPlainObject(value)) throw new Error('用户数据格式无效');
   return serialized;
 }
 
@@ -72,7 +74,7 @@ export function readUserEntries(storage = localStorage) {
 
 function validateRecords(records) {
   if (
-    !plainObject(records) ||
+    !isPlainObject(records) ||
     !Array.isArray(records.vocabularyProgress) ||
     !Array.isArray(records.typingHistory)
   ) {
@@ -81,20 +83,15 @@ function validateRecords(records) {
   if (records.vocabularyProgress.length + records.typingHistory.length > MAX_RECORD_COUNT) {
     throw new Error('学习记录条目过多');
   }
-  const safeKey = value =>
-    typeof value === 'string' &&
-    value.length > 0 &&
-    value.length <= 200 &&
-    !Object.prototype.hasOwnProperty.call(Object.prototype, value);
   const vocabularyProgress = records.vocabularyProgress.map(record => {
     if (
-      !plainObject(record) ||
-      !safeKey(record.key) ||
+      !isPlainObject(record) ||
+      !isSafeStorageKey(record.key) ||
       !['reading', 'listening', 'writing', 'speaking'].includes(record.subject) ||
-      !safeKey(record.setId) ||
-      (record.wordId !== undefined && !safeKey(record.wordId)) ||
+      !isSafeStorageKey(record.setId) ||
+      (record.wordId !== undefined && !isSafeStorageKey(record.wordId)) ||
       record.key !== `${record.subject}:${record.setId}:${record.wordId ?? '$set'}` ||
-      !plainObject(record.value)
+      !isPlainObject(record.value)
     ) {
       throw new Error('词汇记录格式无效');
     }
@@ -103,10 +100,10 @@ function validateRecords(records) {
   });
   const typingHistory = records.typingHistory.map(record => {
     if (
-      !plainObject(record) ||
-      !safeKey(record.key) ||
-      !plainObject(record.value) ||
-      !safeKey(record.value.articleId) ||
+      !isPlainObject(record) ||
+      !isSafeStorageKey(record.key) ||
+      !isPlainObject(record.value) ||
+      !isSafeStorageKey(record.value.articleId) ||
       typeof record.value.completedAt !== 'string'
     ) {
       throw new Error('打字记录格式无效');
@@ -127,7 +124,7 @@ function validateRecordings(recordings) {
   let totalSize = 0;
   const values = recordings.map(record => {
     if (
-      !plainObject(record) ||
+      !isPlainObject(record) ||
       typeof record.sessionId !== 'string' ||
       !record.sessionId ||
       record.sessionId.length > 200 ||
@@ -189,8 +186,8 @@ export async function exportUserData(repository = dataRepository, storage = loca
 export function validateUserData(payload) {
   if (
     payload?.format !== 'toefl-user-data' ||
-    !plainObject(payload.entries) ||
-    !plainObject(payload.records) ||
+    !isPlainObject(payload.entries) ||
+    !isPlainObject(payload.records) ||
     !Array.isArray(payload.recordings)
   ) {
     throw new Error('文件格式不受支持');

@@ -4,6 +4,7 @@ import {
   SUBJECTS,
   SUBJECT_LABELS,
   buildRootCategories,
+  dateKey,
   dueWordIds,
   pickQuizType,
   scheduleReview
@@ -24,15 +25,22 @@ function sessionSnapshot(state) {
     nineGridPage: state.nineGridPage,
     setId: state.setId,
     unknownIds: state.words.filter(word => word.gridStatus === 'unknown').map(word => word.id),
-    queueIds: state.queue.map(word =>
-      word._reviewSetId ? [word.id, word._reviewSetId] : word.id
-    ),
+    queueIds: state.queue.map(word => (word._reviewSetId ? [word.id, word._reviewSetId] : word.id)),
     currentIndex: state.currentIndex,
     currentQuizType: state.currentQuizType,
     isGlobalReview: state.isGlobalReview,
     rootCategory: state.rootCategory,
     rootGroupTitle: state.rootGroupTitle
   };
+}
+
+function rootGroupsFor(category) {
+  if (category.id !== 'root') return category.groups;
+  return [
+    ...category.recommendedGroups,
+    { type: 'separator', label: `其他词根（${category.moreGroups.length}组）` },
+    ...category.moreGroups
+  ];
 }
 
 export const useVocabularyStore = defineStore('vocabulary', {
@@ -70,7 +78,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
     currentWord: state => state.queue[state.currentIndex] || null,
     queueLength: state => state.queue.length,
     todayReviewCount: state => {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = dateKey();
       let count = 0;
       Object.values(state.progress).forEach(subject =>
         Object.values(subject).forEach(set => {
@@ -211,14 +219,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         return;
       }
       this.rootCategory = category.id;
-      this.rootGroups =
-        category.id === 'root'
-          ? [
-            ...category.recommendedGroups,
-            { type: 'separator', label: `其他词根（${category.moreGroups.length}组）` },
-            ...category.moreGroups
-          ]
-          : category.groups;
+      this.rootGroups = rootGroupsFor(category);
     },
     toggleGridWord(id) {
       const word = this.words.find(item => item.id === id);
@@ -319,7 +320,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
     },
     checkReminder() {
       const settings = loadSettings();
-      const today = new Date().toISOString().slice(0, 10);
+      const today = dateKey();
       if (!settings.reminderEnabled || settings.reminderDate === today) return;
       this.pendingReminder = SUBJECTS.flatMap(subject => {
         const completed = Object.values(this.progress[subject] || {}).filter(
@@ -330,7 +331,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.showReminder = this.pendingReminder.length > 0;
     },
     dismissReminder() {
-      saveSettings({ ...loadSettings(), reminderDate: new Date().toISOString().slice(0, 10) });
+      saveSettings({ ...loadSettings(), reminderDate: dateKey() });
       this.showReminder = false;
     },
     async startReminder() {

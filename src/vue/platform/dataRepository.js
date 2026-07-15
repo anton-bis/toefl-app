@@ -1,3 +1,5 @@
+import { isSafeStorageKey } from './localPersistence.js';
+
 export const DATA_DB_NAME = 'toefl-data';
 export const LEGACY_RECORDING_DB_NAME = 'toefl-recordings';
 const DATA_DB_VERSION = 1;
@@ -143,15 +145,6 @@ function plainRecord(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-function safeStorageKey(value) {
-  return (
-    typeof value === 'string' &&
-    value.length > 0 &&
-    value.length <= 200 &&
-    !Object.prototype.hasOwnProperty.call(Object.prototype, value)
-  );
-}
-
 function normalizeDatabaseRecords(records = {}) {
   return Object.fromEntries(
     Object.values(STORES).map(name => [name, Array.isArray(records[name]) ? records[name] : []])
@@ -182,8 +175,8 @@ export async function loadVocabularyProgress() {
   const records = await getAll(STORES.vocabularyProgress);
   const progress = {};
   records.forEach(({ subject, setId, wordId, value }) => {
-    if (!safeStorageKey(subject) || !safeStorageKey(setId) || !value) return;
-    if (wordId !== undefined && !safeStorageKey(wordId)) return;
+    if (!isSafeStorageKey(subject) || !isSafeStorageKey(setId) || !value) return;
+    if (wordId !== undefined && !isSafeStorageKey(wordId)) return;
     const set = ((progress[subject] ||= {})[setId] ||= { words: {} });
     if (wordId) set.words[wordId] = value;
     else Object.assign(set, value, { words: set.words });

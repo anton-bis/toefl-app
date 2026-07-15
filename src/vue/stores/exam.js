@@ -3,6 +3,7 @@ import { recordingRepository } from '../platform/dataRepository.js';
 import {
   cancelLocalWrite,
   flushLocalWrites,
+  isPlainObject,
   removeLocalValue,
   scheduleLocalJson,
   writeLocalJson
@@ -15,8 +16,6 @@ const asId = value =>
   String(value ?? '')
     .trim()
     .toLowerCase();
-const plainObject = value => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-
 function boundedData(value) {
   let nodes = 0;
   const visit = (item, depth) => {
@@ -24,7 +23,7 @@ function boundedData(value) {
     if (typeof item === 'string') return item.length <= 500_000;
     if (Array.isArray(item))
       return item.length <= 10_000 && item.every(child => visit(child, depth + 1));
-    if (plainObject(item)) {
+    if (isPlainObject(item)) {
       const entries = Object.entries(item);
       return entries.length <= 10_000 && entries.every(([, child]) => visit(child, depth + 1));
     }
@@ -75,7 +74,7 @@ export function createExamSession({
 }
 
 function normalizeSession(value, expected) {
-  if (!plainObject(value) || !boundedData(value)) return null;
+  if (!isPlainObject(value) || !boundedData(value)) return null;
   if (
     asId(value.tpoId) !== asId(expected.tpoId) ||
     asId(value.section) !== asId(expected.section)
@@ -92,15 +91,15 @@ function normalizeSession(value, expected) {
     status: ['not-started', 'in-progress', 'completed'].includes(value.status)
       ? value.status
       : 'not-started',
-    answers: plainObject(value.answers) ? value.answers : {},
-    marks: plainObject(value.marks) ? value.marks : {},
+    answers: isPlainObject(value.answers) ? value.answers : {},
+    marks: isPlainObject(value.marks) ? value.marks : {},
     check: {
       revealed: Boolean(value.check?.revealed),
-      revealedScopes: plainObject(value.check?.revealedScopes) ? value.check.revealedScopes : {},
+      revealedScopes: isPlainObject(value.check?.revealedScopes) ? value.check.revealedScopes : {},
       checkedAt: Number.isFinite(value.check?.checkedAt) ? value.check.checkedAt : null
     },
-    timer: { ...fresh.timer, ...(plainObject(value.timer) ? value.timer : {}) },
-    lockedQuestionIds: plainObject(value.lockedQuestionIds) ? value.lockedQuestionIds : {}
+    timer: { ...fresh.timer, ...(isPlainObject(value.timer) ? value.timer : {}) },
+    lockedQuestionIds: isPlainObject(value.lockedQuestionIds) ? value.lockedQuestionIds : {}
   };
 }
 

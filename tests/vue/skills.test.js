@@ -13,7 +13,8 @@ import {
   buildRootCategories,
   dueWordIds,
   makeOptions,
-  scheduleReview
+  scheduleReview,
+  dateKey
 } from '../../src/vue/skills/vocabulary/logic.js';
 import { VOCAB_SESSION_KEY } from '../../src/vue/skills/vocabulary/storage.js';
 import { useVocabularyStore } from '../../src/vue/skills/vocabulary/store.js';
@@ -118,6 +119,7 @@ describe('Vue vocabulary skill', () => {
   });
 
   it('implements the SM-2 sequence and failure reset', () => {
+    expect(dateKey(new Date('2026-07-13T12:00:00Z'))).toBe('2026-07-13');
     const first = scheduleReview(5, {}, new Date('2026-07-13T00:00:00Z'));
     const second = scheduleReview(5, first, new Date('2026-07-14T00:00:00Z'));
     const failed = scheduleReview(1, second, new Date('2026-07-20T00:00:00Z'));
