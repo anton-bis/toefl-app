@@ -29,14 +29,36 @@ scripts/         内容维护、构建检查与 Electron 混淆脚本
 tests/           Node 与 Vitest 测试
 ```
 
+## 当前版本
+
+v1.4.0（Vue 3 重构版），Node >= 20.19。
+
 ## 常用命令
 
-- `npm run dev`：生成题库清单并启动 Vite
+- `npm run dev`：生成题库清单并启动 Vite 开发服务器
 - `npm run build`：生产构建并检查每个 JS/CSS 文件不超过 100KB
-- `npm test`：内容、Electron 服务和 Vue 测试
+- `npm test`：内容（44 Node）+ Vue（62 Vitest）共 106 个测试
 - `npm run lint`：检查 Vue、内容解析和 Electron 代码
 - `npm run electron:dev`：构建后启动 Electron
 - `npm run electron:build`：构建、混淆并打包 Electron
+
+## 新工作流（与旧架构的关键区别）
+
+| 旧架构（v1.3.x 之前） | 新架构（v1.4.0） |
+|----------------------|-----------------|
+| 改完题库 → 跑 `generate_*.js` 脚本 | **直接改 Markdown 文件即可**，`src/content` 运行时自动解析 |
+| 修改 `src/core/`、`src/modules/` 下的 JS | 修改 `src/vue/` 下的 `.vue` 和 `.js` |
+| `npm run dev` 用于开发前端 | `npm run dev` 生成清单后启动 Vite |
+| 加新 TPO → 写 Markdown + 跑生成脚本 | 加新 TPO → 只写 Markdown（放到 `assets/questions/` 下） |
+| 无正式测试 | `npm test` 覆盖全部 106 个测试 |
+
+## 加新 TPO 题库步骤
+
+1. 在 `assets/questions/` 下创建 `TPO-XX/` 目录
+2. 放入 Markdown 文件（参考已有 TPO 格式）
+3. 运行 `npm run dev` 验证是否能正常解析
+4. 运行 `npm test` 确保内容测试通过
+5. 提交到仓库
 
 ## 架构约束
 
