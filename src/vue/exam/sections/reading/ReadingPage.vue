@@ -11,6 +11,7 @@ defineProps({
   answers: { type: Object, default: () => ({}) },
   marks: { type: [Object, Array], default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }
 });
 const emit = defineEmits(['answer', 'media-state']);
@@ -23,6 +24,7 @@ const emit = defineEmits(['answer', 'media-state']);
       :task="task"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
     <AcademicPassage
@@ -31,6 +33,7 @@ const emit = defineEmits(['answer', 'media-state']);
       :question="question"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
     <DailyPassage
@@ -39,6 +42,7 @@ const emit = defineEmits(['answer', 'media-state']);
       :question="question"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
   </main>

@@ -67,11 +67,13 @@ function loaded() {
 }
 
 function timeupdate() {
+  const element = audio.value;
+  if (!element) return;
   const start = Number(props.media?.start || 0);
-  elapsed.value = Math.max(0, (audio.value?.currentTime || 0) - start);
-  duration.value ||= segmentDuration(props.media, audio.value?.duration);
+  elapsed.value = Math.max(0, element.currentTime - start);
+  duration.value ||= segmentDuration(props.media, element.duration);
   const end = Number(props.media?.end);
-  if (Number.isFinite(end) && audio.value.currentTime >= end) finish();
+  if (Number.isFinite(end) && element.currentTime >= end) finish();
 }
 
 function finish() {

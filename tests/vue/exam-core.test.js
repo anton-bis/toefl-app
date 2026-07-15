@@ -83,9 +83,14 @@ describe('exam sessions', () => {
     store.openSession({ tpoId: '03', section: 'listening' });
     store.start({ durationSeconds: 20, pageId: 'q1', scopeType: 'question', scopeId: 'q1' });
     store.saveAnswer('q1', 'A');
-    store.lockQuestions(['q1']);
+    store.lockQuestions(['q1'], false);
     store.saveAnswer('q1', 'B');
     expect(store.activeSession.answers.q1).toBe('A');
+    expect(store.activeSession.lockedQuestionIds.q1).toBe('hidden');
+
+    store.lockQuestions(['q1']);
+    store.lockQuestions(['q1'], false);
+    expect(store.activeSession.lockedQuestionIds.q1).toBe(true);
 
     store.complete(10_000);
     store.saveAnswer('q2', 'C');

@@ -5,7 +5,8 @@ import { sentenceParts, solveAnswerOrder } from './writingLogic.js';
 const props = defineProps({
   question: { type: Object, required: true },
   answer: { type: [Object, Array, String], default: null },
-  checked: { type: [Boolean, Object], default: false }
+  checked: { type: [Boolean, Object], default: false },
+  locked: { type: [Boolean, Object], default: false }
 });
 const emit = defineEmits(['answer']);
 
@@ -19,6 +20,10 @@ const isChecked = computed(() =>
     ? Boolean(props.checked?.[props.question.id] ?? props.checked?.revealed)
     : props.checked
 );
+const isLocked = computed(() =>
+  typeof props.locked === 'object' ? Boolean(props.locked?.[props.question.id]) : props.locked
+);
+const readOnly = computed(() => isChecked.value || isLocked.value);
 
 function restoredSlots(value) {
   const raw = Array.isArray(value) ? value : value?.slots;
@@ -50,23 +55,23 @@ function save() {
   emit('answer', { slots: [...slots.value] });
 }
 function place(candidateIndex, targetSlot = slots.value.indexOf(null)) {
-  if (isChecked.value || targetSlot < 0 || used.value.has(candidateIndex)) return;
+  if (readOnly.value || targetSlot < 0 || used.value.has(candidateIndex)) return;
   if (slots.value[targetSlot] != null) slots.value[targetSlot] = null;
   slots.value[targetSlot] = candidateIndex;
   save();
 }
 function clearSlot(index) {
-  if (isChecked.value || slots.value[index] == null) return;
+  if (readOnly.value || slots.value[index] == null) return;
   slots.value[index] = null;
   save();
 }
 function startDrag(source, index, event) {
-  if (isChecked.value) return event.preventDefault();
+  if (readOnly.value) return event.preventDefault();
   dragged.value = { source, index };
   event.dataTransfer?.setData('text/plain', JSON.stringify(dragged.value));
 }
 function dropOnSlot(index) {
-  if (!dragged.value || isChecked.value) return;
+  if (!dragged.value || readOnly.value) return;
   if (dragged.value.source === 'candidate') place(dragged.value.index, index);
   else if (dragged.value.source === 'slot' && dragged.value.index !== index) {
     [slots.value[index], slots.value[dragged.value.index]] = [
@@ -126,7 +131,8 @@ function slotText(index) {
             type="button"
             class="blank-slot"
             :class="slotState(part.index)"
-            :draggable="slots[part.index] != null && !isChecked"
+            :disabled="readOnly"
+            :draggable="slots[part.index] != null && !readOnly"
             :aria-label="`Blank ${part.index + 1}`"
             @click="clearSlot(part.index)"
             @dragstart="startDrag('slot', part.index, $event)"
@@ -145,8 +151,8 @@ function slotText(index) {
         type="button"
         class="candidate-chip"
         :class="{ used: used.has(index) }"
-        :disabled="used.has(index) || isChecked"
-        :draggable="!used.has(index) && !isChecked"
+        :disabled="used.has(index) || readOnly"
+        :draggable="!used.has(index) && !readOnly"
         @click="place(index)"
         @dragstart="startDrag('candidate', index, $event)"
       >

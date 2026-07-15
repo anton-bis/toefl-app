@@ -11,6 +11,7 @@ const props = defineProps({
   answers: { type: Object, default: () => ({}) },
   marks: { type: [Object, Array], default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }
 });
 const emit = defineEmits(['answer', 'media-state']);
@@ -73,6 +74,7 @@ const title = computed(() =>
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>
@@ -96,6 +98,7 @@ const title = computed(() =>
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>

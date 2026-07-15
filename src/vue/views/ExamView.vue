@@ -128,9 +128,12 @@ const checkedState = computed(() => {
   if (session.value?.check.revealedScopes?.[page.value?.id]) {
     for (const id of page.value?.questionIds || []) ids[id] = true;
   }
-  for (const id of Object.keys(session.value?.lockedQuestionIds || {})) ids[id] = true;
+  for (const [id, mode] of Object.entries(session.value?.lockedQuestionIds || {})) {
+    if (mode !== 'hidden') ids[id] = true;
+  }
   return ids;
 });
+const lockedState = computed(() => session.value?.lockedQuestionIds || {});
 const contentComponent = computed(() => sectionComponents[normalizedSection.value]);
 const isContentPage = computed(() =>
   ['question', 'stimulus', 'scenario'].includes(page.value?.type)
@@ -294,7 +297,7 @@ function navigate(direction) {
   const target = page.value?.[direction];
   if (!target) return;
   if (normalizedSection.value === 'listening' && page.value.type === 'question') {
-    exam.lockQuestions(page.value.questionIds || []);
+    exam.lockQuestions(page.value.questionIds || [], false);
     exam.continueUnlimited();
   }
   if (target === 'results') exam.complete();
@@ -352,8 +355,7 @@ function selectPage(pageId) {
 function handleExpired() {
   exam.expire();
   if (normalizedSection.value === 'listening') {
-    exam.lockQuestions(page.value.questionIds || []);
-    exam.continueUnlimited();
+    navigate('next');
     return;
   }
   if (normalizedSection.value === 'writing') {
@@ -501,6 +503,7 @@ watch(
         :answers="session.answers"
         :marks="session.marks"
         :checked="checkedState"
+        :locked="lockedState"
         :volume="volume"
         :read-only="reviewMode"
         @answer="exam.saveAnswer"

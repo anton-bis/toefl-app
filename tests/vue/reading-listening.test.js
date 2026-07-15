@@ -248,6 +248,13 @@ describe('listening section', () => {
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['lq1', 'A']]);
     expect(wrapper.emitted('media-state').some(([state]) => state.state === 'playing')).toBe(true);
+
+    await wrapper.setProps({ checked: {}, locked: { lq1: 'hidden' } });
+    expect(
+      wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
+    ).toBe(true);
+    expect(wrapper.find('.option-item-apple.correct').exists()).toBe(false);
+    expect(wrapper.find('.option-item-apple.incorrect').exists()).toBe(false);
   });
 
   it('renders a separate stimulus and gives academic questions 30 seconds', async () => {
@@ -299,5 +306,17 @@ describe('listening section', () => {
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
     expect(removeAttribute).toHaveBeenCalledWith('src');
     expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('stopped');
+  });
+
+  it('ignores late timeupdate events after the audio ref is cleared', () => {
+    const wrapper = mount(AudioSegment, {
+      props: {
+        document: { assetBase: '/content' },
+        media: { file: 'talk.ogg', start: 0, end: 10 }
+      }
+    });
+    const element = wrapper.find('audio').element;
+    wrapper.vm.$.setupState.audio = null;
+    expect(() => element.dispatchEvent(new Event('timeupdate'))).not.toThrow();
   });
 });

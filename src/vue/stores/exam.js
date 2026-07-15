@@ -288,9 +288,14 @@ export const useExamStore = defineStore('exam', {
       check.checkedAt = revealed ? Date.now() : null;
       this.touch();
     },
-    lockQuestions(questionIds) {
+    lockQuestions(questionIds, revealAnswers = true) {
       const session = this.requireActive();
-      for (const questionId of questionIds) session.lockedQuestionIds[String(questionId)] = true;
+      for (const questionId of questionIds) {
+        const id = String(questionId);
+        if (revealAnswers || !session.lockedQuestionIds[id]) {
+          session.lockedQuestionIds[id] = revealAnswers ? true : 'hidden';
+        }
+      }
       this.touch();
     },
     setTimerHidden(hidden) {

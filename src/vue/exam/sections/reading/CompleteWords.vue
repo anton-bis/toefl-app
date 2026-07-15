@@ -7,7 +7,8 @@ import { isCorrectAnswer } from '../../shared/model.js';
 const props = defineProps({
   task: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false }
+  checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
 const inputs = ref({});
@@ -20,8 +21,14 @@ function isChecked(questionId) {
   return Boolean(props.checked?.[questionId]);
 }
 
+function isLocked(questionId) {
+  if (props.locked === true) return true;
+  if (Array.isArray(props.locked)) return props.locked.includes(questionId);
+  return Boolean(props.locked?.[questionId]);
+}
+
 function stateFor(question) {
-  if (!isChecked(question.id)) return '';
+  if (!isChecked(question.id)) return isLocked(question.id) ? 'locked' : '';
   const answer = selectedAnswer(props.answers, question.id);
   if (!answer) return 'empty locked';
   return isCorrectAnswer(answer, question) ? 'correct locked' : 'incorrect locked';
@@ -97,7 +104,7 @@ function paste(token, event) {
               :value="inputs[token.question.id][index]"
               class="letter-box"
               maxlength="1"
-              :disabled="isChecked(token.question.id)"
+              :disabled="isChecked(token.question.id) || isLocked(token.question.id)"
               :aria-label="`Question ${token.question.number}, letter ${index + 1}`"
               @input="update(token, index, $event)"
               @keydown="onKeydown(token, index, $event)"

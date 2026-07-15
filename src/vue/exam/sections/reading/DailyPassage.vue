@@ -7,7 +7,8 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false }
+  checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
 const content = computed(() => parseDailyPassage(props.task.passage, props.task.type));
@@ -85,6 +86,7 @@ const messages = computed(() => parseTextChain(props.task.passage));
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>
