@@ -4,7 +4,9 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { buildQuestionManifest } from '../../src/content/manifest.js';
+import { createExamDocument } from '../../src/content/pages.js';
 import { parseExamDocument } from '../../src/content/parsers/index.js';
+import { normalizeMarkdown } from '../../src/content/shared.js';
 import { validateExamDocument } from '../../src/content/validate.js';
 import {
   generateQuestionManifest,
@@ -17,6 +19,21 @@ const manifest = generateQuestionManifest(root);
 const committedManifest = JSON.parse(
   fs.readFileSync(path.join(root, 'src/content/question-manifest.json'), 'utf8')
 );
+
+test('shared content builders normalize Markdown and page navigation', () => {
+  assert.equal(normalizeMarkdown('first\r\nsecond\rthird'), 'first\nsecond\nthird');
+  const document = createExamDocument({ id: 'fixture', section: 'reading' }, [
+    { id: 'module-1', tasks: [] }
+  ]);
+  assert.deepEqual(
+    document.pages.map(page => [page.id, page.previous, page.next]),
+    [
+      ['start', null, 'module-1-intro'],
+      ['module-1-intro', 'start', 'results'],
+      ['results', 'module-1-intro', null]
+    ]
+  );
+});
 
 test('manifest discovery is deterministic and complete', () => {
   const paths = scanQuestionFiles(root);
@@ -85,7 +102,10 @@ test('all current Markdown documents parse into valid unified models', async t =
       counts[entry.section] += 1;
     });
   }
-  assert.deepEqual(Object.keys(counts).filter(section => counts[section] === 0), []);
+  assert.deepEqual(
+    Object.keys(counts).filter(section => counts[section] === 0),
+    []
+  );
 });
 
 test('speaking response times preserve TOEFL task rules', () => {

@@ -19,3 +19,12 @@ export function normalizeContentPath(value) {
 export function externalContentPath(value) {
   return normalizeContentPath(value).replace(/^assets\/questions\//, '');
 }
+
+export function resolveContentFile(root, value) {
+  const contentRoot = path.resolve(root);
+  const resolved = path.resolve(contentRoot, normalizeContentPath(value));
+  if (!resolved.startsWith(`${contentRoot}${path.sep}`)) {
+    throw new Error('Content path escapes root');
+  }
+  return resolved;
+}

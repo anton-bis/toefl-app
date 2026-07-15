@@ -1,5 +1,5 @@
-import { createExamPages } from '../pages.js';
-import { linesOf, media, seconds, sourceMeta } from '../shared.js';
+import { createExamDocument } from '../pages.js';
+import { linesOf, media, normalizeMarkdown, seconds, sourceMeta } from '../shared.js';
 
 function parseTask(title, body, taskNumber) {
   const type = title === 'Listen and Repeat' ? 'listen-repeat' : 'interview';
@@ -69,9 +69,7 @@ export function parseSpeaking(markdown, options = {}) {
   const meta = sourceMeta('speaking', options);
   const tasks = [];
   const regex = /^### (Listen and Repeat|Take an Interview)\s*\n([\s\S]*?)(?=^### |(?![\s\S]))/gm;
-  for (const match of markdown.replace(/\r/g, '').matchAll(regex))
+  for (const match of normalizeMarkdown(markdown).matchAll(regex))
     tasks.push(parseTask(match[1], match[2], tasks.length + 1));
-  const document = { ...meta, modules: [{ id: 'module-1', number: 1, title: 'Speaking', tasks }] };
-  document.pages = createExamPages(document);
-  return document;
+  return createExamDocument(meta, [{ id: 'module-1', number: 1, title: 'Speaking', tasks }]);
 }

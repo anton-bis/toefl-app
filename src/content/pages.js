@@ -78,3 +78,8 @@ export function createExamPages(document) {
     next: index < pages.length - 1 ? pages[index + 1].id : null
   }));
 }
+
+export function createExamDocument(meta, modules) {
+  const document = { ...meta, modules };
+  return { ...document, pages: createExamPages(document) };
+}

@@ -1,11 +1,11 @@
-import { createExamPages } from '../pages.js';
-import { linesOf, sourceMeta } from '../shared.js';
+import { createExamDocument } from '../pages.js';
+import { linesOf, normalizeMarkdown, sourceMeta } from '../shared.js';
 
 function sectionBodies(markdown) {
   const result = new Map();
   const regex =
     /^## (Build a Sentence|Write an Email|Write for an Academic Discussion)\s*\n([\s\S]*?)(?=^## |(?![\s\S]))/gm;
-  for (const match of markdown.replace(/\r/g, '').matchAll(regex)) result.set(match[1], match[2]);
+  for (const match of normalizeMarkdown(markdown).matchAll(regex)) result.set(match[1], match[2]);
   return result;
 }
 
@@ -115,7 +115,5 @@ export function parseWriting(markdown, options = {}) {
       )
     }
   ];
-  const document = { ...meta, modules: [{ id: 'module-1', number: 1, title: 'Writing', tasks }] };
-  document.pages = createExamPages(document);
-  return document;
+  return createExamDocument(meta, [{ id: 'module-1', number: 1, title: 'Writing', tasks }]);
 }

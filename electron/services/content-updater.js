@@ -6,35 +6,17 @@ import { app, net } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { resolveContentFile } from './content-paths.js';
 import { RUNTIME_CONTENT_EXTENSIONS } from './runtime-content.js';
 
-const MANIFEST_URL = 'https://raw.githubusercontent.com/anton-bis/toefl-content/master/manifest.json';
+const MANIFEST_URL =
+  'https://raw.githubusercontent.com/anton-bis/toefl-content/master/manifest.json';
 const CONTENT_DIR_NAME = 'tpo-content';
 const MAX_MANIFEST_BYTES = 2 * 1024 * 1024;
 const MAX_CONTENT_BYTES = 50 * 1024 * 1024;
 
 function getContentDir() {
   return path.join(app.getPath('userData'), CONTENT_DIR_NAME);
-}
-
-function resolveContentPath(subPath = '') {
-  const raw = String(subPath).replaceAll('\\', '/');
-  const normalized = raw.replace(/^\/+/, '');
-  if (
-    raw.startsWith('/') ||
-    /^[a-z]:\//i.test(raw) ||
-    normalized.includes('\0') ||
-    normalized.split('/').includes('..') ||
-    path.isAbsolute(normalized)
-  ) {
-    throw new Error('Invalid content path');
-  }
-  const root = path.resolve(getContentDir());
-  const resolved = path.resolve(root, normalized);
-  if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) {
-    throw new Error('Content path escapes root');
-  }
-  return resolved;
 }
 
 function getLocalVersion() {
@@ -57,7 +39,10 @@ function saveLocalVersion(version) {
 
 function validateRemoteUrl(value) {
   const url = new URL(value);
-  if (url.protocol !== 'https:' || !['github.com', 'raw.githubusercontent.com'].includes(url.hostname)) {
+  if (
+    url.protocol !== 'https:' ||
+    !['github.com', 'raw.githubusercontent.com'].includes(url.hostname)
+  ) {
     throw new Error(`不受信任的内容地址: ${url.hostname}`);
   }
   return url;
@@ -65,7 +50,7 @@ function validateRemoteUrl(value) {
 
 function validateUpdateItem(item) {
   if (!item || typeof item !== 'object') throw new Error('内容更新项格式错误');
-  const target = resolveContentPath(item.path);
+  const target = resolveContentFile(getContentDir(), item.path);
   if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(target).toLowerCase())) {
     throw new Error(`不支持的内容类型: ${item.path}`);
   }
@@ -75,7 +60,11 @@ function validateUpdateItem(item) {
 }
 
 function validateManifest(manifest) {
-  if (!manifest || !Number.isSafeInteger(manifest.content_version) || manifest.content_version < 0) {
+  if (
+    !manifest ||
+    !Number.isSafeInteger(manifest.content_version) ||
+    manifest.content_version < 0
+  ) {
     throw new Error('内容清单版本无效');
   }
   if (!Array.isArray(manifest.updates) || manifest.updates.length > 500) {
@@ -162,7 +151,7 @@ export async function checkForContentUpdates() {
 
 export async function applyContentUpdates(updates) {
   const items = updates.map(validateUpdateItem);
-  const stagingRoot = resolveContentPath(`.staging-${process.pid}-${Date.now()}`);
+  const stagingRoot = resolveContentFile(getContentDir(), `.staging-${process.pid}-${Date.now()}`);
   const backups = [];
   const committed = [];
   fs.mkdirSync(stagingRoot, { recursive: true });
