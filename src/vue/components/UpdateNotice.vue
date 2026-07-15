@@ -1,0 +1,59 @@
+<script setup>
+import { useUpdatesStore } from '../stores/updates.js';
+
+const updates = useUpdatesStore();
+</script>
+
+<template>
+  <aside v-if="updates.hasUpdate || updates.contentUpdate || updates.error" class="update-notice">
+    <div>
+      <strong v-if="updates.error">更新失败</strong>
+      <strong v-else-if="updates.contentUpdate">题库内容可更新</strong>
+      <strong v-else>新版本 V{{ updates.version }}</strong>
+      <p v-if="updates.error">{{ updates.error }}</p>
+      <p v-else-if="updates.status === 'downloading'">正在下载：{{ updates.progress }}%</p>
+      <p v-else-if="updates.description">{{ updates.description }}</p>
+    </div>
+    <button v-if="updates.contentUpdate" type="button" @click="updates.applyContent">
+      更新题库
+    </button>
+    <button v-else-if="updates.status === 'available'" type="button" @click="updates.download">
+      下载并安装
+    </button>
+    <button v-else-if="updates.status === 'downloaded'" type="button" @click="updates.install">
+      重启安装
+    </button>
+  </aside>
+</template>
+
+<style scoped>
+.update-notice {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 900;
+  width: min(390px, calc(100vw - 44px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.16);
+}
+.update-notice p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.update-notice button {
+  border: 0;
+  border-radius: 7px;
+  background: var(--teal);
+  color: #fff;
+  padding: 9px 12px;
+  white-space: nowrap;
+}
+</style>

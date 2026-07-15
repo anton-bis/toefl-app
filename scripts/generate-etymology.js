@@ -172,48 +172,6 @@ async function processSubject(subject, dryRun) {
   return { total: toProcess.length, cost: 0 };
 }
 
-async function generateWordRoots() {
-  log('生成 word-roots.json...');
-  const roots = {};
-
-  for (const subject of ['reading', 'listening', 'writing', 'speaking']) {
-    const filePath = path.join(VOCAB_DIR, `${subject}-words.json`);
-    if (!fs.existsSync(filePath)) continue;
-    const words = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-
-    for (const w of words) {
-      if (!w.etymology) continue;
-      const parts = [w.etymology.prefix, w.etymology.root, w.etymology.suffix].filter(Boolean);
-      for (const part of parts) {
-        const key = part.form;
-        if (!key) continue;
-        if (!roots[key]) {
-          roots[key] = {
-            meaning: part.meaning || '',
-            type: key.endsWith('-') ? 'prefix' : key.startsWith('-') ? 'suffix' : 'root',
-            words: []
-          };
-        }
-        if (!roots[key].words.includes(w.word)) {
-          roots[key].words.push(w.word);
-        }
-      }
-    }
-  }
-
-  // Clean up: remove roots with only 1 word (likely noise)
-  const filtered = {};
-  for (const [key, val] of Object.entries(roots)) {
-    if (val.words.length >= 1) {
-      filtered[key] = val;
-    }
-  }
-
-  const outputPath = path.join(VOCAB_DIR, 'word-roots.json');
-  fs.writeFileSync(outputPath, JSON.stringify(filtered, null, 2), 'utf-8');
-  log(`word-roots.json: ${Object.keys(filtered).length} 个词根词缀`);
-}
-
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
@@ -256,7 +214,6 @@ async function main() {
     log(`估算费用: $${grandCost.toFixed(4)} (约 ¥${(grandCost * 7.2).toFixed(2)})`);
   } else {
     log('词源数据已写入各科目词库 JSON');
-    await generateWordRoots();
   }
 }
 

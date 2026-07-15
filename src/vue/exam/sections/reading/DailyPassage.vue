@@ -1,0 +1,84 @@
+<script setup>
+import { computed } from 'vue';
+import ChoiceList from '../../shared/ChoiceList.vue';
+import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
+
+const props = defineProps({
+  task: { type: Object, required: true },
+  question: { type: Object, required: true },
+  answers: { type: Object, default: () => ({}) },
+  checked: { type: [Boolean, Object, Array], default: false }
+});
+const emit = defineEmits(['answer']);
+const content = computed(() => parseDailyPassage(props.task.passage, props.task.type));
+const messages = computed(() => parseTextChain(props.task.passage));
+</script>
+
+<template>
+  <section id="question-module" class="daily-reading-page">
+    <p class="question-instruction">{{ instructionFor(task.type) }}</p>
+    <div class="two-column-layout">
+      <div class="left-column">
+        <article v-if="task.type === 'email'" class="apple-email-container">
+          <header class="email-header-apple">
+            <div v-if="content.to"><span class="meta-label">To:</span> {{ content.to }}</div>
+            <div v-if="content.from"><span class="meta-label">From:</span> {{ content.from }}</div>
+            <div v-if="content.date"><span class="meta-label">Date:</span> {{ content.date }}</div>
+            <div v-if="content.subject">
+              <span class="meta-label">Subject:</span> {{ content.subject }}
+            </div>
+          </header>
+          <div class="email-body-apple">{{ content.body }}</div>
+          <footer v-if="content.signature" class="email-signature-apple">
+            {{ content.signature }}
+          </footer>
+        </article>
+
+        <article v-else-if="task.type === 'text-chain'" class="apple-textchain-container">
+          <div class="phone-status-bar"><strong>9:41</strong><span>● ● ●</span></div>
+          <div class="textchain-messages-area">
+            <div
+              v-for="(message, index) in messages"
+              :key="index"
+              class="message-bubble"
+              :class="index % 2 ? 'sent' : 'received'"
+            >
+              <div class="message-header">
+                <strong>{{ message.sender }}</strong
+                ><span>{{ message.time }}</span>
+              </div>
+              <div class="message-text">{{ message.text }}</div>
+            </div>
+          </div>
+        </article>
+
+        <article v-else-if="task.type === 'social-media'" class="apple-social-container">
+          <header class="social-profile">
+            <span class="profile-avatar">{{ (content.username || 'U')[0] }}</span
+            ><strong>{{ content.username }}</strong>
+          </header>
+          <div class="social-media-content">{{ content.body }}</div>
+        </article>
+
+        <article v-else class="apple-noticeboard-container" :class="task.type">
+          <header class="noticeboard-header">
+            <h2>{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle">{{ content.subtitle }}</p>
+          </header>
+          <div class="notice-content">{{ content.body }}</div>
+        </article>
+      </div>
+      <div class="right-column">
+        <div class="question-container-apple">
+          <div class="question-text-apple">{{ question.prompt }}</div>
+          <ChoiceList
+            :question="question"
+            :answers="answers"
+            :checked="checked"
+            @answer="(id, value) => emit('answer', id, value)"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

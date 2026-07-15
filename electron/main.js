@@ -1,27 +1,68 @@
-import { app, BrowserWindow, ipcMain, shell, dialog, Menu, session, protocol } from 'electron';
+import { app, BrowserWindow, ipcMain, shell, dialog, Menu, session, protocol, net } from 'electron';
 import pkg from 'electron-updater';
 const { autoUpdater } = pkg;
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { initDatabase, closeDatabase } from './services/database.js';
-import { checkLicense, activateLicense } from './services/license.js';
-import {
-  checkForContentUpdates,
-  runContentUpdate,
-  getContentPath,
-  listContentFiles
-} from './services/content-updater.js';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { checkForContentUpdates, runContentUpdate } from './services/content-updater.js';
+import { externalContentPath, normalizeContentPath } from './services/content-paths.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// 启用生产模式优化
-if (process.env.NODE_ENV === 'production') {
-  import('source-map-support').then(module => module.install());
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'toefl-content',
+    privileges: {
+      standard: true,
+      secure: true,
+      stream: true,
+      supportFetchAPI: true,
+      corsEnabled: true
+    }
+  }
+]);
+
+function contentCandidates(relativePath) {
+  const safePath = normalizeContentPath(relativePath);
+  const externalPath = externalContentPath(safePath);
+  return [
+    path.join(app.getPath('userData'), 'tpo-content', externalPath),
+    path.join(app.getAppPath(), 'dist', safePath),
+    path.join(app.getAppPath(), safePath)
+  ];
+}
+
+function resolveContentFile(relativePath) {
+  return contentCandidates(relativePath).find(candidate => fs.existsSync(candidate)) || null;
+}
+
+function setupContentProtocol() {
+  protocol.handle('toefl-content', request => {
+    const requestUrl = new URL(request.url);
+    const filePath = resolveContentFile(decodeURIComponent(requestUrl.pathname).replace(/^\/+/, ''));
+    if (!filePath) return new Response('Not found', { status: 404 });
+    return net.fetch(pathToFileURL(filePath).toString(), { headers: request.headers });
+  });
 }
 
 // 全局窗口引用
 let mainWindow = null;
+const authorizedExports = new Set();
+const authorizedImports = new Set();
+
+function isTrustedRenderer(event) {
+  return Boolean(mainWindow && event.sender === mainWindow.webContents);
+}
+
+function isTrustedAppUrl(value) {
+  try {
+    const url = new URL(value);
+    if (process.env.NODE_ENV === 'development') return url.origin === 'http://localhost:3000';
+    return url.protocol === 'file:' && url.pathname.endsWith('/dist/index.html');
+  } catch {
+    return false;
+  }
+}
 
 // 创建主窗口
 function createWindow() {
@@ -30,13 +71,13 @@ function createWindow() {
     height: 800,
     minWidth: 800,
     minHeight: 600,
-    icon: path.join(__dirname, '../assets/icons/icon.png'),
+    icon: path.join(__dirname, '../dist/assets/icons/icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       nodeIntegration: false,
       contextIsolation: true,
-      sandbox: false,
-      webSecurity: process.env.NODE_ENV === 'production'
+      sandbox: true,
+      webSecurity: true
     },
     show: false,
     backgroundColor: '#f5f5f5',
@@ -55,25 +96,10 @@ function createWindow() {
   }
 
   // 预授权麦克风权限，避免录音时弹窗
-  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-    if (permission === 'media') callback(true);
-    else callback(false);
-  });
-
-  // 内容更新图片回退：应用目录无权限写入时，从 userData 读取
-  const contentDir = path.join(app.getPath('userData'), 'tpo-content');
-  const assetBase = path.join(app.getAppPath(), 'assets', 'questions');
-  protocol.interceptFileProtocol('file', (request, callback) => {
-    const urlWithoutQuery = request.url.split('?')[0];
-    const filePath = decodeURIComponent(urlWithoutQuery.replace('file:///', '').replace(/\//g, path.sep));
-    const resolvedPath = path.resolve(filePath);
-    if (fs.existsSync(resolvedPath)) { callback({ path: resolvedPath }); return; }
-    if (resolvedPath.startsWith(assetBase + path.sep)) {
-      const rel = path.relative(assetBase, resolvedPath);
-      const fallbackPath = path.join(contentDir, rel);
-      if (fs.existsSync(fallbackPath)) { callback({ path: fallbackPath }); return; }
-    }
-    callback({ path: resolvedPath });
+  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback, details) => {
+    const mediaTypes = details?.mediaTypes || [];
+    const audioOnly = mediaTypes.length === 0 || mediaTypes.every(type => type === 'audio');
+    callback(permission === 'media' && audioOnly && isTrustedAppUrl(webContents.getURL()));
   });
 
   // 窗口准备就绪后显示
@@ -99,11 +125,10 @@ function createWindow() {
 
   // 处理外部链接（在浏览器中打开）
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    if (url.startsWith('http')) {
+    if (/^https?:\/\//i.test(url)) {
       shell.openExternal(url);
-      return { action: 'deny' };
     }
-    return { action: 'allow' };
+    return { action: 'deny' };
   });
 
   // 创建应用菜单
@@ -118,21 +143,21 @@ function createApplicationMenu() {
     // 应用菜单 (macOS)
     ...(isMac
       ? [
-          {
-            label: app.name,
-            submenu: [
-              { role: 'about' },
-              { type: 'separator' },
-              { role: 'services' },
-              { type: 'separator' },
-              { role: 'hide' },
-              { role: 'hideOthers' },
-              { role: 'unhide' },
-              { type: 'separator' },
-              { role: 'quit' }
-            ]
-          }
-        ]
+        {
+          label: app.name,
+          submenu: [
+            { role: 'about' },
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideOthers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' }
+          ]
+        }
+      ]
       : []),
     // 文件菜单
     {
@@ -148,8 +173,7 @@ function createApplicationMenu() {
           label: '导入数据',
           click: () => importUserData()
         },
-        { type: 'separator' },
-        isMac ? { role: 'close' } : { role: 'quit' }
+        ...(!isMac ? [{ type: 'separator' }, { role: 'quit' }] : [])
       ]
     },
     // 编辑菜单
@@ -164,15 +188,15 @@ function createApplicationMenu() {
         { role: 'paste' },
         ...(isMac
           ? [
-              { role: 'pasteAndMatchStyle' },
-              { role: 'delete' },
-              { role: 'selectAll' },
-              { type: 'separator' },
-              {
-                label: '语音',
-                submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }]
-              }
-            ]
+            { role: 'pasteAndMatchStyle' },
+            { role: 'delete' },
+            { role: 'selectAll' },
+            { type: 'separator' },
+            {
+              label: '语音',
+              submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }]
+            }
+          ]
           : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }])
       ]
     },
@@ -198,7 +222,7 @@ function createApplicationMenu() {
         {
           label: '使用说明',
           click: () => {
-            shell.openExternal('https://github.com/yourusername/toefl-practice-system/wiki');
+            shell.openExternal('https://github.com/anton-bis/toefl-app#readme');
           }
         },
         {
@@ -214,7 +238,7 @@ function createApplicationMenu() {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
               title: '关于托福模考系统',
-              message: '托福模考系统 v1.0.0',
+              message: `托福模考系统 v${app.getVersion()}`,
               detail: '一款专业的托福考试模拟练习软件\n\n© 2026 下士小龙虾\n所有权利保留。',
               buttons: ['确定']
             });
@@ -242,6 +266,7 @@ async function exportUserData() {
   });
 
   if (filePath) {
+    authorizedExports.add(path.resolve(filePath));
     mainWindow.webContents.send('export-user-data', filePath);
   }
 }
@@ -260,74 +285,49 @@ async function importUserData() {
   });
 
   if (filePaths.length > 0) {
+    authorizedImports.add(path.resolve(filePaths[0]));
     mainWindow.webContents.send('import-user-data', filePaths[0]);
   }
 }
 
 // IPC处理器
 function setupIpcHandlers() {
-  // 检查许可证
-  ipcMain.handle('license:check', async () => {
-    return await checkLicense();
-  });
-
-  // 激活许可证
-  ipcMain.handle('license:activate', async (event, licenseKey) => {
-    return await activateLicense(licenseKey);
-  });
-
-  // 获取应用信息
-  ipcMain.handle('app:getInfo', () => {
-    return {
-      version: app.getVersion(),
-      name: app.name,
-      platform: process.platform,
-      arch: process.arch,
-      isPackaged: app.isPackaged,
-      userDataPath: app.getPath('userData')
-    };
-  });
-
-  // 打开开发者工具
-  ipcMain.on('devtools:open', () => {
-    if (mainWindow) {
-      mainWindow.webContents.openDevTools();
+  ipcMain.handle('user-data:write', async (event, filePath, payload) => {
+    const resolved = path.resolve(String(filePath || ''));
+    if (!isTrustedRenderer(event) || !authorizedExports.delete(resolved)) {
+      throw new Error('未授权的导出路径');
     }
+    const serialized = JSON.stringify(payload, null, 2);
+    if (Buffer.byteLength(serialized) > 25 * 1024 * 1024) throw new Error('导出数据过大');
+    const temporary = `${resolved}.tmp-${process.pid}`;
+    await fs.promises.writeFile(temporary, serialized, { encoding: 'utf8', mode: 0o600 });
+    await fs.promises.rename(temporary, resolved);
+    return true;
   });
 
-  // 重启应用
-  ipcMain.on('app:restart', () => {
-    app.relaunch();
-    app.exit(0);
+  ipcMain.handle('user-data:read', async (event, filePath) => {
+    const resolved = path.resolve(String(filePath || ''));
+    if (!isTrustedRenderer(event) || !authorizedImports.delete(resolved)) {
+      throw new Error('未授权的导入路径');
+    }
+    const stats = await fs.promises.stat(resolved);
+    if (stats.size > 25 * 1024 * 1024) throw new Error('导入数据过大');
+    return JSON.parse(await fs.promises.readFile(resolved, 'utf8'));
   });
 
   // 内容热更新
-  ipcMain.handle('content:check', async () => {
-    return await checkForContentUpdates();
+  ipcMain.handle('content:apply', () => runContentUpdate());
+
+  ipcMain.handle('content:read', (_event, relativePath) => {
+    const filePath = resolveContentFile(relativePath);
+    return filePath ? fs.readFileSync(filePath, 'utf8') : null;
   });
 
-  ipcMain.handle('content:apply', async () => {
-    return await runContentUpdate();
-  });
-
-  ipcMain.handle('content:get-path', (_event, subPath) => {
-    return getContentPath(subPath);
-  });
-
-  ipcMain.handle('content:list', (_event, relDir) => {
-    return listContentFiles(relDir || '');
-  });
-
-  // 手动触发更新下载
-  ipcMain.handle('update:check', async () => {
-    return await autoUpdater.checkForUpdates();
-  });
-
-  ipcMain.handle('update:quit-and-install', async () => {
+  ipcMain.handle('update:quit-and-install', () => {
     autoUpdater.quitAndInstall();
   });
 
-  ipcMain.handle('update:download', async () => {
+  ipcMain.handle('update:download', () => {
     autoUpdater.downloadUpdate();
   });
 }
@@ -348,11 +348,8 @@ function setupAutoUpdater() {
     }
   });
 
-  autoUpdater.on('update-not-available', info => {
+  autoUpdater.on('update-not-available', () => {
     console.log('当前已是最新版本');
-    if (mainWindow) {
-      mainWindow.webContents.send('update:not-available', info);
-    }
   });
 
   autoUpdater.on('error', err => {
@@ -377,21 +374,16 @@ function setupAutoUpdater() {
 }
 
 // 初始化应用
-async function initializeApp() {
+function initializeApp() {
   try {
     console.log('初始化应用...');
-
-    // 初始化数据库
-    await initDatabase();
-    console.log('数据库初始化完成');
-
-    // 检查许可证
-    const licenseStatus = await checkLicense();
-    console.log('许可证状态:', licenseStatus);
 
     // 设置IPC处理器
     setupIpcHandlers();
     console.log('IPC处理器设置完成');
+
+    setupContentProtocol();
+    console.log('内容协议初始化完成');
 
     // 设置自动更新
     if (app.isPackaged) {
@@ -438,19 +430,6 @@ app.on('activate', () => {
   }
 });
 
-// 应用即将退出
-app.on('before-quit', async () => {
-  console.log('应用正在退出，清理资源...');
-
-  try {
-    // 关闭数据库连接
-    await closeDatabase();
-    console.log('数据库连接已关闭');
-  } catch (error) {
-    console.error('关闭数据库连接失败:', error);
-  }
-});
-
 // 处理未捕获的异常
 process.on('uncaughtException', error => {
   console.error('未捕获的异常:', error);
@@ -458,6 +437,6 @@ process.on('uncaughtException', error => {
 });
 
 // 处理未处理的Promise拒绝
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', reason => {
   console.error('未处理的Promise拒绝:', reason);
 });

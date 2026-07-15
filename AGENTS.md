@@ -1,87 +1,57 @@
-# 托福模考系统 - AGENTS.md
-
-## 项目概述
-托福模考软件，第一阶段为静态版（LocalStorage 存储），第二阶段计划前后端分离。
+# 托福模考系统
 
 ## 技术栈
-- **构建**: Vite 5 + Electron 28
-- **模板**: Handlebars（HTML 生成）
-- **语言**: 原生 JS（ES Module，`type: "module"`）
-- **代码规范**: ESLint + Prettier
 
-## 项目结构
-```
+- Vue 3 + Pinia + Vue Router
+- Vite 7
+- Electron 43
+- Node Test Runner + Vitest
+- ESLint + Prettier
+
+## 目录
+
+```text
 src/
-  core/         # loader.js, parser.js, store.js, router.js, timer.js, utils.js
-  modules/      # reading/, listening/（按模块划分）
-  components/   # UI组件（函数式编程）
-  services/     # database.js, license.js
-  score/        # 评分模块
-electron/       # main.js, preload.js
-templates/      # Handlebars HTML模板
-scripts/        # obfuscate.js（Electron代码混淆）
+  content/       Markdown 题库解析、校验与统一内容模型
+  vue/
+    components/  通用 UI
+    exam/        四科考试组件、组合式逻辑与共享组件
+    platform/    内容、IndexedDB、LocalStorage、导入导出
+    skills/      打字与词汇专项练习
+    stores/      Pinia stores
+    views/       路由页面
+electron/
+  main.js        主进程、IPC、更新与内容协议
+  preload.cjs    最小化渲染进程 API
+  services/      内容更新与安全路径处理
+assets/questions/ Markdown 题库和运行时媒体
+scripts/         内容维护、构建检查与 Electron 混淆脚本
+tests/           Node 与 Vitest 测试
 ```
 
-## 路径别名（vite.config.js）
-- `@` → `src/`
-- `@core` → `src/core`
-- `@modules` → `src/modules`
-- `@components` → `src/components`
-- `@services` → `src/services`
-- `@electron` → `electron`
+## 常用命令
 
-## 关键命令
-- `npm run dev` — Vite 开发服务器（端口 3000，局域网可访问）
-- `npm run build` — 构建到 `dist/`（生成文件需 < 100KB）
-- `npm run electron:dev` — `vite build && electron electron/main.js`
-- `npm run electron:build` — 完整打包：`vite build → obfuscate.js → electron-builder`
-- `npm run lint` — `eslint src --ext .js`
-- `npm run format` — `prettier --write src/**/*.js`
-- `npm run sisyphus` — 调用 Sisyphus 代理（需安装 oh-my-openagent 插件）
+- `npm run dev`：生成题库清单并启动 Vite
+- `npm run build`：生产构建并检查每个 JS/CSS 文件不超过 100KB
+- `npm test`：内容、Electron 服务和 Vue 测试
+- `npm run lint`：检查 Vue、内容解析和 Electron 代码
+- `npm run electron:dev`：构建后启动 Electron
+- `npm run electron:build`：构建、混淆并打包 Electron
 
-## 页面生成
-根目录有多个生成脚本（ES Module 格式）：
-- `generate_pages_esm.js` — 从 Markdown 生成 HTML（题库：`assets/questions/reading/reading-2026-test-01.md`）
-- 生成的 HTML 文件输出到项目根目录
+## 架构约束
 
-## Electron 注意事项
-- **生产环境**：`base: './'`（相对路径），关闭 sourcemap，移除 console
-- **入口**: `electron/main.js`（使用 `electron-store`, 可选 `better-sqlite3`）
-- **构建输出**: `release/` 目录，使用 asar 打包
-- **代码混淆**: `scripts/obfuscate.js`（构建前执行）
-- **应用权限**：Electron 打包后需在 `electron/main.js` 中预授权以下权限，避免运行时弹窗：
-  - **麦克风权限**：通过 `session.setPermissionRequestHandler` 对 `media` 类型自动放行
-  - **音频输出**：无需额外权限，`<audio>` 标签默认可用
-  - **本地存储**：`localStorage` / `electron-store` 默认可用，无需权限
-  - 示例配置：
-    ```js
-    const { session } = require('electron');
-    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-      if (permission === 'media') return callback(true);
-      callback(false);
-    });
-    ```
-  - **语法说明**：`callback(true)` 是 Electron 旧版回调风格。若 IDE 报 `callback` 弃用警告，改用新版 Promise 风格：
-    ```js
-    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-      if (permission === 'media') callback(true);
-      else callback(false);
-    });
-    ```
-    两种写法功能完全等价。
+- `index.html` 只加载 `src/vue/main.js`，不要恢复旧静态页面或原生 JS 前端。
+- 题库 Markdown 由 `src/content` 在运行时解析；不要生成或提交逐页 HTML。
+- UI、CSS 和交互行为需要保持稳定，内部实现优先复用小而清晰的 Vue 组件。
+- LocalStorage 只保存设置与当前会话快照；增长型数据存入 `toefl-data` IndexedDB。
+- Speaking 录音存入 IndexedDB，不得把 Blob 或 base64 写入 LocalStorage。
+- Electron preload 只暴露当前渲染进程实际使用的 IPC；新增接口时同步验证主进程调用方。
+- 生产环境使用相对 `base`、关闭 sourcemap，并通过 `toefl-content:` 协议读取可更新内容。
+- 麦克风权限只对可信应用 URL 的 audio media 请求放行。
 
-## Speaking 模块
-- **生成脚本**: `generate_speaking_pages.js --tpo=XX`
-- **题库位置**: `assets/questions/speaking/TPO-XX/speaking-TPO-XX.md`
-- **图片命名**: 自由命名，Markdown 中 `image:` / `scenario_image:` 字段对齐即可
-- **音频支持**: 单文件 + 时间戳（`>> play: MM:SS-MM:SS`，与 Listening 格式一致）
-- **题型**: Listen and Repeat（7 题）+ Take an Interview（4 题），总计 11 题
-- **Response Time**: LR: Q1-2=8s, Q3-5=10s, Q6-7=12s；Interview: Q8-11=45s
-- **录音功能**: 使用 MediaRecorder API，stream 缓存复用避免重复弹窗
-- **环形进度动画**: `requestAnimationFrame` 驱动，60fps 丝滑填充
+## 修改要求
 
-## 开发须知
-- 所有数据当前存储在 LocalStorage（第一阶段）
-- 无测试配置（`npm test` 仅输出错误）
-- Node >= 16，npm >= 8
-- 函数式组件，无类组件
+- 使用 `rg` 查找引用，删除代码前确认入口、测试、脚本和 Electron 均无调用。
+- 不保留无调用的兼容包装、重复存储实现或旧技术栈副本。
+- 不修改无关的用户工作区改动。
+- 修改后至少运行相关测试；跨模块改动运行 `npm test`、`npm run lint` 和 `npm run build`。

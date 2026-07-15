@@ -1,50 +1,37 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+function subscribe(channel, callback) {
+  const handler = (_event, payload) => callback(payload);
+  ipcRenderer.on(channel, handler);
+  return () => ipcRenderer.removeListener(channel, handler);
+}
+
 // 安全地暴露受限制的API给渲染进程
 contextBridge.exposeInMainWorld('electronAPI', {
-  // 许可证相关
-  checkLicense: () => ipcRenderer.invoke('license:check'),
-  activateLicense: licenseKey => ipcRenderer.invoke('license:activate', licenseKey),
-
-  // 应用信息
-  getAppInfo: () => ipcRenderer.invoke('app:getInfo'),
-
-  // 开发者工具
-  openDevTools: () => ipcRenderer.send('devtools:open'),
-
-  // 应用控制
-  restartApp: () => ipcRenderer.send('app:restart'),
-
   // 更新相关
-  checkForUpdates: () => ipcRenderer.invoke('update:check'),
   downloadUpdate: () => ipcRenderer.invoke('update:download'),
   quitAndInstall: () => ipcRenderer.invoke('update:quit-and-install'),
 
   // 导出/导入数据
-  exportUserData: filePath => ipcRenderer.invoke('export:user-data', filePath),
-  importUserData: filePath => ipcRenderer.invoke('import:user-data', filePath),
+  writeUserData: (filePath, payload) => ipcRenderer.invoke('user-data:write', filePath, payload),
+  readUserData: filePath => ipcRenderer.invoke('user-data:read', filePath),
 
   // 内容热更新
-  checkContentUpdate: () => ipcRenderer.invoke('content:check'),
   applyContentUpdate: () => ipcRenderer.invoke('content:apply'),
-  getContentPath: subPath => ipcRenderer.invoke('content:get-path', subPath),
-  listContentFiles: relDir => ipcRenderer.invoke('content:list', relDir),
+  readContentFile: relativePath => ipcRenderer.invoke('content:read', relativePath),
+  getContentAssetUrl: relativePath =>
+    `toefl-content://content/${String(relativePath)
+      .replace(/^\/+/, '')
+      .split('/')
+      .map(encodeURIComponent)
+      .join('/')}`,
 
   // 事件监听器
-  onUpdateAvailable: callback =>
-    ipcRenderer.on('update:available', (_event, info) => callback(info)),
-  onUpdateNotAvailable: callback =>
-    ipcRenderer.on('update:not-available', (_event, info) => callback(info)),
-  onUpdateError: callback => ipcRenderer.on('update:error', (_event, error) => callback(error)),
-  onUpdateProgress: callback =>
-    ipcRenderer.on('update:progress', (_event, progress) => callback(progress)),
-  onUpdateDownloaded: callback =>
-    ipcRenderer.on('update:downloaded', (_event, info) => callback(info)),
-  onContentUpdateAvailable: callback =>
-    ipcRenderer.on('content:update-available', (_event, info) => callback(info)),
-
-  // 清理事件监听器
-  removeAllListeners: channel => ipcRenderer.removeAllListeners(channel)
+  onUpdateAvailable: callback => subscribe('update:available', callback),
+  onUpdateError: callback => subscribe('update:error', callback),
+  onUpdateProgress: callback => subscribe('update:progress', callback),
+  onUpdateDownloaded: callback => subscribe('update:downloaded', callback),
+  onContentUpdateAvailable: callback => subscribe('content:update-available', callback)
 });
 
 // 监听来自主进程的导出/导入数据请求

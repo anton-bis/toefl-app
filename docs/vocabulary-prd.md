@@ -4,9 +4,9 @@
 |------|------|
 | **版本** | 1.0 |
 | **日期** | 2026-06-30 |
-| **状态** | 初稿 |
-| **前置文档** | `docs/v1.0.1-plan.md` |
-| **下一阶段** | TDD（技术设计文档） |
+| **状态** | 产品需求参考 |
+
+> 本文保留产品需求与词源生成背景。第 6–7 节的数据键和技术路径记录的是迁移前方案，当前实现以 `AGENTS.md` 和 `src/vue` 为准。
 
 ---
 
@@ -82,7 +82,7 @@
 | F-09 | 复习题型轮换 | 所有科目复习时自动轮换三种题型：看英文选中文、看中文选英文、原句拼写。Listening & Speaking 额外增加听音选义 | ① Reading/Writing 三题型轮换 ② Listening/Speaking 以听音选义为主，穿插看中文选英文 |
 | F-10 | 每日提醒弹窗 | 首次打开软件弹窗显示今日待背 Set | ① 显示四科各待背 Set 编号 ② "开始背诵"按钮 ③ "今日不提醒"按钮 ④ 完成某科 25 词后该科不再显示 |
 | F-11 | 单词详情页 | 展示单词全信息：音标（英+美+播放）、词性+中文释义、派生词、词根词缀拆解、原句例句 | ① 每个字段按布局展示 ② 发音按钮可播放美音和英音 |
-| F-12 | localStorage 持久化 | 所有学习记录、复习计划、用户偏好存入 localStorage | ① 刷新不丢失 ② 跨 session 恢复 |
+| F-12 | IndexedDB 持久化 | 所有学习记录、复习计划、用户偏好存入 IndexedDB | ① 刷新不丢失 ② 跨 session 恢复 |
 
 ### P1 — 重要功能
 
@@ -266,7 +266,7 @@ Skills
 
 | 规则 | 说明 |
 |------|------|
-| 触发时机 | 每天首次打开软件（以 localStorage 记录日期为准） |
+| 触发时机 | 每天首次打开软件（以持久化设置中的日期为准） |
 | 显示内容 | 四科各自的待背 Set（当日未完成的） |
 | 开始背诵 | 跳转到该科 Set 学习页 |
 | 今日不提醒 | 关闭当日弹窗，次日恢复 |
@@ -312,106 +312,17 @@ Skills
 ]
 ```
 
-### 6.2 词根词缀映射 JSON
-
-文件：`assets/questions/vocabulary/word-roots.json`
-
-```json
-{
-  "ab-": {
-    "meaning": "离开，脱离",
-    "type": "prefix",
-    "words": ["abundant", "abandon", "abnormal", "absorb", "abstract"]
-  },
-  "bene-": {
-    "meaning": "好，善",
-    "type": "prefix",
-    "words": ["benevolent", "benefit", "beneficial", "benediction"]
-  },
-  "und-": {
-    "meaning": "wave，涌动",
-    "type": "root",
-    "words": ["abundant", "inundate", "undulate", "redundant"]
-  }
-}
-```
-
-### 6.3 localStorage Schema
-
-Key: `skills_vocab_progress`
-
-```javascript
-{
-  "reading": {
-    "set-1": {
-      "status": "completed",      // "pending" | "learning" | "completed"
-      "completedAt": "2026-06-30T10:00:00.000Z",
-      "words": {
-        "vocab-reading-001": {
-          "ef": 2.5,              // 易度因子
-          "interval": 1,          // 当前间隔（天）
-          "repetitions": 1,       // 连续正确次数
-          "nextReview": "2026-07-01T10:00:00.000Z",
-          "lastQ": 5              // 上次 q 值
-        }
-      }
-    }
-  },
-  "listening": { ... },
-  "speaking": { ... },
-  "writing": { ... }
-}
-```
-
-Key: `skills_vocab_settings`
-
-```javascript
-{
-  "mode": "random",              // "random" | "root"
-  "reminderEnabled": true,       // 全局提醒开关
-  "lastReminderDate": "2026-06-29"
-}
-```
-
----
-
 ## 7. 技术栈
 
 | 层面 | 方案 | 理由 |
 |------|------|------|
-| 模块架构 | `src/modules/skills/vocabulary/index.js` | 与 typing 模块一致，统一路由注册 |
-| 页面渲染 | 原生 JS + DOM 操作 | 项目无框架，沿用现有模式 |
-| 路由 | `src/core/router.js` 注册 `/skills/vocabulary` | 复用现有 HashRouter |
+| 模块架构 | Vue 3 视图与可复用组件 | 与当前前端架构一致 |
+| 页面渲染 | Vue 3 Composition API | 保持状态与 UI 同步 |
+| 路由 | Vue Router | 复用应用级路由 |
 | 词库加载 | `fetch('assets/questions/vocabulary/{subject}-words.json')` | 按科目按需加载 |
-| 数据持久化 | localStorage | 第一阶段统一方案 |
+| 数据持久化 | IndexedDB repository | 避免同步存储阻塞主线程 |
 | 发音 | 预生成 MP3 文件，通过 `<audio>` 播放 | 离线可靠，不依赖网络 |
-| 图标 | Font Awesome `fa-book`（侧边栏） | 复用现有 CDN |
-| CSS 设计令牌 | 沿用 `index.html` 的 `:root` 变量 | 保证视觉统一 |
-
-### 7.1 文件清单（新增/修改）
-
-| 文件 | 说明 |
-|------|------|
-| `src/modules/skills/vocabulary/index.js` | 模块主入口（新增） |
-| `src/modules/skills/vocabulary/styles.css` | 专有样式（新增） |
-| `src/modules/skills/vocabulary/renderers/SubjectSelect.js` | 四科选择页渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/SetList.js` | Set 列表渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/NineGrid.js` | 九宫格扫读渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/CardLearning.js` | 卡片学习渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/AudioLearning.js` | 听音学习渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/ReviewSession.js` | 复习轮换渲染（新增） |
-| `src/modules/skills/vocabulary/renderers/WordDetail.js` | 单词详情页渲染（新增） |
-| `src/modules/skills/vocabulary/utils/storage.js` | localStorage 封装（新增） |
-| `src/modules/skills/vocabulary/utils/scheduler.js` | SM-2 算法实现（新增） |
-| `src/modules/skills/vocabulary/utils/speech.js` | MP3 播放封装（新增） |
-| `assets/questions/vocabulary/reading-words.json` | 阅读词汇库（新增） |
-| `assets/questions/vocabulary/listening-words.json` | 听力词汇库（新增） |
-| `assets/questions/vocabulary/speaking-words.json` | 口语词汇库（新增） |
-| `assets/questions/vocabulary/writing-words.json` | 写作词汇库（新增） |
-| `assets/questions/vocabulary/word-roots.json` | 词根映射库（新增） |
-| `assets/audio/vocab/` | 发音 MP3 目录（新增） |
-| `index.html` | 侧边栏新增 Skills 分区 + vocabulary 面板（修改） |
-| `src/main.js` | 注册 `/skills/vocabulary` 路由（修改） |
+| 图标与样式 | 本地 Font Awesome 与 Vue 样式 | 离线可用并保持视觉统一 |
 
 ---
 
@@ -422,7 +333,7 @@ Key: `skills_vocab_settings`
 | 词库加载 | < 300ms（按科目加载约 30-50KB JSON） |
 | 发音播放延迟 | < 100ms（本地 MP3，无需网络） |
 | 九宫格交互响应 | < 16ms（纯 DOM className 切换） |
-| localStorage 占用 | < 500KB（4000 词 × 10 次复习记录估算） |
+| IndexedDB 占用 | < 500KB（4000 词 × 10 次复习记录估算） |
 | 外部依赖 | 无新增（Font Awesome 复用已有） |
 | SM-2 计算耗时 | < 1ms（纯数学运算） |
 
@@ -471,4 +382,4 @@ Key: `skills_vocab_settings`
 
 ### 10.3 后续扩展
 
-新增 TPO 题库后，提取新词 → 重复 LLM 生成 → 补充到对应科目词表 → 若存在新词根则追加到 word-roots.json 中对应词根组。
+新增 TPO 题库后，提取新词 → 重复 LLM 生成 → 补充到对应科目词表及 manifest。
