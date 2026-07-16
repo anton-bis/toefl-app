@@ -2,6 +2,10 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
 import {
+  RUBRIC_ACADEMIC_DISCUSSION,
+  RUBRIC_LISTEN_REPEAT,
+  RUBRIC_TAKE_INTERVIEW,
+  RUBRIC_WRITE_EMAIL,
   callAI,
   convertTotal05_to_final30_final6_for_speaking,
   convertTotal05_to_final30_final6_for_writing,
@@ -23,6 +27,20 @@ test('reserved score conversions preserve boundary values', () => {
     final30_writing: 30,
     final6_writing: 6
   });
+});
+
+test('reserved AI scoring rubrics retain all four task guides', () => {
+  const rubrics = [
+    RUBRIC_LISTEN_REPEAT,
+    RUBRIC_TAKE_INTERVIEW,
+    RUBRIC_WRITE_EMAIL,
+    RUBRIC_ACADEMIC_DISCUSSION
+  ];
+  assert.equal(rubrics.length, 4);
+  for (const rubric of rubrics) {
+    for (let score = 0; score <= 5; score += 1) assert.match(rubric, new RegExp(`\\n${score}:`));
+    assert.match(rubric, /Primary criteria:/);
+  }
 });
 
 test('AI extension rejects unsafe or misleading behavior while disabled', async () => {

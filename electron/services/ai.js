@@ -7,6 +7,54 @@ const ALLOWED_ENDPOINTS = new Set([API_URL]);
 const MAX_PROMPT_BYTES = 100 * 1024;
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 
+// Concise, non-verbatim summaries of the 2025 ETS scoring guides. Keep these
+// reserved rubrics aligned with the official guides before enabling AI scoring.
+// Speaking: https://www.ets.org/content/dam/ets-org/pdfs/toefl/speaking-rubrics.pdf
+// Writing: https://www.ets.org/content/dam/ets-org/pdfs/toefl/writing-rubrics.pdf
+export const RUBRIC_LISTEN_REPEAT = `
+Listen and Repeat — score guide summary
+5: Repeats the full prompt accurately and is completely understandable.
+4: Preserves the prompt's meaning with only small wording or grammar changes; speech remains clear.
+3: Reproduces most of the sentence, but omissions or substitutions affect accuracy; some speech may require effort.
+2: Omits or changes a substantial part of the prompt; the result is fragmentary and difficult to understand.
+1: Produces only a few recognizable words or an attempt that is mostly unintelligible.
+0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.
+Primary criteria: accuracy, completeness, and intelligibility.
+`;
+
+export const RUBRIC_TAKE_INTERVIEW = `
+Take an Interview — score guide summary
+5: Fully answers and develops the response with fluent, natural, readily intelligible speech and precise language.
+4: Answers and develops the response clearly; minor pauses or language limitations do not impede meaning.
+3: Addresses the question with limited development or clarity; delivery may be choppy and language control uneven.
+2: Makes a relevant attempt but provides little support; limited language and intelligibility often obscure meaning.
+1: Barely addresses the question through vague, isolated, or mostly unintelligible language.
+0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.
+Primary criteria: relevance and development, fluency, intelligibility, grammar, and vocabulary.
+`;
+
+export const RUBRIC_WRITE_EMAIL = `
+Write an Email — score guide summary
+5: Clearly fulfills the purpose with strong development, precise language, suitable tone, and almost no errors.
+4: Fulfills the purpose effectively with adequate development, appropriate language and conventions, and few errors.
+3: Generally completes the task, though development, clarity, tone, or language control is inconsistent.
+2: Attempts the task, but limited or irrelevant development and frequent language problems make the message ineffective.
+1: Makes only a minimal, fragmented attempt with little original content and serious, frequent language problems.
+0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the task.
+Primary criteria: communicative purpose, development, organization, tone, grammar, and vocabulary.
+`;
+
+export const RUBRIC_ACADEMIC_DISCUSSION = `
+Write for an Academic Discussion — score guide summary
+5: Makes a highly relevant, well-developed, and clear contribution with precise language and almost no errors.
+4: Makes a relevant, adequately developed contribution that is easy to understand and contains few language errors.
+3: Makes a mostly relevant contribution, but some support is unclear or missing and errors are noticeable.
+2: Attempts to contribute, but weak or partly irrelevant ideas and accumulated errors hinder understanding.
+1: Offers few coherent ideas, very limited original language, and serious, frequent errors.
+0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the discussion.
+Primary criteria: relevance, development, clarity, syntactic range, vocabulary, and language accuracy.
+`;
+
 // Shared AI request helper for optional scoring extensions.
 export async function callAI(apiKey, prompt, options = {}) {
   if (!apiKey || !prompt) throw new Error('An API key and prompt are required.');
