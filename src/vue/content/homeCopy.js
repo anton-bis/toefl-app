@@ -38,6 +38,12 @@ export const scoreConversionRows = [
 
 export const changelog = [
   [
+    'V1.4.1',
+    '2026-07-17',
+    'Refreshes Typing and Vocabulary practice with a cleaner design and clearer navigation. ' +
+      'Also improves English wording and fixes issues when restarting Typing practice or navigating Vocabulary sessions.'
+  ],
+  [
     'V1.4.0',
     '2026-07-15',
     'Improves performance, local data reliability, and overall stability. Exam, Typing, and Vocabulary practice are smoother, with fixes for Reading layouts, answer matching, and TPO numbering.'
