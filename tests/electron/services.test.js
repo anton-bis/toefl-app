@@ -28,9 +28,9 @@ test('reserved score conversions preserve boundary values', () => {
 test('AI extension rejects unsafe or misleading behavior while disabled', async () => {
   await assert.rejects(
     callAI('secret', 'prompt', { endpoint: 'https://example.com/chat' }),
-    /不在允许列表/
+    /not allowed/
   );
-  await assert.rejects(scoreWriteEmail('secret', 'prompt', 'essay'), /尚未启用/);
+  await assert.rejects(scoreWriteEmail('secret', 'prompt', 'essay'), /not enabled/);
 });
 
 test('content paths normalize relative assets and reject unsafe paths', () => {

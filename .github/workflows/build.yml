@@ -123,7 +123,7 @@ jobs:
             release/*.blockmap
             release/latest-mac.yml
 
-  # ==================== 发布 Release ====================
+  # ==================== Publish release ====================
   publish-release:
     if: startsWith(github.ref, 'refs/tags/')
     needs: [build-windows, build-mac]

@@ -77,6 +77,43 @@ test('runtime asset copy excludes development directories without leaving empty 
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/ex-batches')), false);
 });
 
+test('application source and metadata use English system copy', () => {
+  const extensions = new Set(['.cjs', '.css', '.html', '.js', '.json', '.vue', '.yml']);
+  const files = ['src/vue', 'electron', 'scripts', '.github/workflows', 'index.html', 'package.json']
+    .flatMap(relativePath => {
+      const target = path.join(root, relativePath);
+      if (!fs.statSync(target).isDirectory()) return [target];
+      const nested = [];
+      const visit = directory => {
+        for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+          const entryPath = path.join(directory, entry.name);
+          if (entry.isDirectory()) visit(entryPath);
+          else if (extensions.has(path.extname(entry.name))) nested.push(entryPath);
+        }
+      };
+      visit(target);
+      return nested;
+    })
+    .filter(filePath => extensions.has(path.extname(filePath)));
+  const violations = files.flatMap(filePath =>
+    fs
+      .readFileSync(filePath, 'utf8')
+      .split('\n')
+      .flatMap((line, index) =>
+        /\p{Script=Han}/u.test(line)
+          ? [`${path.relative(root, filePath)}:${index + 1} ${line.trim()}`]
+          : []
+      )
+  );
+
+  assert.deepEqual(violations, []);
+
+  const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  assert.equal(packageMetadata.productName, 'TOEFL iBT Practice');
+  assert.equal(packageMetadata.build.productName, 'TOEFL iBT Practice');
+  assert.match(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /<html lang="en">/);
+});
+
 test('all current Markdown documents parse into valid unified models', async t => {
   const counts = { reading: 0, listening: 0, writing: 0, speaking: 0 };
   for (const entry of manifest.entries) {

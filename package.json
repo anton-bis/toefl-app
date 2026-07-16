@@ -1,11 +1,11 @@
 {
   "name": "toefl-practice-system",
   "version": "1.4.0",
-  "description": "托福模考系统 - 基于现代化前端架构",
+  "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
-  "productName": "托福模考系统",
-  "author": "下士小龙虾",
+  "productName": "TOEFL iBT Practice",
+  "author": "anton-bis",
   "license": "MIT",
   "scripts": {
     "dev": "npm run content:manifest && vite",
@@ -74,7 +74,7 @@
   "homepage": "https://github.com/anton-bis/toefl-app#readme",
   "build": {
     "appId": "com.yourcompany.toeflpracticesystem",
-    "productName": "托福模考系统",
+    "productName": "TOEFL iBT Practice",
     "directories": {
       "output": "release"
     },

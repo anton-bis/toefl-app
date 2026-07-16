@@ -1,6 +1,6 @@
 /**
- * 内容热更新服务（Electron 主进程）
- * 从 GitHub 拉取 manifest → 对比本地版本 → 下载新内容
+ * Runtime content updates for the Electron main process.
+ * Fetch the GitHub manifest, compare versions, and download changed files.
  */
 import { app, net } from 'electron';
 import fs from 'fs';
@@ -43,19 +43,21 @@ function validateRemoteUrl(value) {
     url.protocol !== 'https:' ||
     !['github.com', 'raw.githubusercontent.com'].includes(url.hostname)
   ) {
-    throw new Error(`不受信任的内容地址: ${url.hostname}`);
+    throw new Error(`Untrusted content host: ${url.hostname}`);
   }
   return url;
 }
 
 function validateUpdateItem(item) {
-  if (!item || typeof item !== 'object') throw new Error('内容更新项格式错误');
+  if (!item || typeof item !== 'object') throw new Error('Invalid content update entry.');
   const target = resolveContentFile(getContentDir(), item.path);
   if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(target).toLowerCase())) {
-    throw new Error(`不支持的内容类型: ${item.path}`);
+    throw new Error(`Unsupported content type: ${item.path}`);
   }
   const url = validateRemoteUrl(item.url).toString();
-  if (item.sha256 && !/^[a-f\d]{64}$/i.test(item.sha256)) throw new Error('SHA-256 格式错误');
+  if (item.sha256 && !/^[a-f\d]{64}$/i.test(item.sha256)) {
+    throw new Error('Invalid SHA-256 checksum.');
+  }
   return { ...item, url, target };
 }
 
@@ -65,16 +67,16 @@ function validateManifest(manifest) {
     !Number.isSafeInteger(manifest.content_version) ||
     manifest.content_version < 0
   ) {
-    throw new Error('内容清单版本无效');
+    throw new Error('Invalid content manifest version.');
   }
   if (!Array.isArray(manifest.updates) || manifest.updates.length > 500) {
-    throw new Error('内容清单更新列表无效');
+    throw new Error('Invalid content manifest update list.');
   }
   return { ...manifest, updates: manifest.updates.map(validateUpdateItem) };
 }
 
 function fetchUrl(value, maxBytes, redirectCount = 0) {
-  if (redirectCount > 5) return Promise.reject(new Error('重定向次数过多'));
+  if (redirectCount > 5) return Promise.reject(new Error('Too many redirects.'));
   const url = validateRemoteUrl(value).toString();
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: 'GET' });
@@ -96,7 +98,7 @@ function fetchUrl(value, maxBytes, redirectCount = 0) {
         total += chunk.length;
         if (total > maxBytes) {
           request.abort();
-          reject(new Error(`下载内容超过 ${maxBytes} 字节限制`));
+          reject(new Error(`The download exceeds the ${maxBytes}-byte limit.`));
           return;
         }
         chunks.push(Buffer.from(chunk));
@@ -144,7 +146,7 @@ export async function checkForContentUpdates() {
       updateCount: (manifest.updates || []).length
     };
   } catch (error) {
-    console.error('检查内容更新失败:', error.message);
+    console.error('Content update check failed:', error.message);
     return { hasUpdate: false, error: error.message };
   }
 }
@@ -193,7 +195,7 @@ export async function runContentUpdate() {
   const results = await applyContentUpdates(manifest.updates || []);
   const failures = results.filter(result => !result.success);
   if (failures.length > 0) {
-    throw new Error(`内容更新失败：${failures.length} 个文件未能写入`);
+    throw new Error(`Content update failed for ${failures.length} file(s).`);
   }
   saveLocalVersion(manifest.content_version);
   return { version: manifest.content_version, results };
