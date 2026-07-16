@@ -38,7 +38,7 @@ function rootGroupsFor(category) {
   if (category.id !== 'root') return category.groups;
   return [
     ...category.recommendedGroups,
-    { type: 'separator', label: `其他词根（${category.moreGroups.length}组）` },
+    { type: 'separator', label: `More roots (${category.moreGroups.length})` },
     ...category.moreGroups
   ];
 }
@@ -112,18 +112,18 @@ export const useVocabularyStore = defineStore('vocabulary', {
         } else this.checkReminder();
         this.initialized = true;
       } catch (error) {
-        this.error = `无法加载单词数据：${error.message}`;
+        this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
         this.loading = false;
       }
     },
     async loadSubject(subject) {
       if (this.wordData[subject]) return this.wordData[subject];
-      if (!SUBJECTS.includes(subject)) throw new Error('未知词汇科目');
+      if (!SUBJECTS.includes(subject)) throw new Error('Unknown vocabulary subject');
       const response = await fetch(`assets/questions/vocabulary/${subject}-words.json`);
       if (!response.ok) throw new Error(`HTTP ${response.status} for ${subject}`);
       const bank = await response.json();
-      if (!Array.isArray(bank)) throw new Error(`${subject} 词库格式无效`);
+      if (!Array.isArray(bank)) throw new Error(`Invalid ${subject} vocabulary data`);
       this.wordData = { [subject]: markRaw(bank) };
       this.setCounts[subject] = Math.ceil(bank.length / 25);
       return bank;
@@ -141,7 +141,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         this.page = 'set-list';
         this.buildSets();
       } catch (error) {
-        this.error = `无法加载单词数据：${error.message}`;
+        this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
         this.loading = false;
       }
@@ -249,7 +249,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       const setProgress = (subjectProgress[setId] ||= { status: 'learning', words: {} });
       setProgress.words[word.id] = scheduleReview(quality, setProgress.words[word.id]);
       saveVocabularyWord(this.subject, setId, word.id, setProgress.words[word.id]).catch(error => {
-        this.error = `无法保存单词进度：${error.message}`;
+        this.error = `Couldn't save your progress: ${error.message}`;
       });
       this.currentIndex += 1;
       if (this.currentIndex >= this.queue.length) return this.finishQueue();
@@ -261,7 +261,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         if (this.isGlobalReview || this.mode === 'root') return this.goToSetList();
         return this.finishSet();
       }
-      if (this.mode === 'root') return this.goToSetList();
+      if (this.mode === 'root') return this.backFromLearning();
       const needsReview = this.queue.filter(word => {
         const record =
           this.progress[this.subject]?.[`set-${this.currentSetIndex + 1}`]?.words?.[word.id];
@@ -280,7 +280,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       set.status = 'completed';
       set.completedAt = new Date().toISOString();
       saveVocabularySet(this.subject, `set-${this.currentSetIndex + 1}`, set).catch(error => {
-        this.error = `无法保存词组进度：${error.message}`;
+        this.error = `Couldn't save this set: ${error.message}`;
       });
       this.goToSetList();
     },
@@ -289,6 +289,13 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.isGlobalReview = false;
       this.page = 'set-list';
       this.buildSets();
+    },
+    backFromLearning() {
+      clearSession();
+      const keepRootGroupList = this.mode === 'root' && this.rootCategory && !this.isGlobalReview;
+      this.isGlobalReview = false;
+      this.page = 'set-list';
+      if (!keepRootGroupList) this.buildSets();
     },
     startGlobalReview() {
       const bank = this.wordData[this.subject] || [];

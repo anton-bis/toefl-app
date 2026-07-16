@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import SkillPageHeader from '../../components/SkillPageHeader.vue';
 import { formatMinutesSeconds } from '../../utils/time.js';
 import { maxSecondsFor } from './logic.js';
 
@@ -12,6 +13,7 @@ const displayTime = computed(() => formatMinutesSeconds(props.store.remaining(no
 const maxSeconds = computed(() => maxSecondsFor(props.store.article));
 
 function onKeydown(event) {
+  if (event.target?.closest?.('button, input, textarea, select, a, [contenteditable]')) return;
   if (
     event.ctrlKey ||
     event.altKey ||
@@ -25,8 +27,16 @@ function onKeydown(event) {
   }
 }
 
-function togglePause() {
-  props.store.isPaused ? props.store.resume() : props.store.pause();
+function restart(event) {
+  props.store.retry();
+  event.currentTarget.blur();
+}
+
+function togglePause(event) {
+  if (props.store.isPaused) {
+    props.store.resume();
+    event.currentTarget.blur();
+  } else props.store.pause();
 }
 
 onMounted(() => {
@@ -46,22 +56,26 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="typing-area">
-    <div class="typing-area-header">
-      <div class="typing-header-top">
-        <button class="typing-back-btn" type="button" @click="emit('back')">← Back</button>
-        <div class="typing-header-controls">
-          <button class="typing-control-btn typing-retry-btn" type="button" @click="store.retry">
-            ↻ Retry
-          </button>
-          <button class="typing-control-btn typing-pause-btn" type="button" @click="togglePause">
-            {{ store.isPaused ? '▶ Resume' : '⏸ Pause' }}
-          </button>
-          <span class="typing-timer">{{ displayTime }}</span>
-        </div>
+  <SkillPageHeader
+    :title="store.article.title"
+    eyebrow="Typing"
+    back-label="All Passages"
+    compact
+    @back="emit('back')"
+  >
+    <template #actions>
+      <div class="typing-header-controls">
+        <button class="typing-control-btn typing-retry-btn" type="button" @click="restart">
+          ↻ Restart
+        </button>
+        <button class="typing-control-btn typing-pause-btn" type="button" @click="togglePause">
+          {{ store.isPaused ? '▶ Resume' : '⏸ Pause' }}
+        </button>
+        <span class="typing-timer">{{ displayTime }}</span>
       </div>
-      <div class="typing-header-sub">{{ store.article.title }}</div>
-    </div>
+    </template>
+  </SkillPageHeader>
+  <div class="typing-area skill-content">
     <div class="typing-text-display" :class="{ paused: store.isPaused }">
       <span
         v-for="(char, index) in store.session.chars"

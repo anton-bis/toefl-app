@@ -6,6 +6,7 @@ import { initializeDataStorage } from './platform/storageLifecycle.js';
 import './styles/roboto.css';
 import './styles/base.css';
 import './styles/icons.css';
+import './styles/skills.css';
 
 try {
   await initializeDataStorage();
@@ -20,9 +21,9 @@ try {
     message.className = 'fatal-error';
     message.setAttribute('role', 'alert');
     const title = document.createElement('h1');
-    title.textContent = '用户数据初始化失败';
+    title.textContent = 'Unable to Initialize User Data';
     const detail = document.createElement('p');
-    detail.textContent = error?.message || '当前环境无法使用本地数据存储';
+    detail.textContent = error?.message || 'Local data storage is unavailable in this environment.';
     message.append(title, detail);
     root.replaceChildren(message);
   }

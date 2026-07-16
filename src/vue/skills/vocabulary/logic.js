@@ -141,10 +141,10 @@ export function buildRootCategories(words) {
     wordCount: values.reduce((sum, group) => sum + group.words.length, 0)
   });
   return [
-    category('prefix', '前缀', groups('prefix')),
-    category('suffix', '后缀', groups('suffix')),
-    { ...category('root', '词根', roots), recommendedGroups: recommended, moreGroups: more },
-    { id: 'other', type: 'category', title: '其他', words: other, wordCount: other.length }
+    category('prefix', 'Prefixes', groups('prefix')),
+    category('suffix', 'Suffixes', groups('suffix')),
+    { ...category('root', 'Roots', roots), recommendedGroups: recommended, moreGroups: more },
+    { id: 'other', type: 'category', title: 'Other', words: other, wordCount: other.length }
   ];
 }
 
