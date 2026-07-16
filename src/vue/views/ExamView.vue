@@ -263,7 +263,7 @@ async function loadExam() {
     }
     enterPage(validPage, active.pageId);
   } catch (cause) {
-    if (token === loadToken) error.value = cause?.message || '题目加载失败';
+    if (token === loadToken) error.value = cause?.message || 'Unable to load this exam.';
   } finally {
     if (token === loadToken) loading.value = false;
   }
@@ -447,12 +447,12 @@ watch(
 
 <template>
   <div v-if="loading" class="exam-route-state">
-    <i class="fas fa-spinner fa-spin" /> 正在加载题目…
+    <i class="fas fa-spinner fa-spin" /> Loading exam…
   </div>
   <div v-else-if="error" class="exam-route-state exam-route-state--error">
-    <h1>题目加载失败</h1>
+    <h1>Unable to Load Exam</h1>
     <p>{{ error }}</p>
-    <RouterLink to="/">返回首页</RouterLink>
+    <RouterLink to="/">Back to Home</RouterLink>
   </div>
   <div
     v-else-if="document && page && session"

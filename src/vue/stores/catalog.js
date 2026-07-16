@@ -27,7 +27,7 @@ export const useCatalogStore = defineStore('catalog', {
       const cacheKey = `${tpoId}:${section}`;
       if (this.documents[cacheKey]) return this.documents[cacheKey];
       const entry = this.entry(tpoId, section);
-      if (!entry) throw new Error(`TPO ${tpoId} 没有 ${section} 题库`);
+      if (!entry) throw new Error(`No ${section} content is available for TPO ${tpoId}.`);
       this.loading = true;
       this.error = '';
       try {

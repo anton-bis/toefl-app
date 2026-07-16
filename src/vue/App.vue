@@ -12,13 +12,10 @@ const userDataModule = () => import('./platform/userData.js');
 async function handleExport(event) {
   try {
     const { exportUserData } = await userDataModule();
-    await window.electronAPI?.writeUserData(
-      event.detail.filePath,
-      await exportUserData()
-    );
-    window.alert('用户数据导出成功。');
+    await window.electronAPI?.writeUserData(event.detail.filePath, await exportUserData());
+    window.alert('Your data has been exported.');
   } catch (error) {
-    window.alert(`导出失败：${error?.message || '未知错误'}`);
+    window.alert(`Export failed: ${error?.message || 'Unknown error'}`);
   }
 }
 
@@ -27,10 +24,10 @@ async function handleImport(event) {
     const { importUserData } = await userDataModule();
     const payload = await window.electronAPI?.readUserData(event.detail.filePath);
     await importUserData(payload);
-    window.alert('用户数据导入成功，应用将重新加载。');
+    window.alert('Your data has been imported. The app will now restart.');
     window.location.reload();
   } catch (error) {
-    window.alert(`导入失败：${error?.message || '未知错误'}`);
+    window.alert(`Import failed: ${error?.message || 'Unknown error'}`);
   }
 }
 
@@ -51,7 +48,7 @@ onBeforeUnmount(() => {
 });
 
 onErrorCaptured(error => {
-  fatalError.value = error?.message || '应用加载失败';
+  fatalError.value = error?.message || 'The app could not start.';
   return false;
 });
 </script>
@@ -59,9 +56,9 @@ onErrorCaptured(error => {
 <template>
   <main v-if="fatalError" class="fatal-error" role="alert">
     <i class="fas fa-circle-exclamation"></i>
-    <h1>系统错误</h1>
+    <h1>Something Went Wrong</h1>
     <p>{{ fatalError }}</p>
-    <button type="button" @click="location.reload()">重试</button>
+    <button type="button" @click="location.reload()">Try Again</button>
   </main>
   <RouterView v-else />
   <UpdateNotice v-if="electronEnabled" />

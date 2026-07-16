@@ -37,7 +37,7 @@ export const useUpdatesStore = defineStore('updates', {
       });
       listen('onUpdateError', error => {
         this.status = 'error';
-        this.error = String(error || '更新失败');
+        this.error = String(error || 'Update failed.');
       });
       listen('onContentUpdateAvailable', info => {
         this.contentUpdate = info;
@@ -50,7 +50,7 @@ export const useUpdatesStore = defineStore('updates', {
         await window.electronAPI?.downloadUpdate();
       } catch (error) {
         this.status = 'error';
-        this.error = error?.message || '更新下载失败';
+        this.error = error?.message || 'Unable to download the update.';
       }
     },
     install() {

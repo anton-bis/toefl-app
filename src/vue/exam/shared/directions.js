@@ -100,7 +100,8 @@ export function introDirections(section, page, task) {
 const START_HELP = {
   reading:
     '1. Complete the Words: Fill missing letters in paragraphs\n2. Read in Daily Life: Answer questions about everyday texts\n3. Read an Academic Passage: Answer questions about academic texts',
-  listening: '正式考试中，此页面会朗读一遍听力考试规则，随后直接跳转至下一页。',
+  listening:
+    'In the actual test, the Listening directions play once, then this screen advances automatically.',
   speaking:
     'The Speaking section includes two types of tasks: Listen and Repeat, and Take an Interview. You will answer 11 questions in total.',
   writing:
@@ -145,7 +146,7 @@ export function helpCopy(section, page = {}, task = {}) {
   if (page.type === 'start') return START_HELP[normalized] || '';
   if (page.type === 'intro') {
     if (normalized === 'listening' || normalized === 'speaking')
-      return `正式考试中，此页面会朗读一遍${normalized === 'listening' ? '听力' : '口语'}考试规则，随后直接跳转至下一页。`;
+      return `In the actual test, the ${normalized === 'listening' ? 'Listening' : 'Speaking'} directions play once, then this screen advances automatically.`;
     if (normalized === 'reading')
       return page.moduleId === 'module-2'
         ? '1. You have a 9-minute timer to complete Module 2.\n2. Begin will navigate to Module 2 task set.\n3. You cannot return to this introduction after starting Module 2.'
@@ -154,15 +155,15 @@ export function helpCopy(section, page = {}, task = {}) {
   }
   if (normalized === 'listening') {
     if (page.type === 'stimulus')
-      return '正式考试当中不会出现播放器播放按钮。进入此页面后，将会自动开始播放音频。音频播放完毕后，系统将自动跳转至题目。';
+      return 'The actual test does not show playback controls. Audio starts automatically, and the question appears when it ends.';
     if (task.type === 'listen-response')
-      return '正式考试当中不会出现播放器播放按钮。进入此页面后，将会自动开始播放音频。你有 20 秒时间作答。时间截止后，你将不会被允许修改答案，系统将自动跳转至下一题。';
-    return '正式考试当中不会出现播放器播放按钮。你有 20/30 秒时间作答。时间截止后，你将不会被允许修改答案，系统将自动跳转至下一题。';
+      return 'The actual test does not show playback controls. Audio starts automatically. You have 20 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
+    return 'The actual test does not show playback controls. You have 20 or 30 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
   }
   if (normalized === 'speaking') {
     if (page.type === 'scenario')
-      return '在正式考试中，本页面会播报一遍主标题，随后自动跳转至下一页面进行答题。';
-    return '点击播放按钮收听音频。音频播放完毕后，将在倒计时结束时自动开始录音。倒计时结束，录音自动保存。';
+      return 'In the actual test, the section title is announced once, then the first question opens automatically.';
+    return 'Select Play to hear the prompt. Recording begins automatically when the countdown ends and is saved when the response time expires.';
   }
   return QUESTION_HELP[task.type] || '';
 }
