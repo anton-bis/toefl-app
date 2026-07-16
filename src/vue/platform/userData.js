@@ -20,8 +20,9 @@ const USER_DATA_KEY =
 function assertBoundedJson(value) {
   let nodes = 0;
   const visit = (item, depth) => {
-    if (depth > 10 || ++nodes > 50_000) throw new Error('用户数据结构过于复杂');
-    if (typeof item === 'string' && item.length > 500_000) throw new Error('用户数据字段过大');
+    if (depth > 10 || ++nodes > 50_000) throw new Error('This data file is too complex');
+    if (typeof item === 'string' && item.length > 500_000)
+      throw new Error('This data file contains an oversized field');
     if (Array.isArray(item)) item.forEach(child => visit(child, depth + 1));
     else if (isPlainObject(item)) Object.values(item).forEach(child => visit(child, depth + 1));
   };
@@ -30,17 +31,17 @@ function assertBoundedJson(value) {
 
 function validateEntry(key, serialized) {
   if (!USER_DATA_KEY.test(key) || typeof serialized !== 'string') {
-    throw new Error('用户数据包含未知字段');
+    throw new Error('This data file contains unsupported fields');
   }
-  if (serialized.length > MAX_ENTRY_SIZE) throw new Error('单项用户数据过大');
+  if (serialized.length > MAX_ENTRY_SIZE) throw new Error('A data entry is too large');
   let value;
   try {
     value = JSON.parse(serialized);
   } catch {
-    throw new Error('用户数据包含无效 JSON');
+    throw new Error('This data file contains invalid JSON');
   }
   assertBoundedJson(value);
-  if (value !== null && !isPlainObject(value)) throw new Error('用户数据格式无效');
+  if (value !== null && !isPlainObject(value)) throw new Error('This data file is invalid');
   return serialized;
 }
 
@@ -48,16 +49,16 @@ function blobDataUrl(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error || new Error('录音读取失败'));
+    reader.onerror = () => reject(reader.error || new Error('Couldn\'t read the recording'));
     reader.readAsDataURL(blob);
   });
 }
 
 function dataUrlBlob(value) {
   const match = String(value).match(/^data:(audio\/[a-z0-9.+-]+);base64,([a-z0-9+/=]+)$/i);
-  if (!match) throw new Error('录音数据无效');
+  if (!match) throw new Error('Invalid recording data');
   const estimatedSize = Math.floor((match[2].length * 3) / 4);
-  if (estimatedSize > MAX_RECORDING_SIZE) throw new Error('单条录音数据过大');
+  if (estimatedSize > MAX_RECORDING_SIZE) throw new Error('A recording is too large');
   const decoded = atob(match[2]);
   const bytes = Uint8Array.from(decoded, character => character.charCodeAt(0));
   return new Blob([bytes], { type: match[1] });
@@ -78,10 +79,10 @@ function validateRecords(records) {
     !Array.isArray(records.vocabularyProgress) ||
     !Array.isArray(records.typingHistory)
   ) {
-    throw new Error('学习记录格式无效');
+    throw new Error('Invalid learning history');
   }
   if (records.vocabularyProgress.length + records.typingHistory.length > MAX_RECORD_COUNT) {
-    throw new Error('学习记录条目过多');
+    throw new Error('This file contains too many learning records');
   }
   const vocabularyProgress = records.vocabularyProgress.map(record => {
     if (
@@ -93,7 +94,7 @@ function validateRecords(records) {
       record.key !== `${record.subject}:${record.setId}:${record.wordId ?? '$set'}` ||
       !isPlainObject(record.value)
     ) {
-      throw new Error('词汇记录格式无效');
+      throw new Error('Invalid vocabulary progress');
     }
     assertBoundedJson(record);
     return record;
@@ -106,7 +107,7 @@ function validateRecords(records) {
       !isSafeStorageKey(record.value.articleId) ||
       typeof record.value.completedAt !== 'string'
     ) {
-      throw new Error('打字记录格式无效');
+      throw new Error('Invalid typing history');
     }
     assertBoundedJson(record);
     return record;
@@ -119,7 +120,7 @@ function validateRecords(records) {
 
 function validateRecordings(recordings) {
   if (!Array.isArray(recordings) || recordings.length > MAX_RECORDING_COUNT) {
-    throw new Error('录音条目过多');
+    throw new Error('This file contains too many recordings');
   }
   let totalSize = 0;
   const values = recordings.map(record => {
@@ -133,7 +134,7 @@ function validateRecordings(recordings) {
       record.questionId.length > 200 ||
       typeof record.data !== 'string'
     ) {
-      throw new Error('录音数据无效');
+      throw new Error('Invalid recording data');
     }
     const blob = dataUrlBlob(record.data);
     totalSize += blob.size;
@@ -145,7 +146,7 @@ function validateRecordings(recordings) {
       blob
     };
   });
-  if (totalSize > MAX_RECORDINGS_SIZE) throw new Error('录音数据总量过大');
+  if (totalSize > MAX_RECORDINGS_SIZE) throw new Error('The recordings are too large');
   return values;
 }
 
@@ -190,16 +191,16 @@ export function validateUserData(payload) {
     !isPlainObject(payload.records) ||
     !Array.isArray(payload.recordings)
   ) {
-    throw new Error('文件格式不受支持');
+    throw new Error('Unsupported data file');
   }
   const rawEntries = Object.entries(payload.entries);
-  if (rawEntries.length > MAX_ENTRY_COUNT) throw new Error('用户数据条目过多');
+  if (rawEntries.length > MAX_ENTRY_COUNT) throw new Error('This file contains too many entries');
   let entriesSize = 0;
   const entries = rawEntries.map(([key, value]) => {
     entriesSize += key.length + (typeof value === 'string' ? value.length : 0);
     return [key, validateEntry(key, value)];
   });
-  if (entriesSize > MAX_ENTRIES_SIZE) throw new Error('用户数据总量过大');
+  if (entriesSize > MAX_ENTRIES_SIZE) throw new Error('This data file is too large');
   return {
     entries,
     records: {
@@ -231,7 +232,9 @@ export async function importUserData(payload, repository = dataRepository, stora
         replaceEntries(previousEntries, storage);
         await repository.replaceAll(previousRecords);
       } catch {
-        throw new Error(`导入失败且旧数据恢复不完整：${error?.message || '未知错误'}`);
+        throw new Error(
+          `Import failed, and some previous data could not be restored: ${error?.message || 'Unknown error'}`
+        );
       }
       throw error;
     }

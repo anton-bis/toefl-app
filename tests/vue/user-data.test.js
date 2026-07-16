@@ -53,7 +53,7 @@ describe('user data import', () => {
         records: { vocabularyProgress: [], typingHistory: [] },
         recordings: []
       })
-    ).toThrow(/未知字段/);
+    ).toThrow(/unsupported fields/);
     expect(() =>
       validateUserData({
         format: 'toefl-user-data',
@@ -61,7 +61,7 @@ describe('user data import', () => {
         records: { vocabularyProgress: [], typingHistory: [] },
         recordings: [{ sessionId: 's', questionId: 'q', data: 'data:text/html;base64,YQ==' }]
       })
-    ).toThrow(/录音数据无效/);
+    ).toThrow(/Invalid recording data/);
     expect(() =>
       validateUserData({
         format: 'toefl-user-data',
@@ -79,7 +79,7 @@ describe('user data import', () => {
         },
         recordings: []
       })
-    ).toThrow(/词汇记录格式无效/);
+    ).toThrow(/Invalid vocabulary progress/);
   });
 
   it('exports a coordinated local and IndexedDB snapshot', async () => {
