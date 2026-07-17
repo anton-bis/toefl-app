@@ -255,6 +255,10 @@ describe('ExamView route guard and flow', () => {
     await clickButton(wrapper.element, 'Begin');
     await clickButton(wrapper.element, 'Begin');
     await clickButton(globalThis.document, 'Begin');
+    const readingSurface = wrapper.find('.reading-page').element;
+    const passageSurface = wrapper.find('.left-column').element;
+    const passageCard = wrapper.find('.daily-passage-card').element;
+    const questionSurface = wrapper.find('.right-column').element;
     await clickButton(wrapper.element, 'Questions');
 
     await vi.waitFor(() =>
@@ -271,6 +275,10 @@ describe('ExamView route guard and flow', () => {
     globalThis.document.querySelectorAll('.question-navigator__question')[1].click();
     await flushPromises();
     expect(router.currentRoute.value.params.pageId).toBe('q2');
+    expect(wrapper.find('.reading-page').element).toBe(readingSurface);
+    expect(wrapper.find('.left-column').element).toBe(passageSurface);
+    expect(wrapper.find('.daily-passage-card').element).toBe(passageCard);
+    expect(wrapper.find('.right-column').element).not.toBe(questionSurface);
     expect(globalThis.document.querySelector('.question-navigator')).toBeNull();
 
     exam.complete();

@@ -1,4 +1,5 @@
 .reading-page {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   padding: 10px 30px 30px;
@@ -13,19 +14,26 @@
   color: #222;
 }
 .reading-page .two-column-layout {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: 30px;
   min-height: 520px;
 }
 .reading-page .left-column,
 .reading-page .right-column {
-  flex: 1;
   min-width: 0;
 }
-.reading-page .left-column {
-  overflow: auto;
+.reading-page .daily-passage-card {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
 }
 .reading-page .question-container-apple {
+  width: 100%;
+  box-sizing: border-box;
   padding: 24px;
 }
 .reading-page .question-text-apple {
@@ -92,7 +100,6 @@
 .reading-page .apple-noticeboard-container,
 .reading-page .apple-social-container {
   max-width: 620px;
-  margin: 0 auto;
   border-radius: 12px;
   background: #fff;
   border: 1px solid #d1d1d6;
@@ -138,7 +145,6 @@
 }
 .reading-page .apple-textchain-container {
   max-width: 430px;
-  margin: auto;
   padding: 14px;
   border: 8px solid #1d1d1f;
   border-radius: 30px;
@@ -292,7 +298,7 @@
 }
 @media (max-width: 800px) {
   .reading-page .two-column-layout {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
   }
   .reading-page {
     padding-inline: 14px;

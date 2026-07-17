@@ -101,6 +101,7 @@ function highlightedParts(paragraph) {
         </article>
       </div>
       <div
+        :key="question.id"
         class="right-column exam-scroll-region"
         role="region"
         aria-label="Question and answer choices"

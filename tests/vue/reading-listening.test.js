@@ -98,6 +98,7 @@ describe('ReadingPage', () => {
       tabindex: '0'
     });
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
+    expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
   });

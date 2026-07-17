@@ -123,6 +123,13 @@ const readOnlyMode = computed(() => session.value?.status === 'completed');
 const checkedState = computed(() => readOnlyMode.value);
 const lockedState = computed(() => session.value?.lockedQuestionIds || {});
 const contentComponent = computed(() => sectionComponents[normalizedSection.value]);
+const contentPageKey = computed(() =>
+  normalizedSection.value === 'speaking'
+    ? document.value?.id
+    : normalizedSection.value === 'reading'
+      ? task.value?.id
+      : page.value?.id
+);
 const isContentPage = computed(() =>
   ['question', 'stimulus', 'scenario'].includes(page.value?.type)
 );
@@ -510,7 +517,7 @@ watch(
       />
       <component
         :is="contentComponent"
-        :key="normalizedSection === 'speaking' ? document.id : page.id"
+        :key="contentPageKey"
         :document="document"
         :page="page"
         :task="task"
