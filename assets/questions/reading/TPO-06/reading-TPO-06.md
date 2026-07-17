@@ -4,6 +4,8 @@
 
 ### Task 1 Complete the Words (Questions 1–10)
 
+Fill in the missing letters in a paragraph below
+
 Modern biochemistry focuses on the chemical processes within and related to living organisms. It i\_ a laboratory-based sci\_\_\_\_ that comb\_\_\_\_ biology a\_\_ chemistry. Biochemists inves\_\_\_\_\_\_ how cells func\_\_\_\_ and commu\_\_\_\_\_\_, exploring t\_\_ fundamental mecha\_\_\_\_\_\_ that sus\_\_\_\_ life. The field has advanced our understanding of how diseases occur and how they can be treated or prevented. Techniques such as molecular cloning and protein analysis are central to biochemistry, leading to innovations in medicine and biotechnology.
 
 [ANSWER]

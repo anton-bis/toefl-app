@@ -83,7 +83,7 @@ function paste(token, event) {
 
 <template>
   <section id="question-module" class="complete-words-page">
-    <p class="question-instruction">Fill in the missing letters in a paragraph</p>
+    <p class="question-instruction">Complete the words</p>
     <div
       class="question-paragraph exam-scroll-region"
       aria-label="Complete words passage"

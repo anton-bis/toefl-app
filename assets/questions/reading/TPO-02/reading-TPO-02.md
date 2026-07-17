@@ -4,7 +4,7 @@
 
 ### Task 1 Complete the Words (Questions 1–10)
 
-Fill in the missing letters in a paragraph.
+Fill in the missing letters in a paragraph below:
 
 The study of the universe is called cosmology. T\_\_ scope o\_ this fi\_\_\_ is extr\_\_\_\_\_ large, encomp\_\_\_\_\_\_ everything fr\_\_ the smal\_\_\_\_ particles t\_ vast galaxies. O\_\_ intriguing hypo\_\_\_\_\_\_ in cosmology is the Big Bang Theory, according to which the universe began approximately 13.8 billion years ago from an infinitely dense point. Cosmologists also study dark matter and dark energy. They observe cosmic microwave background radiation, the faint glow left over from the Big Bang, to gather information about the universe in its early days.
 

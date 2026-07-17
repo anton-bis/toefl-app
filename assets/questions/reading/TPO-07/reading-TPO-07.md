@@ -4,6 +4,8 @@
 
 ### Task 1 Complete the Words (Questions 1–10)
 
+Fill in the missing letters in a paragraph below
+
 Film and television play a powerful role in shaping cultural norms and public opinion. T\_\_ industry encom\_\_\_\_\_\_ a wide ra\_\_\_ of arti\_\_\_\_ and tech\_\_\_\_\_ processes, fr\_\_ scriptwriting a\_\_ directing t\_\_ post-production. Techno\_\_\_\_\_\_ innovations — su\_\_ as digital effects and streaming platforms — have significantly altered both how content is produced and how audiences engage with it. Studying film offers insights into narrative structure, visual storytelling, and the broader social impact of media. It also involves examining genres, audience responses, and the economic forces behind production.
 
 [ANSWER]
