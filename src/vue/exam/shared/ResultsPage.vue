@@ -224,7 +224,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="results-grid">
             <button
-              v-for="question in group.questions"
+              v-for="(question, index) in group.questions"
               :key="question.id"
               type="button"
               :class="{
@@ -234,7 +234,7 @@ onBeforeUnmount(() => {
               }"
               @click="$emit('select-question', questionPageId(question))"
             >
-              {{ question.number }}
+              {{ index + 1 }}
             </button>
           </div>
         </section>

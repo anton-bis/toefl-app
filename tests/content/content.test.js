@@ -200,6 +200,31 @@ test('reading complete-words tasks use one grouped question page', () => {
   }
 });
 
+test('reading question numbers follow their declared module ranges', () => {
+  for (const entry of manifest.entries.filter(item => item.section === 'reading')) {
+    const document = parseExamDocument(
+      'reading',
+      fs.readFileSync(path.join(root, entry.path), 'utf8'),
+      entry
+    );
+    for (const module of document.modules) {
+      for (const task of module.tasks) {
+        assert.equal(
+          task.questions.length,
+          task.questionRange[1] - task.questionRange[0] + 1,
+          `${entry.id}/${module.id}/${task.id}`
+        );
+      }
+      const questions = module.tasks.flatMap(task => task.questions);
+      assert.deepEqual(
+        questions.map(question => question.number),
+        questions.map((_, index) => index + 1),
+        `${entry.id}/${module.id}`
+      );
+    }
+  }
+});
+
 test('listening long-form tasks receive a stimulus page immediately before questions', () => {
   for (const entry of manifest.entries.filter(item => item.section === 'listening')) {
     const document = parseExamDocument(

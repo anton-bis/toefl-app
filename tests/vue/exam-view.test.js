@@ -320,6 +320,52 @@ describe('ExamView route guard and flow', () => {
     expect(router.currentRoute.value.query).toEqual({});
   });
 
+  it('numbers result questions by their order within each module', async () => {
+    const repeatedTaskNumbers = {
+      ...readingNavigationDocument,
+      modules: [
+        {
+          ...readingNavigationDocument.modules[0],
+          tasks: [
+            {
+              ...readingNavigationDocument.modules[0].tasks[0],
+              questions: [
+                readingNavigationDocument.modules[0].tasks[0].questions[0],
+                {
+                  ...readingNavigationDocument.modules[0].tasks[0].questions[1],
+                  number: 1
+                }
+              ]
+            }
+          ]
+        },
+        readingNavigationDocument.modules[1]
+      ]
+    };
+    localStorage.setItem(
+      examStorageKey('03', 'reading'),
+      JSON.stringify({
+        tpoId: '03',
+        section: 'reading',
+        pageId: 'results',
+        status: 'completed',
+        answers: {},
+        completedAt: 100,
+        updatedAt: 100
+      })
+    );
+
+    const { wrapper } = await mountRoute(
+      '/exam/03/reading/results?mode=report',
+      repeatedTaskNumbers
+    );
+    await vi.waitFor(() => expect(wrapper.findAll('.results-module')).toHaveLength(2));
+    const moduleButtons = wrapper.findAll('.results-module')[0].findAll('.results-grid button');
+    expect(moduleButtons.map(button => button.text())).toEqual(['1', '2']);
+    await moduleButtons[1].trigger('click');
+    await vi.waitFor(() => expect(wrapper.text()).toContain('When does it close?'));
+  });
+
   it('rejects report access for an unfinished session without moving its saved page', async () => {
     const key = examStorageKey('03', 'reading');
     localStorage.setItem(
