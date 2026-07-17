@@ -4,7 +4,8 @@ import { optionState } from './choice.js';
 defineProps({
   question: { type: Object, required: true },
   answers: { type: [Object, String], default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false }
+  checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
 </script>
@@ -20,8 +21,8 @@ const emit = defineEmits(['answer']);
       :key="option.id"
       type="button"
       class="option-item-apple"
-      :class="optionState(question, answers, checked, option.id)"
-      :disabled="optionState(question, answers, checked, option.id).includes('locked')"
+      :class="optionState(question, answers, checked, locked, option.id)"
+      :disabled="optionState(question, answers, checked, locked, option.id).includes('locked')"
       :data-option="option.id"
       @click="emit('answer', question.id, option.id)"
     >

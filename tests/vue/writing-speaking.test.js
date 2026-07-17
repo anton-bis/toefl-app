@@ -13,6 +13,7 @@ vi.mock('../../src/vue/platform/dataRepository.js', () => ({
 
 import BuildSentence from '../../src/vue/exam/sections/writing/BuildSentence.vue';
 import ResponseEditor from '../../src/vue/exam/sections/writing/ResponseEditor.vue';
+import WritingPage from '../../src/vue/exam/sections/writing/WritingPage.vue';
 import SpeakingPage from '../../src/vue/exam/sections/speaking/SpeakingPage.vue';
 import ResultsPage from '../../src/vue/exam/shared/ResultsPage.vue';
 import {
@@ -78,7 +79,6 @@ describe('writing components', () => {
 
     await wrapper.setProps({ answer: { slots: [6, 0, 1, 3, 5, 4, 7] }, checked: true });
     expect(wrapper.findAll('.blank-slot.correct')).toHaveLength(7);
-    expect(wrapper.find('.check-button').exists()).toBe(false);
   });
 
   it('filters CJK, reports words and supports toolbar undo/redo', async () => {
@@ -92,6 +92,36 @@ describe('writing components', () => {
     expect(wrapper.emitted('update:modelValue').at(-1)).toEqual(['']);
     await wrapper.findAll('.toolbar button')[3].trigger('click');
     expect(wrapper.emitted('update:modelValue').at(-1)).toEqual(['Hello  test']);
+  });
+
+  it('exposes independently scrollable writing prompt and discussion context regions', () => {
+    const wrapper = mount(WritingPage, {
+      props: {
+        document: { section: 'writing' },
+        page: { id: 'discussion-q1', type: 'question' },
+        task: { type: 'academic-discussion' },
+        question: {
+          id: 'discussion-q1',
+          type: 'academic-discussion',
+          subject: 'city planning',
+          instructor: 'Which approach is better?',
+          professor: 'Explain your position.',
+          students: [{ name: 'Alex', text: 'Public transit should be improved.' }]
+        },
+        answers: {}
+      }
+    });
+    expect(wrapper.find('.prompt-card').attributes()).toMatchObject({
+      'aria-label': 'Writing prompt',
+      role: 'region',
+      tabindex: '0'
+    });
+    expect(wrapper.find('.prompt-card').classes()).toContain('exam-scroll-region');
+    expect(wrapper.find('.discussion-context').attributes()).toMatchObject({
+      'aria-label': 'Student responses',
+      tabindex: '0'
+    });
+    expect(wrapper.find('.discussion-context').classes()).toContain('exam-scroll-region');
   });
 });
 
@@ -167,7 +197,6 @@ describe('SpeakingPage', () => {
         task,
         question: null,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -184,7 +213,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -222,7 +250,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
@@ -280,7 +307,6 @@ describe('SpeakingPage', () => {
         task,
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }

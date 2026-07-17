@@ -9,6 +9,8 @@ import { externalContentPath, normalizeContentPath } from './services/content-pa
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+app.commandLine.appendSwitch('lang', 'en-US');
+
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'toefl-content',
@@ -45,7 +47,7 @@ function setupContentProtocol() {
   });
 }
 
-// 全局窗口引用
+// Main window reference
 let mainWindow = null;
 const authorizedExports = new Set();
 const authorizedImports = new Set();
@@ -64,7 +66,7 @@ function isTrustedAppUrl(value) {
   }
 }
 
-// 创建主窗口
+// Create the main window
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -85,28 +87,28 @@ function createWindow() {
     trafficLightPosition: { x: 16, y: 16 }
   });
 
-  // 加载应用
+  // Load the app
   if (process.env.NODE_ENV === 'development') {
-    // 开发环境：加载Vite开发服务器
+    // Load the Vite development server.
     mainWindow.loadURL('http://localhost:3000');
     mainWindow.webContents.openDevTools();
   } else {
-    // 生产环境：加载构建后的文件
+    // Load the production bundle.
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
 
-  // 预授权麦克风权限，避免录音时弹窗
+  // Allow audio capture only for the trusted app URL.
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback, details) => {
     const mediaTypes = details?.mediaTypes || [];
     const audioOnly = mediaTypes.length === 0 || mediaTypes.every(type => type === 'audio');
     callback(permission === 'media' && audioOnly && isTrustedAppUrl(webContents.getURL()));
   });
 
-  // 窗口准备就绪后显示
+  // Show the window once it is ready.
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
 
-    // 检查更新（首次 + 此后每 10 分钟轮询）
+    // Check once at startup, then every ten minutes.
     if (app.isPackaged) {
       setTimeout(() => {
         autoUpdater.checkForUpdates();
@@ -118,12 +120,12 @@ function createWindow() {
     }
   });
 
-  // 处理窗口关闭
+  // Release the window reference after closing.
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 
-  // 处理外部链接（在浏览器中打开）
+  // Open external links in the default browser.
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (/^https?:\/\//i.test(url)) {
       shell.openExternal(url);
@@ -131,16 +133,16 @@ function createWindow() {
     return { action: 'deny' };
   });
 
-  // 创建应用菜单
+  // Create the application menu.
   createApplicationMenu();
 }
 
-// 创建应用菜单
+// Create the application menu.
 function createApplicationMenu() {
   const isMac = process.platform === 'darwin';
 
   const template = [
-    // 应用菜单 (macOS)
+    // Application menu on macOS
     ...(isMac
       ? [
         {
@@ -159,26 +161,26 @@ function createApplicationMenu() {
         }
       ]
       : []),
-    // 文件菜单
+    // File menu
     {
-      label: '文件',
+      label: 'File',
       submenu: [
         { role: 'close' },
         { type: 'separator' },
         {
-          label: '导出数据',
+          label: 'Export Data',
           click: () => exportUserData()
         },
         {
-          label: '导入数据',
+          label: 'Import Data',
           click: () => importUserData()
         },
         ...(!isMac ? [{ type: 'separator' }, { role: 'quit' }] : [])
       ]
     },
-    // 编辑菜单
+    // Edit menu
     {
-      label: '编辑',
+      label: 'Edit',
       submenu: [
         { role: 'undo' },
         { role: 'redo' },
@@ -193,16 +195,16 @@ function createApplicationMenu() {
             { role: 'selectAll' },
             { type: 'separator' },
             {
-              label: '语音',
+              label: 'Speech',
               submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }]
             }
           ]
           : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }])
       ]
     },
-    // 视图菜单
+    // View menu
     {
-      label: '视图',
+      label: 'View',
       submenu: [
         { role: 'reload' },
         { role: 'forceReload' },
@@ -215,32 +217,32 @@ function createApplicationMenu() {
         { role: 'togglefullscreen' }
       ]
     },
-    // 帮助菜单
+    // Help menu
     {
-      label: '帮助',
+      label: 'Help',
       submenu: [
         {
-          label: '使用说明',
+          label: 'User Guide',
           click: () => {
             shell.openExternal('https://github.com/anton-bis/toefl-app#readme');
           }
         },
         {
-          label: '检查更新',
+          label: 'Check for Updates',
           click: () => {
             autoUpdater.checkForUpdatesAndNotify();
           }
         },
         { type: 'separator' },
         {
-          label: '关于托福模考系统',
+          label: 'About TOEFL iBT Practice',
           click: () => {
             dialog.showMessageBox(mainWindow, {
               type: 'info',
-              title: '关于托福模考系统',
-              message: `托福模考系统 v${app.getVersion()}`,
-              detail: '一款专业的托福考试模拟练习软件\n\n© 2026 下士小龙虾\n所有权利保留。',
-              buttons: ['确定']
+              title: 'About TOEFL iBT Practice',
+              message: `TOEFL iBT Practice v${app.getVersion()}`,
+              detail: 'Focused practice for the TOEFL iBT.\n\n© 2026 anton-bis. All rights reserved.',
+              buttons: ['OK']
             });
           }
         }
@@ -252,16 +254,16 @@ function createApplicationMenu() {
   Menu.setApplicationMenu(menu);
 }
 
-// 导出用户数据
+// Export user data.
 async function exportUserData() {
   if (!mainWindow) return;
 
   const { filePath } = await dialog.showSaveDialog(mainWindow, {
-    title: '导出用户数据',
+    title: 'Export Practice Data',
     defaultPath: `toefl-data-${Date.now()}.json`,
     filters: [
-      { name: 'JSON文件', extensions: ['json'] },
-      { name: '所有文件', extensions: ['*'] }
+      { name: 'JSON files', extensions: ['json'] },
+      { name: 'All files', extensions: ['*'] }
     ]
   });
 
@@ -271,15 +273,15 @@ async function exportUserData() {
   }
 }
 
-// 导入用户数据
+// Import user data.
 async function importUserData() {
   if (!mainWindow) return;
 
   const { filePaths } = await dialog.showOpenDialog(mainWindow, {
-    title: '导入用户数据',
+    title: 'Import Practice Data',
     filters: [
-      { name: 'JSON文件', extensions: ['json'] },
-      { name: '所有文件', extensions: ['*'] }
+      { name: 'JSON files', extensions: ['json'] },
+      { name: 'All files', extensions: ['*'] }
     ],
     properties: ['openFile']
   });
@@ -290,15 +292,17 @@ async function importUserData() {
   }
 }
 
-// IPC处理器
+// IPC handlers
 function setupIpcHandlers() {
   ipcMain.handle('user-data:write', async (event, filePath, payload) => {
     const resolved = path.resolve(String(filePath || ''));
     if (!isTrustedRenderer(event) || !authorizedExports.delete(resolved)) {
-      throw new Error('未授权的导出路径');
+      throw new Error('This export path is no longer authorized.');
     }
     const serialized = JSON.stringify(payload, null, 2);
-    if (Buffer.byteLength(serialized) > 25 * 1024 * 1024) throw new Error('导出数据过大');
+    if (Buffer.byteLength(serialized) > 25 * 1024 * 1024) {
+      throw new Error('The exported data exceeds the 25 MB limit.');
+    }
     const temporary = `${resolved}.tmp-${process.pid}`;
     await fs.promises.writeFile(temporary, serialized, { encoding: 'utf8', mode: 0o600 });
     await fs.promises.rename(temporary, resolved);
@@ -308,14 +312,16 @@ function setupIpcHandlers() {
   ipcMain.handle('user-data:read', async (event, filePath) => {
     const resolved = path.resolve(String(filePath || ''));
     if (!isTrustedRenderer(event) || !authorizedImports.delete(resolved)) {
-      throw new Error('未授权的导入路径');
+      throw new Error('This import path is no longer authorized.');
     }
     const stats = await fs.promises.stat(resolved);
-    if (stats.size > 25 * 1024 * 1024) throw new Error('导入数据过大');
+    if (stats.size > 25 * 1024 * 1024) {
+      throw new Error('The selected file exceeds the 25 MB limit.');
+    }
     return JSON.parse(await fs.promises.readFile(resolved, 'utf8'));
   });
 
-  // 内容热更新
+  // Runtime content updates
   ipcMain.handle('content:apply', () => runContentUpdate());
 
   ipcMain.handle('content:read', (_event, relativePath) => {
@@ -332,28 +338,28 @@ function setupIpcHandlers() {
   });
 }
 
-// 自动更新事件处理器
+// Automatic update events
 function setupAutoUpdater() {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = false;
 
   autoUpdater.on('checking-for-update', () => {
-    console.log('正在检查更新...');
+    console.log('Checking for updates...');
   });
 
   autoUpdater.on('update-available', info => {
-    console.log('发现新版本:', info.version);
+    console.log('Update available:', info.version);
     if (mainWindow) {
       mainWindow.webContents.send('update:available', info);
     }
   });
 
   autoUpdater.on('update-not-available', () => {
-    console.log('当前已是最新版本');
+    console.log('The app is up to date.');
   });
 
   autoUpdater.on('error', err => {
-    console.error('更新检查失败:', err);
+    console.error('Update check failed:', err);
     if (mainWindow) {
       mainWindow.webContents.send('update:error', err.message);
     }
@@ -366,77 +372,77 @@ function setupAutoUpdater() {
   });
 
   autoUpdater.on('update-downloaded', info => {
-    console.log('更新下载完成:', info.version);
+    console.log('Update downloaded:', info.version);
     if (mainWindow) {
       mainWindow.webContents.send('update:downloaded', info);
     }
   });
 }
 
-// 初始化应用
+// Initialize the app.
 function initializeApp() {
   try {
-    console.log('初始化应用...');
+    console.log('Initializing the app...');
 
-    // 设置IPC处理器
+    // Register IPC handlers.
     setupIpcHandlers();
-    console.log('IPC处理器设置完成');
+    console.log('IPC handlers are ready.');
 
     setupContentProtocol();
-    console.log('内容协议初始化完成');
+    console.log('Content protocol is ready.');
 
-    // 设置自动更新
+    // Enable automatic updates in packaged builds.
     if (app.isPackaged) {
       setupAutoUpdater();
-      console.log('自动更新设置完成');
+      console.log('Automatic updates are ready.');
     }
 
-    // 创建窗口
+    // Create the main window.
     createWindow();
-    console.log('主窗口创建完成');
+    console.log('Main window created.');
 
-    // 后台静默检查内容更新
+    // Check for content updates in the background.
     checkForContentUpdates()
       .then(result => {
         if (result.hasUpdate) {
-          console.log(`发现内容更新：v${result.localVersion} → v${result.remoteVersion}`);
+          console.log(`Content update available: v${result.localVersion} → v${result.remoteVersion}`);
           if (mainWindow) {
             mainWindow.webContents.send('content:update-available', result);
           }
         }
       })
-      .catch(err => console.warn('内容更新检查失败:', err.message));
+      .catch(err => console.warn('Content update check failed:', err.message));
   } catch (error) {
-    console.error('应用初始化失败:', error);
-    dialog.showErrorBox('应用初始化失败', error.message);
+    console.error('App initialization failed:', error);
+    dialog.showErrorBox('Could Not Start the App', error.message);
     app.quit();
   }
 }
 
-// 应用准备就绪
+// Start after Electron is ready.
 app.whenReady().then(initializeApp);
 
-// 所有窗口关闭时退出应用（macOS除外）
+// Quit when all windows close, except on macOS.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-// macOS：点击dock图标时重新创建窗口
+// Recreate the window from the macOS Dock.
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// 处理未捕获的异常
+// Report uncaught exceptions.
 process.on('uncaughtException', error => {
-  console.error('未捕获的异常:', error);
-  dialog.showErrorBox('应用错误', `未捕获的异常: ${error.message}`);
+  console.error('Uncaught exception:', error);
+  dialog.showErrorBox('Unexpected Application Error', error.message);
 });
 
-// 处理未处理的Promise拒绝
+// Report unhandled promise rejections.
 process.on('unhandledRejection', reason => {
-  console.error('未处理的Promise拒绝:', reason);
+  console.error('Unhandled promise rejection:', reason);
 });

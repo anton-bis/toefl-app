@@ -9,21 +9,18 @@ defineEmits(['select', 'toggle']);
 </script>
 
 <template>
-  <div class="typing-article-list">
+  <div class="typing-article-list skill-content">
     <section
       v-for="difficulty in DIFFICULTIES"
       :key="difficulty"
       class="typing-difficulty-section"
-      :style="{ borderLeftColor: DIFFICULTY_CONFIG[difficulty].color }"
+      :style="{ '--difficulty-color': DIFFICULTY_CONFIG[difficulty].color }"
     >
       <template v-if="articles.some(article => article.difficulty === difficulty)">
         <button class="typing-section-header" type="button" @click="$emit('toggle', difficulty)">
           <span class="typing-collapse-icon">{{ collapsed[difficulty] ? '▶' : '▼' }}</span>
           <span class="typing-section-title">{{ DIFFICULTY_CONFIG[difficulty].label }}</span>
-          <span
-            class="typing-section-dot"
-            :style="{ background: DIFFICULTY_CONFIG[difficulty].color }"
-          ></span>
+          <span class="typing-section-dot"></span>
           <span class="typing-section-count">
             {{ articles.filter(article => article.difficulty === difficulty).length }} articles
           </span>
@@ -35,14 +32,11 @@ defineEmits(['select', 'toggle']);
               v-for="article in articles.filter(item => item.difficulty === difficulty)"
               :key="article.id"
               type="button"
-              class="typing-article-card"
+              class="typing-article-card skill-card"
               @click="$emit('select', article)"
             >
               <span class="typing-card-title">
-                <span
-                  class="typing-card-dot"
-                  :style="{ background: DIFFICULTY_CONFIG[difficulty].color }"
-                ></span>
+                <span class="typing-card-dot"></span>
                 {{ article.title }}
               </span>
               <span class="typing-card-meta"

@@ -1,7 +1,8 @@
 <script setup>
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import SkillPageHeader from '../../components/SkillPageHeader.vue';
 import { makeOptions, wordMeaning } from './logic.js';
-import { playWord } from './speech.js';
+import { playWord, stopWordAudio } from './speech.js';
 
 const props = defineProps({ store: { type: Object, required: true } });
 const answered = ref(false);
@@ -10,6 +11,12 @@ const spelling = ref('');
 const sentenceIndex = ref(0);
 const word = computed(() => props.store.currentWord);
 const quizType = computed(() => props.store.currentQuizType || 'lookup-zh');
+const headerTitle = computed(() => {
+  if (props.store.page === 'review') return `Review · ${props.store.subjectLabel}`;
+  if (props.store.mode === 'root')
+    return `${props.store.subjectLabel} · ${props.store.rootGroupTitle || 'Word Parts'}`;
+  return `${props.store.subjectLabel} · Set ${props.store.setId}`;
+});
 const options = ref([]);
 const examples = computed(() =>
   [word.value?.example, ...(word.value?.altExamples || [])].filter(Boolean)
@@ -65,33 +72,24 @@ const spellingCorrect = computed(
 watch(spellingCorrect, correct => {
   if (correct && spelling.value) submitSpelling();
 });
+onBeforeUnmount(stopWordAudio);
 </script>
 
 <template>
-  <div
+  <SkillPageHeader
     v-if="word"
-    :class="quizType === 'audio-zh' ? 'vocab-audio-learn' : 'vocab-card-learning'"
+    :title="headerTitle"
+    eyebrow="Vocabulary"
+    back-label="Back to List"
+    compact
+    @back="store.backFromLearning"
   >
-    <div class="vocab-setlist-header">
-      <button
-        class="vocab-back-btn"
-        type="button"
-        @click="store.goToSetList"
-      >
-        ← 返回
-      </button>
-      <span class="learn-header-title">{{
-        store.page === 'review'
-          ? `复习 · ${store.subjectLabel}`
-          : `${store.subjectLabel} · Set ${store.setId || ''}`
-      }}</span>
+    <template #actions>
       <span class="learn-progress">{{ store.currentIndex + 1 }}/{{ store.queueLength }}</span>
-    </div>
-
-    <div
-      v-if="quizType === 'audio-zh'"
-      class="audio-play-area"
-    >
+    </template>
+  </SkillPageHeader>
+  <div v-if="word" :class="quizType === 'audio-zh' ? 'vocab-audio-learn' : 'vocab-card-learning'">
+    <div v-if="quizType === 'audio-zh'" class="audio-play-area">
       <button
         class="audio-play-btn"
         type="button"
@@ -99,17 +97,15 @@ watch(spellingCorrect, correct => {
       >
         ▶
       </button>
-      <div class="audio-word-label">
-        点击播放按钮听取发音
-      </div>
+      <div class="audio-word-label">Play the word</div>
       <div class="accent-switch">
         <button
           type="button"
           :class="{ active: store.preferredAccent === 'us' }"
           @click="store.setAccent('us')"
         >
-          US
-        </button><button
+          US</button
+        ><button
           type="button"
           :class="{ active: store.preferredAccent === 'uk' }"
           @click="store.setAccent('uk')"
@@ -124,16 +120,14 @@ watch(spellingCorrect, correct => {
         <div class="card-word-display">
           {{ word.word }}
         </div>
-        <div
-          v-if="word.pronunciation?.us"
-          class="card-pronunciation"
-        >
+        <div v-if="word.pronunciation?.us" class="card-pronunciation">
           <span class="card-ipa">{{ word.pronunciation.us }}</span>
         </div>
       </template>
       <template v-else-if="quizType === 'lookup-en'">
         <div class="card-hint">
-          <span class="card-pos">{{ word.pos?.[0]?.type }}</span><span class="card-meaning">{{ wordMeaning(word) }}</span>
+          <span class="card-pos">{{ word.pos?.[0]?.type }}</span
+          ><span class="card-meaning">{{ wordMeaning(word) }}</span>
         </div>
       </template>
       <template v-if="quizType !== 'spell'">
@@ -158,17 +152,20 @@ watch(spellingCorrect, correct => {
       </template>
       <template v-else>
         <div class="spell-hints">
-          <span class="spell-pos">{{ word.pos?.[0]?.type }}.</span><span class="spell-meaning">{{ wordMeaning(word) }}</span><button
+          <span class="spell-pos">{{ word.pos?.[0]?.type }}.</span
+          ><span class="spell-meaning">{{ wordMeaning(word) }}</span
+          ><button
             v-if="examples.length > 1"
             class="spell-sentence-toggle"
             type="button"
             @click="sentenceIndex = (sentenceIndex + 1) % examples.length"
           >
-            下一句
+            Next Example
           </button>
         </div>
         <div class="spell-sentence">
-          <span>{{ sentenceParts[0] }}</span><input
+          <span>{{ sentenceParts[0] }}</span
+          ><input
             v-model="spelling"
             class="spell-input-inline"
             type="text"
@@ -177,23 +174,13 @@ watch(spellingCorrect, correct => {
             :disabled="answered"
             :style="{ width: `${Math.max(word.word.length + 3, 5)}ch` }"
             @keyup.enter="submitSpelling"
-          ><span>{{ sentenceParts[1] }}</span>
+          /><span>{{ sentenceParts[1] }}</span>
         </div>
-        <button
-          v-if="!answered"
-          class="spell-confirm-btn"
-          type="button"
-          @click="submitSpelling"
-        >
-          确定
+        <button v-if="!answered" class="spell-confirm-btn" type="button" @click="submitSpelling">
+          Check
         </button>
-        <div
-          v-else-if="!spellingCorrect"
-          class="spell-result"
-        >
-          <div class="spell-answer-label">
-            正确答案：
-          </div>
+        <div v-else-if="!spellingCorrect" class="spell-result">
+          <div class="spell-answer-label">Answer</div>
           <div class="spell-answer-letters">
             <span
               v-for="(letter, index) in word.word"
@@ -204,42 +191,24 @@ watch(spellingCorrect, correct => {
                   ? 'spell-letter-ok'
                   : 'spell-letter-bad'
               "
-            >{{ letter }}</span>
+              >{{ letter }}</span
+            >
           </div>
         </div>
       </template>
 
-      <div
-        v-if="answered"
-        class="card-evaluation"
-      >
+      <div v-if="answered" class="card-evaluation">
         <div class="eval-actions">
-          <button
-            class="eval-btn eval-btn-forgot"
-            type="button"
-            @click="store.evaluate(1)"
-          >
-            不认识
-          </button><button
-            class="eval-btn eval-btn-hazy"
-            type="button"
-            @click="store.evaluate(3)"
-          >
-            模糊
-          </button><button
-            class="eval-btn eval-btn-known"
-            type="button"
-            @click="store.evaluate(5)"
-          >
-            记住
+          <button class="eval-btn eval-btn-forgot" type="button" @click="store.evaluate(1)">
+            Again</button
+          ><button class="eval-btn eval-btn-hazy" type="button" @click="store.evaluate(3)">
+            Hard</button
+          ><button class="eval-btn eval-btn-known" type="button" @click="store.evaluate(5)">
+            Got It
           </button>
         </div>
-        <button
-          class="eval-detail-btn"
-          type="button"
-          @click="store.openDetail(word)"
-        >
-          详情
+        <button class="eval-detail-btn" type="button" @click="store.openDetail(word)">
+          Details
         </button>
       </div>
     </div>

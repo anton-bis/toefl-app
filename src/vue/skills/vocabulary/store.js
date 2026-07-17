@@ -4,6 +4,7 @@ import {
   SUBJECTS,
   SUBJECT_LABELS,
   buildRootCategories,
+  dateKey,
   dueWordIds,
   pickQuizType,
   scheduleReview
@@ -24,15 +25,22 @@ function sessionSnapshot(state) {
     nineGridPage: state.nineGridPage,
     setId: state.setId,
     unknownIds: state.words.filter(word => word.gridStatus === 'unknown').map(word => word.id),
-    queueIds: state.queue.map(word =>
-      word._reviewSetId ? [word.id, word._reviewSetId] : word.id
-    ),
+    queueIds: state.queue.map(word => (word._reviewSetId ? [word.id, word._reviewSetId] : word.id)),
     currentIndex: state.currentIndex,
     currentQuizType: state.currentQuizType,
     isGlobalReview: state.isGlobalReview,
     rootCategory: state.rootCategory,
     rootGroupTitle: state.rootGroupTitle
   };
+}
+
+function rootGroupsFor(category) {
+  if (category.id !== 'root') return category.groups;
+  return [
+    ...category.recommendedGroups,
+    { type: 'separator', label: `More roots (${category.moreGroups.length})` },
+    ...category.moreGroups
+  ];
 }
 
 export const useVocabularyStore = defineStore('vocabulary', {
@@ -70,7 +78,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
     currentWord: state => state.queue[state.currentIndex] || null,
     queueLength: state => state.queue.length,
     todayReviewCount: state => {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = dateKey();
       let count = 0;
       Object.values(state.progress).forEach(subject =>
         Object.values(subject).forEach(set => {
@@ -104,18 +112,18 @@ export const useVocabularyStore = defineStore('vocabulary', {
         } else this.checkReminder();
         this.initialized = true;
       } catch (error) {
-        this.error = `无法加载单词数据：${error.message}`;
+        this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
         this.loading = false;
       }
     },
     async loadSubject(subject) {
       if (this.wordData[subject]) return this.wordData[subject];
-      if (!SUBJECTS.includes(subject)) throw new Error('未知词汇科目');
+      if (!SUBJECTS.includes(subject)) throw new Error('Unknown vocabulary subject');
       const response = await fetch(`assets/questions/vocabulary/${subject}-words.json`);
       if (!response.ok) throw new Error(`HTTP ${response.status} for ${subject}`);
       const bank = await response.json();
-      if (!Array.isArray(bank)) throw new Error(`${subject} 词库格式无效`);
+      if (!Array.isArray(bank)) throw new Error(`Invalid ${subject} vocabulary data`);
       this.wordData = { [subject]: markRaw(bank) };
       this.setCounts[subject] = Math.ceil(bank.length / 25);
       return bank;
@@ -133,7 +141,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         this.page = 'set-list';
         this.buildSets();
       } catch (error) {
-        this.error = `无法加载单词数据：${error.message}`;
+        this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
         this.loading = false;
       }
@@ -211,14 +219,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         return;
       }
       this.rootCategory = category.id;
-      this.rootGroups =
-        category.id === 'root'
-          ? [
-            ...category.recommendedGroups,
-            { type: 'separator', label: `其他词根（${category.moreGroups.length}组）` },
-            ...category.moreGroups
-          ]
-          : category.groups;
+      this.rootGroups = rootGroupsFor(category);
     },
     toggleGridWord(id) {
       const word = this.words.find(item => item.id === id);
@@ -248,7 +249,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       const setProgress = (subjectProgress[setId] ||= { status: 'learning', words: {} });
       setProgress.words[word.id] = scheduleReview(quality, setProgress.words[word.id]);
       saveVocabularyWord(this.subject, setId, word.id, setProgress.words[word.id]).catch(error => {
-        this.error = `无法保存单词进度：${error.message}`;
+        this.error = `Couldn't save your progress: ${error.message}`;
       });
       this.currentIndex += 1;
       if (this.currentIndex >= this.queue.length) return this.finishQueue();
@@ -260,7 +261,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
         if (this.isGlobalReview || this.mode === 'root') return this.goToSetList();
         return this.finishSet();
       }
-      if (this.mode === 'root') return this.goToSetList();
+      if (this.mode === 'root') return this.backFromLearning();
       const needsReview = this.queue.filter(word => {
         const record =
           this.progress[this.subject]?.[`set-${this.currentSetIndex + 1}`]?.words?.[word.id];
@@ -279,7 +280,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       set.status = 'completed';
       set.completedAt = new Date().toISOString();
       saveVocabularySet(this.subject, `set-${this.currentSetIndex + 1}`, set).catch(error => {
-        this.error = `无法保存词组进度：${error.message}`;
+        this.error = `Couldn't save this set: ${error.message}`;
       });
       this.goToSetList();
     },
@@ -288,6 +289,13 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.isGlobalReview = false;
       this.page = 'set-list';
       this.buildSets();
+    },
+    backFromLearning() {
+      clearSession();
+      const keepRootGroupList = this.mode === 'root' && this.rootCategory && !this.isGlobalReview;
+      this.isGlobalReview = false;
+      this.page = 'set-list';
+      if (!keepRootGroupList) this.buildSets();
     },
     startGlobalReview() {
       const bank = this.wordData[this.subject] || [];
@@ -319,7 +327,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
     },
     checkReminder() {
       const settings = loadSettings();
-      const today = new Date().toISOString().slice(0, 10);
+      const today = dateKey();
       if (!settings.reminderEnabled || settings.reminderDate === today) return;
       this.pendingReminder = SUBJECTS.flatMap(subject => {
         const completed = Object.values(this.progress[subject] || {}).filter(
@@ -330,7 +338,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.showReminder = this.pendingReminder.length > 0;
     },
     dismissReminder() {
-      saveSettings({ ...loadSettings(), reminderDate: new Date().toISOString().slice(0, 10) });
+      saveSettings({ ...loadSettings(), reminderDate: dateKey() });
       this.showReminder = false;
     },
     async startReminder() {

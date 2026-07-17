@@ -6,8 +6,8 @@ defineProps({ store: { type: Object, required: true } });
 <template>
   <div class="reminder-overlay">
     <div class="reminder-card">
-      <div class="reminder-title">每日单词提醒</div>
-      <div class="reminder-section-label">今日新词</div>
+      <div class="reminder-title">Today's Vocabulary</div>
+      <div class="reminder-section-label">New Words</div>
       <div class="reminder-list">
         <div v-for="item in store.pendingReminder" :key="item.subject" class="reminder-item">
           <span class="reminder-icon">📖</span
@@ -16,15 +16,17 @@ defineProps({ store: { type: Object, required: true } });
         </div>
       </div>
       <template v-if="store.todayReviewCount"
-        ><div class="reminder-section-label">今日待复习</div>
-        <div class="reminder-review-info">共 {{ store.todayReviewCount }} 个单词需要复习</div>
-        <div class="reminder-review-hint">进入各科目 Set 列表查看待复习单词</div></template
+        ><div class="reminder-section-label">Due for Review</div>
+        <div class="reminder-review-info">
+          {{ store.todayReviewCount }} words ready to review
+        </div>
+        <div class="reminder-review-hint">Open a subject to review them.</div></template
       >
       <div class="reminder-actions">
         <button class="reminder-btn primary" type="button" @click="store.startReminder">
-          开始背诵</button
+          Start</button
         ><button class="reminder-btn ghost" type="button" @click="store.dismissReminder">
-          今日不提醒
+          Not Today
         </button>
       </div>
     </div>

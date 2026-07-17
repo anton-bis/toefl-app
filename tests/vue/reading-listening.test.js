@@ -86,10 +86,16 @@ describe('ReadingPage', () => {
         task: { type: 'notice', title: 'Notice', passage: 'Title: Campus News\nClosed today.' },
         question,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
+    });
+    expect(wrapper.classes()).toContain('exam-content-pane');
+    expect(wrapper.find('.left-column').classes()).toContain('exam-scroll-region');
+    expect(wrapper.find('.left-column').attributes()).toMatchObject({
+      'aria-label': 'Reading passage',
+      role: 'region',
+      tabindex: '0'
     });
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
     await wrapper.find('[data-option="A"]').trigger('click');
@@ -111,10 +117,13 @@ describe('ReadingPage', () => {
         task: { type: 'complete-words', passage: fillQuestion.prompt, questions: [fillQuestion] },
         question: fillQuestion,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.8
       }
+    });
+    expect(wrapper.find('.question-paragraph').attributes()).toMatchObject({
+      'aria-label': 'Complete words passage',
+      tabindex: '0'
     });
     expect(wrapper.findAll('.letter-box')).toHaveLength(3);
     await wrapper.findAll('.letter-box')[0].setValue('g');
@@ -143,6 +152,17 @@ describe('ReadingPage', () => {
         answers: {},
         checked: false
       }
+    });
+    expect(point.classes()).toContain('exam-content-pane');
+    expect(point.find('.academic-passage-container').classes()).toContain('exam-scroll-region');
+    expect(point.find('.academic-passage-container').attributes()).toMatchObject({
+      'aria-label': 'Academic passage',
+      tabindex: '0'
+    });
+    expect(point.find('.right-column').attributes()).toMatchObject({
+      'aria-label': 'Question and answer choices',
+      role: 'region',
+      tabindex: '0'
     });
     expect(point.findAll('.sentence-option-row')).toHaveLength(2);
     await point.findAll('.sentence-option-row')[1].trigger('click');
@@ -217,7 +237,6 @@ describe('listening section', () => {
         task,
         question: listenQuestion,
         answers: {},
-        marks: {},
         checked: false,
         volume: 0.5
       }
@@ -226,6 +245,13 @@ describe('listening section', () => {
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['lq1', 'A']]);
     expect(wrapper.emitted('media-state').some(([state]) => state.state === 'playing')).toBe(true);
+
+    await wrapper.setProps({ checked: {}, locked: { lq1: true } });
+    expect(
+      wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
+    ).toBe(true);
+    expect(wrapper.find('.option-item-apple.correct').exists()).toBe(false);
+    expect(wrapper.find('.option-item-apple.incorrect').exists()).toBe(false);
   });
 
   it('renders a separate stimulus and gives academic questions 30 seconds', async () => {
@@ -255,6 +281,11 @@ describe('listening section', () => {
       question: talkQuestion
     });
     expect(wrapper.find('.question-text-apple').text()).toBe('What is the main idea?');
+    expect(wrapper.find('.right-column').attributes()).toMatchObject({
+      'aria-label': 'Question and answer choices',
+      role: 'region',
+      tabindex: '0'
+    });
     expect(wrapper.find('.audio-inline-player').exists()).toBe(false);
   });
 
@@ -272,5 +303,17 @@ describe('listening section', () => {
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
     expect(removeAttribute).toHaveBeenCalledWith('src');
     expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('stopped');
+  });
+
+  it('ignores late timeupdate events after the audio ref is cleared', () => {
+    const wrapper = mount(AudioSegment, {
+      props: {
+        document: { assetBase: '/content' },
+        media: { file: 'talk.ogg', start: 0, end: 10 }
+      }
+    });
+    const element = wrapper.find('audio').element;
+    wrapper.vm.$.setupState.audio = null;
+    expect(() => element.dispatchEvent(new Event('timeupdate'))).not.toThrow();
   });
 });

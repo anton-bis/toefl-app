@@ -1,3 +1,5 @@
+import { isSafeStorageKey } from './localPersistence.js';
+
 export const DATA_DB_NAME = 'toefl-data';
 export const LEGACY_RECORDING_DB_NAME = 'toefl-recordings';
 const DATA_DB_VERSION = 1;
@@ -21,7 +23,9 @@ function requestResult(request, message) {
 
 export function openDataDatabase() {
   if (typeof indexedDB === 'undefined') {
-    return Promise.reject(new Error('当前环境不支持 IndexedDB，无法保存学习数据'));
+    return Promise.reject(
+      new Error('Your browser can\'t save learning progress because IndexedDB is unavailable')
+    );
   }
   if (databasePromise) return databasePromise;
   databasePromise = new Promise((resolve, reject) => {
@@ -42,8 +46,9 @@ export function openDataDatabase() {
       };
       resolve(database);
     };
-    request.onerror = () => reject(request.error || new Error('无法打开学习数据存储'));
-    request.onblocked = () => reject(new Error('学习数据存储被其他窗口占用'));
+    request.onerror = () => reject(request.error || new Error('Couldn\'t open learning data'));
+    request.onblocked = () =>
+      reject(new Error('Learning data is open in another window. Close it and try again.'));
   });
   databasePromise.catch(() => {
     databasePromise = undefined;
@@ -60,7 +65,7 @@ async function runTransaction(storeNames, mode, operation) {
     const fail = error => {
       if (settled) return;
       settled = true;
-      reject(error || new Error('学习数据事务失败'));
+      reject(error || new Error('Couldn\'t update learning data'));
     };
     transaction.oncomplete = () => {
       if (settled) return;
@@ -68,7 +73,8 @@ async function runTransaction(storeNames, mode, operation) {
       resolve(result);
     };
     transaction.onerror = () => fail(transaction.error);
-    transaction.onabort = () => fail(transaction.error || new Error('学习数据事务已中止'));
+    transaction.onabort = () =>
+      fail(transaction.error || new Error('The learning data update was canceled'));
     try {
       result = operation(transaction);
     } catch (error) {
@@ -87,15 +93,17 @@ async function getAll(storeName) {
     request.onsuccess = () => {
       result = request.result;
     };
-    request.onerror = () => reject(request.error || new Error('无法读取学习数据'));
+    request.onerror = () => reject(request.error || new Error('Couldn\'t read learning data'));
     transaction.oncomplete = () => resolve(result);
-    transaction.onerror = () => reject(transaction.error || new Error('无法读取学习数据'));
-    transaction.onabort = () => reject(transaction.error || new Error('读取学习数据已中止'));
+    transaction.onerror = () =>
+      reject(transaction.error || new Error('Couldn\'t read learning data'));
+    transaction.onabort = () =>
+      reject(transaction.error || new Error('Reading learning data was canceled'));
   });
 }
 
 function writeOperation(operation) {
-  if (writesSuspended) return Promise.reject(new Error('学习数据写入已暂停'));
+  if (writesSuspended) return Promise.reject(new Error('Saving learning data is paused'));
   const promise = Promise.resolve().then(operation);
   pendingWrites.add(promise);
   promise.finally(() => pendingWrites.delete(promise)).catch(() => {});
@@ -143,15 +151,6 @@ function plainRecord(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
-function safeStorageKey(value) {
-  return (
-    typeof value === 'string' &&
-    value.length > 0 &&
-    value.length <= 200 &&
-    !Object.prototype.hasOwnProperty.call(Object.prototype, value)
-  );
-}
-
 function normalizeDatabaseRecords(records = {}) {
   return Object.fromEntries(
     Object.values(STORES).map(name => [name, Array.isArray(records[name]) ? records[name] : []])
@@ -182,8 +181,8 @@ export async function loadVocabularyProgress() {
   const records = await getAll(STORES.vocabularyProgress);
   const progress = {};
   records.forEach(({ subject, setId, wordId, value }) => {
-    if (!safeStorageKey(subject) || !safeStorageKey(setId) || !value) return;
-    if (wordId !== undefined && !safeStorageKey(wordId)) return;
+    if (!isSafeStorageKey(subject) || !isSafeStorageKey(setId) || !value) return;
+    if (wordId !== undefined && !isSafeStorageKey(wordId)) return;
     const set = ((progress[subject] ||= {})[setId] ||= { words: {} });
     if (wordId) set.words[wordId] = value;
     else Object.assign(set, value, { words: set.words });
@@ -240,12 +239,12 @@ export function closeDataRepository() {
 }
 
 export function deleteDatabase(name) {
-  if (typeof indexedDB === 'undefined') return Promise.reject(new Error('IndexedDB 不可用'));
+  if (typeof indexedDB === 'undefined') return Promise.reject(new Error('IndexedDB is unavailable'));
   return new Promise((resolve, reject) => {
     const request = indexedDB.deleteDatabase(name);
     request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error || new Error(`无法删除数据库 ${name}`));
-    request.onblocked = () => reject(new Error(`数据库 ${name} 正被占用`));
+    request.onerror = () => reject(request.error || new Error(`Couldn't delete database ${name}`));
+    request.onblocked = () => reject(new Error(`Database ${name} is currently in use`));
   });
 }
 
@@ -265,7 +264,7 @@ export const recordingRepository = {
     const transaction = database.transaction(STORES.recordings, 'readonly');
     const record = await requestResult(
       transaction.objectStore(STORES.recordings).get(recordingKey(sessionId, questionId)),
-      '无法读取录音'
+      'Couldn\'t read the recording'
     );
     return record?.blob instanceof Blob ? record.blob : null;
   },

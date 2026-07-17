@@ -19,7 +19,7 @@ defineEmits(['close']);
     >
       <header class="modal-header">
         <h3><i v-if="icon" :class="icon"></i> {{ title }}</h3>
-        <button class="modal-close" type="button" aria-label="关闭" @click="$emit('close')">
+        <button class="modal-close" type="button" aria-label="Close" @click="$emit('close')">
           <i class="fas fa-times"></i>
         </button>
       </header>

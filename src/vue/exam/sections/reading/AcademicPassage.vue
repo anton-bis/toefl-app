@@ -8,7 +8,8 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false }
+  checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
 const mode = computed(() => academicMode(props.question));
@@ -26,10 +27,15 @@ const pointParagraph = computed(() =>
 const vocab = computed(
   () => props.question.prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || ''
 );
+const isChecked = computed(() => checkedQuestion(props.checked, props.question.id));
+const isLocked = computed(() => checkedQuestion(props.locked, props.question.id));
+const isReadOnly = computed(() => isChecked.value || isLocked.value);
 
 function sentenceClass(sentence) {
   const selected = selectedAnswer(props.answers, props.question.id) === sentence;
-  if (!checkedQuestion(props.checked, props.question.id)) return selected ? 'selected' : '';
+  if (!isChecked.value) {
+    return [selected ? 'selected' : '', isLocked.value ? 'locked' : ''].filter(Boolean).join(' ');
+  }
   if (sentence === props.question.answer) return 'correct locked';
   return selected ? 'incorrect locked' : 'locked';
 }
@@ -48,7 +54,11 @@ function highlightedParts(paragraph) {
     </div>
     <div class="two-column-layout">
       <div class="left-column">
-        <article class="academic-passage-container">
+        <article
+          class="academic-passage-container exam-scroll-region"
+          aria-label="Academic passage"
+          tabindex="0"
+        >
           <p v-for="(paragraph, index) in paragraphs" :key="index" class="academic-passage-content">
             <template v-if="mode === 'point-sentence' && pointParagraph === index + 1">
               <button
@@ -57,6 +67,7 @@ function highlightedParts(paragraph) {
                 type="button"
                 class="passage-sentence-hl"
                 :class="sentenceClass(sentence)"
+                :disabled="isReadOnly"
                 @click="emit('answer', question.id, sentence)"
               >
                 {{ sentence }}
@@ -72,6 +83,7 @@ function highlightedParts(paragraph) {
                   type="button"
                   class="insertion-marker"
                   :class="{ selected: selectedAnswer(answers, question.id) === part[1] }"
+                  :disabled="isReadOnly"
                   @click="emit('answer', question.id, part[1])"
                 >
                   {{ part }}
@@ -88,7 +100,12 @@ function highlightedParts(paragraph) {
           </p>
         </article>
       </div>
-      <div class="right-column">
+      <div
+        class="right-column exam-scroll-region"
+        role="region"
+        aria-label="Question and answer choices"
+        tabindex="0"
+      >
         <div class="question-container-apple">
           <div class="question-text-apple">{{ question.prompt }}</div>
           <div v-if="inserted" class="insertion-sentence">{{ inserted }}</div>
@@ -99,6 +116,7 @@ function highlightedParts(paragraph) {
               type="button"
               class="sentence-option-row"
               :class="sentenceClass(sentence)"
+              :disabled="isReadOnly"
               @click="emit('answer', question.id, sentence)"
             >
               <span class="sentence-number">{{ index + 1 }}</span
@@ -110,6 +128,7 @@ function highlightedParts(paragraph) {
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>

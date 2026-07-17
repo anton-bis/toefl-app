@@ -14,7 +14,7 @@ export function listCatalog() {
   const tests = new Map();
   for (const entry of manifest.entries) {
     if (!tests.has(entry.tpoId)) {
-      tests.set(entry.tpoId, { tpoId: entry.tpoId, description: '2026 新托福样题', sections: {} });
+      tests.set(entry.tpoId, { tpoId: entry.tpoId, description: '2026 TOEFL Sample Test', sections: {} });
     }
     tests.get(entry.tpoId).sections[entry.section] = {
       id: entry.id,

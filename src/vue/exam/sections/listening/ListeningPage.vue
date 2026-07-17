@@ -9,8 +9,8 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  marks: { type: [Object, Array], default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }
 });
 const emit = defineEmits(['answer', 'media-state']);
@@ -26,8 +26,13 @@ const title = computed(() =>
 </script>
 
 <template>
-  <main class="listening-page main-content" :data-page-id="page.id">
-    <section v-if="isStimulus" class="listening-stimulus">
+  <main class="listening-page main-content exam-content-pane" :data-page-id="page.id">
+    <section
+      v-if="isStimulus"
+      class="listening-stimulus exam-scroll-region"
+      aria-label="Listening stimulus"
+      tabindex="0"
+    >
       <div class="passage-title-area">
         <h2 class="passage-title">{{ title }}</h2>
       </div>
@@ -57,12 +62,18 @@ const title = computed(() =>
           @media-state="emit('media-state', $event)"
         />
       </div>
-      <div class="right-column">
+      <div
+        class="right-column exam-scroll-region"
+        role="region"
+        aria-label="Question and answer choices"
+        tabindex="0"
+      >
         <div class="question-container-apple">
           <ChoiceList
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>
@@ -74,13 +85,19 @@ const title = computed(() =>
         <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
       </div>
-      <div class="right-column">
+      <div
+        class="right-column exam-scroll-region"
+        role="region"
+        aria-label="Question and answer choices"
+        tabindex="0"
+      >
         <div class="question-container-apple">
           <div class="question-text-apple">{{ question.prompt }}</div>
           <ChoiceList
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>

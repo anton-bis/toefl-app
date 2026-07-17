@@ -1,5 +1,13 @@
-import { createExamPages } from '../pages.js';
-import { linesOf, media, optionsFrom, seconds, sourceMeta, slug } from '../shared.js';
+import { createExamDocument } from '../pages.js';
+import {
+  linesOf,
+  media,
+  normalizeMarkdown,
+  optionsFrom,
+  seconds,
+  sourceMeta,
+  slug
+} from '../shared.js';
 
 function typeFor(title) {
   const value = title.toLowerCase();
@@ -101,7 +109,7 @@ function parseTask(title, body, moduleId, taskNumber) {
 
 export function parseListening(markdown, options = {}) {
   const meta = sourceMeta('listening', options);
-  const normalized = markdown.replace(/\r/g, '').replace(/^Module\s+(\d+)\s*$/gm, '## Module $1');
+  const normalized = normalizeMarkdown(markdown).replace(/^Module\s+(\d+)\s*$/gm, '## Module $1');
   const modules = [];
   const moduleRegex = /^## Module\s+(\d+)[^\n]*\n([\s\S]*?)(?=^## Module\s+\d+|(?![\s\S]))/gm;
   for (const moduleMatch of normalized.matchAll(moduleRegex)) {
@@ -115,7 +123,5 @@ export function parseListening(markdown, options = {}) {
     }
     modules.push({ id: moduleId, number, title: `Module ${number}`, tasks });
   }
-  const document = { ...meta, modules };
-  document.pages = createExamPages(document);
-  return document;
+  return createExamDocument(meta, modules);
 }

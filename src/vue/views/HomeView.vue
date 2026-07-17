@@ -21,6 +21,7 @@ const sections = [
 ];
 
 const tests = computed(() => catalog.tests);
+const sectionLabel = section => sections.find(([id]) => id === section)?.[1] || section;
 
 function openExam(tpoId, section) {
   const hasData = readExamSession(tpoId, section)?.status === 'in-progress';
@@ -48,32 +49,37 @@ function openReport(test) {
     if (!test.sections[id]) return false;
     return readExamSession(test.tpoId, id)?.status === 'completed';
   })?.[0];
-  router.push(
-    `/exam/${test.tpoId}/${section || sections.find(([id]) => test.sections[id])?.[0]}/results?mode=report`
+  if (section) router.push(`/exam/${test.tpoId}/${section}/results?mode=report`);
+}
+
+function hasReport(test) {
+  return sections.some(
+    ([section]) =>
+      test.sections[section] && readExamSession(test.tpoId, section)?.status === 'completed'
   );
 }
 </script>
 
 <template>
   <div class="home-page">
-    <header class="app-header"><span class="logo-text">Toefl</span></header>
+    <header class="app-header"><span class="logo-text">TOEFL</span></header>
     <div class="app-layout">
       <aside class="sidebar">
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-layer-group"></i> 题目</div>
+          <div class="sidebar-section-header"><i class="fas fa-layer-group"></i> Practice</div>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'mock' }"
             @click="panel = 'mock'"
           >
-            <span class="nav-icon"><i class="fas fa-pencil-alt"></i></span> 模考
+            <span class="nav-icon"><i class="fas fa-pencil-alt"></i></span> Practice Tests
           </button>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'real' }"
             @click="panel = 'real'"
           >
-            <span class="nav-icon"><i class="fas fa-scroll"></i></span> 真题
+            <span class="nav-icon"><i class="fas fa-scroll"></i></span> Official Tests
           </button>
         </div>
         <div class="sidebar-section">
@@ -86,15 +92,15 @@ function openReport(test) {
           </RouterLink>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> 其他</div>
+          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> More</div>
           <button class="sidebar-nav-item" @click="modal = 'news'">
-            <span class="nav-icon"><i class="fas fa-newspaper"></i></span> 托福动态
+            <span class="nav-icon"><i class="fas fa-newspaper"></i></span> TOEFL Updates
           </button>
           <button class="sidebar-nav-item" @click="modal = 'about'">
-            <span class="nav-icon"><i class="fas fa-handshake"></i></span> 关注/合作
+            <span class="nav-icon"><i class="fas fa-handshake"></i></span> Connect
           </button>
           <button class="sidebar-nav-item" @click="modal = 'log'">
-            <span class="nav-icon"><i class="fas fa-history"></i></span> 日志
+            <span class="nav-icon"><i class="fas fa-history"></i></span> Release Notes
           </button>
         </div>
       </aside>
@@ -102,20 +108,20 @@ function openReport(test) {
       <main class="main-content">
         <section v-if="panel === 'mock'" class="panel active">
           <div class="panel-header">
-            <h2>模考</h2>
-            <p>2026年reform ETS官方样题 · official</p>
+            <h2>Practice Tests</h2>
+            <p>Official ETS samples for the 2026 TOEFL iBT update</p>
           </div>
           <div class="table-scroll">
             <table class="data-table">
               <thead>
                 <tr>
                   <th class="id-heading">ID</th>
-                  <th>描述</th>
-                  <th>阅读</th>
-                  <th>听力</th>
-                  <th>写作</th>
-                  <th>口语</th>
-                  <th>测试报告</th>
+                  <th>Description</th>
+                  <th>Reading</th>
+                  <th>Listening</th>
+                  <th>Writing</th>
+                  <th>Speaking</th>
+                  <th>Report</th>
                 </tr>
               </thead>
               <tbody>
@@ -135,7 +141,14 @@ function openReport(test) {
                     <span v-else class="mod-na">—</span>
                   </td>
                   <td class="report-cell">
-                    <button class="mod-btn available" @click="openReport(test)">测试报告</button>
+                    <button
+                      class="mod-btn"
+                      :class="{ available: hasReport(test) }"
+                      :disabled="!hasReport(test)"
+                      @click="openReport(test)"
+                    >
+                      View Report
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -144,57 +157,57 @@ function openReport(test) {
         </section>
         <section v-else class="empty-panel">
           <div class="empty-icon"><i class="fas fa-inbox"></i></div>
-          <h3>真题数据即将上线</h3>
-          <p>敬请期待</p>
+          <h3>More official practice is coming soon</h3>
+          <p>Check back soon.</p>
         </section>
       </main>
     </div>
 
     <AppModal
       v-if="modal === 'news'"
-      title="托福动态"
+      title="TOEFL Updates"
       icon="fas fa-newspaper"
       wide
       @close="modal = ''"
     >
-      <h4>2026年1月21日 · 托福iBT改革要点</h4>
+      <h4>January 21, 2026 · What’s changing in the TOEFL iBT</h4>
       <p>
-        新版托福 iBT 采用<strong>多阶段自适应（multistage）</strong>形式，考试顺序固定为：阅读 →
-        听力 → 写作 → 口语。
+        The updated TOEFL iBT uses <strong>multistage adaptive testing</strong>. Sections appear in
+        this order: Reading, Listening, Writing, and Speaking.
       </p>
-      <h4>考试题量与时长</h4>
+      <h4>Questions and timing</h4>
       <table class="info-table">
         <thead>
           <tr>
-            <th>考试部分</th>
-            <th>题型数量</th>
-            <th>预估时长</th>
+            <th>Section</th>
+            <th>Questions</th>
+            <th>Estimated time</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>阅读（自适应）</td>
-            <td>35–48 题</td>
-            <td>约 18–27 分钟</td>
+            <td>Reading (adaptive)</td>
+            <td>35–48 questions</td>
+            <td>18–27 minutes</td>
           </tr>
           <tr>
-            <td>听力（自适应）</td>
-            <td>35–45 题</td>
-            <td>约 18–27 分钟</td>
+            <td>Listening (adaptive)</td>
+            <td>35–45 questions</td>
+            <td>18–27 minutes</td>
           </tr>
           <tr>
-            <td>写作</td>
-            <td>12 题</td>
-            <td>约 23 分钟</td>
+            <td>Writing</td>
+            <td>12 questions</td>
+            <td>23 minutes</td>
           </tr>
           <tr>
-            <td>口语</td>
-            <td>12 题</td>
-            <td>约 8 分钟</td>
+            <td>Speaking</td>
+            <td>12 questions</td>
+            <td>8 minutes</td>
           </tr>
         </tbody>
       </table>
-      <h4>各部分任务类型</h4>
+      <h4>Task types</h4>
       <template v-for="[name, items] in taskTypes" :key="name">
         <p>
           <strong>{{ name }}</strong>
@@ -203,54 +216,55 @@ function openReport(test) {
           <li v-for="item in items" :key="item">{{ item }}</li>
         </ul>
       </template>
-      <h4>评分体系</h4>
+      <h4>Scoring</h4>
       <p>
-        采用<strong>1–6 分制分段评分</strong>，与 CEFR 直接对齐。四个单项及总分均以 0.5
-        分为增量，总分由四项平均值计算得出。成绩报告包含 <strong>MyBest® 分数</strong>（过去 2
-        年内各单项最高分平均值）。
+        The test uses a <strong>1–6 band scale</strong> aligned with CEFR. Section and overall
+        scores are reported in 0.5-point increments, and the overall score is the average of the
+        four section scores. <strong>MyBest® scores</strong> combine your highest section scores
+        from the past two years.
       </p>
-      <h4>原始分与 1–6 分制对照</h4>
+      <h4>Raw scores and 1–6 bands</h4>
       <table class="info-table">
         <thead>
           <tr>
-            <th>考试部分</th>
-            <th>原始分范围</th>
-            <th>1–6 分制范围</th>
+            <th>Section</th>
+            <th>Raw score</th>
+            <th>1–6 band</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>阅读</td>
+            <td>Reading</td>
             <td>0–35</td>
             <td>1–6</td>
           </tr>
           <tr>
-            <td>听力</td>
+            <td>Listening</td>
             <td>0–30</td>
             <td>1–6</td>
           </tr>
           <tr>
-            <td>写作</td>
+            <td>Writing</td>
             <td>0–15</td>
             <td>1–6</td>
           </tr>
           <tr>
-            <td>口语</td>
+            <td>Speaking</td>
             <td>0–50</td>
             <td>1–6</td>
           </tr>
         </tbody>
       </table>
-      <h4>CEFR 等级对应</h4>
+      <h4>CEFR alignment</h4>
       <table class="info-table">
         <thead>
           <tr>
             <th>CEFR</th>
-            <th>阅读</th>
-            <th>听力</th>
-            <th>写作</th>
-            <th>口语</th>
-            <th>总分</th>
+            <th>Reading</th>
+            <th>Listening</th>
+            <th>Writing</th>
+            <th>Speaking</th>
+            <th>Overall</th>
           </tr>
         </thead>
         <tbody>
@@ -260,16 +274,16 @@ function openReport(test) {
           </tr>
         </tbody>
       </table>
-      <h4>新旧分制换算（1–6 ↔ 0–30/0–120）</h4>
+      <h4>Score comparison (1–6 vs. legacy scales)</h4>
       <table class="info-table">
         <thead>
           <tr>
-            <th>新制</th>
-            <th>阅读(0–30)</th>
-            <th>听力(0–30)</th>
-            <th>写作(0–30)</th>
-            <th>口语(0–30)</th>
-            <th>总分(0–120)</th>
+            <th>Band</th>
+            <th>Reading (0–30)</th>
+            <th>Listening (0–30)</th>
+            <th>Writing (0–30)</th>
+            <th>Speaking (0–30)</th>
+            <th>Overall (0–120)</th>
           </tr>
         </thead>
         <tbody>
@@ -283,42 +297,47 @@ function openReport(test) {
     <AppModal
       v-if="modal === 'about'"
       class="about-modal"
-      title="关注/合作"
+      title="Connect"
       icon="fas fa-handshake"
       wide
       @close="modal = ''"
     >
-      <p>本软件由 AI 辅助开发，致力于为托福考生提供高质量的模拟练习体验。</p>
+      <p>Built with AI assistance to provide focused, high-quality TOEFL practice.</p>
       <div class="about-platforms">
         <section class="about-platform">
-          <h4><i class="fab fa-weixin wechat-icon"></i> 微信平台</h4>
-          <p class="about-platform-description">扫描下方二维码添加好友</p>
+          <h4><i class="fab fa-weixin wechat-icon"></i> WeChat</h4>
+          <p class="about-platform-description">Scan the QR code to add me</p>
           <div class="img-block">
-            <img src="/assets/images/wechat-qr.jpg" alt="微信二维码" />
-            <div class="img-label">扫码添加好友</div>
+            <img src="/assets/images/wechat-qr.jpg" alt="WeChat QR code" />
+            <div class="img-label">Add on WeChat</div>
           </div>
         </section>
         <section class="about-platform">
-          <h4><span class="x-icon" aria-hidden="true">X</span> 社交平台</h4>
-          <p class="about-platform-description">访问我的个人主页</p>
+          <h4><span class="x-icon" aria-hidden="true">X</span></h4>
+          <p class="about-platform-description">Visit my profile</p>
           <div class="img-block">
-            <img src="/assets/images/x-profile.jpg" alt="X 平台主页" />
-            <div class="img-label">访问主页</div>
+            <img src="/assets/images/x-profile.jpg" alt="X profile preview" />
+            <div class="img-label">Open profile</div>
           </div>
         </section>
         <section class="about-platform">
-          <h4><i class="fas fa-book-open rednote-icon"></i> 小红书</h4>
-          <p class="about-platform-description">关注我的小红书账号</p>
+          <h4><i class="fas fa-book-open rednote-icon"></i> RedNote</h4>
+          <p class="about-platform-description">Follow me on RedNote</p>
           <div class="img-block">
-            <img src="/assets/images/rednote-qr.jpg" alt="小红书二维码" />
-            <div class="img-label">扫码关注</div>
+            <img src="/assets/images/rednote-qr.jpg" alt="RedNote QR code" />
+            <div class="img-label">Follow on RedNote</div>
           </div>
         </section>
       </div>
-      <p class="note">如有合作意向或反馈建议，请通过以上方式联系我们。</p>
+      <p class="note">For feedback or collaboration, reach out through any channel above.</p>
     </AppModal>
 
-    <AppModal v-if="modal === 'log'" title="更新日志" icon="fas fa-history" @close="modal = ''">
+    <AppModal
+      v-if="modal === 'log'"
+      title="Release Notes"
+      icon="fas fa-history"
+      @close="modal = ''"
+    >
       <article v-for="entry in changelog" :key="entry[0]" class="log-entry">
         <strong>{{ entry[0] }}</strong
         ><time>{{ entry[1] }}</time>
@@ -328,7 +347,7 @@ function openReport(test) {
           </template>
         </p>
       </article>
-      <p class="note">很荣幸为您服务。</p>
+      <p class="note">Thanks for using TOEFL Practice.</p>
     </AppModal>
 
     <div
@@ -341,22 +360,26 @@ function openReport(test) {
         class="practice-box"
         role="dialog"
         aria-modal="true"
-        :aria-label="`TPO ${pendingExam.tpoId} · ${pendingExam.section === 'reading' ? 'Reading' : pendingExam.section}`"
+        :aria-label="`TPO ${pendingExam.tpoId} · ${sectionLabel(pendingExam.section)}`"
       >
         <button
           class="modal-close practice-close"
           type="button"
-          aria-label="关闭"
+          aria-label="Close"
           @click="pendingExam = null"
         >
           <i class="fas fa-times"></i>
         </button>
         <h2>
           TPO {{ pendingExam.tpoId }} ·
-          {{ pendingExam.section === 'reading' ? 'Reading' : pendingExam.section }}
+          {{ sectionLabel(pendingExam.section) }}
         </h2>
         <p class="practice-sub">
-          {{ pendingExam.hasData ? '检测到已有答题记录，请选择练习模式' : '请选择练习模式' }}
+          {{
+            pendingExam.hasData
+              ? 'You have an unfinished attempt. Choose how to continue.'
+              : 'Choose a practice mode.'
+          }}
         </p>
         <button
           class="practice-option-card active start-option"
@@ -365,8 +388,8 @@ function openReport(test) {
         >
           <span class="opt-icon"><i class="fas fa-play"></i></span>
           <span class="opt-body"
-            ><strong class="opt-title">开始练习</strong
-            ><small class="opt-hint">全新开始，从第一题做起</small></span
+            ><strong class="opt-title">Start New</strong
+            ><small class="opt-hint">Begin again from Question 1.</small></span
           >
         </button>
         <button
@@ -380,8 +403,8 @@ function openReport(test) {
             ><i :class="pendingExam.hasData ? 'fas fa-play' : 'fas fa-lock'"></i
           ></span>
           <span class="opt-body"
-            ><strong class="opt-title">继续练习</strong
-            ><small class="opt-hint">从上次退出的位置继续答题</small></span
+            ><strong class="opt-title">Resume</strong
+            ><small class="opt-hint">Continue where you left off.</small></span
           >
         </button>
         <button
@@ -395,8 +418,8 @@ function openReport(test) {
             ><i :class="pendingExam.hasData ? 'fas fa-redo-alt' : 'fas fa-lock'"></i
           ></span>
           <span class="opt-body"
-            ><strong class="opt-title">重新练习</strong
-            ><small class="opt-hint">清除当前记录，全新开始</small></span
+            ><strong class="opt-title">Start Over</strong
+            ><small class="opt-hint">Delete this attempt and begin again.</small></span
           >
         </button>
       </section>

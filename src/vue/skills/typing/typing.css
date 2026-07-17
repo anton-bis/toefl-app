@@ -1,86 +1,16 @@
-/* ── Typing Module — Apple-inspired redesign ── */
-
-/* Global scrollbar */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #d5d5d7 transparent;
-}
-html::-webkit-scrollbar {
-  width: 4px;
-}
-html::-webkit-scrollbar-track {
-  background: transparent;
-}
-html::-webkit-scrollbar-thumb {
-  background: #d5d5d7;
-  border-radius: 2px;
-}
-html::-webkit-scrollbar-thumb:hover {
-  background: #b0b0b3;
-}
-
-/* Panel Header */
-.typing-panel-header {
-  text-align: left;
-  padding: 28px 24px 20px;
-  border-bottom: 1px solid var(--border, #e5e5e7);
-  margin-bottom: 36px;
-}
-
-.typing-panel-header-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.typing-panel-header-titles {
-  flex: 1;
-}
-
-.typing-panel-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text, #1d1d1f);
-  letter-spacing: -0.3px;
-  margin: 0 0 6px;
-  line-height: 1.3;
-}
-
-.typing-panel-subtitle {
-  font-size: 14px;
-  color: var(--muted, #86868b);
-  line-height: 1.5;
-  margin: 0;
-  font-weight: 400;
-}
-
-.typing-history-link {
-  font-size: 14px;
-  color: var(--teal, #008080);
-  text-decoration: none;
-  white-space: nowrap;
-  padding: 4px 0;
-  transition: opacity 0.15s;
-}
-
-.typing-history-link:hover {
-  opacity: 0.7;
-}
+/* ── Typing workspace ── */
 
 /* Article List Wrapper */
 .typing-article-list {
-  max-width: 1024px;
-  margin: 0 auto;
-  padding: 0 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
 }
 
 /* Difficulty Section */
 .typing-difficulty-section {
-  border-left: 3px solid transparent;
-  padding-left: 16px;
-  margin-bottom: 48px;
-  background: #fafafa;
-  border-radius: 12px;
+  border-top: 1px solid var(--skill-border);
+  padding-top: 18px;
 }
 
 /* Section Header */
@@ -88,19 +18,22 @@ html::-webkit-scrollbar-thumb:hover {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 0;
+  padding: 4px 0 12px;
   cursor: pointer;
   user-select: none;
-  margin-bottom: 0;
+  border: 0;
+  background: transparent;
+  width: 100%;
+  text-align: left;
 }
 
 .typing-section-header:hover .typing-section-title {
-  color: var(--teal, #008080);
+  color: var(--skill-accent);
 }
 
 .typing-collapse-icon {
   font-size: 11px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   width: 18px;
   text-align: center;
   flex-shrink: 0;
@@ -110,7 +43,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-section-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   letter-spacing: -0.3px;
   transition: color 0.2s;
 }
@@ -122,11 +55,12 @@ html::-webkit-scrollbar-thumb:hover {
   border-radius: 50%;
   margin-left: 2px;
   flex-shrink: 0;
+  background: var(--difficulty-color);
 }
 
 .typing-section-count {
   font-size: 14px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   margin-left: auto;
   font-weight: 400;
 }
@@ -134,10 +68,9 @@ html::-webkit-scrollbar-thumb:hover {
 /* Section Description */
 .typing-section-desc {
   font-size: 14px;
-  color: var(--muted, #86868b);
-  margin-bottom: 18px;
-  margin-left: 26px;
-  line-height: 1.4;
+  color: var(--skill-text-secondary);
+  margin: 0 0 18px 26px;
+  line-height: 1.5;
 }
 
 /* Section Body (description + grid, wrapped for collapse animation) */
@@ -157,40 +90,27 @@ html::-webkit-scrollbar-thumb:hover {
 /* Card Grid */
 .typing-card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
 }
 
 /* Article Card */
 .typing-article-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-  border: 1px solid var(--border, #e5e5e7);
-  border-radius: 16px;
-  padding: 22px 20px;
+  min-height: 126px;
+  padding: 20px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.typing-article-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  border-color: var(--teal-light, rgba(0, 128, 128, 0.12));
-}
-
-.typing-article-card:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  width: 100%;
 }
 
 /* Card Title */
 .typing-card-title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   line-height: 1.45;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -207,13 +127,14 @@ html::-webkit-scrollbar-thumb:hover {
   margin-right: 8px;
   vertical-align: middle;
   flex-shrink: 0;
+  background: var(--difficulty-color);
 }
 
 /* Card Meta */
 .typing-card-meta {
   font-size: 13px;
   font-weight: 400;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   letter-spacing: 0.05px;
   margin-top: auto;
 }
@@ -222,7 +143,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-empty {
   text-align: center;
   padding: 80px 20px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   font-size: 16px;
 }
 
@@ -230,34 +151,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-area {
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px 0;
-}
-
-.typing-area-header {
-  margin-bottom: 32px;
-}
-
-.typing-header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.typing-back-btn {
-  background: none;
-  border: 1px solid var(--border, #e5e5e7);
-  border-radius: 8px;
-  padding: 6px 16px;
-  font-size: 14px;
-  color: var(--teal, #008080);
-  cursor: pointer;
-  transition: background 0.15s;
-  font-family: inherit;
-}
-
-.typing-back-btn:hover {
-  background: var(--teal-light, rgba(0, 128, 128, 0.08));
+  padding-top: 46px;
 }
 
 .typing-header-controls {
@@ -267,49 +161,51 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .typing-control-btn {
-  background: none;
-  border: 1px solid var(--border, #e5e5e7);
-  border-radius: 8px;
-  padding: 6px 14px;
+  min-height: 36px;
+  background: var(--skill-surface);
+  border: 1px solid var(--skill-border);
+  border-radius: 9px;
+  padding: 7px 13px;
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
   font-family: inherit;
 }
 
 .typing-control-btn:hover {
-  color: var(--text, #1d1d1f);
-  border-color: #c0c0c4;
+  color: var(--skill-text);
+  border-color: var(--skill-border-strong);
+  background: var(--skill-surface-muted);
 }
 
 .typing-timer {
   font-size: 22px;
   font-weight: 500;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   font-variant-numeric: tabular-nums;
   letter-spacing: 2px;
   min-width: 72px;
   text-align: right;
-  background: var(--teal-light, rgba(0, 128, 128, 0.08));
-  padding: 4px 14px;
-  border-radius: 20px;
-}
-
-.typing-header-sub {
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--muted, #86868b);
+  background: var(--skill-accent-soft);
+  padding: 5px 13px;
+  border-radius: 9px;
 }
 
 .typing-text-display {
   font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
-  font-size: 22px;
-  line-height: 2;
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 2.05;
   letter-spacing: 0.3px;
   white-space: pre-wrap;
   word-break: break-word;
-  padding: 24px 0;
+  padding: 28px 32px;
+  border: 1px solid var(--skill-border);
+  border-radius: var(--skill-radius);
+  background: var(--skill-surface);
   transition: opacity 0.2s;
 }
 
@@ -324,20 +220,20 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .char-untouched {
-  color: #c0c0c4;
+  color: #aeb8b5;
 }
 
 .char-correct {
-  color: #1d1d1f;
+  color: var(--skill-text);
 }
 
 .char-incorrect {
-  color: #ff3b30;
+  color: var(--skill-danger);
   text-decoration: line-through;
 }
 
 .char-current {
-  border-left: 2px solid var(--teal, #008080);
+  border-left: 2px solid var(--skill-accent);
   animation: typing-blink 1s step-end infinite;
 }
 
@@ -351,14 +247,14 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-result {
   max-width: 720px;
   margin: 0 auto;
-  padding: 56px 24px;
+  padding-top: 42px;
   text-align: center;
 }
 
 .typing-result-article {
   font-size: 28px;
   font-weight: 700;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   letter-spacing: -0.4px;
   margin-bottom: 6px;
   line-height: 1.3;
@@ -366,7 +262,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 .typing-result-sub {
   font-size: 15px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   margin-bottom: 40px;
 }
 
@@ -383,15 +279,16 @@ html::-webkit-scrollbar-thumb:hover {
 
 .typing-metric-card {
   flex: 1;
-  background: #fafafa;
-  border-radius: 16px;
+  background: var(--skill-surface);
+  border: 1px solid var(--skill-border);
+  border-radius: var(--skill-radius);
   padding: 24px 16px 20px;
 }
 
 .typing-metric-value {
   font-size: 32px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   letter-spacing: -0.3px;
   margin-bottom: 6px;
   line-height: 1.1;
@@ -399,20 +296,20 @@ html::-webkit-scrollbar-thumb:hover {
 
 .typing-metric-label {
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .typing-metrics-net {
-  background: #fafafa;
-  border-radius: 16px;
+  background: var(--skill-accent-soft);
+  border-radius: var(--skill-radius);
   padding: 20px;
 }
 
 .typing-metrics-net-label {
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 4px;
@@ -421,7 +318,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-metrics-net-value {
   font-size: 32px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   letter-spacing: -0.3px;
 }
 
@@ -435,40 +332,30 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-result-btn {
   width: 180px;
   padding: 14px 0;
-  border-radius: 12px;
+  border-radius: 9px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background-color 150ms ease;
   font-family: inherit;
   border: none;
   text-align: center;
 }
 
 .typing-result-btn-primary {
-  background: var(--teal, #008080);
+  background: var(--skill-accent);
   color: #fff;
 }
 
 .typing-result-btn-primary:hover {
-  background: #006666;
-}
-
-.typing-result-btn-ghost {
-  background: none;
-  color: var(--teal, #008080);
-  border: 1px solid var(--border, #e5e5e7);
-}
-
-.typing-result-btn-ghost:hover {
-  background: var(--teal-light, rgba(0, 128, 128, 0.08));
-  border-color: var(--teal, #008080);
+  background: var(--skill-accent-dark);
 }
 
 /* ── Error Distribution ── */
 .typing-error-dist {
-  background: #fafafa;
-  border-radius: 16px;
+  background: var(--skill-surface);
+  border: 1px solid var(--skill-border);
+  border-radius: var(--skill-radius);
   padding: 24px;
   margin-bottom: 32px;
   text-align: left;
@@ -477,7 +364,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-error-dist-title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   margin-bottom: 16px;
 }
 
@@ -495,14 +382,14 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-error-label {
   width: 96px;
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   flex-shrink: 0;
 }
 
 .typing-error-bar-wrap {
   flex: 1;
   height: 8px;
-  background: #e5e5e7;
+  background: var(--skill-border);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -513,10 +400,26 @@ html::-webkit-scrollbar-thumb:hover {
   transition: width 0.4s ease;
 }
 
+.typing-error-bar--spacing {
+  background: #c7832b;
+}
+
+.typing-error-bar--capitalization {
+  background: #3679aa;
+}
+
+.typing-error-bar--spelling {
+  background: var(--skill-danger);
+}
+
+.typing-error-bar--punctuation {
+  background: #7b62a3;
+}
+
 .typing-error-count {
   width: 24px;
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   text-align: right;
   flex-shrink: 0;
 }
@@ -524,53 +427,30 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-error-total {
   text-align: center;
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   margin-top: 12px;
 }
 
 .typing-error-none {
   text-align: center;
   font-size: 15px;
-  color: var(--teal, #008080);
+  color: var(--skill-accent);
   font-weight: 500;
   padding: 4px 0;
 }
 
 /* ── Responsive ── */
-@media (max-width: 1024px) {
-  .typing-card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
-  .typing-card-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .typing-header-controls {
+    flex-wrap: wrap;
   }
-  .typing-article-list {
-    padding: 0 16px 32px;
-  }
-  .typing-panel-header {
-    padding: 24px 20px 18px;
-  }
-  .typing-panel-title {
-    font-size: 20px;
-  }
-  .typing-panel-subtitle {
-    font-size: 13px;
+
+  .typing-text-display {
+    padding: 24px;
   }
 }
 
 @media (max-width: 480px) {
-  .typing-card-grid {
-    grid-template-columns: 1fr;
-  }
-  .typing-panel-title {
-    font-size: 18px;
-  }
-  .typing-panel-header {
-    padding: 20px 16px 16px;
-  }
   .typing-metrics-cards {
     flex-direction: column;
     align-items: center;
@@ -593,20 +473,13 @@ html::-webkit-scrollbar-thumb:hover {
   .typing-progress-tabs {
     flex-direction: column;
   }
-  .typing-progress-tab {
-    flex: none;
-  }
 }
 
 /* ── Progress Page ── */
 .typing-progress {
   max-width: 960px;
   margin: 0 auto;
-  padding: 24px 0;
-}
-
-.typing-progress-header {
-  margin-bottom: 32px;
+  padding-top: 38px;
 }
 
 .typing-progress-tabs {
@@ -617,23 +490,26 @@ html::-webkit-scrollbar-thumb:hover {
 
 .typing-progress-tab {
   flex: 1;
-  background: #fafafa;
-  border-radius: 16px;
+  background: var(--skill-surface);
+  border-radius: var(--skill-radius);
   padding: 20px 18px;
   cursor: pointer;
-  transition: all 0.2s;
-  border: 2px solid transparent;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+  border: 1px solid var(--skill-border);
   position: relative;
+  text-align: left;
 }
 
 .typing-progress-tab:hover {
-  background: #f0f0f2;
+  background: var(--skill-surface-muted);
 }
 
 .typing-progress-tab.active {
-  background: #fff;
-  border-color: var(--tab-color, #008080);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: var(--skill-surface);
+  border-color: var(--tab-color, var(--skill-accent));
+  box-shadow: inset 0 3px 0 var(--tab-color, var(--skill-accent));
 }
 
 .typing-progress-tab-dot {
@@ -648,7 +524,7 @@ html::-webkit-scrollbar-thumb:hover {
   display: block;
   font-size: 15px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   margin-bottom: 12px;
 }
 
@@ -660,18 +536,19 @@ html::-webkit-scrollbar-thumb:hover {
 
 .typing-progress-tab-stat {
   font-size: 13px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
 }
 
 .typing-progress-tab-stat-main {
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   font-weight: 600;
   font-size: 14px;
 }
 
 .typing-progress-chart {
-  background: #fafafa;
-  border-radius: 16px;
+  background: var(--skill-surface);
+  border: 1px solid var(--skill-border);
+  border-radius: var(--skill-radius);
   padding: 24px;
   margin-bottom: 24px;
 }
@@ -679,7 +556,7 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-progress-chart-title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   margin-bottom: 16px;
 }
 
@@ -692,13 +569,13 @@ html::-webkit-scrollbar-thumb:hover {
   text-align: center;
   padding: 48px 20px;
   font-size: 14px;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
 }
 
 .typing-progress-table-title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   margin-bottom: 14px;
 }
 
@@ -710,23 +587,23 @@ html::-webkit-scrollbar-thumb:hover {
 .typing-history-table th {
   font-size: 12px;
   font-weight: 500;
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-align: left;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--border, #e5e5e7);
+  border-bottom: 1px solid var(--skill-border);
 }
 
 .typing-history-table td {
   font-size: 14px;
-  color: var(--text, #1d1d1f);
+  color: var(--skill-text);
   padding: 10px 12px;
-  border-bottom: 1px solid var(--border, #e5e5e7);
+  border-bottom: 1px solid var(--skill-border);
 }
 
 .typing-history-table tr:hover td {
-  background: #fafafa;
+  background: var(--skill-surface-muted);
 }
 
 .typing-history-title {
@@ -737,30 +614,24 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 .typing-history-date {
-  color: var(--muted, #86868b);
+  color: var(--skill-text-secondary);
   font-size: 13px;
   white-space: nowrap;
 }
 
-.typing-view {
-  min-height: 100vh;
-  background: var(--bg, #f5f5f7);
-}
 .typing-section-header,
 .typing-article-card,
-.typing-progress-tab,
-.typing-history-link {
-  border: 0;
+.typing-progress-tab {
   font: inherit;
-  text-align: left;
 }
 .typing-section-header,
 .typing-article-card,
 .typing-progress-tab {
   width: 100%;
 }
-.typing-history-link {
-  color: var(--teal, #008080);
-  background: transparent;
-  cursor: pointer;
+
+@media (max-width: 480px) {
+  .typing-progress-tab {
+    flex: none;
+  }
 }

@@ -1,21 +1,31 @@
 <script setup>
 import { computed } from 'vue';
-import { computeMetrics, formatDuration } from './logic.js';
+import SkillPageHeader from '../../components/SkillPageHeader.vue';
+import { formatMinutesSeconds } from '../../utils/time.js';
+import { computeMetrics } from './logic.js';
 
 const props = defineProps({ result: { type: Object, required: true } });
 defineEmits(['retry', 'back']);
 const metrics = computed(() => computeMetrics(props.result));
 const errors = [
-  ['spacing', 'Spacing / 空格', '#FF9500'],
-  ['capitalization', 'Capitalization / 大小写', '#007AFF'],
-  ['spelling', 'Spelling / 拼写', '#FF3B30'],
-  ['punctuation', 'Punctuation / 标点', '#AF52DE']
+  ['spacing', 'Spacing'],
+  ['capitalization', 'Capitalization'],
+  ['spelling', 'Spelling'],
+  ['punctuation', 'Punctuation']
 ];
 const maxError = computed(() => Math.max(1, ...Object.values(metrics.value.errors)));
 </script>
 
 <template>
-  <div class="typing-result">
+  <SkillPageHeader
+    title="Practice Complete"
+    :subtitle="result.article.title"
+    eyebrow="Typing"
+    back-label="All Passages"
+    compact
+    @back="$emit('back')"
+  />
+  <div class="typing-result skill-content">
     <div class="typing-result-article">{{ result.article.title }}</div>
     <div class="typing-result-sub">
       {{ result.article.difficulty[0].toUpperCase() + result.article.difficulty.slice(1) }} ·
@@ -32,7 +42,9 @@ const maxError = computed(() => Math.max(1, ...Object.values(metrics.value.error
           <div class="typing-metric-label">Accuracy</div>
         </div>
         <div class="typing-metric-card">
-          <div class="typing-metric-value">{{ formatDuration(result.timeSpent) }}</div>
+          <div class="typing-metric-value">
+            {{ formatMinutesSeconds(result.timeSpent / 1000) }}
+          </div>
           <div class="typing-metric-label">Time</div>
         </div>
       </div>
@@ -44,13 +56,14 @@ const maxError = computed(() => Math.max(1, ...Object.values(metrics.value.error
     <div class="typing-error-dist">
       <div v-if="!metrics.incorrectCount" class="typing-error-none">No errors — perfect!</div>
       <template v-else>
-        <div class="typing-error-dist-title">Error Distribution / 错误分布</div>
-        <div v-for="[key, label, color] in errors" :key="key" class="typing-error-row">
+        <div class="typing-error-dist-title">Errors</div>
+        <div v-for="[key, label] in errors" :key="key" class="typing-error-row">
           <span class="typing-error-label">{{ label }}</span>
           <div class="typing-error-bar-wrap">
             <div
               class="typing-error-bar"
-              :style="{ width: `${(metrics.errors[key] / maxError) * 100}%`, background: color }"
+              :class="`typing-error-bar--${key}`"
+              :style="{ width: `${(metrics.errors[key] / maxError) * 100}%` }"
             ></div>
           </div>
           <span class="typing-error-count">{{ metrics.errors[key] }}</span>
@@ -67,13 +80,6 @@ const maxError = computed(() => Math.max(1, ...Object.values(metrics.value.error
         @click="$emit('retry')"
       >
         ↻ Try Again
-      </button>
-      <button
-        class="typing-result-btn typing-result-btn-ghost"
-        type="button"
-        @click="$emit('back')"
-      >
-        ← Back to List
       </button>
     </div>
   </div>

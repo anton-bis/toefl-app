@@ -1,4 +1,5 @@
 import { computed, onBeforeUnmount, onMounted, ref, toValue, watch } from 'vue';
+import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../utils/time.js';
 
 const DEFAULT_URGENT_SECONDS = 60;
 
@@ -10,12 +11,7 @@ export function getRemainingSeconds(timer, now = Date.now()) {
 export function formatExamTime(seconds) {
   if (seconds == null) return '--:--';
   const value = Math.max(0, Math.floor(seconds));
-  const hours = Math.floor(value / 3600);
-  const minutes = Math.floor((value % 3600) / 60);
-  const secs = value % 60;
-  return hours > 0
-    ? [hours, minutes, secs].map(part => String(part).padStart(2, '0')).join(':')
-    : [minutes, secs].map(part => String(part).padStart(2, '0')).join(':');
+  return value >= 3600 ? formatHoursMinutesSeconds(value) : formatMinutesSeconds(value);
 }
 
 export function useExamTimer(timerSource, options = {}) {

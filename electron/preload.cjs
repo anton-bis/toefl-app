@@ -6,17 +6,17 @@ function subscribe(channel, callback) {
   return () => ipcRenderer.removeListener(channel, handler);
 }
 
-// 安全地暴露受限制的API给渲染进程
+// Expose a minimal, restricted API to the renderer.
 contextBridge.exposeInMainWorld('electronAPI', {
-  // 更新相关
+  // App updates
   downloadUpdate: () => ipcRenderer.invoke('update:download'),
   quitAndInstall: () => ipcRenderer.invoke('update:quit-and-install'),
 
-  // 导出/导入数据
+  // Data import and export
   writeUserData: (filePath, payload) => ipcRenderer.invoke('user-data:write', filePath, payload),
   readUserData: filePath => ipcRenderer.invoke('user-data:read', filePath),
 
-  // 内容热更新
+  // Runtime content updates
   applyContentUpdate: () => ipcRenderer.invoke('content:apply'),
   readContentFile: relativePath => ipcRenderer.invoke('content:read', relativePath),
   getContentAssetUrl: relativePath =>
@@ -26,7 +26,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       .map(encodeURIComponent)
       .join('/')}`,
 
-  // 事件监听器
+  // Event listeners
   onUpdateAvailable: callback => subscribe('update:available', callback),
   onUpdateError: callback => subscribe('update:error', callback),
   onUpdateProgress: callback => subscribe('update:progress', callback),
@@ -34,13 +34,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onContentUpdateAvailable: callback => subscribe('content:update-available', callback)
 });
 
-// 监听来自主进程的导出/导入数据请求
+// Forward import and export requests from the main process.
 ipcRenderer.on('export-user-data', (_event, filePath) => {
-  // 触发渲染进程中的数据导出
+  // Ask the renderer to export its data.
   window.dispatchEvent(new CustomEvent('electron-export-data', { detail: { filePath } }));
 });
 
 ipcRenderer.on('import-user-data', (_event, filePath) => {
-  // 触发渲染进程中的数据导入
+  // Ask the renderer to import data.
   window.dispatchEvent(new CustomEvent('electron-import-data', { detail: { filePath } }));
 });

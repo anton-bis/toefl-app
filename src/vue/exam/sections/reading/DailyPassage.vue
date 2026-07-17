@@ -7,7 +7,8 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false }
+  checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
 const content = computed(() => parseDailyPassage(props.task.passage, props.task.type));
@@ -18,7 +19,12 @@ const messages = computed(() => parseTextChain(props.task.passage));
   <section id="question-module" class="daily-reading-page">
     <p class="question-instruction">{{ instructionFor(task.type) }}</p>
     <div class="two-column-layout">
-      <div class="left-column">
+      <div
+        class="left-column exam-scroll-region"
+        role="region"
+        aria-label="Reading passage"
+        tabindex="0"
+      >
         <article v-if="task.type === 'email'" class="apple-email-container">
           <header class="email-header-apple">
             <div v-if="content.to"><span class="meta-label">To:</span> {{ content.to }}</div>
@@ -68,13 +74,19 @@ const messages = computed(() => parseTextChain(props.task.passage));
           <div class="notice-content">{{ content.body }}</div>
         </article>
       </div>
-      <div class="right-column">
+      <div
+        class="right-column exam-scroll-region"
+        role="region"
+        aria-label="Question and answer choices"
+        tabindex="0"
+      >
         <div class="question-container-apple">
           <div class="question-text-apple">{{ question.prompt }}</div>
           <ChoiceList
             :question="question"
             :answers="answers"
             :checked="checked"
+            :locked="locked"
             @answer="(id, value) => emit('answer', id, value)"
           />
         </div>

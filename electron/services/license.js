@@ -3,14 +3,14 @@ import os from 'os';
 import { app } from 'electron';
 import { getDatabase, settingsService } from './database.js';
 
-// 许可证类型
+// License types
 export const LicenseType = {
   TRIAL: 'trial',
   PERPETUAL: 'perpetual',
   SUBSCRIPTION: 'subscription'
 };
 
-// 许可证状态
+// License states
 export const LicenseStatus = {
   ACTIVE: 'active',
   EXPIRED: 'expired',
@@ -18,11 +18,11 @@ export const LicenseStatus = {
   INVALID: 'invalid'
 };
 
-// 安全的服务端签名/公钥验签尚未实现，禁止通过环境变量意外启用。
+// Keep enforcement disabled until server signatures and public-key verification are implemented.
 const LICENSE_ENFORCEMENT_ENABLED = false;
 const TRIAL_DAYS = 14;
 
-// 生成设备指纹
+// Generate a device fingerprint.
 export function generateDeviceFingerprint() {
   const hardwareInfo = {
     platform: process.platform,
@@ -36,7 +36,7 @@ export function generateDeviceFingerprint() {
   return crypto.createHash('sha256').update(fingerprintString).digest('hex');
 }
 
-// 获取MAC地址（简化版）
+// Find the first usable MAC address.
 function getMacAddress() {
   try {
     const networkInterfaces = os.networkInterfaces();
@@ -48,38 +48,38 @@ function getMacAddress() {
       }
     }
   } catch (error) {
-    console.warn('获取MAC地址失败:', error);
+    console.warn('Could not read a MAC address:', error);
   }
   return 'unknown';
 }
 
-// 检查许可证状态
+// Check license status.
 export async function checkLicense() {
   if (!LICENSE_ENFORCEMENT_ENABLED) {
     return {
       valid: true,
       type: LicenseType.PERPETUAL,
       status: LicenseStatus.ACTIVE,
-      message: '许可证功能未启用',
+      message: 'Licensing is not enabled.',
       is_trial: false
     };
   }
   try {
     const db = getDatabase();
 
-    // 获取设备指纹
+    // Identify this device.
     const deviceFingerprint = generateDeviceFingerprint();
 
-    // 查找用户
+    // Find the local user.
     const getUser = db.prepare('SELECT * FROM users WHERE device_id = ?');
     const user = getUser.get(deviceFingerprint);
 
     if (!user) {
-      // 创建新用户（试用用户）
+      // Create a trial user.
       const createUser = db.prepare('INSERT INTO users (device_id) VALUES (?)');
       const result = createUser.run(deviceFingerprint);
 
-      // 创建试用许可证
+      // Create a trial license.
       const trialLicense = {
         license_key: `TRIAL-${Date.now()}-${crypto.randomBytes(4).toString('hex')}`,
         license_type: LicenseType.TRIAL,
@@ -108,14 +108,14 @@ export async function checkLicense() {
         valid: true,
         type: LicenseType.TRIAL,
         status: LicenseStatus.ACTIVE,
-        message: `试用许可证已激活，剩余 ${TRIAL_DAYS} 天`,
+        message: `Your trial is active for ${TRIAL_DAYS} more days.`,
         expiration_date: trialLicense.expiration_date,
         days_remaining: TRIAL_DAYS,
         is_trial: true
       };
     }
 
-    // 查找用户的有效许可证
+    // Find the user's active license.
     const getLicense = db.prepare(`
       SELECT * FROM licenses 
       WHERE user_id = ? AND status = ? 
@@ -126,17 +126,17 @@ export async function checkLicense() {
     const license = getLicense.get(user.id, LicenseStatus.ACTIVE);
 
     if (!license) {
-      // 没有有效许可证
+      // No active license was found.
       return {
         valid: false,
         type: null,
         status: LicenseStatus.INVALID,
-        message: '未找到有效许可证',
+        message: 'No active license was found.',
         is_trial: false
       };
     }
 
-    // 检查许可证是否过期
+    // Check for expiration.
     const now = new Date();
     const expirationDate = new Date(license.expiration_date);
 
@@ -145,7 +145,7 @@ export async function checkLicense() {
       expirationDate < now &&
       license.license_type !== LicenseType.PERPETUAL
     ) {
-      // 许可证已过期
+      // Mark an expired license.
       const updateLicense = db.prepare(`
         UPDATE licenses SET status = ? WHERE id = ?
       `);
@@ -155,19 +155,19 @@ export async function checkLicense() {
         valid: false,
         type: license.license_type,
         status: LicenseStatus.EXPIRED,
-        message: '许可证已过期',
+        message: 'Your license has expired.',
         expiration_date: license.expiration_date,
         is_trial: license.license_type === LicenseType.TRIAL
       };
     }
 
-    // 计算剩余天数
+    // Calculate the remaining days.
     let daysRemaining = null;
     if (license.license_type !== LicenseType.PERPETUAL) {
       daysRemaining = Math.ceil((expirationDate - now) / (1000 * 60 * 60 * 24));
     }
 
-    // 更新用户最后登录时间
+    // Record the latest sign-in.
     const updateUser = db.prepare('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = ?');
     updateUser.run(user.id);
 
@@ -177,81 +177,81 @@ export async function checkLicense() {
       status: LicenseStatus.ACTIVE,
       message:
         license.license_type === LicenseType.PERPETUAL
-          ? '永久许可证有效'
-          : `许可证有效，剩余 ${daysRemaining} 天`,
+          ? 'Your lifetime license is active.'
+          : `Your license is active for ${daysRemaining} more days.`,
       expiration_date: license.expiration_date,
       days_remaining: daysRemaining,
       is_trial: license.license_type === LicenseType.TRIAL,
       license_key: license.license_key
     };
   } catch (error) {
-    console.error('检查许可证失败:', error);
+    console.error('License check failed:', error);
     return {
       valid: false,
       type: null,
       status: LicenseStatus.INVALID,
-      message: '许可证检查失败',
+      message: 'Could not verify the license.',
       error: error.message,
       is_trial: false
     };
   }
 }
 
-// 激活许可证
+// Activate a license.
 export async function activateLicense(licenseKey) {
   if (!LICENSE_ENFORCEMENT_ENABLED) {
-    return { success: false, message: '许可证扩展尚未启用' };
+    return { success: false, message: 'Licensing is not enabled.' };
   }
   try {
     const db = getDatabase();
 
-    // 验证许可证密钥格式
+    // Validate the license key format.
     if (!licenseKey || typeof licenseKey !== 'string' || licenseKey.trim().length < 10) {
       return {
         success: false,
-        message: '无效的许可证密钥格式'
+        message: 'Enter a valid license key.'
       };
     }
 
-    // 获取设备指纹
+    // Identify this device.
     const deviceFingerprint = generateDeviceFingerprint();
 
-    // 查找用户
+    // Find the local user.
     const getUser = db.prepare('SELECT * FROM users WHERE device_id = ?');
     const user = getUser.get(deviceFingerprint);
 
     if (!user) {
       return {
         success: false,
-        message: '用户未找到，请先启动试用版'
+        message: 'No local user was found. Start the trial first.'
       };
     }
 
-    // 检查许可证密钥（简化版 - 实际应连接许可证服务器）
+    // Validate the key locally until a license server is available.
     const licenseInfo = validateLicenseKey(licenseKey);
 
     if (!licenseInfo.valid) {
       return {
         success: false,
-        message: licenseInfo.message || '无效的许可证密钥'
+        message: licenseInfo.message || 'This license key is not valid.'
       };
     }
 
-    // 停用用户现有的有效许可证
+    // Deactivate existing licenses.
     const deactivateLicenses = db.prepare(`
       UPDATE licenses SET status = ? 
       WHERE user_id = ? AND status = ?
     `);
     deactivateLicenses.run(LicenseStatus.REVOKED, user.id, LicenseStatus.ACTIVE);
 
-    // 创建新许可证记录
+    // Create the new license record.
     const now = new Date();
     let expirationDate = null;
 
     if (licenseInfo.type === LicenseType.PERPETUAL) {
-      expirationDate = new Date(9999, 11, 31).toISOString(); // 永久
+      expirationDate = new Date(9999, 11, 31).toISOString(); // Lifetime
     } else if (licenseInfo.type === LicenseType.SUBSCRIPTION) {
-      expirationDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(); // 1年
+      expirationDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString(); // One year
     } else {
       expirationDate = new Date(now.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000).toISOString();
     }
@@ -271,37 +271,37 @@ export async function activateLicense(licenseKey) {
       expirationDate
     );
 
-    // 保存许可证密钥到设置
+    // Store license metadata in settings.
     settingsService.setSetting('last_activated_license', licenseKey, 'license');
     settingsService.setSetting('license_activation_date', now.toISOString(), 'license');
 
     return {
       success: true,
-      message: `许可证激活成功！类型：${licenseInfo.type === LicenseType.PERPETUAL ? '永久' : '订阅'}`,
+      message: `License activated: ${licenseInfo.type === LicenseType.PERPETUAL ? 'lifetime' : 'subscription'}.`,
       license_type: licenseInfo.type,
       expiration_date: expirationDate,
       license_id: result.lastInsertRowid
     };
   } catch (error) {
-    console.error('激活许可证失败:', error);
+    console.error('License activation failed:', error);
     return {
       success: false,
-      message: '许可证激活失败',
+      message: 'Could not activate the license.',
       error: error.message
     };
   }
 }
 
-// 验证许可证密钥（简化版 - 实际应连接服务器）
+// Validate a license key locally until a license server is available.
 function validateLicenseKey(licenseKey) {
-  // 简单格式验证
+  // Supported key formats
   const patterns = {
     perpetual: /^PERP-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/i,
     subscription: /^SUB-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/i,
     trial: /^TRIAL-[A-Z0-9]{4}-[A-Z0-9]{4}$/i
   };
 
-  // 检查匹配的模式
+  // Find the matching format.
   for (const [type, pattern] of Object.entries(patterns)) {
     if (pattern.test(licenseKey)) {
       return {
@@ -312,31 +312,31 @@ function validateLicenseKey(licenseKey) {
             : type === 'subscription'
               ? LicenseType.SUBSCRIPTION
               : LicenseType.TRIAL,
-        message: '许可证密钥格式有效'
+        message: 'The license key format is valid.'
       };
     }
   }
 
-  // 如果不是标准格式，检查是否为试用密钥
+  // Accept generated trial keys.
   if (licenseKey.startsWith('TRIAL-')) {
     return {
       valid: true,
       type: LicenseType.TRIAL,
-      message: '试用许可证密钥'
+      message: 'Trial license key.'
     };
   }
 
   return {
     valid: false,
-    message: '无效的许可证密钥格式'
+    message: 'The license key format is not valid.'
   };
 }
 
-// 获取许可证信息
+// Get license details.
 export async function getLicenseInfo() {
   const licenseStatus = await checkLicense();
 
-  // 添加额外的试用信息
+  // Add trial usage details.
   if (licenseStatus.is_trial && licenseStatus.days_remaining !== null) {
     licenseStatus.trial_info = {
       total_days: TRIAL_DAYS,
@@ -348,38 +348,38 @@ export async function getLicenseInfo() {
   return licenseStatus;
 }
 
-// 重置试用许可证（仅用于测试）
+// Reset the trial license in tests.
 export async function resetTrialLicense() {
   if (!LICENSE_ENFORCEMENT_ENABLED) {
-    return { success: false, message: '许可证扩展尚未启用' };
+    return { success: false, message: 'Licensing is not enabled.' };
   }
   try {
     const db = getDatabase();
     const deviceFingerprint = generateDeviceFingerprint();
 
-    // 删除用户及其所有许可证
+    // Delete the user and related licenses.
     const deleteUser = db.prepare('DELETE FROM users WHERE device_id = ?');
     deleteUser.run(deviceFingerprint);
 
-    // 清除许可证设置
+    // Clear stored license settings.
     settingsService.deleteSetting('last_activated_license');
     settingsService.deleteSetting('license_activation_date');
 
     return {
       success: true,
-      message: '试用许可证已重置'
+      message: 'The trial license has been reset.'
     };
   } catch (error) {
-    console.error('重置试用许可证失败:', error);
+    console.error('Could not reset the trial license:', error);
     return {
       success: false,
-      message: '重置失败',
+      message: 'Could not reset the trial license.',
       error: error.message
     };
   }
 }
 
-// 检查是否需要显示许可证提醒
+// Decide whether to show a license reminder.
 export function shouldShowLicenseReminder(_licenseStatus) {
   if (!LICENSE_ENFORCEMENT_ENABLED) return false;
   if (!_licenseStatus.valid) return true;

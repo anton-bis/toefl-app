@@ -13,8 +13,3 @@ export function segmentDuration(media, nativeDuration = 0) {
   const end = Number(media?.end);
   return Number.isFinite(end) ? Math.max(0, end - start) : Math.max(0, nativeDuration - start);
 }
-
-export function formatMediaTime(seconds) {
-  const value = Math.max(0, Math.floor(Number(seconds) || 0));
-  return `${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`;
-}

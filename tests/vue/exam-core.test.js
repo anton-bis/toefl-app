@@ -29,7 +29,6 @@ describe('exam sessions', () => {
     store.setPage('r-q1');
     store.saveAnswer('r1', 'B');
     store.toggleMark('r1');
-    store.setCheck({ revealed: true, checkedAt: 100 });
 
     store.openSession({ tpoId: '01', section: 'listening', pageId: 'l-start' });
     store.start({ pageId: 'l-start' });
@@ -40,8 +39,7 @@ describe('exam sessions', () => {
     expect(store.activeSession).toMatchObject({
       pageId: 'r-q1',
       answers: { r1: 'B' },
-      marks: { r1: true },
-      check: { revealed: true, checkedAt: 100 }
+      marks: { r1: true }
     });
     expect(JSON.parse(localStorage.getItem(examStorageKey('01', 'listening'))).answers).toEqual({
       l1: 'C'
@@ -57,6 +55,22 @@ describe('exam sessions', () => {
     const store = useExamStore();
     const session = store.openSession({ tpoId: '02', section: 'writing' });
     expect(session.answers).toEqual({});
+  });
+
+  it('drops obsolete answer-reveal state from restored sessions', () => {
+    const key = examStorageKey('02', 'reading');
+    localStorage.setItem(
+      key,
+      JSON.stringify({
+        tpoId: '02',
+        section: 'reading',
+        status: 'in-progress',
+        check: { revealed: true, revealedScopes: { q1: true }, checkedAt: 100 }
+      })
+    );
+    const store = useExamStore();
+    const session = store.openSession({ tpoId: '02', section: 'reading' });
+    expect(session).not.toHaveProperty('check');
   });
 
   it('does not persist a blank session opened only for report inspection', () => {
@@ -86,6 +100,7 @@ describe('exam sessions', () => {
     store.lockQuestions(['q1']);
     store.saveAnswer('q1', 'B');
     expect(store.activeSession.answers.q1).toBe('A');
+    expect(store.activeSession.lockedQuestionIds.q1).toBe(true);
 
     store.complete(10_000);
     store.saveAnswer('q2', 'C');
@@ -112,19 +127,6 @@ describe('exam sessions', () => {
     expect(JSON.parse(localStorage.getItem(examStorageKey('04', 'writing'))).answers.essay).toBe(
       'abc'
     );
-  });
-
-  it('reveals and retries only the current task scope', () => {
-    const store = useExamStore();
-    store.openSession({ tpoId: '03', section: 'writing' });
-    store.start({ pageId: 'q1' });
-    store.saveAnswer('q1', 'answer one');
-    store.saveAnswer('q2', 'answer two');
-    store.revealScope('task-1');
-    store.revealScope('task-2');
-    store.clearAnswers(['q1'], 'task-1');
-    expect(store.activeSession.answers).toEqual({ q2: 'answer two' });
-    expect(store.activeSession.check.revealedScopes).toEqual({ 'task-2': true });
   });
 
   it('normalizes and persists section volume settings', () => {

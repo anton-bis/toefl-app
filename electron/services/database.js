@@ -9,7 +9,7 @@ function loadDatabaseConstructor() {
     .then(module => module.default)
     .catch(error => {
       databaseConstructorPromise = undefined;
-      throw new Error('SQLite 扩展尚未安装；启用数据库功能前请添加 better-sqlite3', {
+      throw new Error('The SQLite extension is not installed. Add better-sqlite3 to enable it.', {
         cause: error
       });
     });
@@ -18,11 +18,11 @@ function loadDatabaseConstructor() {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// 数据库实例
+// Database instance
 let db = null;
 let initializationPromise;
 
-// 初始化数据库
+// Initialize the database.
 export function initDatabase() {
   if (initializationPromise) return initializationPromise;
   if (db) return db;
@@ -53,10 +53,10 @@ export function initDatabase() {
   return initializationPromise;
 }
 
-// 创建表
+// Create database tables.
 async function createTables() {
   const tables = [
-    // 用户表
+    // Users
     `CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       device_id TEXT UNIQUE NOT NULL,
@@ -64,7 +64,7 @@ async function createTables() {
       last_login DATETIME DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 许可证表
+    // Licenses
     `CREATE TABLE IF NOT EXISTS licenses (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       license_key TEXT UNIQUE NOT NULL,
@@ -77,7 +77,7 @@ async function createTables() {
       FOREIGN KEY (user_id) REFERENCES users (id)
     )`,
 
-    // 模块表
+    // Practice modules
     `CREATE TABLE IF NOT EXISTS modules (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT UNIQUE NOT NULL,
@@ -87,7 +87,7 @@ async function createTables() {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`,
 
-    // 用户答案表
+    // User answers
     `CREATE TABLE IF NOT EXISTS user_answers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL,
@@ -104,7 +104,7 @@ async function createTables() {
       UNIQUE(user_id, module_id, question_id)
     )`,
 
-    // 用户进度表
+    // User progress
     `CREATE TABLE IF NOT EXISTS user_progress (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER NOT NULL,
@@ -121,7 +121,7 @@ async function createTables() {
       UNIQUE(user_id, module_id)
     )`,
 
-    // 设置表
+    // Settings
     `CREATE TABLE IF NOT EXISTS settings (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       key TEXT UNIQUE NOT NULL,
@@ -131,7 +131,7 @@ async function createTables() {
     )`
   ];
 
-  // 执行所有表创建语句
+  // Create all tables in one transaction.
   const createTablesTransaction = db.transaction(() => {
     tables.forEach(sql => {
       db.prepare(sql).run();
@@ -140,17 +140,17 @@ async function createTables() {
 
   createTablesTransaction();
 
-  // 插入默认模块数据
+  // Seed the default modules.
   await seedDefaultData();
 }
 
-// 插入默认数据
+// Seed default data.
 async function seedDefaultData() {
   const modules = [
-    ['reading', '阅读模块', '托福阅读练习模块'],
-    ['listening', '听力模块', '托福听力练习模块'],
-    ['speaking', '口语模块', '托福口语练习模块'],
-    ['writing', '写作模块', '托福写作练习模块']
+    ['reading', 'Reading', 'TOEFL reading practice'],
+    ['listening', 'Listening', 'TOEFL listening practice'],
+    ['speaking', 'Speaking', 'TOEFL speaking practice'],
+    ['writing', 'Writing', 'TOEFL writing practice']
   ];
 
   const insertModule = db.prepare(`
@@ -163,31 +163,31 @@ async function seedDefaultData() {
   });
 }
 
-// 获取数据库实例
+// Get the database instance.
 export function getDatabase() {
   if (!db) {
-    throw new Error('数据库未初始化，请先调用 initDatabase()');
+    throw new Error('The database is not initialized. Call initDatabase() first.');
   }
   return db;
 }
 
-// 关闭数据库连接
+// Close the database connection.
 export async function closeDatabase() {
   if (db) {
     try {
       db.close();
       db = null;
-      console.log('数据库连接已关闭');
+      console.log('Database connection closed.');
     } catch (error) {
-      console.error('关闭数据库连接失败:', error);
+      console.error('Could not close the database connection:', error);
       throw error;
     }
   }
 }
 
-// 用户相关操作
+// User operations
 export const userService = {
-  // 创建或获取用户
+  // Create or retrieve a user.
   createOrGetUser(deviceId) {
     const stmt = db.prepare(`
       INSERT OR IGNORE INTO users (device_id) 
@@ -200,7 +200,7 @@ export const userService = {
     return getUser.get(deviceId);
   },
 
-  // 更新用户最后登录时间
+  // Update the user's last login time.
   updateLastLogin(userId) {
     const stmt = db.prepare(`
       UPDATE users 
@@ -211,9 +211,9 @@ export const userService = {
   }
 };
 
-// 答案相关操作
+// Answer operations
 export const answerService = {
-  // 保存用户答案
+  // Save an answer.
   saveAnswer(userId, moduleId, questionId, answer, isCorrect = null, score = null, timeSpent = 0) {
     const stmt = db.prepare(`
       INSERT OR REPLACE INTO user_answers 
@@ -224,7 +224,7 @@ export const answerService = {
     return stmt.run(userId, moduleId, questionId, answer, isCorrect, score, timeSpent);
   },
 
-  // 获取用户答案
+  // Get one answer.
   getAnswer(userId, moduleId, questionId) {
     const stmt = db.prepare(`
       SELECT * FROM user_answers 
@@ -234,7 +234,7 @@ export const answerService = {
     return stmt.get(userId, moduleId, questionId);
   },
 
-  // 获取用户所有答案
+  // Get all answers for a module.
   getUserAnswers(userId, moduleId) {
     const stmt = db.prepare(`
       SELECT * FROM user_answers 
@@ -245,7 +245,7 @@ export const answerService = {
     return stmt.all(userId, moduleId);
   },
 
-  // 删除用户答案
+  // Delete an answer.
   deleteAnswer(userId, moduleId, questionId) {
     const stmt = db.prepare(`
       DELETE FROM user_answers 
@@ -256,9 +256,9 @@ export const answerService = {
   }
 };
 
-// 进度相关操作
+// Progress operations
 export const progressService = {
-  // 更新用户进度
+  // Update module progress.
   updateProgress(userId, moduleId, completedIncrement = 0, scoreIncrement = 0, timeIncrement = 0) {
     const stmt = db.prepare(`
       INSERT OR REPLACE INTO user_progress 
@@ -286,7 +286,7 @@ export const progressService = {
     );
   },
 
-  // 获取用户进度
+  // Get module progress.
   getProgress(userId, moduleId) {
     const stmt = db.prepare(`
       SELECT * FROM user_progress 
@@ -296,7 +296,7 @@ export const progressService = {
     return stmt.get(userId, moduleId);
   },
 
-  // 获取所有模块进度
+  // Get progress across all modules.
   getAllProgress(userId) {
     const stmt = db.prepare(`
       SELECT up.*, m.display_name as module_name 
@@ -309,16 +309,16 @@ export const progressService = {
   }
 };
 
-// 设置相关操作
+// Settings operations
 export const settingsService = {
-  // 获取设置
+  // Get one setting.
   getSetting(key) {
     const stmt = db.prepare('SELECT value FROM settings WHERE key = ?');
     const result = stmt.get(key);
     return result ? result.value : null;
   },
 
-  // 设置值
+  // Set a value.
   setSetting(key, value, category = 'general') {
     const stmt = db.prepare(`
       INSERT OR REPLACE INTO settings (key, value, category, updated_at) 
@@ -328,20 +328,20 @@ export const settingsService = {
     return stmt.run(key, value, category);
   },
 
-  // 获取分类下的所有设置
+  // Get all settings in a category.
   getSettingsByCategory(category) {
     const stmt = db.prepare('SELECT key, value FROM settings WHERE category = ?');
     return stmt.all(category);
   },
 
-  // 删除设置
+  // Delete a setting.
   deleteSetting(key) {
     const stmt = db.prepare('DELETE FROM settings WHERE key = ?');
     return stmt.run(key);
   }
 };
 
-// 导出数据
+// Export data.
 export async function exportUserData(userId) {
   const data = {
     user: null,
@@ -350,11 +350,11 @@ export async function exportUserData(userId) {
     settings: []
   };
 
-  // 获取用户信息
+  // Read the user record.
   const getUser = db.prepare('SELECT * FROM users WHERE id = ?');
   data.user = getUser.get(userId);
 
-  // 获取用户答案
+  // Read user answers.
   const getAnswers = db.prepare(`
     SELECT ua.*, m.name as module_name 
     FROM user_answers ua
@@ -363,7 +363,7 @@ export async function exportUserData(userId) {
   `);
   data.answers = getAnswers.all(userId);
 
-  // 获取用户进度
+  // Read user progress.
   const getProgress = db.prepare(`
     SELECT up.*, m.name as module_name 
     FROM user_progress up
@@ -372,16 +372,16 @@ export async function exportUserData(userId) {
   `);
   data.progress = getProgress.all(userId);
 
-  // 获取用户设置
+  // Read user settings.
   data.settings = settingsService.getSettingsByCategory(`user_${userId}`);
 
   return data;
 }
 
-// 导入数据
+// Import data.
 export async function importUserData(userId, data) {
   const transaction = db.transaction(() => {
-    // 导入答案
+    // Import answers.
     if (data.answers && Array.isArray(data.answers)) {
       data.answers.forEach(answer => {
         answerService.saveAnswer(
@@ -396,7 +396,7 @@ export async function importUserData(userId, data) {
       });
     }
 
-    // 导入进度
+    // Import progress.
     if (data.progress && Array.isArray(data.progress)) {
       data.progress.forEach(progress => {
         progressService.updateProgress(
@@ -409,7 +409,7 @@ export async function importUserData(userId, data) {
       });
     }
 
-    // 导入设置
+    // Import settings.
     if (data.settings && Array.isArray(data.settings)) {
       data.settings.forEach(setting => {
         settingsService.setSetting(
@@ -424,17 +424,17 @@ export async function importUserData(userId, data) {
   transaction();
 }
 
-// 备份数据库
+// Back up the database.
 export async function backupDatabase(backupPath) {
   if (!db) {
-    throw new Error('数据库未初始化');
+    throw new Error('The database is not initialized.');
   }
 
   await db.backup(backupPath, {
     progress: ({ totalPages, remainingPages }) => {
       const progress = ((totalPages - remainingPages) / totalPages) * 100;
-      console.log(`备份进度: ${progress.toFixed(2)}%`);
+      console.log(`Backup progress: ${progress.toFixed(2)}%`);
     }
   });
-  console.log('数据库备份完成:', backupPath);
+  console.log('Database backup complete:', backupPath);
 }

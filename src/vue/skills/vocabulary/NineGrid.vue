@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import SkillPageHeader from '../../components/SkillPageHeader.vue';
 const props = defineProps({ store: { type: Object, required: true } });
 const pages = computed(() => {
   const result = [];
@@ -13,17 +14,23 @@ const marked = computed(
 </script>
 
 <template>
-  <div class="vocab-nine-grid">
-    <div class="grid-header">
-      <button class="vocab-back-btn" type="button" @click="store.goToSetList">← 返回</button
-      ><span class="grid-title">{{ store.subjectLabel }} · Set {{ store.setId }}</span
-      ><span class="grid-page">{{ store.nineGridPage + 1 }}/{{ pages.length }}</span>
-    </div>
+  <SkillPageHeader
+    :title="`${store.subjectLabel} · Set ${store.setId}`"
+    eyebrow="Quick Check"
+    back-label="Back to Sets"
+    compact
+    @back="store.goToSetList"
+  >
+    <template #actions>
+      <span class="grid-page">{{ store.nineGridPage + 1 }}/{{ pages.length }}</span>
+    </template>
+  </SkillPageHeader>
+  <div class="vocab-nine-grid skill-content">
     <div class="grid-container">
       <button
         v-for="word in pages[store.nineGridPage] || []"
         :key="word.id"
-        class="grid-cell"
+        class="grid-cell skill-card"
         :class="{ 'grid-cell-unknown': word.gridStatus === 'unknown' }"
         type="button"
         @click="store.toggleGridWord(word.id)"
@@ -33,7 +40,7 @@ const marked = computed(
       </button>
     </div>
     <div class="grid-footer">
-      <span class="grid-counter">已标记: {{ marked }} 个不认识</span>
+      <span class="grid-counter">{{ marked }} marked</span>
       <div class="grid-nav">
         <button
           v-if="store.nineGridPage"
@@ -52,6 +59,8 @@ const marked = computed(
         </button>
       </div>
     </div>
-    <button class="grid-assemble-btn" type="button" @click="store.assembleGrid">开始学习 →</button>
+    <button class="grid-assemble-btn" type="button" @click="store.assembleGrid">
+      {{ marked ? 'Study Selected' : 'Study This Set' }} →
+    </button>
   </div>
 </template>

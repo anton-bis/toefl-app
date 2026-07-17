@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { computeMetrics, createCharacters, maxSecondsFor } from './logic.js';
 import { loadTypingHistory, replaceTypingHistory } from '../../platform/dataRepository.js';
 import {
+  isPlainObject,
   removeLocalValue,
   readLocalJson,
   scheduleLocalJson,
@@ -10,10 +11,6 @@ import {
 
 export const TYPING_SESSION_KEY = 'toefl:typing:session';
 const MAX_HISTORY = 100;
-
-function plainObject(value) {
-  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
-}
 
 function serializedSession(session, now = Date.now()) {
   return {
@@ -27,7 +24,7 @@ function serializedSession(session, now = Date.now()) {
 }
 
 function restoredSession(saved, article) {
-  if (!plainObject(saved) || typeof saved.input !== 'string') return null;
+  if (!isPlainObject(saved) || typeof saved.input !== 'string') return null;
   const chars = createCharacters(article.content);
   const input = [...saved.input];
   if (input.length > chars.length) return null;
@@ -103,7 +100,7 @@ export const useTypingStore = defineStore('typing', {
         const history = await loadTypingHistory();
         this.history = (Array.isArray(history) ? history : []).filter(
           record =>
-            plainObject(record) &&
+            isPlainObject(record) &&
             Number(record.netWpm) < 200 &&
             Number(record.timeSpent) > 0 &&
             Number(record.totalChars) > 0

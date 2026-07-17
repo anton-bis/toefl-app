@@ -7,66 +7,57 @@ const ALLOWED_ENDPOINTS = new Set([API_URL]);
 const MAX_PROMPT_BYTES = 100 * 1024;
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 
-// 4 套独立 ETS rubric 常量（官方原文 + Typical features）
-const RUBRIC_LISTEN_REPEAT = `
-【听力重述评分标准 - Official ETS 原文】
-0分：无作答或完全错误，无法理解。
-1分：极少量信息，严重偏离，难以理解。
-2分：有用信息极少，偏离较大，理解困难。
-3分：基本准确，包含主要信息但细节欠缺，偶有错误。
-4分：高度准确，信息完整且表达清晰，语速与流畅度良好。
-5分：完全准确，复述要点完整，信息无偏差，语言自然流畅。
-【Typical features】：
-- 复述要点准确且全面
-- 语言清晰、衔接自然
-- 细节信息与原文一致
+// Concise, non-verbatim summaries of the 2025 ETS scoring guides. Keep these
+// reserved rubrics aligned with the official guides before enabling AI scoring.
+// Speaking: https://www.ets.org/content/dam/ets-org/pdfs/toefl/speaking-rubrics.pdf
+// Writing: https://www.ets.org/content/dam/ets-org/pdfs/toefl/writing-rubrics.pdf
+export const RUBRIC_LISTEN_REPEAT = `
+Listen and Repeat — score guide summary
+5: Repeats the full prompt accurately and is completely understandable.
+4: Preserves the prompt's meaning with only small wording or grammar changes; speech remains clear.
+3: Reproduces most of the sentence, but omissions or substitutions affect accuracy; some speech may require effort.
+2: Omits or changes a substantial part of the prompt; the result is fragmentary and difficult to understand.
+1: Produces only a few recognizable words or an attempt that is mostly unintelligible.
+0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.
+Primary criteria: accuracy, completeness, and intelligibility.
 `;
 
-const RUBRIC_TAKE_INTERVIEW = `
-【口语面试回答评分标准 - Official ETS 原文】
-0分：无作答或无法理解。
-1分：极少量信息，基本无法理解。
-2分：信息有限，结构混乱。
-3分：信息较完整，表达基本清楚，但有错误。
-4分：信息完整，论点清晰，语言自然，错误极少。
-5分：信息丰富，观点深入，表达流畅，发音清晰。
-【Typical features】：
-- 观点明确，论点支撑充分
-- 语言自然，发音清晰
-- 语法与词汇使用恰当
+export const RUBRIC_TAKE_INTERVIEW = `
+Take an Interview — score guide summary
+5: Fully answers and develops the response with fluent, natural, readily intelligible speech and precise language.
+4: Answers and develops the response clearly; minor pauses or language limitations do not impede meaning.
+3: Addresses the question with limited development or clarity; delivery may be choppy and language control uneven.
+2: Makes a relevant attempt but provides little support; limited language and intelligibility often obscure meaning.
+1: Barely addresses the question through vague, isolated, or mostly unintelligible language.
+0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.
+Primary criteria: relevance and development, fluency, intelligibility, grammar, and vocabulary.
 `;
 
-const RUBRIC_WRITE_EMAIL = `
-【写信评分标准 - Official ETS 原文】
-0分：无作答/空白。
-1分：仅有片段，无法理解。
-2分：信息有限，表达不清楚。
-3分：信息明确，表达清晰，结构合理。
-4分：信息完整，论证充分，语言准确，结构良好。
-5分：信息极为丰富，论证深刻，语言优雅，风格贴合写信场景。
-【Typical features】：
-- 主题清晰，目的明确
-- 语法正确，句型多样
-- 语气正式度符合写信场景
+export const RUBRIC_WRITE_EMAIL = `
+Write an Email — score guide summary
+5: Clearly fulfills the purpose with strong development, precise language, suitable tone, and almost no errors.
+4: Fulfills the purpose effectively with adequate development, appropriate language and conventions, and few errors.
+3: Generally completes the task, though development, clarity, tone, or language control is inconsistent.
+2: Attempts the task, but limited or irrelevant development and frequent language problems make the message ineffective.
+1: Makes only a minimal, fragmented attempt with little original content and serious, frequent language problems.
+0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the task.
+Primary criteria: communicative purpose, development, organization, tone, grammar, and vocabulary.
 `;
 
-const RUBRIC_ACADEMIC_DISCUSSION = `
-【学术讨论评分标准 - Official ETS 原文】
-0分：无作答/空白。
-1分：极少信息，无法理解。
-2分：信息有限，表达混乱。
-3分：信息完整，论证清晰，结构合理。
-4分：信息丰富，论证深入，语言准确。
-5分：信息高度综合，观点新颖，论证有力，表达流畅。
-【Typical features】：
-- 关键点提炼准确
-- 论证结构清晰，支持充分
-- 领域术语运用恰当，语言精确
+export const RUBRIC_ACADEMIC_DISCUSSION = `
+Write for an Academic Discussion — score guide summary
+5: Makes a highly relevant, well-developed, and clear contribution with precise language and almost no errors.
+4: Makes a relevant, adequately developed contribution that is easy to understand and contains few language errors.
+3: Makes a mostly relevant contribution, but some support is unclear or missing and errors are noticeable.
+2: Attempts to contribute, but weak or partly irrelevant ideas and accumulated errors hinder understanding.
+1: Offers few coherent ideas, very limited original language, and serious, frequent errors.
+0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the discussion.
+Primary criteria: relevance, development, clarity, syntactic range, vocabulary, and language accuracy.
 `;
 
-// 保留的通用 AI 调用入口
+// Shared AI request helper for optional scoring extensions.
 export async function callAI(apiKey, prompt, options = {}) {
-  if (!apiKey || !prompt) throw new Error('API key 和 prompt 不能为空');
+  if (!apiKey || !prompt) throw new Error('An API key and prompt are required.');
   const {
     endpoint = API_URL,
     model = DEFAULT_MODEL,
@@ -74,13 +65,13 @@ export async function callAI(apiKey, prompt, options = {}) {
     maxTokens = 2048,
     signal: externalSignal
   } = options;
-  if (!ALLOWED_ENDPOINTS.has(endpoint)) throw new Error('AI endpoint 不在允许列表中');
-  if (Buffer.byteLength(prompt, 'utf8') > MAX_PROMPT_BYTES) throw new Error('Prompt 过大');
+  if (!ALLOWED_ENDPOINTS.has(endpoint)) throw new Error('This AI endpoint is not allowed.');
+  if (Buffer.byteLength(prompt, 'utf8') > MAX_PROMPT_BYTES) throw new Error('The prompt is too large.');
   if (!Number.isInteger(maxTokens) || maxTokens < 1 || maxTokens > 8192) {
-    throw new Error('maxTokens 必须是 1 到 8192 之间的整数');
+    throw new Error('maxTokens must be an integer from 1 to 8192.');
   }
   if (!Number.isFinite(temperature) || temperature < 0 || temperature > 2) {
-    throw new Error('temperature 必须在 0 到 2 之间');
+    throw new Error('temperature must be between 0 and 2.');
   }
   const timeoutSignal = AbortSignal.timeout(30_000);
   const signal = externalSignal
@@ -102,96 +93,98 @@ export async function callAI(apiKey, prompt, options = {}) {
   });
 
   const body = await response.text();
-  if (Buffer.byteLength(body, 'utf8') > MAX_RESPONSE_BYTES) throw new Error('AI 响应过大');
+  if (Buffer.byteLength(body, 'utf8') > MAX_RESPONSE_BYTES) {
+    throw new Error('The AI response is too large.');
+  }
   let json;
   try {
     json = JSON.parse(body);
   } catch {
-    throw new Error(`AI 返回了无效的 JSON（HTTP ${response.status}）`);
+    throw new Error(`The AI service returned invalid JSON (HTTP ${response.status}).`);
   }
   if (!response.ok) {
     const error = json || {};
-    throw new Error(error.error?.message || error.message || `API错误: ${response.status}`);
+    throw new Error(error.error?.message || error.message || `API error: ${response.status}`);
   }
 
   if (typeof json.choices?.[0]?.message?.content === 'string') {
     return json.choices[0].message.content;
   }
-  throw new Error('API 返回格式异常');
+  throw new Error('The AI service returned an unexpected response.');
 }
 
-// 将 Total05 转换为 final30 + final6（Speaking）
+// Convert a 0–5 speaking score to the legacy 30-point and 6-point scales.
 export function convertTotal05_to_final30_final6_for_speaking(total05_speaking) {
   const final30_speaking = Math.round(total05_speaking * 6);
   const final6_speaking = Math.round(total05_speaking * 1.2);
   return { final30_speaking, final6_speaking };
 }
 
-// 将 Total05 转换为 final30 + final6（Writing）
+// Convert a 0–5 writing score to the legacy 30-point and 6-point scales.
 export function convertTotal05_to_final30_final6_for_writing(total05_writing) {
   const final30_writing = Math.round(total05_writing * 6);
   const final6_writing = Math.round(total05_writing * 1.2);
   return { final30_writing, final6_writing };
 }
 
-// 评分函数：Listen & Repeat
+// Listen and Repeat scoring extension
 export async function scoreListenAndRepeat(_apiKey, _sentences = [], _userTranscripts = []) {
-  throw new Error('AI 评分扩展尚未启用');
+  throw new Error('AI scoring is not enabled.');
 }
 
-// 评分函数：Take Interview
+// Interview scoring extension
 export async function scoreTakeInterview(_apiKey, _question, _userResponse, _responseTime) {
-  throw new Error('AI 评分扩展尚未启用');
+  throw new Error('AI scoring is not enabled.');
 }
 
-// 评分函数：Write Email
+// Email scoring extension
 export async function scoreWriteEmail(_apiKey, _emailPrompt, _userEssay) {
-  throw new Error('AI 评分扩展尚未启用');
+  throw new Error('AI scoring is not enabled.');
 }
 
-// 评分函数：Academic Discussion
+// Academic Discussion scoring extension
 export async function scoreAcademicDiscussion(_apiKey, _discussionPrompt, _userEssay) {
-  throw new Error('AI 评分扩展尚未启用');
+  throw new Error('AI scoring is not enabled.');
 }
 
 export async function correctSpeaking(_apiKey, _response, _question, _time) {
-  throw new Error('AI 评分扩展尚未启用');
+  throw new Error('AI scoring is not enabled.');
 }
 
-/** 题目解析/答疑：保持不变 */
+/** Explain why an answer is correct. */
 export async function explainQuestion(apiKey, question, userAnswer, correctAnswer) {
-  const prompt = `你是一位托福阅读教学专家。请解释这道题的解题思路。
+  const prompt = `You are an experienced TOEFL reading instructor. Explain how to solve this question.
  
-【题目】
+Question:
 ${question}
  
-【你的答案】
+Student answer:
 ${userAnswer}
  
-【正确答案】
+Correct answer:
 ${correctAnswer}
  
-请用中文简要解释为什么答案是 ${correctAnswer}，解题关键点是什么。控制在100字以内。`;
+In no more than 80 words, explain in clear, concise English why ${correctAnswer} is correct and identify the key clue.`;
 
   return callAI(apiKey, prompt, { maxTokens: 500 });
 }
 
 /**
- * 错题讲解
+ * Explain a mistake and how to avoid it.
  */
 export async function explainMistake(apiKey, question, userAnswer, correctAnswer) {
-  const prompt = `你是一位耐心的托福老师。请详细讲解这道题用户错在哪里，应该如何避免。
+  const prompt = `You are a patient TOEFL instructor. Explain the mistake and how to avoid it next time.
  
-【题目】
+Question:
 ${question}
  
-【用户的错误答案】
+Student answer:
 ${userAnswer}
  
-【正确答案】
+Correct answer:
 ${correctAnswer}
  
-请用中文详细解释错误原因和正确思路，控制在150字以内。`;
+In no more than 120 words, respond in natural English with the source of the error and a better reasoning approach.`;
 
   return callAI(apiKey, prompt, { maxTokens: 600 });
 }

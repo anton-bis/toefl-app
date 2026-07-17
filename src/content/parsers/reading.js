@@ -1,5 +1,5 @@
-import { createExamPages } from '../pages.js';
-import { optionsFrom, sourceMeta, slug } from '../shared.js';
+import { createExamDocument } from '../pages.js';
+import { normalizeMarkdown, optionsFrom, sourceMeta, slug } from '../shared.js';
 
 const TYPES = [
   ['Complete the Words', 'complete-words'],
@@ -71,7 +71,7 @@ export function parseReading(markdown, options = {}) {
   const meta = sourceMeta('reading', options);
   const modules = [];
   const moduleRegex = /^## Module\s+(\d+)([^\n]*)\n([\s\S]*?)(?=^## Module\s+\d+|(?![\s\S]))/gm;
-  for (const moduleMatch of markdown.replace(/\r/g, '').matchAll(moduleRegex)) {
+  for (const moduleMatch of normalizeMarkdown(markdown).matchAll(moduleRegex)) {
     const moduleNumber = Number(moduleMatch[1]);
     const moduleId = `module-${moduleNumber}`;
     const tasks = [];
@@ -124,7 +124,5 @@ export function parseReading(markdown, options = {}) {
     }
     modules.push({ id: moduleId, number: moduleNumber, title: `Module ${moduleNumber}`, tasks });
   }
-  const document = { ...meta, modules };
-  document.pages = createExamPages(document);
-  return document;
+  return createExamDocument(meta, modules);
 }

@@ -9,20 +9,21 @@ defineProps({
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  marks: { type: [Object, Array], default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
+  locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }
 });
 const emit = defineEmits(['answer', 'media-state']);
 </script>
 
 <template>
-  <main class="reading-page main-content" :data-page-id="page.id">
+  <main class="reading-page main-content exam-content-pane" :data-page-id="page.id">
     <CompleteWords
       v-if="task.type === 'complete-words'"
       :task="task"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
     <AcademicPassage
@@ -31,6 +32,7 @@ const emit = defineEmits(['answer', 'media-state']);
       :question="question"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
     <DailyPassage
@@ -39,6 +41,7 @@ const emit = defineEmits(['answer', 'media-state']);
       :question="question"
       :answers="answers"
       :checked="checked"
+      :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
   </main>

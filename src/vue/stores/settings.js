@@ -1,13 +1,9 @@
 import { defineStore } from 'pinia';
 import { readLocalJson, writeLocalJson } from '../platform/localPersistence.js';
+import { normalizeVolume } from '../utils/volume.js';
 
 export const SETTINGS_STORAGE_KEY = 'toefl:settings';
 const SECTIONS = ['reading', 'listening', 'writing', 'speaking'];
-
-function clampVolume(value) {
-  const number = Number(value);
-  return Number.isFinite(number) ? Math.min(1, Math.max(0, number)) : 0.8;
-}
 
 function defaults() {
   return {
@@ -26,7 +22,7 @@ function loadSettings() {
       volumes: {
         ...fallback.volumes,
         ...Object.fromEntries(
-          SECTIONS.map(section => [section, clampVolume(saved?.volumes?.[section])])
+          SECTIONS.map(section => [section, normalizeVolume(saved?.volumes?.[section])])
         )
       }
     };
@@ -42,7 +38,7 @@ export const useSettingsStore = defineStore('settings', {
   },
   actions: {
     setVolume(section, value) {
-      this.volumes[String(section).toLowerCase()] = clampVolume(value);
+      this.volumes[String(section).toLowerCase()] = normalizeVolume(value);
       this.persist();
     },
     applyVolume(media, section) {

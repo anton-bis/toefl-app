@@ -25,14 +25,16 @@ describe('visible content contract', () => {
     expect(introDirections('speaking', {}, { type: 'interview' })[0]).toContain(
       'be sure to speak as much as you can'
     );
-    expect(helpCopy('listening', { type: 'stimulus' }, {})).toContain('自动开始播放音频');
+    expect(helpCopy('listening', { type: 'stimulus' }, {})).toContain('Audio starts automatically');
     expect(helpCopy('reading', { type: 'question' }, { type: 'text-chain' })).toContain(
       'Read the text chain conversation on the left'
     );
     expect(helpCopy('writing', { type: 'question' }, { type: 'write-email' })).toContain(
       'Click Hide Word Count to toggle visibility.'
     );
-    expect(helpCopy('speaking', { type: 'scenario' }, {})).toContain('播报一遍主标题');
+    expect(helpCopy('speaking', { type: 'scenario' }, {})).toContain(
+      'the section title is announced once'
+    );
   });
 
   it('keeps task-specific Ready and expiration actions', () => {
@@ -52,5 +54,6 @@ describe('visible content contract', () => {
     expect(scoreConversionRows.at(-1)).toEqual(['1', '1–1.5', '0–1', '0–2', '0–4', '0–11']);
     expect(changelog.length).toBeGreaterThan(0);
     expect(changelog.every(entry => entry.length === 3 && entry.every(Boolean))).toBe(true);
+    expect(JSON.stringify({ taskTypes, changelog })).not.toMatch(/[\u3400-\u9fff]/u);
   });
 });

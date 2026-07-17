@@ -30,7 +30,7 @@ const examples = computed(() =>
       <button
         class="detail-overlay-backdrop"
         type="button"
-        aria-label="关闭"
+        aria-label="Close"
         @click="$emit('close')"
       ></button>
       <div class="detail-overlay-card">
@@ -58,7 +58,7 @@ const examples = computed(() =>
         <template v-if="word.inflections && Object.values(word.inflections).some(Boolean)"
           ><div class="detail-separator"></div>
           <div class="detail-inflections">
-            <h4>词形变化</h4>
+            <h4>Word Forms</h4>
             <div
               v-for="(value, key) in word.inflections"
               v-show="value"
@@ -72,7 +72,7 @@ const examples = computed(() =>
         <template v-if="Object.values(etymology).some(Boolean)"
           ><div class="detail-separator"></div>
           <div class="detail-etymology">
-            <h4>词根词缀拆解</h4>
+            <h4>Word Parts</h4>
             <div
               v-for="key in ['prefix', 'root', 'suffix']"
               v-show="etymology[key]"
@@ -83,7 +83,7 @@ const examples = computed(() =>
                 typeof etymology[key] === 'string' ? etymology[key] : etymology[key]?.form
               }}</span>
               <span class="etymo-type"
-                >[{{ { prefix: '前缀', root: '词根', suffix: '后缀' }[key] }}]</span
+                >[{{ { prefix: 'Prefix', root: 'Root', suffix: 'Suffix' }[key] }}]</span
               >
               <span class="etymo-meaning">{{ etymology[key]?.meaning || '' }}</span>
             </div>
@@ -93,7 +93,7 @@ const examples = computed(() =>
         <template v-if="examples.length"
           ><div class="detail-separator"></div>
           <div class="detail-example">
-            <h4>例句</h4>
+            <h4>Examples</h4>
             <template v-for="item in examples" :key="item.en"
               ><p class="detail-example-en">{{ item.en }}</p>
               <p v-if="item.cn" class="detail-example-cn">{{ item.cn }}</p></template

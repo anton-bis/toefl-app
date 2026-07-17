@@ -1,7 +1,13 @@
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createMemoryHistory, createRouter } from 'vue-router';
+import SkillPageHeader from '../../src/vue/components/SkillPageHeader.vue';
+import TypingView from '../../src/vue/views/TypingView.vue';
+import VocabularyView from '../../src/vue/views/VocabularyView.vue';
 import ArticleList from '../../src/vue/skills/typing/ArticleList.vue';
+import TypingPractice from '../../src/vue/skills/typing/TypingPractice.vue';
+import WordDetail from '../../src/vue/skills/vocabulary/WordDetail.vue';
 import { classifyError, computeMetrics } from '../../src/vue/skills/typing/logic.js';
 import { TYPING_SESSION_KEY, useTypingStore } from '../../src/vue/skills/typing/store.js';
 import {
@@ -13,7 +19,9 @@ import {
   buildRootCategories,
   dueWordIds,
   makeOptions,
-  scheduleReview
+  scheduleReview,
+  dateKey,
+  wordMeaning
 } from '../../src/vue/skills/vocabulary/logic.js';
 import { VOCAB_SESSION_KEY } from '../../src/vue/skills/vocabulary/storage.js';
 import { useVocabularyStore } from '../../src/vue/skills/vocabulary/store.js';
@@ -26,6 +34,47 @@ const article = {
   wordCount: 1,
   content: 'Ab '
 };
+
+describe('Shared skill workspace', () => {
+  it('renders its action slot and emits a single back action', async () => {
+    const wrapper = mount(SkillPageHeader, {
+      props: { title: 'Focused Practice', backLabel: 'Back to Home' },
+      slots: { actions: '<button class="test-action">History</button>' }
+    });
+
+    expect(wrapper.get('.skill-page-header__title').text()).toBe('Focused Practice');
+    expect(wrapper.get('.test-action').text()).toBe('History');
+    await wrapper.get('.skill-back-button').trigger('click');
+    expect(wrapper.emitted('back')).toHaveLength(1);
+  });
+
+  it.each([
+    ['/skills/typing', TypingView],
+    ['/skills/vocabulary', VocabularyView]
+  ])('returns %s to the named home route', async (path, component) => {
+    installMemoryStorage();
+    await dataRepository.replaceAll({});
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async url => ({
+      ok: true,
+      json: async () => (String(url).includes('corpus.json') ? [] : {})
+    }));
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
+        { path, component }
+      ]
+    });
+    await router.push(path);
+    await router.isReady();
+    const wrapper = mount(component, { global: { plugins: [pinia, router] } });
+
+    await wrapper.get('.skill-back-button').trigger('click');
+    await vi.waitFor(() => expect(router.currentRoute.value.name).toBe('home'));
+  });
+});
 
 describe('Vue typing skill', () => {
   beforeEach(async () => {
@@ -106,6 +155,51 @@ describe('Vue typing skill', () => {
     expect(wrapper.emitted('toggle')[0]).toEqual(['beginner']);
     expect(wrapper.emitted('select')[0]).toEqual([article]);
   });
+
+  it('does not capture keyboard input intended for practice controls', async () => {
+    const store = {
+      article,
+      session: { chars: [] },
+      isPaused: false,
+      remaining: () => 60_000,
+      timeSpent: () => 0,
+      processKey: vi.fn(),
+      retry: vi.fn(),
+      pause: vi.fn(),
+      resume: vi.fn()
+    };
+    const wrapper = mount(TypingPractice, { props: { store } });
+
+    await wrapper.get('.typing-retry-btn').trigger('keydown', { key: 'Enter' });
+
+    expect(store.processKey).not.toHaveBeenCalled();
+    wrapper.unmount();
+  });
+
+  it('restores typing input after restarting from the toolbar', async () => {
+    const store = {
+      article,
+      session: { chars: [] },
+      isPaused: false,
+      remaining: () => 60_000,
+      timeSpent: () => 0,
+      processKey: vi.fn(),
+      retry: vi.fn(),
+      pause: vi.fn(),
+      resume: vi.fn()
+    };
+    const wrapper = mount(TypingPractice, { props: { store }, attachTo: document.body });
+    const retry = wrapper.get('.typing-retry-btn');
+    retry.element.focus();
+
+    await retry.trigger('click');
+    expect(document.activeElement).not.toBe(retry.element);
+    document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'A', bubbles: true }));
+
+    expect(store.retry).toHaveBeenCalledOnce();
+    expect(store.processKey).toHaveBeenCalledWith('A', expect.any(Number));
+    wrapper.unmount();
+  });
 });
 
 describe('Vue vocabulary skill', () => {
@@ -118,6 +212,7 @@ describe('Vue vocabulary skill', () => {
   });
 
   it('implements the SM-2 sequence and failure reset', () => {
+    expect(dateKey(new Date('2026-07-13T12:00:00Z'))).toBe('2026-07-13');
     const first = scheduleReview(5, {}, new Date('2026-07-13T00:00:00Z'));
     const second = scheduleReview(5, first, new Date('2026-07-14T00:00:00Z'));
     const failed = scheduleReview(1, second, new Date('2026-07-20T00:00:00Z'));
@@ -153,7 +248,7 @@ describe('Vue vocabulary skill', () => {
     const words = [1, 2, 3, 4].map(id => ({
       id: String(id),
       word: `w${id}`,
-      pos: [{ translation: `m${id}` }]
+      pos: [{ translation: `meaning ${id}` }]
     }));
     const options = makeOptions(words[0], words, words, 'meaning', () => 0.5);
     expect(options).toHaveLength(4);
@@ -161,12 +256,30 @@ describe('Vue vocabulary skill', () => {
     expect(options.filter(option => option.correct)).toHaveLength(1);
   });
 
+  it('keeps Chinese vocabulary fields available as learning content', () => {
+    const word = {
+      word: 'ability',
+      pos: [{ type: 'n', translation: '能力；才能' }],
+      example: 'She has the ability to adapt.',
+      example_cn: '她有适应能力。'
+    };
+
+    expect(wordMeaning(word)).toBe('能力；才能');
+    const wrapper = mount(WordDetail, {
+      props: { word },
+      global: { stubs: { Teleport: true } }
+    });
+    expect(wrapper.text()).toContain('能力；才能');
+    expect(wrapper.text()).toContain('她有适应能力。');
+    wrapper.unmount();
+  });
+
   it('saves evaluation progress and a compact resumable session', async () => {
     const store = useVocabularyStore();
     store.subject = 'reading';
     store.setId = 1;
     store.currentSetIndex = 0;
-    store.wordData.reading = [{ id: 'a', word: 'ability', pos: [{ translation: '能力' }] }];
+    store.wordData.reading = [{ id: 'a', word: 'ability', pos: [{ translation: 'skill' }] }];
     store.startQueue(store.wordData.reading, 'card-learning');
     store.evaluate(3);
     await vi.waitFor(async () => {
@@ -175,11 +288,11 @@ describe('Vue vocabulary skill', () => {
     await vi.advanceTimersByTimeAsync(300);
     const session = JSON.parse(localStorage.getItem(VOCAB_SESSION_KEY));
     expect(session.queueIds).toEqual(['a']);
-    expect(JSON.stringify(session)).not.toContain('能力');
+    expect(JSON.stringify(session)).not.toContain('skill');
   });
 
   it('loads only the vocabulary manifest until a subject is selected', async () => {
-    const bank = [{ id: 'a', word: 'ability', pos: [{ translation: '能力' }] }];
+    const bank = [{ id: 'a', word: 'ability', pos: [{ translation: 'skill' }] }];
     const fetchMock = vi
       .spyOn(globalThis, 'fetch')
       .mockResolvedValueOnce({ ok: true, json: async () => ({ reading: 1 }) })
@@ -214,5 +327,28 @@ describe('Vue vocabulary skill', () => {
     });
     expect(store.queue.map(word => word._reviewSetId)).toEqual(['set-1', 'set-2']);
     expect(store.currentWord.id).toBe('b');
+  });
+
+  it('returns root-group learning to its group list without rebuilding the hierarchy', () => {
+    const store = useVocabularyStore();
+    const groups = [{ title: 'struct', words: [{ id: 'a', word: 'construct' }] }];
+    store.mode = 'root';
+    store.subject = 'reading';
+    store.page = 'card-learning';
+    store.rootCategory = 'root';
+    store.rootGroups = groups;
+    store.rootGroupTitle = 'struct';
+
+    store.backFromLearning();
+
+    expect(store.page).toBe('set-list');
+    expect(store.rootCategory).toBe('root');
+    expect(store.rootGroups).toStrictEqual(groups);
+
+    store.page = 'card-learning';
+    store.finishQueue();
+    expect(store.page).toBe('set-list');
+    expect(store.rootCategory).toBe('root');
+    expect(store.rootGroups).toStrictEqual(groups);
   });
 });

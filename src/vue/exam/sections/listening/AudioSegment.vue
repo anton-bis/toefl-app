@@ -1,6 +1,8 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
-import { formatMediaTime, resolveMediaSource, segmentDuration } from './helpers.js';
+import { formatMinutesSeconds } from '../../../utils/time.js';
+import { normalizeVolume } from '../../../utils/volume.js';
+import { resolveMediaSource, segmentDuration } from './helpers.js';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -18,13 +20,11 @@ const progress = computed(() =>
   duration.value ? Math.min(100, (elapsed.value / duration.value) * 100) : 0
 );
 
-watch(
-  () => props.volume,
-  value => {
-    if (audio.value) audio.value.volume = Math.max(0, Math.min(1, value));
-  },
-  { immediate: true }
-);
+function applyVolume(value) {
+  if (audio.value) audio.value.volume = normalizeVolume(value);
+}
+
+watch(() => props.volume, applyVolume, { immediate: true });
 watch(source, () => reset(), { flush: 'post' });
 
 function publish(next, extra = {}) {
@@ -51,7 +51,7 @@ async function play() {
   if (!audio.value || !source.value || (props.playOnce && status.value === 'ended')) return;
   const start = Number(props.media?.start || 0);
   if (status.value === 'idle' || audio.value.currentTime < start) audio.value.currentTime = start;
-  audio.value.volume = Math.max(0, Math.min(1, props.volume));
+  applyVolume(props.volume);
   try {
     await audio.value.play();
     publish('playing');
@@ -67,11 +67,13 @@ function loaded() {
 }
 
 function timeupdate() {
+  const element = audio.value;
+  if (!element) return;
   const start = Number(props.media?.start || 0);
-  elapsed.value = Math.max(0, (audio.value?.currentTime || 0) - start);
-  duration.value ||= segmentDuration(props.media, audio.value?.duration);
+  elapsed.value = Math.max(0, element.currentTime - start);
+  duration.value ||= segmentDuration(props.media, element.duration);
   const end = Number(props.media?.end);
-  if (Number.isFinite(end) && audio.value.currentTime >= end) finish();
+  if (Number.isFinite(end) && element.currentTime >= end) finish();
 }
 
 function finish() {
@@ -109,7 +111,9 @@ onBeforeUnmount(() => {
     <div class="audio-progress-bar">
       <div class="audio-progress-fill" :style="{ width: `${progress}%` }"></div>
     </div>
-    <div class="audio-time">{{ formatMediaTime(elapsed) }} / {{ formatMediaTime(duration) }}</div>
+    <div class="audio-time">
+      {{ formatMinutesSeconds(elapsed) }} / {{ formatMinutesSeconds(duration) }}
+    </div>
     <audio
       ref="audio"
       :src="source"

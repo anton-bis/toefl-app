@@ -5,6 +5,19 @@ let listenersInstalled = false;
 
 const available = () => typeof localStorage !== 'undefined';
 
+export function isPlainObject(value) {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+export function isSafeStorageKey(value) {
+  return (
+    typeof value === 'string' &&
+    value.length > 0 &&
+    value.length <= 200 &&
+    !Object.prototype.hasOwnProperty.call(Object.prototype, value)
+  );
+}
+
 function commit(key, serialized) {
   if (!available() || suspended) return false;
   if (lastValues.get(key) === serialized || localStorage.getItem(key) === serialized) {
@@ -20,6 +33,10 @@ function commit(key, serialized) {
   }
 }
 
+function commitJson(key, value) {
+  return commit(key, JSON.stringify(value));
+}
+
 export function readLocalJson(key, fallback) {
   if (!available()) return fallback;
   try {
@@ -31,7 +48,7 @@ export function readLocalJson(key, fallback) {
 
 export function writeLocalJson(key, value) {
   cancelLocalWrite(key);
-  return commit(key, JSON.stringify(value));
+  return commitJson(key, value);
 }
 
 export function scheduleLocalJson(key, value, delay = 300) {
@@ -42,7 +59,7 @@ export function scheduleLocalJson(key, value, delay = 300) {
     value,
     timer: setTimeout(() => {
       pendingWrites.delete(key);
-      commit(key, JSON.stringify(value));
+      commitJson(key, value);
     }, delay)
   });
 }
@@ -64,7 +81,7 @@ export function flushLocalWrites() {
   pendingWrites.clear();
   writes.forEach(([key, pending]) => {
     clearTimeout(pending.timer);
-    commit(key, JSON.stringify(pending.value));
+    commitJson(key, pending.value);
   });
 }
 

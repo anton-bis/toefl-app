@@ -1,6 +1,10 @@
 /** Normalize Markdown before parsing it. */
+export function normalizeMarkdown(markdown) {
+  return String(markdown).replace(/\r\n?/g, '\n');
+}
+
 export function linesOf(markdown) {
-  return String(markdown).replace(/\r\n?/g, '\n').split('\n');
+  return normalizeMarkdown(markdown).split('\n');
 }
 
 export function seconds(value) {

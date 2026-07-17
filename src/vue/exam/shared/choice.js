@@ -8,9 +8,13 @@ export function checkedQuestion(checked, questionId) {
   return Boolean(checked && typeof checked === 'object' && checked[questionId]);
 }
 
-export function optionState(question, answers, checked, optionId) {
+export function optionState(question, answers, checked, locked, optionId) {
   const selected = selectedAnswer(answers, question.id);
-  if (!checkedQuestion(checked, question.id)) return selected === optionId ? 'selected' : '';
+  if (!checkedQuestion(checked, question.id)) {
+    const classes = selected === optionId ? ['selected'] : [];
+    if (checkedQuestion(locked, question.id)) classes.push('locked');
+    return classes.join(' ');
+  }
   if (optionId === question.answer) return 'correct locked';
   if (selected === optionId) return 'incorrect locked';
   return 'locked';

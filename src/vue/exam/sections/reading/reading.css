@@ -264,6 +264,32 @@
   color: white;
   background: #008080;
 }
+@media (min-width: 801px) {
+  .reading-page {
+    display: flex;
+  }
+  .reading-page .academic-reading-page,
+  .reading-page .daily-reading-page,
+  .reading-page .complete-words-page {
+    min-height: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .reading-page .two-column-layout {
+    min-height: 0;
+    flex: 1;
+  }
+  .reading-page .complete-words-page .question-paragraph {
+    flex: 1;
+  }
+  .reading-page .academic-reading-page .left-column {
+    overflow: hidden;
+  }
+  .reading-page .academic-passage-container {
+    height: 100%;
+  }
+}
 @media (max-width: 800px) {
   .reading-page .two-column-layout {
     flex-direction: column;

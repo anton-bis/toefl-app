@@ -5,6 +5,10 @@ export const SUBJECT_LABELS = {
   speaking: 'Speaking',
   writing: 'Writing'
 };
+
+export function dateKey(date = new Date()) {
+  return date.toISOString().slice(0, 10);
+}
 export const RECOMMENDED_ROOTS = [
   'struct',
   'aud',
@@ -64,7 +68,7 @@ export function scheduleReview(quality, previous = {}, today = new Date()) {
     ef: Math.round(ef * 100) / 100,
     interval,
     repetitions,
-    nextReview: next.toISOString().slice(0, 10),
+    nextReview: dateKey(next),
     lastQ: quality
   };
 }
@@ -137,19 +141,14 @@ export function buildRootCategories(words) {
     wordCount: values.reduce((sum, group) => sum + group.words.length, 0)
   });
   return [
-    category('prefix', '前缀', groups('prefix')),
-    category('suffix', '后缀', groups('suffix')),
-    { ...category('root', '词根', roots), recommendedGroups: recommended, moreGroups: more },
-    { id: 'other', type: 'category', title: '其他', words: other, wordCount: other.length }
+    category('prefix', 'Prefixes', groups('prefix')),
+    category('suffix', 'Suffixes', groups('suffix')),
+    { ...category('root', 'Roots', roots), recommendedGroups: recommended, moreGroups: more },
+    { id: 'other', type: 'category', title: 'Other', words: other, wordCount: other.length }
   ];
 }
 
-export function dueWordIds(
-  progress,
-  subject,
-  wordIds,
-  today = new Date().toISOString().slice(0, 10)
-) {
+export function dueWordIds(progress, subject, wordIds, today = dateKey()) {
   const allowed = new Set(wordIds);
   const seen = new Set();
   const due = [];

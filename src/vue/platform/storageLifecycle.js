@@ -26,7 +26,7 @@ export async function initializeDataStorage(
     open: openDataDatabase
   }
 ) {
-  if (!storage) throw new Error('LocalStorage 不可用，无法初始化用户数据');
+  if (!storage) throw new Error('Local storage isn\'t available, so your data can\'t be loaded');
   if (storage.getItem(STORAGE_READY_KEY) === '1') {
     await services.open();
     installPersistenceListeners();

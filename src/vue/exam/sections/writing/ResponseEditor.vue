@@ -138,6 +138,7 @@ function keyboard(event) {
   display: flex;
   flex-direction: column;
   min-height: 260px;
+  container-type: inline-size;
 }
 .toolbar {
   background: #f0f0f2;
@@ -201,6 +202,21 @@ textarea {
   .toolbar > div {
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+}
+@container (max-width: 600px) {
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .toolbar > div {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 801px) {
+  :global(.exam-page--contained) .editor {
+    min-height: 0;
   }
 }
 </style>

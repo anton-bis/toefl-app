@@ -13,15 +13,15 @@ const props = defineProps({
   canNext: { type: Boolean, default: true },
   showVolume: { type: Boolean, default: true },
   showBack: { type: Boolean, default: true },
-  showReview: { type: Boolean, default: true },
-  showCheck: { type: Boolean, default: true }
+  showQuestions: { type: Boolean, default: false },
+  showResults: { type: Boolean, default: false }
 });
 const emit = defineEmits([
   'exit',
   'volume',
   'help',
-  'review',
-  'check',
+  'questions',
+  'results',
   'back',
   'next',
   'toggle-time',
@@ -55,20 +55,20 @@ const { display: timeText, urgent } = useExamTimer(() => props.timer, {
         <span>Help</span><i class="fas fa-question-circle" aria-hidden="true" />
       </button>
       <button
-        v-if="showReview"
+        v-if="showQuestions"
         class="exam-nav-button exam-nav-button--dark"
         type="button"
-        @click="$emit('review')"
+        @click="$emit('questions')"
       >
-        <span>Review</span><i class="fas fa-flag" aria-hidden="true" />
+        <span>Questions</span><i class="fas fa-list-check" aria-hidden="true" />
       </button>
       <button
-        v-if="showCheck"
+        v-if="showResults"
         class="exam-nav-button exam-nav-button--dark"
         type="button"
-        @click="$emit('check')"
+        @click="$emit('results')"
       >
-        <span>Check Answers</span><i class="fas fa-check-circle" aria-hidden="true" />
+        <span>Results</span><i class="fas fa-chart-bar" aria-hidden="true" />
       </button>
       <button
         v-if="showBack"

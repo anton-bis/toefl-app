@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import SkillPageHeader from '../../components/SkillPageHeader.vue';
 import { DIFFICULTIES, DIFFICULTY_CONFIG } from './logic.js';
 
 const props = defineProps({
@@ -29,10 +30,14 @@ const chart = computed(() => {
 </script>
 
 <template>
-  <div class="typing-progress">
-    <div class="typing-progress-header">
-      <button class="typing-back-btn" type="button" @click="$emit('back')">← Back</button>
-    </div>
+  <SkillPageHeader
+    title="Progress"
+    subtitle="Track your speed and accuracy over time."
+    back-label="All Passages"
+    compact
+    @back="$emit('back')"
+  />
+  <div class="typing-progress skill-content">
     <div class="typing-progress-tabs">
       <button
         v-for="difficulty in DIFFICULTIES"
@@ -70,13 +75,13 @@ const chart = computed(() => {
             :y1="20 + ((line - 1) / 3) * 152"
             x2="484"
             :y2="20 + ((line - 1) / 3) * 152"
-            stroke="#e5e5e7"
+            stroke="var(--skill-border)"
             stroke-dasharray="4,4"
           />
           <polyline
             :points="chart.polyline"
             fill="none"
-            stroke="#008080"
+            stroke="var(--skill-accent)"
             stroke-width="2"
             stroke-linejoin="round"
           />
@@ -86,8 +91,8 @@ const chart = computed(() => {
             :cx="point.x"
             :cy="point.y"
             r="4.5"
-            fill="#fff"
-            stroke="#008080"
+            fill="var(--skill-surface)"
+            stroke="var(--skill-accent)"
             stroke-width="2"
           />
         </svg>

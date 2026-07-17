@@ -1,8 +1,8 @@
 /**
- * TPO 词库提取脚本
- * 从 TPO 题库 Markdown 中提取 B1+ 词汇，按科目分类
+ * TPO vocabulary extraction script.
+ * Extracts B1+ vocabulary from TPO Markdown and groups it by section.
  *
- * 用法: node scripts/extract-vocabulary.js
+ * Usage: node scripts/extract-vocabulary.js
  */
 
 import fs from 'fs';
@@ -285,7 +285,7 @@ function extractVocabulary(subject) {
   if (!parser) throw new Error(`Unknown subject: ${subject}`);
 
   const files = scanTpoFiles(subject);
-  log(`${subject}: 找到 ${files.length} 个文件`);
+  log(`${subject}: found ${files.length} files`);
 
   const wordFreq = {};  // word -> { count, examples, sources }
   const wordSources = {};
@@ -329,7 +329,7 @@ function extractVocabulary(subject) {
   const sortedWords = filteredWords
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-  log(`${subject}: 提取到 ${sortedWords.length} 个 B1+ 词汇（过滤前 ${Object.keys(wordFreq).length} 个）`);
+  log(`${subject}: extracted ${sortedWords.length} B1+ words from ${Object.keys(wordFreq).length} candidates`);
 
   // Build word entries
   const entries = sortedWords.map(([word], index) => ({
@@ -358,7 +358,7 @@ function extractVocabulary(subject) {
     });
   }
 
-  log(`${subject}: 分为 ${sets.length} 个 Set（每 Set ${SET_SIZE} 词）`);
+  log(`${subject}: split into ${sets.length} sets of up to ${SET_SIZE} words`);
   return { sets, entries };
 }
 
@@ -369,11 +369,11 @@ function ensureDir(dir) {
 }
 
 async function main() {
-  log('开始 TPO 词库提取...');
-  log(`TPO 目录: ${TPO_DIR}`);
-  log(`输出目录: ${OUTPUT_DIR}`);
-  log(`CEFR 排除词表: ${cefrSet.size} 词`);
-  log(`每 Set: ${SET_SIZE} 词\n`);
+  log('Starting TPO vocabulary extraction...');
+  log(`TPO directory: ${TPO_DIR}`);
+  log(`Output directory: ${OUTPUT_DIR}`);
+  log(`CEFR exclusion list: ${cefrSet.size} words`);
+  log(`Words per set: ${SET_SIZE}\n`);
 
   ensureDir(OUTPUT_DIR);
 
@@ -381,13 +381,13 @@ async function main() {
   const allStats = {};
 
   for (const subject of subjects) {
-    log(`===== 处理 ${subject} =====`);
+    log(`===== Processing ${subject} =====`);
     const result = extractVocabulary(subject);
 
     // Write full vocabulary JSON
     const outputPath = path.join(OUTPUT_DIR, `${subject}-words.json`);
     fs.writeFileSync(outputPath, JSON.stringify(result.entries, null, 2), 'utf-8');
-    log(`写入: ${outputPath} (${result.entries.length} 词)`);
+    log(`Wrote ${outputPath} (${result.entries.length} words)`);
 
     allStats[subject] = {
       totalWords: result.entries.length,
@@ -396,14 +396,14 @@ async function main() {
   }
 
   // Write summary
-  log('\n===== 提取完成 =====');
+  log('\n===== Extraction complete =====');
   for (const [subject, stats] of Object.entries(allStats)) {
-    log(`${subject}: ${stats.totalWords} 词, ${stats.totalSets} 个 Set`);
+    log(`${subject}: ${stats.totalWords} words across ${stats.totalSets} sets`);
   }
 
   const grandTotal = Object.values(allStats).reduce((s, v) => s + v.totalWords, 0);
   const grandSets = Object.values(allStats).reduce((s, v) => s + v.totalSets, 0);
-  log(`总计: ${grandTotal} 词, ${grandSets} 个 Set`);
+  log(`Total: ${grandTotal} words across ${grandSets} sets`);
 
   const manifest = {};
   for (const subject of subjects) {
@@ -411,7 +411,7 @@ async function main() {
     manifest[subject] = entries.length;
   }
   fs.writeFileSync(path.join(OUTPUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf-8');
-  log(`写入: ${path.join(OUTPUT_DIR, 'manifest.json')}`);
+  log(`Wrote ${path.join(OUTPUT_DIR, 'manifest.json')}`);
 }
 
 main().catch(err => {
