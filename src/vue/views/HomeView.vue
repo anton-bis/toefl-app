@@ -13,6 +13,7 @@ const catalog = useCatalogStore();
 const panel = ref('mock');
 const modal = ref('');
 const pendingExam = ref(null);
+const restartConfirm = ref(false);
 const sections = [
   ['reading', 'Reading'],
   ['listening', 'Listening'],
@@ -21,27 +22,76 @@ const sections = [
 ];
 
 const tests = computed(() => catalog.tests);
+const practiceState = computed(() => {
+  const completed = pendingExam.value?.status === 'completed';
+  if (completed) {
+    return {
+      completed,
+      subtitle: 'You have completed this section.',
+      primaryAction: 'results',
+      primaryIcon: 'fas fa-chart-bar',
+      primaryTitle: 'View Results',
+      primaryHint: 'Review your score and answers.',
+      restartTitle: 'Retake Section',
+      restartVerb: 'Retake'
+    };
+  }
+  return {
+    completed,
+    subtitle: 'You have an unfinished attempt.',
+    primaryAction: 'continue',
+    primaryIcon: 'fas fa-play',
+    primaryTitle: 'Continue Attempt',
+    primaryHint: 'Return to where you left off.',
+    restartTitle: 'Restart Section',
+    restartVerb: 'Restart'
+  };
+});
+const restartWarning = computed(() => {
+  if (!pendingExam.value) return '';
+  const recordings = pendingExam.value.section === 'speaking' ? ', including recordings' : '';
+  return practiceState.value.completed
+    ? `This permanently deletes this completed attempt, its score, and saved answers${recordings}.`
+    : `This permanently deletes your saved answers and timer data${recordings}.`;
+});
 const sectionLabel = section => sections.find(([id]) => id === section)?.[1] || section;
 
 function openExam(tpoId, section) {
-  const hasData = readExamSession(tpoId, section)?.status === 'in-progress';
-  pendingExam.value = { tpoId, section, hasData };
+  const session = readExamSession(tpoId, section);
+  if (!['in-progress', 'completed'].includes(session?.status)) {
+    router.push(`/exam/${tpoId}/${section}/start`);
+    return;
+  }
+  restartConfirm.value = false;
+  pendingExam.value = { tpoId, section, status: session.status, pageId: session.pageId };
 }
 
-async function resumeExam(mode = 'start') {
+function closePractice() {
+  restartConfirm.value = false;
+  pendingExam.value = null;
+}
+
+function selectExamAction(action) {
+  if (!pendingExam.value) return;
+  const { tpoId, section, pageId } = pendingExam.value;
+  if (action === 'restart') {
+    restartConfirm.value = true;
+    return;
+  }
+  closePractice();
+  const target = action === 'results' ? 'results?mode=report' : pageId || 'start';
+  router.push(`/exam/${tpoId}/${section}/${target}`);
+}
+
+async function confirmRestart() {
   if (!pendingExam.value) return;
   const { tpoId, section } = pendingExam.value;
-  let pageId = 'start';
-  if (mode !== 'continue') {
-    removeExamSession(tpoId, section);
-    if (section === 'speaking') {
-      await recordingRepository.removeSession(`tpo-${tpoId}-speaking`).catch(() => {});
-    }
-  } else {
-    pageId = readExamSession(tpoId, section)?.pageId || 'start';
+  removeExamSession(tpoId, section);
+  if (section === 'speaking') {
+    await recordingRepository.removeSession(`tpo-${tpoId}-speaking`).catch(() => {});
   }
-  pendingExam.value = null;
-  router.push(`/exam/${tpoId}/${section}/${pageId}`);
+  closePractice();
+  router.push(`/exam/${tpoId}/${section}/start`);
 }
 
 function openReport(test) {
@@ -354,7 +404,7 @@ function hasReport(test) {
       v-if="pendingExam"
       class="practice-overlay"
       role="presentation"
-      @mousedown.self="pendingExam = null"
+      @mousedown.self="closePractice"
     >
       <section
         class="practice-box"
@@ -366,62 +416,51 @@ function hasReport(test) {
           class="modal-close practice-close"
           type="button"
           aria-label="Close"
-          @click="pendingExam = null"
+          @click="closePractice"
         >
           <i class="fas fa-times"></i>
         </button>
-        <h2>
-          TPO {{ pendingExam.tpoId }} ·
-          {{ sectionLabel(pendingExam.section) }}
-        </h2>
-        <p class="practice-sub">
-          {{
-            pendingExam.hasData
-              ? 'You have an unfinished attempt. Choose how to continue.'
-              : 'Choose a practice mode.'
-          }}
-        </p>
-        <button
-          class="practice-option-card active start-option"
-          type="button"
-          @click="resumeExam('start')"
-        >
-          <span class="opt-icon"><i class="fas fa-play"></i></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Start New</strong
-            ><small class="opt-hint">Begin again from Question 1.</small></span
+        <template v-if="!restartConfirm">
+          <h2>
+            TPO {{ pendingExam.tpoId }} ·
+            {{ sectionLabel(pendingExam.section) }}
+          </h2>
+          <p class="practice-sub">{{ practiceState.subtitle }}</p>
+          <button
+            class="practice-option-card active"
+            type="button"
+            @click="selectExamAction(practiceState.primaryAction)"
           >
-        </button>
-        <button
-          class="practice-option-card"
-          :class="pendingExam.hasData ? 'active' : 'disabled'"
-          type="button"
-          :disabled="!pendingExam.hasData"
-          @click="resumeExam('continue')"
-        >
-          <span class="opt-icon"
-            ><i :class="pendingExam.hasData ? 'fas fa-play' : 'fas fa-lock'"></i
-          ></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Resume</strong
-            ><small class="opt-hint">Continue where you left off.</small></span
+            <span class="opt-icon"><i :class="practiceState.primaryIcon"></i></span>
+            <span class="opt-body">
+              <strong class="opt-title">{{ practiceState.primaryTitle }}</strong>
+              <small class="opt-hint">{{ practiceState.primaryHint }}</small>
+            </span>
+          </button>
+          <button
+            class="practice-option-card danger active"
+            type="button"
+            @click="selectExamAction('restart')"
           >
-        </button>
-        <button
-          class="practice-option-card danger"
-          :class="pendingExam.hasData ? 'active' : 'disabled'"
-          type="button"
-          :disabled="!pendingExam.hasData"
-          @click="resumeExam('restart')"
-        >
-          <span class="opt-icon"
-            ><i :class="pendingExam.hasData ? 'fas fa-redo-alt' : 'fas fa-lock'"></i
-          ></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Start Over</strong
-            ><small class="opt-hint">Delete this attempt and begin again.</small></span
-          >
-        </button>
+            <span class="opt-icon"><i class="fas fa-redo-alt"></i></span>
+            <span class="opt-body">
+              <strong class="opt-title">{{ practiceState.restartTitle }}</strong>
+              <small class="opt-hint">Start again from Question 1.</small>
+            </span>
+          </button>
+        </template>
+        <template v-else>
+          <h2>{{ practiceState.restartVerb }} {{ sectionLabel(pendingExam.section) }}?</h2>
+          <p class="practice-confirm-copy">{{ restartWarning }}</p>
+          <div class="practice-confirm-actions">
+            <button type="button" class="practice-cancel" @click="restartConfirm = false">
+              Keep Attempt
+            </button>
+            <button type="button" class="practice-restart" @click="confirmRestart">
+              {{ practiceState.restartTitle }}
+            </button>
+          </div>
+        </template>
       </section>
     </div>
   </div>

@@ -411,7 +411,6 @@
 .practice-option-card:last-child {
   margin-bottom: 0;
 }
-.practice-option-card.start-option,
 .practice-option-card.active:hover {
   border-color: var(--teal);
   box-shadow: 0 2px 10px rgba(0, 128, 128, 0.1);
@@ -458,16 +457,31 @@
   font-size: 14px;
   font-weight: 400;
 }
-.practice-option-card.disabled {
-  opacity: 0.4;
-  pointer-events: none;
+.practice-confirm-copy {
+  margin: 12px 0 22px;
+  color: #555;
+  line-height: 1.55;
+  text-align: center;
 }
-.practice-option-card.disabled .opt-icon {
+.practice-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.practice-confirm-actions button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.practice-cancel {
   background: #f0f0f2;
-  color: #bbb;
+  color: var(--text);
 }
-.practice-option-card.disabled .opt-title {
-  color: #bbb;
+.practice-restart {
+  background: #c9342d;
+  color: white;
 }
 @media (max-width: 900px) {
   .sidebar {
