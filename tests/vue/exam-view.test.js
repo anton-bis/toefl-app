@@ -245,6 +245,29 @@ describe('ExamView route guard and flow', () => {
     await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
     expect(wrapper.find('.exam-page--contained').exists()).toBe(true);
     expect(wrapper.text()).not.toContain('Check Answers');
+    const header = wrapper.findComponent(ExamHeader);
+    expect(header.find('.exam-header__brand button').exists()).toBe(false);
+    expect(header.find('.exam-header__actions button').text()).toContain('Exit');
+  });
+
+  it('exits directly before a section starts', async () => {
+    const { wrapper, router } = await mountRoute('/exam/03/reading/start');
+    await clickButton(wrapper.element, 'Exit');
+    expect(router.currentRoute.value.path).toBe('/');
+    expect(localStorage.getItem(examStorageKey('03', 'reading'))).toBeNull();
+  });
+
+  it('can save and exit from the module confirmation', async () => {
+    const { wrapper, router } = await mountRoute('/exam/03/reading/start');
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(globalThis.document, 'Exit Test');
+    expect(globalThis.document.body.textContent).toContain('Your progress has been saved.');
+    await clickButton(globalThis.document, 'Save & Exit');
+    expect(router.currentRoute.value.path).toBe('/');
+    expect(JSON.parse(localStorage.getItem(examStorageKey('03', 'reading'))).status).toBe(
+      'in-progress'
+    );
   });
 
   it('uses Questions as a current-module navigator with per-question marks', async () => {

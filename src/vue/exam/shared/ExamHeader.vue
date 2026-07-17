@@ -38,11 +38,15 @@ const { display: timeText, urgent } = useExamTimer(() => props.timer, {
   <header class="exam-header">
     <div class="exam-header__brand">
       <strong>toefl ibt</strong>
-      <button class="exam-nav-button exam-nav-button--dark" type="button" @click="$emit('exit')">
-        <span>Exit</span><i class="fas fa-sign-out-alt" aria-hidden="true" />
-      </button>
     </div>
     <nav class="exam-header__actions" aria-label="Exam actions">
+      <button
+        class="exam-nav-button exam-nav-button--dark exam-nav-button--exit"
+        type="button"
+        @click="$emit('exit')"
+      >
+        <span>Exit</span><i class="fas fa-sign-out-alt" aria-hidden="true" />
+      </button>
       <button
         v-if="showVolume"
         class="exam-nav-button exam-nav-button--dark"

@@ -118,6 +118,9 @@ body:has(.exam-overlay) {
 .exam-nav-button--dark {
   background: rgba(255, 255, 255, 0.14);
 }
+.exam-nav-button--exit {
+  margin-right: 6px;
+}
 .exam-nav-button--light {
   background: #fff;
   color: var(--exam-teal-dark);
@@ -717,6 +720,9 @@ button:disabled {
   }
   .exam-nav-button {
     padding: 7px 10px;
+  }
+  .exam-nav-button--exit {
+    margin-right: 0;
   }
   .exam-nav-button span {
     display: none;

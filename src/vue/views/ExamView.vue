@@ -397,11 +397,17 @@ function finishExpired() {
 }
 
 function requestExit() {
+  readyOpen.value = false;
   if (readOnlyMode.value) {
     routeTo('results');
     return;
   }
-  if (!sectionBusy.value) exitOpen.value = true;
+  if (sectionBusy.value) return;
+  if (session.value?.status === 'not-started') {
+    router.push('/');
+    return;
+  }
+  exitOpen.value = true;
 }
 
 function saveAndExit() {
@@ -472,6 +478,7 @@ watch(
       :page="instructionPage"
       :task="task"
       @begin="beginInstruction"
+      @exit="requestExit"
       @help="helpOpen = true"
       @volume="volumeOpen = true"
     />
@@ -588,6 +595,7 @@ watch(
     >
       <p class="ready-copy">{{ readyMessage }}</p>
       <template #actions>
+        <button class="exam-secondary-button" type="button" @click="requestExit">Exit Test</button>
         <button
           class="exam-primary-button"
           type="button"
