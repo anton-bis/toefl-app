@@ -364,78 +364,85 @@ button:disabled {
   min-height: 0;
   flex: 1;
   overflow: auto;
-  padding: 12px 22px;
+  padding: 18px 22px 22px;
   display: grid;
-  gap: 7px;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  align-content: start;
+  gap: 10px;
 }
 .question-navigator__header {
   flex: none;
 }
 .question-navigator__item {
   width: 100%;
-  border: 1px solid var(--exam-border);
-  border-radius: 6px;
-  background: #fff;
-  display: flex;
-  align-items: center;
+  min-height: 82px;
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #f5f5f7;
   overflow: hidden;
 }
 .question-navigator__item.current {
-  border-color: var(--exam-teal);
-  box-shadow: 0 0 0 1px var(--exam-teal);
+  background: #eaf7f7;
+  box-shadow: inset 0 3px var(--exam-teal);
 }
 .question-navigator__item.marked {
-  background: #fff9df;
+  background: #fff8df;
+}
+.question-navigator__item:hover {
+  border-color: #d1d1d6;
+  background: #eeeef1;
+}
+.question-navigator__item.current:hover {
+  border-color: transparent;
+  background: #e1f2f2;
 }
 .question-navigator__question {
-  min-width: 0;
-  flex: 1;
-  padding: 10px;
+  width: 100%;
+  min-height: 82px;
+  padding: 12px 34px 10px 12px;
   border: 0;
   background: transparent;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
   color: inherit;
   text-align: left;
   cursor: pointer;
 }
 .question-navigator__number {
-  width: 28px;
-  height: 28px;
-  flex: 0 0 28px;
-  border-radius: 50%;
-  background: #e8e8ea;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
+  line-height: 1;
 }
 .question-navigator__item.answered .question-navigator__number {
-  background: #d4edda;
-  color: #155724;
-}
-.question-navigator__label {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #22863a;
 }
 .question-navigator__question small {
   color: var(--exam-muted);
+  font-size: 11px;
 }
 .question-navigator__mark {
-  align-self: stretch;
-  width: 46px;
-  flex: 0 0 46px;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  top: 7px;
+  right: 7px;
   border: 0;
-  border-left: 1px solid var(--exam-border);
+  border-radius: 50%;
   background: transparent;
   color: var(--exam-muted);
   cursor: pointer;
 }
+.question-navigator__mark:hover {
+  color: #9a6700;
+  background: #fff0b3;
+}
 .question-navigator__mark.active {
-  color: #ca8a04;
+  color: #9a6700;
+  background: #ffe58f;
 }
 
 .exam-introduction {
