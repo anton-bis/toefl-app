@@ -276,6 +276,7 @@ describe('listening section', () => {
       }
     });
     expect(wrapper.find('.listening-stimulus').exists()).toBe(true);
+    expect(wrapper.find('.listening-stimulus-card').classes()).toContain('listening-surface');
     expect(wrapper.find('audio').attributes('src')).toContain('talk.ogg');
     await wrapper.setProps({
       page: { id: talkQuestion.id, type: 'question' },

@@ -36,23 +36,25 @@ const title = computed(() =>
       <div class="passage-title-area">
         <h2 class="passage-title">{{ title }}</h2>
       </div>
-      <div class="speaker-area">
-        <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
-        <div class="speaker-label">Speaker</div>
+      <div class="listening-surface listening-stimulus-card">
+        <div class="speaker-area">
+          <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
+          <div class="speaker-label">Speaker</div>
+        </div>
+        <AudioSegment
+          :document="document"
+          :media="task.media"
+          :volume="volume"
+          @media-state="emit('media-state', $event)"
+        />
       </div>
-      <AudioSegment
-        :document="document"
-        :media="task.media"
-        :volume="volume"
-        @media-state="emit('media-state', $event)"
-      />
     </section>
 
     <section
       v-else-if="task.type === 'listen-response'"
       class="listen-response-layout two-column-layout"
     >
-      <div class="left-column">
+      <div class="left-column listening-visual-panel">
         <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
         <AudioSegment
@@ -81,7 +83,7 @@ const title = computed(() =>
     </section>
 
     <section v-else class="listening-question-layout two-column-layout">
-      <div class="left-column">
+      <div class="left-column listening-visual-panel">
         <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
       </div>
