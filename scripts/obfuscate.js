@@ -155,11 +155,6 @@ async function main() {
   console.log(`❌ Failed: ${errorCount} files`);
   console.log(`📁 Total: ${allFiles.length} files`);
 
-  // Create the obfuscation marker.
-  const markerFile = path.join(distDir, '.obfuscated');
-  fs.writeFileSync(markerFile, `Completed: ${new Date().toISOString()}\nFiles: ${successCount}`);
-  console.log(`\n🏷️  Created obfuscation marker: ${markerFile}`);
-
   if (errorCount > 0) {
     console.warn('\n⚠️  Some files could not be obfuscated. Review the errors above.');
     process.exit(1);

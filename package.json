@@ -5,6 +5,7 @@
   "main": "electron/main.js",
   "type": "module",
   "productName": "TOEFL iBT Practice",
+  "desktopName": "toefl-practice",
   "author": "anton-bis",
   "license": "MIT",
   "scripts": {
@@ -22,6 +23,10 @@
     "electron:prepare": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js",
     "electron:build": "npm run electron:prepare && electron-builder",
     "electron:pack": "npm run electron:prepare && electron-builder --dir",
+    "release:windows": "electron-builder --win nsis --x64 --publish never",
+    "release:linux": "electron-builder --linux AppImage --x64 --publish never",
+    "release:macos": "electron-builder --mac dmg zip --universal --publish never",
+    "release:manifest": "node scripts/prepare-release.js release-files",
     "perf:baseline": "cross-env ELECTRON=true npm run build && node scripts/measure-electron.js",
     "obfuscate": "node scripts/obfuscate.js"
   },
@@ -73,8 +78,9 @@
   },
   "homepage": "https://github.com/anton-bis/toefl-app#readme",
   "build": {
-    "appId": "com.yourcompany.toeflpracticesystem",
+    "appId": "io.github.antonbis.toeflpractice",
     "productName": "TOEFL iBT Practice",
+    "executableName": "toefl-practice",
     "directories": {
       "output": "release"
     },
@@ -96,33 +102,37 @@
       "package.json"
     ],
     "mac": {
-      "identity": null,
       "category": "public.app-category.education",
       "target": [
         "dmg",
         "zip"
       ],
       "icon": "assets/icons/icon.png",
-      "artifactName": "toefl-practice-system-${version}-mac.${ext}"
+      "artifactName": "TOEFL-iBT-Practice-${version}-macos-${arch}.${ext}"
     },
     "win": {
       "target": "nsis",
-      "icon": "assets/icons/icon.ico"
+      "icon": "assets/icons/icon.ico",
+      "artifactName": "TOEFL-iBT-Practice-${version}-windows-${arch}.${ext}"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "assets/icons/icon.png"
+      "icon": "assets/icons/icon.png",
+      "category": "Education",
+      "syncDesktopName": true,
+      "artifactName": "TOEFL-iBT-Practice-${version}-linux-x64.${ext}"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "installerIcon": "assets/icons/icon.ico",
-      "artifactName": "${name}-setup-${version}.${ext}"
+      "artifactName": "TOEFL-iBT-Practice-${version}-windows-${arch}-setup.${ext}"
     },
     "asar": true,
     "asarUnpack": [
       "**/*.node",
-      "**/dist/assets/**"
+      "**/dist/assets/questions/**",
+      "**/dist/assets/audio/**"
     ],
     "publish": {
       "provider": "github",
