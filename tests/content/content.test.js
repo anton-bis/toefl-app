@@ -149,6 +149,21 @@ test('application metadata identifies the English TOEFL product', () => {
   assert.match(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /<html lang="en">/);
 });
 
+test('Electron packaging keeps runtime content outside the ASAR', () => {
+  const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+  const distFiles = packageMetadata.build.files.find(entry => entry.from === 'dist');
+  assert.ok(distFiles.filter.includes('!assets/questions/**'));
+  assert.ok(distFiles.filter.includes('!assets/audio/**'));
+  assert.deepEqual(
+    packageMetadata.build.extraResources.map(entry => [entry.from, entry.to]),
+    [
+      ['dist/assets/questions', 'content/assets/questions'],
+      ['dist/assets/audio', 'content/assets/audio']
+    ]
+  );
+  assert.deepEqual(packageMetadata.build.asarUnpack, ['**/*.node']);
+});
+
 test('all current Markdown documents parse into valid unified models', async t => {
   assert.deepEqual(
     new Set(manifest.entries.map(entry => entry.section)),
