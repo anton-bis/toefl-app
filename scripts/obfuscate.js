@@ -101,7 +101,7 @@ async function main() {
   // Confirm that the build output exists.
   if (!fs.existsSync(distDir)) {
     console.error(`❌ The dist directory does not exist: ${distDir}`);
-    console.log('💡 Run npm run build or npm run electron:build-only first.');
+    console.log('💡 Run npm run build first.');
     process.exit(1);
   }
 
