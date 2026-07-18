@@ -3,11 +3,6 @@ node_modules/
 dist/
 build/
 
-# ===== 生成文件（可从源码重建）=====
-tpo/
-tpo/**/*.html
-dist/**/*.html
-
 # ===== 环境变量 =====
 .env
 .env.local
@@ -45,29 +40,12 @@ yarn-debug.log*
 yarn-error.log*
 logs/
 
-# ===== 个人配置文件 =====
-personal-config.json
-user-settings.json
-
 # ===== 数据库文件 =====
 *.db
 *.sqlite
 
-# ===== 音频/视频缓存 =====
-assets/cache/
-*.mp3.cache
-*.wav.cache
-
 # ===== 中间产物（开发过程中产生）=====
 assets/questions/compiled/
-paragraph_inner.txt
-answer-review.json
-questions.json
-generation_output.txt
 
 # ===== AI 助手 =====
 .opencode/
-
-# ===== 归档文件 =====
-*.archived
-.vite-log.txt

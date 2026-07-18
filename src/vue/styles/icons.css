@@ -58,9 +58,6 @@
 .fa-handshake::before {
   content: '\f2b5';
 }
-.fa-history::before {
-  content: '\f1da';
-}
 .fa-home::before {
   content: '\f015';
 }
@@ -78,9 +75,6 @@
 }
 .fa-microphone::before {
   content: '\f130';
-}
-.fa-newspaper::before {
-  content: '\f1ea';
 }
 .fa-paste::before {
   content: '\f0ea';

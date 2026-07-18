@@ -12,7 +12,7 @@ export const SCORING_RUBRICS = {
 1: Produces only a few recognizable words or an attempt that is mostly unintelligible.
 0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.`
   },
-  'take-interview': {
+  interview: {
     section: 'speaking',
     criteria: ['relevance', 'development', 'fluency', 'intelligibility', 'grammar', 'vocabulary'],
     guide: `Take an Interview — score guide summary

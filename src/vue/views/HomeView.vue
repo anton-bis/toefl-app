@@ -331,7 +331,7 @@ function hasReport(test) {
           </tr>
         </tbody>
       </table>
-      <h4>Score comparison (1–6 vs. legacy scales)</h4>
+      <h4>Score comparison (1–6 vs. previous scales)</h4>
       <table class="info-table">
         <thead>
           <tr>

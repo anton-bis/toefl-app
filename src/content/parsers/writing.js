@@ -43,22 +43,6 @@ function buildSentenceQuestions(body) {
   return result;
 }
 
-const METADATA_KEYS = new Set(['identity', 'to', 'subject', 'instructor', 'professor', 'hint']);
-
-function consumeMetadataLine(raw, data, requirements, students) {
-  const line = raw.trim();
-  if (!line || line === 'Requirements:') return;
-  if (line.startsWith('- ')) {
-    requirements.push(line.slice(2).trim());
-    return;
-  }
-  const match = line.match(/^([A-Za-z_ ]+):\s*(.*)$/);
-  if (!match) return;
-  const key = match[1].toLowerCase();
-  if (METADATA_KEYS.has(key)) data[key] = match[2];
-  else students.push({ name: match[1], text: match[2] });
-}
-
 function metadataQuestion(body, kind) {
   const questionMatch = body?.match(
     new RegExp(
@@ -71,7 +55,20 @@ function metadataQuestion(body, kind) {
   const data = {};
   const requirements = [];
   const students = [];
-  for (const line of lines) consumeMetadataLine(line, data, requirements, students);
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line || line === 'Requirements:') continue;
+    if (line.startsWith('- ')) {
+      requirements.push(line.slice(2).trim());
+      continue;
+    }
+    const match = line.match(/^([A-Za-z_ ]+):\s*(.*)$/);
+    if (!match) continue;
+    const key = match[1].toLowerCase();
+    if (!['identity', 'to', 'subject', 'instructor', 'professor', 'hint'].includes(key)) {
+      students.push({ name: match[1], text: match[2] });
+    } else data[key] = match[2];
+  }
   const number = Number(questionMatch[1]);
   const type = kind === 'Write an Email' ? 'write-email' : 'academic-discussion';
   return [

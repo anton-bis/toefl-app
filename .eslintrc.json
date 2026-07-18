@@ -25,7 +25,6 @@
     "eol-last": ["error", "always"],
     "no-trailing-spaces": ["error"],
     "max-len": "off",
-    "complexity": ["error", 10],
     "vue/html-closing-bracket-newline": "off",
     "vue/html-indent": "off",
     "vue/html-self-closing": "off",

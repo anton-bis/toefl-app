@@ -1,59 +1,6 @@
 import { createExamDocument } from '../pages.js';
 import { linesOf, media, normalizeMarkdown, seconds, sourceMeta } from '../shared.js';
 
-function responseTime(type, number) {
-  if (type === 'interview') return 45;
-  if (number <= 2) return 8;
-  if (number <= 5) return 10;
-  return 12;
-}
-
-function createQuestion(type, number) {
-  return {
-    id: `module-1-${type}-q${number}`,
-    number,
-    type,
-    prompt: '',
-    transcript: '',
-    image: '',
-    responseTime: responseTime(type, number),
-    media: null,
-    answer: null,
-    options: []
-  };
-}
-
-function consumeQuestionProperty(line, state) {
-  if (line.startsWith('image:')) state.current.image = line.slice(6).trim();
-  else if (line.startsWith('transcript:')) {
-    state.current.transcript = line.slice(11).trim();
-    state.current.prompt = state.current.transcript;
-  } else if (line.startsWith('response_time:')) {
-    state.current.responseTime = Number(line.slice(14).trim());
-  } else return false;
-  return true;
-}
-
-function consumeTaskLine(raw, task, state) {
-  const line = raw.trim();
-  if (!line) return;
-  if (line.startsWith('scenario_title:')) task.scenario.title = line.slice(15).trim();
-  else if (line.startsWith('scenario_image:')) task.scenario.image = line.slice(15).trim();
-  else if (line.startsWith('audio:')) {
-    state.audio = line.slice(6).trim();
-    task.media = media(state.audio);
-  } else {
-    const question = line.match(/^(\d+)\.?\s*$/);
-    if (question) {
-      state.current = createQuestion(task.type, Number(question[1]));
-      task.questions.push(state.current);
-    } else if (state.current && !consumeQuestionProperty(line, state)) {
-      const play = line.match(/^>>\s*play:\s*(\d+:\d+)\s*-\s*(\d+:\d+)/);
-      if (play) state.current.media = media(state.audio, seconds(play[1]), seconds(play[2]));
-    }
-  }
-}
-
 function parseTask(title, body, taskNumber) {
   const type = title === 'Listen and Repeat' ? 'listen-repeat' : 'interview';
   const task = {
@@ -65,9 +12,56 @@ function parseTask(title, body, taskNumber) {
     media: null,
     questions: []
   };
-  const state = { audio: '', current: null };
-  for (const line of linesOf(body)) consumeTaskLine(line, task, state);
-  for (const question of task.questions) if (!question.media) question.media = media(state.audio);
+  let audio = '';
+  let current = null;
+  for (const raw of linesOf(body)) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('scenario_title:')) {
+      task.scenario.title = line.slice(15).trim();
+      continue;
+    }
+    if (line.startsWith('scenario_image:')) {
+      task.scenario.image = line.slice(15).trim();
+      continue;
+    }
+    if (line.startsWith('audio:')) {
+      audio = line.slice(6).trim();
+      task.media = media(audio);
+      continue;
+    }
+    const q = line.match(/^(\d+)\.?\s*$/);
+    if (q) {
+      const number = Number(q[1]);
+      const defaultTime = type === 'interview' ? 45 : number <= 2 ? 8 : number <= 5 ? 10 : 12;
+      current = {
+        id: `module-1-${type}-q${number}`,
+        number,
+        type,
+        prompt: '',
+        transcript: '',
+        image: '',
+        responseTime: defaultTime,
+        media: null,
+        answer: null,
+        options: []
+      };
+      task.questions.push(current);
+      continue;
+    }
+    if (!current) continue;
+    if (line.startsWith('image:')) current.image = line.slice(6).trim();
+    else if (line.startsWith('transcript:')) {
+      current.transcript = line.slice(11).trim();
+      current.prompt = current.transcript;
+    } else if (line.startsWith('response_time:'))
+      current.responseTime = Number(line.slice(14).trim());
+    else {
+      const play = line.match(/^>>\s*play:\s*(\d+:\d+)\s*-\s*(\d+:\d+)/);
+      if (play) current.media = media(audio, seconds(play[1]), seconds(play[2]));
+    }
+  }
+  for (const question of task.questions) if (!question.media) question.media = media(audio);
   return task;
 }
 

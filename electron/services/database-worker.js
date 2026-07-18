@@ -210,7 +210,7 @@ function archiveText(value) {
   return value;
 }
 
-function archiveString(value) {
+function archiveOptionalText(value) {
   if (typeof value !== 'string' || value.length > 200) unsupportedArchive();
   return value;
 }
@@ -226,56 +226,40 @@ function archiveObject(value) {
   return object;
 }
 
-function sessionMatchesArchiveRow(session, value) {
-  const fields = [
-    ['id', 'id'],
-    ['tpoId', 'tpo_id'],
-    ['section', 'section'],
-    ['status', 'status']
-  ];
-  return fields.every(([sessionField, rowField]) => session[sessionField] === value[rowField]);
-}
-
-const ARCHIVE_ROW_VALIDATORS = {
-  settings(record) {
-    archiveText(record.key);
+function parseArchiveRow(record) {
+  archiveText(record.key);
+  if (record.kind === 'settings') {
     archiveJson(record.value);
-  },
-  exam_sessions(record) {
-    const value = archiveObject(record.value);
-    archiveText(value.id);
-    archiveText(value.tpo_id);
-    archiveText(value.section);
-    archiveText(value.status);
-    archiveTimestamp(value.updated_at);
+    return record;
+  }
+  const value = archiveObject(record.value);
+  if (record.kind === 'exam_sessions') {
+    for (const field of ['id', 'tpo_id', 'section', 'status']) archiveText(value[field]);
     const session = archiveObject(value.value);
-    if (record.key !== value.id) unsupportedArchive();
-    if (!sessionMatchesArchiveRow(session, value)) unsupportedArchive();
-  },
-  vocabulary_progress(record) {
-    const value = archiveJson(record.value);
-    archiveText(record.key);
-    archiveText(value?.subject);
-    archiveText(value?.set_id);
-    archiveText(value?.word_id);
-    archiveObject(value?.value);
+    if (
+      record.key !== value.id ||
+      session.id !== value.id ||
+      session.tpoId !== value.tpo_id ||
+      session.section !== value.section ||
+      session.status !== value.status
+    ) {
+      unsupportedArchive();
+    }
+    archiveTimestamp(value.updated_at);
+  } else if (record.kind === 'vocabulary_progress') {
+    for (const field of ['subject', 'set_id', 'word_id']) archiveText(value[field]);
+    archiveObject(value.value);
     if (value.next_review !== null && typeof value.next_review !== 'string') unsupportedArchive();
     if (value.last_q !== null && !Number.isFinite(value.last_q)) unsupportedArchive();
-    archiveTimestamp(value?.updated_at);
-  },
-  typing_history(record) {
-    const value = archiveJson(record.value);
-    archiveText(value?.id);
-    archiveString(value?.article_id);
-    archiveString(value?.completed_at);
-    archiveObject(value?.value);
+    archiveTimestamp(value.updated_at);
+  } else if (record.kind === 'typing_history') {
+    archiveText(value.id);
+    archiveOptionalText(value.article_id);
+    archiveOptionalText(value.completed_at);
+    archiveObject(value.value);
     if (record.key !== value.id) unsupportedArchive();
-  }
-};
-
-function validateArchiveRow(record) {
-  if (!Object.hasOwn(ARCHIVE_ROW_VALIDATORS, record.kind)) unsupportedArchive();
-  ARCHIVE_ROW_VALIDATORS[record.kind](record);
+  } else unsupportedArchive();
+  return { ...record, value };
 }
 
 function readArchive(archive) {
@@ -290,8 +274,7 @@ function readArchive(archive) {
   if (dataRows.length > 20_000 || recordingRows.length > 200) {
     throw new Error('The data archive contains too many records');
   }
-  dataRows.forEach(validateArchiveRow);
-  return { dataRows, recordingRows };
+  return { dataRows: dataRows.map(parseArchiveRow), recordingRows };
 }
 
 function stageRecordings(recordingRows, staging) {
@@ -335,12 +318,11 @@ function replaceDatabaseRows(dataRows, recordingRows) {
       typing_history: db.prepare(`INSERT INTO typing_history
         (id,article_id,completed_at,value) VALUES (?,?,?,?)`)
     };
-    const writers = {
-      settings(record, value) {
+    for (const record of dataRows) {
+      const value = record.value;
+      if (record.kind === 'settings') {
         statements.settings.run(record.key, record.value, Date.now());
-        return value;
-      },
-      exam_sessions(_record, value) {
+      } else if (record.kind === 'exam_sessions') {
         statements.exam_sessions.run(
           value.id,
           value.tpo_id,
@@ -349,8 +331,7 @@ function replaceDatabaseRows(dataRows, recordingRows) {
           value.value,
           value.updated_at
         );
-      },
-      vocabulary_progress(_record, value) {
+      } else if (record.kind === 'vocabulary_progress') {
         statements.vocabulary_progress.run(
           value.subject,
           value.set_id,
@@ -360,15 +341,9 @@ function replaceDatabaseRows(dataRows, recordingRows) {
           value.last_q,
           value.updated_at
         );
-      },
-      typing_history(_record, value) {
+      } else {
         statements.typing_history.run(value.id, value.article_id, value.completed_at, value.value);
       }
-    };
-    for (const record of dataRows) {
-      if (!Object.hasOwn(writers, record.kind))
-        throw new Error('Unsupported record in data archive');
-      writers[record.kind](record, parse(record.value));
     }
     const insertRecording = db.prepare(`INSERT INTO recordings
       (session_id,question_id,relative_path,mime,size,updated_at) VALUES (?,?,?,?,?,?)`);

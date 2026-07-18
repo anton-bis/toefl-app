@@ -33,7 +33,7 @@ test('AI transport keeps endpoints trusted and returns normalized completions', 
   });
   assert.deepEqual(Object.keys(SCORING_RUBRICS), [
     'listen-repeat',
-    'take-interview',
+    'interview',
     'write-email',
     'academic-discussion'
   ]);
