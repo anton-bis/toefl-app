@@ -2,14 +2,7 @@ const MAX_REQUEST_BYTES = 100 * 1024;
 const MAX_RESPONSE_BYTES = 2 * 1024 * 1024;
 const MAX_MESSAGES = 64;
 const ALLOWED_ROLES = new Set(['system', 'user', 'assistant']);
-
-// Providers are registered in trusted main-process code. Renderer input can select
-// a provider, but it can never supply an arbitrary endpoint.
-export const AI_PROVIDERS = Object.freeze({
-  nvidia: Object.freeze({
-    endpoint: 'https://integrate.api.nvidia.com/v1/chat/completions'
-  })
-});
+const NVIDIA_COMPLETIONS_ENDPOINT = 'https://integrate.api.nvidia.com/v1/chat/completions';
 
 function boundedString(value, label, maximum) {
   if (typeof value !== 'string' || !value.trim() || value.length > maximum) {
@@ -77,7 +70,6 @@ async function readBoundedResponse(response) {
 function normalizeRequest(options, fetchImplementation) {
   const {
     apiKey,
-    provider = 'nvidia',
     model,
     messages,
     temperature = 0.2,
@@ -85,8 +77,6 @@ function normalizeRequest(options, fetchImplementation) {
     timeoutMs = 30_000,
     signal
   } = options || {};
-  const configuration = AI_PROVIDERS[provider];
-  if (!configuration) throw new TypeError('Unsupported AI provider');
   boundedString(apiKey, 'AI API key', 10_000);
   boundedString(model, 'AI model', 200);
   boundedNumber(temperature, 'AI temperature', 0, 2);
@@ -104,7 +94,7 @@ function normalizeRequest(options, fetchImplementation) {
   if (Buffer.byteLength(body) > MAX_REQUEST_BYTES) {
     throw new RangeError('The AI request is too large');
   }
-  return { apiKey, body, configuration, model, signal, timeoutMs };
+  return { apiKey, body, model, signal, timeoutMs };
 }
 
 function parseCompletion(body, response, requestedModel) {
@@ -140,7 +130,7 @@ export async function requestChatCompletion(options, fetchImplementation = globa
   const requestSignal = request.signal
     ? AbortSignal.any([request.signal, timeoutSignal])
     : timeoutSignal;
-  const response = await fetchImplementation(request.configuration.endpoint, {
+  const response = await fetchImplementation(NVIDIA_COMPLETIONS_ENDPOINT, {
     method: 'POST',
     signal: requestSignal,
     headers: {

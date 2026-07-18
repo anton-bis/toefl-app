@@ -44,6 +44,20 @@ function session(status, pageId) {
 describe('HomeView practice actions', () => {
   beforeEach(() => installMemoryStorage());
 
+  it('shows the TOEFL guide without a release history entry', async () => {
+    const { wrapper } = await mountHome();
+    const guideButton = wrapper
+      .findAll('.sidebar-nav-item')
+      .find(button => button.text().includes('TOEFL Guide'));
+
+    expect(guideButton).toBeDefined();
+    expect(wrapper.text()).not.toContain('Release Notes');
+    await guideButton.trigger('click');
+    expect(wrapper.find('.modal-header').text()).toContain('TOEFL Guide');
+    expect(wrapper.find('.modal-body').text()).toContain('CEFR alignment');
+    expect(wrapper.find('.modal-body').text()).toContain('Score comparison');
+  });
+
   it('starts an untouched section directly without presenting disabled choices', async () => {
     const { wrapper, router } = await mountHome();
     await clickReading(wrapper);

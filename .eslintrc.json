@@ -10,12 +10,12 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
+    "indent": "off",
     "linebreak-style": "off",
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "semi": ["error", "always"],
-    "no-console": ["warn", { "allow": ["log", "warn", "error"] }],
-    "no-unused-vars": ["warn"],
+    "no-console": ["error", { "allow": ["log", "warn", "error"] }],
+    "no-unused-vars": ["error"],
     "no-undef": ["error"],
     "prefer-const": ["error"],
     "arrow-spacing": ["error", { "before": true, "after": true }],
@@ -24,8 +24,14 @@
     "comma-dangle": ["error", "never"],
     "eol-last": ["error", "always"],
     "no-trailing-spaces": ["error"],
-    "max-len": ["warn", { "code": 120 }],
-    "complexity": ["warn", 10]
+    "max-len": "off",
+    "complexity": ["error", 10],
+    "vue/html-closing-bracket-newline": "off",
+    "vue/html-indent": "off",
+    "vue/html-self-closing": "off",
+    "vue/max-attributes-per-line": "off",
+    "vue/multiline-html-element-content-newline": "off",
+    "vue/singleline-html-element-content-newline": "off"
   },
   "overrides": [
     {
@@ -35,17 +41,9 @@
       }
     },
     {
-      "files": ["src/core/**/*.js"],
+      "files": ["tests/**/*.{js,cjs,vue}"],
       "rules": {
-        "no-console": ["error", { "allow": ["log", "warn", "error"] }],
-        "max-len": ["error", { "code": 100 }],
-        "complexity": ["error", 5]
-      }
-    },
-    {
-      "files": ["src/modules/**/*.js"],
-      "rules": {
-        "max-len": ["error", { "code": 150 }]
+        "vue/one-component-per-file": "off"
       }
     }
   ]

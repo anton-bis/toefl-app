@@ -6,12 +6,7 @@ import {
   readyPrompt,
   startDirections
 } from '../../src/vue/exam/shared/directions.js';
-import {
-  cefrRows,
-  changelog,
-  scoreConversionRows,
-  taskTypes
-} from '../../src/vue/content/homeCopy.js';
+import { cefrRows, scoreConversionRows, taskTypes } from '../../src/vue/content/guideCopy.js';
 
 describe('visible content contract', () => {
   it('keeps section directions and task-specific help', () => {
@@ -19,9 +14,12 @@ describe('visible content contract', () => {
     expect(startDirections('listening').tasks[0][1]).toBe(
       'Select the best response to the questions or statement.'
     );
-    expect(introDirections('listening', { moduleId: 'module-1' }, {})).toContain(
-      'The first task is Listen and Choose a Response. In this task, you will listen to a sentence or question. You will then read four sentences and choose the option that is the best response.'
-    );
+    const listeningIntro = [
+      'The first task is Listen and Choose a Response. In this task, you will listen to a',
+      'sentence or question. You will then read four sentences and choose the option that is',
+      'the best response.'
+    ].join(' ');
+    expect(introDirections('listening', { moduleId: 'module-1' }, {})).toContain(listeningIntro);
     expect(introDirections('speaking', {}, { type: 'interview' })[0]).toContain(
       'be sure to speak as much as you can'
     );
@@ -52,8 +50,8 @@ describe('visible content contract', () => {
     expect(taskTypes.flatMap(([, items]) => items)).toHaveLength(12);
     expect(cefrRows).toHaveLength(6);
     expect(scoreConversionRows.at(-1)).toEqual(['1', '1–1.5', '0–1', '0–2', '0–4', '0–11']);
-    expect(changelog.length).toBeGreaterThan(0);
-    expect(changelog.every(entry => entry.length === 3 && entry.every(Boolean))).toBe(true);
-    expect(JSON.stringify({ taskTypes, changelog })).not.toMatch(/[\u3400-\u9fff]/u);
+    expect(JSON.stringify({ taskTypes, cefrRows, scoreConversionRows })).not.toMatch(
+      /[\u3400-\u9fff]/u
+    );
   });
 });

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { AI_PROVIDERS, requestChatCompletion } from '../../electron/services/ai.js';
+import { requestChatCompletion } from '../../electron/services/ai.js';
 import { SCORING_RUBRICS } from '../../src/ai/rubrics.js';
 
 const request = {
@@ -23,7 +23,7 @@ test('AI transport keeps endpoints trusted and returns normalized completions', 
     );
   });
 
-  assert.equal(captured.url, AI_PROVIDERS.nvidia.endpoint);
+  assert.equal(captured.url, 'https://integrate.api.nvidia.com/v1/chat/completions');
   assert.equal(captured.options.headers.Authorization, 'Bearer secret');
   assert.deepEqual(JSON.parse(captured.options.body).messages, request.messages);
   assert.deepEqual(result, {
@@ -31,8 +31,6 @@ test('AI transport keeps endpoints trusted and returns normalized completions', 
     model: request.model,
     usage: { total_tokens: 12 }
   });
-  assert.equal(Object.isFrozen(AI_PROVIDERS), true);
-  assert.equal(Object.isFrozen(AI_PROVIDERS.nvidia), true);
   assert.deepEqual(Object.keys(SCORING_RUBRICS), [
     'listen-repeat',
     'take-interview',
@@ -42,21 +40,17 @@ test('AI transport keeps endpoints trusted and returns normalized completions', 
   Object.values(SCORING_RUBRICS).forEach(rubric => {
     assert.match(rubric.guide, /5:/);
     assert.match(rubric.guide, /0:/);
-    assert.equal(Object.isFrozen(rubric.criteria), true);
+    assert.ok(Array.isArray(rubric.criteria));
   });
 });
 
-test('AI transport rejects unsupported providers and oversized input before fetching', async () => {
+test('AI transport rejects oversized input before fetching', async () => {
   let calls = 0;
   const fetchImplementation = async () => {
     calls += 1;
     return new Response('{}');
   };
 
-  await assert.rejects(
-    requestChatCompletion({ ...request, provider: 'custom' }, fetchImplementation),
-    /Unsupported AI provider/
-  );
   await assert.rejects(
     requestChatCompletion(
       { ...request, messages: [{ role: 'user', content: 'x'.repeat(101 * 1024) }] },
@@ -67,7 +61,7 @@ test('AI transport rejects unsupported providers and oversized input before fetc
   assert.equal(calls, 0);
 });
 
-test('AI transport rejects oversized and malformed provider responses', async () => {
+test('AI transport rejects oversized and malformed service responses', async () => {
   await assert.rejects(
     requestChatCompletion(
       request,

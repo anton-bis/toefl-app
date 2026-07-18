@@ -358,21 +358,6 @@
   color: var(--muted);
   font-size: 14px;
 }
-.log-entry {
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
-}
-.log-entry strong {
-  color: var(--teal);
-}
-.log-entry time {
-  margin-left: 12px;
-  color: var(--muted);
-  font-size: 12px;
-}
-.log-entry p {
-  margin: 5px 0 0;
-}
 .practice-overlay {
   position: fixed;
   inset: 0;

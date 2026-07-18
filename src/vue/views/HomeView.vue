@@ -5,7 +5,7 @@ import { useCatalogStore } from '../stores/catalog.js';
 import { readExamSession, removeExamSession } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import AppModal from '../components/AppModal.vue';
-import { cefrRows, changelog, scoreConversionRows, taskTypes } from '../content/homeCopy.js';
+import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
 import '../styles/home.css';
 
 const router = useRouter();
@@ -112,45 +112,44 @@ function hasReport(test) {
 
 <template>
   <div class="home-page">
-    <header class="app-header"><span class="logo-text">TOEFL</span></header>
+    <header class="app-header">
+      <span class="logo-text">TOEFL</span>
+    </header>
     <div class="app-layout">
       <aside class="sidebar">
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-layer-group"></i> Practice</div>
+          <div class="sidebar-section-header"><i class="fas fa-layer-group" /> Practice</div>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'mock' }"
             @click="panel = 'mock'"
           >
-            <span class="nav-icon"><i class="fas fa-pencil-alt"></i></span> Practice Tests
+            <span class="nav-icon"><i class="fas fa-pencil-alt" /></span> Practice Tests
           </button>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'real' }"
             @click="panel = 'real'"
           >
-            <span class="nav-icon"><i class="fas fa-scroll"></i></span> Official Tests
+            <span class="nav-icon"><i class="fas fa-scroll" /></span> Official Tests
           </button>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-tools"></i> Skills</div>
+          <div class="sidebar-section-header"><i class="fas fa-tools" /> Skills</div>
           <RouterLink class="sidebar-nav-item" to="/skills/typing">
-            <span class="nav-icon"><i class="fas fa-keyboard"></i></span> Typing
+            <span class="nav-icon"><i class="fas fa-keyboard" /></span> Typing
           </RouterLink>
           <RouterLink class="sidebar-nav-item" to="/skills/vocabulary">
-            <span class="nav-icon"><i class="fas fa-book"></i></span> Vocabulary
+            <span class="nav-icon"><i class="fas fa-book" /></span> Vocabulary
           </RouterLink>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> More</div>
-          <button class="sidebar-nav-item" @click="modal = 'news'">
-            <span class="nav-icon"><i class="fas fa-newspaper"></i></span> TOEFL Updates
+          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h" /> More</div>
+          <button class="sidebar-nav-item" @click="modal = 'guide'">
+            <span class="nav-icon"><i class="fas fa-book-open" /></span> TOEFL Guide
           </button>
           <button class="sidebar-nav-item" @click="modal = 'about'">
-            <span class="nav-icon"><i class="fas fa-handshake"></i></span> Connect
-          </button>
-          <button class="sidebar-nav-item" @click="modal = 'log'">
-            <span class="nav-icon"><i class="fas fa-history"></i></span> Release Notes
+            <span class="nav-icon"><i class="fas fa-handshake" /></span> Connect
           </button>
         </div>
       </aside>
@@ -179,7 +178,9 @@ function hasReport(test) {
                   <td class="id-cell">
                     <span class="tpo-id">TPO {{ test.tpoId }}</span>
                   </td>
-                  <td class="desc-cell">{{ test.description }}</td>
+                  <td class="desc-cell">
+                    {{ test.description }}
+                  </td>
                   <td v-for="[section, label] in sections" :key="section" class="module-cell">
                     <button
                       v-if="test.sections[section]"
@@ -206,7 +207,9 @@ function hasReport(test) {
           </div>
         </section>
         <section v-else class="empty-panel">
-          <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+          <div class="empty-icon">
+            <i class="fas fa-inbox" />
+          </div>
           <h3>More official practice is coming soon</h3>
           <p>Check back soon.</p>
         </section>
@@ -214,9 +217,9 @@ function hasReport(test) {
     </div>
 
     <AppModal
-      v-if="modal === 'news'"
-      title="TOEFL Updates"
-      icon="fas fa-newspaper"
+      v-if="modal === 'guide'"
+      title="TOEFL Guide"
+      icon="fas fa-book-open"
       wide
       @close="modal = ''"
     >
@@ -263,7 +266,9 @@ function hasReport(test) {
           <strong>{{ name }}</strong>
         </p>
         <ul>
-          <li v-for="item in items" :key="item">{{ item }}</li>
+          <li v-for="item in items" :key="item">
+            {{ item }}
+          </li>
         </ul>
       </template>
       <h4>Scoring</h4>
@@ -320,7 +325,9 @@ function hasReport(test) {
         <tbody>
           <tr v-for="row in cefrRows" :key="row[0]">
             <td>{{ row[0] }}</td>
-            <td v-for="index in 5" :key="index">{{ row[1] }}</td>
+            <td v-for="index in 5" :key="index">
+              {{ row[1] }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -338,7 +345,9 @@ function hasReport(test) {
         </thead>
         <tbody>
           <tr v-for="row in scoreConversionRows" :key="row[0]">
-            <td v-for="cell in row" :key="cell">{{ cell }}</td>
+            <td v-for="cell in row" :key="cell">
+              {{ cell }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -355,7 +364,7 @@ function hasReport(test) {
       <p>Built with AI assistance to provide focused, high-quality TOEFL practice.</p>
       <div class="about-platforms">
         <section class="about-platform">
-          <h4><span class="wechat-icon" aria-hidden="true"></span> WeChat</h4>
+          <h4><span class="wechat-icon" aria-hidden="true" /> WeChat</h4>
           <p class="about-platform-description">Scan the QR code to add me</p>
           <div class="img-block">
             <img src="/assets/images/wechat-qr.jpg" alt="WeChat QR code" />
@@ -363,7 +372,9 @@ function hasReport(test) {
           </div>
         </section>
         <section class="about-platform">
-          <h4><span class="x-icon" aria-hidden="true">X</span></h4>
+          <h4>
+            <span class="x-icon" aria-hidden="true">X</span>
+          </h4>
           <p class="about-platform-description">Visit my profile</p>
           <div class="img-block">
             <img src="/assets/images/x-profile.jpg" alt="X profile preview" />
@@ -371,7 +382,7 @@ function hasReport(test) {
           </div>
         </section>
         <section class="about-platform">
-          <h4><i class="fas fa-book-open rednote-icon"></i> RedNote</h4>
+          <h4><i class="fas fa-book-open rednote-icon" /> RedNote</h4>
           <p class="about-platform-description">Follow me on RedNote</p>
           <div class="img-block">
             <img src="/assets/images/rednote-qr.jpg" alt="RedNote QR code" />
@@ -380,24 +391,6 @@ function hasReport(test) {
         </section>
       </div>
       <p class="note">For feedback or collaboration, reach out through any channel above.</p>
-    </AppModal>
-
-    <AppModal
-      v-if="modal === 'log'"
-      title="Release Notes"
-      icon="fas fa-history"
-      @close="modal = ''"
-    >
-      <article v-for="entry in changelog" :key="entry[0]" class="log-entry">
-        <strong>{{ entry[0] }}</strong
-        ><time>{{ entry[1] }}</time>
-        <p>
-          <template v-for="(line, index) in entry[2].split('<br>')" :key="line">
-            <br v-if="index" />{{ line }}
-          </template>
-        </p>
-      </article>
-      <p class="note">Thanks for using TOEFL Practice.</p>
     </AppModal>
 
     <div
@@ -418,20 +411,22 @@ function hasReport(test) {
           aria-label="Close"
           @click="closePractice"
         >
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" />
         </button>
         <template v-if="!restartConfirm">
           <h2>
             TPO {{ pendingExam.tpoId }} ·
             {{ sectionLabel(pendingExam.section) }}
           </h2>
-          <p class="practice-sub">{{ practiceState.subtitle }}</p>
+          <p class="practice-sub">
+            {{ practiceState.subtitle }}
+          </p>
           <button
             class="practice-option-card active"
             type="button"
             @click="selectExamAction(practiceState.primaryAction)"
           >
-            <span class="opt-icon"><i :class="practiceState.primaryIcon"></i></span>
+            <span class="opt-icon"><i :class="practiceState.primaryIcon" /></span>
             <span class="opt-body">
               <strong class="opt-title">{{ practiceState.primaryTitle }}</strong>
               <small class="opt-hint">{{ practiceState.primaryHint }}</small>
@@ -442,7 +437,7 @@ function hasReport(test) {
             type="button"
             @click="selectExamAction('restart')"
           >
-            <span class="opt-icon"><i class="fas fa-redo-alt"></i></span>
+            <span class="opt-icon"><i class="fas fa-redo-alt" /></span>
             <span class="opt-body">
               <strong class="opt-title">{{ practiceState.restartTitle }}</strong>
               <small class="opt-hint">Start again from Question 1.</small>
@@ -451,7 +446,9 @@ function hasReport(test) {
         </template>
         <template v-else>
           <h2>{{ practiceState.restartVerb }} {{ sectionLabel(pendingExam.section) }}?</h2>
-          <p class="practice-confirm-copy">{{ restartWarning }}</p>
+          <p class="practice-confirm-copy">
+            {{ restartWarning }}
+          </p>
           <div class="practice-confirm-actions">
             <button type="button" class="practice-cancel" @click="restartConfirm = false">
               Keep Attempt

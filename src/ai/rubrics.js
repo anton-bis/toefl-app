@@ -1,9 +1,9 @@
 // Reserved summaries for future AI-assisted scoring. Validate them against the
 // scoring guide used by the product before enabling a scoring task.
-export const SCORING_RUBRICS = Object.freeze({
-  'listen-repeat': Object.freeze({
+export const SCORING_RUBRICS = {
+  'listen-repeat': {
     section: 'speaking',
-    criteria: Object.freeze(['accuracy', 'completeness', 'intelligibility']),
+    criteria: ['accuracy', 'completeness', 'intelligibility'],
     guide: `Listen and Repeat — score guide summary
 5: Repeats the full prompt accurately and is completely understandable.
 4: Preserves the prompt's meaning with only small wording or grammar changes; speech remains clear.
@@ -11,17 +11,10 @@ export const SCORING_RUBRICS = Object.freeze({
 2: Omits or changes a substantial part of the prompt; the result is fragmentary and difficult to understand.
 1: Produces only a few recognizable words or an attempt that is mostly unintelligible.
 0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.`
-  }),
-  'take-interview': Object.freeze({
+  },
+  'take-interview': {
     section: 'speaking',
-    criteria: Object.freeze([
-      'relevance',
-      'development',
-      'fluency',
-      'intelligibility',
-      'grammar',
-      'vocabulary'
-    ]),
+    criteria: ['relevance', 'development', 'fluency', 'intelligibility', 'grammar', 'vocabulary'],
     guide: `Take an Interview — score guide summary
 5: Fully answers and develops the response with fluent, natural, readily intelligible speech and precise language.
 4: Answers and develops the response clearly; minor pauses or language limitations do not impede meaning.
@@ -29,17 +22,17 @@ export const SCORING_RUBRICS = Object.freeze({
 2: Makes a relevant attempt but provides little support; limited language and intelligibility often obscure meaning.
 1: Barely addresses the question through vague, isolated, or mostly unintelligible language.
 0: Gives no response, no English response, an unrelated response, or speech that cannot be understood.`
-  }),
-  'write-email': Object.freeze({
+  },
+  'write-email': {
     section: 'writing',
-    criteria: Object.freeze([
+    criteria: [
       'communicative purpose',
       'development',
       'organization',
       'tone',
       'grammar',
       'vocabulary'
-    ]),
+    ],
     guide: `Write an Email — score guide summary
 5: Clearly fulfills the purpose with strong development, precise language, suitable tone, and almost no errors.
 4: Fulfills the purpose effectively with adequate development, appropriate language and conventions, and few errors.
@@ -47,17 +40,17 @@ export const SCORING_RUBRICS = Object.freeze({
 2: Attempts the task, but limited or irrelevant development and frequent language problems make the message ineffective.
 1: Makes only a minimal, fragmented attempt with little original content and serious, frequent language problems.
 0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the task.`
-  }),
-  'academic-discussion': Object.freeze({
+  },
+  'academic-discussion': {
     section: 'writing',
-    criteria: Object.freeze([
+    criteria: [
       'relevance',
       'development',
       'clarity',
       'syntactic range',
       'vocabulary',
       'language accuracy'
-    ]),
+    ],
     guide: `Write for an Academic Discussion — score guide summary
 5: Makes a highly relevant, well-developed, and clear contribution with precise language and almost no errors.
 4: Makes a relevant, adequately developed contribution that is easy to understand and contains few language errors.
@@ -65,5 +58,5 @@ export const SCORING_RUBRICS = Object.freeze({
 2: Attempts to contribute, but weak or partly irrelevant ideas and accumulated errors hinder understanding.
 1: Offers few coherent ideas, very limited original language, and serious, frequent errors.
 0: Is blank, off topic, not in English, copied from the prompt, or otherwise unrelated to the discussion.`
-  })
-});
+  }
+};
