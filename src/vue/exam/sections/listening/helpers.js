@@ -1,11 +1,5 @@
-import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
-
 export function listeningResponseSeconds(task) {
   return task?.type === 'academic-talk' ? 30 : 20;
-}
-
-export function resolveMediaSource(document, media) {
-  return resolveQuestionAsset(document, media?.file);
 }
 
 export function segmentDuration(media, nativeDuration = 0) {

@@ -6,29 +6,12 @@
   src: url('../../../webfonts/fa-solid-900.woff2') format('woff2');
 }
 
-@font-face {
-  font-family: 'TOEFL Brands';
-  font-style: normal;
-  font-weight: 400;
-  font-display: block;
-  src: url('../../../webfonts/fa-brands-400.woff2') format('woff2');
-}
-
 .fas,
 .far {
   display: inline-block;
   font-family: 'TOEFL Icons';
   font-style: normal;
   font-weight: 900;
-  line-height: 1;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-}
-.fab {
-  display: inline-block;
-  font-family: 'TOEFL Brands';
-  font-style: normal;
-  font-weight: 400;
   line-height: 1;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -75,9 +58,6 @@
 .fa-handshake::before {
   content: '\f2b5';
 }
-.fa-history::before {
-  content: '\f1da';
-}
 .fa-home::before {
   content: '\f015';
 }
@@ -90,17 +70,11 @@
 .fa-layer-group::before {
   content: '\f5fd';
 }
-.fa-lock::before {
-  content: '\f023';
-}
 .fa-list-check::before {
   content: '\f0ae';
 }
 .fa-microphone::before {
   content: '\f130';
-}
-.fa-newspaper::before {
-  content: '\f1ea';
 }
 .fa-paste::before {
   content: '\f0ea';
@@ -156,10 +130,6 @@
 .fa-chart-bar::before {
   content: '\f080';
 }
-.fa-weixin::before {
-  content: '\f1d7';
-}
-
 .fa-spin {
   animation: fa-spin 1.5s linear infinite;
 }

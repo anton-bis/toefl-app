@@ -10,7 +10,7 @@ export function stopWordAudio() {
   currentAudio = undefined;
 }
 
-export function audioPath(word, accent = 'us') {
+function audioPath(word, accent = 'us') {
   const relative = `assets/audio/vocab/${word}_${accent}.mp3`;
   return resolveAssetUrl(relative);
 }

@@ -14,7 +14,14 @@ import {
   useExamTimer
 } from '../../src/vue/exam/composables/useExamTimer.js';
 import { examQuestions, isCorrectAnswer } from '../../src/vue/exam/shared/model.js';
-import { installMemoryStorage } from './helpers/storage.js';
+import {
+  blocksListeningHistory,
+  pageDuration,
+  questionDisplay,
+  reportSections,
+  resolveExamEntry
+} from '../../src/vue/exam/shared/flow.js';
+import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
 describe('exam sessions', () => {
   beforeEach(() => {
@@ -48,29 +55,10 @@ describe('exam sessions', () => {
 
   it('ignores stored sessions belonging to another exam', () => {
     const key = examStorageKey('02', 'writing');
-    localStorage.setItem(
-      key,
-      JSON.stringify({ tpoId: '03', section: 'writing', answers: { old: true } })
-    );
+    storeJson(key, { tpoId: '03', section: 'writing', answers: { foreign: true } });
     const store = useExamStore();
     const session = store.openSession({ tpoId: '02', section: 'writing' });
     expect(session.answers).toEqual({});
-  });
-
-  it('drops obsolete answer-reveal state from restored sessions', () => {
-    const key = examStorageKey('02', 'reading');
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        tpoId: '02',
-        section: 'reading',
-        status: 'in-progress',
-        check: { revealed: true, revealedScopes: { q1: true }, checkedAt: 100 }
-      })
-    );
-    const store = useExamStore();
-    const session = store.openSession({ tpoId: '02', section: 'reading' });
-    expect(session).not.toHaveProperty('check');
   });
 
   it('does not persist a blank session opened only for report inspection', () => {
@@ -167,6 +155,34 @@ describe('exam timer', () => {
     wrapper.unmount();
     expect(vi.getTimerCount()).toBe(0);
   });
+
+  it('stops background ticking and catches up from the absolute deadline when visible', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(10_000);
+    let exposed;
+    const TimerHarness = defineComponent({
+      setup() {
+        exposed = useExamTimer(ref({ mode: 'countdown', deadlineAt: 20_000 }), {
+          interval: 100
+        });
+        return () => null;
+      }
+    });
+    const wrapper = mount(TimerHarness);
+    const hidden = vi.spyOn(document, 'hidden', 'get');
+    hidden.mockReturnValue(true);
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(vi.getTimerCount()).toBe(0);
+
+    vi.setSystemTime(15_000);
+    hidden.mockReturnValue(false);
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(exposed.remainingSeconds.value).toBe(5);
+    expect(vi.getTimerCount()).toBe(1);
+
+    wrapper.unmount();
+    hidden.mockRestore();
+  });
 });
 
 describe('exam retention', () => {
@@ -174,15 +190,12 @@ describe('exam retention', () => {
     const storage = installMemoryStorage();
     for (let index = 1; index <= 22; index += 1) {
       const tpoId = String(index).padStart(2, '0');
-      storage.setItem(
-        examStorageKey(tpoId, 'reading'),
-        JSON.stringify({
-          tpoId,
-          section: 'reading',
-          status: 'completed',
-          completedAt: index
-        })
-      );
+      storeJson(examStorageKey(tpoId, 'reading'), {
+        tpoId,
+        section: 'reading',
+        status: 'completed',
+        completedAt: index
+      });
     }
     storage.setItem(
       examStorageKey('01', 'speaking'),
@@ -263,5 +276,83 @@ describe('generic answer comparison', () => {
       'complete-words',
       'complete-words'
     ]);
+  });
+});
+
+describe('exam flow policies', () => {
+  const pages = [
+    { id: 'start', type: 'start', questionIds: [] },
+    { id: 'q1', type: 'question', questionIds: ['one'] },
+    { id: 'q2', type: 'question', questionIds: ['two'] },
+    { id: 'results', type: 'results', questionIds: [] }
+  ];
+
+  it('redirects invalid and premature result routes without mutating state', () => {
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'missing',
+        section: 'reading',
+        session: { status: 'not-started', pageId: 'start' }
+      })
+    ).toEqual({ action: 'redirect', pageId: 'start' });
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'results',
+        section: 'reading',
+        session: { status: 'in-progress', pageId: 'q1' }
+      })
+    ).toEqual({ action: 'redirect', pageId: 'q1' });
+  });
+
+  it('preserves the explicit restart route contract', () => {
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'q1',
+        section: 'reading',
+        restart: true,
+        session: { status: 'in-progress', pageId: 'q2' }
+      })
+    ).toEqual({ action: 'restart', pageId: 'start' });
+  });
+
+  it('prevents listening navigation to an earlier page', () => {
+    const session = { status: 'in-progress', pageId: 'q2' };
+    expect(blocksListeningHistory('listening', pages, pages[1], session)).toBe(true);
+    expect(blocksListeningHistory('reading', pages, pages[1], session)).toBe(false);
+  });
+
+  it('builds grouped and writing question labels', () => {
+    expect(
+      questionDisplay({
+        section: 'reading',
+        page: { type: 'question', questionIds: ['one', 'two'] },
+        task: { type: 'complete-words' },
+        moduleQuestions: [{ id: 'one' }, { id: 'two' }],
+        questions: [{ id: 'one' }, { id: 'two' }]
+      }).label
+    ).toBe('Question 1–2 of 2');
+    expect(
+      questionDisplay({
+        section: 'writing',
+        page: { type: 'question', questionIds: ['email'] },
+        task: { type: 'write-email', questions: [{ id: 'email' }] },
+        moduleQuestions: [],
+        questions: [{ id: 'email' }]
+      }).label
+    ).toBe('Question 1 of 2');
+  });
+
+  it('keeps section timing and report ordering in pure policy', () => {
+    expect(pageDuration('reading', { moduleId: 'module-1' })).toBe(690);
+    expect(pageDuration('reading', { moduleId: 'module-2' })).toBe(540);
+    expect(pageDuration('writing', { taskId: 'write-email' })).toBe(420);
+    expect(
+      reportSections({ sections: { speaking: {}, reading: {}, listening: {} } }, section => ({
+        status: section === 'listening' ? 'in-progress' : 'completed'
+      }))
+    ).toEqual(['reading', 'speaking']);
   });
 });

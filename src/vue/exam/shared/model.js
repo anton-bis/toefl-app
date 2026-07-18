@@ -44,7 +44,7 @@ function comparable(value) {
   return typeof value === 'string' ? value.trim().toLowerCase() : value;
 }
 
-export function correctAnswerFor(question) {
+function correctAnswerFor(question) {
   return (
     question.correctAnswer ?? question.correctAnswers ?? question.answer ?? question.answers ?? null
   );

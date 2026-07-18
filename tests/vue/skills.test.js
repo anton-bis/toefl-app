@@ -11,9 +11,10 @@ import WordDetail from '../../src/vue/skills/vocabulary/WordDetail.vue';
 import { classifyError, computeMetrics } from '../../src/vue/skills/typing/logic.js';
 import { TYPING_SESSION_KEY, useTypingStore } from '../../src/vue/skills/typing/store.js';
 import {
-  dataRepository,
   loadTypingHistory,
-  loadVocabularyProgress
+  loadVocabularyProgress,
+  openDataDatabase,
+  replaceTypingHistory
 } from '../../src/vue/platform/dataRepository.js';
 import {
   buildRootCategories,
@@ -35,6 +36,32 @@ const article = {
   content: 'Ab '
 };
 
+async function clearSkillData() {
+  await replaceTypingHistory([]);
+  const database = await openDataDatabase();
+  await new Promise((resolve, reject) => {
+    const transaction = database.transaction(['vocabularyProgress', 'recordings'], 'readwrite');
+    transaction.objectStore('vocabularyProgress').clear();
+    transaction.objectStore('recordings').clear();
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error);
+  });
+}
+
+function typingPracticeStore() {
+  return {
+    article,
+    session: { chars: [] },
+    isPaused: false,
+    remaining: () => 60_000,
+    timeSpent: () => 0,
+    processKey: vi.fn(),
+    retry: vi.fn(),
+    pause: vi.fn(),
+    resume: vi.fn()
+  };
+}
+
 describe('Shared skill workspace', () => {
   it('renders its action slot and emits a single back action', async () => {
     const wrapper = mount(SkillPageHeader, {
@@ -53,7 +80,7 @@ describe('Shared skill workspace', () => {
     ['/skills/vocabulary', VocabularyView]
   ])('returns %s to the named home route', async (path, component) => {
     installMemoryStorage();
-    await dataRepository.replaceAll({});
+    await clearSkillData();
     vi.spyOn(globalThis, 'fetch').mockImplementation(async url => ({
       ok: true,
       json: async () => (String(url).includes('corpus.json') ? [] : {})
@@ -79,7 +106,7 @@ describe('Shared skill workspace', () => {
 describe('Vue typing skill', () => {
   beforeEach(async () => {
     installMemoryStorage();
-    await dataRepository.replaceAll({});
+    await clearSkillData();
     setActivePinia(createPinia());
   });
 
@@ -143,6 +170,20 @@ describe('Vue typing skill', () => {
     expect(localStorage.getItem(TYPING_SESSION_KEY)).toBeNull();
   });
 
+  it('releases the typing corpus and working session outside the route', () => {
+    const store = useTypingStore();
+    store.articles = [article];
+    store.collapsed.beginner = true;
+    store.startArticle(article);
+
+    store.releaseWorkset();
+
+    expect(store.initialized).toBe(false);
+    expect(store.articles).toEqual([]);
+    expect(store.session).toBeNull();
+    expect(store.collapsed.beginner).toBe(true);
+  });
+
   it('renders grouped, collapsible article cards and emits selection', async () => {
     const wrapper = mount(ArticleList, {
       props: {
@@ -157,37 +198,16 @@ describe('Vue typing skill', () => {
   });
 
   it('does not capture keyboard input intended for practice controls', async () => {
-    const store = {
-      article,
-      session: { chars: [] },
-      isPaused: false,
-      remaining: () => 60_000,
-      timeSpent: () => 0,
-      processKey: vi.fn(),
-      retry: vi.fn(),
-      pause: vi.fn(),
-      resume: vi.fn()
-    };
+    const store = typingPracticeStore();
     const wrapper = mount(TypingPractice, { props: { store } });
 
     await wrapper.get('.typing-retry-btn').trigger('keydown', { key: 'Enter' });
 
     expect(store.processKey).not.toHaveBeenCalled();
-    wrapper.unmount();
   });
 
   it('restores typing input after restarting from the toolbar', async () => {
-    const store = {
-      article,
-      session: { chars: [] },
-      isPaused: false,
-      remaining: () => 60_000,
-      timeSpent: () => 0,
-      processKey: vi.fn(),
-      retry: vi.fn(),
-      pause: vi.fn(),
-      resume: vi.fn()
-    };
+    const store = typingPracticeStore();
     const wrapper = mount(TypingPractice, { props: { store }, attachTo: document.body });
     const retry = wrapper.get('.typing-retry-btn');
     retry.element.focus();
@@ -198,14 +218,13 @@ describe('Vue typing skill', () => {
 
     expect(store.retry).toHaveBeenCalledOnce();
     expect(store.processKey).toHaveBeenCalledWith('A', expect.any(Number));
-    wrapper.unmount();
   });
 });
 
 describe('Vue vocabulary skill', () => {
   beforeEach(async () => {
     installMemoryStorage();
-    await dataRepository.replaceAll({});
+    await clearSkillData();
     setActivePinia(createPinia());
     vi.useFakeTimers({ toFake: ['Date', 'setTimeout', 'clearTimeout'] });
     vi.setSystemTime(new Date('2026-07-13T00:00:00Z'));
@@ -219,6 +238,20 @@ describe('Vue vocabulary skill', () => {
     expect(first).toMatchObject({ interval: 1, repetitions: 1, nextReview: '2026-07-14' });
     expect(second).toMatchObject({ interval: 6, repetitions: 2, nextReview: '2026-07-20' });
     expect(failed).toMatchObject({ interval: 1, repetitions: 0, nextReview: '2026-07-21' });
+  });
+
+  it('releases loaded word banks and progress outside the route', () => {
+    const store = useVocabularyStore();
+    store.wordData = { reading: [{ id: 'word-1' }] };
+    store.progress = { reading: { 'set-1': { words: {} } } };
+    store.queue = [{ id: 'word-1' }];
+
+    store.releaseWorkset();
+
+    expect(store.initialized).toBe(false);
+    expect(store.wordData).toEqual({});
+    expect(store.progress).toEqual({});
+    expect(store.queue).toEqual([]);
   });
 
   it('groups repeated etymology parts and finds unique due words', () => {
@@ -271,7 +304,6 @@ describe('Vue vocabulary skill', () => {
     });
     expect(wrapper.text()).toContain('能力；才能');
     expect(wrapper.text()).toContain('她有适应能力。');
-    wrapper.unmount();
   });
 
   it('saves evaluation progress and a compact resumable session', async () => {

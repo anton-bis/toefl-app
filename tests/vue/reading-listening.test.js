@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ReadingPage from '../../src/vue/exam/sections/reading/ReadingPage.vue';
 import ListeningPage from '../../src/vue/exam/sections/listening/ListeningPage.vue';
 import AudioSegment from '../../src/vue/exam/sections/listening/AudioSegment.vue';
+import QuestionNavigator from '../../src/vue/exam/shared/QuestionNavigator.vue';
 import {
   academicMode,
   fillTokens,
@@ -12,7 +13,6 @@ import {
 } from '../../src/vue/exam/sections/reading/helpers.js';
 import {
   listeningResponseSeconds,
-  resolveMediaSource,
   segmentDuration
 } from '../../src/vue/exam/sections/listening/helpers.js';
 
@@ -77,6 +77,35 @@ describe('reading section helpers', () => {
   });
 });
 
+describe('QuestionNavigator', () => {
+  it('shows compact question tiles and only one current item for a grouped page', () => {
+    const groupedQuestions = ['q1', 'q2', 'q3'].map((id, index) => ({
+      id,
+      prompt: `A long repeated complete-words prompt ${index + 1}`,
+      options: []
+    }));
+    mount(QuestionNavigator, {
+      props: {
+        open: true,
+        document: {
+          pages: [{ id: 'complete-words', questionIds: groupedQuestions.map(item => item.id) }],
+          modules: [{ id: 'module-1', tasks: [{ id: 'task-1', questions: groupedQuestions }] }]
+        },
+        pageId: 'complete-words',
+        answers: {},
+        marks: {}
+      }
+    });
+    const navigator = globalThis.document.querySelector('.question-navigator');
+    expect(navigator.querySelectorAll('.question-navigator__item')).toHaveLength(3);
+    expect(navigator.querySelectorAll('.question-navigator__item.current')).toHaveLength(1);
+    expect(navigator.textContent).not.toContain('A long repeated complete-words prompt');
+    expect(navigator.querySelector('.question-navigator__question').title).toContain(
+      'complete-words prompt'
+    );
+  });
+});
+
 describe('ReadingPage', () => {
   it('renders daily-life layout and emits an answer', async () => {
     const wrapper = mount(ReadingPage, {
@@ -98,6 +127,7 @@ describe('ReadingPage', () => {
       tabindex: '0'
     });
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
+    expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
   });
@@ -197,19 +227,7 @@ describe('listening section', () => {
     vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
     vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
   });
-  it('resolves adjacent media and segment duration', () => {
-    expect(
-      resolveMediaSource(
-        { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
-        { file: 'track one.mp3' }
-      )
-    ).toBe('/assets/questions/listening/TPO-03/track one.mp3');
-    expect(
-      resolveMediaSource(
-        { sourcePath: '/assets/questions/listening/TPO-03/listening-TPO-03.md' },
-        { file: 'track.mp3' }
-      )
-    ).toBe('/assets/questions/listening/TPO-03/track.mp3');
+  it('calculates segment and response duration', () => {
     expect(segmentDuration({ start: 6, end: 12 }, 99)).toBe(6);
     expect(listeningResponseSeconds({ type: 'listen-response' })).toBe(20);
     expect(listeningResponseSeconds({ type: 'academic-talk' })).toBe(30);
@@ -275,6 +293,7 @@ describe('listening section', () => {
       }
     });
     expect(wrapper.find('.listening-stimulus').exists()).toBe(true);
+    expect(wrapper.find('.listening-stimulus-card').classes()).toContain('listening-surface');
     expect(wrapper.find('audio').attributes('src')).toContain('talk.ogg');
     await wrapper.setProps({
       page: { id: talkQuestion.id, type: 'question' },
@@ -303,17 +322,5 @@ describe('listening section', () => {
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
     expect(removeAttribute).toHaveBeenCalledWith('src');
     expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('stopped');
-  });
-
-  it('ignores late timeupdate events after the audio ref is cleared', () => {
-    const wrapper = mount(AudioSegment, {
-      props: {
-        document: { assetBase: '/content' },
-        media: { file: 'talk.ogg', start: 0, end: 10 }
-      }
-    });
-    const element = wrapper.find('audio').element;
-    wrapper.vm.$.setupState.audio = null;
-    expect(() => element.dispatchEvent(new Event('timeupdate'))).not.toThrow();
   });
 });

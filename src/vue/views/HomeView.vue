@@ -5,7 +5,7 @@ import { useCatalogStore } from '../stores/catalog.js';
 import { readExamSession, removeExamSession } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import AppModal from '../components/AppModal.vue';
-import { cefrRows, changelog, scoreConversionRows, taskTypes } from '../content/homeCopy.js';
+import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
 import '../styles/home.css';
 
 const router = useRouter();
@@ -13,6 +13,7 @@ const catalog = useCatalogStore();
 const panel = ref('mock');
 const modal = ref('');
 const pendingExam = ref(null);
+const restartConfirm = ref(false);
 const sections = [
   ['reading', 'Reading'],
   ['listening', 'Listening'],
@@ -21,27 +22,76 @@ const sections = [
 ];
 
 const tests = computed(() => catalog.tests);
+const practiceState = computed(() => {
+  const completed = pendingExam.value?.status === 'completed';
+  if (completed) {
+    return {
+      completed,
+      subtitle: 'You have completed this section.',
+      primaryAction: 'results',
+      primaryIcon: 'fas fa-chart-bar',
+      primaryTitle: 'View Results',
+      primaryHint: 'Review your score and answers.',
+      restartTitle: 'Retake Section',
+      restartVerb: 'Retake'
+    };
+  }
+  return {
+    completed,
+    subtitle: 'You have an unfinished attempt.',
+    primaryAction: 'continue',
+    primaryIcon: 'fas fa-play',
+    primaryTitle: 'Continue Attempt',
+    primaryHint: 'Return to where you left off.',
+    restartTitle: 'Restart Section',
+    restartVerb: 'Restart'
+  };
+});
+const restartWarning = computed(() => {
+  if (!pendingExam.value) return '';
+  const recordings = pendingExam.value.section === 'speaking' ? ', including recordings' : '';
+  return practiceState.value.completed
+    ? `This permanently deletes this completed attempt, its score, and saved answers${recordings}.`
+    : `This permanently deletes your saved answers and timer data${recordings}.`;
+});
 const sectionLabel = section => sections.find(([id]) => id === section)?.[1] || section;
 
 function openExam(tpoId, section) {
-  const hasData = readExamSession(tpoId, section)?.status === 'in-progress';
-  pendingExam.value = { tpoId, section, hasData };
+  const session = readExamSession(tpoId, section);
+  if (!['in-progress', 'completed'].includes(session?.status)) {
+    router.push(`/exam/${tpoId}/${section}/start`);
+    return;
+  }
+  restartConfirm.value = false;
+  pendingExam.value = { tpoId, section, status: session.status, pageId: session.pageId };
 }
 
-async function resumeExam(mode = 'start') {
+function closePractice() {
+  restartConfirm.value = false;
+  pendingExam.value = null;
+}
+
+function selectExamAction(action) {
+  if (!pendingExam.value) return;
+  const { tpoId, section, pageId } = pendingExam.value;
+  if (action === 'restart') {
+    restartConfirm.value = true;
+    return;
+  }
+  closePractice();
+  const target = action === 'results' ? 'results?mode=report' : pageId || 'start';
+  router.push(`/exam/${tpoId}/${section}/${target}`);
+}
+
+async function confirmRestart() {
   if (!pendingExam.value) return;
   const { tpoId, section } = pendingExam.value;
-  let pageId = 'start';
-  if (mode !== 'continue') {
-    removeExamSession(tpoId, section);
-    if (section === 'speaking') {
-      await recordingRepository.removeSession(`tpo-${tpoId}-speaking`).catch(() => {});
-    }
-  } else {
-    pageId = readExamSession(tpoId, section)?.pageId || 'start';
+  removeExamSession(tpoId, section);
+  if (section === 'speaking') {
+    await recordingRepository.removeSession(`tpo-${tpoId}-speaking`).catch(() => {});
   }
-  pendingExam.value = null;
-  router.push(`/exam/${tpoId}/${section}/${pageId}`);
+  closePractice();
+  router.push(`/exam/${tpoId}/${section}/start`);
 }
 
 function openReport(test) {
@@ -62,45 +112,44 @@ function hasReport(test) {
 
 <template>
   <div class="home-page">
-    <header class="app-header"><span class="logo-text">TOEFL</span></header>
+    <header class="app-header">
+      <span class="logo-text">TOEFL</span>
+    </header>
     <div class="app-layout">
       <aside class="sidebar">
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-layer-group"></i> Practice</div>
+          <div class="sidebar-section-header"><i class="fas fa-layer-group" /> Practice</div>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'mock' }"
             @click="panel = 'mock'"
           >
-            <span class="nav-icon"><i class="fas fa-pencil-alt"></i></span> Practice Tests
+            <span class="nav-icon"><i class="fas fa-pencil-alt" /></span> Practice Tests
           </button>
           <button
             class="sidebar-nav-item"
             :class="{ active: panel === 'real' }"
             @click="panel = 'real'"
           >
-            <span class="nav-icon"><i class="fas fa-scroll"></i></span> Official Tests
+            <span class="nav-icon"><i class="fas fa-scroll" /></span> Official Tests
           </button>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-tools"></i> Skills</div>
+          <div class="sidebar-section-header"><i class="fas fa-tools" /> Skills</div>
           <RouterLink class="sidebar-nav-item" to="/skills/typing">
-            <span class="nav-icon"><i class="fas fa-keyboard"></i></span> Typing
+            <span class="nav-icon"><i class="fas fa-keyboard" /></span> Typing
           </RouterLink>
           <RouterLink class="sidebar-nav-item" to="/skills/vocabulary">
-            <span class="nav-icon"><i class="fas fa-book"></i></span> Vocabulary
+            <span class="nav-icon"><i class="fas fa-book" /></span> Vocabulary
           </RouterLink>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h"></i> More</div>
-          <button class="sidebar-nav-item" @click="modal = 'news'">
-            <span class="nav-icon"><i class="fas fa-newspaper"></i></span> TOEFL Updates
+          <div class="sidebar-section-header"><i class="fas fa-ellipsis-h" /> More</div>
+          <button class="sidebar-nav-item" @click="modal = 'guide'">
+            <span class="nav-icon"><i class="fas fa-book-open" /></span> TOEFL Guide
           </button>
           <button class="sidebar-nav-item" @click="modal = 'about'">
-            <span class="nav-icon"><i class="fas fa-handshake"></i></span> Connect
-          </button>
-          <button class="sidebar-nav-item" @click="modal = 'log'">
-            <span class="nav-icon"><i class="fas fa-history"></i></span> Release Notes
+            <span class="nav-icon"><i class="fas fa-handshake" /></span> Connect
           </button>
         </div>
       </aside>
@@ -129,7 +178,9 @@ function hasReport(test) {
                   <td class="id-cell">
                     <span class="tpo-id">TPO {{ test.tpoId }}</span>
                   </td>
-                  <td class="desc-cell">{{ test.description }}</td>
+                  <td class="desc-cell">
+                    {{ test.description }}
+                  </td>
                   <td v-for="[section, label] in sections" :key="section" class="module-cell">
                     <button
                       v-if="test.sections[section]"
@@ -156,7 +207,9 @@ function hasReport(test) {
           </div>
         </section>
         <section v-else class="empty-panel">
-          <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+          <div class="empty-icon">
+            <i class="fas fa-inbox" />
+          </div>
           <h3>More official practice is coming soon</h3>
           <p>Check back soon.</p>
         </section>
@@ -164,9 +217,9 @@ function hasReport(test) {
     </div>
 
     <AppModal
-      v-if="modal === 'news'"
-      title="TOEFL Updates"
-      icon="fas fa-newspaper"
+      v-if="modal === 'guide'"
+      title="TOEFL Guide"
+      icon="fas fa-book-open"
       wide
       @close="modal = ''"
     >
@@ -213,7 +266,9 @@ function hasReport(test) {
           <strong>{{ name }}</strong>
         </p>
         <ul>
-          <li v-for="item in items" :key="item">{{ item }}</li>
+          <li v-for="item in items" :key="item">
+            {{ item }}
+          </li>
         </ul>
       </template>
       <h4>Scoring</h4>
@@ -270,11 +325,13 @@ function hasReport(test) {
         <tbody>
           <tr v-for="row in cefrRows" :key="row[0]">
             <td>{{ row[0] }}</td>
-            <td v-for="index in 5" :key="index">{{ row[1] }}</td>
+            <td v-for="index in 5" :key="index">
+              {{ row[1] }}
+            </td>
           </tr>
         </tbody>
       </table>
-      <h4>Score comparison (1–6 vs. legacy scales)</h4>
+      <h4>Score comparison (1–6 vs. previous scales)</h4>
       <table class="info-table">
         <thead>
           <tr>
@@ -288,7 +345,9 @@ function hasReport(test) {
         </thead>
         <tbody>
           <tr v-for="row in scoreConversionRows" :key="row[0]">
-            <td v-for="cell in row" :key="cell">{{ cell }}</td>
+            <td v-for="cell in row" :key="cell">
+              {{ cell }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -305,7 +364,7 @@ function hasReport(test) {
       <p>Built with AI assistance to provide focused, high-quality TOEFL practice.</p>
       <div class="about-platforms">
         <section class="about-platform">
-          <h4><i class="fab fa-weixin wechat-icon"></i> WeChat</h4>
+          <h4><span class="wechat-icon" aria-hidden="true" /> WeChat</h4>
           <p class="about-platform-description">Scan the QR code to add me</p>
           <div class="img-block">
             <img src="/assets/images/wechat-qr.jpg" alt="WeChat QR code" />
@@ -313,7 +372,9 @@ function hasReport(test) {
           </div>
         </section>
         <section class="about-platform">
-          <h4><span class="x-icon" aria-hidden="true">X</span></h4>
+          <h4>
+            <span class="x-icon" aria-hidden="true">X</span>
+          </h4>
           <p class="about-platform-description">Visit my profile</p>
           <div class="img-block">
             <img src="/assets/images/x-profile.jpg" alt="X profile preview" />
@@ -321,7 +382,7 @@ function hasReport(test) {
           </div>
         </section>
         <section class="about-platform">
-          <h4><i class="fas fa-book-open rednote-icon"></i> RedNote</h4>
+          <h4><i class="fas fa-book-open rednote-icon" /> RedNote</h4>
           <p class="about-platform-description">Follow me on RedNote</p>
           <div class="img-block">
             <img src="/assets/images/rednote-qr.jpg" alt="RedNote QR code" />
@@ -332,29 +393,11 @@ function hasReport(test) {
       <p class="note">For feedback or collaboration, reach out through any channel above.</p>
     </AppModal>
 
-    <AppModal
-      v-if="modal === 'log'"
-      title="Release Notes"
-      icon="fas fa-history"
-      @close="modal = ''"
-    >
-      <article v-for="entry in changelog" :key="entry[0]" class="log-entry">
-        <strong>{{ entry[0] }}</strong
-        ><time>{{ entry[1] }}</time>
-        <p>
-          <template v-for="(line, index) in entry[2].split('<br>')" :key="line">
-            <br v-if="index" />{{ line }}
-          </template>
-        </p>
-      </article>
-      <p class="note">Thanks for using TOEFL Practice.</p>
-    </AppModal>
-
     <div
       v-if="pendingExam"
       class="practice-overlay"
       role="presentation"
-      @mousedown.self="pendingExam = null"
+      @mousedown.self="closePractice"
     >
       <section
         class="practice-box"
@@ -366,62 +409,55 @@ function hasReport(test) {
           class="modal-close practice-close"
           type="button"
           aria-label="Close"
-          @click="pendingExam = null"
+          @click="closePractice"
         >
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" />
         </button>
-        <h2>
-          TPO {{ pendingExam.tpoId }} ·
-          {{ sectionLabel(pendingExam.section) }}
-        </h2>
-        <p class="practice-sub">
-          {{
-            pendingExam.hasData
-              ? 'You have an unfinished attempt. Choose how to continue.'
-              : 'Choose a practice mode.'
-          }}
-        </p>
-        <button
-          class="practice-option-card active start-option"
-          type="button"
-          @click="resumeExam('start')"
-        >
-          <span class="opt-icon"><i class="fas fa-play"></i></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Start New</strong
-            ><small class="opt-hint">Begin again from Question 1.</small></span
+        <template v-if="!restartConfirm">
+          <h2>
+            TPO {{ pendingExam.tpoId }} ·
+            {{ sectionLabel(pendingExam.section) }}
+          </h2>
+          <p class="practice-sub">
+            {{ practiceState.subtitle }}
+          </p>
+          <button
+            class="practice-option-card active"
+            type="button"
+            @click="selectExamAction(practiceState.primaryAction)"
           >
-        </button>
-        <button
-          class="practice-option-card"
-          :class="pendingExam.hasData ? 'active' : 'disabled'"
-          type="button"
-          :disabled="!pendingExam.hasData"
-          @click="resumeExam('continue')"
-        >
-          <span class="opt-icon"
-            ><i :class="pendingExam.hasData ? 'fas fa-play' : 'fas fa-lock'"></i
-          ></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Resume</strong
-            ><small class="opt-hint">Continue where you left off.</small></span
+            <span class="opt-icon"><i :class="practiceState.primaryIcon" /></span>
+            <span class="opt-body">
+              <strong class="opt-title">{{ practiceState.primaryTitle }}</strong>
+              <small class="opt-hint">{{ practiceState.primaryHint }}</small>
+            </span>
+          </button>
+          <button
+            class="practice-option-card danger active"
+            type="button"
+            @click="selectExamAction('restart')"
           >
-        </button>
-        <button
-          class="practice-option-card danger"
-          :class="pendingExam.hasData ? 'active' : 'disabled'"
-          type="button"
-          :disabled="!pendingExam.hasData"
-          @click="resumeExam('restart')"
-        >
-          <span class="opt-icon"
-            ><i :class="pendingExam.hasData ? 'fas fa-redo-alt' : 'fas fa-lock'"></i
-          ></span>
-          <span class="opt-body"
-            ><strong class="opt-title">Start Over</strong
-            ><small class="opt-hint">Delete this attempt and begin again.</small></span
-          >
-        </button>
+            <span class="opt-icon"><i class="fas fa-redo-alt" /></span>
+            <span class="opt-body">
+              <strong class="opt-title">{{ practiceState.restartTitle }}</strong>
+              <small class="opt-hint">Start again from Question 1.</small>
+            </span>
+          </button>
+        </template>
+        <template v-else>
+          <h2>{{ practiceState.restartVerb }} {{ sectionLabel(pendingExam.section) }}?</h2>
+          <p class="practice-confirm-copy">
+            {{ restartWarning }}
+          </p>
+          <div class="practice-confirm-actions">
+            <button type="button" class="practice-cancel" @click="restartConfirm = false">
+              Keep Attempt
+            </button>
+            <button type="button" class="practice-restart" @click="confirmRestart">
+              {{ practiceState.restartTitle }}
+            </button>
+          </div>
+        </template>
       </section>
     </div>
   </div>

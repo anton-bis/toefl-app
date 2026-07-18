@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../src/vue/utils/time.js';
 import { normalizeVolume } from '../../src/vue/utils/volume.js';
-import { isPlainObject, isSafeStorageKey } from '../../src/vue/platform/localPersistence.js';
+import { isPlainObject } from '../../src/vue/platform/localPersistence.js';
 
 describe('shared UI utilities', () => {
   it('formats non-negative minute and hour clocks consistently', () => {
@@ -28,12 +28,5 @@ describe('shared UI utilities', () => {
     expect(isPlainObject(Object.create(null))).toBe(true);
     expect(isPlainObject([])).toBe(false);
     expect(isPlainObject(null)).toBe(false);
-  });
-
-  it('accepts bounded storage identifiers without prototype collisions', () => {
-    expect(isSafeStorageKey('reading:set-1')).toBe(true);
-    expect(isSafeStorageKey('constructor')).toBe(false);
-    expect(isSafeStorageKey('')).toBe(false);
-    expect(isSafeStorageKey('x'.repeat(201))).toBe(false);
   });
 });

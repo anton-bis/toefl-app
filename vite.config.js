@@ -79,8 +79,7 @@ export default defineConfig({
     {
       name: 'remove-crossorigin',
       enforce: 'post',
-      transformIndexHtml: html =>
-        html.replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ')
+      transformIndexHtml: html => html.replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ')
     },
     {
       name: 'copy-runtime-content',

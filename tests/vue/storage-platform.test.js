@@ -1,26 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  dataRepository,
-  exportAllData,
-  replaceAllData
-} from '../../src/vue/platform/dataRepository.js';
-import {
+  configureDesktopPersistence,
   flushLocalWrites,
-  installPersistenceListeners,
-  resetLocalPersistenceForTests,
   scheduleLocalJson,
   writeLocalJson
 } from '../../src/vue/platform/localPersistence.js';
 import {
   initializeDataStorage,
-  STORAGE_READY_KEY
+  installStorageLifecycleListeners
 } from '../../src/vue/platform/storageLifecycle.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 describe('local persistence coordinator', () => {
   beforeEach(() => {
     installMemoryStorage();
-    resetLocalPersistenceForTests();
     vi.useFakeTimers();
   });
 
@@ -40,56 +33,66 @@ describe('local persistence coordinator', () => {
   });
 
   it('flushes pending writes when the page is hidden', () => {
-    installPersistenceListeners();
+    installStorageLifecycleListeners();
     scheduleLocalJson('toefl:test', { input: 'pending' }, 10_000);
     window.dispatchEvent(new Event('pagehide'));
     expect(JSON.parse(localStorage.getItem('toefl:test'))).toEqual({ input: 'pending' });
   });
+
+  it('persists scalar desktop settings without treating them as exam sessions', async () => {
+    const set = vi.fn().mockResolvedValue(true);
+    window.electronAPI = { data: { settings: { set } } };
+    configureDesktopPersistence({ settings: { volume: 1 } });
+    writeLocalJson('volume', 0.5);
+    await flushLocalWrites();
+    expect(set).toHaveBeenCalledWith('volume', 0.5);
+  });
+
+  it('sends complete compact exam sessions to desktop storage', async () => {
+    const save = vi.fn().mockResolvedValue(true);
+    window.electronAPI = {
+      data: {
+        settings: { set: vi.fn().mockResolvedValue(true) },
+        exam: { save }
+      }
+    };
+    configureDesktopPersistence();
+    writeLocalJson('toefl:exam:01:reading', {
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
+    await flushLocalWrites();
+
+    expect(save).toHaveBeenCalledWith({
+      id: 'tpo-01-reading',
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
+  });
 });
 
 describe('storage lifecycle', () => {
-  it('resets legacy data once and preserves new data on later starts', async () => {
-    const storage = installMemoryStorage({
-      'toefl:settings': '{"old":true}',
-      unrelated: 'keep'
-    });
-    await initializeDataStorage(storage);
-    expect(storage.getItem('toefl:settings')).toBeNull();
-    expect(storage.getItem('unrelated')).toBe('keep');
-    expect(storage.getItem(STORAGE_READY_KEY)).toBe('1');
-
-    storage.setItem('toefl:settings', '{"new":true}');
-    await initializeDataStorage(storage);
-    expect(storage.getItem('toefl:settings')).toBe('{"new":true}');
-  });
-
-  it('does not mark initialization complete when database setup fails', async () => {
-    const storage = installMemoryStorage({ 'toefl:settings': '{"old":true}' });
-    const services = {
-      close: vi.fn(),
-      removeDatabase: vi.fn().mockResolvedValue(),
-      open: vi.fn().mockRejectedValue(new Error('blocked'))
+  it('hydrates desktop persistence directly from SQLite bootstrap data', async () => {
+    installMemoryStorage();
+    const data = {
+      bootstrap: vi.fn().mockResolvedValue({
+        settings: { theme: 'dark' },
+        examSessions: []
+      }),
+      settings: { set: vi.fn().mockResolvedValue() },
+      exam: { save: vi.fn().mockResolvedValue(), delete: vi.fn().mockResolvedValue() }
     };
-    await expect(initializeDataStorage(storage, services)).rejects.toThrow('blocked');
-    expect(storage.getItem(STORAGE_READY_KEY)).toBeNull();
-  });
-});
+    window.electronAPI = { data };
+    await initializeDataStorage();
 
-describe('IndexedDB transactions', () => {
-  it('aborts an invalid multi-store replacement without clearing prior data', async () => {
-    await dataRepository.replaceAll({
-      typingHistory: [{ key: 'old', value: { articleId: 'a', completedAt: '2026-01-01' } }]
-    });
-    await expect(
-      replaceAllData({
-        typingHistory: [
-          { key: 'new', value: { articleId: 'b' } },
-          { value: { articleId: 'missing-key' } }
-        ]
-      })
-    ).rejects.toBeTruthy();
-    expect((await exportAllData()).typingHistory).toEqual([
-      { key: 'old', value: { articleId: 'a', completedAt: '2026-01-01' } }
-    ]);
+    expect(data.bootstrap).toHaveBeenCalledOnce();
   });
 });

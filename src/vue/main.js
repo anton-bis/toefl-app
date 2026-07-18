@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, ref } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router/index.js';
@@ -8,13 +8,28 @@ import './styles/base.css';
 import './styles/icons.css';
 import './styles/skills.css';
 
+const pinia = createPinia();
+const app = createApp(App);
+const storageReady = ref(false);
+app.use(pinia);
+app.use(router);
+app.provide('storageReady', storageReady);
+app.mount('#vue-app');
+
 try {
   await initializeDataStorage();
-  const app = createApp(App);
-  app.use(createPinia());
-  app.use(router);
-  app.mount('#vue-app');
+  storageReady.value = true;
+  const refreshCatalog = async () => {
+    const { useCatalogStore } = await import('./stores/catalog.js');
+    await useCatalogStore(pinia).refreshCatalog();
+  };
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => refreshCatalog().catch(() => {}), { timeout: 2000 });
+  } else {
+    setTimeout(() => refreshCatalog().catch(() => {}), 0);
+  }
 } catch (error) {
+  app.unmount();
   const root = document.querySelector('#vue-app');
   if (root) {
     const message = document.createElement('main');

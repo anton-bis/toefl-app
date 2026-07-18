@@ -4,14 +4,12 @@ import BuildSentence from './BuildSentence.vue';
 import ResponseEditor from './ResponseEditor.vue';
 
 const props = defineProps({
-  document: { type: Object, required: true },
   page: { type: Object, required: true },
   task: { type: Object, default: null },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
   checked: { type: [Boolean, Object], default: false },
   locked: { type: [Boolean, Object], default: false },
-  volume: { type: Number, default: 0.8 },
   readOnly: { type: Boolean, default: false }
 });
 const emit = defineEmits(['answer']);

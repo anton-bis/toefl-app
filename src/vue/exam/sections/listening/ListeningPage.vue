@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import AudioSegment from './AudioSegment.vue';
-import ChoiceList from '../../shared/ChoiceList.vue';
+import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -36,23 +36,25 @@ const title = computed(() =>
       <div class="passage-title-area">
         <h2 class="passage-title">{{ title }}</h2>
       </div>
-      <div class="speaker-area">
-        <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
-        <div class="speaker-label">Speaker</div>
+      <div class="listening-surface listening-stimulus-card">
+        <div class="speaker-area">
+          <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
+          <div class="speaker-label">Speaker</div>
+        </div>
+        <AudioSegment
+          :document="document"
+          :media="task.media"
+          :volume="volume"
+          @media-state="emit('media-state', $event)"
+        />
       </div>
-      <AudioSegment
-        :document="document"
-        :media="task.media"
-        :volume="volume"
-        @media-state="emit('media-state', $event)"
-      />
     </section>
 
     <section
       v-else-if="task.type === 'listen-response'"
       class="listen-response-layout two-column-layout"
     >
-      <div class="left-column">
+      <div class="left-column listening-visual-panel">
         <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
         <AudioSegment
@@ -68,20 +70,19 @@ const title = computed(() =>
         aria-label="Question and answer choices"
         tabindex="0"
       >
-        <div class="question-container-apple">
-          <ChoiceList
-            :question="question"
-            :answers="answers"
-            :checked="checked"
-            :locked="locked"
-            @answer="(id, value) => emit('answer', id, value)"
-          />
-        </div>
+        <ChoiceQuestion
+          :question="question"
+          :answers="answers"
+          :checked="checked"
+          :locked="locked"
+          :show-prompt="false"
+          @answer="(id, value) => emit('answer', id, value)"
+        />
       </div>
     </section>
 
     <section v-else class="listening-question-layout two-column-layout">
-      <div class="left-column">
+      <div class="left-column listening-visual-panel">
         <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
       </div>
@@ -91,16 +92,13 @@ const title = computed(() =>
         aria-label="Question and answer choices"
         tabindex="0"
       >
-        <div class="question-container-apple">
-          <div class="question-text-apple">{{ question.prompt }}</div>
-          <ChoiceList
-            :question="question"
-            :answers="answers"
-            :checked="checked"
-            :locked="locked"
-            @answer="(id, value) => emit('answer', id, value)"
-          />
-        </div>
+        <ChoiceQuestion
+          :question="question"
+          :answers="answers"
+          :checked="checked"
+          :locked="locked"
+          @answer="(id, value) => emit('answer', id, value)"
+        />
       </div>
     </section>
   </main>

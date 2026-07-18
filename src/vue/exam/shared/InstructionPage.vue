@@ -7,7 +7,7 @@ const props = defineProps({
   page: { type: Object, required: true },
   task: { type: Object, default: null }
 });
-defineEmits(['begin', 'help', 'volume']);
+defineEmits(['begin', 'exit', 'help', 'volume']);
 
 const isStart = computed(() => props.page.type === 'start');
 const startCopy = computed(() => startDirections(props.document.section));
@@ -23,7 +23,14 @@ const title = computed(() => {
   <div class="exam-page">
     <header class="exam-header">
       <div class="exam-header__brand"><strong>toefl ibt</strong></div>
-      <nav class="exam-header__actions">
+      <nav class="exam-header__actions" aria-label="Exam actions">
+        <button
+          class="exam-nav-button exam-nav-button--dark exam-nav-button--exit"
+          type="button"
+          @click="$emit('exit')"
+        >
+          <span>Exit</span><i class="fas fa-sign-out-alt" aria-hidden="true" />
+        </button>
         <button
           class="exam-nav-button exam-nav-button--dark"
           type="button"

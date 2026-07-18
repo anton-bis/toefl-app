@@ -101,7 +101,7 @@ async function main() {
   // Confirm that the build output exists.
   if (!fs.existsSync(distDir)) {
     console.error(`❌ The dist directory does not exist: ${distDir}`);
-    console.log('💡 Run npm run build or npm run electron:build-only first.');
+    console.log('💡 Run npm run build first.');
     process.exit(1);
   }
 
@@ -154,11 +154,6 @@ async function main() {
   console.log(`⏭️  Skipped: ${skipCount} files`);
   console.log(`❌ Failed: ${errorCount} files`);
   console.log(`📁 Total: ${allFiles.length} files`);
-
-  // Create the obfuscation marker.
-  const markerFile = path.join(distDir, '.obfuscated');
-  fs.writeFileSync(markerFile, `Completed: ${new Date().toISOString()}\nFiles: ${successCount}`);
-  console.log(`\n🏷️  Created obfuscation marker: ${markerFile}`);
 
   if (errorCount > 0) {
     console.warn('\n⚠️  Some files could not be obfuscated. Review the errors above.');

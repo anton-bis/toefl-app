@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../../utils/time.js';
 import { normalizeVolume } from '../../../utils/volume.js';
@@ -11,9 +11,6 @@ const props = defineProps({
   page: { type: Object, required: true },
   task: { type: Object, default: null },
   question: { type: Object, default: null },
-  answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object], default: false },
-  locked: { type: [Boolean, Object], default: false },
   volume: { type: Number, default: 0.8 },
   readOnly: { type: Boolean, default: false }
 });
@@ -28,6 +25,7 @@ const remaining = ref(0);
 const ringProgress = ref(0);
 const phase = ref('listen');
 let animationFrame;
+let recordingDeadlineTimer;
 let recordStartedAt = 0;
 let activeQuestionId = '';
 let resetGeneration = 0;
@@ -122,6 +120,8 @@ async function startResponse() {
     return;
   }
   recordStartedAt = performance.now();
+  clearTimeout(recordingDeadlineTimer);
+  recordingDeadlineTimer = window.setTimeout(finishResponse, duration.value * 1000);
   animationFrame = requestAnimationFrame(animateRecording);
 }
 function animateRecording(now) {
@@ -132,8 +132,15 @@ function animateRecording(now) {
     animationFrame = requestAnimationFrame(animateRecording);
   } else finishResponse();
 }
+function handleVisibilityChange() {
+  cancelAnimationFrame(animationFrame);
+  if (recorder.status.value !== 'recording') return;
+  if (document.hidden) finishResponse();
+  else animateRecording(performance.now());
+}
 async function finishResponse() {
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
   if (phase.value === 'recorded') return;
   const blob = await recorder.stop();
   remaining.value = 0;
@@ -161,6 +168,7 @@ async function resetQuestion() {
   const currentReset = ++resetGeneration;
   const requestedId = props.question?.id || '';
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
   recorder.stopPlayback();
   if (recorder.status.value === 'recording') await recorder.stop();
   audio.value?.pause();
@@ -203,9 +211,12 @@ watch(
   { immediate: true }
 );
 watch(() => props.volume, applyVolume);
+onMounted(() => document.addEventListener('visibilitychange', handleVisibilityChange));
 onBeforeUnmount(() => {
   resetGeneration += 1;
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
   audio.value?.pause();
 });
 </script>

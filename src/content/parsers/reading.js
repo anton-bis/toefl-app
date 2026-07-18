@@ -19,23 +19,24 @@ function parseChoiceQuestions(text, moduleId, taskId, type) {
   const questions = [];
   const regex = /(?:^|\n)(\d+)\.\s*([\s\S]*?)(?=\n\d+\.\s*|$)/g;
   for (const match of text.matchAll(regex)) {
-    const number = Number(match[1]);
     const block = match[2].trim();
     const firstOption = block.search(/^A\.\s/m);
-    if (firstOption < 0) continue;
-    const prompt = block.slice(0, firstOption).trim();
-    const optionPart = block.slice(firstOption);
+    const answer =
+      block.match(/\\?\[ANSWER\\?\]\s*([\s\S]*?)\s*\\?\[\/ANSWER\\?\]/)?.[1].trim() || null;
+    if (firstOption < 0 && !answer) continue;
+    const prompt = (firstOption < 0 ? block : block.slice(0, firstOption))
+      .replace(/\\?\[ANSWER\\?\][\s\S]*$/, '')
+      .trim();
+    const optionPart = firstOption < 0 ? '' : block.slice(firstOption);
     const options = [];
     for (const option of optionPart.matchAll(
       /^([A-D])\.\s*([\s\S]*?)(?=\n[A-D]\.\s|\n\\?\[ANSWER\\?\]|$)/gm
     )) {
       options.push([option[1], option[2].trim()]);
     }
-    const answer =
-      block.match(/\\?\[ANSWER\\?\]\s*([\s\S]*?)\s*\\?\[\/ANSWER\\?\]/)?.[1].trim() || null;
     questions.push({
-      id: `${moduleId}-${taskId}-q${number}`,
-      number,
+      id: `${moduleId}-${taskId}-q${match[1]}`,
+      number: Number(match[1]),
       type,
       prompt,
       options: optionsFrom(options),
@@ -97,6 +98,9 @@ export function parseReading(markdown, options = {}) {
         type === 'complete-words'
           ? parseFill(content, moduleId, taskId, start, end)
           : parseChoiceQuestions(content.slice(Math.max(0, firstQuestion)), moduleId, taskId, type);
+      questions.forEach((question, index) => {
+        question.number = start + index;
+      });
       if (type !== 'complete-words') {
         const answerBlocks = [
           ...content.matchAll(/\\?\[ANSWER\\?\]\s*([\s\S]*?)\s*\\?\[\/ANSWER\\?\]/g)

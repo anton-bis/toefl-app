@@ -1,440 +1,398 @@
-import path from 'path';
-import { app } from 'electron';
-import { fileURLToPath } from 'url';
+import crypto from 'node:crypto';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { Worker } from 'node:worker_threads';
 
-let databaseConstructorPromise;
-
-function loadDatabaseConstructor() {
-  databaseConstructorPromise ??= import('better-sqlite3')
-    .then(module => module.default)
-    .catch(error => {
-      databaseConstructorPromise = undefined;
-      throw new Error('The SQLite extension is not installed. Add better-sqlite3 to enable it.', {
-        cause: error
-      });
-    });
-  return databaseConstructorPromise;
-}
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-// Database instance
-let db = null;
-let initializationPromise;
-
-// Initialize the database.
-export function initDatabase() {
-  if (initializationPromise) return initializationPromise;
-  if (db) return db;
-  initializationPromise ??= (async () => {
-    try {
-      const Database = await loadDatabaseConstructor();
-      const dbPath = app?.isPackaged
-        ? path.join(app.getPath('userData'), 'toefl_data.db')
-        : path.join(__dirname, '../../toefl_data.db');
-
-      const connection = new Database(dbPath, {
-        verbose: process.env.NODE_ENV === 'development' ? console.log : null
-      });
-      db = connection;
-      connection.pragma('journal_mode = WAL');
-      connection.pragma('synchronous = NORMAL');
-      connection.pragma('foreign_keys = ON');
-      await createTables();
-      return connection;
-    } catch (error) {
-      db?.close();
-      db = null;
-      throw error;
-    } finally {
-      initializationPromise = undefined;
+const IDLE_TIMEOUT_MS = 30_000;
+const MAX_RECORDING_BYTES = 50 * 1024 * 1024;
+const MAX_REQUEST_BYTES = 2 * 1024 * 1024;
+const PUBLIC_OPERATIONS = {
+  bootstrap: {},
+  'settings:set': { identifiers: ['key'] },
+  'exam:save': {
+    identifiers: ['id', 'tpoId', 'section', 'status'],
+    validate(payload) {
+      if (!['not-started', 'in-progress', 'completed'].includes(payload.status)) {
+        throw new TypeError('Invalid exam status');
+      }
+      if (
+        payload.answers !== undefined &&
+        (!payload.answers || typeof payload.answers !== 'object' || Array.isArray(payload.answers))
+      ) {
+        throw new TypeError('Invalid exam answers');
+      }
     }
-  })();
-  return initializationPromise;
-}
-
-// Create database tables.
-async function createTables() {
-  const tables = [
-    // Users
-    `CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      device_id TEXT UNIQUE NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      last_login DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`,
-
-    // Licenses
-    `CREATE TABLE IF NOT EXISTS licenses (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      license_key TEXT UNIQUE NOT NULL,
-      license_type TEXT NOT NULL, -- 'trial', 'perpetual', 'subscription'
-      status TEXT NOT NULL, -- 'active', 'expired', 'revoked'
-      user_id INTEGER,
-      activation_date DATETIME,
-      expiration_date DATETIME,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users (id)
-    )`,
-
-    // Practice modules
-    `CREATE TABLE IF NOT EXISTS modules (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT UNIQUE NOT NULL,
-      display_name TEXT NOT NULL,
-      description TEXT,
-      enabled BOOLEAN DEFAULT 1,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`,
-
-    // User answers
-    `CREATE TABLE IF NOT EXISTS user_answers (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER NOT NULL,
-      module_id INTEGER NOT NULL,
-      question_id TEXT NOT NULL,
-      answer TEXT NOT NULL,
-      is_correct BOOLEAN,
-      score INTEGER,
-      time_spent INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users (id),
-      FOREIGN KEY (module_id) REFERENCES modules (id),
-      UNIQUE(user_id, module_id, question_id)
-    )`,
-
-    // User progress
-    `CREATE TABLE IF NOT EXISTS user_progress (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER NOT NULL,
-      module_id INTEGER NOT NULL,
-      total_questions INTEGER DEFAULT 0,
-      completed_questions INTEGER DEFAULT 0,
-      total_score INTEGER DEFAULT 0,
-      total_time_spent INTEGER DEFAULT 0,
-      last_accessed DATETIME DEFAULT CURRENT_TIMESTAMP,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (user_id) REFERENCES users (id),
-      FOREIGN KEY (module_id) REFERENCES modules (id),
-      UNIQUE(user_id, module_id)
-    )`,
-
-    // Settings
-    `CREATE TABLE IF NOT EXISTS settings (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      key TEXT UNIQUE NOT NULL,
-      value TEXT,
-      category TEXT DEFAULT 'general',
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`
-  ];
-
-  // Create all tables in one transaction.
-  const createTablesTransaction = db.transaction(() => {
-    tables.forEach(sql => {
-      db.prepare(sql).run();
-    });
-  });
-
-  createTablesTransaction();
-
-  // Seed the default modules.
-  await seedDefaultData();
-}
-
-// Seed default data.
-async function seedDefaultData() {
-  const modules = [
-    ['reading', 'Reading', 'TOEFL reading practice'],
-    ['listening', 'Listening', 'TOEFL listening practice'],
-    ['speaking', 'Speaking', 'TOEFL speaking practice'],
-    ['writing', 'Writing', 'TOEFL writing practice']
-  ];
-
-  const insertModule = db.prepare(`
-    INSERT OR IGNORE INTO modules (name, display_name, description) 
-    VALUES (?, ?, ?)
-  `);
-
-  modules.forEach(module => {
-    insertModule.run(module);
-  });
-}
-
-// Get the database instance.
-export function getDatabase() {
-  if (!db) {
-    throw new Error('The database is not initialized. Call initDatabase() first.');
-  }
-  return db;
-}
-
-// Close the database connection.
-export async function closeDatabase() {
-  if (db) {
-    try {
-      db.close();
-      db = null;
-      console.log('Database connection closed.');
-    } catch (error) {
-      console.error('Could not close the database connection:', error);
-      throw error;
-    }
-  }
-}
-
-// User operations
-export const userService = {
-  // Create or retrieve a user.
-  createOrGetUser(deviceId) {
-    const stmt = db.prepare(`
-      INSERT OR IGNORE INTO users (device_id) 
-      VALUES (?)
-    `);
-
-    const result = stmt.run(deviceId);
-
-    const getUser = db.prepare('SELECT * FROM users WHERE device_id = ?');
-    return getUser.get(deviceId);
   },
-
-  // Update the user's last login time.
-  updateLastLogin(userId) {
-    const stmt = db.prepare(`
-      UPDATE users 
-      SET last_login = CURRENT_TIMESTAMP 
-      WHERE id = ?
-    `);
-    return stmt.run(userId);
+  'exam:delete': { identifiers: ['id'] },
+  'exam:listCompleted': {},
+  'vocabulary:list': {},
+  'vocabulary:save': {
+    identifiers: ['subject', 'setId'],
+    validate(payload) {
+      if (payload.wordId !== undefined) assertIdentifier(payload.wordId, 'wordId');
+    }
+  },
+  'vocabulary:overview': {},
+  'typing:list': {},
+  'typing:replace': {
+    validate(payload) {
+      if (!Array.isArray(payload.history)) throw new TypeError('Invalid typing history');
+    }
+  },
+  'recording:save': { handler: 'saveRecording', binary: true },
+  'recording:load': {
+    handler: 'loadRecording',
+    identifiers: ['sessionId', 'questionId']
+  },
+  'recording:remove': {
+    handler: 'removeRecording',
+    identifiers: ['sessionId', 'questionId']
+  },
+  'recording:removeSession': {
+    handler: 'removeRecording',
+    identifiers: ['sessionId']
   }
 };
+const MIME_EXTENSIONS = new Map([
+  ['audio/webm', '.webm'],
+  ['audio/ogg', '.ogg'],
+  ['audio/mp4', '.m4a'],
+  ['audio/mpeg', '.mp3'],
+  ['audio/wav', '.wav']
+]);
 
-// Answer operations
-export const answerService = {
-  // Save an answer.
-  saveAnswer(userId, moduleId, questionId, answer, isCorrect = null, score = null, timeSpent = 0) {
-    const stmt = db.prepare(`
-      INSERT OR REPLACE INTO user_answers 
-      (user_id, module_id, question_id, answer, is_correct, score, time_spent, updated_at) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-    `);
-
-    return stmt.run(userId, moduleId, questionId, answer, isCorrect, score, timeSpent);
-  },
-
-  // Get one answer.
-  getAnswer(userId, moduleId, questionId) {
-    const stmt = db.prepare(`
-      SELECT * FROM user_answers 
-      WHERE user_id = ? AND module_id = ? AND question_id = ?
-    `);
-
-    return stmt.get(userId, moduleId, questionId);
-  },
-
-  // Get all answers for a module.
-  getUserAnswers(userId, moduleId) {
-    const stmt = db.prepare(`
-      SELECT * FROM user_answers 
-      WHERE user_id = ? AND module_id = ?
-      ORDER BY created_at DESC
-    `);
-
-    return stmt.all(userId, moduleId);
-  },
-
-  // Delete an answer.
-  deleteAnswer(userId, moduleId, questionId) {
-    const stmt = db.prepare(`
-      DELETE FROM user_answers 
-      WHERE user_id = ? AND module_id = ? AND question_id = ?
-    `);
-
-    return stmt.run(userId, moduleId, questionId);
+function assertIdentifier(value, label) {
+  if (typeof value !== 'string' || !value || value.length > 200 || /[\0\r\n]/.test(value)) {
+    throw new TypeError(`Invalid ${label}`);
   }
-};
+  return value;
+}
 
-// Progress operations
-export const progressService = {
-  // Update module progress.
-  updateProgress(userId, moduleId, completedIncrement = 0, scoreIncrement = 0, timeIncrement = 0) {
-    const stmt = db.prepare(`
-      INSERT OR REPLACE INTO user_progress 
-      (user_id, module_id, completed_questions, total_score, total_time_spent, updated_at) 
-      VALUES (?, ?, 
-        COALESCE((SELECT completed_questions FROM user_progress WHERE user_id = ? AND module_id = ?), 0) + ?,
-        COALESCE((SELECT total_score FROM user_progress WHERE user_id = ? AND module_id = ?), 0) + ?,
-        COALESCE((SELECT total_time_spent FROM user_progress WHERE user_id = ? AND module_id = ?), 0) + ?,
-        CURRENT_TIMESTAMP
-      )
-    `);
+function recordingName(sessionId, questionId, mime) {
+  const digest = crypto
+    .createHash('sha256')
+    .update(sessionId)
+    .update('\0')
+    .update(questionId)
+    .digest('hex');
+  return `${digest}${MIME_EXTENSIONS.get(mime)}`;
+}
 
-    return stmt.run(
-      userId,
-      moduleId,
-      userId,
-      moduleId,
-      completedIncrement,
-      userId,
-      moduleId,
-      scoreIncrement,
-      userId,
-      moduleId,
-      timeIncrement
+function recordingMime(value) {
+  if (typeof value !== 'string' || value.length > 100)
+    throw new TypeError('Unsupported recording type');
+  const base = value.split(';', 1)[0].trim().toLowerCase();
+  if (!MIME_EXTENSIONS.has(base)) throw new TypeError('Unsupported recording type');
+  return { base, value };
+}
+
+async function moveToBackup(source, backup) {
+  try {
+    await fs.rename(source, backup);
+    return true;
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+    return false;
+  }
+}
+
+async function replaceRecordingFile({ temporary, destination, backup, commit }) {
+  const backedUp = await moveToBackup(destination, backup);
+  try {
+    await fs.rename(temporary, destination);
+    await commit();
+    await fs.rm(backup, { force: true }).catch(() => {});
+  } catch (error) {
+    await fs.rm(temporary, { force: true }).catch(() => {});
+    await fs.rm(destination, { force: true }).catch(() => {});
+    if (backedUp) await fs.rename(backup, destination).catch(() => {});
+    throw error;
+  }
+}
+
+function validatePublicRequest(operation, payload) {
+  if (!Object.hasOwn(PUBLIC_OPERATIONS, operation)) {
+    throw new Error('Unsupported data storage operation');
+  }
+  const definition = PUBLIC_OPERATIONS[operation];
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    throw new TypeError('Invalid data storage payload');
+  }
+  if (!definition.binary) {
+    let serialized;
+    try {
+      serialized = JSON.stringify(payload);
+    } catch {
+      throw new TypeError('Invalid data storage payload');
+    }
+    if (Buffer.byteLength(serialized) > MAX_REQUEST_BYTES) {
+      throw new RangeError('Data storage request is too large');
+    }
+  }
+  for (const field of definition.identifiers || []) {
+    assertIdentifier(payload[field], field);
+  }
+  definition.validate?.(payload);
+  return definition;
+}
+
+export class DataStorage {
+  #databasePath;
+  #recordingsPath;
+  #worker;
+  #requests = new Map();
+  #nextId = 1;
+  #idleTimer;
+  #closing = false;
+  #drainResolvers = new Set();
+
+  constructor(userDataPath, { idleTimeout = IDLE_TIMEOUT_MS } = {}) {
+    if (!path.isAbsolute(userDataPath)) throw new TypeError('userDataPath must be absolute');
+    this.#databasePath = path.join(userDataPath, 'toefl-data.sqlite');
+    this.#recordingsPath = path.join(userDataPath, 'recordings');
+    this.idleTimeout = idleTimeout;
+  }
+
+  #startWorker() {
+    if (this.#worker) return this.#worker;
+    const worker = new Worker(new URL('./database-worker.js', import.meta.url), {
+      workerData: { databasePath: this.#databasePath, recordingsPath: this.#recordingsPath }
+    });
+    worker.on('message', message => {
+      const request = this.#requests.get(message.id);
+      if (!request) return;
+      this.#requests.delete(message.id);
+      if (message.ok) request.resolve(message.value);
+      else request.reject(new Error(message.error || 'Data storage request failed'));
+      if (!this.#requests.size) {
+        for (const resolve of this.#drainResolvers) resolve();
+        this.#drainResolvers.clear();
+      }
+      this.#scheduleIdle();
+    });
+    worker.on('error', error => this.#failWorker(error));
+    worker.on('exit', code => {
+      if (this.#worker !== worker) return;
+      this.#worker = undefined;
+      if (code) this.#failRequests(new Error(`Data storage worker stopped (${code})`));
+    });
+    this.#worker = worker;
+    return worker;
+  }
+
+  #failRequests(error) {
+    for (const request of this.#requests.values()) request.reject(error);
+    this.#requests.clear();
+    for (const resolve of this.#drainResolvers) resolve();
+    this.#drainResolvers.clear();
+  }
+
+  #failWorker(error) {
+    this.#failRequests(error);
+    this.#worker = undefined;
+  }
+
+  #scheduleIdle() {
+    clearTimeout(this.#idleTimer);
+    if (!this.#worker || this.#requests.size || this.#closing) return;
+    this.#idleTimer = setTimeout(() => this.close(), this.idleTimeout);
+    this.#idleTimer.unref?.();
+  }
+
+  request(operation, payload = {}) {
+    if (typeof operation !== 'string' || operation.length > 80) {
+      return Promise.reject(new TypeError('Invalid data storage operation'));
+    }
+    if (this.#closing) return Promise.reject(new Error('Data storage is closing'));
+    return this.#send(operation, payload);
+  }
+
+  #send(operation, payload) {
+    clearTimeout(this.#idleTimer);
+    const id = this.#nextId++;
+    const worker = this.#startWorker();
+    return new Promise((resolve, reject) => {
+      this.#requests.set(id, { resolve, reject });
+      worker.postMessage({ id, operation, payload });
+    });
+  }
+
+  async saveRecording({ sessionId, questionId, mime, bytes }) {
+    assertIdentifier(sessionId, 'session ID');
+    assertIdentifier(questionId, 'question ID');
+    const normalizedMime = recordingMime(mime);
+    if (!ArrayBuffer.isView(bytes) && !(bytes instanceof ArrayBuffer)) {
+      throw new TypeError('Invalid recording bytes');
+    }
+    const data = Buffer.from(bytes.buffer || bytes, bytes.byteOffset || 0, bytes.byteLength);
+    if (!data.length || data.length > MAX_RECORDING_BYTES) {
+      throw new RangeError('Invalid recording size');
+    }
+    await fs.mkdir(this.#recordingsPath, { recursive: true, mode: 0o700 });
+    const name = recordingName(sessionId, questionId, normalizedMime.base);
+    const destination = path.join(this.#recordingsPath, name);
+    const temporary = `${destination}.tmp-${process.pid}-${crypto.randomUUID()}`;
+    const backup = `${destination}.bak-${process.pid}-${crypto.randomUUID()}`;
+    const previous = await this.request('recording:get', { sessionId, questionId });
+    const updatedAt = Date.now();
+    await fs.writeFile(temporary, data, { flag: 'wx', mode: 0o600 });
+    await replaceRecordingFile({
+      temporary,
+      destination,
+      backup,
+      commit: () =>
+        this.request('recording:upsert', {
+          sessionId,
+          questionId,
+          relativePath: name,
+          mime: normalizedMime.value,
+          size: data.length,
+          updatedAt
+        })
+    });
+    if (previous?.relativePath && previous.relativePath !== name) {
+      await fs
+        .rm(path.join(this.#recordingsPath, path.basename(previous.relativePath)), {
+          force: true
+        })
+        .catch(() => {});
+    }
+    return {
+      sessionId,
+      questionId,
+      mime: normalizedMime.value,
+      size: data.length,
+      updatedAt
+    };
+  }
+
+  async loadRecording({ sessionId, questionId }) {
+    assertIdentifier(sessionId, 'session ID');
+    assertIdentifier(questionId, 'question ID');
+    const record = await this.request('recording:get', { sessionId, questionId });
+    if (!record) return null;
+    const filePath = this.#recordingFilePath(record.relativePath);
+    try {
+      const bytes = await fs.readFile(filePath);
+      return { ...record, bytes };
+    } catch (error) {
+      if (error?.code !== 'ENOENT') throw error;
+      await this.request('recording:delete', { sessionId, questionId });
+      return null;
+    }
+  }
+
+  async resolveRecordingFile({ sessionId, questionId }) {
+    assertIdentifier(sessionId, 'session ID');
+    assertIdentifier(questionId, 'question ID');
+    const record = await this.request('recording:get', { sessionId, questionId });
+    if (!record) return null;
+    const filePath = this.#recordingFilePath(record.relativePath);
+    try {
+      const stats = await fs.stat(filePath);
+      return stats.isFile() ? { filePath, mime: record.mime } : null;
+    } catch (error) {
+      if (error?.code !== 'ENOENT') throw error;
+      await this.request('recording:delete', { sessionId, questionId });
+      return null;
+    }
+  }
+
+  async removeRecording(payload) {
+    const records = await this.request(
+      payload.questionId ? 'recording:delete' : 'recording:deleteSession',
+      payload
     );
-  },
-
-  // Get module progress.
-  getProgress(userId, moduleId) {
-    const stmt = db.prepare(`
-      SELECT * FROM user_progress 
-      WHERE user_id = ? AND module_id = ?
-    `);
-
-    return stmt.get(userId, moduleId);
-  },
-
-  // Get progress across all modules.
-  getAllProgress(userId) {
-    const stmt = db.prepare(`
-      SELECT up.*, m.display_name as module_name 
-      FROM user_progress up
-      JOIN modules m ON up.module_id = m.id
-      WHERE up.user_id = ?
-    `);
-
-    return stmt.all(userId);
+    await Promise.all(
+      records.map(record =>
+        fs.rm(path.join(this.#recordingsPath, path.basename(record.relativePath)), { force: true })
+      )
+    );
   }
-};
 
-// Settings operations
-export const settingsService = {
-  // Get one setting.
-  getSetting(key) {
-    const stmt = db.prepare('SELECT value FROM settings WHERE key = ?');
-    const result = stmt.get(key);
-    return result ? result.value : null;
-  },
-
-  // Set a value.
-  setSetting(key, value, category = 'general') {
-    const stmt = db.prepare(`
-      INSERT OR REPLACE INTO settings (key, value, category, updated_at) 
-      VALUES (?, ?, ?, CURRENT_TIMESTAMP)
-    `);
-
-    return stmt.run(key, value, category);
-  },
-
-  // Get all settings in a category.
-  getSettingsByCategory(category) {
-    const stmt = db.prepare('SELECT key, value FROM settings WHERE category = ?');
-    return stmt.all(category);
-  },
-
-  // Delete a setting.
-  deleteSetting(key) {
-    const stmt = db.prepare('DELETE FROM settings WHERE key = ?');
-    return stmt.run(key);
+  async dispatch(operation, payload) {
+    const definition = validatePublicRequest(operation, payload || {});
+    if (definition.handler) return this[definition.handler](payload);
+    return this.request(operation, payload);
   }
-};
 
-// Export data.
-export async function exportUserData(userId) {
-  const data = {
-    user: null,
-    answers: [],
-    progress: [],
-    settings: []
-  };
+  async exportArchive(archivePath) {
+    if (!path.isAbsolute(archivePath)) throw new TypeError('Archive path must be absolute');
+    this.#assertExternalArchivePath(archivePath);
+    const temporary = `${archivePath}.tmp-${process.pid}-${crypto.randomUUID()}`;
+    const backup = `${archivePath}.bak-${process.pid}-${crypto.randomUUID()}`;
+    let backedUp = false;
+    try {
+      await this.request('archive:export', { archivePath: temporary });
+      try {
+        await fs.rename(archivePath, backup);
+        backedUp = true;
+      } catch (error) {
+        if (error?.code !== 'ENOENT') throw error;
+      }
+      await fs.rename(temporary, archivePath);
+      await fs.rm(backup, { force: true }).catch(() => {});
+      return true;
+    } catch (error) {
+      await fs.rm(temporary, { force: true }).catch(() => {});
+      if (backedUp) await fs.rename(backup, archivePath).catch(() => {});
+      throw error;
+    }
+  }
 
-  // Read the user record.
-  const getUser = db.prepare('SELECT * FROM users WHERE id = ?');
-  data.user = getUser.get(userId);
+  async importArchive(archivePath) {
+    if (!path.isAbsolute(archivePath)) throw new TypeError('Archive path must be absolute');
+    this.#assertExternalArchivePath(archivePath);
+    const stats = await fs.stat(archivePath);
+    if (!stats.isFile() || stats.size > 250 * 1024 * 1024) {
+      throw new RangeError('Invalid data archive');
+    }
+    return this.request('archive:import', { archivePath });
+  }
 
-  // Read user answers.
-  const getAnswers = db.prepare(`
-    SELECT ua.*, m.name as module_name 
-    FROM user_answers ua
-    JOIN modules m ON ua.module_id = m.id
-    WHERE ua.user_id = ?
-  `);
-  data.answers = getAnswers.all(userId);
+  async close() {
+    clearTimeout(this.#idleTimer);
+    const worker = this.#worker;
+    if (!worker) return;
+    this.#closing = true;
+    try {
+      if (this.#requests.size) {
+        await new Promise(resolve => this.#drainResolvers.add(resolve));
+      }
+      if (this.#worker === worker) await this.#send('close', {});
+      this.#worker = undefined;
+    } finally {
+      this.#closing = false;
+    }
+  }
 
-  // Read user progress.
-  const getProgress = db.prepare(`
-    SELECT up.*, m.name as module_name 
-    FROM user_progress up
-    JOIN modules m ON up.module_id = m.id
-    WHERE up.user_id = ?
-  `);
-  data.progress = getProgress.all(userId);
+  #assertExternalArchivePath(archivePath) {
+    const resolved = path.resolve(archivePath);
+    const database = path.resolve(this.#databasePath);
+    const recordings = path.resolve(this.#recordingsPath);
+    if (
+      [database, `${database}-wal`, `${database}-shm`].includes(resolved) ||
+      resolved === recordings ||
+      resolved.startsWith(`${recordings}${path.sep}`)
+    ) {
+      throw new Error('The archive path overlaps live application data');
+    }
+  }
 
-  // Read user settings.
-  data.settings = settingsService.getSettingsByCategory(`user_${userId}`);
-
-  return data;
+  #recordingFilePath(relativePath) {
+    const filePath = path.resolve(this.#recordingsPath, relativePath);
+    if (path.dirname(filePath) !== path.resolve(this.#recordingsPath)) {
+      throw new Error('Invalid recording path');
+    }
+    return filePath;
+  }
 }
 
-// Import data.
-export async function importUserData(userId, data) {
-  const transaction = db.transaction(() => {
-    // Import answers.
-    if (data.answers && Array.isArray(data.answers)) {
-      data.answers.forEach(answer => {
-        answerService.saveAnswer(
-          userId,
-          answer.module_id,
-          answer.question_id,
-          answer.answer,
-          answer.is_correct,
-          answer.score,
-          answer.time_spent
-        );
-      });
-    }
-
-    // Import progress.
-    if (data.progress && Array.isArray(data.progress)) {
-      data.progress.forEach(progress => {
-        progressService.updateProgress(
-          userId,
-          progress.module_id,
-          progress.completed_questions,
-          progress.total_score,
-          progress.total_time_spent
-        );
-      });
-    }
-
-    // Import settings.
-    if (data.settings && Array.isArray(data.settings)) {
-      data.settings.forEach(setting => {
-        settingsService.setSetting(
-          setting.key,
-          setting.value,
-          setting.category || `user_${userId}`
-        );
-      });
-    }
+export function registerDataStorageIpc({ ipcMain, userDataPath, isTrustedRenderer }) {
+  const storage = new DataStorage(userDataPath);
+  ipcMain.handle('data:request', (event, operation, payload) => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted data storage request');
+    return storage.dispatch(operation, payload || {});
   });
-
-  transaction();
-}
-
-// Back up the database.
-export async function backupDatabase(backupPath) {
-  if (!db) {
-    throw new Error('The database is not initialized.');
-  }
-
-  await db.backup(backupPath, {
-    progress: ({ totalPages, remainingPages }) => {
-      const progress = ((totalPages - remainingPages) / totalPages) * 100;
-      console.log(`Backup progress: ${progress.toFixed(2)}%`);
-    }
-  });
-  console.log('Database backup complete:', backupPath);
+  return storage;
 }

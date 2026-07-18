@@ -1,0 +1,188 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Verify annotated tag, package version, and changelog
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          test "$GITHUB_REF_NAME" = "v$(node -p "require('./package.json').version")"
+          test "$(git cat-file -t "$GITHUB_REF_NAME")" = "tag"
+          npm run release:notes -- "$GITHUB_REF_NAME" /tmp/release-notes.md
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: 1
+
+      - name: Verify application
+        run: npm run lint -- --quiet && npm test
+
+  package-windows:
+    needs: verify
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare application
+        run: npm run electron:prepare
+
+      - name: Build Windows x64 installer
+        run: npm run release:windows
+
+      - name: Upload release files
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-windows
+          path: |
+            release/TOEFL-iBT-Practice-*-windows-x64-setup.exe
+            release/TOEFL-iBT-Practice-*-windows-x64-setup.exe.blockmap
+            release/latest.yml
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  package-linux:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare application
+        run: npm run electron:prepare
+
+      - name: Build Linux x64 AppImage
+        run: npm run release:linux
+
+      - name: Upload release files
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-linux
+          path: |
+            release/TOEFL-iBT-Practice-*-linux-x64.AppImage
+            release/latest-linux.yml
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  package-macos:
+    needs: verify
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare application
+        run: npm run electron:prepare
+
+      - name: Build universal macOS packages
+        run: npm run release:macos
+        env:
+          CSC_LINK: ${{ secrets.MAC_CERTIFICATE }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTIFICATE_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+
+      - name: Upload release files
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-macos
+          path: |
+            release/TOEFL-iBT-Practice-*-macos-universal.dmg
+            release/TOEFL-iBT-Practice-*-macos-universal.zip
+            release/TOEFL-iBT-Practice-*-macos-universal.zip.blockmap
+            release/latest-mac.yml
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [package-windows, package-linux, package-macos]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download release files
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-*
+          path: release-files
+          merge-multiple: true
+
+      - name: Validate files and create SHA-256 manifest
+        run: npm run release:manifest
+
+      - name: Prepare release notes
+        run: >-
+          npm run release:notes --
+          "$GITHUB_REF_NAME"
+          release-notes.md
+          release-files/hashes.sha256
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease_flag=""
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then prerelease_flag="--prerelease"; fi
+          gh release create "$GITHUB_REF_NAME" release-files/* \
+            --verify-tag \
+            --fail-on-no-commits \
+            --generate-notes \
+            --notes-file release-notes.md \
+            --title "TOEFL iBT Practice $GITHUB_REF_NAME" \
+            $prerelease_flag

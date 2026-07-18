@@ -13,22 +13,14 @@ function defaults() {
 
 function loadSettings() {
   const fallback = defaults();
-  if (typeof localStorage === 'undefined') return fallback;
-  try {
-    const saved = readLocalJson(SETTINGS_STORAGE_KEY, {});
-    return {
-      ...fallback,
-      ...(saved || {}),
-      volumes: {
-        ...fallback.volumes,
-        ...Object.fromEntries(
-          SECTIONS.map(section => [section, normalizeVolume(saved?.volumes?.[section])])
-        )
-      }
-    };
-  } catch {
-    return fallback;
-  }
+  const saved = readLocalJson(SETTINGS_STORAGE_KEY, {});
+  return {
+    ...fallback,
+    ...saved,
+    volumes: Object.fromEntries(
+      SECTIONS.map(section => [section, normalizeVolume(saved?.volumes?.[section])])
+    )
+  };
 }
 
 export const useSettingsStore = defineStore('settings', {
@@ -40,9 +32,6 @@ export const useSettingsStore = defineStore('settings', {
     setVolume(section, value) {
       this.volumes[String(section).toLowerCase()] = normalizeVolume(value);
       this.persist();
-    },
-    applyVolume(media, section) {
-      if (media) media.volume = this.volume(section);
     },
     persist() {
       writeLocalJson(SETTINGS_STORAGE_KEY, { volumes: this.volumes });

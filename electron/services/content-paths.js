@@ -16,10 +16,6 @@ export function normalizeContentPath(value) {
   return normalized;
 }
 
-export function externalContentPath(value) {
-  return normalizeContentPath(value).replace(/^assets\/questions\//, '');
-}
-
 export function resolveContentFile(root, value) {
   const contentRoot = path.resolve(root);
   const resolved = path.resolve(contentRoot, normalizeContentPath(value));

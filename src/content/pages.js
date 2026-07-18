@@ -2,7 +2,7 @@
  * Build the route-independent page sequence consumed by the Vue exam flow.
  * Page IDs are stable within a document and deliberately contain no .html names.
  */
-export function createExamPages(document) {
+function createExamPages(document) {
   const pages = [{ id: 'start', type: 'start', section: document.section, questionIds: [] }];
 
   for (const module of document.modules) {

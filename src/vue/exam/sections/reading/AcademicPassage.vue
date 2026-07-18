@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import ChoiceList from '../../shared/ChoiceList.vue';
+import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { checkedQuestion, selectedAnswer } from '../../shared/choice.js';
 import { academicMode, insertionSentence, paragraphSentences } from './helpers.js';
 
@@ -101,15 +101,16 @@ function highlightedParts(paragraph) {
         </article>
       </div>
       <div
+        :key="question.id"
         class="right-column exam-scroll-region"
         role="region"
         aria-label="Question and answer choices"
         tabindex="0"
       >
-        <div class="question-container-apple">
+        <div v-if="mode === 'point-sentence'" class="question-container-apple">
           <div class="question-text-apple">{{ question.prompt }}</div>
           <div v-if="inserted" class="insertion-sentence">{{ inserted }}</div>
-          <div v-if="mode === 'point-sentence'" class="sentence-options-container">
+          <div class="sentence-options-container">
             <button
               v-for="(sentence, index) in sentences"
               :key="sentence"
@@ -123,15 +124,17 @@ function highlightedParts(paragraph) {
               ><span>{{ sentence }}</span>
             </button>
           </div>
-          <ChoiceList
-            v-else
-            :question="question"
-            :answers="answers"
-            :checked="checked"
-            :locked="locked"
-            @answer="(id, value) => emit('answer', id, value)"
-          />
         </div>
+        <ChoiceQuestion
+          v-else
+          :question="question"
+          :answers="answers"
+          :checked="checked"
+          :locked="locked"
+          @answer="(id, value) => emit('answer', id, value)"
+        >
+          <div v-if="inserted" class="insertion-sentence">{{ inserted }}</div>
+        </ChoiceQuestion>
       </div>
     </div>
   </section>

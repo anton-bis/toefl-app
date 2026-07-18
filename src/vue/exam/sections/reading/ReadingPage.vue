@@ -4,16 +4,14 @@ import CompleteWords from './CompleteWords.vue';
 import DailyPassage from './DailyPassage.vue';
 
 defineProps({
-  document: { type: Object, required: true },
   page: { type: Object, required: true },
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
   checked: { type: [Boolean, Object, Array], default: false },
-  locked: { type: [Boolean, Object, Array], default: false },
-  volume: { type: Number, default: 0.8 }
+  locked: { type: [Boolean, Object, Array], default: false }
 });
-const emit = defineEmits(['answer', 'media-state']);
+const emit = defineEmits(['answer']);
 </script>
 
 <template>

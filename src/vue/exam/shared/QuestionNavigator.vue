@@ -18,6 +18,13 @@ const answeredCount = computed(
 const markedCount = computed(
   () => questions.value.filter(question => props.marks[question.id]).length
 );
+const currentQuestionId = computed(
+  () => questions.value.find(question => questionPageId(question) === props.pageId)?.id || ''
+);
+
+function questionLabel(question, index) {
+  return question.title || question.prompt || `Question ${index + 1}`;
+}
 </script>
 
 <template>
@@ -46,7 +53,7 @@ const markedCount = computed(
             :key="question.id"
             class="question-navigator__item"
             :class="{
-              current: questionPageId(question) === pageId,
+              current: question.id === currentQuestionId,
               answered: isAnswered(answers[question.id]),
               marked: marks[question.id]
             }"
@@ -54,13 +61,12 @@ const markedCount = computed(
             <button
               class="question-navigator__question"
               type="button"
+              :aria-label="`Question ${index + 1}: ${questionLabel(question, index)}. ${isAnswered(answers[question.id]) ? 'Answered' : 'Unanswered'}`"
+              :title="questionLabel(question, index)"
               @click="$emit('select', questionPageId(question))"
             >
               <span class="question-navigator__number">{{ index + 1 }}</span>
-              <span class="question-navigator__label">{{
-                question.title || question.prompt || `Question ${index + 1}`
-              }}</span>
-              <small>{{ isAnswered(answers[question.id]) ? 'Answered' : 'Unanswered' }}</small>
+              <small>{{ isAnswered(answers[question.id]) ? 'Answered' : 'Open' }}</small>
             </button>
             <button
               class="question-navigator__mark"
@@ -70,7 +76,7 @@ const markedCount = computed(
               :title="marks[question.id] ? 'Remove mark' : 'Mark question'"
               @click="$emit('toggle-mark', question.id)"
             >
-              <i :class="marks[question.id] ? 'fas fa-bookmark' : 'far fa-bookmark'" />
+              <i class="fas fa-flag" aria-hidden="true" />
             </button>
           </div>
         </div>

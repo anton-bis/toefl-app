@@ -1,4 +1,4 @@
-export function createMemoryStorage(entries = {}) {
+function createMemoryStorage(entries = {}) {
   const data = new Map(Object.entries(entries));
   return {
     get length() {
@@ -19,4 +19,8 @@ export function installMemoryStorage(entries = {}) {
     value: storage
   });
   return storage;
+}
+
+export function storeJson(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
 }

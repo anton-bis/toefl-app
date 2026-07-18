@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import ChoiceList from '../../shared/ChoiceList.vue';
+import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
 
 const props = defineProps({
@@ -25,7 +25,7 @@ const messages = computed(() => parseTextChain(props.task.passage));
         aria-label="Reading passage"
         tabindex="0"
       >
-        <article v-if="task.type === 'email'" class="apple-email-container">
+        <article v-if="task.type === 'email'" class="daily-passage-card apple-email-container">
           <header class="email-header-apple">
             <div v-if="content.to"><span class="meta-label">To:</span> {{ content.to }}</div>
             <div v-if="content.from"><span class="meta-label">From:</span> {{ content.from }}</div>
@@ -40,7 +40,10 @@ const messages = computed(() => parseTextChain(props.task.passage));
           </footer>
         </article>
 
-        <article v-else-if="task.type === 'text-chain'" class="apple-textchain-container">
+        <article
+          v-else-if="task.type === 'text-chain'"
+          class="daily-passage-card apple-textchain-container"
+        >
           <div class="phone-status-bar"><strong>9:41</strong><span>● ● ●</span></div>
           <div class="textchain-messages-area">
             <div
@@ -58,7 +61,10 @@ const messages = computed(() => parseTextChain(props.task.passage));
           </div>
         </article>
 
-        <article v-else-if="task.type === 'social-media'" class="apple-social-container">
+        <article
+          v-else-if="task.type === 'social-media'"
+          class="daily-passage-card apple-social-container"
+        >
           <header class="social-profile">
             <span class="profile-avatar">{{ (content.username || 'U')[0] }}</span
             ><strong>{{ content.username }}</strong>
@@ -66,7 +72,7 @@ const messages = computed(() => parseTextChain(props.task.passage));
           <div class="social-media-content">{{ content.body }}</div>
         </article>
 
-        <article v-else class="apple-noticeboard-container" :class="task.type">
+        <article v-else class="daily-passage-card apple-noticeboard-container" :class="task.type">
           <header class="noticeboard-header">
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
@@ -75,21 +81,19 @@ const messages = computed(() => parseTextChain(props.task.passage));
         </article>
       </div>
       <div
+        :key="question.id"
         class="right-column exam-scroll-region"
         role="region"
         aria-label="Question and answer choices"
         tabindex="0"
       >
-        <div class="question-container-apple">
-          <div class="question-text-apple">{{ question.prompt }}</div>
-          <ChoiceList
-            :question="question"
-            :answers="answers"
-            :checked="checked"
-            :locked="locked"
-            @answer="(id, value) => emit('answer', id, value)"
-          />
-        </div>
+        <ChoiceQuestion
+          :question="question"
+          :answers="answers"
+          :checked="checked"
+          :locked="locked"
+          @answer="(id, value) => emit('answer', id, value)"
+        />
       </div>
     </div>
   </section>

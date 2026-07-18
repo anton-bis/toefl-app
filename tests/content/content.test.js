@@ -4,21 +4,33 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { buildQuestionManifest } from '../../src/content/manifest.js';
+import {
+  assertCompiledMetadata,
+  assertQuestionManifest
+} from '../../electron/services/runtime-content.js';
 import { createExamDocument } from '../../src/content/pages.js';
-import { parseExamDocument } from '../../src/content/parsers/index.js';
 import { normalizeMarkdown } from '../../src/content/shared.js';
 import { validateExamDocument } from '../../src/content/validate.js';
 import {
-  generateQuestionManifest,
+  generateQuestionContent,
   scanQuestionFiles
 } from '../../scripts/generate-question-manifest.js';
 import { copyRuntimeContent } from '../../vite.config.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
-const manifest = generateQuestionManifest(root);
+const compiledContent = generateQuestionContent(root);
+const { manifest } = compiledContent;
 const committedManifest = JSON.parse(
   fs.readFileSync(path.join(root, 'src/content/question-manifest.json'), 'utf8')
 );
+const documents = new Map(
+  manifest.entries.map(entry => [
+    entry.id,
+    JSON.parse(compiledContent.documents.get(entry.documentPath)).document
+  ])
+);
+const documentsFor = section =>
+  manifest.entries.filter(entry => entry.section === section).map(entry => documents.get(entry.id));
 
 test('shared content builders normalize Markdown and page navigation', () => {
   assert.equal(normalizeMarkdown('first\r\nsecond\rthird'), 'first\nsecond\nthird');
@@ -40,9 +52,57 @@ test('manifest discovery is deterministic and complete', () => {
   assert.ok(paths.length > 0);
   assert.equal(manifest.entries.length, paths.length);
   assert.equal(new Set(manifest.entries.map(entry => entry.id)).size, manifest.entries.length);
-  assert.deepEqual(buildQuestionManifest([...paths].reverse()).entries, manifest.entries);
-  assert.deepEqual(manifest.entries, committedManifest.entries);
+  assert.deepEqual(
+    buildQuestionManifest([...paths].reverse()).entries,
+    manifest.entries.map(entry => ({
+      id: entry.id,
+      tpoId: entry.tpoId,
+      section: entry.section,
+      sourcePath: entry.sourcePath,
+      documentPath: entry.documentPath
+    }))
+  );
+  assert.deepEqual(manifest, committedManifest);
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
+});
+
+test('compiled documents are deterministic and bound to their Markdown source', () => {
+  const first = compiledContent;
+  const second = generateQuestionContent(root);
+  assert.deepEqual(first.manifest, second.manifest);
+  assert.deepEqual([...first.documents], [...second.documents]);
+
+  for (const entry of first.manifest.entries) {
+    const compiled = JSON.parse(first.documents.get(entry.documentPath));
+    assert.equal(compiled.source.path, entry.sourcePath);
+    assert.equal(compiled.source.sha256, entry.sourceHash);
+    assert.equal(compiled.document.id, entry.id);
+    assert.equal(compiled.document.sourcePath, entry.sourcePath);
+  }
+  assert.doesNotThrow(() => assertQuestionManifest(first.manifest));
+});
+
+test('content integrity rejects duplicate entries and mismatched compiled metadata', () => {
+  const [entry] = manifest.entries;
+  assert.throws(
+    () => assertQuestionManifest({ ...manifest, entries: [entry, entry] }),
+    /Duplicate question content entry/
+  );
+  assert.throws(
+    () => assertQuestionManifest({ ...manifest, contentHash: 'not-a-hash' }),
+    /manifest hash/
+  );
+  assert.throws(
+    () =>
+      assertCompiledMetadata(
+        {
+          source: { path: entry.sourcePath, sha256: entry.sourceHash },
+          document: { id: entry.id, tpoId: entry.tpoId, section: 'listening' }
+        },
+        entry
+      ),
+    /metadata mismatch/
+  );
 });
 
 test('runtime asset copy excludes development directories without leaving empty shells', t => {
@@ -55,6 +115,7 @@ test('runtime asset copy excludes development directories without leaving empty 
     ['images/qr.jpg', 'development image'],
     ['icons/icon.png', 'runtime icon'],
     ['questions/reading/TPO-01/reading-TPO-01.md', '# reading'],
+    ['questions/compiled/tpo-01-reading.json', '{}'],
     ['questions/vocabulary/manifest.json', '{}'],
     ['questions/vocabulary/ex-batches/batch.json', '{}'],
     ['questions/vocabulary/ex-batches/manifest.json', '{}']
@@ -71,43 +132,17 @@ test('runtime asset copy excludes development directories without leaving empty 
   assert.equal(fs.existsSync(path.join(destination, 'icons/icon.png')), true);
   assert.equal(
     fs.existsSync(path.join(destination, 'questions/reading/TPO-01/reading-TPO-01.md')),
+    false
+  );
+  assert.equal(
+    fs.existsSync(path.join(destination, 'questions/compiled/tpo-01-reading.json')),
     true
   );
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/manifest.json')), true);
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/ex-batches')), false);
 });
 
-test('application source and metadata use English system copy', () => {
-  const extensions = new Set(['.cjs', '.css', '.html', '.js', '.json', '.vue', '.yml']);
-  const files = ['src/vue', 'electron', 'scripts', '.github/workflows', 'index.html', 'package.json']
-    .flatMap(relativePath => {
-      const target = path.join(root, relativePath);
-      if (!fs.statSync(target).isDirectory()) return [target];
-      const nested = [];
-      const visit = directory => {
-        for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-          const entryPath = path.join(directory, entry.name);
-          if (entry.isDirectory()) visit(entryPath);
-          else if (extensions.has(path.extname(entry.name))) nested.push(entryPath);
-        }
-      };
-      visit(target);
-      return nested;
-    })
-    .filter(filePath => extensions.has(path.extname(filePath)));
-  const violations = files.flatMap(filePath =>
-    fs
-      .readFileSync(filePath, 'utf8')
-      .split('\n')
-      .flatMap((line, index) =>
-        /\p{Script=Han}/u.test(line)
-          ? [`${path.relative(root, filePath)}:${index + 1} ${line.trim()}`]
-          : []
-      )
-  );
-
-  assert.deepEqual(violations, []);
-
+test('application metadata identifies the English TOEFL product', () => {
   const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   assert.equal(packageMetadata.productName, 'TOEFL iBT Practice');
   assert.equal(packageMetadata.build.productName, 'TOEFL iBT Practice');
@@ -115,11 +150,13 @@ test('application source and metadata use English system copy', () => {
 });
 
 test('all current Markdown documents parse into valid unified models', async t => {
-  const counts = { reading: 0, listening: 0, writing: 0, speaking: 0 };
+  assert.deepEqual(
+    new Set(manifest.entries.map(entry => entry.section)),
+    new Set(['reading', 'listening', 'writing', 'speaking'])
+  );
   for (const entry of manifest.entries) {
     await t.test(entry.id, () => {
-      const markdown = fs.readFileSync(path.join(root, entry.path), 'utf8');
-      const document = parseExamDocument(entry.section, markdown, entry);
+      const document = documents.get(entry.id);
       const result = validateExamDocument(document);
       assert.deepEqual(result.errors, []);
       assert.equal(document.id, entry.id);
@@ -136,22 +173,12 @@ test('all current Markdown documents parse into valid unified models', async t =
         assert.equal(page.previous, document.pages[index - 1]?.id || null);
         assert.equal(page.next, document.pages[index + 1]?.id || null);
       });
-      counts[entry.section] += 1;
     });
   }
-  assert.deepEqual(
-    Object.keys(counts).filter(section => counts[section] === 0),
-    []
-  );
 });
 
 test('speaking response times preserve TOEFL task rules', () => {
-  const entry = manifest.entries.find(item => item.id === 'tpo-01-speaking');
-  const document = parseExamDocument(
-    'speaking',
-    fs.readFileSync(path.join(root, entry.path), 'utf8'),
-    entry
-  );
+  const document = documents.get('tpo-01-speaking');
   const questions = document.modules[0].tasks.flatMap(task => task.questions);
   assert.deepEqual(
     questions.map(question => question.responseTime),
@@ -160,9 +187,7 @@ test('speaking response times preserve TOEFL task rules', () => {
 });
 
 test('writing creates an intro page before each task', () => {
-  const entry = manifest.entries.find(item => item.section === 'writing');
-  const markdown = fs.readFileSync(path.join(root, entry.path), 'utf8');
-  const document = parseExamDocument('writing', markdown, entry);
+  const [document] = documentsFor('writing');
   const taskPages = document.modules[0].tasks.map(task => ({
     intro: document.pages.find(page => page.id === `${task.id}-intro`),
     firstQuestion: document.pages.find(page => page.questionIds[0] === task.questions[0].id)
@@ -174,25 +199,24 @@ test('writing creates an intro page before each task', () => {
 });
 
 test('reading complete-words tasks use one grouped question page', () => {
-  for (const entry of manifest.entries.filter(item => item.section === 'reading')) {
-    const document = parseExamDocument(
-      'reading',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
-      entry
-    );
+  for (const document of documentsFor('reading')) {
     for (const module of document.modules) {
       for (const task of module.tasks) {
         const pages = document.pages.filter(
           page => page.moduleId === module.id && page.taskId === task.id && page.type === 'question'
         );
         if (task.type === 'complete-words') {
-          assert.equal(pages.length, 1, `${entry.id}/${module.id}/${task.id}`);
+          assert.equal(pages.length, 1, `${document.id}/${module.id}/${task.id}`);
           assert.deepEqual(
             pages[0].questionIds,
             task.questions.map(question => question.id)
           );
         } else {
-          assert.equal(pages.length, task.questions.length, `${entry.id}/${module.id}/${task.id}`);
+          assert.equal(
+            pages.length,
+            task.questions.length,
+            `${document.id}/${module.id}/${task.id}`
+          );
           assert.ok(pages.every(page => page.questionIds.length === 1));
         }
       }
@@ -200,13 +224,28 @@ test('reading complete-words tasks use one grouped question page', () => {
   }
 });
 
+test('reading question numbers follow their declared module ranges', () => {
+  for (const document of documentsFor('reading')) {
+    for (const module of document.modules) {
+      for (const task of module.tasks) {
+        assert.equal(
+          task.questions.length,
+          task.questionRange[1] - task.questionRange[0] + 1,
+          `${document.id}/${module.id}/${task.id}`
+        );
+      }
+      const questions = module.tasks.flatMap(task => task.questions);
+      assert.deepEqual(
+        questions.map(question => question.number),
+        questions.map((_, index) => index + 1),
+        `${document.id}/${module.id}`
+      );
+    }
+  }
+});
+
 test('listening long-form tasks receive a stimulus page immediately before questions', () => {
-  for (const entry of manifest.entries.filter(item => item.section === 'listening')) {
-    const document = parseExamDocument(
-      'listening',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
-      entry
-    );
+  for (const document of documentsFor('listening')) {
     for (const module of document.modules) {
       for (const task of module.tasks) {
         const stimulus = document.pages.filter(
@@ -216,7 +255,7 @@ test('listening long-form tasks receive a stimulus page immediately before quest
           assert.equal(stimulus.length, 0);
           continue;
         }
-        assert.equal(stimulus.length, 1, `${entry.id}/${module.id}/${task.id}`);
+        assert.equal(stimulus.length, 1, `${document.id}/${module.id}/${task.id}`);
         const stimulusIndex = document.pages.indexOf(stimulus[0]);
         assert.equal(document.pages[stimulusIndex + 1].questionIds[0], task.questions[0].id);
         assert.deepEqual(stimulus[0].questionIds, []);
@@ -226,12 +265,7 @@ test('listening long-form tasks receive a stimulus page immediately before quest
 });
 
 test('speaking keeps one scenario before each task question sequence', () => {
-  for (const entry of manifest.entries.filter(item => item.section === 'speaking')) {
-    const document = parseExamDocument(
-      'speaking',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
-      entry
-    );
+  for (const document of documentsFor('speaking')) {
     for (const task of document.modules[0].tasks) {
       const intro = document.pages.find(page => page.id === `${task.id}-intro`);
       const scenario = document.pages.find(

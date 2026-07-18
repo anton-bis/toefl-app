@@ -72,7 +72,9 @@ const categoryIcon = {
       >
         <span class="set-card-name">Set {{ set.id }}</span>
         <span class="set-card-count">{{ set.wordCount }} words</span>
-        <span class="set-card-icon">{{ set.status === 'completed' ? 'Completed' : 'Start →' }}</span>
+        <span class="set-card-icon">{{
+          set.status === 'completed' ? 'Completed' : 'Start →'
+        }}</span>
       </button>
     </div>
   </div>
