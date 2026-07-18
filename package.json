@@ -18,8 +18,9 @@
     "format": "prettier --write \"src/**/*.{js,vue,css}\"",
     "clean": "rm -rf dist build node_modules",
     "electron:dev": "cross-env ELECTRON=true npm run build && electron electron/main.js",
-    "electron:build": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js && electron-builder",
-    "electron:pack": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js && electron-builder --dir",
+    "electron:prepare": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js",
+    "electron:build": "npm run electron:prepare && electron-builder",
+    "electron:pack": "npm run electron:prepare && electron-builder --dir",
     "perf:baseline": "cross-env ELECTRON=true npm run build && node scripts/measure-electron.js",
     "obfuscate": "node scripts/obfuscate.js"
   },

@@ -26,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: package.json
           cache: npm
 
       - name: Verify release tag matches package version
@@ -57,17 +57,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: package.json
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Electron renderer
-        run: npm run electron:build-only
-
-      - name: Obfuscate
-        run: node scripts/obfuscate.js
+      - name: Prepare Electron application
+        run: npm run electron:prepare
 
       - name: Build NSIS installer
         run: npx electron-builder --win --publish never
@@ -96,17 +93,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: package.json
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Electron renderer
-        run: npm run electron:build-only
-
-      - name: Obfuscate
-        run: node scripts/obfuscate.js
+      - name: Prepare Electron application
+        run: npm run electron:prepare
 
       - name: Build DMG + zip
         run: npx electron-builder --mac --publish never
