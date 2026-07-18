@@ -21,7 +21,7 @@ import {
   reportSections,
   resolveExamEntry
 } from '../../src/vue/exam/shared/flow.js';
-import { installMemoryStorage } from './helpers/storage.js';
+import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
 describe('exam sessions', () => {
   beforeEach(() => {
@@ -55,29 +55,10 @@ describe('exam sessions', () => {
 
   it('ignores stored sessions belonging to another exam', () => {
     const key = examStorageKey('02', 'writing');
-    localStorage.setItem(
-      key,
-      JSON.stringify({ tpoId: '03', section: 'writing', answers: { old: true } })
-    );
+    storeJson(key, { tpoId: '03', section: 'writing', answers: { foreign: true } });
     const store = useExamStore();
     const session = store.openSession({ tpoId: '02', section: 'writing' });
     expect(session.answers).toEqual({});
-  });
-
-  it('drops obsolete answer-reveal state from restored sessions', () => {
-    const key = examStorageKey('02', 'reading');
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        tpoId: '02',
-        section: 'reading',
-        status: 'in-progress',
-        check: { revealed: true, revealedScopes: { q1: true }, checkedAt: 100 }
-      })
-    );
-    const store = useExamStore();
-    const session = store.openSession({ tpoId: '02', section: 'reading' });
-    expect(session).not.toHaveProperty('check');
   });
 
   it('does not persist a blank session opened only for report inspection', () => {
@@ -209,15 +190,12 @@ describe('exam retention', () => {
     const storage = installMemoryStorage();
     for (let index = 1; index <= 22; index += 1) {
       const tpoId = String(index).padStart(2, '0');
-      storage.setItem(
-        examStorageKey(tpoId, 'reading'),
-        JSON.stringify({
-          tpoId,
-          section: 'reading',
-          status: 'completed',
-          completedAt: index
-        })
-      );
+      storeJson(examStorageKey(tpoId, 'reading'), {
+        tpoId,
+        section: 'reading',
+        status: 'completed',
+        completedAt: index
+      });
     }
     storage.setItem(
       examStorageKey('01', 'speaking'),

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 function installDesktopApi() {
   const data = {
@@ -35,11 +35,6 @@ function installDesktopApi() {
   Object.defineProperty(window, 'electronAPI', { configurable: true, value: { data } });
   return data;
 }
-
-afterEach(() => {
-  delete window.electronAPI;
-  vi.resetModules();
-});
 
 describe('Electron data repository adapter', () => {
   it('moves recording bytes through the restricted recording API', async () => {

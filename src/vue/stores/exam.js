@@ -87,11 +87,9 @@ function normalizeSession(value, expected) {
   if (!boundedData(value)) return null;
   if (!matchesSession(value, expected)) return null;
   const fresh = createExamSession(expected);
-  const restored = { ...value };
-  delete restored.check;
   return {
     ...fresh,
-    ...restored,
+    ...value,
     tpoId: fresh.tpoId,
     section: fresh.section,
     pageId: typeof value.pageId === 'string' && value.pageId.length <= 200 ? value.pageId : 'start',

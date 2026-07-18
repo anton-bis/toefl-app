@@ -20,3 +20,7 @@ export function installMemoryStorage(entries = {}) {
   });
   return storage;
 }
+
+export function storeJson(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}

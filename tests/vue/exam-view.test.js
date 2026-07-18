@@ -7,7 +7,7 @@ import ExamView from '../../src/vue/views/ExamView.vue';
 import ExamHeader from '../../src/vue/exam/shared/ExamHeader.vue';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
 import { examStorageKey, useExamStore } from '../../src/vue/stores/exam.js';
-import { installMemoryStorage } from './helpers/storage.js';
+import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
 const document = {
   id: 'tpo-03-reading',
@@ -228,12 +228,15 @@ describe('ExamView route guard and flow', () => {
     installMemoryStorage();
   });
 
-  it.each(['stale-page', 'q1'])('normalizes a locked %s route to the start page', async pageId => {
-    const { wrapper, router, exam } = await mountRoute(`/exam/03/reading/${pageId}`);
-    await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('start'));
-    expect(wrapper.text()).toContain('Reading Section');
-    expect(exam.activeSession.pageId).toBe('start');
-  });
+  it.each(['missing-page', 'q1'])(
+    'normalizes a locked %s route to the start page',
+    async pageId => {
+      const { wrapper, router, exam } = await mountRoute(`/exam/03/reading/${pageId}`);
+      await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('start'));
+      expect(wrapper.text()).toContain('Reading Section');
+      expect(exam.activeSession.pageId).toBe('start');
+    }
+  );
 
   it('moves through start, intro and confirmation before the first question', async () => {
     const { wrapper, router } = await mountRoute('/exam/03/reading/start');
@@ -316,18 +319,15 @@ describe('ExamView route guard and flow', () => {
   });
 
   it('keeps report links read-only and routes back to results', async () => {
-    localStorage.setItem(
-      examStorageKey('03', 'reading'),
-      JSON.stringify({
-        tpoId: '03',
-        section: 'reading',
-        pageId: 'results',
-        status: 'completed',
-        answers: { q1: 'B' },
-        completedAt: 100,
-        updatedAt: 100
-      })
-    );
+    storeJson(examStorageKey('03', 'reading'), {
+      tpoId: '03',
+      section: 'reading',
+      pageId: 'results',
+      status: 'completed',
+      answers: { q1: 'B' },
+      completedAt: 100,
+      updatedAt: 100
+    });
     const { wrapper, router } = await mountRoute('/exam/03/reading/q1?mode=report');
     await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
     expect(wrapper.text()).not.toContain('Questions');
@@ -373,18 +373,15 @@ describe('ExamView route guard and flow', () => {
         readingNavigationDocument.modules[1]
       ]
     };
-    localStorage.setItem(
-      examStorageKey('03', 'reading'),
-      JSON.stringify({
-        tpoId: '03',
-        section: 'reading',
-        pageId: 'results',
-        status: 'completed',
-        answers: {},
-        completedAt: 100,
-        updatedAt: 100
-      })
-    );
+    storeJson(examStorageKey('03', 'reading'), {
+      tpoId: '03',
+      section: 'reading',
+      pageId: 'results',
+      status: 'completed',
+      answers: {},
+      completedAt: 100,
+      updatedAt: 100
+    });
 
     const { wrapper } = await mountRoute(
       '/exam/03/reading/results?mode=report',
@@ -399,17 +396,14 @@ describe('ExamView route guard and flow', () => {
 
   it('rejects report access for an unfinished session without moving its saved page', async () => {
     const key = examStorageKey('03', 'reading');
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        tpoId: '03',
-        section: 'reading',
-        pageId: 'q2',
-        status: 'in-progress',
-        answers: { q1: 'A' },
-        updatedAt: 100
-      })
-    );
+    storeJson(key, {
+      tpoId: '03',
+      section: 'reading',
+      pageId: 'q2',
+      status: 'in-progress',
+      answers: { q1: 'A' },
+      updatedAt: 100
+    });
 
     const { wrapper, router } = await mountRoute('/exam/03/reading/q1?mode=report');
     await vi.waitFor(() => expect(router.currentRoute.value.path).toBe('/'));
@@ -426,17 +420,14 @@ describe('ExamView route guard and flow', () => {
 
   it('returns a direct results route to the saved in-progress page', async () => {
     const key = examStorageKey('03', 'reading');
-    localStorage.setItem(
-      key,
-      JSON.stringify({
-        tpoId: '03',
-        section: 'reading',
-        pageId: 'q1',
-        status: 'in-progress',
-        answers: { q1: 'B' },
-        updatedAt: 100
-      })
-    );
+    storeJson(key, {
+      tpoId: '03',
+      section: 'reading',
+      pageId: 'q1',
+      status: 'in-progress',
+      answers: { q1: 'B' },
+      updatedAt: 100
+    });
 
     const { router, exam } = await mountRoute('/exam/03/reading/results');
     await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('q1'));

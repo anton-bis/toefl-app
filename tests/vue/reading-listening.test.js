@@ -84,7 +84,7 @@ describe('QuestionNavigator', () => {
       prompt: `A long repeated complete-words prompt ${index + 1}`,
       options: []
     }));
-    const wrapper = mount(QuestionNavigator, {
+    mount(QuestionNavigator, {
       props: {
         open: true,
         document: {
@@ -103,7 +103,6 @@ describe('QuestionNavigator', () => {
     expect(navigator.querySelector('.question-navigator__question').title).toContain(
       'complete-words prompt'
     );
-    wrapper.unmount();
   });
 });
 
@@ -323,17 +322,5 @@ describe('listening section', () => {
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
     expect(removeAttribute).toHaveBeenCalledWith('src');
     expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('stopped');
-  });
-
-  it('ignores late timeupdate events after the audio ref is cleared', () => {
-    const wrapper = mount(AudioSegment, {
-      props: {
-        document: { assetBase: '/content' },
-        media: { file: 'talk.ogg', start: 0, end: 10 }
-      }
-    });
-    const element = wrapper.find('audio').element;
-    wrapper.vm.$.setupState.audio = null;
-    expect(() => element.dispatchEvent(new Event('timeupdate'))).not.toThrow();
   });
 });

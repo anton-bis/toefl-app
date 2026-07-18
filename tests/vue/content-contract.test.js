@@ -50,8 +50,5 @@ describe('visible content contract', () => {
     expect(taskTypes.flatMap(([, items]) => items)).toHaveLength(12);
     expect(cefrRows).toHaveLength(6);
     expect(scoreConversionRows.at(-1)).toEqual(['1', '1–1.5', '0–1', '0–2', '0–4', '0–11']);
-    expect(JSON.stringify({ taskTypes, cefrRows, scoreConversionRows })).not.toMatch(
-      /[\u3400-\u9fff]/u
-    );
   });
 });

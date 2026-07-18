@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   configureDesktopPersistence,
   flushLocalWrites,
-  resetLocalPersistenceForTests,
   scheduleLocalJson,
   writeLocalJson
 } from '../../src/vue/platform/localPersistence.js';
@@ -15,7 +14,6 @@ import { installMemoryStorage } from './helpers/storage.js';
 describe('local persistence coordinator', () => {
   beforeEach(() => {
     installMemoryStorage();
-    resetLocalPersistenceForTests();
     vi.useFakeTimers();
   });
 
@@ -48,7 +46,6 @@ describe('local persistence coordinator', () => {
     writeLocalJson('volume', 0.5);
     await flushLocalWrites();
     expect(set).toHaveBeenCalledWith('volume', 0.5);
-    delete window.electronAPI;
   });
 
   it('sends complete compact exam sessions to desktop storage', async () => {
@@ -79,7 +76,6 @@ describe('local persistence coordinator', () => {
       answers: { q2: 'C' },
       updatedAt: 200
     });
-    delete window.electronAPI;
   });
 });
 
@@ -98,7 +94,5 @@ describe('storage lifecycle', () => {
     await initializeDataStorage();
 
     expect(data.bootstrap).toHaveBeenCalledOnce();
-    delete window.electronAPI;
-    resetLocalPersistenceForTests();
   });
 });

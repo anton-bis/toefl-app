@@ -5,4 +5,8 @@ import { resetLocalPersistenceForTests } from '../../src/vue/platform/localPersi
 
 enableAutoUnmount(afterEach);
 beforeEach(() => resetLocalPersistenceForTests());
-afterEach(() => vi.useRealTimers());
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+  delete window.electronAPI;
+});

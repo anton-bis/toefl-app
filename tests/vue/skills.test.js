@@ -48,6 +48,20 @@ async function clearSkillData() {
   });
 }
 
+function typingPracticeStore() {
+  return {
+    article,
+    session: { chars: [] },
+    isPaused: false,
+    remaining: () => 60_000,
+    timeSpent: () => 0,
+    processKey: vi.fn(),
+    retry: vi.fn(),
+    pause: vi.fn(),
+    resume: vi.fn()
+  };
+}
+
 describe('Shared skill workspace', () => {
   it('renders its action slot and emits a single back action', async () => {
     const wrapper = mount(SkillPageHeader, {
@@ -184,37 +198,16 @@ describe('Vue typing skill', () => {
   });
 
   it('does not capture keyboard input intended for practice controls', async () => {
-    const store = {
-      article,
-      session: { chars: [] },
-      isPaused: false,
-      remaining: () => 60_000,
-      timeSpent: () => 0,
-      processKey: vi.fn(),
-      retry: vi.fn(),
-      pause: vi.fn(),
-      resume: vi.fn()
-    };
+    const store = typingPracticeStore();
     const wrapper = mount(TypingPractice, { props: { store } });
 
     await wrapper.get('.typing-retry-btn').trigger('keydown', { key: 'Enter' });
 
     expect(store.processKey).not.toHaveBeenCalled();
-    wrapper.unmount();
   });
 
   it('restores typing input after restarting from the toolbar', async () => {
-    const store = {
-      article,
-      session: { chars: [] },
-      isPaused: false,
-      remaining: () => 60_000,
-      timeSpent: () => 0,
-      processKey: vi.fn(),
-      retry: vi.fn(),
-      pause: vi.fn(),
-      resume: vi.fn()
-    };
+    const store = typingPracticeStore();
     const wrapper = mount(TypingPractice, { props: { store }, attachTo: document.body });
     const retry = wrapper.get('.typing-retry-btn');
     retry.element.focus();
@@ -225,7 +218,6 @@ describe('Vue typing skill', () => {
 
     expect(store.retry).toHaveBeenCalledOnce();
     expect(store.processKey).toHaveBeenCalledWith('A', expect.any(Number));
-    wrapper.unmount();
   });
 });
 
@@ -312,7 +304,6 @@ describe('Vue vocabulary skill', () => {
     });
     expect(wrapper.text()).toContain('能力；才能');
     expect(wrapper.text()).toContain('她有适应能力。');
-    wrapper.unmount();
   });
 
   it('saves evaluation progress and a compact resumable session', async () => {

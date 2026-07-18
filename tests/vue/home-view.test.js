@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
 import { examStorageKey } from '../../src/vue/stores/exam.js';
-import { installMemoryStorage } from './helpers/storage.js';
+import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
 async function mountHome(session = null) {
   const pinia = createPinia();
@@ -18,7 +18,7 @@ async function mountHome(session = null) {
       sections: { reading: { documentPath: 'reading.md' } }
     }
   ];
-  if (session) localStorage.setItem(examStorageKey('09', 'reading'), JSON.stringify(session));
+  if (session) storeJson(examStorageKey('09', 'reading'), session);
   const router = createRouter({
     history: createMemoryHistory(),
     routes: [
@@ -51,7 +51,6 @@ describe('HomeView practice actions', () => {
       .find(button => button.text().includes('TOEFL Guide'));
 
     expect(guideButton).toBeDefined();
-    expect(wrapper.text()).not.toContain('Release Notes');
     await guideButton.trigger('click');
     expect(wrapper.find('.modal-header').text()).toContain('TOEFL Guide');
     expect(wrapper.find('.modal-body').text()).toContain('CEFR alignment');

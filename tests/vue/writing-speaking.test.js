@@ -1,6 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const repository = vi.hoisted(() => ({
   playbackUrl: vi.fn(() => null),
@@ -37,6 +37,42 @@ const sentenceQuestion = {
   prompt: '____ ____ ____ ____ ____ ____ ____ ?',
   candidates: ['you', 'want', 'of it', 'me', 'you', 'to send', 'do', 'a copy'],
   answer: 'Do you want me to send you a copy?'
+};
+const speakingDocument = {
+  id: 'tpo-03-speaking',
+  sourcePath: 'assets/questions/speaking/TPO-03/speaking-TPO-03.md',
+  modules: [
+    { tasks: [{ questions: Array.from({ length: 11 }, (_, index) => ({ id: `q${index}` })) }] }
+  ]
+};
+const speakingTask = {
+  type: 'listen-repeat',
+  media: { file: 'speaking.mp3' },
+  scenario: { title: 'Welcome visitors.', image: '0.png' }
+};
+const speakingQuestion = {
+  id: 'q1',
+  number: 1,
+  type: 'listen-repeat',
+  image: '1.png',
+  responseTime: 8,
+  media: { file: 'speaking.mp3', start: 10, end: 14 },
+  transcript: 'Welcome.'
+};
+const speakingResultsDocument = {
+  ...speakingDocument,
+  section: 'speaking',
+  modules: [
+    {
+      id: 'module-1',
+      tasks: [{ id: 'task-1', questions: [{ id: 'q1', number: 1, type: 'interview' }] }]
+    }
+  ]
+};
+const speakingResultsSession = {
+  answers: { q1: { recordingKey: 'tpo-03-speaking:q1' } },
+  marks: {},
+  updatedAt: 1
 };
 
 describe('writing logic', () => {
@@ -164,60 +200,31 @@ describe('SpeakingPage', () => {
     vi.spyOn(HTMLMediaElement.prototype, 'play').mockResolvedValue();
     vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
   });
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  const document = {
-    id: 'tpo-03-speaking',
-    sourcePath: 'assets/questions/speaking/TPO-03/speaking-TPO-03.md',
-    modules: [
-      { tasks: [{ questions: Array.from({ length: 11 }, (_, index) => ({ id: `q${index}` })) }] }
-    ]
-  };
-  const task = {
-    type: 'listen-repeat',
-    media: { file: 'speaking.mp3' },
-    scenario: { title: 'Welcome visitors.', image: '0.png' }
-  };
-  const question = {
-    id: 'q1',
-    number: 1,
-    type: 'listen-repeat',
-    image: '1.png',
-    responseTime: 8,
-    media: { file: 'speaking.mp3', start: 10, end: 14 },
-    transcript: 'Welcome.'
-  };
-
-  it('renders scenario content without requesting microphone permission', () => {
-    const wrapper = mount(SpeakingPage, {
+  const mountSpeaking = (props = {}) =>
+    mount(SpeakingPage, {
       props: {
-        document,
-        page: { type: 'scenario', scenario: task.scenario },
-        task,
-        question: null,
+        document: speakingDocument,
+        page: { type: 'question' },
+        task: speakingTask,
+        question: speakingQuestion,
         answers: {},
         checked: false,
-        volume: 0.8
+        volume: 0.8,
+        ...props
       }
+    });
+
+  it('renders scenario content without requesting microphone permission', () => {
+    const wrapper = mountSpeaking({
+      page: { type: 'scenario', scenario: speakingTask.scenario },
+      question: null
     });
     expect(wrapper.text()).toContain('Welcome visitors.');
     expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled();
   });
 
   it('plays segments once, reuses one session stream, and releases it on unmount', async () => {
-    const wrapper = mount(SpeakingPage, {
-      props: {
-        document,
-        page: { type: 'question' },
-        task,
-        question,
-        answers: {},
-        checked: false,
-        volume: 0.8
-      }
-    });
+    const wrapper = mountSpeaking();
     await flushPromises();
     expect(wrapper.text()).toContain('00:00:08');
     const play = wrapper.find('[aria-label="Play question audio"]');
@@ -228,7 +235,7 @@ describe('SpeakingPage', () => {
     expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledTimes(1);
     expect(wrapper.text()).toContain('Recording...');
 
-    const nextQuestion = { ...question, id: 'q2', number: 2 };
+    const nextQuestion = { ...speakingQuestion, id: 'q2', number: 2 };
     await wrapper.setProps({ question: nextQuestion });
     await flushPromises();
     await wrapper.find('[aria-label="Play question audio"]').trigger('click');
@@ -238,22 +245,16 @@ describe('SpeakingPage', () => {
     wrapper.unmount();
     await flushPromises();
     expect(tracks[0].stop).toHaveBeenCalledTimes(1);
-    expect(repository.save).toHaveBeenCalledWith(document.id, question.id, expect.any(Blob));
+    expect(repository.save).toHaveBeenCalledWith(
+      speakingDocument.id,
+      speakingQuestion.id,
+      expect.any(Blob)
+    );
   });
 
   it('enforces the recording deadline while the page is hidden', async () => {
     vi.useFakeTimers();
-    const wrapper = mount(SpeakingPage, {
-      props: {
-        document,
-        page: { type: 'question' },
-        task,
-        question,
-        answers: {},
-        checked: false,
-        volume: 0.8
-      }
-    });
+    const wrapper = mountSpeaking();
     await flushPromises();
     await wrapper.find('[aria-label="Play question audio"]').trigger('click');
     await wrapper.find('audio').trigger('ended');
@@ -268,23 +269,12 @@ describe('SpeakingPage', () => {
     expect(wrapper.text()).toContain('Response recorded');
     wrapper.unmount();
     Object.defineProperty(globalThis.document, 'hidden', { configurable: true, value: false });
-    vi.useRealTimers();
   });
 
   it('shows a useful permission failure and does not enter recording state', async () => {
     const denied = Object.assign(new Error('denied'), { name: 'NotAllowedError' });
     navigator.mediaDevices.getUserMedia.mockRejectedValueOnce(denied);
-    const wrapper = mount(SpeakingPage, {
-      props: {
-        document,
-        page: { type: 'question' },
-        task,
-        question,
-        answers: {},
-        checked: false,
-        volume: 0.8
-      }
-    });
+    const wrapper = mountSpeaking();
     await flushPromises();
     await wrapper.find('[aria-label="Play question audio"]').trigger('click');
     await wrapper.find('audio').trigger('ended');
@@ -296,17 +286,7 @@ describe('SpeakingPage', () => {
   it('does not report a recorded answer when saving the audio fails', async () => {
     vi.useFakeTimers();
     repository.save.mockRejectedValueOnce(new Error('disk full'));
-    const wrapper = mount(SpeakingPage, {
-      props: {
-        document,
-        page: { type: 'question' },
-        task,
-        question,
-        answers: {},
-        checked: false,
-        volume: 0.8
-      }
-    });
+    const wrapper = mountSpeaking();
     await flushPromises();
     await wrapper.find('[aria-label="Play question audio"]').trigger('click');
     await wrapper.find('audio').trigger('ended');
@@ -316,7 +296,6 @@ describe('SpeakingPage', () => {
     expect(wrapper.text()).toContain('disk full');
     expect(wrapper.emitted('answer')).toBeUndefined();
     wrapper.unmount();
-    vi.useRealTimers();
   });
 
   it('stops a late microphone stream instead of recording after unmount', async () => {
@@ -357,19 +336,9 @@ describe('SpeakingPage', () => {
           resolvers.set(questionId, resolve);
         })
     );
-    const wrapper = mount(SpeakingPage, {
-      props: {
-        document,
-        page: { type: 'question' },
-        task,
-        question,
-        answers: {},
-        checked: false,
-        volume: 0.8
-      }
-    });
+    const wrapper = mountSpeaking();
     await Promise.resolve();
-    const nextQuestion = { ...question, id: 'q2', number: 2 };
+    const nextQuestion = { ...speakingQuestion, id: 'q2', number: 2 };
     await wrapper.setProps({ question: nextQuestion });
     await Promise.resolve();
     resolvers.get('q2')(new Blob(['second'], { type: 'audio/webm' }));
@@ -382,33 +351,16 @@ describe('SpeakingPage', () => {
 });
 
 describe('speaking results recordings', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+  const mountResults = () =>
+    mount(ResultsPage, {
+      props: { document: speakingResultsDocument, session: speakingResultsSession }
+    });
 
   it('loads a response only after the user asks to play it', async () => {
     repository.load.mockReset().mockResolvedValue(new Blob(['answer'], { type: 'audio/webm' }));
     const createObjectURL = vi.fn(() => 'blob:answer');
     vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL: vi.fn() });
-    const wrapper = mount(ResultsPage, {
-      props: {
-        document: {
-          id: 'tpo-03-speaking',
-          section: 'speaking',
-          modules: [
-            {
-              id: 'module-1',
-              tasks: [{ id: 'task-1', questions: [{ id: 'q1', number: 1, type: 'interview' }] }]
-            }
-          ]
-        },
-        session: {
-          answers: { q1: { recordingKey: 'tpo-03-speaking:q1' } },
-          marks: {},
-          updatedAt: 1
-        }
-      }
-    });
+    const wrapper = mountResults();
 
     expect(repository.load).not.toHaveBeenCalled();
     await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
@@ -429,27 +381,7 @@ describe('speaking results recordings', () => {
     );
     const createObjectURL = vi.fn(() => 'blob:late');
     vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL: vi.fn() });
-    const wrapper = mount(ResultsPage, {
-      props: {
-        document: {
-          id: 'tpo-03-speaking',
-          section: 'speaking',
-          sourcePath: 'assets/questions/speaking/TPO-03/speaking-TPO-03.md',
-          modules: [
-            {
-              id: 'module-1',
-              tasks: [{ id: 'task-1', questions: [{ id: 'q1', number: 1, type: 'interview' }] }]
-            }
-          ]
-        },
-        page: { type: 'results', title: 'Speaking Section Completed' },
-        session: {
-          answers: { q1: { recordingKey: 'tpo-03-speaking:q1' } },
-          marks: {},
-          updatedAt: 1
-        }
-      }
-    });
+    const wrapper = mountResults();
     await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
     wrapper.unmount();
     resolveLoad(new Blob(['late'], { type: 'audio/webm' }));

@@ -23,6 +23,21 @@ import {
 import { canonicalQuestionEntries } from '../../electron/services/runtime-content.js';
 
 const sha256 = value => createHash('sha256').update(value).digest('hex');
+const trustedUrl = file => `https://raw.githubusercontent.com/example/${file}`;
+
+function queueUpdate(version, update, data) {
+  electron.plans.push({
+    data: Buffer.from(JSON.stringify({ content_version: version, updates: [update] }))
+  });
+  if (data) electron.plans.push({ data });
+}
+
+async function installedContent(marker = 'current') {
+  const contentRoot = path.join(electron.userData, 'tpo-content');
+  await fs.mkdir(contentRoot, { recursive: true });
+  await fs.writeFile(path.join(contentRoot, 'installed.txt'), marker);
+  return contentRoot;
+}
 
 async function prepareCompiledRelease({ includeImage }) {
   const contentRoot = path.join(electron.userData, 'tpo-content');
@@ -137,26 +152,9 @@ describe('content updater downloads', () => {
   });
 
   it('applies current incremental media updates without format version labels', async () => {
-    const contentRoot = path.join(electron.userData, 'tpo-content');
-    await fs.mkdir(contentRoot, { recursive: true });
-    await fs.writeFile(path.join(contentRoot, 'installed.txt'), 'keep me');
+    const contentRoot = await installedContent('keep me');
     const image = Buffer.from('image bytes');
-    electron.plans.push(
-      {
-        data: Buffer.from(
-          JSON.stringify({
-            content_version: 4,
-            updates: [
-              {
-                path: 'speaking/TPO-03/0.png',
-                url: 'https://raw.githubusercontent.com/example/0.png'
-              }
-            ]
-          })
-        )
-      },
-      { data: image }
-    );
+    queueUpdate(4, { path: 'speaking/TPO-03/0.png', url: trustedUrl('0.png') }, image);
 
     await expect(runContentUpdate()).resolves.toMatchObject({ version: 4 });
     await expect(
@@ -169,25 +167,15 @@ describe('content updater downloads', () => {
   });
 
   it('rejects a checksum mismatch without replacing installed content', async () => {
-    const contentRoot = path.join(electron.userData, 'tpo-content');
-    await fs.mkdir(contentRoot, { recursive: true });
-    await fs.writeFile(path.join(contentRoot, 'installed.txt'), 'current');
-    electron.plans.push(
+    const contentRoot = await installedContent();
+    queueUpdate(
+      5,
       {
-        data: Buffer.from(
-          JSON.stringify({
-            content_version: 5,
-            updates: [
-              {
-                path: 'listening/TPO-03/audio.mp3',
-                url: 'https://raw.githubusercontent.com/example/audio.mp3',
-                sha256: '0'.repeat(64)
-              }
-            ]
-          })
-        )
+        path: 'listening/TPO-03/audio.mp3',
+        url: trustedUrl('audio.mp3'),
+        sha256: '0'.repeat(64)
       },
-      { data: Buffer.from('unexpected bytes') }
+      Buffer.from('unexpected bytes')
     );
 
     await expect(runContentUpdate()).rejects.toThrow('Content update failed');
@@ -198,27 +186,16 @@ describe('content updater downloads', () => {
   });
 
   it('leaves installed content untouched when staged content is invalid', async () => {
-    const contentRoot = path.join(electron.userData, 'tpo-content');
-    await fs.mkdir(contentRoot, { recursive: true });
-    await fs.writeFile(path.join(contentRoot, 'installed.txt'), 'current');
+    const contentRoot = await installedContent();
     const invalidContent = Buffer.from('{}');
-    const sha256 = createHash('sha256').update(invalidContent).digest('hex');
-    electron.plans.push(
+    queueUpdate(
+      2,
       {
-        data: Buffer.from(
-          JSON.stringify({
-            content_version: 2,
-            updates: [
-              {
-                path: 'assets/questions/compiled/manifest.json',
-                url: 'https://raw.githubusercontent.com/example/manifest.json',
-                sha256
-              }
-            ]
-          })
-        )
+        path: 'assets/questions/compiled/manifest.json',
+        url: trustedUrl('manifest.json'),
+        sha256: sha256(invalidContent)
       },
-      { data: invalidContent }
+      invalidContent
     );
 
     await expect(runContentUpdate()).rejects.toThrow('Content update failed');
@@ -230,22 +207,14 @@ describe('content updater downloads', () => {
   it('validates images referenced by a complete compiled release', async () => {
     const { contentRoot, manifest } = await prepareCompiledRelease({ includeImage: false });
     await fs.writeFile(path.join(contentRoot, 'installed.txt'), 'current');
-    electron.plans.push(
+    queueUpdate(
+      6,
       {
-        data: Buffer.from(
-          JSON.stringify({
-            content_version: 6,
-            updates: [
-              {
-                path: 'assets/questions/compiled/manifest.json',
-                url: 'https://raw.githubusercontent.com/example/manifest.json',
-                sha256: sha256(manifest)
-              }
-            ]
-          })
-        )
+        path: 'assets/questions/compiled/manifest.json',
+        url: trustedUrl('manifest.json'),
+        sha256: sha256(manifest)
       },
-      { data: manifest }
+      manifest
     );
 
     await expect(runContentUpdate()).rejects.toThrow('Content update failed');
@@ -256,22 +225,14 @@ describe('content updater downloads', () => {
 
   it('accepts a complete compiled release when every referenced asset exists', async () => {
     const { contentRoot, manifest } = await prepareCompiledRelease({ includeImage: true });
-    electron.plans.push(
+    queueUpdate(
+      7,
       {
-        data: Buffer.from(
-          JSON.stringify({
-            content_version: 7,
-            updates: [
-              {
-                path: 'assets/questions/compiled/manifest.json',
-                url: 'https://raw.githubusercontent.com/example/manifest.json',
-                sha256: sha256(manifest)
-              }
-            ]
-          })
-        )
+        path: 'assets/questions/compiled/manifest.json',
+        url: trustedUrl('manifest.json'),
+        sha256: sha256(manifest)
       },
-      { data: manifest }
+      manifest
     );
 
     await expect(runContentUpdate()).resolves.toMatchObject({ version: 7 });
