@@ -65,10 +65,10 @@ export function introDirections(section, page, task) {
     return page.moduleId === 'module-2'
       ? ['The clock shows how much time you have to complete Module 2.']
       : [
-        'The clock will show you how much time you have to complete Module 1.',
-        'You can use NEXT and BACK to move to the next question or return to previous questions within the same module.',
-        'You WILL NOT be able to return to Module 1 once you have begun Module 2.'
-      ];
+          'The clock will show you how much time you have to complete Module 1.',
+          'You can use NEXT and BACK to move to the next question or return to previous questions within the same module.',
+          'You WILL NOT be able to return to Module 1 once you have begun Module 2.'
+        ];
   }
   if (normalized === 'listening') {
     const lines = [
@@ -86,13 +86,13 @@ export function introDirections(section, page, task) {
   if (normalized === 'speaking') {
     return task?.type === 'interview'
       ? [
-        'An interviewer will ask you questions. Answer the questions and be sure to speak as much as you can in the time allowed.',
-        'No time for preparation will be provided.'
-      ]
+          'An interviewer will ask you questions. Answer the questions and be sure to speak as much as you can in the time allowed.',
+          'No time for preparation will be provided.'
+        ]
       : [
-        'You will listen as someone speaks to you. Listen carefully and then repeat what you have heard. The clock will indicate how much time you have to speak.',
-        'No time for preparation will be provided.'
-      ];
+          'You will listen as someone speaks to you. Listen carefully and then repeat what you have heard. The clock will indicate how much time you have to speak.',
+          'No time for preparation will be provided.'
+        ];
   }
   return [];
 }
@@ -128,7 +128,7 @@ const QUESTION_HELP = {
   'write-email':
     '1. Read the prompt on the left carefully.\n2. Write your email in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Next when you have finished writing.',
   'academic-discussion':
-    '1. Read the professor\'s question and other students\' responses on the left.\n2. Write your own contribution to the discussion in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Next when you have finished writing.'
+    "1. Read the professor's question and other students' responses on the left.\n2. Write your own contribution to the discussion in the text area on the right.\n3. Use Cut, Paste, Undo, and Redo to edit your writing.\n4. Your word count is displayed in the toolbar. Click Hide Word Count to toggle visibility.\n5. Click Next when you have finished writing."
 };
 
 const WRITING_INTRO_HELP = {
@@ -137,35 +137,55 @@ const WRITING_INTRO_HELP = {
   'write-email':
     'Write an Email: Read the prompt carefully and write an email based on the information provided. Make sure to include all the required points and address them clearly. Keep your tone appropriate for the audience and purpose. You can use Cut, Paste, Undo, and Redo buttons in the toolbar to edit your writing.',
   'academic-discussion':
-    'Write for an Academic Discussion: Read the professor\'s question and the responses from other students. Then write your own contribution to the discussion. Make sure to express your opinion clearly and support it with reasons or examples. You can respond to or build upon other students\' ideas. Use the toolbar buttons to edit your writing.'
+    "Write for an Academic Discussion: Read the professor's question and the responses from other students. Then write your own contribution to the discussion. Make sure to express your opinion clearly and support it with reasons or examples. You can respond to or build upon other students' ideas. Use the toolbar buttons to edit your writing."
+};
+
+function readingHelp(page, task) {
+  if (page.type !== 'intro') return QUESTION_HELP[task.type] || '';
+  return page.moduleId === 'module-2'
+    ? '1. You have a 9-minute timer to complete Module 2.\n2. Begin will navigate to Module 2 task set.\n3. You cannot return to this introduction after starting Module 2.'
+    : '1. You have limited time to complete Module 1\n2. Use Next/Back buttons to navigate questions\n3. Once you start Module 2, you cannot return to Module 1';
+}
+
+function listeningHelp(page, task) {
+  if (page.type === 'intro') {
+    return 'In the actual test, the Listening directions play once, then this screen advances automatically.';
+  }
+  if (page.type === 'stimulus') {
+    return 'The actual test does not show playback controls. Audio starts automatically, and the question appears when it ends.';
+  }
+  if (task.type === 'listen-response') {
+    return 'The actual test does not show playback controls. Audio starts automatically. You have 20 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
+  }
+  return 'The actual test does not show playback controls. You have 20 or 30 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
+}
+
+function writingHelp(page, task) {
+  return page.type === 'intro' ? WRITING_INTRO_HELP[task.id] || '' : QUESTION_HELP[task.type] || '';
+}
+
+function speakingHelp(page) {
+  if (page.type === 'intro') {
+    return 'In the actual test, the Speaking directions play once, then this screen advances automatically.';
+  }
+  if (page.type === 'scenario') {
+    return 'In the actual test, the section title is announced once, then the first question opens automatically.';
+  }
+  return 'Select Play to hear the prompt. Recording begins automatically when the countdown ends and is saved when the response time expires.';
+}
+
+const SECTION_HELP = {
+  reading: readingHelp,
+  listening: listeningHelp,
+  writing: writingHelp,
+  speaking: speakingHelp
 };
 
 export function helpCopy(section, page = {}, task = {}) {
   const normalized = String(section).toLowerCase();
   if (page.help) return page.help;
   if (page.type === 'start') return START_HELP[normalized] || '';
-  if (page.type === 'intro') {
-    if (normalized === 'listening' || normalized === 'speaking')
-      return `In the actual test, the ${normalized === 'listening' ? 'Listening' : 'Speaking'} directions play once, then this screen advances automatically.`;
-    if (normalized === 'reading')
-      return page.moduleId === 'module-2'
-        ? '1. You have a 9-minute timer to complete Module 2.\n2. Begin will navigate to Module 2 task set.\n3. You cannot return to this introduction after starting Module 2.'
-        : '1. You have limited time to complete Module 1\n2. Use Next/Back buttons to navigate questions\n3. Once you start Module 2, you cannot return to Module 1';
-    if (normalized === 'writing') return WRITING_INTRO_HELP[task.id] || '';
-  }
-  if (normalized === 'listening') {
-    if (page.type === 'stimulus')
-      return 'The actual test does not show playback controls. Audio starts automatically, and the question appears when it ends.';
-    if (task.type === 'listen-response')
-      return 'The actual test does not show playback controls. Audio starts automatically. You have 20 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
-    return 'The actual test does not show playback controls. You have 20 or 30 seconds to answer; when time expires, your answer is locked and the next question opens automatically.';
-  }
-  if (normalized === 'speaking') {
-    if (page.type === 'scenario')
-      return 'In the actual test, the section title is announced once, then the first question opens automatically.';
-    return 'Select Play to hear the prompt. Recording begins automatically when the countdown ends and is saved when the response time expires.';
-  }
-  return QUESTION_HELP[task.type] || '';
+  return SECTION_HELP[normalized]?.(page, task) || QUESTION_HELP[task.type] || '';
 }
 
 export function readyPrompt(section, page = {}, task = {}) {
@@ -182,11 +202,11 @@ export function readyPrompt(section, page = {}, task = {}) {
 export function expirationCopy(section) {
   return String(section).toLowerCase() === 'writing'
     ? {
-      body: 'Your time for this task has expired. You can continue working without time limit, or end this task to move on.',
-      finish: 'End Task'
-    }
+        body: 'Your time for this task has expired. You can continue working without time limit, or end this task to move on.',
+        finish: 'End Task'
+      }
     : {
-      body: 'Module time has expired. You can continue working without time limit, or end now to view your results.',
-      finish: 'Score and Exit'
-    };
+        body: 'Module time has expired. You can continue working without time limit, or end now to view your results.',
+        finish: 'Score and Exit'
+      };
 }

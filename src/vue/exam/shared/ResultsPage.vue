@@ -1,10 +1,10 @@
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
-import { recordingRepository } from '../../platform/dataRepository.js';
-import { resolveQuestionAsset } from '../../platform/contentRepository.js';
-import { solveAnswerOrder } from '../sections/writing/writingLogic.js';
-import { examQuestions, isAnswered, isCorrectAnswer, questionPageId } from './model.js';
+import { computed, ref } from 'vue';
+import { examQuestions, isCorrectAnswer, questionPageId } from './model.js';
 import ExamDialog from './ExamDialog.vue';
+import ObjectiveResults from '../results/ObjectiveResults.vue';
+import SpeakingResults from '../results/SpeakingResults.vue';
+import WritingResults from '../results/WritingResults.vue';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -24,37 +24,11 @@ const moduleGroups = computed(() =>
     questions: module.tasks.flatMap(task => task.questions)
   }))
 );
-const speakingUrls = ref({});
-const speakingRecordingState = ref({});
 const helpOpen = ref(false);
 const restartOpen = ref(false);
-let recordingGeneration = 0;
-let disposed = false;
 function questionCorrect(question) {
   const answer = props.session.answers?.[question.id];
   return isCorrectAnswer(answer, question);
-}
-function wordCount(value) {
-  const text = String(value || '').trim();
-  return text ? text.split(/\s+/u).filter(Boolean).length : 0;
-}
-function sentenceAnswer(question) {
-  const answer = props.session.answers?.[question.id];
-  const slots = Array.isArray(answer) ? answer : answer?.slots;
-  if (!Array.isArray(slots)) return 'No response provided.';
-  return slots
-    .map(index => question.candidates?.[index])
-    .filter(Boolean)
-    .join(' ');
-}
-function expectedSentence(question) {
-  return solveAnswerOrder(question).join(' ');
-}
-function promptAudio(question) {
-  return resolveQuestionAsset(props.document, question.media?.file);
-}
-function hasRecording(questionId) {
-  return Boolean(props.session.answers?.[questionId]?.recordingKey);
 }
 const correct = computed(
   () => questions.value.filter(question => questionCorrect(question)).length
@@ -105,53 +79,6 @@ const restartText = computed(() => {
   if (section.value === 'listening')
     return 'Are you sure you want to restart the listening test? This will clear all your answers and timer data.';
   return 'Are you sure you want to restart the test? This will clear all your answers and timer data.';
-});
-function releaseSpeakingUrls() {
-  Object.values(speakingUrls.value).forEach(url => {
-    if (url.startsWith('blob:')) URL.revokeObjectURL(url);
-  });
-  speakingUrls.value = {};
-}
-
-function resetSpeakingRecordings() {
-  recordingGeneration += 1;
-  speakingRecordingState.value = {};
-  releaseSpeakingUrls();
-}
-
-async function loadSpeakingRecording(questionId) {
-  const currentGeneration = recordingGeneration;
-  speakingRecordingState.value = { ...speakingRecordingState.value, [questionId]: 'loading' };
-  const playbackUrl = recordingRepository.playbackUrl?.(props.document.id, questionId);
-  if (playbackUrl) {
-    speakingUrls.value = { ...speakingUrls.value, [questionId]: playbackUrl };
-    speakingRecordingState.value = { ...speakingRecordingState.value, [questionId]: 'ready' };
-    return;
-  }
-  let blob = null;
-  try {
-    blob = await recordingRepository.load(props.document.id, questionId);
-  } catch {
-    // A missing or unreadable response is presented identically to no submitted recording.
-  }
-  if (disposed || currentGeneration !== recordingGeneration) return;
-  if (blob) {
-    speakingUrls.value = {
-      ...speakingUrls.value,
-      [questionId]: URL.createObjectURL(blob)
-    };
-  }
-  speakingRecordingState.value = {
-    ...speakingRecordingState.value,
-    [questionId]: blob ? 'ready' : 'missing'
-  };
-}
-
-watch(() => props.document.id, resetSpeakingRecordings, { immediate: true });
-onBeforeUnmount(() => {
-  disposed = true;
-  recordingGeneration += 1;
-  releaseSpeakingUrls();
 });
 </script>
 
@@ -222,146 +149,26 @@ onBeforeUnmount(() => {
           </div>
         </section>
       </div>
-      <div v-if="['reading', 'listening'].includes(section)" class="results-legend">
-        <span><i class="correct" /> Correct</span><span><i class="incorrect" /> Incorrect</span
-        ><span><i class="unanswered" /> Unanswered</span>
-      </div>
-      <div v-if="['reading', 'listening'].includes(section)" class="results-module-list">
-        <section v-for="group in moduleGroups" :key="group.id" class="results-module">
-          <h2>
-            <i :class="section === 'reading' ? 'fas fa-book' : 'fas fa-volume-up'" />
-            {{ group.title }}
-            <small
-              >{{ group.questions.filter(questionCorrect).length }} /
-              {{ group.questions.length }} correct</small
-            >
-          </h2>
-          <div class="module-progress-track">
-            <span
-              :style="{
-                width: `${group.questions.length ? (group.questions.filter(questionCorrect).length / group.questions.length) * 100 : 0}%`
-              }"
-            />
-          </div>
-          <div class="results-grid">
-            <button
-              v-for="(question, index) in group.questions"
-              :key="question.id"
-              type="button"
-              :class="{
-                correct: questionCorrect(question),
-                incorrect: isAnswered(session.answers?.[question.id]) && !questionCorrect(question),
-                unanswered: !isAnswered(session.answers?.[question.id])
-              }"
-              @click="$emit('select-question', questionPageId(question))"
-            >
-              {{ index + 1 }}
-            </button>
-          </div>
-        </section>
-      </div>
-      <div v-else-if="section === 'writing'" class="results-section-list">
-        <section
-          v-for="group in moduleGroups[0]?.tasks || []"
-          :key="group.id"
-          class="results-detail-card"
-        >
-          <header>
-            <strong>{{
-              group.type === 'academic-discussion' ? 'Academic Discussion' : group.title
-            }}</strong>
-            <span v-if="group.type === 'build-sentence'">
-              {{ group.questions.filter(questionCorrect).length }} /
-              {{ group.questions.length }} correct
-            </span>
-            <span v-else>{{ wordCount(session.answers?.[group.questions[0]?.id]) }} words</span>
-          </header>
-          <div v-if="group.type === 'build-sentence'" class="results-grid">
-            <button
-              v-for="question in group.questions"
-              :key="question.id"
-              type="button"
-              :class="
-                questionCorrect(question)
-                  ? 'correct'
-                  : isAnswered(session.answers?.[question.id])
-                    ? 'incorrect'
-                    : 'unanswered'
-              "
-              @click="$emit('select-question', questionPageId(question))"
-            >
-              {{ question.number }}
-            </button>
-          </div>
-          <div v-if="group.type === 'build-sentence'" class="writing-answer-details">
-            <article v-for="question in group.questions" :key="`${question.id}-detail`">
-              <strong>Question {{ question.number }}</strong>
-              <span :class="questionCorrect(question) ? 'is-correct' : 'is-incorrect'">
-                {{
-                  isAnswered(session.answers?.[question.id])
-                    ? sentenceAnswer(question)
-                    : expectedSentence(question)
-                }}
-              </span>
-              <span v-if="isAnswered(session.answers?.[question.id]) && !questionCorrect(question)">
-                (→ {{ expectedSentence(question) }})
-              </span>
-            </article>
-          </div>
-          <div v-else class="results-written-response">
-            {{ session.answers?.[group.questions[0]?.id] || 'No response provided.' }}
-          </div>
-        </section>
-      </div>
-      <div v-else class="results-section-list">
-        <section
-          v-for="group in moduleGroups[0]?.tasks || []"
-          :key="group.id"
-          class="results-detail-card"
-        >
-          <header>
-            <strong>{{ group.title }}</strong
-            ><span>{{ group.questions.length }} questions</span>
-          </header>
-          <div class="speaking-results-list">
-            <article v-for="question in group.questions" :key="question.id">
-              <button type="button" @click="$emit('select-question', questionPageId(question))">
-                Question {{ question.number }}
-              </button>
-              <p>{{ question.transcript || question.prompt || '(No transcript available)' }}</p>
-              <audio
-                v-if="promptAudio(question)"
-                :src="promptAudio(question)"
-                preload="none"
-                controls
-              />
-              <label v-if="speakingUrls[question.id]">
-                Your Response
-                <audio :src="speakingUrls[question.id]" preload="none" controls />
-              </label>
-              <span
-                v-else-if="
-                  !hasRecording(question.id) || speakingRecordingState[question.id] === 'missing'
-                "
-              >
-                No recording submitted
-              </span>
-              <button
-                v-else
-                type="button"
-                :disabled="speakingRecordingState[question.id] === 'loading'"
-                @click="loadSpeakingRecording(question.id)"
-              >
-                {{
-                  speakingRecordingState[question.id] === 'loading'
-                    ? 'Loading response…'
-                    : 'Load your response'
-                }}
-              </button>
-            </article>
-          </div>
-        </section>
-      </div>
+      <ObjectiveResults
+        v-if="['reading', 'listening'].includes(section)"
+        :section="section"
+        :groups="moduleGroups"
+        :answers="session.answers"
+        @select-question="$emit('select-question', $event)"
+      />
+      <WritingResults
+        v-else-if="section === 'writing'"
+        :tasks="moduleGroups[0]?.tasks || []"
+        :answers="session.answers"
+        @select-question="$emit('select-question', $event)"
+      />
+      <SpeakingResults
+        v-else
+        :document="document"
+        :tasks="moduleGroups[0]?.tasks || []"
+        :answers="session.answers"
+        @select-question="$emit('select-question', $event)"
+      />
       <div class="results-actions">
         <button
           v-if="questions.length"

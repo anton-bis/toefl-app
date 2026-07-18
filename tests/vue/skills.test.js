@@ -159,6 +159,7 @@ describe('Vue typing skill', () => {
   it('releases the typing corpus and working session outside the route', () => {
     const store = useTypingStore();
     store.articles = [article];
+    store.collapsed.beginner = true;
     store.startArticle(article);
 
     store.releaseWorkset();
@@ -166,6 +167,7 @@ describe('Vue typing skill', () => {
     expect(store.initialized).toBe(false);
     expect(store.articles).toEqual([]);
     expect(store.session).toBeNull();
+    expect(store.collapsed.beginner).toBe(true);
   });
 
   it('renders grouped, collapsible article cards and emits selection', async () => {

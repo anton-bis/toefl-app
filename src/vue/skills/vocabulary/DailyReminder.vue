@@ -17,9 +17,7 @@ defineProps({ store: { type: Object, required: true } });
       </div>
       <template v-if="store.todayReviewCount"
         ><div class="reminder-section-label">Due for Review</div>
-        <div class="reminder-review-info">
-          {{ store.todayReviewCount }} words ready to review
-        </div>
+        <div class="reminder-review-info">{{ store.todayReviewCount }} words ready to review</div>
         <div class="reminder-review-hint">Open a subject to review them.</div></template
       >
       <div class="reminder-actions">

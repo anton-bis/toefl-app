@@ -5,8 +5,14 @@ import ExamDialog from '../exam/shared/ExamDialog.vue';
 import ExamHeader from '../exam/shared/ExamHeader.vue';
 import InstructionPage from '../exam/shared/InstructionPage.vue';
 import { expirationCopy, readyPrompt } from '../exam/shared/directions.js';
+import {
+  blocksListeningHistory,
+  pageDuration,
+  questionDisplay,
+  reportSections as completedReportSections,
+  resolveExamEntry
+} from '../exam/shared/flow.js';
 import { examQuestions, isCorrectAnswer } from '../exam/shared/model.js';
-import { listeningResponseSeconds } from '../exam/sections/listening/helpers.js';
 import { useCatalogStore } from '../stores/catalog.js';
 import { readExamSession, useExamStore } from '../stores/exam.js';
 import { useSettingsStore } from '../stores/settings.js';
@@ -24,7 +30,6 @@ const route = useRoute();
 const catalog = useCatalogStore();
 const exam = useExamStore();
 const settings = useSettingsStore();
-const REPORT_SECTION_ORDER = ['reading', 'listening', 'writing', 'speaking'];
 const document = shallowRef(null);
 const loading = ref(true);
 const error = ref('');
@@ -71,37 +76,18 @@ const questions = computed(() => examQuestions(document.value));
 const moduleQuestions = computed(
   () => module.value?.tasks.flatMap(currentTask => currentTask.questions) || []
 );
-const questionNumber = computed(() => {
-  const id = page.value?.questionIds?.[0];
-  const collection = ['reading', 'listening'].includes(normalizedSection.value)
-    ? moduleQuestions.value
-    : questions.value;
-  const index = collection.findIndex(item => item.id === id);
-  return index < 0 ? 0 : index + 1;
-});
-const totalQuestions = computed(() => {
-  if (['reading', 'listening'].includes(normalizedSection.value))
-    return moduleQuestions.value.length;
-  if (normalizedSection.value === 'writing') {
-    return task.value?.type === 'build-sentence' ? task.value.questions.length : 2;
-  }
-  return questions.value.length;
-});
-const questionLabel = computed(() => {
-  if (page.value?.type !== 'question') return '';
-  if (normalizedSection.value === 'reading' && task.value?.type === 'complete-words') {
-    const indexes = page.value.questionIds
-      .map(id => moduleQuestions.value.findIndex(item => item.id === id) + 1)
-      .filter(Boolean);
-    return indexes.length
-      ? `Question ${Math.min(...indexes)}–${Math.max(...indexes)} of ${moduleQuestions.value.length}`
-      : '';
-  }
-  if (normalizedSection.value === 'writing' && task.value?.type !== 'build-sentence') {
-    return `Question ${task.value?.type === 'write-email' ? 1 : 2} of 2`;
-  }
-  return questionNumber.value ? `Question ${questionNumber.value} of ${totalQuestions.value}` : '';
-});
+const questionInfo = computed(() =>
+  questionDisplay({
+    section: normalizedSection.value,
+    page: page.value,
+    task: task.value,
+    moduleQuestions: moduleQuestions.value,
+    questions: questions.value
+  })
+);
+const questionNumber = computed(() => questionInfo.value.number);
+const totalQuestions = computed(() => questionInfo.value.total);
+const questionLabel = computed(() => questionInfo.value.label);
 const scaledScore = computed(() => {
   if (!['reading', 'listening'].includes(normalizedSection.value)) return null;
   const ratios = (document.value?.modules || []).slice(0, 2).map(item => {
@@ -193,10 +179,7 @@ const canNext = computed(() => {
 const reportSections = computed(() => {
   if (route.query.mode !== 'report') return [];
   const test = catalog.tests.find(item => item.tpoId === props.tpoId);
-  return REPORT_SECTION_ORDER.filter(
-    section =>
-      test?.sections[section] && readExamSession(props.tpoId, section)?.status === 'completed'
-  );
+  return completedReportSections(test, section => readExamSession(props.tpoId, section));
 });
 const reportIndex = computed(() => reportSections.value.indexOf(normalizedSection.value));
 const showBack = computed(() => {
@@ -221,30 +204,10 @@ function routeTo(pageId, replace = false) {
   return replace ? router.replace(target) : router.push(target);
 }
 
-function durationFor(currentPage) {
-  if (normalizedSection.value === 'reading') return currentPage.moduleId === 'module-2' ? 540 : 690;
-  if (normalizedSection.value === 'writing') {
-    if (currentPage.taskId === 'build-sentence') return 347;
-    if (currentPage.taskId === 'write-email') return 420;
-    if (currentPage.taskId === 'academic-discussion') return 600;
-  }
-  if (normalizedSection.value === 'listening' && currentPage.type === 'question')
-    return listeningResponseSeconds(task.value);
-  return null;
-}
+const durationFor = currentPage => pageDuration(normalizedSection.value, currentPage, task.value);
 
-function blocksListeningHistory(targetPage, active = session.value) {
-  if (
-    normalizedSection.value !== 'listening' ||
-    active?.status !== 'in-progress' ||
-    !targetPage ||
-    !document.value
-  )
-    return false;
-  const currentIndex = document.value.pages.findIndex(item => item.id === active.pageId);
-  const targetIndex = document.value.pages.findIndex(item => item.id === targetPage.id);
-  return currentIndex >= 0 && targetIndex >= 0 && targetIndex < currentIndex;
-}
+const historyBlocked = (targetPage, active = session.value) =>
+  blocksListeningHistory(normalizedSection.value, document.value?.pages || [], targetPage, active);
 
 async function loadExam() {
   const token = ++loadToken;
@@ -254,51 +217,34 @@ async function loadExam() {
     const loaded = await catalog.loadDocument(props.tpoId, normalizedSection.value);
     if (token !== loadToken) return;
     document.value = loaded;
-    const validPage = loaded.pages.find(item => item.id === props.pageId);
-    const initialPage = validPage?.id || 'start';
     const active = exam.openSession({
       tpoId: props.tpoId,
       section: normalizedSection.value,
-      pageId: initialPage
+      pageId: loaded.pages.some(item => item.id === props.pageId) ? props.pageId : 'start'
     });
-    if (validPage?.type === 'results' && active.status !== 'completed') {
-      const savedPage = loaded.pages.find(item => item.id === active.pageId);
-      const fallback =
-        active.status === 'in-progress' && savedPage && savedPage.type !== 'results'
-          ? savedPage.id
-          : 'start';
-      exam.setPage(fallback);
-      await routeTo(fallback, true);
-      return;
-    }
-    if (route.query.mode === 'report' && active.status !== 'completed') {
+    const entry = resolveExamEntry({
+      pages: loaded.pages,
+      requestedPageId: props.pageId,
+      session: active,
+      section: normalizedSection.value,
+      report: route.query.mode === 'report',
+      restart: route.query.restart === '1'
+    });
+    if (entry.action === 'home') {
       await router.replace('/');
       return;
     }
-    if (blocksListeningHistory(validPage, active)) {
-      await routeTo(active.pageId, true);
+    if (entry.action === 'redirect') {
+      exam.setPage(entry.pageId);
+      await routeTo(entry.pageId, true);
       return;
     }
-    if (!validPage) {
-      exam.setPage('start');
-      await routeTo('start', true);
-      return;
-    }
-    if (route.query.restart === '1') {
+    if (entry.action === 'restart') {
       exam.reset(props.tpoId, normalizedSection.value, { pageId: 'start' });
       await router.replace({ name: 'exam', params: { ...route.params, pageId: 'start' } });
       return;
     }
-    if (props.pageId === 'start' && active.status === 'in-progress' && active.pageId !== 'start') {
-      await routeTo(active.pageId, true);
-      return;
-    }
-    if (active.status === 'not-started' && validPage.type !== 'start') {
-      exam.setPage('start');
-      await routeTo('start', true);
-      return;
-    }
-    enterPage(validPage, active.pageId);
+    enterPage(entry.page, active.pageId);
   } catch (cause) {
     if (token === loadToken) error.value = cause?.message || 'Unable to load this exam.';
   } finally {
@@ -482,7 +428,7 @@ watch(
     if (!document.value || loading.value) return;
     const next = document.value.pages.find(item => item.id === nextPageId);
     if (!next) routeTo('start', true);
-    else if (blocksListeningHistory(next)) routeTo(session.value.pageId, true);
+    else if (historyBlocked(next)) routeTo(session.value.pageId, true);
     else enterPage(next, session.value?.pageId);
   }
 );

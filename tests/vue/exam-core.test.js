@@ -14,6 +14,13 @@ import {
   useExamTimer
 } from '../../src/vue/exam/composables/useExamTimer.js';
 import { examQuestions, isCorrectAnswer } from '../../src/vue/exam/shared/model.js';
+import {
+  blocksListeningHistory,
+  pageDuration,
+  questionDisplay,
+  reportSections,
+  resolveExamEntry
+} from '../../src/vue/exam/shared/flow.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 describe('exam sessions', () => {
@@ -291,5 +298,83 @@ describe('generic answer comparison', () => {
       'complete-words',
       'complete-words'
     ]);
+  });
+});
+
+describe('exam flow policies', () => {
+  const pages = [
+    { id: 'start', type: 'start', questionIds: [] },
+    { id: 'q1', type: 'question', questionIds: ['one'] },
+    { id: 'q2', type: 'question', questionIds: ['two'] },
+    { id: 'results', type: 'results', questionIds: [] }
+  ];
+
+  it('redirects invalid and premature result routes without mutating state', () => {
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'missing',
+        section: 'reading',
+        session: { status: 'not-started', pageId: 'start' }
+      })
+    ).toEqual({ action: 'redirect', pageId: 'start' });
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'results',
+        section: 'reading',
+        session: { status: 'in-progress', pageId: 'q1' }
+      })
+    ).toEqual({ action: 'redirect', pageId: 'q1' });
+  });
+
+  it('preserves the explicit restart route contract', () => {
+    expect(
+      resolveExamEntry({
+        pages,
+        requestedPageId: 'q1',
+        section: 'reading',
+        restart: true,
+        session: { status: 'in-progress', pageId: 'q2' }
+      })
+    ).toEqual({ action: 'restart', pageId: 'start' });
+  });
+
+  it('prevents listening navigation to an earlier page', () => {
+    const session = { status: 'in-progress', pageId: 'q2' };
+    expect(blocksListeningHistory('listening', pages, pages[1], session)).toBe(true);
+    expect(blocksListeningHistory('reading', pages, pages[1], session)).toBe(false);
+  });
+
+  it('builds grouped and writing question labels', () => {
+    expect(
+      questionDisplay({
+        section: 'reading',
+        page: { type: 'question', questionIds: ['one', 'two'] },
+        task: { type: 'complete-words' },
+        moduleQuestions: [{ id: 'one' }, { id: 'two' }],
+        questions: [{ id: 'one' }, { id: 'two' }]
+      }).label
+    ).toBe('Question 1–2 of 2');
+    expect(
+      questionDisplay({
+        section: 'writing',
+        page: { type: 'question', questionIds: ['email'] },
+        task: { type: 'write-email', questions: [{ id: 'email' }] },
+        moduleQuestions: [],
+        questions: [{ id: 'email' }]
+      }).label
+    ).toBe('Question 1 of 2');
+  });
+
+  it('keeps section timing and report ordering in pure policy', () => {
+    expect(pageDuration('reading', { moduleId: 'module-1' })).toBe(690);
+    expect(pageDuration('reading', { moduleId: 'module-2' })).toBe(540);
+    expect(pageDuration('writing', { taskId: 'write-email' })).toBe(420);
+    expect(
+      reportSections({ sections: { speaking: {}, reading: {}, listening: {} } }, section => ({
+        status: section === 'listening' ? 'in-progress' : 'completed'
+      }))
+    ).toEqual(['reading', 'speaking']);
   });
 });

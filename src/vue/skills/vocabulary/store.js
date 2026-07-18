@@ -44,8 +44,8 @@ function rootGroupsFor(category) {
   ];
 }
 
-export const useVocabularyStore = defineStore('vocabulary', {
-  state: () => ({
+function vocabularyState() {
+  return {
     initialized: false,
     lifecycleGeneration: 0,
     loading: false,
@@ -75,7 +75,39 @@ export const useVocabularyStore = defineStore('vocabulary', {
     showReminder: false,
     pendingReminder: [],
     detailWord: null
-  }),
+  };
+}
+
+function restoreVocabularyWords(store, saved) {
+  if (store.mode === 'root' && saved.rootCategory) {
+    const categoryIndex = store.sets.findIndex(item => item.id === saved.rootCategory);
+    store.selectRootItem(categoryIndex);
+    const groupIndex = store.rootGroups.findIndex(group => group.title === saved.rootGroupTitle);
+    if (groupIndex >= 0) store.selectRootItem(groupIndex);
+    return;
+  }
+  const set = store.sets[store.currentSetIndex];
+  const unknownIds = new Set(saved.unknownIds || []);
+  store.words = (set?.words || []).map(word => ({
+    ...word,
+    gridStatus: unknownIds.has(word.id) ? 'unknown' : 'unmarked'
+  }));
+}
+
+function restoreVocabularyQueue(store, saved) {
+  const bank = store.wordData[store.subject] || [];
+  const byId = new Map([...bank, ...store.words].map(word => [word.id, word]));
+  store.queue = (saved.queueIds || [])
+    .map(entry => {
+      const [id, reviewSetId] = Array.isArray(entry) ? entry : [entry, null];
+      const word = byId.get(id);
+      return word && reviewSetId ? { ...word, _reviewSetId: reviewSetId } : word;
+    })
+    .filter(Boolean);
+}
+
+export const useVocabularyStore = defineStore('vocabulary', {
+  state: vocabularyState,
   getters: {
     subjectLabel: state => SUBJECT_LABELS[state.subject] || state.subject || '',
     currentWord: state => state.queue[state.currentIndex] || null,
@@ -99,7 +131,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
           overview.due.map(({ subject, count }) => [subject, Number(count)])
         );
         overview.sets.forEach(({ subject, setId, value }) => {
-          ((this.progress[subject] ||= {})[setId] ||= { words: {} });
+          (this.progress[subject] ||= {})[setId] ||= { words: {} };
           Object.assign(this.progress[subject][setId], value, { words: {} });
         });
         const response = await fetch('assets/questions/vocabulary/manifest.json');
@@ -377,26 +409,9 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.detailWord = null;
     },
     releaseWorkset() {
-      this.lifecycleGeneration += 1;
-      this.initialized = false;
-      this.loading = false;
-      this.error = '';
-      this.page = 'subject-select';
-      this.subject = null;
-      this.wordData = {};
-      this.sets = [];
-      this.words = [];
-      this.queue = [];
-      this.progress = {};
-      this.globalDueCount = 0;
-      this.dueCounts = {};
-      this.isGlobalReview = false;
-      this.rootCategory = null;
-      this.rootGroups = [];
-      this.rootGroupTitle = '';
-      this.detailWord = null;
-      this.pendingReminder = [];
-      this.showReminder = false;
+      const generation = this.lifecycleGeneration + 1;
+      this.$reset();
+      this.lifecycleGeneration = generation;
     },
     persist() {
       if (this.subject && this.page !== 'subject-select' && this.page !== 'set-list')
@@ -408,28 +423,8 @@ export const useVocabularyStore = defineStore('vocabulary', {
       this.buildSets();
       this.currentSetIndex = saved.currentSetIndex || 0;
       this.setId = saved.setId || this.currentSetIndex + 1;
-      if (this.mode === 'root' && saved.rootCategory) {
-        const categoryIndex = this.sets.findIndex(item => item.id === saved.rootCategory);
-        this.selectRootItem(categoryIndex);
-        const groupIndex = this.rootGroups.findIndex(group => group.title === saved.rootGroupTitle);
-        if (groupIndex >= 0) this.selectRootItem(groupIndex);
-      } else {
-        const set = this.sets[this.currentSetIndex];
-        const unknownIds = new Set(saved.unknownIds || []);
-        this.words = (set?.words || []).map(word => ({
-          ...word,
-          gridStatus: unknownIds.has(word.id) ? 'unknown' : 'unmarked'
-        }));
-      }
-      const bank = this.wordData[this.subject] || [];
-      const byId = new Map([...bank, ...this.words].map(word => [word.id, word]));
-      this.queue = (saved.queueIds || [])
-        .map(entry => {
-          const [id, reviewSetId] = Array.isArray(entry) ? entry : [entry, null];
-          const word = byId.get(id);
-          return word && reviewSetId ? { ...word, _reviewSetId: reviewSetId } : word;
-        })
-        .filter(Boolean);
+      restoreVocabularyWords(this, saved);
+      restoreVocabularyQueue(this, saved);
       this.currentIndex = Math.min(saved.currentIndex || 0, Math.max(0, this.queue.length - 1));
       this.currentQuizType = saved.currentQuizType || null;
       this.nineGridPage = saved.nineGridPage || 0;

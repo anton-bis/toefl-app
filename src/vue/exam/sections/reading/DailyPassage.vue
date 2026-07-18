@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import ChoiceList from '../../shared/ChoiceList.vue';
+import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
 
 const props = defineProps({
@@ -87,16 +87,13 @@ const messages = computed(() => parseTextChain(props.task.passage));
         aria-label="Question and answer choices"
         tabindex="0"
       >
-        <div class="question-container-apple">
-          <div class="question-text-apple">{{ question.prompt }}</div>
-          <ChoiceList
-            :question="question"
-            :answers="answers"
-            :checked="checked"
-            :locked="locked"
-            @answer="(id, value) => emit('answer', id, value)"
-          />
-        </div>
+        <ChoiceQuestion
+          :question="question"
+          :answers="answers"
+          :checked="checked"
+          :locked="locked"
+          @answer="(id, value) => emit('answer', id, value)"
+        />
       </div>
     </div>
   </section>

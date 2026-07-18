@@ -31,9 +31,9 @@ const sentenceParts = computed(() => {
   );
   return match
     ? [
-      currentSentence.value.slice(0, match.index),
-      currentSentence.value.slice(match.index + match[0].length)
-    ]
+        currentSentence.value.slice(0, match.index),
+        currentSentence.value.slice(match.index + match[0].length)
+      ]
     : ['', currentSentence.value];
 });
 

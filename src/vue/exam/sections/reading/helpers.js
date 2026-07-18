@@ -107,8 +107,12 @@ export function paragraphSentences(passage, prompt) {
 
 export function insertionSentence(prompt) {
   return (
-    String(prompt || '').match(
-      /(?:following sentence could be added|Insert this sentence):?\s*(?:["“]([^"”]+)["”]|([^\n]+))/i
-    )?.slice(1).find(Boolean)?.trim() || ''
+    String(prompt || '')
+      .match(
+        /(?:following sentence could be added|Insert this sentence):?\s*(?:["“]([^"”]+)["”]|([^\n]+))/i
+      )
+      ?.slice(1)
+      .find(Boolean)
+      ?.trim() || ''
   );
 }

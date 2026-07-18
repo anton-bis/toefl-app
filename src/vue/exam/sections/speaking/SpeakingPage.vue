@@ -226,24 +226,16 @@ onBeforeUnmount(() => {
     v-if="page.type === 'scenario'"
     class="scenario-page exam-content-pane exam-scroll-region"
   >
-    <div class="section-label">
-      Speaking
-    </div>
+    <div class="section-label">Speaking</div>
     <h2>{{ page.scenario?.title || task?.scenario?.title }}</h2>
-    <img
-      v-if="imageUrl"
-      :src="imageUrl"
-      alt="Scenario Image"
-    >
+    <img v-if="imageUrl" :src="imageUrl" alt="Scenario Image" />
   </section>
   <section
     v-else-if="question"
     class="speaking-question exam-content-pane exam-scroll-region"
     data-testid="speaking-question"
   >
-    <div class="question-progress">
-      Question {{ questionNumber }} of {{ questionTotal }}
-    </div>
+    <div class="question-progress">Question {{ questionNumber }} of {{ questionTotal }}</div>
     <h2>
       {{
         question.type === 'listen-repeat'
@@ -252,11 +244,7 @@ onBeforeUnmount(() => {
       }}
     </h2>
     <div class="question-image-area">
-      <img
-        v-if="imageUrl"
-        :src="imageUrl"
-        :alt="`Question ${questionNumber} Image`"
-      >
+      <img v-if="imageUrl" :src="imageUrl" :alt="`Question ${questionNumber} Image`" />
     </div>
     <audio
       ref="audio"
@@ -284,13 +272,8 @@ onBeforeUnmount(() => {
       </span>
     </div>
     <div class="response-container">
-      <div class="response-header">
-        Response Time
-      </div>
-      <div
-        class="response-body"
-        :class="phase"
-      >
+      <div class="response-header">Response Time</div>
+      <div class="response-body" :class="phase">
         <button
           v-if="recorder.status.value === 'recorded' && !readOnly"
           type="button"
@@ -302,12 +285,7 @@ onBeforeUnmount(() => {
         </button>
         <div class="ring-wrap">
           <svg viewBox="0 0 80 80">
-            <circle
-              class="ring-bg"
-              cx="40"
-              cy="40"
-              r="34"
-            />
+            <circle class="ring-bg" cx="40" cy="40" r="34" />
             <circle
               class="ring-progress"
               cx="40"
@@ -320,16 +298,10 @@ onBeforeUnmount(() => {
           <i class="fas fa-microphone" />
         </div>
         <div>
-          <div
-            class="response-time"
-            :class="{ urgent: remaining <= 3 && phase === 'recording' }"
-          >
+          <div class="response-time" :class="{ urgent: remaining <= 3 && phase === 'recording' }">
             {{ displayTime }}
           </div>
-          <div
-            class="response-status"
-            role="status"
-          >
+          <div class="response-status" role="status">
             {{ statusText }}
           </div>
         </div>
@@ -345,10 +317,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </section>
-  <section
-    v-else
-    class="speaking-intro"
-  >
+  <section v-else class="speaking-intro">
     <h1>{{ task?.title || 'Speaking' }}</h1>
   </section>
 </template>

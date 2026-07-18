@@ -13,10 +13,7 @@ defineProps({
       :key="offset"
       v-memo="[char.status, start + offset === currentIndex]"
       class="char"
-      :class="[
-        `char-${char.status}`,
-        { 'char-current': start + offset === currentIndex }
-      ]"
+      :class="[`char-${char.status}`, { 'char-current': start + offset === currentIndex }]"
       >{{ char.expected }}</span
     >
   </span>

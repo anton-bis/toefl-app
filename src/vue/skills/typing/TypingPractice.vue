@@ -94,18 +94,10 @@ onBeforeUnmount(() => {
   >
     <template #actions>
       <div class="typing-header-controls">
-        <button
-          class="typing-control-btn typing-retry-btn"
-          type="button"
-          @click="restart"
-        >
+        <button class="typing-control-btn typing-retry-btn" type="button" @click="restart">
           ↻ Restart
         </button>
-        <button
-          class="typing-control-btn typing-pause-btn"
-          type="button"
-          @click="togglePause"
-        >
+        <button class="typing-control-btn typing-pause-btn" type="button" @click="togglePause">
           {{ store.isPaused ? '▶ Resume' : '⏸ Pause' }}
         </button>
         <span class="typing-timer">{{ displayTime }}</span>
@@ -113,10 +105,7 @@ onBeforeUnmount(() => {
     </template>
   </SkillPageHeader>
   <div class="typing-area skill-content">
-    <div
-      class="typing-text-display"
-      :class="{ paused: store.isPaused }"
-    >
+    <div class="typing-text-display" :class="{ paused: store.isPaused }">
       <TypingCharacterChunk
         v-for="chunk in characterChunks"
         :key="chunk.start"
