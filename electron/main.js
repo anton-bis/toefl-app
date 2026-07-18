@@ -13,7 +13,7 @@ import {
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { normalizeContentPath } from './services/content-paths.js';
+import { getContentCandidates, normalizeContentPath } from './services/content-paths.js';
 import { registerDataStorageIpc } from './services/database.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
@@ -40,21 +40,17 @@ protocol.registerSchemesAsPrivileged([
   }
 ]);
 
-function contentCandidates(relativePath) {
-  const safePath = normalizeContentPath(relativePath);
-  return [
-    path.join(app.getPath('userData'), 'tpo-content', safePath),
-    path.join(app.getAppPath(), 'dist', safePath),
-    path.join(app.getAppPath(), safePath)
-  ];
-}
-
 const resolvedContentPaths = new Map();
 
 async function resolveContentFile(relativePath) {
   const safePath = normalizeContentPath(relativePath);
   if (resolvedContentPaths.has(safePath)) return resolvedContentPaths.get(safePath);
-  for (const candidate of contentCandidates(safePath)) {
+  for (const candidate of getContentCandidates({
+    relativePath: safePath,
+    userDataPath: app.getPath('userData'),
+    appPath: app.getAppPath(),
+    resourcesPath: process.resourcesPath
+  })) {
     try {
       const stats = await fs.promises.stat(candidate);
       if (stats.isFile()) {

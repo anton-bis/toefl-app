@@ -24,3 +24,13 @@ export function resolveContentFile(root, value) {
   }
   return resolved;
 }
+
+export function getContentCandidates({ relativePath, userDataPath, appPath, resourcesPath }) {
+  const safePath = normalizeContentPath(relativePath);
+  return [
+    path.join(userDataPath, 'tpo-content', safePath),
+    path.join(resourcesPath, 'content', safePath),
+    path.join(appPath, 'dist', safePath),
+    path.join(appPath, safePath)
+  ];
+}

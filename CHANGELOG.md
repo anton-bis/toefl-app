@@ -18,6 +18,7 @@
 ### Build and Packaging Improvements
 
 - Rebuilt release packaging for consistent Windows, Linux, and universal macOS artifacts, automatic updates, and SHA-256 verification.
+- Moved bundled questions and audio outside the ASAR to keep universal macOS packaging reliable.
 - Simplified the application architecture, removed obsolete code and assets, and expanded automated coverage for the main runtime and release paths.
 
 [Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.4.2...HEAD

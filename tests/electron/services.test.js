@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import { normalizeContentPath, resolveContentFile } from '../../electron/services/content-paths.js';
+import {
+  getContentCandidates,
+  normalizeContentPath,
+  resolveContentFile
+} from '../../electron/services/content-paths.js';
 import { RUNTIME_CONTENT_EXTENSIONS } from '../../electron/services/runtime-content.js';
 
 test('content paths normalize relative assets and reject unsafe paths', () => {
@@ -25,4 +29,21 @@ test('runtime content policy covers packaged and hot-update asset types', () => 
     assert.equal(RUNTIME_CONTENT_EXTENSIONS.has(extension), true, extension);
   }
   assert.equal(RUNTIME_CONTENT_EXTENSIONS.has('.md'), false);
+});
+
+test('packaged content candidates prefer updates before bundled resources', () => {
+  assert.deepEqual(
+    getContentCandidates({
+      relativePath: 'assets/questions/compiled/manifest.json',
+      userDataPath: '/user-data',
+      appPath: '/app',
+      resourcesPath: '/resources'
+    }),
+    [
+      path.join('/user-data', 'tpo-content/assets/questions/compiled/manifest.json'),
+      path.join('/resources', 'content/assets/questions/compiled/manifest.json'),
+      path.join('/app', 'dist/assets/questions/compiled/manifest.json'),
+      path.join('/app', 'assets/questions/compiled/manifest.json')
+    ]
+  );
 });

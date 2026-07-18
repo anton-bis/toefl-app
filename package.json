@@ -90,7 +90,9 @@
         "from": "dist",
         "to": "dist",
         "filter": [
-          "**/*"
+          "**/*",
+          "!assets/questions/**",
+          "!assets/audio/**"
         ]
       },
       {
@@ -101,6 +103,22 @@
         ]
       },
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/assets/questions",
+        "to": "content/assets/questions",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "dist/assets/audio",
+        "to": "content/assets/audio",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "mac": {
       "category": "public.app-category.education",
@@ -131,9 +149,7 @@
     },
     "asar": true,
     "asarUnpack": [
-      "**/*.node",
-      "**/dist/assets/questions/**",
-      "**/dist/assets/audio/**"
+      "**/*.node"
     ],
     "publish": {
       "provider": "github",
