@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",

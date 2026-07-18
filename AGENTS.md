@@ -30,9 +30,11 @@ scripts/         内容维护、构建检查与 Electron 混淆脚本
 tests/           Node 与 Vitest 测试
 ```
 
-## 当前版本
+## 版本管理
 
-v1.4.1（Vue 3 重构版），Node >= 24。
+- `package.json` 的 `version` 是唯一版本源，不在其他文件重复记录当前版本。
+- 发布前保持工作区干净，使用 `npm version patch`、`npm version minor` 或 `npm version major` 同步更新锁文件并创建版本提交和标签。
+- 使用 `git push --follow-tags` 推送后，由 Release 工作流构建对应版本。
 
 ## 常用命令
 
