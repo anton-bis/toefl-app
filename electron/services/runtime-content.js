@@ -5,7 +5,6 @@ export const RUNTIME_CONTENT_EXTENSIONS = new Set([
   '.jpg',
   '.json',
   '.m4a',
-  '.md',
   '.mp3',
   '.mp4',
   '.ogg',
