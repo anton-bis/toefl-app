@@ -13,7 +13,6 @@ import {
 } from '../../src/vue/exam/sections/reading/helpers.js';
 import {
   listeningResponseSeconds,
-  resolveMediaSource,
   segmentDuration
 } from '../../src/vue/exam/sections/listening/helpers.js';
 
@@ -229,19 +228,7 @@ describe('listening section', () => {
     vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
     vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
   });
-  it('resolves adjacent media and segment duration', () => {
-    expect(
-      resolveMediaSource(
-        { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
-        { file: 'track one.mp3' }
-      )
-    ).toBe('/assets/questions/listening/TPO-03/track one.mp3');
-    expect(
-      resolveMediaSource(
-        { sourcePath: '/assets/questions/listening/TPO-03/listening-TPO-03.md' },
-        { file: 'track.mp3' }
-      )
-    ).toBe('/assets/questions/listening/TPO-03/track.mp3');
+  it('calculates segment and response duration', () => {
     expect(segmentDuration({ start: 6, end: 12 }, 99)).toBe(6);
     expect(listeningResponseSeconds({ type: 'listen-response' })).toBe(20);
     expect(listeningResponseSeconds({ type: 'academic-talk' })).toBe(30);

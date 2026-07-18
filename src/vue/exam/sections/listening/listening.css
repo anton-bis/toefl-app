@@ -120,9 +120,6 @@
   background: #aaa;
   cursor: default;
 }
-.listening-page .audio-icon-fallback {
-  margin-left: 2px;
-}
 .listening-page .audio-progress-bar {
   flex: 1;
   height: 7px;

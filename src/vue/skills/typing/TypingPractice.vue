@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import SkillPageHeader from '../../components/SkillPageHeader.vue';
 import { formatMinutesSeconds } from '../../utils/time.js';
 import { maxSecondsFor } from './logic.js';
+import TypingCharacterChunk from './TypingCharacterChunk.vue';
 
 const props = defineProps({ store: { type: Object, required: true } });
 const emit = defineEmits(['back']);
@@ -11,6 +12,14 @@ let ticker;
 
 const displayTime = computed(() => formatMinutesSeconds(props.store.remaining(now.value) / 1000));
 const maxSeconds = computed(() => maxSecondsFor(props.store.article));
+const characterChunks = computed(() => {
+  const chars = props.store.session?.chars || [];
+  const chunks = [];
+  for (let start = 0; start < chars.length; start += 64) {
+    chunks.push({ start, chars: chars.slice(start, start + 64) });
+  }
+  return chunks;
+});
 
 function onKeydown(event) {
   if (event.target?.closest?.('button, input, textarea, select, a, [contenteditable]')) return;
@@ -39,18 +48,38 @@ function togglePause(event) {
   } else props.store.pause();
 }
 
+function stopTicker() {
+  window.clearInterval(ticker);
+  ticker = undefined;
+}
+
+function tick() {
+  now.value = Date.now();
+  if (maxSeconds.value && props.store.timeSpent(now.value) >= maxSeconds.value * 1000)
+    props.store.complete(now.value);
+}
+
+function startTicker() {
+  stopTicker();
+  tick();
+  if (!document.hidden) ticker = window.setInterval(tick, 1000);
+}
+
+function handleVisibilityChange() {
+  if (document.hidden) stopTicker();
+  else startTicker();
+}
+
 onMounted(() => {
   document.addEventListener('keydown', onKeydown);
-  ticker = window.setInterval(() => {
-    now.value = Date.now();
-    if (maxSeconds.value && props.store.timeSpent(now.value) >= maxSeconds.value * 1000)
-      props.store.complete(now.value);
-  }, 1000);
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  startTicker();
 });
 
 onBeforeUnmount(() => {
   document.removeEventListener('keydown', onKeydown);
-  window.clearInterval(ticker);
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
+  stopTicker();
   if (props.store.session && !props.store.isPaused) props.store.pause();
 });
 </script>
@@ -65,10 +94,18 @@ onBeforeUnmount(() => {
   >
     <template #actions>
       <div class="typing-header-controls">
-        <button class="typing-control-btn typing-retry-btn" type="button" @click="restart">
+        <button
+          class="typing-control-btn typing-retry-btn"
+          type="button"
+          @click="restart"
+        >
           ↻ Restart
         </button>
-        <button class="typing-control-btn typing-pause-btn" type="button" @click="togglePause">
+        <button
+          class="typing-control-btn typing-pause-btn"
+          type="button"
+          @click="togglePause"
+        >
           {{ store.isPaused ? '▶ Resume' : '⏸ Pause' }}
         </button>
         <span class="typing-timer">{{ displayTime }}</span>
@@ -76,14 +113,21 @@ onBeforeUnmount(() => {
     </template>
   </SkillPageHeader>
   <div class="typing-area skill-content">
-    <div class="typing-text-display" :class="{ paused: store.isPaused }">
-      <span
-        v-for="(char, index) in store.session.chars"
-        :key="index"
-        class="char"
-        :class="[`char-${char.status}`, { 'char-current': index === store.currentIndex }]"
-        >{{ char.expected }}</span
-      >
+    <div
+      class="typing-text-display"
+      :class="{ paused: store.isPaused }"
+    >
+      <TypingCharacterChunk
+        v-for="chunk in characterChunks"
+        :key="chunk.start"
+        :chars="chunk.chars"
+        :start="chunk.start"
+        :current-index="
+          chunk.start <= store.currentIndex && store.currentIndex < chunk.start + chunk.chars.length
+            ? store.currentIndex
+            : -1
+        "
+      />
     </div>
   </div>
 </template>

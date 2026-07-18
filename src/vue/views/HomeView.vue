@@ -355,7 +355,7 @@ function hasReport(test) {
       <p>Built with AI assistance to provide focused, high-quality TOEFL practice.</p>
       <div class="about-platforms">
         <section class="about-platform">
-          <h4><i class="fab fa-weixin wechat-icon"></i> WeChat</h4>
+          <h4><span class="wechat-icon" aria-hidden="true"></span> WeChat</h4>
           <p class="about-platform-description">Scan the QR code to add me</p>
           <div class="img-block">
             <img src="/assets/images/wechat-qr.jpg" alt="WeChat QR code" />

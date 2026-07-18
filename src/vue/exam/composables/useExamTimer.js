@@ -47,9 +47,19 @@ export function useExamTimer(timerSource, options = {}) {
   const start = () => {
     stop();
     tick();
-    if (timer.value?.mode === 'countdown' && timer.value.deadlineAt != null) {
+    if (
+      !globalThis.document?.hidden &&
+      timer.value?.mode === 'countdown' &&
+      timer.value.deadlineAt != null
+    ) {
       intervalId = setInterval(tick, options.interval ?? 1000);
     }
+  };
+  const handleVisibilityChange = () => {
+    if (globalThis.document?.hidden) {
+      tick();
+      stop();
+    } else start();
   };
 
   watch(
@@ -59,8 +69,14 @@ export function useExamTimer(timerSource, options = {}) {
       start();
     }
   );
-  onMounted(start);
-  onBeforeUnmount(stop);
+  onMounted(() => {
+    globalThis.document?.addEventListener?.('visibilitychange', handleVisibilityChange);
+    start();
+  });
+  onBeforeUnmount(() => {
+    globalThis.document?.removeEventListener?.('visibilitychange', handleVisibilityChange);
+    stop();
+  });
 
   return { now, remainingSeconds, display, unlimited, hidden, urgent, expired, tick, start, stop };
 }

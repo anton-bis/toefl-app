@@ -3,6 +3,7 @@ import { defineComponent } from 'vue';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const repository = vi.hoisted(() => ({
+  playbackUrl: vi.fn(() => null),
   load: vi.fn().mockResolvedValue(null),
   save: vi.fn().mockResolvedValue(undefined),
   remove: vi.fn().mockResolvedValue(undefined)
@@ -240,6 +241,36 @@ describe('SpeakingPage', () => {
     expect(repository.save).toHaveBeenCalledWith(document.id, question.id, expect.any(Blob));
   });
 
+  it('enforces the recording deadline while the page is hidden', async () => {
+    vi.useFakeTimers();
+    const wrapper = mount(SpeakingPage, {
+      props: {
+        document,
+        page: { type: 'question' },
+        task,
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    await flushPromises();
+    await wrapper.find('[aria-label="Play question audio"]').trigger('click');
+    await wrapper.find('audio').trigger('ended');
+    await flushPromises();
+    Object.defineProperty(globalThis.document, 'hidden', { configurable: true, value: true });
+    globalThis.document.dispatchEvent(new Event('visibilitychange'));
+
+    await vi.advanceTimersByTimeAsync(8000);
+    await flushPromises();
+
+    expect(repository.save).toHaveBeenCalledOnce();
+    expect(wrapper.text()).toContain('Response recorded');
+    wrapper.unmount();
+    Object.defineProperty(globalThis.document, 'hidden', { configurable: true, value: false });
+    vi.useRealTimers();
+  });
+
   it('shows a useful permission failure and does not enter recording state', async () => {
     const denied = Object.assign(new Error('denied'), { name: 'NotAllowedError' });
     navigator.mediaDevices.getUserMedia.mockRejectedValueOnce(denied);
@@ -260,6 +291,32 @@ describe('SpeakingPage', () => {
     await flushPromises();
     expect(wrapper.text()).toContain('Microphone permission was denied');
     expect(wrapper.text()).not.toContain('Recording...');
+  });
+
+  it('does not report a recorded answer when saving the audio fails', async () => {
+    vi.useFakeTimers();
+    repository.save.mockRejectedValueOnce(new Error('disk full'));
+    const wrapper = mount(SpeakingPage, {
+      props: {
+        document,
+        page: { type: 'question' },
+        task,
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    await flushPromises();
+    await wrapper.find('[aria-label="Play question audio"]').trigger('click');
+    await wrapper.find('audio').trigger('ended');
+    await vi.advanceTimersByTimeAsync(8000);
+    await flushPromises();
+
+    expect(wrapper.text()).toContain('disk full');
+    expect(wrapper.emitted('answer')).toBeUndefined();
+    wrapper.unmount();
+    vi.useRealTimers();
   });
 
   it('stops a late microphone stream instead of recording after unmount', async () => {
@@ -329,6 +386,40 @@ describe('speaking results recordings', () => {
     vi.unstubAllGlobals();
   });
 
+  it('loads a response only after the user asks to play it', async () => {
+    repository.load.mockReset().mockResolvedValue(new Blob(['answer'], { type: 'audio/webm' }));
+    const createObjectURL = vi.fn(() => 'blob:answer');
+    vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL: vi.fn() });
+    const wrapper = mount(ResultsPage, {
+      props: {
+        document: {
+          id: 'tpo-03-speaking',
+          section: 'speaking',
+          modules: [
+            {
+              id: 'module-1',
+              tasks: [{ id: 'task-1', questions: [{ id: 'q1', number: 1, type: 'interview' }] }]
+            }
+          ]
+        },
+        session: {
+          answers: { q1: { recordingKey: 'tpo-03-speaking:q1' } },
+          marks: {},
+          updatedAt: 1
+        }
+      }
+    });
+
+    expect(repository.load).not.toHaveBeenCalled();
+    await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
+    await flushPromises();
+
+    expect(repository.load).toHaveBeenCalledWith('tpo-03-speaking', 'q1');
+    expect(createObjectURL).toHaveBeenCalledOnce();
+    expect(wrapper.get('audio[src="blob:answer"]').attributes('preload')).toBe('none');
+    wrapper.unmount();
+  });
+
   it('does not create a blob URL when a recording load finishes after unmount', async () => {
     let resolveLoad;
     repository.load.mockReset().mockReturnValue(
@@ -352,9 +443,14 @@ describe('speaking results recordings', () => {
           ]
         },
         page: { type: 'results', title: 'Speaking Section Completed' },
-        session: { answers: {}, marks: {}, updatedAt: 1 }
+        session: {
+          answers: { q1: { recordingKey: 'tpo-03-speaking:q1' } },
+          marks: {},
+          updatedAt: 1
+        }
       }
     });
+    await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
     wrapper.unmount();
     resolveLoad(new Blob(['late'], { type: 'audio/webm' }));
     await flushPromises();

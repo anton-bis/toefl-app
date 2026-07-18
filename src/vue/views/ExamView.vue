@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineAsyncComponent, markRaw, ref, shallowRef, watch } from 'vue';
+import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ExamDialog from '../exam/shared/ExamDialog.vue';
 import ExamHeader from '../exam/shared/ExamHeader.vue';
@@ -38,14 +38,10 @@ const sectionBusy = ref(false);
 let loadToken = 0;
 
 const sectionComponents = {
-  reading: markRaw(defineAsyncComponent(() => import('../exam/sections/reading/ReadingPage.vue'))),
-  listening: markRaw(
-    defineAsyncComponent(() => import('../exam/sections/listening/ListeningPage.vue'))
-  ),
-  writing: markRaw(defineAsyncComponent(() => import('../exam/sections/writing/WritingPage.vue'))),
-  speaking: markRaw(
-    defineAsyncComponent(() => import('../exam/sections/speaking/SpeakingPage.vue'))
-  )
+  reading: defineAsyncComponent(() => import('../exam/sections/reading/ReadingPage.vue')),
+  listening: defineAsyncComponent(() => import('../exam/sections/listening/ListeningPage.vue')),
+  writing: defineAsyncComponent(() => import('../exam/sections/writing/WritingPage.vue')),
+  speaking: defineAsyncComponent(() => import('../exam/sections/speaking/SpeakingPage.vue'))
 };
 const ExitDialog = defineAsyncComponent(() => import('../exam/shared/ExitDialog.vue'));
 const HelpDialog = defineAsyncComponent(() => import('../exam/shared/HelpDialog.vue'));
@@ -123,6 +119,40 @@ const readOnlyMode = computed(() => session.value?.status === 'completed');
 const checkedState = computed(() => readOnlyMode.value);
 const lockedState = computed(() => session.value?.lockedQuestionIds || {});
 const contentComponent = computed(() => sectionComponents[normalizedSection.value]);
+const contentProps = computed(() => {
+  const common = {
+    page: page.value,
+    task: task.value,
+    question: question.value
+  };
+  if (normalizedSection.value === 'speaking') {
+    return {
+      ...common,
+      document: document.value,
+      volume: volume.value,
+      readOnly: readOnlyMode.value
+    };
+  }
+  const answerProps = {
+    ...common,
+    answers: session.value.answers,
+    checked: checkedState.value,
+    locked: lockedState.value
+  };
+  if (normalizedSection.value === 'listening') {
+    return { ...answerProps, document: document.value, volume: volume.value };
+  }
+  return normalizedSection.value === 'writing'
+    ? { ...answerProps, readOnly: readOnlyMode.value }
+    : answerProps;
+});
+const contentListeners = computed(() => ({
+  answer: exam.saveAnswer,
+  ...(normalizedSection.value === 'listening' ? { 'media-state': mediaState } : {}),
+  ...(normalizedSection.value === 'speaking'
+    ? { 'navigation-state': state => (sectionBusy.value = state.busy) }
+    : {})
+}));
 const contentPageKey = computed(() =>
   normalizedSection.value === 'speaking'
     ? document.value?.id
@@ -499,8 +529,6 @@ watch(
     />
     <template v-else-if="isContentPage">
       <ExamHeader
-        :document="document"
-        :page="page"
         :timer="normalizedSection === 'speaking' || readOnlyMode ? null : session.timer"
         :question-number="questionNumber"
         :total-questions="totalQuestions"
@@ -525,18 +553,8 @@ watch(
       <component
         :is="contentComponent"
         :key="contentPageKey"
-        :document="document"
-        :page="page"
-        :task="task"
-        :question="question"
-        :answers="session.answers"
-        :checked="checkedState"
-        :locked="lockedState"
-        :volume="volume"
-        :read-only="readOnlyMode"
-        @answer="exam.saveAnswer"
-        @media-state="mediaState"
-        @navigation-state="sectionBusy = $event.busy"
+        v-bind="contentProps"
+        v-on="contentListeners"
       />
     </template>
 

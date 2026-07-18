@@ -302,7 +302,23 @@
   font-size: 14px;
 }
 .wechat-icon {
-  color: #07c160;
+  position: relative;
+  display: inline-block;
+  width: 1.15em;
+  height: 0.9em;
+  border: 2px solid #07c160;
+  border-radius: 50%;
+}
+.wechat-icon::after {
+  position: absolute;
+  right: -0.18em;
+  bottom: -0.12em;
+  width: 0.55em;
+  height: 0.45em;
+  border: 2px solid #07c160;
+  border-radius: 50%;
+  background: #fff;
+  content: '';
 }
 .x-icon {
   color: #111;

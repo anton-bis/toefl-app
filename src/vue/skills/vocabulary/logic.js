@@ -9,7 +9,7 @@ export const SUBJECT_LABELS = {
 export function dateKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
 }
-export const RECOMMENDED_ROOTS = [
+const RECOMMENDED_ROOTS = [
   'struct',
   'aud',
   'rupt',
@@ -73,7 +73,7 @@ export function scheduleReview(quality, previous = {}, today = new Date()) {
   };
 }
 
-export function pickWeighted(ratios, random = Math.random()) {
+function pickWeighted(ratios, random = Math.random()) {
   let total = 0;
   for (const [type, weight] of Object.entries(ratios)) {
     total += weight;

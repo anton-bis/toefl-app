@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../../utils/time.js';
 import { normalizeVolume } from '../../../utils/volume.js';
@@ -11,9 +11,6 @@ const props = defineProps({
   page: { type: Object, required: true },
   task: { type: Object, default: null },
   question: { type: Object, default: null },
-  answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object], default: false },
-  locked: { type: [Boolean, Object], default: false },
   volume: { type: Number, default: 0.8 },
   readOnly: { type: Boolean, default: false }
 });
@@ -28,6 +25,7 @@ const remaining = ref(0);
 const ringProgress = ref(0);
 const phase = ref('listen');
 let animationFrame;
+let recordingDeadlineTimer;
 let recordStartedAt = 0;
 let activeQuestionId = '';
 let resetGeneration = 0;
@@ -122,6 +120,8 @@ async function startResponse() {
     return;
   }
   recordStartedAt = performance.now();
+  clearTimeout(recordingDeadlineTimer);
+  recordingDeadlineTimer = window.setTimeout(finishResponse, duration.value * 1000);
   animationFrame = requestAnimationFrame(animateRecording);
 }
 function animateRecording(now) {
@@ -132,8 +132,15 @@ function animateRecording(now) {
     animationFrame = requestAnimationFrame(animateRecording);
   } else finishResponse();
 }
+function handleVisibilityChange() {
+  cancelAnimationFrame(animationFrame);
+  if (recorder.status.value !== 'recording') return;
+  if (document.hidden) finishResponse();
+  else animateRecording(performance.now());
+}
 async function finishResponse() {
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
   if (phase.value === 'recorded') return;
   const blob = await recorder.stop();
   remaining.value = 0;
@@ -161,6 +168,7 @@ async function resetQuestion() {
   const currentReset = ++resetGeneration;
   const requestedId = props.question?.id || '';
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
   recorder.stopPlayback();
   if (recorder.status.value === 'recording') await recorder.stop();
   audio.value?.pause();
@@ -203,9 +211,12 @@ watch(
   { immediate: true }
 );
 watch(() => props.volume, applyVolume);
+onMounted(() => document.addEventListener('visibilitychange', handleVisibilityChange));
 onBeforeUnmount(() => {
   resetGeneration += 1;
   cancelAnimationFrame(animationFrame);
+  clearTimeout(recordingDeadlineTimer);
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
   audio.value?.pause();
 });
 </script>
@@ -215,16 +226,24 @@ onBeforeUnmount(() => {
     v-if="page.type === 'scenario'"
     class="scenario-page exam-content-pane exam-scroll-region"
   >
-    <div class="section-label">Speaking</div>
+    <div class="section-label">
+      Speaking
+    </div>
     <h2>{{ page.scenario?.title || task?.scenario?.title }}</h2>
-    <img v-if="imageUrl" :src="imageUrl" alt="Scenario Image" />
+    <img
+      v-if="imageUrl"
+      :src="imageUrl"
+      alt="Scenario Image"
+    >
   </section>
   <section
     v-else-if="question"
     class="speaking-question exam-content-pane exam-scroll-region"
     data-testid="speaking-question"
   >
-    <div class="question-progress">Question {{ questionNumber }} of {{ questionTotal }}</div>
+    <div class="question-progress">
+      Question {{ questionNumber }} of {{ questionTotal }}
+    </div>
     <h2>
       {{
         question.type === 'listen-repeat'
@@ -233,7 +252,11 @@ onBeforeUnmount(() => {
       }}
     </h2>
     <div class="question-image-area">
-      <img v-if="imageUrl" :src="imageUrl" :alt="`Question ${questionNumber} Image`" />
+      <img
+        v-if="imageUrl"
+        :src="imageUrl"
+        :alt="`Question ${questionNumber} Image`"
+      >
     </div>
     <audio
       ref="audio"
@@ -261,8 +284,13 @@ onBeforeUnmount(() => {
       </span>
     </div>
     <div class="response-container">
-      <div class="response-header">Response Time</div>
-      <div class="response-body" :class="phase">
+      <div class="response-header">
+        Response Time
+      </div>
+      <div
+        class="response-body"
+        :class="phase"
+      >
         <button
           v-if="recorder.status.value === 'recorded' && !readOnly"
           type="button"
@@ -274,7 +302,12 @@ onBeforeUnmount(() => {
         </button>
         <div class="ring-wrap">
           <svg viewBox="0 0 80 80">
-            <circle class="ring-bg" cx="40" cy="40" r="34" />
+            <circle
+              class="ring-bg"
+              cx="40"
+              cy="40"
+              r="34"
+            />
             <circle
               class="ring-progress"
               cx="40"
@@ -287,10 +320,16 @@ onBeforeUnmount(() => {
           <i class="fas fa-microphone" />
         </div>
         <div>
-          <div class="response-time" :class="{ urgent: remaining <= 3 && phase === 'recording' }">
+          <div
+            class="response-time"
+            :class="{ urgent: remaining <= 3 && phase === 'recording' }"
+          >
             {{ displayTime }}
           </div>
-          <div class="response-status" role="status">
+          <div
+            class="response-status"
+            role="status"
+          >
             {{ statusText }}
           </div>
         </div>
@@ -306,7 +345,10 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </section>
-  <section v-else class="speaking-intro">
+  <section
+    v-else
+    class="speaking-intro"
+  >
     <h1>{{ task?.title || 'Speaking' }}</h1>
   </section>
 </template>

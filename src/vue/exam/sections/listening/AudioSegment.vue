@@ -1,8 +1,9 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import { formatMinutesSeconds } from '../../../utils/time.js';
 import { normalizeVolume } from '../../../utils/volume.js';
-import { resolveMediaSource, segmentDuration } from './helpers.js';
+import { segmentDuration } from './helpers.js';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -15,7 +16,7 @@ const audio = ref(null);
 const status = ref('idle');
 const elapsed = ref(0);
 const duration = ref(0);
-const source = computed(() => resolveMediaSource(props.document, props.media));
+const source = computed(() => resolveQuestionAsset(props.document, props.media?.file));
 const progress = computed(() =>
   duration.value ? Math.min(100, (elapsed.value / duration.value) * 100) : 0
 );

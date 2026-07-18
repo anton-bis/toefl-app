@@ -2,8 +2,6 @@
 import { useExamTimer } from '../composables/useExamTimer.js';
 
 const props = defineProps({
-  document: { type: Object, default: () => ({}) },
-  page: { type: Object, default: () => ({}) },
   timer: { type: Object, default: null },
   questionNumber: { type: Number, default: 0 },
   totalQuestions: { type: Number, default: 0 },

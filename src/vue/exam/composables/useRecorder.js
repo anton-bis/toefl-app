@@ -101,18 +101,19 @@ export function useRecorder({ sessionId, repository = defaultRepository } = {}) 
           : null;
         chunks = [];
         if (recording) {
-          blob.value = recording;
           try {
             await repository.save(toValue(sessionId), questionId, recording);
+            blob.value = recording;
             status.value = 'recorded';
           } catch (cause) {
+            blob.value = null;
             error.value = cause;
             status.value = 'error';
           }
         } else {
           status.value = 'idle';
         }
-        stopResolve?.(recording);
+        stopResolve?.(status.value === 'recorded' ? recording : null);
         stopResolve = undefined;
         stopPromise = undefined;
       };

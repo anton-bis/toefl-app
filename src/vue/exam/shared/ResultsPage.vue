@@ -25,6 +25,7 @@ const moduleGroups = computed(() =>
   }))
 );
 const speakingUrls = ref({});
+const speakingRecordingState = ref({});
 const helpOpen = ref(false);
 const restartOpen = ref(false);
 let recordingGeneration = 0;
@@ -51,6 +52,9 @@ function expectedSentence(question) {
 }
 function promptAudio(question) {
   return resolveQuestionAsset(props.document, question.media?.file);
+}
+function hasRecording(questionId) {
+  return Boolean(props.session.answers?.[questionId]?.recordingKey);
 }
 const correct = computed(
   () => questions.value.filter(question => questionCorrect(question)).length
@@ -103,30 +107,47 @@ const restartText = computed(() => {
   return 'Are you sure you want to restart the test? This will clear all your answers and timer data.';
 });
 function releaseSpeakingUrls() {
-  Object.values(speakingUrls.value).forEach(url => URL.revokeObjectURL(url));
+  Object.values(speakingUrls.value).forEach(url => {
+    if (url.startsWith('blob:')) URL.revokeObjectURL(url);
+  });
   speakingUrls.value = {};
 }
 
-async function loadSpeakingRecordings() {
-  const currentGeneration = ++recordingGeneration;
+function resetSpeakingRecordings() {
+  recordingGeneration += 1;
+  speakingRecordingState.value = {};
   releaseSpeakingUrls();
-  if (section.value !== 'speaking') return;
-  const records = await Promise.all(
-    questions.value.map(async question => {
-      try {
-        return [question.id, await recordingRepository.load(props.document.id, question.id)];
-      } catch {
-        return [question.id, null];
-      }
-    })
-  );
-  if (disposed || currentGeneration !== recordingGeneration) return;
-  speakingUrls.value = Object.fromEntries(
-    records.filter(([, blob]) => blob).map(([id, blob]) => [id, URL.createObjectURL(blob)])
-  );
 }
 
-watch(() => props.document.id, loadSpeakingRecordings, { immediate: true });
+async function loadSpeakingRecording(questionId) {
+  const currentGeneration = recordingGeneration;
+  speakingRecordingState.value = { ...speakingRecordingState.value, [questionId]: 'loading' };
+  const playbackUrl = recordingRepository.playbackUrl?.(props.document.id, questionId);
+  if (playbackUrl) {
+    speakingUrls.value = { ...speakingUrls.value, [questionId]: playbackUrl };
+    speakingRecordingState.value = { ...speakingRecordingState.value, [questionId]: 'ready' };
+    return;
+  }
+  let blob = null;
+  try {
+    blob = await recordingRepository.load(props.document.id, questionId);
+  } catch {
+    // A missing or unreadable response is presented identically to no submitted recording.
+  }
+  if (disposed || currentGeneration !== recordingGeneration) return;
+  if (blob) {
+    speakingUrls.value = {
+      ...speakingUrls.value,
+      [questionId]: URL.createObjectURL(blob)
+    };
+  }
+  speakingRecordingState.value = {
+    ...speakingRecordingState.value,
+    [questionId]: blob ? 'ready' : 'missing'
+  };
+}
+
+watch(() => props.document.id, resetSpeakingRecordings, { immediate: true });
 onBeforeUnmount(() => {
   disposed = true;
   recordingGeneration += 1;
@@ -308,12 +329,35 @@ onBeforeUnmount(() => {
                 Question {{ question.number }}
               </button>
               <p>{{ question.transcript || question.prompt || '(No transcript available)' }}</p>
-              <audio v-if="promptAudio(question)" :src="promptAudio(question)" controls />
+              <audio
+                v-if="promptAudio(question)"
+                :src="promptAudio(question)"
+                preload="none"
+                controls
+              />
               <label v-if="speakingUrls[question.id]">
                 Your Response
-                <audio :src="speakingUrls[question.id]" controls />
+                <audio :src="speakingUrls[question.id]" preload="none" controls />
               </label>
-              <span v-else>No recording submitted</span>
+              <span
+                v-else-if="
+                  !hasRecording(question.id) || speakingRecordingState[question.id] === 'missing'
+                "
+              >
+                No recording submitted
+              </span>
+              <button
+                v-else
+                type="button"
+                :disabled="speakingRecordingState[question.id] === 'loading'"
+                @click="loadSpeakingRecording(question.id)"
+              >
+                {{
+                  speakingRecordingState[question.id] === 'loading'
+                    ? 'Loading response…'
+                    : 'Load your response'
+                }}
+              </button>
             </article>
           </div>
         </section>
