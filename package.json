@@ -27,6 +27,7 @@
     "release:linux": "electron-builder --linux AppImage --x64 --publish never",
     "release:macos": "electron-builder --mac dmg zip --universal --publish never",
     "release:manifest": "node scripts/prepare-release.js release-files",
+    "release:notes": "node scripts/prepare-release-notes.js",
     "perf:baseline": "cross-env ELECTRON=true npm run build && node scripts/measure-electron.js",
     "obfuscate": "node scripts/obfuscate.js"
   },
