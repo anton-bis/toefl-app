@@ -1,4 +1,5 @@
 import manifest from '../../content/question-manifest.json';
+import { QUESTION_CONTENT_SCHEMA_VERSION } from '../../content/manifest.js';
 
 function normalizeRelativePath(path) {
   const normalized = String(path || '')
@@ -10,15 +11,18 @@ function normalizeRelativePath(path) {
   return normalized;
 }
 
-export function listCatalog() {
+export function listCatalog(catalog = manifest) {
   const tests = new Map();
-  for (const entry of manifest.entries) {
+  for (const entry of catalog.entries) {
     if (!tests.has(entry.tpoId)) {
       tests.set(entry.tpoId, { tpoId: entry.tpoId, description: '2026 TOEFL Sample Test', sections: {} });
     }
     tests.get(entry.tpoId).sections[entry.section] = {
       id: entry.id,
-      documentPath: entry.path
+      documentPath: entry.documentPath,
+      sourcePath: entry.sourcePath,
+      sourceHash: entry.sourceHash,
+      documentHash: entry.documentHash
     };
   }
   return [...tests.values()].sort((a, b) => a.tpoId.localeCompare(b.tpoId));
@@ -26,13 +30,70 @@ export function listCatalog() {
 
 export async function readText(path) {
   const relativePath = normalizeRelativePath(path);
-  if (window.electronAPI?.readContentFile) {
-    const external = await window.electronAPI.readContentFile(relativePath);
-    if (typeof external === 'string') return external;
-  }
-  const response = await fetch(`${import.meta.env.BASE_URL}${relativePath}`);
+  const response = await fetch(resolveAssetUrl(relativePath));
   if (!response.ok) throw new Error(`Content not found: ${relativePath}`);
   return response.text();
+}
+
+async function sha256(value) {
+  const bytes = new TextEncoder().encode(value);
+  const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+export async function readCatalogManifest() {
+  const catalog = JSON.parse(await readText('assets/questions/compiled/manifest.json'));
+  if (
+    catalog?.schemaVersion !== QUESTION_CONTENT_SCHEMA_VERSION ||
+    !Array.isArray(catalog.entries) ||
+    catalog.entries.some(
+      entry =>
+        !entry?.id ||
+        !entry?.sourcePath ||
+        !entry?.documentPath ||
+        !entry?.sourceHash ||
+        !entry?.documentHash
+    ) ||
+    (await sha256(
+      JSON.stringify(
+        catalog.entries.map(entry => [
+          entry.id,
+          entry.tpoId,
+          entry.section,
+          entry.sourcePath,
+          entry.documentPath,
+          entry.sourceHash,
+          entry.documentHash
+        ])
+      )
+    )) !==
+      catalog.contentHash
+  ) {
+    throw new Error('Invalid question content manifest.');
+  }
+  return catalog;
+}
+
+export async function readQuestionDocument(entry) {
+  const serialized = await readText(entry.documentPath);
+  if ((await sha256(serialized)) !== entry.documentHash) {
+    throw new Error(`Content integrity check failed: ${entry.documentPath}`);
+  }
+  let compiled;
+  try {
+    compiled = JSON.parse(serialized);
+  } catch {
+    throw new Error(`Invalid compiled content: ${entry.documentPath}`);
+  }
+  if (
+    compiled?.schemaVersion !== QUESTION_CONTENT_SCHEMA_VERSION ||
+    compiled?.source?.path !== entry.sourcePath ||
+    compiled?.source?.sha256 !== entry.sourceHash ||
+    compiled?.document?.id !== entry.id
+  ) {
+    throw new Error(`Compiled content metadata mismatch: ${entry.documentPath}`);
+  }
+  return compiled.document;
 }
 
 export function resolveAssetUrl(path) {
@@ -43,7 +104,7 @@ export function resolveAssetUrl(path) {
   return `${import.meta.env.BASE_URL}${relativePath}`;
 }
 
-export function questionAssetPath(documentPath, filename) {
+function questionAssetPath(documentPath, filename) {
   const directory = normalizeRelativePath(documentPath).split('/').slice(0, -1).join('/');
   return normalizeRelativePath(`${directory}/${filename}`);
 }

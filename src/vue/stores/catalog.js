@@ -1,20 +1,16 @@
 import { defineStore } from 'pinia';
 import { markRaw } from 'vue';
-import { assertValidExamDocument } from '../../content/validate.js';
-import { listCatalog, readText } from '../platform/contentRepository.js';
-
-const parserLoaders = {
-  reading: () => import('../../content/parsers/reading.js').then(module => module.parseReading),
-  listening: () =>
-    import('../../content/parsers/listening.js').then(module => module.parseListening),
-  writing: () => import('../../content/parsers/writing.js').then(module => module.parseWriting),
-  speaking: () => import('../../content/parsers/speaking.js').then(module => module.parseSpeaking)
-};
+import {
+  listCatalog,
+  readCatalogManifest,
+  readQuestionDocument
+} from '../platform/contentRepository.js';
 
 export const useCatalogStore = defineStore('catalog', {
   state: () => ({
     tests: listCatalog(),
     documents: {},
+    catalogLoaded: false,
     loading: false,
     error: ''
   }),
@@ -23,25 +19,24 @@ export const useCatalogStore = defineStore('catalog', {
       state.tests.find(test => test.tpoId === tpoId)?.sections[section]
   },
   actions: {
+    async refreshCatalog() {
+      const catalog = await readCatalogManifest();
+      this.tests = listCatalog(catalog);
+      this.catalogLoaded = true;
+    },
     async loadDocument(tpoId, section) {
       const cacheKey = `${tpoId}:${section}`;
       if (this.documents[cacheKey]) return this.documents[cacheKey];
-      const entry = this.entry(tpoId, section);
-      if (!entry) throw new Error(`No ${section} content is available for TPO ${tpoId}.`);
       this.loading = true;
       this.error = '';
       try {
-        const loadParser = parserLoaders[section];
-        if (!loadParser) throw new Error(`Unsupported exam section: ${section}`);
-        const [markdown, parser] = await Promise.all([readText(entry.documentPath), loadParser()]);
-        const document = parser(markdown, {
-          tpoId,
-          sourcePath: entry.documentPath
-        });
-        assertValidExamDocument(document);
+        if (!this.catalogLoaded) await this.refreshCatalog();
+        const entry = this.entry(tpoId, section);
+        if (!entry) throw new Error(`No ${section} content is available for TPO ${tpoId}.`);
+        const document = await readQuestionDocument(entry);
         this.documents[cacheKey] = markRaw(document);
         const cached = Object.keys(this.documents);
-        while (cached.length > 4) delete this.documents[cached.shift()];
+        while (cached.length > 2) delete this.documents[cached.shift()];
         return document;
       } catch (error) {
         this.error = error.message;

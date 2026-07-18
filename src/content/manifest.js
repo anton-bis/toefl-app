@@ -1,4 +1,5 @@
 const SECTIONS = ['reading', 'listening', 'writing', 'speaking'];
+const QUESTION_CONTENT_SCHEMA_VERSION = 2;
 
 /**
  * Convert discovered question paths into a deterministic catalog.
@@ -24,7 +25,8 @@ export function buildQuestionManifest(paths) {
       id: `tpo-${tpoId}-${section}`,
       tpoId,
       section,
-      path: path.slice(path.indexOf('assets/questions/'))
+      sourcePath: path.slice(path.indexOf('assets/questions/')),
+      documentPath: `assets/questions/compiled/tpo-${tpoId}-${section}.json`
     });
   }
 
@@ -41,10 +43,18 @@ export function buildQuestionManifest(paths) {
   const tpos = [...new Set(entries.map(entry => entry.tpoId))].map(tpoId => ({
     id: tpoId,
     sections: Object.fromEntries(
-      entries.filter(entry => entry.tpoId === tpoId).map(entry => [entry.section, entry.path])
+      entries
+        .filter(entry => entry.tpoId === tpoId)
+        .map(entry => [entry.section, entry.documentPath])
     )
   }));
-  return { version: 1, generatedAt: null, entries, tpos, warnings };
+  return {
+    schemaVersion: QUESTION_CONTENT_SCHEMA_VERSION,
+    generatedAt: null,
+    entries,
+    tpos,
+    warnings
+  };
 }
 
-export { SECTIONS };
+export { QUESTION_CONTENT_SCHEMA_VERSION, SECTIONS };

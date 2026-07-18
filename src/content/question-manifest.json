@@ -1,278 +1,375 @@
 {
-  "version": 1,
+  "schemaVersion": 2,
   "generatedAt": null,
   "entries": [
     {
       "id": "tpo-01-reading",
       "tpoId": "01",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-01/reading-TPO-01.md"
+      "sourcePath": "assets/questions/reading/TPO-01/reading-TPO-01.md",
+      "documentPath": "assets/questions/compiled/tpo-01-reading.json",
+      "sourceHash": "48880682c9ae5a6196665dc1e0317a7c3976ee6204a3122af74811f8f58edc5c",
+      "documentHash": "496071fabf8ec57bfc057826fa9394485d60c4723f617b30b3ec3de48e436210"
     },
     {
       "id": "tpo-01-listening",
       "tpoId": "01",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-01/listening-TPO-01.md"
+      "sourcePath": "assets/questions/listening/TPO-01/listening-TPO-01.md",
+      "documentPath": "assets/questions/compiled/tpo-01-listening.json",
+      "sourceHash": "aed36a7ae590299d760429fb5eaaeb5fbc8520cc7c2057829c058f21a94a3652",
+      "documentHash": "cdde72650cb6e7f3f1691093ddca500c7cba076a09ab8ceb3ca6eaad53b16458"
     },
     {
       "id": "tpo-01-writing",
       "tpoId": "01",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-01/writing-TPO-01.md"
+      "sourcePath": "assets/questions/writing/TPO-01/writing-TPO-01.md",
+      "documentPath": "assets/questions/compiled/tpo-01-writing.json",
+      "sourceHash": "06f9b5ca3055dd6a3a4fb5e31fb23a37003563291bd97cdc0b6e6bd6015f312d",
+      "documentHash": "4ae21686be32509a4ac70c730ee30041f0758358454704d80ab70191b9ab9e1d"
     },
     {
       "id": "tpo-01-speaking",
       "tpoId": "01",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-01/speaking-TPO-01.md"
+      "sourcePath": "assets/questions/speaking/TPO-01/speaking-TPO-01.md",
+      "documentPath": "assets/questions/compiled/tpo-01-speaking.json",
+      "sourceHash": "c4778095b2b9e88c08e33edd72345a2658807bc55fde3f878a4eb905ff0aef31",
+      "documentHash": "6e76ace0f30a4bbbd398fae304a5d1701ecb5790a52b8b057ed20df56366b49b"
     },
     {
       "id": "tpo-02-reading",
       "tpoId": "02",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-02/reading-TPO-02.md"
+      "sourcePath": "assets/questions/reading/TPO-02/reading-TPO-02.md",
+      "documentPath": "assets/questions/compiled/tpo-02-reading.json",
+      "sourceHash": "056723c41d5ebf1b338f0203865f821d07238289ea83ab14dfec64721b356b63",
+      "documentHash": "bfa5253a50066608a26a8939731b6b4ec8445e3b85cf84fcaf59ce1304794e34"
     },
     {
       "id": "tpo-02-listening",
       "tpoId": "02",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-02/listening-TPO-02.md"
+      "sourcePath": "assets/questions/listening/TPO-02/listening-TPO-02.md",
+      "documentPath": "assets/questions/compiled/tpo-02-listening.json",
+      "sourceHash": "f68675f100c4b6acab18bc803a5bf05057bb68dcd0d7e34fd687d03d244a9c49",
+      "documentHash": "4b856dd4c2227f0eb3765c0e9f2e26bae9139ac4c51a280ccbec7d308deffd84"
     },
     {
       "id": "tpo-02-writing",
       "tpoId": "02",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-02/writing-TPO-02.md"
+      "sourcePath": "assets/questions/writing/TPO-02/writing-TPO-02.md",
+      "documentPath": "assets/questions/compiled/tpo-02-writing.json",
+      "sourceHash": "4b6c72eff5122d94162ab262def0e2e39af3b114a10c557ca48398e2bb9b25a8",
+      "documentHash": "56b5989c269c2a9f5307bd23bb5f1a6bc0cfbc3dbe6cac524a91f68fa7f472fc"
     },
     {
       "id": "tpo-02-speaking",
       "tpoId": "02",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-02/speaking-TPO-02.md"
+      "sourcePath": "assets/questions/speaking/TPO-02/speaking-TPO-02.md",
+      "documentPath": "assets/questions/compiled/tpo-02-speaking.json",
+      "sourceHash": "ae558b11a9c443fb2494ea1b7707e9df5693fed60857e97b6e4cbae25fcfaf72",
+      "documentHash": "5669df5ab70ca575d84f48cc7b11256ce93140797c0745def3b1d6020cbd767c"
     },
     {
       "id": "tpo-03-reading",
       "tpoId": "03",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-03/reading-TPO-03.md"
+      "sourcePath": "assets/questions/reading/TPO-03/reading-TPO-03.md",
+      "documentPath": "assets/questions/compiled/tpo-03-reading.json",
+      "sourceHash": "5ce09784277c4751751c6e698172c9f62629cb56c2ee4da1517196d6636f6c42",
+      "documentHash": "cf9dc1ed5e5ff818c0c98569bd34dcad872eac055722ac5c301e1ed0e02a7e51"
     },
     {
       "id": "tpo-03-listening",
       "tpoId": "03",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-03/listening-TPO-03.md"
+      "sourcePath": "assets/questions/listening/TPO-03/listening-TPO-03.md",
+      "documentPath": "assets/questions/compiled/tpo-03-listening.json",
+      "sourceHash": "93c2a10ff80404cc0a7b1f343f0fc3274da520024e2de7a83cbaa65e31d94b8d",
+      "documentHash": "dfd6838a66adf6271d222d3a78062f93cb1277bd44973083ea13bf4d839976e2"
     },
     {
       "id": "tpo-03-writing",
       "tpoId": "03",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-03/writing-TPO-03.md"
+      "sourcePath": "assets/questions/writing/TPO-03/writing-TPO-03.md",
+      "documentPath": "assets/questions/compiled/tpo-03-writing.json",
+      "sourceHash": "a6193c911072529848c4f30edbaaedeb7f464a2c92949e5c0708949fbe246cee",
+      "documentHash": "0a695c03a158f1773e2fd0ce3e6eb6579117031627d0e252a087672607a12d93"
     },
     {
       "id": "tpo-03-speaking",
       "tpoId": "03",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-03/speaking-TPO-03.md"
+      "sourcePath": "assets/questions/speaking/TPO-03/speaking-TPO-03.md",
+      "documentPath": "assets/questions/compiled/tpo-03-speaking.json",
+      "sourceHash": "fc5384351cb9741404c6513a314d8df9c51ad751f1af7bb046c6fc767010a465",
+      "documentHash": "45f11d84e933c8315b2067f8d108c5803d3091a9a8168c4de0971eae22c490fd"
     },
     {
       "id": "tpo-04-reading",
       "tpoId": "04",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-04/reading-TPO-04.md"
+      "sourcePath": "assets/questions/reading/TPO-04/reading-TPO-04.md",
+      "documentPath": "assets/questions/compiled/tpo-04-reading.json",
+      "sourceHash": "a9dde611063457a33b8a9ce1ac7f73de13b769a5f54c97d08217547913805d56",
+      "documentHash": "95da9af258dfb0aa816ece0af30a78a2aed3adddc4d4ccbfcff2c5e4f2d15fb9"
     },
     {
       "id": "tpo-04-listening",
       "tpoId": "04",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-04/listening-TPO-04.md"
+      "sourcePath": "assets/questions/listening/TPO-04/listening-TPO-04.md",
+      "documentPath": "assets/questions/compiled/tpo-04-listening.json",
+      "sourceHash": "f173f426d7b281cfd9bbe40223bc2c9fbc4eba49e2b282b5deee291046b99da7",
+      "documentHash": "7c1afe8e4740b60b3450d58f24e6e1701a6dd6eb14664e37b301992e13233ed4"
     },
     {
       "id": "tpo-04-writing",
       "tpoId": "04",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-04/writing-TPO-04.md"
+      "sourcePath": "assets/questions/writing/TPO-04/writing-TPO-04.md",
+      "documentPath": "assets/questions/compiled/tpo-04-writing.json",
+      "sourceHash": "ca117d22f612dc4798feb384fb201d6967d2196cdb9242ea642e07b90c40326a",
+      "documentHash": "236aa4b1ea1da4cbd2df135384070b40942277aa78886de6ef86ebc802cc8af7"
     },
     {
       "id": "tpo-04-speaking",
       "tpoId": "04",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-04/speaking-TPO-04.md"
+      "sourcePath": "assets/questions/speaking/TPO-04/speaking-TPO-04.md",
+      "documentPath": "assets/questions/compiled/tpo-04-speaking.json",
+      "sourceHash": "913dedbd50b214414f003a47744dddd909cd6394b1b1fa4d59f50bb1048e7e4b",
+      "documentHash": "4dc7f1329a5ce264c9eea5241d742f9ac8ace774c896a6aa91fd8d7a207934b4"
     },
     {
       "id": "tpo-05-reading",
       "tpoId": "05",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-05/reading-TPO-05.md"
+      "sourcePath": "assets/questions/reading/TPO-05/reading-TPO-05.md",
+      "documentPath": "assets/questions/compiled/tpo-05-reading.json",
+      "sourceHash": "3ceef9ea772d7c12b137ae841205fdd9f5b9f387356bbe4f993105fcbd53d567",
+      "documentHash": "687a8d97c9be756a0a177769c2270777ed863f1cebe6e2f1c1a3da3b9f4a00c1"
     },
     {
       "id": "tpo-05-listening",
       "tpoId": "05",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-05/listening-TPO-05.md"
+      "sourcePath": "assets/questions/listening/TPO-05/listening-TPO-05.md",
+      "documentPath": "assets/questions/compiled/tpo-05-listening.json",
+      "sourceHash": "043c2045a66e663a91109e34560bd18000daa294be31eca2257535c8715a1df6",
+      "documentHash": "07b4ab29b2cc403ab5d9d8dd6f859ac81f6816ba41083c869f9e0feb9893c075"
     },
     {
       "id": "tpo-05-writing",
       "tpoId": "05",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-05/writing-TPO-05.md"
+      "sourcePath": "assets/questions/writing/TPO-05/writing-TPO-05.md",
+      "documentPath": "assets/questions/compiled/tpo-05-writing.json",
+      "sourceHash": "a2686d31e174bd9bef516a5ff76a49df4cbbd4b7bff3b772bd7920c84df61e2e",
+      "documentHash": "08f3917d1faffdd5ae39e78cdfc8ec2959cb4a43a88f085c9bd95b8180fa74e3"
     },
     {
       "id": "tpo-05-speaking",
       "tpoId": "05",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-05/speaking-TPO-05.md"
+      "sourcePath": "assets/questions/speaking/TPO-05/speaking-TPO-05.md",
+      "documentPath": "assets/questions/compiled/tpo-05-speaking.json",
+      "sourceHash": "3dfde90dc482e2774ead25bdecbccae074b4ab26c93fea9110b0b04ec164544a",
+      "documentHash": "ebf8e417652b1a3e19152d38ea52070984f324161196b30a504525938fb0b769"
     },
     {
       "id": "tpo-06-reading",
       "tpoId": "06",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-06/reading-TPO-06.md"
+      "sourcePath": "assets/questions/reading/TPO-06/reading-TPO-06.md",
+      "documentPath": "assets/questions/compiled/tpo-06-reading.json",
+      "sourceHash": "54edb5ea8a0981321f91fe1f93f23e7bb6db38a7912f7f6cedf2637181a82e3e",
+      "documentHash": "e2a7a593a5c0710a419f5976cce6654c273644f2449d3d7252fefc53c993d373"
     },
     {
       "id": "tpo-06-listening",
       "tpoId": "06",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-06/listening-TPO-06.md"
+      "sourcePath": "assets/questions/listening/TPO-06/listening-TPO-06.md",
+      "documentPath": "assets/questions/compiled/tpo-06-listening.json",
+      "sourceHash": "ae136463984f1105eb0b404a32b9cb7cd221910a8a396cd8498ea6aa10818ec9",
+      "documentHash": "dfb5af6791b96b321d936c0ceba873f6249625ee4abb5fb3e1a311472cb243c5"
     },
     {
       "id": "tpo-06-writing",
       "tpoId": "06",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-06/writing-TPO-06.md"
+      "sourcePath": "assets/questions/writing/TPO-06/writing-TPO-06.md",
+      "documentPath": "assets/questions/compiled/tpo-06-writing.json",
+      "sourceHash": "e0534b83824c685eb3607d8c21393e234f3a471fd69c6fccd8820ed8e62db4d5",
+      "documentHash": "9a6f1c28d308b621a4140efcd1c3f80193e3e98000ab41ff80c54919ccc8a0e4"
     },
     {
       "id": "tpo-06-speaking",
       "tpoId": "06",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-06/speaking-TPO-06.md"
+      "sourcePath": "assets/questions/speaking/TPO-06/speaking-TPO-06.md",
+      "documentPath": "assets/questions/compiled/tpo-06-speaking.json",
+      "sourceHash": "a78751c1cd5c6ab5d27a0cf58d9fd30ab34c83e7dd6038139bf4104a306fd12e",
+      "documentHash": "ba01b5a259c969ac36936961e049d0ade51bde83026a03450f5893f9bda913f3"
     },
     {
       "id": "tpo-07-reading",
       "tpoId": "07",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-07/reading-TPO-07.md"
+      "sourcePath": "assets/questions/reading/TPO-07/reading-TPO-07.md",
+      "documentPath": "assets/questions/compiled/tpo-07-reading.json",
+      "sourceHash": "168ada24035a607bfe283a94a6240849ab208b8a1eb34a4ae0b2532df3bc14cc",
+      "documentHash": "89ad1d7e9f47959ba6981698e9eddb2ee010a59d03dd1b5bbe9823d7511f348d"
     },
     {
       "id": "tpo-07-listening",
       "tpoId": "07",
       "section": "listening",
-      "path": "assets/questions/listening/TPO-07/listening-TPO-07.md"
+      "sourcePath": "assets/questions/listening/TPO-07/listening-TPO-07.md",
+      "documentPath": "assets/questions/compiled/tpo-07-listening.json",
+      "sourceHash": "b9a9964e56aaca45c1b7fae303fd31fc38128aaf61e711016db08ba7b68e489e",
+      "documentHash": "ccc3e56ceceefd108ea6cbdc493d3f1cfad2222f5b72d581a836475909719a8b"
     },
     {
       "id": "tpo-07-writing",
       "tpoId": "07",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-07/writing-TPO-07.md"
+      "sourcePath": "assets/questions/writing/TPO-07/writing-TPO-07.md",
+      "documentPath": "assets/questions/compiled/tpo-07-writing.json",
+      "sourceHash": "c84fbe47223c31fafb0dac1dedc68fa893ccb2fb49df97d09db0c60e8d15542f",
+      "documentHash": "3748b4a07722df1eb86de5997c4dea1c71c5e91ca4c2be71479bb56f0d111d57"
     },
     {
       "id": "tpo-07-speaking",
       "tpoId": "07",
       "section": "speaking",
-      "path": "assets/questions/speaking/TPO-07/speaking-TPO-07.md"
+      "sourcePath": "assets/questions/speaking/TPO-07/speaking-TPO-07.md",
+      "documentPath": "assets/questions/compiled/tpo-07-speaking.json",
+      "sourceHash": "4eb8b2d37235263d660536139fd79f8ba56a465955aefb75321f55a5ab944499",
+      "documentHash": "1fc0f047bc28f050885de607da269d287aea6c0fb6c46aab049ce8a9d3ece1d1"
     },
     {
       "id": "tpo-08-reading",
       "tpoId": "08",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-08/reading-TPO-08.md"
+      "sourcePath": "assets/questions/reading/TPO-08/reading-TPO-08.md",
+      "documentPath": "assets/questions/compiled/tpo-08-reading.json",
+      "sourceHash": "bde766d74a9c3ff7d9fbbe384ead8b96edb240a6ebb11f76a5b7ab0cd67a8599",
+      "documentHash": "c8ff6e15ad29c122a5312e8c750317c4491a9a0f1026dc6c6eabc2f3b5477739"
     },
     {
       "id": "tpo-08-writing",
       "tpoId": "08",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-08/writing-TPO-08.md"
+      "sourcePath": "assets/questions/writing/TPO-08/writing-TPO-08.md",
+      "documentPath": "assets/questions/compiled/tpo-08-writing.json",
+      "sourceHash": "fe327cf30a640e6390fb3d8ecab74a5eb0663953a2387adb0ef98055c978a31d",
+      "documentHash": "3be46a9470e4e376769e4c6ef7e80bfa545b0a1da5900858845341329cd5be84"
     },
     {
       "id": "tpo-09-reading",
       "tpoId": "09",
       "section": "reading",
-      "path": "assets/questions/reading/TPO-09/reading-TPO-09.md"
+      "sourcePath": "assets/questions/reading/TPO-09/reading-TPO-09.md",
+      "documentPath": "assets/questions/compiled/tpo-09-reading.json",
+      "sourceHash": "d28ded893c6db3e7a516bcb61d9a7adf1d8acbfa8e3ea988cea0b10c34528c4c",
+      "documentHash": "40486fafeb4510bdb141be7f13f43f384ae2896e9d36037e2d6cba501d0be2db"
     },
     {
       "id": "tpo-09-writing",
       "tpoId": "09",
       "section": "writing",
-      "path": "assets/questions/writing/TPO-09/writing-TPO-09.md"
+      "sourcePath": "assets/questions/writing/TPO-09/writing-TPO-09.md",
+      "documentPath": "assets/questions/compiled/tpo-09-writing.json",
+      "sourceHash": "76aee13aeb35456cfde9cb34b0298004f749808bfaa458de3da8c818dd96b410",
+      "documentHash": "1efaf2545b3b411ebf5c50f39ace66b60cc292be744663d15f88115b77d93398"
     }
   ],
   "tpos": [
     {
       "id": "01",
       "sections": {
-        "reading": "assets/questions/reading/TPO-01/reading-TPO-01.md",
-        "listening": "assets/questions/listening/TPO-01/listening-TPO-01.md",
-        "writing": "assets/questions/writing/TPO-01/writing-TPO-01.md",
-        "speaking": "assets/questions/speaking/TPO-01/speaking-TPO-01.md"
+        "reading": "assets/questions/compiled/tpo-01-reading.json",
+        "listening": "assets/questions/compiled/tpo-01-listening.json",
+        "writing": "assets/questions/compiled/tpo-01-writing.json",
+        "speaking": "assets/questions/compiled/tpo-01-speaking.json"
       }
     },
     {
       "id": "02",
       "sections": {
-        "reading": "assets/questions/reading/TPO-02/reading-TPO-02.md",
-        "listening": "assets/questions/listening/TPO-02/listening-TPO-02.md",
-        "writing": "assets/questions/writing/TPO-02/writing-TPO-02.md",
-        "speaking": "assets/questions/speaking/TPO-02/speaking-TPO-02.md"
+        "reading": "assets/questions/compiled/tpo-02-reading.json",
+        "listening": "assets/questions/compiled/tpo-02-listening.json",
+        "writing": "assets/questions/compiled/tpo-02-writing.json",
+        "speaking": "assets/questions/compiled/tpo-02-speaking.json"
       }
     },
     {
       "id": "03",
       "sections": {
-        "reading": "assets/questions/reading/TPO-03/reading-TPO-03.md",
-        "listening": "assets/questions/listening/TPO-03/listening-TPO-03.md",
-        "writing": "assets/questions/writing/TPO-03/writing-TPO-03.md",
-        "speaking": "assets/questions/speaking/TPO-03/speaking-TPO-03.md"
+        "reading": "assets/questions/compiled/tpo-03-reading.json",
+        "listening": "assets/questions/compiled/tpo-03-listening.json",
+        "writing": "assets/questions/compiled/tpo-03-writing.json",
+        "speaking": "assets/questions/compiled/tpo-03-speaking.json"
       }
     },
     {
       "id": "04",
       "sections": {
-        "reading": "assets/questions/reading/TPO-04/reading-TPO-04.md",
-        "listening": "assets/questions/listening/TPO-04/listening-TPO-04.md",
-        "writing": "assets/questions/writing/TPO-04/writing-TPO-04.md",
-        "speaking": "assets/questions/speaking/TPO-04/speaking-TPO-04.md"
+        "reading": "assets/questions/compiled/tpo-04-reading.json",
+        "listening": "assets/questions/compiled/tpo-04-listening.json",
+        "writing": "assets/questions/compiled/tpo-04-writing.json",
+        "speaking": "assets/questions/compiled/tpo-04-speaking.json"
       }
     },
     {
       "id": "05",
       "sections": {
-        "reading": "assets/questions/reading/TPO-05/reading-TPO-05.md",
-        "listening": "assets/questions/listening/TPO-05/listening-TPO-05.md",
-        "writing": "assets/questions/writing/TPO-05/writing-TPO-05.md",
-        "speaking": "assets/questions/speaking/TPO-05/speaking-TPO-05.md"
+        "reading": "assets/questions/compiled/tpo-05-reading.json",
+        "listening": "assets/questions/compiled/tpo-05-listening.json",
+        "writing": "assets/questions/compiled/tpo-05-writing.json",
+        "speaking": "assets/questions/compiled/tpo-05-speaking.json"
       }
     },
     {
       "id": "06",
       "sections": {
-        "reading": "assets/questions/reading/TPO-06/reading-TPO-06.md",
-        "listening": "assets/questions/listening/TPO-06/listening-TPO-06.md",
-        "writing": "assets/questions/writing/TPO-06/writing-TPO-06.md",
-        "speaking": "assets/questions/speaking/TPO-06/speaking-TPO-06.md"
+        "reading": "assets/questions/compiled/tpo-06-reading.json",
+        "listening": "assets/questions/compiled/tpo-06-listening.json",
+        "writing": "assets/questions/compiled/tpo-06-writing.json",
+        "speaking": "assets/questions/compiled/tpo-06-speaking.json"
       }
     },
     {
       "id": "07",
       "sections": {
-        "reading": "assets/questions/reading/TPO-07/reading-TPO-07.md",
-        "listening": "assets/questions/listening/TPO-07/listening-TPO-07.md",
-        "writing": "assets/questions/writing/TPO-07/writing-TPO-07.md",
-        "speaking": "assets/questions/speaking/TPO-07/speaking-TPO-07.md"
+        "reading": "assets/questions/compiled/tpo-07-reading.json",
+        "listening": "assets/questions/compiled/tpo-07-listening.json",
+        "writing": "assets/questions/compiled/tpo-07-writing.json",
+        "speaking": "assets/questions/compiled/tpo-07-speaking.json"
       }
     },
     {
       "id": "08",
       "sections": {
-        "reading": "assets/questions/reading/TPO-08/reading-TPO-08.md",
-        "writing": "assets/questions/writing/TPO-08/writing-TPO-08.md"
+        "reading": "assets/questions/compiled/tpo-08-reading.json",
+        "writing": "assets/questions/compiled/tpo-08-writing.json"
       }
     },
     {
       "id": "09",
       "sections": {
-        "reading": "assets/questions/reading/TPO-09/reading-TPO-09.md",
-        "writing": "assets/questions/writing/TPO-09/writing-TPO-09.md"
+        "reading": "assets/questions/compiled/tpo-09-reading.json",
+        "writing": "assets/questions/compiled/tpo-09-writing.json"
       }
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "contentHash": "4a7bf8ae44454ebc9a1c9a60b49d3f3542bc1123a2249767b22ed069720d61ec"
 }

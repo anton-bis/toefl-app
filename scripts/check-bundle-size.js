@@ -13,7 +13,8 @@ const FORBIDDEN_RUNTIME_PATHS = [
 ];
 const REQUIRED_RUNTIME_PATHS = [
   'assets/icons/icon.png',
-  'assets/questions/reading/TPO-01/reading-TPO-01.md',
+  'assets/questions/compiled/manifest.json',
+  'assets/questions/compiled/tpo-01-reading.json',
   'assets/questions/speaking/TPO-04/avatar.svg',
   'assets/questions/typing/corpus.json',
   'assets/questions/vocabulary/manifest.json'
@@ -31,6 +32,10 @@ const oversized = filesIn(ROOT)
   .map(filePath => ({ filePath, size: fs.statSync(filePath).size }))
   .filter(file => file.size > LIMIT);
 
+const runtimeMarkdown = filesIn(path.join(ROOT, 'assets', 'questions')).filter(
+  filePath => path.extname(filePath).toLowerCase() === '.md'
+);
+
 if (oversized.length) {
   oversized.forEach(file => {
     console.error(`${path.relative(ROOT, file.filePath)}: ${file.size} bytes`);
@@ -43,6 +48,10 @@ const leakedBuildInputs = FORBIDDEN_RUNTIME_PATHS.filter(relativePath =>
 );
 if (leakedBuildInputs.length) {
   throw new Error(`Development assets leaked into dist: ${leakedBuildInputs.join(', ')}`);
+}
+
+if (runtimeMarkdown.length) {
+  throw new Error('Editable Markdown leaked into production runtime content.');
 }
 
 const missingRuntimeAssets = REQUIRED_RUNTIME_PATHS.filter(

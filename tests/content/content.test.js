@@ -9,13 +9,14 @@ import { parseExamDocument } from '../../src/content/parsers/index.js';
 import { normalizeMarkdown } from '../../src/content/shared.js';
 import { validateExamDocument } from '../../src/content/validate.js';
 import {
-  generateQuestionManifest,
+  generateQuestionContent,
   scanQuestionFiles
 } from '../../scripts/generate-question-manifest.js';
 import { copyRuntimeContent } from '../../vite.config.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
-const manifest = generateQuestionManifest(root);
+const compiledContent = generateQuestionContent(root);
+const { manifest } = compiledContent;
 const committedManifest = JSON.parse(
   fs.readFileSync(path.join(root, 'src/content/question-manifest.json'), 'utf8')
 );
@@ -40,9 +41,34 @@ test('manifest discovery is deterministic and complete', () => {
   assert.ok(paths.length > 0);
   assert.equal(manifest.entries.length, paths.length);
   assert.equal(new Set(manifest.entries.map(entry => entry.id)).size, manifest.entries.length);
-  assert.deepEqual(buildQuestionManifest([...paths].reverse()).entries, manifest.entries);
-  assert.deepEqual(manifest.entries, committedManifest.entries);
+  assert.deepEqual(
+    buildQuestionManifest([...paths].reverse()).entries,
+    manifest.entries.map(entry => ({
+      id: entry.id,
+      tpoId: entry.tpoId,
+      section: entry.section,
+      sourcePath: entry.sourcePath,
+      documentPath: entry.documentPath
+    }))
+  );
+  assert.deepEqual(manifest, committedManifest);
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
+});
+
+test('compiled documents are deterministic, versioned, and bound to their Markdown source', () => {
+  const first = compiledContent;
+  const second = generateQuestionContent(root);
+  assert.deepEqual(first.manifest, second.manifest);
+  assert.deepEqual([...first.documents], [...second.documents]);
+
+  for (const entry of first.manifest.entries) {
+    const compiled = JSON.parse(first.documents.get(entry.documentPath));
+    assert.equal(compiled.schemaVersion, first.manifest.schemaVersion);
+    assert.equal(compiled.source.path, entry.sourcePath);
+    assert.equal(compiled.source.sha256, entry.sourceHash);
+    assert.equal(compiled.document.id, entry.id);
+    assert.equal(compiled.document.sourcePath, entry.sourcePath);
+  }
 });
 
 test('runtime asset copy excludes development directories without leaving empty shells', t => {
@@ -55,6 +81,7 @@ test('runtime asset copy excludes development directories without leaving empty 
     ['images/qr.jpg', 'development image'],
     ['icons/icon.png', 'runtime icon'],
     ['questions/reading/TPO-01/reading-TPO-01.md', '# reading'],
+    ['questions/compiled/tpo-01-reading.json', '{}'],
     ['questions/vocabulary/manifest.json', '{}'],
     ['questions/vocabulary/ex-batches/batch.json', '{}'],
     ['questions/vocabulary/ex-batches/manifest.json', '{}']
@@ -71,6 +98,10 @@ test('runtime asset copy excludes development directories without leaving empty 
   assert.equal(fs.existsSync(path.join(destination, 'icons/icon.png')), true);
   assert.equal(
     fs.existsSync(path.join(destination, 'questions/reading/TPO-01/reading-TPO-01.md')),
+    false
+  );
+  assert.equal(
+    fs.existsSync(path.join(destination, 'questions/compiled/tpo-01-reading.json')),
     true
   );
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/manifest.json')), true);
@@ -118,7 +149,7 @@ test('all current Markdown documents parse into valid unified models', async t =
   const counts = { reading: 0, listening: 0, writing: 0, speaking: 0 };
   for (const entry of manifest.entries) {
     await t.test(entry.id, () => {
-      const markdown = fs.readFileSync(path.join(root, entry.path), 'utf8');
+      const markdown = fs.readFileSync(path.join(root, entry.sourcePath), 'utf8');
       const document = parseExamDocument(entry.section, markdown, entry);
       const result = validateExamDocument(document);
       assert.deepEqual(result.errors, []);
@@ -149,7 +180,7 @@ test('speaking response times preserve TOEFL task rules', () => {
   const entry = manifest.entries.find(item => item.id === 'tpo-01-speaking');
   const document = parseExamDocument(
     'speaking',
-    fs.readFileSync(path.join(root, entry.path), 'utf8'),
+    fs.readFileSync(path.join(root, entry.sourcePath), 'utf8'),
     entry
   );
   const questions = document.modules[0].tasks.flatMap(task => task.questions);
@@ -161,7 +192,7 @@ test('speaking response times preserve TOEFL task rules', () => {
 
 test('writing creates an intro page before each task', () => {
   const entry = manifest.entries.find(item => item.section === 'writing');
-  const markdown = fs.readFileSync(path.join(root, entry.path), 'utf8');
+  const markdown = fs.readFileSync(path.join(root, entry.sourcePath), 'utf8');
   const document = parseExamDocument('writing', markdown, entry);
   const taskPages = document.modules[0].tasks.map(task => ({
     intro: document.pages.find(page => page.id === `${task.id}-intro`),
@@ -177,7 +208,7 @@ test('reading complete-words tasks use one grouped question page', () => {
   for (const entry of manifest.entries.filter(item => item.section === 'reading')) {
     const document = parseExamDocument(
       'reading',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
+      fs.readFileSync(path.join(root, entry.sourcePath), 'utf8'),
       entry
     );
     for (const module of document.modules) {
@@ -204,7 +235,7 @@ test('reading question numbers follow their declared module ranges', () => {
   for (const entry of manifest.entries.filter(item => item.section === 'reading')) {
     const document = parseExamDocument(
       'reading',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
+      fs.readFileSync(path.join(root, entry.sourcePath), 'utf8'),
       entry
     );
     for (const module of document.modules) {
@@ -229,7 +260,7 @@ test('listening long-form tasks receive a stimulus page immediately before quest
   for (const entry of manifest.entries.filter(item => item.section === 'listening')) {
     const document = parseExamDocument(
       'listening',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
+      fs.readFileSync(path.join(root, entry.sourcePath), 'utf8'),
       entry
     );
     for (const module of document.modules) {
@@ -254,7 +285,7 @@ test('speaking keeps one scenario before each task question sequence', () => {
   for (const entry of manifest.entries.filter(item => item.section === 'speaking')) {
     const document = parseExamDocument(
       'speaking',
-      fs.readFileSync(path.join(root, entry.path), 'utf8'),
+      fs.readFileSync(path.join(root, entry.sourcePath), 'utf8'),
       entry
     );
     for (const task of document.modules[0].tasks) {
