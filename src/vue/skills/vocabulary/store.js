@@ -12,6 +12,7 @@ import {
 import { clearSession, loadSession, loadSettings, saveSession, saveSettings } from './storage.js';
 import {
   loadVocabularyProgress,
+  loadVocabularyOverview,
   saveVocabularySet,
   saveVocabularyWord
 } from '../../platform/dataRepository.js';
@@ -46,6 +47,7 @@ function rootGroupsFor(category) {
 export const useVocabularyStore = defineStore('vocabulary', {
   state: () => ({
     initialized: false,
+    lifecycleGeneration: 0,
     loading: false,
     error: '',
     page: 'subject-select',
@@ -65,6 +67,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
     nineGridPage: 0,
     progress: {},
     globalDueCount: 0,
+    dueCounts: {},
     isGlobalReview: false,
     rootCategory: null,
     rootGroups: [],
@@ -78,52 +81,59 @@ export const useVocabularyStore = defineStore('vocabulary', {
     currentWord: state => state.queue[state.currentIndex] || null,
     queueLength: state => state.queue.length,
     todayReviewCount: state => {
-      const today = dateKey();
-      let count = 0;
-      Object.values(state.progress).forEach(subject =>
-        Object.values(subject).forEach(set => {
-          Object.values(set.words || {}).forEach(record => {
-            if (record.nextReview && record.nextReview <= today && record.lastQ < 5) count += 1;
-          });
-        })
-      );
-      return count;
+      return Object.values(state.dueCounts).reduce((sum, count) => sum + count, 0);
     }
   },
   actions: {
     async initialize() {
       if (this.initialized) return;
+      const generation = this.lifecycleGeneration;
       this.loading = true;
       const settings = loadSettings();
       this.mode = settings.mode;
       this.preferredAccent = settings.preferredAccent;
       try {
-        this.progress = await loadVocabularyProgress();
+        const overview = await loadVocabularyOverview(dateKey());
+        if (generation !== this.lifecycleGeneration) return;
+        this.dueCounts = Object.fromEntries(
+          overview.due.map(({ subject, count }) => [subject, Number(count)])
+        );
+        overview.sets.forEach(({ subject, setId, value }) => {
+          ((this.progress[subject] ||= {})[setId] ||= { words: {} });
+          Object.assign(this.progress[subject][setId], value, { words: {} });
+        });
         const response = await fetch('assets/questions/vocabulary/manifest.json');
         if (!response.ok) throw new Error(`HTTP ${response.status} for vocabulary manifest`);
         const counts = await response.json();
+        if (generation !== this.lifecycleGeneration) return;
         SUBJECTS.forEach(subject => {
           this.setCounts[subject] = Math.ceil((Number(counts[subject]) || 0) / 25);
         });
         const saved = loadSession();
         if (saved && SUBJECTS.includes(saved.subject)) {
-          await this.loadSubject(saved.subject);
+          await this.loadSubject(saved.subject, generation);
+          if (generation !== this.lifecycleGeneration) return;
           this.restoreSession(saved);
         } else this.checkReminder();
         this.initialized = true;
       } catch (error) {
         this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
-        this.loading = false;
+        if (generation === this.lifecycleGeneration) this.loading = false;
       }
     },
-    async loadSubject(subject) {
+    async loadSubject(subject, generation = this.lifecycleGeneration) {
       if (this.wordData[subject]) return this.wordData[subject];
       if (!SUBJECTS.includes(subject)) throw new Error('Unknown vocabulary subject');
-      const response = await fetch(`assets/questions/vocabulary/${subject}-words.json`);
+      const [response, progress] = await Promise.all([
+        fetch(`assets/questions/vocabulary/${subject}-words.json`),
+        loadVocabularyProgress(subject)
+      ]);
       if (!response.ok) throw new Error(`HTTP ${response.status} for ${subject}`);
       const bank = await response.json();
+      if (generation !== this.lifecycleGeneration) return null;
       if (!Array.isArray(bank)) throw new Error(`Invalid ${subject} vocabulary data`);
+      this.progress[subject] = progress[subject] || {};
       this.wordData = { [subject]: markRaw(bank) };
       this.setCounts[subject] = Math.ceil(bank.length / 25);
       return bank;
@@ -133,17 +143,19 @@ export const useVocabularyStore = defineStore('vocabulary', {
       saveSettings({ ...loadSettings(), mode });
     },
     async selectSubject(subject) {
+      const generation = this.lifecycleGeneration;
       this.loading = true;
       this.error = '';
       try {
-        await this.loadSubject(subject);
+        const bank = await this.loadSubject(subject, generation);
+        if (!bank || generation !== this.lifecycleGeneration) return;
         this.subject = subject;
         this.page = 'set-list';
         this.buildSets();
       } catch (error) {
         this.error = `Couldn't load vocabulary: ${error.message}`;
       } finally {
-        this.loading = false;
+        if (generation === this.lifecycleGeneration) this.loading = false;
       }
     },
     buildSets() {
@@ -248,6 +260,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
       const subjectProgress = (this.progress[this.subject] ||= {});
       const setProgress = (subjectProgress[setId] ||= { status: 'learning', words: {} });
       setProgress.words[word.id] = scheduleReview(quality, setProgress.words[word.id]);
+      this.computeDueCount();
       saveVocabularyWord(this.subject, setId, word.id, setProgress.words[word.id]).catch(error => {
         this.error = `Couldn't save your progress: ${error.message}`;
       });
@@ -299,16 +312,18 @@ export const useVocabularyStore = defineStore('vocabulary', {
     },
     startGlobalReview() {
       const bank = this.wordData[this.subject] || [];
-      const ids = dueWordIds(
-        this.progress,
-        this.subject,
-        bank.map(word => word.id)
+      const dueIds = new Set(
+        dueWordIds(
+          this.progress,
+          this.subject,
+          bank.map(word => word.id)
+        )
       );
       const records = this.progress[this.subject] || {};
       const wordSet = new Map();
       Object.entries(records).forEach(([setId, set]) =>
         Object.keys(set.words || {}).forEach(id => {
-          if (ids.includes(id) && !wordSet.has(id)) wordSet.set(id, setId);
+          if (dueIds.has(id) && !wordSet.has(id)) wordSet.set(id, setId);
         })
       );
       this.queue = bank
@@ -323,7 +338,9 @@ export const useVocabularyStore = defineStore('vocabulary', {
     },
     computeDueCount() {
       const ids = (this.wordData[this.subject] || []).map(word => word.id);
-      this.globalDueCount = Math.min(50, dueWordIds(this.progress, this.subject, ids).length);
+      const dueCount = dueWordIds(this.progress, this.subject, ids).length;
+      this.globalDueCount = Math.min(50, dueCount);
+      if (this.subject) this.dueCounts[this.subject] = dueCount;
     },
     checkReminder() {
       const settings = loadSettings();
@@ -359,6 +376,28 @@ export const useVocabularyStore = defineStore('vocabulary', {
     closeDetail() {
       this.detailWord = null;
     },
+    releaseWorkset() {
+      this.lifecycleGeneration += 1;
+      this.initialized = false;
+      this.loading = false;
+      this.error = '';
+      this.page = 'subject-select';
+      this.subject = null;
+      this.wordData = {};
+      this.sets = [];
+      this.words = [];
+      this.queue = [];
+      this.progress = {};
+      this.globalDueCount = 0;
+      this.dueCounts = {};
+      this.isGlobalReview = false;
+      this.rootCategory = null;
+      this.rootGroups = [];
+      this.rootGroupTitle = '';
+      this.detailWord = null;
+      this.pendingReminder = [];
+      this.showReminder = false;
+    },
     persist() {
       if (this.subject && this.page !== 'subject-select' && this.page !== 'set-list')
         saveSession(sessionSnapshot(this));
@@ -376,9 +415,10 @@ export const useVocabularyStore = defineStore('vocabulary', {
         if (groupIndex >= 0) this.selectRootItem(groupIndex);
       } else {
         const set = this.sets[this.currentSetIndex];
+        const unknownIds = new Set(saved.unknownIds || []);
         this.words = (set?.words || []).map(word => ({
           ...word,
-          gridStatus: saved.unknownIds?.includes(word.id) ? 'unknown' : 'unmarked'
+          gridStatus: unknownIds.has(word.id) ? 'unknown' : 'unmarked'
         }));
       }
       const bank = this.wordData[this.subject] || [];

@@ -4,6 +4,7 @@ import {
   cancelLocalWrite,
   flushLocalWrites,
   isPlainObject,
+  readLocalJson,
   removeLocalValue,
   scheduleLocalJson,
   writeLocalJson
@@ -11,7 +12,6 @@ import {
 
 const EXAM_STORAGE_PREFIX = 'toefl:exam';
 
-const hasStorage = () => typeof localStorage !== 'undefined';
 const asId = value =>
   String(value ?? '')
     .trim()
@@ -32,7 +32,7 @@ function boundedData(value) {
   return visit(value, 0);
 }
 
-export function examSessionId(tpoId, section) {
+function examSessionId(tpoId, section) {
   return `${asId(tpoId)}:${asId(section)}`;
 }
 
@@ -40,7 +40,7 @@ export function examStorageKey(tpoId, section) {
   return `${EXAM_STORAGE_PREFIX}:${encodeURIComponent(asId(tpoId))}:${encodeURIComponent(asId(section))}`;
 }
 
-export function createExamSession({
+function createExamSession({
   tpoId,
   section,
   pageId = 'start',
@@ -100,16 +100,9 @@ function normalizeSession(value, expected) {
 }
 
 export function readExamSession(tpoId, section) {
-  if (!hasStorage()) return null;
   const options = { tpoId, section };
-  try {
-    const serialized = localStorage.getItem(examStorageKey(options.tpoId, options.section));
-    if (!serialized || serialized.length > 2_000_000) return null;
-    const value = JSON.parse(serialized);
-    return normalizeSession(value, options);
-  } catch {
-    return null;
-  }
+  const value = readLocalJson(examStorageKey(options.tpoId, options.section), null);
+  return value ? normalizeSession(value, options) : null;
 }
 
 export function removeExamSession(tpoId, section) {
@@ -137,7 +130,7 @@ function compactSession(session) {
 }
 
 function persistSession(session, delayed = false) {
-  if (!session || !hasStorage()) return;
+  if (!session) return;
   const key = examStorageKey(session.tpoId, session.section);
   if (session.status === 'not-started') {
     removeLocalValue(key);
@@ -153,6 +146,22 @@ export async function pruneCompletedExamHistory(
   repository,
   limit = 20
 ) {
+  const desktop = globalThis.window?.electronAPI?.data;
+  if (desktop) {
+    const completed = await desktop.exam.listCompleted(1000);
+    const expired = expiredTpos(completed, limit);
+    const removed = completed.filter(session => expired.has(session.tpoId));
+    await Promise.all(
+      removed.map(async session => {
+        removeExamSession(session.tpoId, session.section);
+        if (session.section === 'speaking' && repository) {
+          await repository.removeSession(`tpo-${session.tpoId}-speaking`);
+        }
+      })
+    );
+    await flushLocalWrites();
+    return [...expired];
+  }
   if (!storage || !Number.isFinite(storage.length)) return [];
   const completed = [];
   for (let index = 0; index < storage.length; index += 1) {
@@ -167,15 +176,9 @@ export async function pruneCompletedExamHistory(
       // Invalid records are ignored here and rejected by readExamSession.
     }
   }
-  const latestByTpo = new Map();
-  completed.forEach(({ session, time }) => {
-    latestByTpo.set(session.tpoId, Math.max(latestByTpo.get(session.tpoId) || 0, time));
-  });
-  const expired = new Set(
-    [...latestByTpo.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(Math.max(0, limit))
-      .map(([tpoId]) => tpoId)
+  const expired = expiredTpos(
+    completed.map(({ session, time }) => ({ ...session, updatedAt: time })),
+    limit
   );
   const removed = completed.filter(({ session }) => expired.has(session.tpoId));
   if (repository) {
@@ -192,6 +195,19 @@ export async function pruneCompletedExamHistory(
   return [...expired];
 }
 
+function expiredTpos(sessions, limit) {
+  const latest = new Map();
+  sessions.forEach(session => {
+    latest.set(session.tpoId, Math.max(latest.get(session.tpoId) || 0, session.updatedAt || 0));
+  });
+  return new Set(
+    [...latest]
+      .sort((a, b) => b[1] - a[1])
+      .slice(Math.max(0, limit))
+      .map(([tpoId]) => tpoId)
+  );
+}
+
 export const useExamStore = defineStore('exam', {
   state: () => ({
     activeId: '',
@@ -204,7 +220,7 @@ export const useExamStore = defineStore('exam', {
   },
   actions: {
     openSession(options) {
-      this.flushPersist();
+      flushLocalWrites();
       const id = examSessionId(options.tpoId, options.section);
       let session = options.restart
         ? null
@@ -242,7 +258,7 @@ export const useExamStore = defineStore('exam', {
       if (answer === undefined || answer === null || answer === '') delete answers[id];
       else answers[id] = answer;
       session.updatedAt = Date.now();
-      this.schedulePersist();
+      persistSession(session, true);
     },
     toggleMark(questionId, force) {
       const marks = this.requireActive().marks;
@@ -316,13 +332,6 @@ export const useExamStore = defineStore('exam', {
     touch(now = Date.now()) {
       this.requireActive().updatedAt = now;
       this.persist();
-    },
-    schedulePersist() {
-      const session = this.requireActive();
-      persistSession(session, true);
-    },
-    flushPersist() {
-      flushLocalWrites();
     },
     persist() {
       const session = this.activeSession;

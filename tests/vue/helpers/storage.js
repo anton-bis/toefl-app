@@ -1,4 +1,4 @@
-export function createMemoryStorage(entries = {}) {
+function createMemoryStorage(entries = {}) {
   const data = new Map(Object.entries(entries));
   return {
     get length() {

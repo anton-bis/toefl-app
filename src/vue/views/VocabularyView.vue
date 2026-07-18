@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onBeforeUnmount, onMounted } from 'vue';
+import { defineAsyncComponent, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import SkillPageHeader from '../components/SkillPageHeader.vue';
 import SetList from '../skills/vocabulary/SetList.vue';
@@ -16,6 +16,7 @@ const NineGrid = defineAsyncComponent(() => import('../skills/vocabulary/NineGri
 const WordDetail = defineAsyncComponent(() => import('../skills/vocabulary/WordDetail.vue'));
 onMounted(() => store.initialize());
 onBeforeUnmount(stopWordAudio);
+onUnmounted(() => store.releaseWorkset());
 const goHome = () => router.push({ name: 'home' });
 </script>
 

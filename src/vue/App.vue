@@ -1,33 +1,38 @@
 <script setup>
-import { defineAsyncComponent, onBeforeUnmount, onErrorCaptured, onMounted, ref } from 'vue';
+import {
+  defineAsyncComponent,
+  inject,
+  onBeforeUnmount,
+  onErrorCaptured,
+  onMounted,
+  ref
+} from 'vue';
+import { flushDataWrites, suspendDataWrites } from './platform/dataRepository.js';
+import { flushLocalWrites, suspendLocalWrites } from './platform/localPersistence.js';
 
 const fatalError = ref('');
+const storageReady = inject('storageReady');
 const electronEnabled = Boolean(window.electronAPI);
 const UpdateNotice = defineAsyncComponent(() => import('./components/UpdateNotice.vue'));
 let updates;
 let disposed = false;
+let stopDataFlush;
 
-const userDataModule = () => import('./platform/userData.js');
-
-async function handleExport(event) {
+async function handleDataFlush(request) {
+  const id = typeof request === 'object' ? request.id : request;
   try {
-    const { exportUserData } = await userDataModule();
-    await window.electronAPI?.writeUserData(event.detail.filePath, await exportUserData());
-    window.alert('Your data has been exported.');
+    await Promise.all([flushLocalWrites(), flushDataWrites()]);
+    if (request?.suspend) {
+      suspendLocalWrites();
+      suspendDataWrites();
+    }
+    window.electronAPI?.data.flushed({ id, ok: true });
   } catch (error) {
-    window.alert(`Export failed: ${error?.message || 'Unknown error'}`);
-  }
-}
-
-async function handleImport(event) {
-  try {
-    const { importUserData } = await userDataModule();
-    const payload = await window.electronAPI?.readUserData(event.detail.filePath);
-    await importUserData(payload);
-    window.alert('Your data has been imported. The app will now restart.');
-    window.location.reload();
-  } catch (error) {
-    window.alert(`Import failed: ${error?.message || 'Unknown error'}`);
+    window.electronAPI?.data.flushed({
+      id,
+      ok: false,
+      error: error?.message || 'Could not save the latest changes.'
+    });
   }
 }
 
@@ -37,14 +42,12 @@ onMounted(async () => {
   if (disposed) return;
   updates = useUpdatesStore();
   updates.initialize();
-  window.addEventListener('electron-export-data', handleExport);
-  window.addEventListener('electron-import-data', handleImport);
+  stopDataFlush = window.electronAPI.data.onFlush(handleDataFlush);
 });
 onBeforeUnmount(() => {
   disposed = true;
   updates?.dispose();
-  window.removeEventListener('electron-export-data', handleExport);
-  window.removeEventListener('electron-import-data', handleImport);
+  stopDataFlush?.();
 });
 
 onErrorCaptured(error => {
@@ -54,11 +57,27 @@ onErrorCaptured(error => {
 </script>
 
 <template>
-  <main v-if="fatalError" class="fatal-error" role="alert">
-    <i class="fas fa-circle-exclamation"></i>
+  <main
+    v-if="fatalError"
+    class="fatal-error"
+    role="alert"
+  >
+    <i class="fas fa-circle-exclamation" />
     <h1>Something Went Wrong</h1>
     <p>{{ fatalError }}</p>
-    <button type="button" @click="location.reload()">Try Again</button>
+    <button
+      type="button"
+      @click="location.reload()"
+    >
+      Try Again
+    </button>
+  </main>
+  <main
+    v-else-if="!storageReady"
+    class="exam-route-state"
+    aria-live="polite"
+  >
+    <i class="fas fa-spinner fa-spin" /> Loading your practice data…
   </main>
   <RouterView v-else />
   <UpdateNotice v-if="electronEnabled" />

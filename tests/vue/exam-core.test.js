@@ -167,6 +167,34 @@ describe('exam timer', () => {
     wrapper.unmount();
     expect(vi.getTimerCount()).toBe(0);
   });
+
+  it('stops background ticking and catches up from the absolute deadline when visible', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(10_000);
+    let exposed;
+    const TimerHarness = defineComponent({
+      setup() {
+        exposed = useExamTimer(ref({ mode: 'countdown', deadlineAt: 20_000 }), {
+          interval: 100
+        });
+        return () => null;
+      }
+    });
+    const wrapper = mount(TimerHarness);
+    const hidden = vi.spyOn(document, 'hidden', 'get');
+    hidden.mockReturnValue(true);
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(vi.getTimerCount()).toBe(0);
+
+    vi.setSystemTime(15_000);
+    hidden.mockReturnValue(false);
+    document.dispatchEvent(new Event('visibilitychange'));
+    expect(exposed.remainingSeconds.value).toBe(5);
+    expect(vi.getTimerCount()).toBe(1);
+
+    wrapper.unmount();
+    hidden.mockRestore();
+  });
 });
 
 describe('exam retention', () => {

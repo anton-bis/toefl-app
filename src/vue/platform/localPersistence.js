@@ -1,31 +1,91 @@
 const pendingWrites = new Map();
 const lastValues = new Map();
+const desktopWrites = new Set();
 let suspended = false;
 let listenersInstalled = false;
+let desktopValues;
 
 const available = () => typeof localStorage !== 'undefined';
+const desktopData = () => globalThis.window?.electronAPI?.data;
+
+export function configureDesktopPersistence({ settings = {}, examSessions = [] } = {}) {
+  desktopValues = new Map(
+    Object.entries(settings).map(([key, value]) => [key, JSON.stringify(value)])
+  );
+  examSessions.forEach(session => {
+    const key = `toefl:exam:${encodeURIComponent(session.tpoId)}:${encodeURIComponent(session.section)}`;
+    desktopValues.set(key, JSON.stringify(session));
+  });
+}
+
+function trackDesktopWrite(promise) {
+  desktopWrites.add(promise);
+  promise.finally(() => desktopWrites.delete(promise)).catch(() => {});
+}
+
+function desktopExamId(key) {
+  const match = key.match(/^toefl:exam:([^:]+):([^:]+)$/);
+  return match
+    ? `tpo-${decodeURIComponent(match[1])}-${decodeURIComponent(match[2])}`
+    : null;
+}
+
+function persistDesktop(key, value, previousSerialized) {
+  const api = desktopData();
+  if (!api) return;
+  const id = desktopExamId(key);
+  if (!id) {
+    trackDesktopWrite(api.settings.set(key, value));
+    return;
+  }
+  const previous = previousSerialized ? JSON.parse(previousSerialized) : {};
+  const answers = value.answers || {};
+  const previousAnswers = previous?.answers || {};
+  const answerChanges = Object.fromEntries(
+    Object.entries(answers).filter(
+      ([questionId, answer]) => JSON.stringify(answer) !== JSON.stringify(previousAnswers[questionId])
+    )
+  );
+  const removedAnswerIds = Object.keys(previousAnswers).filter(questionId => !(questionId in answers));
+  const sessionValue = { ...value };
+  delete sessionValue.answers;
+  const promise = api.exam.save({
+    id,
+    tpoId: String(value.tpoId),
+    section: String(value.section),
+    status: value.status || 'not-started',
+    pageId: value.pageId || null,
+    value: sessionValue,
+    answerChanges,
+    removedAnswerIds
+  });
+  trackDesktopWrite(promise);
+}
+
+function removeDesktop(key) {
+  const id = desktopExamId(key);
+  const promise = id
+    ? desktopData().exam.delete(id)
+    : desktopData().settings.set(key, null);
+  trackDesktopWrite(promise);
+}
 
 export function isPlainObject(value) {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-export function isSafeStorageKey(value) {
-  return (
-    typeof value === 'string' &&
-    value.length > 0 &&
-    value.length <= 200 &&
-    !Object.prototype.hasOwnProperty.call(Object.prototype, value)
-  );
-}
-
 function commit(key, serialized) {
-  if (!available() || suspended) return false;
-  if (lastValues.get(key) === serialized || localStorage.getItem(key) === serialized) {
+  if ((!available() && !desktopValues) || suspended) return false;
+  const current = desktopValues ? desktopValues.get(key) : localStorage.getItem(key);
+  if (lastValues.get(key) === serialized || current === serialized) {
     lastValues.set(key, serialized);
     return true;
   }
   try {
-    localStorage.setItem(key, serialized);
+    if (desktopValues) {
+      desktopValues.set(key, serialized);
+      persistDesktop(key, JSON.parse(serialized), current);
+    } else localStorage.setItem(key, serialized);
     lastValues.set(key, serialized);
     return true;
   } catch {
@@ -38,9 +98,10 @@ function commitJson(key, value) {
 }
 
 export function readLocalJson(key, fallback) {
-  if (!available()) return fallback;
+  if (!available() && !desktopValues) return fallback;
   try {
-    return JSON.parse(localStorage.getItem(key)) ?? fallback;
+    const serialized = desktopValues ? desktopValues.get(key) : localStorage.getItem(key);
+    return JSON.parse(serialized) ?? fallback;
   } catch {
     return fallback;
   }
@@ -52,7 +113,7 @@ export function writeLocalJson(key, value) {
 }
 
 export function scheduleLocalJson(key, value, delay = 300) {
-  if (!available() || suspended) return;
+  if ((!available() && !desktopValues) || suspended) return;
   const pending = pendingWrites.get(key);
   if (pending) clearTimeout(pending.timer);
   pendingWrites.set(key, {
@@ -73,27 +134,28 @@ export function cancelLocalWrite(key) {
 export function removeLocalValue(key) {
   cancelLocalWrite(key);
   lastValues.delete(key);
-  if (available()) localStorage.removeItem(key);
+  if (desktopValues) {
+    desktopValues.delete(key);
+    removeDesktop(key);
+  } else if (available()) localStorage.removeItem(key);
 }
 
-export function flushLocalWrites() {
-  const writes = [...pendingWrites.entries()];
-  pendingWrites.clear();
-  writes.forEach(([key, pending]) => {
-    clearTimeout(pending.timer);
-    commitJson(key, pending.value);
-  });
+export async function flushLocalWrites() {
+  do {
+    const writes = [...pendingWrites.entries()];
+    pendingWrites.clear();
+    writes.forEach(([key, pending]) => {
+      clearTimeout(pending.timer);
+      commitJson(key, pending.value);
+    });
+    await Promise.all([...desktopWrites]);
+  } while (pendingWrites.size || desktopWrites.size);
 }
 
 export function suspendLocalWrites() {
   pendingWrites.forEach(pending => clearTimeout(pending.timer));
   pendingWrites.clear();
   suspended = true;
-}
-
-export function resumeLocalWrites() {
-  suspended = false;
-  lastValues.clear();
 }
 
 export function installPersistenceListeners(target = globalThis.window) {
@@ -108,5 +170,8 @@ export function installPersistenceListeners(target = globalThis.window) {
 
 export function resetLocalPersistenceForTests() {
   suspendLocalWrites();
-  resumeLocalWrites();
+  suspended = false;
+  lastValues.clear();
+  desktopValues = undefined;
+  desktopWrites.clear();
 }

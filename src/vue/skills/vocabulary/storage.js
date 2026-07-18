@@ -6,7 +6,7 @@ import {
   writeLocalJson
 } from '../../platform/localPersistence.js';
 
-export const VOCAB_SETTINGS_KEY = 'toefl:vocabulary:settings';
+const VOCAB_SETTINGS_KEY = 'toefl:vocabulary:settings';
 export const VOCAB_SESSION_KEY = 'toefl:vocabulary:session';
 
 const DEFAULT_SETTINGS = {

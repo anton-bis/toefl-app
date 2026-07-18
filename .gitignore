@@ -27,6 +27,7 @@ Thumbs.db
 # ===== 测试文件 =====
 coverage/
 *.lcov
+.performance/
 
 # ===== 构建产物 =====
 *.min.js
@@ -58,6 +59,7 @@ assets/cache/
 *.wav.cache
 
 # ===== 中间产物（开发过程中产生）=====
+assets/questions/compiled/
 paragraph_inner.txt
 answer-review.json
 questions.json

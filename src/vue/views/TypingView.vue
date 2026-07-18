@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { defineAsyncComponent, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import SkillPageHeader from '../components/SkillPageHeader.vue';
 import ArticleList from '../skills/typing/ArticleList.vue';
@@ -12,6 +12,7 @@ const TypingHistory = defineAsyncComponent(() => import('../skills/typing/Typing
 const TypingPractice = defineAsyncComponent(() => import('../skills/typing/TypingPractice.vue'));
 const TypingResult = defineAsyncComponent(() => import('../skills/typing/TypingResult.vue'));
 onMounted(() => store.initialize());
+onUnmounted(() => store.releaseWorkset());
 const goHome = () => router.push({ name: 'home' });
 </script>
 

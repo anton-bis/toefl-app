@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { markRaw } from 'vue';
 import { computeMetrics, createCharacters, maxSecondsFor } from './logic.js';
 import { loadTypingHistory, replaceTypingHistory } from '../../platform/dataRepository.js';
 import {
@@ -75,6 +76,7 @@ function elapsed(session, now = Date.now()) {
 export const useTypingStore = defineStore('typing', {
   state: () => ({
     initialized: false,
+    lifecycleGeneration: 0,
     page: 'list',
     articles: [],
     loading: false,
@@ -87,17 +89,18 @@ export const useTypingStore = defineStore('typing', {
     best: {}
   }),
   getters: {
-    canResume: state => Boolean(state.session && state.article),
     currentIndex: state => state.session?.currentIndex || 0,
     isPaused: state => Boolean(state.session?.paused)
   },
   actions: {
     async initialize() {
       if (this.initialized || this.loading) return;
+      const generation = this.lifecycleGeneration;
       this.loading = true;
       this.error = '';
       try {
         const history = await loadTypingHistory();
+        if (generation !== this.lifecycleGeneration) return;
         this.history = (Array.isArray(history) ? history : []).filter(
           record =>
             isPlainObject(record) &&
@@ -109,7 +112,8 @@ export const useTypingStore = defineStore('typing', {
         const response = await fetch('assets/questions/typing/corpus.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const corpus = await response.json();
-        this.articles = corpus.filter(article => article.content?.trim());
+        if (generation !== this.lifecycleGeneration) return;
+        this.articles = markRaw(corpus.filter(article => article.content?.trim()));
         const saved = readLocalJson(TYPING_SESSION_KEY, null);
         const article = this.articles.find(item => item.id === saved?.articleId);
         const restored = article ? restoredSession(saved, article) : null;
@@ -122,7 +126,7 @@ export const useTypingStore = defineStore('typing', {
       } catch (error) {
         this.error = `Unable to load typing articles: ${error.message}`;
       } finally {
-        this.loading = false;
+        if (generation === this.lifecycleGeneration) this.loading = false;
       }
     },
     toggleDifficulty(difficulty) {
@@ -206,28 +210,35 @@ export const useTypingStore = defineStore('typing', {
       replaceTypingHistory(this.history).catch(error => {
         this.error = `Unable to save typing history: ${error.message}`;
       });
-      this.cancelSessionPersist();
       removeLocalValue(TYPING_SESSION_KEY);
       this.session = null;
       this.page = 'result';
     },
     persistSession() {
-      this.cancelSessionPersist();
       if (this.session) writeLocalJson(TYPING_SESSION_KEY, serializedSession(this.session));
     },
     scheduleSessionPersist(delay = 500, now = Date.now()) {
       if (this.session)
         scheduleLocalJson(TYPING_SESSION_KEY, serializedSession(this.session, now), delay);
     },
-    cancelSessionPersist() {
-      // A following immediate write/removal cancels the shared pending entry.
+    releaseWorkset() {
+      this.lifecycleGeneration += 1;
+      this.initialized = false;
+      this.loading = false;
+      this.error = '';
+      this.page = 'list';
+      this.articles = [];
+      this.article = null;
+      this.session = null;
+      this.result = null;
+      this.history = [];
+      this.best = {};
     },
     backToList() {
       this.page = 'list';
       this.article = null;
       this.session = null;
       this.result = null;
-      this.cancelSessionPersist();
       removeLocalValue(TYPING_SESSION_KEY);
     }
   }
