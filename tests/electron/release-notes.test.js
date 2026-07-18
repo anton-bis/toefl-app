@@ -37,3 +37,13 @@ test('current release notes contain the changelog and artifact hashes', () => {
   assert.match(notes, new RegExp(`\\* ${hash.toUpperCase()}`));
   assert.doesNotMatch(notes, /compare\/v|## Downloads|## Verify downloads/);
 });
+
+test('macOS release signing variables are exported only when secrets are configured', () => {
+  const workflow = fs.readFileSync(
+    new URL('../../.github/workflows/release.yml', import.meta.url),
+    'utf8'
+  );
+  assert.doesNotMatch(workflow, /^\s+CSC_LINK:\s*\$\{\{\s*secrets\./m);
+  assert.match(workflow, /if \[\[ -n "\$MAC_CERTIFICATE" \]\]; then/);
+  assert.match(workflow, /export CSC_LINK="\$MAC_CERTIFICATE"/);
+});

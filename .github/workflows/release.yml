@@ -125,13 +125,29 @@ jobs:
         run: npm run electron:prepare
 
       - name: Build universal macOS packages
-        run: npm run release:macos
         env:
-          CSC_LINK: ${{ secrets.MAC_CERTIFICATE }}
-          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MAC_CERTIFICATE: ${{ secrets.MAC_CERTIFICATE }}
+          MAC_CERTIFICATE_PASSWORD: ${{ secrets.MAC_CERTIFICATE_PASSWORD }}
+          MAC_APPLE_ID: ${{ secrets.APPLE_ID }}
+          MAC_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          MAC_APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          if [[ -n "$MAC_CERTIFICATE" ]]; then
+            export CSC_LINK="$MAC_CERTIFICATE"
+            export CSC_KEY_PASSWORD="$MAC_CERTIFICATE_PASSWORD"
+          fi
+
+          if [[ -n "$MAC_APPLE_ID$MAC_APPLE_APP_SPECIFIC_PASSWORD$MAC_APPLE_TEAM_ID" ]]; then
+            if [[ -z "$MAC_CERTIFICATE" || -z "$MAC_APPLE_ID" || -z "$MAC_APPLE_APP_SPECIFIC_PASSWORD" || -z "$MAC_APPLE_TEAM_ID" ]]; then
+              echo "macOS notarization requires the certificate and all Apple notarization secrets."
+              exit 1
+            fi
+            export APPLE_ID="$MAC_APPLE_ID"
+            export APPLE_APP_SPECIFIC_PASSWORD="$MAC_APPLE_APP_SPECIFIC_PASSWORD"
+            export APPLE_TEAM_ID="$MAC_APPLE_TEAM_ID"
+          fi
+
+          npm run release:macos
 
       - name: Upload release files
         uses: actions/upload-artifact@v6
