@@ -12,6 +12,7 @@
 
 ```text
 src/
+  ai/            平台无关的 AI 评分规则与领域模型
   content/       Markdown 题库解析、校验与统一内容模型
   vue/
     components/  通用 UI
@@ -31,13 +32,13 @@ tests/           Node 与 Vitest 测试
 
 ## 当前版本
 
-v1.4.0（Vue 3 重构版），Node >= 20.19。
+v1.4.1（Vue 3 重构版），Node >= 24。
 
 ## 常用命令
 
 - `npm run dev`：生成题库清单并启动 Vite 开发服务器
 - `npm run build`：生产构建并检查每个 JS/CSS 文件不超过 100KB
-- `npm test`：内容（44 Node）+ Vue（62 Vitest）共 106 个测试
+- `npm test`：Node（54）+ Vitest（93）共 147 个测试
 - `npm run lint`：检查 Vue、内容解析和 Electron 代码
 - `npm run electron:dev`：构建后启动 Electron
 - `npm run electron:build`：构建、混淆并打包 Electron
@@ -50,7 +51,7 @@ v1.4.0（Vue 3 重构版），Node >= 20.19。
 | 修改 `src/core/`、`src/modules/` 下的 JS | 修改 `src/vue/` 下的 `.vue` 和 `.js` |
 | `npm run dev` 用于开发前端 | `npm run dev` 生成清单后启动 Vite |
 | 加新 TPO → 写 Markdown + 跑生成脚本 | 加新 TPO → 只写 Markdown（放到 `assets/questions/` 下） |
-| 无正式测试 | `npm test` 覆盖全部 106 个测试 |
+| 无正式测试 | `npm test` 覆盖全部 147 个测试 |
 
 ## 加新 TPO 题库步骤
 

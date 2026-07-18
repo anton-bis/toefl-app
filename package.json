@@ -12,18 +12,16 @@
     "content:manifest": "node scripts/generate-question-manifest.js",
     "build": "npm run content:manifest && vite build && node scripts/check-bundle-size.js",
     "preview": "vite preview",
-    "start": "vite --host",
     "test": "node --test tests/content/content.test.js tests/electron/*.test.js && vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src/vue src/content electron --ext .js,.cjs,.vue",
+    "lint": "eslint src/vue src/content src/ai electron --ext .js,.cjs,.vue",
     "format": "prettier --write \"src/**/*.{js,vue,css}\"",
     "clean": "rm -rf dist build node_modules",
     "electron:dev": "cross-env ELECTRON=true npm run build && electron electron/main.js",
     "electron:build": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js && electron-builder",
     "electron:pack": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js && electron-builder --dir",
-    "electron:build-only": "cross-env ELECTRON=true npm run build",
-    "obfuscate": "node scripts/obfuscate.js",
-    "build:obfuscated": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js"
+    "perf:baseline": "cross-env ELECTRON=true npm run build && node scripts/measure-electron.js",
+    "obfuscate": "node scripts/obfuscate.js"
   },
   "keywords": [
     "toefl",
@@ -61,7 +59,7 @@
     "vue-router": "^4.6.4"
   },
   "engines": {
-    "node": ">=20.19.0",
+    "node": ">=24.0.0",
     "npm": ">=9.0.0"
   },
   "repository": {
