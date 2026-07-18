@@ -1,10 +1,7 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import test from 'node:test';
-import {
-  normalizeContentPath,
-  resolveContentFile
-} from '../../electron/services/content-paths.js';
+import { normalizeContentPath, resolveContentFile } from '../../electron/services/content-paths.js';
 import { RUNTIME_CONTENT_EXTENSIONS } from '../../electron/services/runtime-content.js';
 
 test('content paths normalize relative assets and reject unsafe paths', () => {

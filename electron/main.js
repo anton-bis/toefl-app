@@ -15,6 +15,7 @@ import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { normalizeContentPath } from './services/content-paths.js';
 import { registerDataStorageIpc } from './services/database.js';
+import { writePerformanceSnapshot } from './services/performance.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const startupStartedAt = performance.now();
@@ -140,55 +141,6 @@ function flushRendererData(timeout = 3000, suspend = false) {
   });
 }
 
-async function writePerformanceSnapshot(window, readyToShowMs) {
-  const outputPath = process.env.TOEFL_PERF_OUTPUT;
-  if (!outputPath) return;
-  const initialCpu = process.getCPUUsage();
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  const renderer = await window.webContents.executeJavaScript(`(() => {
-    const navigation = performance.getEntriesByType('navigation')[0];
-    return {
-      domNodes: document.getElementsByTagName('*').length,
-      heap: performance.memory ? {
-        used: performance.memory.usedJSHeapSize,
-        total: performance.memory.totalJSHeapSize,
-        limit: performance.memory.jsHeapSizeLimit
-      } : null,
-      navigation: navigation ? {
-        domContentLoaded: navigation.domContentLoadedEventEnd,
-        load: navigation.loadEventEnd,
-        transferSize: navigation.transferSize,
-        decodedBodySize: navigation.decodedBodySize
-      } : null
-    };
-  })()`);
-  const processes = app.getAppMetrics().map(metric => ({
-    type: metric.type,
-    pid: metric.pid,
-    cpuPercent: metric.cpu.percentCPUUsage,
-    memory: metric.memory
-  }));
-  const snapshot = {
-    capturedAt: new Date().toISOString(),
-    readyToShowMs,
-    route: process.env.TOEFL_PERF_ROUTE || '/',
-    hidden: process.env.TOEFL_PERF_HIDDEN === '1',
-    mainCpu: process.getCPUUsage(initialCpu),
-    renderer,
-    processes,
-    totals: {
-      workingSetSize: processes.reduce((sum, item) => sum + item.memory.workingSetSize, 0),
-      privateBytes: processes.reduce((sum, item) => sum + item.memory.privateBytes, 0),
-      rendererCpuPercent: processes
-        .filter(item => ['Tab', 'Renderer'].includes(item.type))
-        .reduce((sum, item) => sum + item.cpuPercent, 0)
-    }
-  };
-  await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
-  await fs.promises.writeFile(outputPath, `${JSON.stringify(snapshot, null, 2)}\n`);
-  if (process.env.TOEFL_PERF_EXIT === '1') app.quit();
-}
-
 async function checkAppUpdate() {
   if (!canRunBackgroundWork()) return;
   const updater = await getAutoUpdater();
@@ -284,9 +236,11 @@ function createWindow() {
   // Show the window once it is ready.
   mainWindow.once('ready-to-show', () => {
     if (process.env.TOEFL_PERF_HIDDEN !== '1') mainWindow.show();
-    writePerformanceSnapshot(mainWindow, performance.now() - startupStartedAt).catch(error =>
-      console.warn('Performance snapshot failed:', error.message)
-    );
+    writePerformanceSnapshot({
+      app,
+      window: mainWindow,
+      readyToShowMs: performance.now() - startupStartedAt
+    }).catch(error => console.warn('Performance snapshot failed:', error.message));
 
     scheduleBackgroundChecks();
   });
@@ -304,30 +258,32 @@ function createWindow() {
     event.preventDefault();
     if (closePending) return;
     closePending = true;
-    flushRendererData().then(() => {
-      closePending = false;
-      closeAllowed = true;
-      if (quittingRequested) app.quit();
-      else mainWindow?.close();
-    }).catch(async error => {
-      closePending = false;
-      const requestedQuit = quittingRequested;
-      const { response } = await dialog.showMessageBox(mainWindow, {
-        type: 'error',
-        title: 'Could Not Save Changes',
-        message: 'The latest practice data could not be saved.',
-        detail: error.message,
-        buttons: ['Retry', 'Cancel'],
-        defaultId: 0,
-        cancelId: 1
-      });
-      if (response === 0) {
-        if (requestedQuit) app.quit();
+    flushRendererData()
+      .then(() => {
+        closePending = false;
+        closeAllowed = true;
+        if (quittingRequested) app.quit();
         else mainWindow?.close();
-      } else {
-        quittingRequested = false;
-      }
-    });
+      })
+      .catch(async error => {
+        closePending = false;
+        const requestedQuit = quittingRequested;
+        const { response } = await dialog.showMessageBox(mainWindow, {
+          type: 'error',
+          title: 'Could Not Save Changes',
+          message: 'The latest practice data could not be saved.',
+          detail: error.message,
+          buttons: ['Retry', 'Cancel'],
+          defaultId: 0,
+          cancelId: 1
+        });
+        if (response === 0) {
+          if (requestedQuit) app.quit();
+          else mainWindow?.close();
+        } else {
+          quittingRequested = false;
+        }
+      });
   });
 
   // Open external links in the default browser.
@@ -353,21 +309,21 @@ function createApplicationMenu() {
     // Application menu on macOS
     ...(isMac
       ? [
-        {
-          label: app.name,
-          submenu: [
-            { role: 'about' },
-            { type: 'separator' },
-            { role: 'services' },
-            { type: 'separator' },
-            { role: 'hide' },
-            { role: 'hideOthers' },
-            { role: 'unhide' },
-            { type: 'separator' },
-            { role: 'quit' }
-          ]
-        }
-      ]
+          {
+            label: app.name,
+            submenu: [
+              { role: 'about' },
+              { type: 'separator' },
+              { role: 'services' },
+              { type: 'separator' },
+              { role: 'hide' },
+              { role: 'hideOthers' },
+              { role: 'unhide' },
+              { type: 'separator' },
+              { role: 'quit' }
+            ]
+          }
+        ]
       : []),
     // File menu
     {
@@ -398,15 +354,15 @@ function createApplicationMenu() {
         { role: 'paste' },
         ...(isMac
           ? [
-            { role: 'pasteAndMatchStyle' },
-            { role: 'delete' },
-            { role: 'selectAll' },
-            { type: 'separator' },
-            {
-              label: 'Speech',
-              submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }]
-            }
-          ]
+              { role: 'pasteAndMatchStyle' },
+              { role: 'delete' },
+              { role: 'selectAll' },
+              { type: 'separator' },
+              {
+                label: 'Speech',
+                submenu: [{ role: 'startSpeaking' }, { role: 'stopSpeaking' }]
+              }
+            ]
           : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }])
       ]
     },

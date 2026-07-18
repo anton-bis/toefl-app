@@ -6,30 +6,52 @@ import { Worker } from 'node:worker_threads';
 const IDLE_TIMEOUT_MS = 30_000;
 const MAX_RECORDING_BYTES = 50 * 1024 * 1024;
 const MAX_REQUEST_BYTES = 2 * 1024 * 1024;
-const PUBLIC_OPERATIONS = new Set([
-  'bootstrap',
-  'settings:set',
-  'exam:save',
-  'exam:delete',
-  'exam:listCompleted',
-  'vocabulary:list',
-  'vocabulary:save',
-  'vocabulary:overview',
-  'typing:list',
-  'typing:replace',
-  'recording:save',
-  'recording:load',
-  'recording:remove',
-  'recording:removeSession'
-]);
-const IDENTIFIER_FIELDS = {
-  'settings:set': ['key'],
-  'exam:save': ['id', 'tpoId', 'section', 'status'],
-  'exam:delete': ['id'],
-  'vocabulary:save': ['subject', 'setId'],
-  'recording:load': ['sessionId', 'questionId'],
-  'recording:remove': ['sessionId', 'questionId'],
-  'recording:removeSession': ['sessionId']
+const PUBLIC_OPERATIONS = {
+  bootstrap: {},
+  'settings:set': { identifiers: ['key'] },
+  'exam:save': {
+    identifiers: ['id', 'tpoId', 'section', 'status'],
+    validate(payload) {
+      if (!['not-started', 'in-progress', 'completed'].includes(payload.status)) {
+        throw new TypeError('Invalid exam status');
+      }
+      if (
+        payload.answers !== undefined &&
+        (!payload.answers || typeof payload.answers !== 'object' || Array.isArray(payload.answers))
+      ) {
+        throw new TypeError('Invalid exam answers');
+      }
+    }
+  },
+  'exam:delete': { identifiers: ['id'] },
+  'exam:listCompleted': {},
+  'vocabulary:list': {},
+  'vocabulary:save': {
+    identifiers: ['subject', 'setId'],
+    validate(payload) {
+      if (payload.wordId !== undefined) assertIdentifier(payload.wordId, 'wordId');
+    }
+  },
+  'vocabulary:overview': {},
+  'typing:list': {},
+  'typing:replace': {
+    validate(payload) {
+      if (!Array.isArray(payload.history)) throw new TypeError('Invalid typing history');
+    }
+  },
+  'recording:save': { handler: 'saveRecording', binary: true },
+  'recording:load': {
+    handler: 'loadRecording',
+    identifiers: ['sessionId', 'questionId']
+  },
+  'recording:remove': {
+    handler: 'removeRecording',
+    identifiers: ['sessionId', 'questionId']
+  },
+  'recording:removeSession': {
+    handler: 'removeRecording',
+    identifiers: ['sessionId']
+  }
 };
 const MIME_EXTENSIONS = new Map([
   ['audio/webm', '.webm'],
@@ -57,36 +79,61 @@ function recordingName(sessionId, questionId, mime) {
 }
 
 function recordingMime(value) {
-  if (typeof value !== 'string' || value.length > 100) throw new TypeError('Unsupported recording type');
+  if (typeof value !== 'string' || value.length > 100)
+    throw new TypeError('Unsupported recording type');
   const base = value.split(';', 1)[0].trim().toLowerCase();
   if (!MIME_EXTENSIONS.has(base)) throw new TypeError('Unsupported recording type');
   return { base, value };
 }
 
+async function moveToBackup(source, backup) {
+  try {
+    await fs.rename(source, backup);
+    return true;
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+    return false;
+  }
+}
+
+async function replaceRecordingFile({ temporary, destination, backup, commit }) {
+  const backedUp = await moveToBackup(destination, backup);
+  try {
+    await fs.rename(temporary, destination);
+    await commit();
+    await fs.rm(backup, { force: true }).catch(() => {});
+  } catch (error) {
+    await fs.rm(temporary, { force: true }).catch(() => {});
+    await fs.rm(destination, { force: true }).catch(() => {});
+    if (backedUp) await fs.rename(backup, destination).catch(() => {});
+    throw error;
+  }
+}
+
 function validatePublicRequest(operation, payload) {
-  if (!PUBLIC_OPERATIONS.has(operation)) throw new Error('Unsupported data storage operation');
+  if (!Object.hasOwn(PUBLIC_OPERATIONS, operation)) {
+    throw new Error('Unsupported data storage operation');
+  }
+  const definition = PUBLIC_OPERATIONS[operation];
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     throw new TypeError('Invalid data storage payload');
   }
-  if (operation === 'recording:save') return;
-  let serialized;
-  try {
-    serialized = JSON.stringify(payload);
-  } catch {
-    throw new TypeError('Invalid data storage payload');
+  if (!definition.binary) {
+    let serialized;
+    try {
+      serialized = JSON.stringify(payload);
+    } catch {
+      throw new TypeError('Invalid data storage payload');
+    }
+    if (Buffer.byteLength(serialized) > MAX_REQUEST_BYTES) {
+      throw new RangeError('Data storage request is too large');
+    }
   }
-  if (Buffer.byteLength(serialized) > MAX_REQUEST_BYTES) {
-    throw new RangeError('Data storage request is too large');
-  }
-  for (const field of IDENTIFIER_FIELDS[operation] || []) {
+  for (const field of definition.identifiers || []) {
     assertIdentifier(payload[field], field);
   }
-  if (operation === 'vocabulary:save' && payload.wordId !== undefined) {
-    assertIdentifier(payload.wordId, 'wordId');
-  }
-  if (operation === 'typing:replace' && !Array.isArray(payload.history)) {
-    throw new TypeError('Invalid typing history');
-  }
+  definition.validate?.(payload);
+  return definition;
 }
 
 export class DataStorage {
@@ -189,34 +236,26 @@ export class DataStorage {
     const previous = await this.request('recording:get', { sessionId, questionId });
     const updatedAt = Date.now();
     await fs.writeFile(temporary, data, { flag: 'wx', mode: 0o600 });
-    let backedUp = false;
-    try {
-      try {
-        await fs.rename(destination, backup);
-        backedUp = true;
-      } catch (error) {
-        if (error?.code !== 'ENOENT') throw error;
-      }
-      await fs.rename(temporary, destination);
-      await this.request('recording:upsert', {
-        sessionId,
-        questionId,
-        relativePath: name,
-        mime: normalizedMime.value,
-        size: data.length,
-        updatedAt
-      });
-      await fs.rm(backup, { force: true }).catch(() => {});
-      if (previous?.relativePath && previous.relativePath !== name) {
-        await fs.rm(path.join(this.#recordingsPath, path.basename(previous.relativePath)), {
+    await replaceRecordingFile({
+      temporary,
+      destination,
+      backup,
+      commit: () =>
+        this.request('recording:upsert', {
+          sessionId,
+          questionId,
+          relativePath: name,
+          mime: normalizedMime.value,
+          size: data.length,
+          updatedAt
+        })
+    });
+    if (previous?.relativePath && previous.relativePath !== name) {
+      await fs
+        .rm(path.join(this.#recordingsPath, path.basename(previous.relativePath)), {
           force: true
-        }).catch(() => {});
-      }
-    } catch (error) {
-      await fs.rm(temporary, { force: true }).catch(() => {});
-      await fs.rm(destination, { force: true }).catch(() => {});
-      if (backedUp) await fs.rename(backup, destination).catch(() => {});
-      throw error;
+        })
+        .catch(() => {});
     }
     return {
       sessionId,
@@ -272,11 +311,8 @@ export class DataStorage {
   }
 
   async dispatch(operation, payload) {
-    validatePublicRequest(operation, payload || {});
-    if (operation === 'recording:save') return this.saveRecording(payload);
-    if (operation === 'recording:load') return this.loadRecording(payload);
-    if (operation === 'recording:remove') return this.removeRecording(payload);
-    if (operation === 'recording:removeSession') return this.removeRecording(payload);
+    const definition = validatePublicRequest(operation, payload || {});
+    if (definition.handler) return this[definition.handler](payload);
     return this.request(operation, payload);
   }
 

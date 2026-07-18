@@ -1,5 +1,6 @@
 const DATA_DB_NAME = 'toefl-data';
-const DATA_DB_VERSION = 2;
+// IndexedDB requires a numeric database generation when stores are created.
+const DATA_DB_GENERATION = 2;
 
 const STORES = {
   recordings: 'recordings',
@@ -31,12 +32,12 @@ function requestResult(request, message) {
 export function openDataDatabase() {
   if (typeof indexedDB === 'undefined') {
     return Promise.reject(
-      new Error('Your browser can\'t save learning progress because IndexedDB is unavailable')
+      new Error("Your browser can't save learning progress because IndexedDB is unavailable")
     );
   }
   if (databasePromise) return databasePromise;
   databasePromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open(DATA_DB_NAME, DATA_DB_VERSION);
+    const request = indexedDB.open(DATA_DB_NAME, DATA_DB_GENERATION);
     request.onupgradeneeded = () => {
       const database = request.result;
       Object.values(STORES).forEach(name => {
@@ -63,7 +64,7 @@ export function openDataDatabase() {
       };
       resolve(database);
     };
-    request.onerror = () => reject(request.error || new Error('Couldn\'t open learning data'));
+    request.onerror = () => reject(request.error || new Error("Couldn't open learning data"));
     request.onblocked = () =>
       reject(new Error('Learning data is open in another window. Close it and try again.'));
   });
@@ -82,7 +83,7 @@ async function runTransaction(storeNames, mode, operation) {
     const fail = error => {
       if (settled) return;
       settled = true;
-      reject(error || new Error('Couldn\'t update learning data'));
+      reject(error || new Error("Couldn't update learning data"));
     };
     transaction.oncomplete = () => {
       if (settled) return;
@@ -111,10 +112,10 @@ async function getAll(storeName, indexName, query) {
     request.onsuccess = () => {
       result = request.result;
     };
-    request.onerror = () => reject(request.error || new Error('Couldn\'t read learning data'));
+    request.onerror = () => reject(request.error || new Error("Couldn't read learning data"));
     transaction.oncomplete = () => resolve(result);
     transaction.onerror = () =>
-      reject(transaction.error || new Error('Couldn\'t read learning data'));
+      reject(transaction.error || new Error("Couldn't read learning data"));
     transaction.onabort = () =>
       reject(transaction.error || new Error('Reading learning data was canceled'));
   });
@@ -299,7 +300,7 @@ export const recordingRepository = {
     const transaction = database.transaction(STORES.recordings, 'readonly');
     const record = await requestResult(
       transaction.objectStore(STORES.recordings).get(recordingKey(sessionId, questionId)),
-      'Couldn\'t read the recording'
+      "Couldn't read the recording"
     );
     return record?.blob instanceof Blob ? record.blob : null;
   },

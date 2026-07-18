@@ -6,15 +6,21 @@ import { app, net } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import {
+  assertCompiledMetadata,
+  assertQuestionManifest,
+  canonicalQuestionEntries,
+  RUNTIME_CONTENT_EXTENSIONS
+} from './runtime-content.js';
 import { normalizeContentPath, resolveContentFile } from './content-paths.js';
-import { RUNTIME_CONTENT_EXTENSIONS } from './runtime-content.js';
 
 const MANIFEST_URL =
   'https://raw.githubusercontent.com/anton-bis/toefl-content/master/manifest.json';
 const CONTENT_DIR_NAME = 'tpo-content';
 const MAX_MANIFEST_BYTES = 2 * 1024 * 1024;
 const MAX_CONTENT_BYTES = 50 * 1024 * 1024;
-const { access, mkdir, readFile, rename, rm, writeFile } = fs.promises;
+const { access, cp, mkdir, readFile, rename, rm, writeFile } = fs.promises;
+const CONTENT_SECTIONS = new Set(['reading', 'listening', 'writing', 'speaking']);
 
 function getContentDir() {
   return path.join(app.getPath('userData'), CONTENT_DIR_NAME);
@@ -49,14 +55,23 @@ function validateRemoteUrl(value) {
 
 function validateUpdateItem(item) {
   if (!item || typeof item !== 'object') throw new Error('Invalid content update entry.');
-  const relativePath = normalizeContentPath(item.path);
-  const target = resolveContentFile(getContentDir(), relativePath);
-  if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(target).toLowerCase())) {
+  const relativePath = normalizeUpdatePath(item.path);
+  if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(relativePath).toLowerCase())) {
     throw new Error(`Unsupported content type: ${item.path}`);
   }
   const url = validateRemoteUrl(item.url).toString();
-  if (!/^[a-f\d]{64}$/i.test(item.sha256 || '')) throw new Error('Missing SHA-256 checksum.');
-  return { ...item, relativePath, url, target };
+  if (item.sha256 && !/^[a-f\d]{64}$/i.test(item.sha256)) {
+    throw new Error('Invalid SHA-256 checksum.');
+  }
+  return { ...item, relativePath, url };
+}
+
+function normalizeUpdatePath(value) {
+  const pathValue = normalizeContentPath(value);
+  if (pathValue.startsWith('assets/')) return pathValue;
+  if (pathValue.startsWith('questions/')) return `assets/${pathValue}`;
+  const [section] = pathValue.split('/');
+  return CONTENT_SECTIONS.has(section) ? `assets/questions/${pathValue}` : pathValue;
 }
 
 function validateManifest(manifest) {
@@ -73,51 +88,11 @@ function validateManifest(manifest) {
   return { ...manifest, updates: manifest.updates.map(validateUpdateItem) };
 }
 
-function fetchUrl(value, maxBytes, redirectCount = 0) {
+function fetchUrl(value, { maxBytes, expectedHash = '', redirectCount = 0 }) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many redirects.'));
   const url = validateRemoteUrl(value).toString();
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: 'GET' });
-    request.on('response', response => {
-      if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-        const loc = response.headers.location;
-        const redirected = new URL(Array.isArray(loc) ? loc[0] : loc, url).toString();
-        return fetchUrl(redirected, maxBytes, redirectCount + 1)
-          .then(resolve)
-          .catch(reject);
-      }
-      if (response.statusCode !== 200) {
-        reject(new Error(`HTTP ${response.statusCode}: ${url}`));
-        return;
-      }
-      const chunks = [];
-      let total = 0;
-      response.on('data', chunk => {
-        total += chunk.length;
-        if (total > maxBytes) {
-          request.abort();
-          reject(new Error(`The download exceeds the ${maxBytes}-byte limit.`));
-          return;
-        }
-        chunks.push(Buffer.from(chunk));
-      });
-      response.on('end', () => resolve(Buffer.concat(chunks)));
-    });
-    request.on('error', reject);
-    request.end();
-  });
-}
-
-async function fetchManifest() {
-  const data = await fetchUrl(MANIFEST_URL, MAX_MANIFEST_BYTES);
-  return validateManifest(JSON.parse(data.toString('utf-8')));
-}
-
-function downloadContent(url, target, expectedHash = '', redirectCount = 0) {
-  if (redirectCount > 5) return Promise.reject(new Error('Too many redirects.'));
-  const safeUrl = validateRemoteUrl(url).toString();
-  return new Promise((resolve, reject) => {
-    const request = net.request({ url: safeUrl, method: 'GET' });
     let settled = false;
     const fail = error => {
       if (settled) return;
@@ -127,55 +102,61 @@ function downloadContent(url, target, expectedHash = '', redirectCount = 0) {
     request.on('response', response => {
       if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
         settled = true;
-        const location = response.headers.location;
-        const redirected = new URL(
-          Array.isArray(location) ? location[0] : location,
-          safeUrl
-        ).toString();
-        downloadContent(redirected, target, expectedHash, redirectCount + 1)
+        const loc = response.headers.location;
+        const redirected = new URL(Array.isArray(loc) ? loc[0] : loc, url).toString();
+        Promise.resolve()
+          .then(() =>
+            fetchUrl(redirected, {
+              maxBytes,
+              expectedHash,
+              redirectCount: redirectCount + 1
+            })
+          )
           .then(resolve)
           .catch(reject);
         return;
       }
       if (response.statusCode !== 200) {
-        fail(new Error(`HTTP ${response.statusCode}: ${safeUrl}`));
+        fail(new Error(`HTTP ${response.statusCode}: ${url}`));
         return;
       }
-      const output = fs.createWriteStream(target, { mode: 0o600 });
-      const hash = crypto.createHash('sha256');
+      const chunks = [];
       let total = 0;
       response.on('data', chunk => {
         total += chunk.length;
-        if (total > MAX_CONTENT_BYTES) {
+        if (total > maxBytes) {
           request.abort();
-          output.destroy();
-          fail(new Error(`The download exceeds the ${MAX_CONTENT_BYTES}-byte limit.`));
+          fail(new Error(`The download exceeds the ${maxBytes}-byte limit.`));
           return;
         }
-        hash.update(chunk);
-        if (!output.write(chunk)) {
-          response.pause();
-          output.once('drain', () => response.resume());
-        }
+        chunks.push(Buffer.from(chunk));
       });
-      response.on('end', () => output.end());
       response.on('error', fail);
-      output.on('error', fail);
-      output.on('finish', () => {
-        const actualHash = hash.digest('hex');
+      response.on('end', () => {
+        if (settled) return;
+        const data = Buffer.concat(chunks);
+        const actualHash = crypto.createHash('sha256').update(data).digest('hex');
         if (expectedHash && actualHash.toLowerCase() !== expectedHash.toLowerCase()) {
-          fail(new Error(`SHA-256 mismatch: ${safeUrl}`));
+          fail(new Error(`SHA-256 mismatch: ${url}`));
           return;
         }
-        if (!settled) {
-          settled = true;
-          resolve();
-        }
+        settled = true;
+        resolve(data);
       });
     });
     request.on('error', fail);
     request.end();
   });
+}
+
+async function fetchManifest() {
+  const data = await fetchUrl(MANIFEST_URL, { maxBytes: MAX_MANIFEST_BYTES });
+  return validateManifest(JSON.parse(data.toString('utf-8')));
+}
+
+async function downloadContent(url, target, expectedHash) {
+  const data = await fetchUrl(url, { maxBytes: MAX_CONTENT_BYTES, expectedHash });
+  await writeFile(target, data, { mode: 0o600 });
 }
 
 export async function checkForContentUpdates() {
@@ -195,7 +176,7 @@ export async function checkForContentUpdates() {
         url,
         ...(sha256 ? { sha256 } : {})
       })),
-      updateCount: (manifest.updates || []).length
+      updateCount: manifest.updates.length
     };
   } catch (error) {
     console.error('Content update check failed:', error.message);
@@ -203,61 +184,92 @@ export async function checkForContentUpdates() {
   }
 }
 
+async function stageUpdates(items, stagingRoot) {
+  const contentRoot = getContentDir();
+  if (await exists(contentRoot)) await cp(contentRoot, stagingRoot, { recursive: true });
+  await mkdir(stagingRoot, { recursive: true });
+  for (const item of items) {
+    const staged = resolveContentFile(stagingRoot, item.relativePath);
+    await mkdir(path.dirname(staged), { recursive: true });
+    await downloadContent(item.url, staged, item.sha256);
+  }
+  const compiledManifest = 'assets/questions/compiled/manifest.json';
+  const updatesCompiledContent = items.some(item =>
+    item.relativePath.startsWith('assets/questions/compiled/')
+  );
+  const includesCompiledManifest = items.some(item => item.relativePath === compiledManifest);
+  if (updatesCompiledContent && !includesCompiledManifest) {
+    throw new Error('Compiled content updates must include their manifest.');
+  }
+  if (includesCompiledManifest) await validateCompiledRelease(stagingRoot);
+}
+
+async function commitStagedRelease(state) {
+  if (await exists(state.contentRoot)) {
+    await rename(state.contentRoot, state.backupRoot);
+    state.backedUp = true;
+  }
+  await rename(state.stagingRoot, state.contentRoot);
+  state.committed = true;
+  if (state.backedUp) {
+    await rm(state.backupRoot, { recursive: true, force: true }).catch(error =>
+      console.warn('Old content backup cleanup failed:', error.message)
+    );
+  }
+}
+
+async function rollbackRelease(state, originalError) {
+  let failure = originalError;
+  if (state.committed && (await exists(state.contentRoot))) {
+    await rm(state.contentRoot, { recursive: true, force: true });
+  }
+  if (!state.backedUp || !(await exists(state.backupRoot))) return failure;
+  try {
+    await rename(state.backupRoot, state.contentRoot);
+  } catch (rollbackError) {
+    state.preserveBackup = true;
+    failure = new Error(
+      `${originalError.message} Recovery copy preserved at ${state.backupRoot}: ${rollbackError.message}`
+    );
+  }
+  return failure;
+}
+
+async function cleanupRelease(state) {
+  await rm(state.stagingRoot, { recursive: true, force: true }).catch(() => {});
+  if (!state.preserveBackup) {
+    await rm(state.backupRoot, { recursive: true, force: true }).catch(() => {});
+  }
+}
+
 async function applyContentUpdates(updates) {
-  const items = updates.map(validateUpdateItem);
+  const items = updates;
   const contentRoot = getContentDir();
   const parent = path.dirname(contentRoot);
-  const stagingRoot = path.join(parent, `.tpo-content-staging-${process.pid}-${Date.now()}`);
-  const backupRoot = path.join(parent, `.tpo-content-backup-${process.pid}-${Date.now()}`);
-  let backedUp = false;
-  let committed = false;
-  let preserveBackup = false;
-  await mkdir(stagingRoot, { recursive: true });
+  const suffix = `${process.pid}-${Date.now()}`;
+  const state = {
+    contentRoot,
+    stagingRoot: path.join(parent, `.tpo-content-staging-${suffix}`),
+    backupRoot: path.join(parent, `.tpo-content-backup-${suffix}`),
+    backedUp: false,
+    committed: false,
+    preserveBackup: false
+  };
   try {
-    for (const item of items) {
-      const staged = resolveContentFile(stagingRoot, item.relativePath);
-      await mkdir(path.dirname(staged), { recursive: true });
-      await downloadContent(item.url, staged, item.sha256);
-      item.staged = staged;
-    }
-    await validateCompiledRelease(stagingRoot);
-    if (await exists(contentRoot)) {
-      await rename(contentRoot, backupRoot);
-      backedUp = true;
-    }
-    await rename(stagingRoot, contentRoot);
-    committed = true;
-    if (backedUp) {
-      await rm(backupRoot, { recursive: true, force: true }).catch(error =>
-        console.warn('Old content backup cleanup failed:', error.message)
-      );
-    }
+    await stageUpdates(items, state.stagingRoot);
+    await commitStagedRelease(state);
     return items.map(item => ({ path: item.path, success: true }));
   } catch (error) {
-    let failure = error;
-    if (committed && (await exists(contentRoot))) {
-      await rm(contentRoot, { recursive: true, force: true });
-    }
-    if (backedUp && (await exists(backupRoot))) {
-      try {
-        await rename(backupRoot, contentRoot);
-      } catch (rollbackError) {
-        preserveBackup = true;
-        failure = new Error(
-          `${error.message} Recovery copy preserved at ${backupRoot}: ${rollbackError.message}`
-        );
-      }
-    }
+    const failure = await rollbackRelease(state, error);
     return items.map(item => ({ path: item.path, success: false, error: failure.message }));
   } finally {
-    await rm(stagingRoot, { recursive: true, force: true }).catch(() => {});
-    if (!preserveBackup) await rm(backupRoot, { recursive: true, force: true }).catch(() => {});
+    await cleanupRelease(state);
   }
 }
 
 export async function runContentUpdate() {
   const manifest = await fetchManifest();
-  const results = await applyContentUpdates(manifest.updates || []);
+  const results = await applyContentUpdates(manifest.updates);
   const failures = results.filter(result => !result.success);
   if (failures.length > 0) {
     throw new Error(`Content update failed for ${failures.length} file(s).`);
@@ -278,20 +290,13 @@ async function exists(filePath) {
 async function validateCompiledRelease(root) {
   const manifestPath = resolveContentFile(root, 'assets/questions/compiled/manifest.json');
   const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-  if (manifest?.schemaVersion !== 2 || !Array.isArray(manifest.entries)) {
+  try {
+    assertQuestionManifest(manifest);
+  } catch {
     throw new Error('The content release has an invalid compiled manifest.');
   }
   const referencedMedia = new Set();
-  const entryKeys = new Set();
   for (const entry of manifest.entries) {
-    if (!/^[a-f\d]{64}$/i.test(entry?.documentHash || '')) {
-      throw new Error('The content release has an invalid document hash.');
-    }
-    const keys = [`id:${entry.id}`, `path:${entry.documentPath}`];
-    if (keys.some(key => entryKeys.has(key))) {
-      throw new Error('The content release has duplicate entries.');
-    }
-    keys.forEach(key => entryKeys.add(key));
     const documentPath = resolveContentFile(root, normalizeContentPath(entry.documentPath));
     const serialized = await readFile(documentPath);
     const actualHash = crypto.createHash('sha256').update(serialized).digest('hex');
@@ -299,31 +304,13 @@ async function validateCompiledRelease(root) {
       throw new Error(`Compiled content hash mismatch: ${entry.documentPath}`);
     }
     const compiled = JSON.parse(serialized);
-    if (
-      compiled?.source?.path !== entry.sourcePath ||
-      compiled?.source?.sha256 !== entry.sourceHash ||
-      compiled?.document?.id !== entry.id
-    ) {
-      throw new Error(`Compiled content metadata mismatch: ${entry.documentPath}`);
-    }
+    assertCompiledMetadata(compiled, entry);
     const sourceDirectory = path.dirname(normalizeContentPath(compiled?.source?.path));
     collectMediaFiles(compiled?.document, referencedMedia, sourceDirectory);
   }
   const contentHash = crypto
     .createHash('sha256')
-    .update(
-      JSON.stringify(
-        manifest.entries.map(entry => [
-          entry.id,
-          entry.tpoId,
-          entry.section,
-          entry.sourcePath,
-          entry.documentPath,
-          entry.sourceHash,
-          entry.documentHash
-        ])
-      )
-    )
+    .update(canonicalQuestionEntries(manifest.entries))
     .digest('hex');
   if (contentHash !== manifest.contentHash) {
     throw new Error('The compiled content manifest hash is invalid.');
@@ -342,6 +329,9 @@ function collectMediaFiles(value, files, sourceDirectory) {
   if (!value || typeof value !== 'object') return;
   if (typeof value.media?.file === 'string') {
     files.add(normalizeContentPath(path.posix.join(sourceDirectory, value.media.file)));
+  }
+  if (typeof value.image === 'string' && value.image) {
+    files.add(normalizeContentPath(path.posix.join(sourceDirectory, value.image)));
   }
   Object.values(value).forEach(item => collectMediaFiles(item, files, sourceDirectory));
 }

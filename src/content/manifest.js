@@ -1,5 +1,4 @@
 const SECTIONS = ['reading', 'listening', 'writing', 'speaking'];
-const QUESTION_CONTENT_SCHEMA_VERSION = 2;
 
 /**
  * Convert discovered question paths into a deterministic catalog.
@@ -49,7 +48,6 @@ export function buildQuestionManifest(paths) {
     )
   }));
   return {
-    schemaVersion: QUESTION_CONTENT_SCHEMA_VERSION,
     generatedAt: null,
     entries,
     tpos,
@@ -57,4 +55,4 @@ export function buildQuestionManifest(paths) {
   };
 }
 
-export { QUESTION_CONTENT_SCHEMA_VERSION, SECTIONS };
+export { SECTIONS };

@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import { QUESTION_CONTENT_SCHEMA_VERSION } from './manifest.js';
+import { canonicalQuestionEntries } from '../../electron/services/runtime-content.js';
 import { parseExamDocument } from './parsers/index.js';
 import { assertValidExamDocument } from './validate.js';
 
@@ -17,7 +17,6 @@ function compileQuestionDocument(entry, markdown) {
   });
   assertValidExamDocument(document);
   return {
-    schemaVersion: QUESTION_CONTENT_SCHEMA_VERSION,
     source: { path: entry.sourcePath, sha256: sourceHash },
     document
   };
@@ -36,19 +35,7 @@ export function compileQuestionContent(rootDir, manifest) {
       documentHash: sha256(serialized)
     };
   });
-  const contentHash = sha256(
-    JSON.stringify(
-      entries.map(entry => [
-        entry.id,
-        entry.tpoId,
-        entry.section,
-        entry.sourcePath,
-        entry.documentPath,
-        entry.sourceHash,
-        entry.documentHash
-      ])
-    )
-  );
+  const contentHash = sha256(canonicalQuestionEntries(entries));
   return { manifest: { ...manifest, contentHash, entries }, documents };
 }
 

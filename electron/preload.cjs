@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       set: (key, value) => dataRequest('settings:set', { key, value })
     },
     exam: {
-      save: payload => dataRequest('exam:save', payload),
+      save: session => dataRequest('exam:save', session),
       delete: id => dataRequest('exam:delete', { id }),
       listCompleted: limit => dataRequest('exam:listCompleted', { limit })
     },

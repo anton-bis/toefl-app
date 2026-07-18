@@ -7,8 +7,7 @@ import {
   onMounted,
   ref
 } from 'vue';
-import { flushDataWrites, suspendDataWrites } from './platform/dataRepository.js';
-import { flushLocalWrites, suspendLocalWrites } from './platform/localPersistence.js';
+import { flushDataStorage, suspendDataStorage } from './platform/storageLifecycle.js';
 
 const fatalError = ref('');
 const storageReady = inject('storageReady');
@@ -21,11 +20,8 @@ let stopDataFlush;
 async function handleDataFlush(request) {
   const id = typeof request === 'object' ? request.id : request;
   try {
-    await Promise.all([flushLocalWrites(), flushDataWrites()]);
-    if (request?.suspend) {
-      suspendLocalWrites();
-      suspendDataWrites();
-    }
+    await flushDataStorage();
+    if (request?.suspend) suspendDataStorage();
     window.electronAPI?.data.flushed({ id, ok: true });
   } catch (error) {
     window.electronAPI?.data.flushed({
@@ -57,26 +53,13 @@ onErrorCaptured(error => {
 </script>
 
 <template>
-  <main
-    v-if="fatalError"
-    class="fatal-error"
-    role="alert"
-  >
+  <main v-if="fatalError" class="fatal-error" role="alert">
     <i class="fas fa-circle-exclamation" />
     <h1>Something Went Wrong</h1>
     <p>{{ fatalError }}</p>
-    <button
-      type="button"
-      @click="location.reload()"
-    >
-      Try Again
-    </button>
+    <button type="button" @click="location.reload()">Try Again</button>
   </main>
-  <main
-    v-else-if="!storageReady"
-    class="exam-route-state"
-    aria-live="polite"
-  >
+  <main v-else-if="!storageReady" class="exam-route-state" aria-live="polite">
     <i class="fas fa-spinner fa-spin" /> Loading your practice data…
   </main>
   <RouterView v-else />

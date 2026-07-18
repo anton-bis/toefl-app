@@ -2,10 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  compileQuestionContent,
-  writeCompiledQuestionContent
-} from '../src/content/compiler.js';
+import { compileQuestionContent, writeCompiledQuestionContent } from '../src/content/compiler.js';
 import { buildQuestionManifest, SECTIONS } from '../src/content/manifest.js';
 
 export function scanQuestionFiles(rootDir) {
@@ -16,7 +13,9 @@ export function scanQuestionFiles(rootDir) {
     if (!fs.existsSync(sectionDir)) continue;
     for (const tpoDir of fs.readdirSync(sectionDir, { withFileTypes: true })) {
       if (!tpoDir.isDirectory()) continue;
-      for (const file of fs.readdirSync(path.join(sectionDir, tpoDir.name), { withFileTypes: true })) {
+      for (const file of fs.readdirSync(path.join(sectionDir, tpoDir.name), {
+        withFileTypes: true
+      })) {
         if (file.isFile() && file.name.endsWith('.md')) {
           paths.push(path.relative(rootDir, path.join(sectionDir, tpoDir.name, file.name)));
         }
@@ -56,6 +55,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
   writeCompiledQuestionContent(rootDir, compiled);
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, `${JSON.stringify(manifest, null, 2)}\n`);
-  console.log(`Question manifest: ${manifest.entries.length} documents -> ${path.relative(rootDir, output)}`);
+  console.log(
+    `Question manifest: ${manifest.entries.length} documents -> ${path.relative(rootDir, output)}`
+  );
   for (const warning of manifest.warnings) console.warn(`Warning: ${warning}`);
 }

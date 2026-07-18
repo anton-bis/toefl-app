@@ -72,14 +72,20 @@ function createExamSession({
   };
 }
 
+function matchesSession(value, expected) {
+  return (
+    asId(value.tpoId) === asId(expected.tpoId) && asId(value.section) === asId(expected.section)
+  );
+}
+
+function plainObject(value) {
+  return isPlainObject(value) ? value : {};
+}
+
 function normalizeSession(value, expected) {
-  if (!isPlainObject(value) || !boundedData(value)) return null;
-  if (
-    asId(value.tpoId) !== asId(expected.tpoId) ||
-    asId(value.section) !== asId(expected.section)
-  ) {
-    return null;
-  }
+  if (!isPlainObject(value)) return null;
+  if (!boundedData(value)) return null;
+  if (!matchesSession(value, expected)) return null;
   const fresh = createExamSession(expected);
   const restored = { ...value };
   delete restored.check;
@@ -92,10 +98,10 @@ function normalizeSession(value, expected) {
     status: ['not-started', 'in-progress', 'completed'].includes(value.status)
       ? value.status
       : 'not-started',
-    answers: isPlainObject(value.answers) ? value.answers : {},
-    marks: isPlainObject(value.marks) ? value.marks : {},
-    timer: { ...fresh.timer, ...(isPlainObject(value.timer) ? value.timer : {}) },
-    lockedQuestionIds: isPlainObject(value.lockedQuestionIds) ? value.lockedQuestionIds : {}
+    answers: plainObject(value.answers),
+    marks: plainObject(value.marks),
+    timer: { ...fresh.timer, ...plainObject(value.timer) },
+    lockedQuestionIds: plainObject(value.lockedQuestionIds)
   };
 }
 
@@ -141,27 +147,23 @@ function persistSession(session, delayed = false) {
   else writeLocalJson(key, snapshot);
 }
 
-export async function pruneCompletedExamHistory(
-  storage = globalThis.localStorage,
-  repository,
-  limit = 20
-) {
-  const desktop = globalThis.window?.electronAPI?.data;
-  if (desktop) {
-    const completed = await desktop.exam.listCompleted(1000);
-    const expired = expiredTpos(completed, limit);
-    const removed = completed.filter(session => expired.has(session.tpoId));
-    await Promise.all(
-      removed.map(async session => {
-        removeExamSession(session.tpoId, session.section);
-        if (session.section === 'speaking' && repository) {
-          await repository.removeSession(`tpo-${session.tpoId}-speaking`);
-        }
-      })
-    );
-    await flushLocalWrites();
-    return [...expired];
-  }
+async function removeDesktopSessions(desktop, repository, limit) {
+  const completed = await desktop.exam.listCompleted(1000);
+  const expired = expiredTpos(completed, limit);
+  const removed = completed.filter(session => expired.has(session.tpoId));
+  await Promise.all(
+    removed.map(async session => {
+      removeExamSession(session.tpoId, session.section);
+      if (session.section === 'speaking' && repository) {
+        await repository.removeSession(`tpo-${session.tpoId}-speaking`);
+      }
+    })
+  );
+  await flushLocalWrites();
+  return [...expired];
+}
+
+function completedBrowserSessions(storage) {
   if (!storage || !Number.isFinite(storage.length)) return [];
   const completed = [];
   for (let index = 0; index < storage.length; index += 1) {
@@ -176,6 +178,11 @@ export async function pruneCompletedExamHistory(
       // Invalid records are ignored here and rejected by readExamSession.
     }
   }
+  return completed;
+}
+
+async function removeBrowserSessions(storage, repository, limit) {
+  const completed = completedBrowserSessions(storage);
   const expired = expiredTpos(
     completed.map(({ session, time }) => ({ ...session, updatedAt: time })),
     limit
@@ -193,6 +200,17 @@ export async function pruneCompletedExamHistory(
     storage.removeItem(key);
   });
   return [...expired];
+}
+
+export function pruneCompletedExamHistory(
+  storage = globalThis.localStorage,
+  repository,
+  limit = 20
+) {
+  const desktop = globalThis.window?.electronAPI?.data;
+  return desktop
+    ? removeDesktopSessions(desktop, repository, limit)
+    : removeBrowserSessions(storage, repository, limit);
 }
 
 function expiredTpos(sessions, limit) {

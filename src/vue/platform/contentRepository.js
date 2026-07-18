@@ -1,5 +1,9 @@
 import manifest from '../../content/question-manifest.json';
-import { QUESTION_CONTENT_SCHEMA_VERSION } from '../../content/manifest.js';
+import {
+  assertCompiledMetadata,
+  assertQuestionManifest,
+  canonicalQuestionEntries
+} from '../../../electron/services/runtime-content.js';
 
 function normalizeRelativePath(path) {
   const normalized = String(path || '')
@@ -15,7 +19,11 @@ export function listCatalog(catalog = manifest) {
   const tests = new Map();
   for (const entry of catalog.entries) {
     if (!tests.has(entry.tpoId)) {
-      tests.set(entry.tpoId, { tpoId: entry.tpoId, description: '2026 TOEFL Sample Test', sections: {} });
+      tests.set(entry.tpoId, {
+        tpoId: entry.tpoId,
+        description: '2026 TOEFL Sample Test',
+        sections: {}
+      });
     }
     tests.get(entry.tpoId).sections[entry.section] = {
       id: entry.id,
@@ -43,34 +51,9 @@ async function sha256(value) {
 
 export async function readCatalogManifest() {
   const catalog = JSON.parse(await readText('assets/questions/compiled/manifest.json'));
-  if (
-    catalog?.schemaVersion !== QUESTION_CONTENT_SCHEMA_VERSION ||
-    !Array.isArray(catalog.entries) ||
-    catalog.entries.some(
-      entry =>
-        !entry?.id ||
-        !entry?.sourcePath ||
-        !entry?.documentPath ||
-        !entry?.sourceHash ||
-        !entry?.documentHash
-    ) ||
-    (await sha256(
-      JSON.stringify(
-        catalog.entries.map(entry => [
-          entry.id,
-          entry.tpoId,
-          entry.section,
-          entry.sourcePath,
-          entry.documentPath,
-          entry.sourceHash,
-          entry.documentHash
-        ])
-      )
-    )) !==
-      catalog.contentHash
-  ) {
+  assertQuestionManifest(catalog);
+  if ((await sha256(canonicalQuestionEntries(catalog.entries))) !== catalog.contentHash)
     throw new Error('Invalid question content manifest.');
-  }
   return catalog;
 }
 
@@ -85,14 +68,7 @@ export async function readQuestionDocument(entry) {
   } catch {
     throw new Error(`Invalid compiled content: ${entry.documentPath}`);
   }
-  if (
-    compiled?.schemaVersion !== QUESTION_CONTENT_SCHEMA_VERSION ||
-    compiled?.source?.path !== entry.sourcePath ||
-    compiled?.source?.sha256 !== entry.sourceHash ||
-    compiled?.document?.id !== entry.id
-  ) {
-    throw new Error(`Compiled content metadata mismatch: ${entry.documentPath}`);
-  }
+  assertCompiledMetadata(compiled, entry);
   return compiled.document;
 }
 

@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { DatabaseSync } from 'node:sqlite';
 import { DataStorage } from '../../electron/services/database.js';
 
 async function withStorage(operation, options) {
@@ -28,9 +29,10 @@ test('SQLite worker persists structured learning data and restarts after idle', 
       });
       await new Promise(resolve => setTimeout(resolve, 40));
       assert.deepEqual((await storage.request('bootstrap')).settings.theme, { dark: true });
-      assert.deepEqual((await storage.dispatch('vocabulary:overview', { date: '2026-07-18' })).due, [
-        { subject: 'reading', count: 1 }
-      ]);
+      assert.deepEqual(
+        (await storage.dispatch('vocabulary:overview', { date: '2026-07-18' })).due,
+        [{ subject: 'reading', count: 1 }]
+      );
     },
     { idleTimeout: 10 }
   );
@@ -113,7 +115,7 @@ test('public dispatch rejects unknown and oversized renderer requests', async ()
   });
 });
 
-test('v2 SQLite archives round-trip settings, exams and external recordings', async () => {
+test('SQLite archives round-trip settings, complete exam sessions and external recordings', async () => {
   await withStorage(async (storage, directory) => {
     await storage.dispatch('settings:set', { key: 'toefl:settings', value: { volume: 0.5 } });
     await storage.dispatch('exam:save', {
@@ -122,9 +124,9 @@ test('v2 SQLite archives round-trip settings, exams and external recordings', as
       section: 'reading',
       status: 'completed',
       pageId: 'results',
-      value: { tpoId: '01', section: 'reading', status: 'completed' },
-      answerChanges: { q1: 'A' },
-      removedAnswerIds: []
+      answers: { q1: 'A' },
+      marks: {},
+      updatedAt: 123
     });
     await storage.saveRecording({
       sessionId: 'tpo-01-speaking',
@@ -146,6 +148,82 @@ test('v2 SQLite archives round-trip settings, exams and external recordings', as
       questionId: 'q1'
     });
     assert.deepEqual([...recording.bytes], [7, 8, 9]);
+  });
+});
+
+test('saving an exam replaces the complete session snapshot', async () => {
+  await withStorage(async storage => {
+    const session = {
+      id: 'tpo-01-reading',
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      pageId: 'question-1',
+      answers: { q1: 'A', q2: 'B' },
+      updatedAt: 100
+    };
+    await storage.dispatch('exam:save', session);
+    await storage.dispatch('exam:save', {
+      ...session,
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
+
+    const [restored] = (await storage.dispatch('bootstrap', {})).examSessions;
+    assert.equal(restored.pageId, 'question-2');
+    assert.deepEqual(restored.answers, { q2: 'C' });
+    assert.equal(restored.updatedAt, 200);
+  });
+});
+
+test('an incompatible database is rebuilt and stale recordings are removed', async () => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
+  const databasePath = path.join(directory, 'toefl-data.sqlite');
+  const recordingsPath = path.join(directory, 'recordings');
+  const database = new DatabaseSync(databasePath);
+  database.exec('CREATE TABLE exam_sessions(id TEXT PRIMARY KEY, value TEXT)');
+  database.close();
+  await fs.mkdir(recordingsPath);
+  await fs.writeFile(path.join(recordingsPath, 'stale.webm'), Uint8Array.from([1]));
+
+  const storage = new DataStorage(directory);
+  try {
+    assert.deepEqual(await storage.dispatch('bootstrap', {}), {
+      settings: {},
+      examSessions: []
+    });
+    await assert.rejects(fs.stat(path.join(recordingsPath, 'stale.webm')), /ENOENT/);
+  } finally {
+    await storage.close();
+    await fs.rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('archives with an unsupported structure are rejected', async () => {
+  await withStorage(async (storage, directory) => {
+    const archivePath = path.join(directory, 'invalid.toefldata');
+    const archive = new DatabaseSync(archivePath);
+    archive.exec('CREATE TABLE unrelated(value TEXT)');
+    archive.close();
+    await assert.rejects(storage.importArchive(archivePath), /Unsupported archive structure/);
+  });
+});
+
+test('archives with invalid records are rejected before live data changes', async () => {
+  await withStorage(async (storage, directory) => {
+    await storage.dispatch('settings:set', { key: 'theme', value: 'before-export' });
+    const archivePath = path.join(directory, 'invalid-record.toefldata');
+    await storage.exportArchive(archivePath);
+    const archive = new DatabaseSync(archivePath);
+    archive
+      .prepare('INSERT INTO archive_rows(kind,key,value) VALUES (?,?,?)')
+      .run('unknown', 'bad', '{}');
+    archive.close();
+    await storage.dispatch('settings:set', { key: 'theme', value: 'current' });
+
+    await assert.rejects(storage.importArchive(archivePath), /Unsupported archive structure/);
+    assert.equal((await storage.dispatch('bootstrap', {})).settings.theme, 'current');
   });
 });
 

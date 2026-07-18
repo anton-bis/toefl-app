@@ -2,12 +2,14 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   configureDesktopPersistence,
   flushLocalWrites,
-  installPersistenceListeners,
   resetLocalPersistenceForTests,
   scheduleLocalJson,
   writeLocalJson
 } from '../../src/vue/platform/localPersistence.js';
-import { initializeDataStorage } from '../../src/vue/platform/storageLifecycle.js';
+import {
+  initializeDataStorage,
+  installStorageLifecycleListeners
+} from '../../src/vue/platform/storageLifecycle.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 describe('local persistence coordinator', () => {
@@ -33,7 +35,7 @@ describe('local persistence coordinator', () => {
   });
 
   it('flushes pending writes when the page is hidden', () => {
-    installPersistenceListeners();
+    installStorageLifecycleListeners();
     scheduleLocalJson('toefl:test', { input: 'pending' }, 10_000);
     window.dispatchEvent(new Event('pagehide'));
     expect(JSON.parse(localStorage.getItem('toefl:test'))).toEqual({ input: 'pending' });
@@ -46,6 +48,37 @@ describe('local persistence coordinator', () => {
     writeLocalJson('volume', 0.5);
     await flushLocalWrites();
     expect(set).toHaveBeenCalledWith('volume', 0.5);
+    delete window.electronAPI;
+  });
+
+  it('sends complete compact exam sessions to desktop storage', async () => {
+    const save = vi.fn().mockResolvedValue(true);
+    window.electronAPI = {
+      data: {
+        settings: { set: vi.fn().mockResolvedValue(true) },
+        exam: { save }
+      }
+    };
+    configureDesktopPersistence();
+    writeLocalJson('toefl:exam:01:reading', {
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
+    await flushLocalWrites();
+
+    expect(save).toHaveBeenCalledWith({
+      id: 'tpo-01-reading',
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
     delete window.electronAPI;
   });
 });

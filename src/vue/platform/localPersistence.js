@@ -2,7 +2,6 @@ const pendingWrites = new Map();
 const lastValues = new Map();
 const desktopWrites = new Set();
 let suspended = false;
-let listenersInstalled = false;
 let desktopValues;
 
 const available = () => typeof localStorage !== 'undefined';
@@ -25,12 +24,10 @@ function trackDesktopWrite(promise) {
 
 function desktopExamId(key) {
   const match = key.match(/^toefl:exam:([^:]+):([^:]+)$/);
-  return match
-    ? `tpo-${decodeURIComponent(match[1])}-${decodeURIComponent(match[2])}`
-    : null;
+  return match ? `tpo-${decodeURIComponent(match[1])}-${decodeURIComponent(match[2])}` : null;
 }
 
-function persistDesktop(key, value, previousSerialized) {
+function persistDesktop(key, value) {
   const api = desktopData();
   if (!api) return;
   const id = desktopExamId(key);
@@ -38,35 +35,13 @@ function persistDesktop(key, value, previousSerialized) {
     trackDesktopWrite(api.settings.set(key, value));
     return;
   }
-  const previous = previousSerialized ? JSON.parse(previousSerialized) : {};
-  const answers = value.answers || {};
-  const previousAnswers = previous?.answers || {};
-  const answerChanges = Object.fromEntries(
-    Object.entries(answers).filter(
-      ([questionId, answer]) => JSON.stringify(answer) !== JSON.stringify(previousAnswers[questionId])
-    )
-  );
-  const removedAnswerIds = Object.keys(previousAnswers).filter(questionId => !(questionId in answers));
-  const sessionValue = { ...value };
-  delete sessionValue.answers;
-  const promise = api.exam.save({
-    id,
-    tpoId: String(value.tpoId),
-    section: String(value.section),
-    status: value.status || 'not-started',
-    pageId: value.pageId || null,
-    value: sessionValue,
-    answerChanges,
-    removedAnswerIds
-  });
+  const promise = api.exam.save({ ...value, id });
   trackDesktopWrite(promise);
 }
 
 function removeDesktop(key) {
   const id = desktopExamId(key);
-  const promise = id
-    ? desktopData().exam.delete(id)
-    : desktopData().settings.set(key, null);
+  const promise = id ? desktopData().exam.delete(id) : desktopData().settings.set(key, null);
   trackDesktopWrite(promise);
 }
 
@@ -84,7 +59,7 @@ function commit(key, serialized) {
   try {
     if (desktopValues) {
       desktopValues.set(key, serialized);
-      persistDesktop(key, JSON.parse(serialized), current);
+      persistDesktop(key, JSON.parse(serialized));
     } else localStorage.setItem(key, serialized);
     lastValues.set(key, serialized);
     return true;
@@ -156,16 +131,6 @@ export function suspendLocalWrites() {
   pendingWrites.forEach(pending => clearTimeout(pending.timer));
   pendingWrites.clear();
   suspended = true;
-}
-
-export function installPersistenceListeners(target = globalThis.window) {
-  if (listenersInstalled || !target?.addEventListener) return;
-  const flushWhenHidden = () => {
-    if (globalThis.document?.visibilityState === 'hidden') flushLocalWrites();
-  };
-  target.addEventListener('pagehide', flushLocalWrites);
-  globalThis.document?.addEventListener?.('visibilitychange', flushWhenHidden);
-  listenersInstalled = true;
 }
 
 export function resetLocalPersistenceForTests() {

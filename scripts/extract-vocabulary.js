@@ -21,12 +21,36 @@ const MIN_FREQ = 1;
 const cefrSet = new Set(JSON.parse(fs.readFileSync(CEFR_PATH, 'utf-8')));
 
 // ── Utils ──
-function log(msg) { console.log(`[vocab-extract] ${msg}`); }
+function log(msg) {
+  console.log(`[vocab-extract] ${msg}`);
+}
 
 const ARTIFACTS = new Set([
-  'com', 'dmail', 'email', 'www', 'http', 'https', 'html', 'gov', 'org', 'net', 'edu',
-  'pm', 'am', 'st', 'nd', 'rd', 'th', 'tel', 'fax', 'et', 'al', 'etc',
-  'via', 'vice', 'versus',
+  'com',
+  'dmail',
+  'email',
+  'www',
+  'http',
+  'https',
+  'html',
+  'gov',
+  'org',
+  'net',
+  'edu',
+  'pm',
+  'am',
+  'st',
+  'nd',
+  'rd',
+  'th',
+  'tel',
+  'fax',
+  'et',
+  'al',
+  'etc',
+  'via',
+  'vice',
+  'versus'
 ]);
 
 /** Split text into words, lowercase, filter non-alpha */
@@ -39,25 +63,43 @@ function tokenize(text) {
 }
 
 /** Strip common English suffixes for CEFR lookup */
+function stemPlural(word) {
+  if (word.endsWith('ies') && word.length > 5) return `${word.slice(0, -3)}y`;
+  if (word.endsWith('es') && word.length > 4) return word.slice(0, -2);
+  if (word.endsWith('s') && !word.endsWith('ss') && word.length > 4) return word.slice(0, -1);
+  return word;
+}
+
+function stemComparison(word) {
+  if (word.endsWith('est') && word.length > 5) return word.slice(0, -3);
+  if (word.endsWith('er') && word.length > 4) return word.slice(0, -2);
+  return word;
+}
+
+function cefrVerbStem(word, suffix) {
+  const base = word.slice(0, -suffix.length);
+  if (cefrSet.has(base)) return base;
+  if (cefrSet.has(`${base}e`)) return `${base}e`;
+  return word;
+}
+
+function stemVerb(word) {
+  if (word.endsWith('ing') && word.length > 5) {
+    const base = word.slice(0, -3);
+    if (cefrSet.has(base)) return base;
+    if (cefrSet.has(`${base}e`)) return `${base}e`;
+  }
+  if (word.endsWith('ed') && word.length > 4) return cefrVerbStem(word, 'ed');
+  if (word.endsWith('ly') && word.length > 4) return word.slice(0, -2);
+  return word;
+}
+
 function stemBasic(word) {
-  let w = word;
-  if (w.endsWith('ies') && w.length > 5) return w.slice(0, -3) + 'y';
-  if (w.endsWith('es') && w.length > 4) return w.slice(0, -2);
-  if (w.endsWith('s') && !w.endsWith('ss') && w.length > 4) return w.slice(0, -1);
-  if (w.endsWith('est') && w.length > 5) return w.slice(0, -3);
-  if (w.endsWith('er') && w.length > 4) return w.slice(0, -2);
-  if (w.endsWith('ing') && w.length > 5) {
-    const base = w.slice(0, -3);
-    if (cefrSet.has(base)) return base;
-    if (cefrSet.has(base + 'e')) return base + 'e';
+  for (const stemmer of [stemPlural, stemComparison, stemVerb]) {
+    const stem = stemmer(word);
+    if (stem !== word) return stem;
   }
-  if (w.endsWith('ed') && w.length > 4) {
-    const base = w.slice(0, -2);
-    if (cefrSet.has(base)) return base;
-    if (cefrSet.has(base + 'e')) return base + 'e';
-  }
-  if (w.endsWith('ly') && w.length > 4) return w.slice(0, -2);
-  return w;
+  return word;
 }
 
 /** Check if a word is B1+ (not in A1-A2 list) */
@@ -90,6 +132,41 @@ function cleanText(text) {
 
 // ── Subject-specific parsers ──
 
+function shouldSkipReadingLine(line) {
+  if (!line || /^\d+[.)]\s/.test(line) || /^[A-D][.)]\s/.test(line)) return true;
+  if (/^##/.test(line)) return true;
+  const instruction =
+    /^(fill|complete|choose|select|read the email|date:|subject:|dear\s|see directions)/i;
+  return instruction.test(line) || /^(contact us|your interview)/i.test(line);
+}
+
+function readingBlockText(block) {
+  const lines = block.split('\n');
+  const headerLine = lines[0]?.trim() || '';
+  if (/Complete\s+the\s+Words/i.test(headerLine) || !/Read\s/i.test(headerLine)) return '';
+  const bodyText = lines
+    .slice(1)
+    .join('\n')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/__(.+?)__/g, '$1')
+    .replace(/`(.+?)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^#{1,2}\s+.*$/gm, '')
+    .replace(/^---\s*$/gm, '\n')
+    .replace(/\n{3,}/g, '\n\n');
+  const cleanLines = [];
+  for (const raw of bodyText.split('\n')) {
+    const line = raw.trim();
+    if (shouldSkipReadingLine(line)) continue;
+    const cleaned = line
+      .replace(/\w*_{2,}\w*/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (cleaned.length > 15) cleanLines.push(cleaned);
+  }
+  return cleanLines.join(' ');
+}
+
 function parseReading(filePath) {
   let content = fs.readFileSync(filePath, 'utf-8');
   content = stripAnswers(content);
@@ -99,53 +176,31 @@ function parseReading(filePath) {
   const segments = [];
 
   for (const block of taskBlocks) {
-    const lines = block.split('\n');
-    const headerLine = lines[0]?.trim() || '';
-    const body = lines.slice(1).join('\n');
-
-    // Skip "Complete the Words" tasks — text has corrupted blanks
-    if (/Complete\s+the\s+Words/i.test(headerLine)) continue;
-
-    // Only process "Read" tasks
-    if (!/Read\s/i.test(headerLine)) continue;
-
-    // Clean body text (mild version, preserve ###)
-    const bodyText = body
-      .replace(/\*\*(.+?)\*\*/g, '$1')
-      .replace(/__(.+?)__/g, '$1')
-      .replace(/`(.+?)`/g, '$1')
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-      .replace(/^#{1,2}\s+.*$/gm, '')  // Strip ## and # lines, keep ### Task lines
-      .replace(/^---\s*$/gm, '\n')
-      .replace(/\n{3,}/g, '\n\n');
-
-    const bodyLines = bodyText.split('\n');
-    const cleanLines = [];
-
-    for (const line of bodyLines) {
-      const trimmed = line.trim();
-      if (!trimmed) continue;
-      // Skip questions and options
-      if (/^\d+[\.\)]\s/.test(trimmed)) continue;
-      if (/^[A-D][\.\)]\s/.test(trimmed)) continue;
-      // Skip instructions and email metadata
-      if (/^(fill|complete|choose|select|read the email|date:|subject:|dear\s|see directions|contact us|your interview)/i.test(trimmed)) continue;
-      // Skip headers
-      if (/^##/.test(trimmed)) continue;
-
-      let cleaned = trimmed
-        .replace(/\w*_{2,}\w*/g, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-      if (cleaned.length > 15) cleanLines.push(cleaned);
-    }
-
-    if (cleanLines.length > 0) {
-      segments.push(cleanLines.join(' '));
-    }
+    const text = readingBlockText(block);
+    if (text) segments.push(text);
   }
 
   return segments.filter(s => s.split(/\s+/).length > 15);
+}
+
+function listeningSpeakerText(line) {
+  const match = line.match(
+    /^(Man|Woman|Professor|Student|Podcast\s+Host|Interviewer|Speaker\s+[AB]):\s*(.+)/i
+  );
+  return match?.[2]?.trim() || '';
+}
+
+function resetsListeningBuffer(line) {
+  return /^---/.test(line) || /^##/.test(line) || /^###/.test(line);
+}
+
+function ignoresListeningLine(line) {
+  if (/^audio:/i.test(line) || /^>>\s*play:/i.test(line) || /^\[ANSWER\]/i.test(line)) return true;
+  if (/^\d+[.)]\s/.test(line) || /^[A-D][.)]\s/.test(line)) return true;
+  return (
+    /^(what|which|when|where|why|how|according|the\s+speaker|listen)/i.test(line) &&
+    line.length < 100
+  );
 }
 
 function parseListening(filePath) {
@@ -159,32 +214,40 @@ function parseListening(filePath) {
 
   for (const line of lines) {
     const trimmed = line.trim();
-    // Skip metadata lines
-    if (/^audio:/i.test(trimmed)) continue;
-    if (/^>>\s*play:/i.test(trimmed)) continue;
-    if (/^\[ANSWER\]/i.test(trimmed)) continue;
-    if (/^---/.test(trimmed)) { buffer = []; continue; }
-    if (/^##/.test(trimmed)) { buffer = []; continue; }
-    if (/^###/.test(trimmed)) { buffer = []; continue; }
-
-    // Check if this is a dialogue line with speaker label
-    const speakerMatch = trimmed.match(/^(Man|Woman|Professor|Student|Podcast\s+Host|Interviewer|Speaker\s+[AB]):\s*(.+)/i);
-    if (speakerMatch) {
-      const text = speakerMatch[2].trim();
-      if (text.length > 10) {
-        buffer.push(text);
-      }
+    if (resetsListeningBuffer(trimmed)) {
+      buffer = [];
       continue;
     }
-
-    // Skip question numbers and options
-    if (/^\d+[\.\)]\s/.test(trimmed)) continue;
-    if (/^[A-D][\.\)]\s/.test(trimmed)) continue;
-    if (/^(what|which|when|where|why|how|according|the\s+speaker|listen)/i.test(trimmed) && trimmed.length < 100) continue;
+    if (ignoresListeningLine(trimmed)) continue;
+    const text = listeningSpeakerText(trimmed);
+    if (text.length > 10) buffer.push(text);
   }
 
   if (buffer.length > 0) segments.push(buffer.join(' '));
   return segments.filter(s => s.split(/\s+/).length > 5);
+}
+
+function writingSpeakerText(line) {
+  const match = line.match(
+    /^(Speaker\s+[AB]|Professor|Instructor|Student|Kelly|Andrew|Paul|Emily|Sarah|David|Anna|John|Maria|James|Lisa):/i
+  );
+  return match ? line.slice(match[0].length).trim().replace(/_{2,}/g, '________') : '';
+}
+
+function ignoresWritingLine(line) {
+  return (
+    /^\\?\[ANSWER\]/i.test(line) ||
+    /^---/.test(line) ||
+    /^Candidates:/i.test(line) ||
+    /^To:\s/.test(line) ||
+    /^Subject:\s/.test(line) ||
+    /^Requirements:/i.test(line) ||
+    /^(Identity:|Your\s+Role:)/i.test(line)
+  );
+}
+
+function isWritingParagraph(line) {
+  return line.length > 50 && !/^\d+[.)]/.test(line) && !/^[A-D][.)]/.test(line);
 }
 
 function parseWriting(filePath) {
@@ -194,34 +257,14 @@ function parseWriting(filePath) {
 
   const segments = [];
   const lines = content.split('\n');
-  let buffer = [];
+  const buffer = [];
 
   for (const line of lines) {
     const trimmed = line.trim();
-    if (/^\\?\[ANSWER\]/i.test(trimmed)) continue;
-    if (/^---/.test(trimmed)) continue;
-    if (/^Candidates:/i.test(trimmed)) continue;
-    if (/^To:\s/.test(trimmed)) continue;
-    if (/^Subject:\s/.test(trimmed)) continue;
-    if (/^Requirements:/i.test(trimmed)) continue;
-    if (/^(Identity:|Your\s+Role:)/i.test(trimmed)) continue;
-
-    // Speaker lines (Build a Sentence)
-    const speakerMatch = trimmed.match(/^(Speaker\s+[AB]|Professor|Instructor|Student|Kelly|Andrew|Paul|Emily|Sarah|David|Anna|John|Maria|James|Lisa):\s*(.+)/i);
-    if (speakerMatch) {
-      let text = speakerMatch[2].trim();
-      // Remove blank placeholders but keep surrounding text
-      text = text.replace(/_{2,}/g, '________');
-      if (text.length > 5 && !/^[A-D][\.\)]?\s/.test(text)) {
-        buffer.push(text);
-      }
-      continue;
-    }
-
-    // If it's a long paragraph (potential academic discussion)
-    if (trimmed.length > 50 && !/^\d+[\.\)]/.test(trimmed) && !/^[A-D][\.\)]/.test(trimmed)) {
-      buffer.push(trimmed);
-    }
+    if (ignoresWritingLine(trimmed)) continue;
+    const speakerText = writingSpeakerText(trimmed);
+    if (speakerText.length > 5 && !/^[A-D][.)]?\s/.test(speakerText)) buffer.push(speakerText);
+    else if (isWritingParagraph(trimmed)) buffer.push(trimmed);
   }
 
   if (buffer.length > 0) segments.push(buffer.join(' '));
@@ -255,7 +298,8 @@ function parseSpeaking(filePath) {
 function scanTpoFiles(subjectDir) {
   const dir = path.join(TPO_DIR, subjectDir);
   if (!fs.existsSync(dir)) return [];
-  const tpoDirs = fs.readdirSync(dir)
+  const tpoDirs = fs
+    .readdirSync(dir)
     .filter(d => /^TPO-\d{2}$/i.test(d))
     .map(d => path.join(dir, d));
   const files = [];
@@ -273,6 +317,31 @@ function scanTpoFiles(subjectDir) {
   return files.sort((a, b) => a.tpo.localeCompare(b.tpo));
 }
 
+function recordWord(word, sentences, source, wordFreq, wordSources) {
+  if (!isB1Plus(word)) return;
+  if (!wordFreq[word]) {
+    wordFreq[word] = 0;
+    wordSources[word] = { count: 0, examples: [], sources: [] };
+  }
+  wordFreq[word]++;
+  const sentence = sentences.find(value => value.toLowerCase().includes(word));
+  if (!sentence || wordSources[word].examples.length >= 3) return;
+  const cleanExample = sentence.trim().replace(/\s+/g, ' ');
+  if (wordSources[word].examples.includes(cleanExample)) return;
+  wordSources[word].examples.push(cleanExample);
+  wordSources[word].sources.push(source);
+}
+
+function extractFileVocabulary(file, parser, wordFreq, wordSources) {
+  const source = `${file.tpo} ${file.file.replace(/\.md$/, '')}`;
+  for (const segment of parser(file.fullPath)) {
+    const sentences = segment.match(/[^.!?]+[.!?]+/g) || [segment];
+    for (const word of new Set(tokenize(segment))) {
+      recordWord(word, sentences, source, wordFreq, wordSources);
+    }
+  }
+}
+
 function extractVocabulary(subject) {
   const parsers = {
     reading: parseReading,
@@ -287,49 +356,20 @@ function extractVocabulary(subject) {
   const files = scanTpoFiles(subject);
   log(`${subject}: found ${files.length} files`);
 
-  const wordFreq = {};  // word -> { count, examples, sources }
+  const wordFreq = {}; // word -> { count, examples, sources }
   const wordSources = {};
 
-  for (const { fullPath, tpo, file } of files) {
-    const segments = parser(fullPath);
-    for (const segment of segments) {
-      // Extract sentences
-      const sentences = segment.match(/[^.!?]+[.!?]+/g) || [segment];
-      const words = tokenize(segment);
-      const uniqueWords = [...new Set(words)];
-
-      for (const word of uniqueWords) {
-        if (!isB1Plus(word)) continue;
-        if (!wordFreq[word]) {
-          wordFreq[word] = 0;
-          wordSources[word] = { count: 0, examples: [], sources: [] };
-        }
-        wordFreq[word]++;
-
-        // Find original sentence as example
-        const sentence = sentences.find(s =>
-          s.toLowerCase().includes(word)
-        );
-        if (sentence && wordSources[word].examples.length < 3) {
-          const cleanEx = sentence.trim().replace(/\s+/g, ' ');
-          if (!wordSources[word].examples.includes(cleanEx)) {
-            wordSources[word].examples.push(cleanEx);
-            wordSources[word].sources.push(`${tpo} ${file.replace(/\.md$/, '')}`);
-          }
-        }
-      }
-    }
-  }
+  for (const file of files) extractFileVocabulary(file, parser, wordFreq, wordSources);
 
   // Filter by minimum frequency (remove noise/artifacts)
-  const filteredWords = Object.entries(wordFreq)
-    .filter(([, freq]) => freq >= MIN_FREQ);
+  const filteredWords = Object.entries(wordFreq).filter(([, freq]) => freq >= MIN_FREQ);
 
   // Sort by frequency (descending), then alphabetically
-  const sortedWords = filteredWords
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const sortedWords = filteredWords.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-  log(`${subject}: extracted ${sortedWords.length} B1+ words from ${Object.keys(wordFreq).length} candidates`);
+  log(
+    `${subject}: extracted ${sortedWords.length} B1+ words from ${Object.keys(wordFreq).length} candidates`
+  );
 
   // Build word entries
   const entries = sortedWords.map(([word], index) => ({
@@ -407,10 +447,16 @@ async function main() {
 
   const manifest = {};
   for (const subject of subjects) {
-    const entries = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, `${subject}-words.json`), 'utf-8'));
+    const entries = JSON.parse(
+      fs.readFileSync(path.join(OUTPUT_DIR, `${subject}-words.json`), 'utf-8')
+    );
     manifest[subject] = entries.length;
   }
-  fs.writeFileSync(path.join(OUTPUT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf-8');
+  fs.writeFileSync(
+    path.join(OUTPUT_DIR, 'manifest.json'),
+    JSON.stringify(manifest, null, 2),
+    'utf-8'
+  );
   log(`Wrote ${path.join(OUTPUT_DIR, 'manifest.json')}`);
 }
 

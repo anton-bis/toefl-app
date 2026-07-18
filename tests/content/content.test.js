@@ -4,6 +4,11 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { buildQuestionManifest } from '../../src/content/manifest.js';
+import {
+  assertCompiledMetadata,
+  assertQuestionManifest,
+  canonicalQuestionEntries
+} from '../../electron/services/runtime-content.js';
 import { createExamDocument } from '../../src/content/pages.js';
 import { parseExamDocument } from '../../src/content/parsers/index.js';
 import { normalizeMarkdown } from '../../src/content/shared.js';
@@ -55,7 +60,7 @@ test('manifest discovery is deterministic and complete', () => {
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
 });
 
-test('compiled documents are deterministic, versioned, and bound to their Markdown source', () => {
+test('compiled documents are deterministic and bound to their Markdown source', () => {
   const first = compiledContent;
   const second = generateQuestionContent(root);
   assert.deepEqual(first.manifest, second.manifest);
@@ -63,12 +68,36 @@ test('compiled documents are deterministic, versioned, and bound to their Markdo
 
   for (const entry of first.manifest.entries) {
     const compiled = JSON.parse(first.documents.get(entry.documentPath));
-    assert.equal(compiled.schemaVersion, first.manifest.schemaVersion);
     assert.equal(compiled.source.path, entry.sourcePath);
     assert.equal(compiled.source.sha256, entry.sourceHash);
     assert.equal(compiled.document.id, entry.id);
     assert.equal(compiled.document.sourcePath, entry.sourcePath);
   }
+  assert.doesNotThrow(() => assertQuestionManifest(first.manifest));
+  assert.match(canonicalQuestionEntries(first.manifest.entries), /^\[/);
+});
+
+test('content integrity rejects duplicate entries and mismatched compiled metadata', () => {
+  const [entry] = manifest.entries;
+  assert.throws(
+    () => assertQuestionManifest({ ...manifest, entries: [entry, entry] }),
+    /Duplicate question content entry/
+  );
+  assert.throws(
+    () => assertQuestionManifest({ ...manifest, contentHash: 'not-a-hash' }),
+    /manifest hash/
+  );
+  assert.throws(
+    () =>
+      assertCompiledMetadata(
+        {
+          source: { path: entry.sourcePath, sha256: entry.sourceHash },
+          document: { id: entry.id, tpoId: entry.tpoId, section: 'listening' }
+        },
+        entry
+      ),
+    /metadata mismatch/
+  );
 });
 
 test('runtime asset copy excludes development directories without leaving empty shells', t => {
@@ -110,7 +139,14 @@ test('runtime asset copy excludes development directories without leaving empty 
 
 test('application source and metadata use English system copy', () => {
   const extensions = new Set(['.cjs', '.css', '.html', '.js', '.json', '.vue', '.yml']);
-  const files = ['src/vue', 'electron', 'scripts', '.github/workflows', 'index.html', 'package.json']
+  const files = [
+    'src/vue',
+    'electron',
+    'scripts',
+    '.github/workflows',
+    'index.html',
+    'package.json'
+  ]
     .flatMap(relativePath => {
       const target = path.join(root, relativePath);
       if (!fs.statSync(target).isDirectory()) return [target];
