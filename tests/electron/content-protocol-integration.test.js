@@ -11,7 +11,7 @@ import { promisify } from 'node:util';
 const execute = promisify(execFile);
 const require = createRequire(import.meta.url);
 
-test('Electron renderer fetches installed content through the packaged CSP protocol', async t => {
+test('Electron renderer fetches installed content and media ranges through the packaged protocol', async t => {
   const electronPackage = require.resolve('electron/package.json');
   if (!fsSync.existsSync(path.join(path.dirname(electronPackage), 'path.txt'))) {
     t.skip('The Electron binary was intentionally omitted from this test environment.');
@@ -44,5 +44,8 @@ test('Electron renderer fetches installed content through the packaged CSP proto
     timeout: 20_000
   });
 
-  assert.match(stdout, /CONTENT_PROTOCOL_RESULT:\{"ready":true\}/);
+  assert.match(
+    stdout,
+    /CONTENT_PROTOCOL_RESULT:\{"complete":"\{\\"ready\\":true\}","rangeStatus":206,"contentRange":"bytes 2-6\/14","range":"ready"\}/
+  );
 });

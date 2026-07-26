@@ -1,4 +1,4 @@
-import { app, BrowserWindow, net, protocol } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { registerContentProtocol } from '../../../electron/services/content-protocol.js';
@@ -6,7 +6,13 @@ import { registerContentProtocol } from '../../../electron/services/content-prot
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'toefl-content',
-    privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true }
+    privileges: {
+      standard: true,
+      secure: true,
+      stream: true,
+      supportFetchAPI: true,
+      corsEnabled: true
+    }
   }
 ]);
 
@@ -20,15 +26,23 @@ try {
   await app.whenReady();
   registerContentProtocol({
     protocol,
-    net,
     resolveFile: relativePath => (relativePath === 'catalog.json' ? contentFile : null)
   });
   const window = new BrowserWindow({ show: false, webPreferences: { sandbox: true } });
   await window.loadFile(path.join(fixtureDirectory, 'content-protocol.html'));
-  const result = await window.webContents.executeJavaScript(
-    "fetch('toefl-content://content/catalog.json').then(response => response.text())"
-  );
-  process.stdout.write(`CONTENT_PROTOCOL_RESULT:${result}\n`);
+  const result = await window.webContents.executeJavaScript(`(async () => {
+    const complete = await fetch('toefl-content://content/catalog.json');
+    const range = await fetch('toefl-content://content/catalog.json', {
+      headers: { Range: 'bytes=2-6' }
+    });
+    return {
+      complete: await complete.text(),
+      rangeStatus: range.status,
+      contentRange: range.headers.get('content-range'),
+      range: await range.text()
+    };
+  })()`);
+  process.stdout.write(`CONTENT_PROTOCOL_RESULT:${JSON.stringify(result)}\n`);
   window.destroy();
   app.quit();
 } catch (error) {

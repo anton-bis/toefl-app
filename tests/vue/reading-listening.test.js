@@ -229,6 +229,7 @@ describe('listening section', () => {
   });
   it('calculates segment and response duration', () => {
     expect(segmentDuration({ start: 6, end: 12 }, 99)).toBe(6);
+    expect(segmentDuration({ start: 6 }, Number.POSITIVE_INFINITY)).toBe(0);
     expect(listeningResponseSeconds({ type: 'listen-response' })).toBe(20);
     expect(listeningResponseSeconds({ type: 'academic-talk' })).toBe(30);
   });
@@ -322,5 +323,25 @@ describe('listening section', () => {
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();
     expect(removeAttribute).toHaveBeenCalledWith('src');
     expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('stopped');
+  });
+
+  it('shows finite native audio duration and rejects streaming infinity', async () => {
+    const wrapper = mount(AudioSegment, {
+      props: {
+        document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
+        media: { file: 'talk.mp3' }
+      }
+    });
+    const element = wrapper.find('audio').element;
+    Object.defineProperty(element, 'duration', { configurable: true, value: 83.9 });
+    await wrapper.find('audio').trigger('loadedmetadata');
+    expect(wrapper.find('.audio-time').text()).toBe('00:00 / 01:23');
+
+    Object.defineProperty(element, 'duration', {
+      configurable: true,
+      value: Number.POSITIVE_INFINITY
+    });
+    await wrapper.find('audio').trigger('loadedmetadata');
+    expect(wrapper.find('.audio-time').text()).toBe('00:00 / 00:00');
   });
 });

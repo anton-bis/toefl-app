@@ -1,5 +1,6 @@
 function wholeSeconds(value) {
-  return Math.max(0, Math.floor(Number(value) || 0));
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? Math.max(0, Math.floor(numeric)) : 0;
 }
 
 function twoDigits(value) {

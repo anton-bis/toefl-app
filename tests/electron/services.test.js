@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import {
@@ -24,27 +26,51 @@ import {
 } from '../../electron/services/github-download.js';
 import { createContentProtocolHandler } from '../../electron/services/content-protocol.js';
 
-test('content protocol serves installed files and preserves media range requests', async () => {
-  const requests = [];
+test('content protocol serves complete files and HTTP-compatible media ranges', async t => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'toefl-content-protocol-'));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const filePath = path.join(directory, 'test.mp3');
+  fs.writeFileSync(filePath, Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
   const handler = createContentProtocolHandler({
-    net: {
-      fetch: async (url, options) => {
-        requests.push({ url, options });
-        return new Response('fixture');
-      }
-    },
-    resolveFile: async relativePath =>
-      relativePath === 'assets/audio/test.mp3' ? path.resolve('content/test.mp3') : null
+    resolveFile: async relativePath => (relativePath === 'assets/audio/test.mp3' ? filePath : null)
   });
 
-  const result = await handler(
+  const range = await handler(
     new Request('toefl-content://content/assets/audio/test.mp3', {
-      headers: { Range: 'bytes=10-' }
+      headers: { Range: 'bytes=2-5' }
     })
   );
-  assert.equal(await result.text(), 'fixture');
-  assert.match(requests[0].url, /^file:/);
-  assert.deepEqual(requests[0].options, { headers: { Range: 'bytes=10-' } });
+  assert.equal(range.status, 206);
+  assert.equal(range.headers.get('accept-ranges'), 'bytes');
+  assert.equal(range.headers.get('content-range'), 'bytes 2-5/10');
+  assert.equal(range.headers.get('content-length'), '4');
+  assert.equal(range.headers.get('content-type'), 'audio/mpeg');
+  assert.deepEqual(Buffer.from(await range.arrayBuffer()), Buffer.from([2, 3, 4, 5]));
+
+  const suffix = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', {
+      headers: { Range: 'bytes=-3' }
+    })
+  );
+  assert.equal(suffix.status, 206);
+  assert.equal(suffix.headers.get('content-range'), 'bytes 7-9/10');
+  assert.deepEqual(Buffer.from(await suffix.arrayBuffer()), Buffer.from([7, 8, 9]));
+
+  const head = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', { method: 'HEAD' })
+  );
+  assert.equal(head.status, 200);
+  assert.equal(head.headers.get('content-length'), '10');
+  assert.equal((await head.arrayBuffer()).byteLength, 0);
+
+  const invalid = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', {
+      headers: { Range: 'bytes=20-' }
+    })
+  );
+  assert.equal(invalid.status, 416);
+  assert.equal(invalid.headers.get('content-range'), 'bytes */10');
   assert.equal(
     (await handler(new Request('toefl-content://content/assets/missing.json'))).status,
     404
@@ -55,7 +81,6 @@ test('content protocol serves installed files and preserves media range requests
 test('content protocol converts resolver failures into a safe response', async () => {
   let reported;
   const handler = createContentProtocolHandler({
-    net: { fetch: async () => new Response('unused') },
     resolveFile: async () => {
       throw new Error('private path detail');
     },

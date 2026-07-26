@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Restored finite audio durations and seeking for question prompts and recorded responses in packaged desktop builds.
 - Allowed packaged renderer requests to load installed question-bank files through the secure custom content protocol.
 - Kept question-catalog loading failures recoverable without reloading the app or downloading valid content again.
 

@@ -13,6 +13,7 @@ describe('shared UI utilities', () => {
   it('normalizes fractional, invalid and negative time values', () => {
     expect(formatMinutesSeconds(1.9)).toBe('00:01');
     expect(formatMinutesSeconds(-1)).toBe('00:00');
+    expect(formatMinutesSeconds(Number.POSITIVE_INFINITY)).toBe('00:00');
     expect(formatHoursMinutesSeconds(Number.NaN)).toBe('00:00:00');
   });
 
