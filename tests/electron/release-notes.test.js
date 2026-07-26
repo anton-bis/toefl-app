@@ -67,7 +67,7 @@ test('develop pushes create isolated automatic prereleases', () => {
   assert.match(workflow, /branches: \[develop\]/);
   assert.match(workflow, /cancel-in-progress:.*refs\/heads\/develop/);
   assert.match(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
-  assert.match(workflow, /release_tag="dev-\$\{GITHUB_RUN_NUMBER\}-\$\{GITHUB_SHA:0:7\}"/);
+  assert.match(workflow, /release_tag="v\$\{version\}"/);
   assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease\)/);
   assert.match(workflow, /does not replace the latest stable release/);
   assert.match(workflow, /release_flags=\(--verify-tag --fail-on-no-commits\)/);

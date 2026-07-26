@@ -270,7 +270,7 @@ jobs:
           release_flags=(--verify-tag --fail-on-no-commits)
           if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
             version=$(node -p "require('./package.json').version")
-            release_tag="dev-${GITHUB_RUN_NUMBER}-${GITHUB_SHA:0:7}"
+            release_tag="v${version}"
             release_title="TOEFL iBT Practice ${version} (Develop)"
             release_flags=(--target "$GITHUB_SHA" --prerelease)
           elif [[ "$GITHUB_REF_NAME" == *-* ]]; then

@@ -12,7 +12,7 @@
 
 - Routed GitHub-hosted application updates and question-bank downloads through the configured HTTPS proxy.
 - Replaced the unstyled first-run question-bank status text with a responsive download, preparation, and retry experience.
-- Added automatic, uniquely versioned develop-branch prereleases without affecting stable releases or automatic updates.
+- Added automatic, uniquely versioned develop-branch prereleases with matching update metadata, without affecting stable releases or automatic updates.
 
 ## [1.5.1] - 2026-07-26
 
