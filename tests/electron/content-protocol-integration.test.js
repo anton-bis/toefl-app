@@ -1,14 +1,22 @@
 import assert from 'node:assert/strict';
 import { execFile, spawnSync } from 'node:child_process';
+import fsSync from 'node:fs';
 import fs from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { promisify } from 'node:util';
 
 const execute = promisify(execFile);
+const require = createRequire(import.meta.url);
 
 test('Electron renderer fetches installed content through the packaged CSP protocol', async t => {
+  const electronPackage = require.resolve('electron/package.json');
+  if (!fsSync.existsSync(path.join(path.dirname(electronPackage), 'path.txt'))) {
+    t.skip('The Electron binary was intentionally omitted from this test environment.');
+    return;
+  }
   let electron;
   try {
     electron = (await import('electron')).default;

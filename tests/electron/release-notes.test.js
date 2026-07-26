@@ -58,6 +58,20 @@ test('macOS releases support manual unsigned installation without partial creden
   assert.doesNotMatch(workflow, /--generate-notes/);
 });
 
+test('develop pushes create isolated automatic prereleases', () => {
+  const workflow = fs.readFileSync(
+    new URL('../../.github/workflows/release.yml', import.meta.url),
+    'utf8'
+  );
+  assert.match(workflow, /branches: \[develop\]/);
+  assert.match(workflow, /cancel-in-progress:.*refs\/heads\/develop/);
+  assert.match(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
+  assert.match(workflow, /release_tag="dev-\$\{GITHUB_RUN_NUMBER\}-\$\{GITHUB_SHA:0:7\}"/);
+  assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease\)/);
+  assert.match(workflow, /does not replace the latest stable release/);
+  assert.match(workflow, /release_flags=\(--verify-tag --fail-on-no-commits\)/);
+});
+
 test('the packaged user interface does not expose repository navigation', () => {
   const main = fs.readFileSync(new URL('../../electron/main.js', import.meta.url), 'utf8');
   const packageJson = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url)));

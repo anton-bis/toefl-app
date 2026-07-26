@@ -2,10 +2,15 @@ name: Release
 
 on:
   push:
+    branches: [develop]
     tags: ['v*']
 
 permissions:
   contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/develop' }}
 
 jobs:
   verify:
@@ -29,6 +34,11 @@ jobs:
           test "$(git cat-file -t "$GITHUB_REF_NAME")" = "tag"
           npm run release:notes -- "$GITHUB_REF_NAME" /tmp/release-notes.md
 
+      - name: Set automatic develop version
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
+
       - name: Install dependencies
         run: npm ci
         env:
@@ -49,6 +59,11 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
+
+      - name: Set automatic develop version
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Install dependencies
         run: npm ci
@@ -84,6 +99,11 @@ jobs:
           node-version-file: package.json
           cache: npm
 
+      - name: Set automatic develop version
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
+
       - name: Install dependencies
         run: npm ci
 
@@ -116,6 +136,11 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
+
+      - name: Set automatic develop version
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Install dependencies
         run: npm ci
@@ -180,7 +205,6 @@ jobs:
           if-no-files-found: error
 
   publish:
-    if: startsWith(github.ref, 'refs/tags/')
     needs: [package-windows, package-linux, package-macos]
     runs-on: ubuntu-latest
     permissions:
@@ -188,6 +212,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - name: Set automatic develop version
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Download release files
         uses: actions/download-artifact@v8
@@ -200,21 +235,48 @@ jobs:
         run: npm run release:manifest
 
       - name: Prepare release notes
+        if: startsWith(github.ref, 'refs/tags/')
         run: >-
           npm run release:notes --
           "$GITHUB_REF_NAME"
           release-notes.md
           release-files/hashes.sha256
 
+      - name: Prepare develop prerelease notes
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: |
+          version=$(node -p "require('./package.json').version")
+          {
+            echo "## ${version}"
+            echo
+            echo "Automated testing build from the develop branch at commit \`${GITHUB_SHA:0:7}\`."
+            echo
+            echo "This is a prerelease for maintainer testing. It does not replace the latest stable release or enter the stable automatic-update channel."
+            echo
+            echo "### SHA256 hashes"
+            echo
+            echo '```text'
+            cat release-files/hashes.sha256
+            echo '```'
+          } > release-notes.md
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          prerelease_flag=""
-          if [[ "$GITHUB_REF_NAME" == *-* ]]; then prerelease_flag="--prerelease"; fi
-          gh release create "$GITHUB_REF_NAME" release-files/* \
-            --verify-tag \
-            --fail-on-no-commits \
+          release_tag="$GITHUB_REF_NAME"
+          release_title="TOEFL iBT Practice $GITHUB_REF_NAME"
+          release_flags=(--verify-tag --fail-on-no-commits)
+          if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
+            version=$(node -p "require('./package.json').version")
+            release_tag="dev-${GITHUB_RUN_NUMBER}-${GITHUB_SHA:0:7}"
+            release_title="TOEFL iBT Practice ${version} (Develop)"
+            release_flags=(--target "$GITHUB_SHA" --prerelease)
+          elif [[ "$GITHUB_REF_NAME" == *-* ]]; then
+            release_flags+=(--prerelease)
+          fi
+          gh release create "$release_tag" release-files/* \
             --notes-file release-notes.md \
-            --title "TOEFL iBT Practice $GITHUB_REF_NAME" \
-            $prerelease_flag
+            --title "$release_title" \
+            "${release_flags[@]}"
