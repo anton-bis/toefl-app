@@ -11,8 +11,11 @@ const dataRequest = (operation, payload) => ipcRenderer.invoke('data:request', o
 // Expose a minimal, restricted API to the renderer.
 contextBridge.exposeInMainWorld('electronAPI', {
   // App updates
+  getUpdateState: () => ipcRenderer.invoke('update:get-state'),
   downloadUpdate: () => ipcRenderer.invoke('update:download'),
-  quitAndInstall: () => ipcRenderer.invoke('update:quit-and-install'),
+  retryUpdate: () => ipcRenderer.invoke('update:retry'),
+  installUpdate: () => ipcRenderer.invoke('update:install'),
+  resumeBackgroundChecks: () => ipcRenderer.invoke('background:resume-checks'),
 
   // Structured learning data. The renderer cannot issue SQL or access arbitrary paths.
   data: {
@@ -63,10 +66,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       .join('/')}`,
 
   // Event listeners
-  onUpdateAvailable: callback => subscribe('update:available', callback),
-  onUpdateError: callback => subscribe('update:error', callback),
-  onUpdateProgress: callback => subscribe('update:progress', callback),
-  onUpdateDownloaded: callback => subscribe('update:downloaded', callback),
+  onUpdateState: callback => subscribe('update:state', callback),
   onContentState: callback => subscribe('content:state', callback),
   onContentActivated: callback => subscribe('content:activated', callback)
 });

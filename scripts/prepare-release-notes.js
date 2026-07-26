@@ -50,7 +50,10 @@ function formatHashes(value) {
 export function createReleaseNotes(changelog, releaseVersion, hashes = '') {
   const version = normalizeVersion(releaseVersion);
   const entry = extractChangelogEntry(changelog, version);
-  return `## ${version}\n\n${entry}${formatHashes(hashes)}\n`;
+  const macInstructions = `### macOS manual installation
+
+The macOS package is not Apple-notarized. Download the DMG, drag the app into Applications and replace the previous version. On first launch, right-click the app and choose **Open**; if macOS still blocks it, allow it in **System Settings → Privacy & Security**.`;
+  return `## ${version}\n\n${entry}\n\n${macInstructions}${formatHashes(hashes)}\n`;
 }
 
 function writeReleaseNotes({ changelogPath, hashesPath, outputPath, version }) {

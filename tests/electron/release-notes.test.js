@@ -34,16 +34,32 @@ test('current release notes contain the changelog and artifact hashes', () => {
 
   assert.match(notes, new RegExp(`^## ${packageJson.version}$`, 'm'));
   assert.match(notes, /### SHA256 Hashes of the release artifacts/);
+  assert.match(notes, /### macOS manual installation/);
   assert.match(notes, new RegExp(`\\* ${hash.toUpperCase()}`));
   assert.doesNotMatch(notes, /compare\/v|## Downloads|## Verify downloads/);
 });
 
-test('macOS release signing variables are exported only when secrets are configured', () => {
+test('macOS releases support manual unsigned installation without partial credentials', () => {
   const workflow = fs.readFileSync(
     new URL('../../.github/workflows/release.yml', import.meta.url),
     'utf8'
   );
-  assert.doesNotMatch(workflow, /^\s+CSC_LINK:\s*\$\{\{\s*secrets\./m);
-  assert.match(workflow, /if \[\[ -n "\$MAC_CERTIFICATE" \]\]; then/);
+  assert.match(workflow, /configured=0/);
+  assert.match(workflow, /"\$configured" -ne 0 && "\$configured" -ne 5/);
+  assert.match(workflow, /Building an unsigned macOS package for manual installation/);
+  assert.match(workflow, /CSC_IDENTITY_AUTO_DISCOVERY=false/);
   assert.match(workflow, /export CSC_LINK="\$MAC_CERTIFICATE"/);
+  assert.match(workflow, /codesign --verify --deep --strict/);
+  assert.match(workflow, /xcrun stapler validate/);
+  assert.doesNotMatch(workflow, /workflow_dispatch/);
+});
+
+test('the packaged user interface does not expose repository navigation', () => {
+  const main = fs.readFileSync(new URL('../../electron/main.js', import.meta.url), 'utf8');
+  const packageJson = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url)));
+
+  assert.doesNotMatch(main, /github\.com/);
+  assert.equal(packageJson.repository, undefined);
+  assert.equal(packageJson.homepage, undefined);
+  assert.equal(packageJson.bugs, undefined);
 });
