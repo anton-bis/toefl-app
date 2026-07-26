@@ -6,6 +6,7 @@
 
 - Allowed packaged renderer requests to load installed question-bank files through the secure custom content protocol.
 - Kept question-catalog loading failures recoverable without reloading the app or downloading valid content again.
+- Kept update metadata filenames stable for automatically versioned prerelease builds.
 
 ### Changed
 
