@@ -8,7 +8,7 @@ import {
 
 export const useCatalogStore = defineStore('catalog', {
   state: () => ({
-    tests: listCatalog(),
+    tests: [],
     documents: {},
     catalogLoaded: false,
     loading: false,
@@ -47,6 +47,7 @@ export const useCatalogStore = defineStore('catalog', {
     },
     invalidate() {
       this.documents = {};
+      this.catalogLoaded = false;
     }
   }
 });

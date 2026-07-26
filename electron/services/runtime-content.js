@@ -1,9 +1,10 @@
-export const RUNTIME_CONTENT_EXTENSIONS = new Set([
+export const CONTENT_SCHEMA_VERSION = 1;
+export const CONTENT_SCHEMA_MIN_APP_VERSION = '1.5.0';
+
+export const RUNTIME_MEDIA_EXTENSIONS = new Set([
   '.gif',
-  '.ico',
   '.jpeg',
   '.jpg',
-  '.json',
   '.m4a',
   '.mp3',
   '.mp4',
@@ -13,6 +14,8 @@ export const RUNTIME_CONTENT_EXTENSIONS = new Set([
   '.wav',
   '.webp'
 ]);
+
+export const RUNTIME_CONTENT_EXTENSIONS = new Set(['.ico', '.json', ...RUNTIME_MEDIA_EXTENSIONS]);
 
 const HASH_PATTERN = /^[a-f\d]{64}$/i;
 const QUESTION_SECTIONS = new Set(['reading', 'listening', 'writing', 'speaking']);
@@ -27,6 +30,43 @@ function requireString(value, label) {
 
 function requireHash(value, label) {
   if (!HASH_PATTERN.test(value || '')) throw new Error(`Invalid ${label}.`);
+}
+
+export function canonicalContentPacks(packs) {
+  return JSON.stringify(
+    packs
+      .map(pack => [pack.id, pack.contentHash])
+      .sort(([left], [right]) => left.localeCompare(right))
+  );
+}
+
+export function assertContentManifest(manifest) {
+  if (
+    !isRecord(manifest) ||
+    manifest.schemaVersion !== CONTENT_SCHEMA_VERSION ||
+    !Array.isArray(manifest.packs) ||
+    manifest.packs.length === 0 ||
+    manifest.packs.length > 100
+  ) {
+    throw new Error('Invalid runtime content manifest.');
+  }
+  requireHash(manifest.manifestId, 'runtime content manifest id');
+  requireString(manifest.publishedAt, 'runtime content publish date');
+  requireString(manifest.minAppVersion, 'minimum app version');
+  const ids = new Set();
+  for (const pack of manifest.packs) {
+    if (!isRecord(pack) || !/^[a-z0-9-]+$/.test(pack.id || '') || ids.has(pack.id)) {
+      throw new Error('Invalid or duplicate runtime content pack.');
+    }
+    ids.add(pack.id);
+    requireHash(pack.contentHash, `${pack.id} content hash`);
+    requireHash(pack.archiveHash, `${pack.id} archive hash`);
+    requireString(pack.url, `${pack.id} URL`);
+    if (!Number.isSafeInteger(pack.size) || pack.size <= 0) {
+      throw new Error(`Invalid ${pack.id} archive size.`);
+    }
+  }
+  return manifest;
 }
 
 function validateManifestEntry(entry) {

@@ -52,7 +52,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
 
   // Runtime content updates
-  applyContentUpdate: () => ipcRenderer.invoke('content:apply'),
+  initializeContent: () => ipcRenderer.invoke('content:initialize'),
+  retryContent: () => ipcRenderer.invoke('content:retry'),
+  setContentBusy: busy => ipcRenderer.invoke('content:set-busy', Boolean(busy)),
   getContentAssetUrl: relativePath =>
     `toefl-content://content/${String(relativePath)
       .replace(/^\/+/, '')
@@ -65,5 +67,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onUpdateError: callback => subscribe('update:error', callback),
   onUpdateProgress: callback => subscribe('update:progress', callback),
   onUpdateDownloaded: callback => subscribe('update:downloaded', callback),
-  onContentUpdateAvailable: callback => subscribe('content:update-available', callback)
+  onContentState: callback => subscribe('content:state', callback),
+  onContentActivated: callback => subscribe('content:activated', callback)
 });

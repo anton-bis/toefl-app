@@ -8,14 +8,18 @@ export const useUpdatesStore = defineStore('updates', {
     description: '',
     progress: 0,
     error: '',
-    contentUpdate: null,
+    contentReady: !window.electronAPI,
+    contentStatus: window.electronAPI ? 'idle' : 'ready',
+    contentProgress: window.electronAPI ? 0 : 100,
+    contentError: '',
+    contentActivation: 0,
     cleanups: []
   }),
   getters: {
     hasUpdate: state => ['available', 'downloading', 'downloaded'].includes(state.status)
   },
   actions: {
-    initialize() {
+    async initialize() {
       if (this.initialized || !window.electronAPI) return;
       this.initialized = true;
       const listen = (method, callback) => {
@@ -39,9 +43,13 @@ export const useUpdatesStore = defineStore('updates', {
         this.status = 'error';
         this.error = String(error || 'Update failed.');
       });
-      listen('onContentUpdateAvailable', info => {
-        this.contentUpdate = info;
+      listen('onContentState', state => {
+        this.applyContentState(state);
       });
+      listen('onContentActivated', () => {
+        this.contentActivation += 1;
+      });
+      this.applyContentState(await window.electronAPI.initializeContent());
     },
     async download() {
       this.status = 'downloading';
@@ -56,16 +64,23 @@ export const useUpdatesStore = defineStore('updates', {
     install() {
       window.electronAPI?.quitAndInstall();
     },
-    async applyContent() {
+    applyContentState(state = {}) {
+      this.contentStatus = state.status || this.contentStatus;
+      this.contentReady = Boolean(state.ready);
+      this.contentProgress = Number.isFinite(state.progress)
+        ? state.progress
+        : this.contentProgress;
+      this.contentError = state.error || '';
+    },
+    async retryContent() {
       if (!window.electronAPI) return;
-      this.status = 'downloading';
+      this.contentStatus = 'checking';
+      this.contentError = '';
       try {
-        await window.electronAPI.applyContentUpdate();
-        this.contentUpdate = null;
-        window.location.reload();
+        this.applyContentState(await window.electronAPI.retryContent());
       } catch (error) {
-        this.status = 'error';
-        this.error = error.message;
+        this.contentStatus = 'error';
+        this.contentError = error.message;
       }
     },
     dispose() {

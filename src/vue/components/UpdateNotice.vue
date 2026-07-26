@@ -5,19 +5,15 @@ const updates = useUpdatesStore();
 </script>
 
 <template>
-  <aside v-if="updates.hasUpdate || updates.contentUpdate || updates.error" class="update-notice">
+  <aside v-if="updates.hasUpdate || updates.error" class="update-notice">
     <div>
       <strong v-if="updates.error">Update Failed</strong>
-      <strong v-else-if="updates.contentUpdate">Content Update Available</strong>
       <strong v-else>Version {{ updates.version }} Available</strong>
       <p v-if="updates.error">{{ updates.error }}</p>
       <p v-else-if="updates.status === 'downloading'">Downloading: {{ updates.progress }}%</p>
       <p v-else-if="updates.description">{{ updates.description }}</p>
     </div>
-    <button v-if="updates.contentUpdate" type="button" @click="updates.applyContent">
-      Update Content
-    </button>
-    <button v-else-if="updates.status === 'available'" type="button" @click="updates.download">
+    <button v-if="updates.status === 'available'" type="button" @click="updates.download">
       Download and Install
     </button>
     <button v-else-if="updates.status === 'downloaded'" type="button" @click="updates.install">

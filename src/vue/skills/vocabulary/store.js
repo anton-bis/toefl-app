@@ -16,6 +16,7 @@ import {
   saveVocabularySet,
   saveVocabularyWord
 } from '../../platform/dataRepository.js';
+import { readText } from '../../platform/contentRepository.js';
 
 function sessionSnapshot(state) {
   return {
@@ -134,9 +135,7 @@ export const useVocabularyStore = defineStore('vocabulary', {
           (this.progress[subject] ||= {})[setId] ||= { words: {} };
           Object.assign(this.progress[subject][setId], value, { words: {} });
         });
-        const response = await fetch('assets/questions/vocabulary/manifest.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status} for vocabulary manifest`);
-        const counts = await response.json();
+        const counts = JSON.parse(await readText('assets/questions/vocabulary/manifest.json'));
         if (generation !== this.lifecycleGeneration) return;
         SUBJECTS.forEach(subject => {
           this.setCounts[subject] = Math.ceil((Number(counts[subject]) || 0) / 25);
@@ -157,12 +156,11 @@ export const useVocabularyStore = defineStore('vocabulary', {
     async loadSubject(subject, generation = this.lifecycleGeneration) {
       if (this.wordData[subject]) return this.wordData[subject];
       if (!SUBJECTS.includes(subject)) throw new Error('Unknown vocabulary subject');
-      const [response, progress] = await Promise.all([
-        fetch(`assets/questions/vocabulary/${subject}-words.json`),
+      const [serialized, progress] = await Promise.all([
+        readText(`assets/questions/vocabulary/${subject}-words.json`),
         loadVocabularyProgress(subject)
       ]);
-      if (!response.ok) throw new Error(`HTTP ${response.status} for ${subject}`);
-      const bank = await response.json();
+      const bank = JSON.parse(serialized);
       if (generation !== this.lifecycleGeneration) return null;
       if (!Array.isArray(bank)) throw new Error(`Invalid ${subject} vocabulary data`);
       this.progress[subject] = progress[subject] || {};

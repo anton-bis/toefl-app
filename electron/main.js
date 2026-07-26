@@ -14,6 +14,18 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { getContentCandidates, normalizeContentPath } from './services/content-paths.js';
+import {
+  activePackRoots,
+  getContentRoot,
+  hasLegacyContent,
+  readInstalledManifest
+} from './services/content-installation.js';
+import {
+  configureContentUpdater,
+  initializeContent,
+  setContentBusy,
+  synchronizeContent
+} from './services/content-updater.js';
 import { registerDataStorageIpc } from './services/database.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
@@ -41,15 +53,26 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 const resolvedContentPaths = new Map();
+let installedContentRoots = [];
+let installedContentLoaded = false;
+
+async function refreshInstalledContent(manifest) {
+  const contentRoot = getContentRoot(app.getPath('userData'));
+  const activeManifest = manifest || (await readInstalledManifest(contentRoot));
+  installedContentRoots = activePackRoots(contentRoot, activeManifest);
+  if (!manifest && (await hasLegacyContent(contentRoot))) installedContentRoots.push(contentRoot);
+  installedContentLoaded = true;
+  resolvedContentPaths.clear();
+}
 
 async function resolveContentFile(relativePath) {
   const safePath = normalizeContentPath(relativePath);
   if (resolvedContentPaths.has(safePath)) return resolvedContentPaths.get(safePath);
+  if (!installedContentLoaded) await refreshInstalledContent();
   for (const candidate of getContentCandidates({
     relativePath: safePath,
-    userDataPath: app.getPath('userData'),
-    appPath: app.getAppPath(),
-    resourcesPath: process.resourcesPath
+    activeRoots: installedContentRoots,
+    appPath: app.getAppPath()
   })) {
     try {
       const stats = await fs.promises.stat(candidate);
@@ -145,11 +168,7 @@ async function checkAppUpdate() {
 
 async function checkContentUpdate() {
   if (!canRunBackgroundWork()) return;
-  const { checkForContentUpdates } = await import('./services/content-updater.js');
-  const result = await checkForContentUpdates();
-  if (result.hasUpdate && mainWindow) {
-    mainWindow.webContents.send('content:update-available', result);
-  }
+  await synchronizeContent();
 }
 
 function scheduleBackgroundChecks(initialDelay = 30_000) {
@@ -489,13 +508,20 @@ function setupIpcHandlers() {
     complete?.(result);
   });
 
-  // Runtime content updates
-  ipcMain.handle('content:apply', async event => {
+  ipcMain.handle('content:initialize', async event => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content initialization request.');
+    if (!app.isPackaged) return { status: 'ready', ready: true, progress: 100 };
+    return initializeContent();
+  });
+
+  ipcMain.handle('content:retry', async event => {
     if (!isTrustedRenderer(event)) throw new Error('Untrusted content update request.');
-    const { runContentUpdate } = await import('./services/content-updater.js');
-    const result = await runContentUpdate();
-    resolvedContentPaths.clear();
-    return result;
+    return synchronizeContent();
+  });
+
+  ipcMain.handle('content:set-busy', async (event, busy) => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content state request.');
+    await setContentBusy(busy);
   });
 
   ipcMain.handle('update:quit-and-install', async event => {
@@ -556,6 +582,18 @@ function configureAutoUpdater(updater) {
 function initializeApp() {
   try {
     console.log('Initializing the app...');
+
+    configureContentUpdater({
+      onState: state => mainWindow?.webContents.send('content:state', state),
+      onActivated: manifest => {
+        refreshInstalledContent(manifest).catch(error =>
+          console.warn('Could not refresh installed content paths:', error.message)
+        );
+        mainWindow?.webContents.send('content:activated', {
+          manifestId: manifest.manifestId
+        });
+      }
+    });
 
     // Register IPC handlers.
     setupIpcHandlers();

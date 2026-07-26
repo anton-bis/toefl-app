@@ -19,15 +19,6 @@ app.mount('#vue-app');
 try {
   await initializeDataStorage();
   storageReady.value = true;
-  const refreshCatalog = async () => {
-    const { useCatalogStore } = await import('./stores/catalog.js');
-    await useCatalogStore(pinia).refreshCatalog();
-  };
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(() => refreshCatalog().catch(() => {}), { timeout: 2000 });
-  } else {
-    setTimeout(() => refreshCatalog().catch(() => {}), 0);
-  }
 } catch (error) {
   app.unmount();
   const root = document.querySelector('#vue-app');

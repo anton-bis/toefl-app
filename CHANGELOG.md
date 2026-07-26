@@ -2,10 +2,19 @@
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-26
+
+### Highlights
+
+- Separated the question bank from desktop installers into content-addressed GitHub Release packs.
+- Added automatic first-launch installation and background question-bank updates with no user commands or manual content versions.
+- Added one-command maintainer publishing and restoration while keeping question-bank media out of future Git history.
+
 ### Fixes
 
 - Fixed compiled question metadata validation when opening exams from the home catalog.
 - Kept the desktop header and navigation stable while scrolling the TPO content pane.
+- Deferred validated content activation until an active exam closes and preserved usable local content across network failures.
 
 ## [1.4.2] - 2026-07-18
 
@@ -26,5 +35,6 @@
 - Moved bundled content outside the ASAR and made optional signing safe for universal macOS packaging.
 - Simplified the application architecture, removed obsolete code and assets, and expanded automated coverage for the main runtime and release paths.
 
-[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/anton-bis/toefl-app/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/anton-bis/toefl-app/compare/v1.4.1...v1.4.2

@@ -1,281 +1,243 @@
-/**
- * Runtime content updates for the Electron main process.
- * Fetch the GitHub manifest, compare versions, and download changed files.
- */
 import { app, net } from 'electron';
-import fs from 'fs';
-import path from 'path';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
   assertCompiledMetadata,
   assertQuestionManifest,
-  canonicalQuestionEntries,
-  RUNTIME_CONTENT_EXTENSIONS
+  canonicalQuestionEntries
 } from './runtime-content.js';
 import { normalizeContentPath, resolveContentFile } from './content-paths.js';
+import {
+  activateManifest,
+  activePackRoots,
+  getContentRoot,
+  getPackDirectory,
+  hasLegacyContent,
+  isInstalledManifestReady,
+  readInstalledManifest,
+  readPendingManifest,
+  removeUnusedPacks,
+  savePendingManifest
+} from './content-installation.js';
+import {
+  extractContentArchive,
+  installExtractedPack,
+  validateExtractedPack
+} from './content-archive.js';
+import { collectDocumentAssets } from './content-assets.js';
+import {
+  assertPublishedContentManifest,
+  contentManifestUrl,
+  validateContentUrl
+} from './content-config.js';
 
-const MANIFEST_URL =
-  'https://raw.githubusercontent.com/anton-bis/toefl-content/master/manifest.json';
-const CONTENT_DIR_NAME = 'tpo-content';
 const MAX_MANIFEST_BYTES = 2 * 1024 * 1024;
-const MAX_CONTENT_BYTES = 50 * 1024 * 1024;
-const { access, cp, mkdir, readFile, rename, rm, writeFile } = fs.promises;
-const CONTENT_SECTIONS = new Set(['reading', 'listening', 'writing', 'speaking']);
+const MAX_PACK_BYTES = 512 * 1024 * 1024;
+const RESPONSE_TIMEOUT_MS = 30_000;
+const DOWNLOAD_IDLE_TIMEOUT_MS = 60_000;
+const { access, mkdir, readFile, rm } = fs.promises;
 
-function getContentDir() {
-  return path.join(app.getPath('userData'), CONTENT_DIR_NAME);
+let synchronization;
+let contentBusy = false;
+let synchronizeWhenIdle = false;
+let eventSink = () => {};
+let activatedSink = () => {};
+
+function emit(state) {
+  eventSink(state);
+  return state;
 }
 
-async function getLocalVersion() {
-  const versionFile = path.join(getContentDir(), '.version');
-  try {
-    const raw = (await readFile(versionFile, 'utf-8')).trim();
-    return parseInt(raw) || 0;
-  } catch {
-    return 0;
-  }
+export function configureContentUpdater({ onState, onActivated } = {}) {
+  eventSink = typeof onState === 'function' ? onState : () => {};
+  activatedSink = typeof onActivated === 'function' ? onActivated : () => {};
 }
 
-async function saveLocalVersion(version) {
-  const dir = getContentDir();
-  await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, '.version'), String(version), { mode: 0o600 });
+function manifestUrl() {
+  return process.env.TOEFL_CONTENT_MANIFEST_URL || contentManifestUrl();
 }
 
-function validateRemoteUrl(value) {
-  const url = new URL(value);
-  if (
-    url.protocol !== 'https:' ||
-    !['github.com', 'raw.githubusercontent.com'].includes(url.hostname)
-  ) {
-    throw new Error(`Untrusted content host: ${url.hostname}`);
-  }
-  return url;
-}
-
-function validateUpdateItem(item) {
-  if (!item || typeof item !== 'object') throw new Error('Invalid content update entry.');
-  const relativePath = normalizeUpdatePath(item.path);
-  if (!RUNTIME_CONTENT_EXTENSIONS.has(path.extname(relativePath).toLowerCase())) {
-    throw new Error(`Unsupported content type: ${item.path}`);
-  }
-  const url = validateRemoteUrl(item.url).toString();
-  if (item.sha256 && !/^[a-f\d]{64}$/i.test(item.sha256)) {
-    throw new Error('Invalid SHA-256 checksum.');
-  }
-  return { ...item, relativePath, url };
-}
-
-function normalizeUpdatePath(value) {
-  const pathValue = normalizeContentPath(value);
-  if (pathValue.startsWith('assets/')) return pathValue;
-  if (pathValue.startsWith('questions/')) return `assets/${pathValue}`;
-  const [section] = pathValue.split('/');
-  return CONTENT_SECTIONS.has(section) ? `assets/questions/${pathValue}` : pathValue;
-}
-
-function validateManifest(manifest) {
-  if (
-    !manifest ||
-    !Number.isSafeInteger(manifest.content_version) ||
-    manifest.content_version < 0
-  ) {
-    throw new Error('Invalid content manifest version.');
-  }
-  if (!Array.isArray(manifest.updates) || manifest.updates.length > 500) {
-    throw new Error('Invalid content manifest update list.');
-  }
-  return { ...manifest, updates: manifest.updates.map(validateUpdateItem) };
-}
-
-function fetchUrl(value, { maxBytes, expectedHash = '', redirectCount = 0 }) {
-  if (redirectCount > 5) return Promise.reject(new Error('Too many redirects.'));
-  const url = validateRemoteUrl(value).toString();
+function requestResponse(value, { start = 0, redirectCount = 0 } = {}) {
+  if (redirectCount > 5) return Promise.reject(new Error('Too many content redirects.'));
+  const url = validateContentUrl(value).toString();
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: 'GET' });
-    let settled = false;
-    const fail = error => {
-      if (settled) return;
-      settled = true;
-      reject(error);
-    };
+    const timeout = setTimeout(() => {
+      request.abort();
+      reject(new Error(`Content request timed out: ${url}`));
+    }, RESPONSE_TIMEOUT_MS);
+    if (start > 0) request.setHeader('Range', `bytes=${start}-`);
     request.on('response', response => {
+      clearTimeout(timeout);
       if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-        settled = true;
-        const loc = response.headers.location;
-        const redirected = new URL(Array.isArray(loc) ? loc[0] : loc, url).toString();
-        Promise.resolve()
-          .then(() =>
-            fetchUrl(redirected, {
-              maxBytes,
-              expectedHash,
-              redirectCount: redirectCount + 1
-            })
-          )
+        const location = Array.isArray(response.headers.location)
+          ? response.headers.location[0]
+          : response.headers.location;
+        const redirected = new URL(location, url).toString();
+        response.resume();
+        requestResponse(redirected, { start, redirectCount: redirectCount + 1 })
           .then(resolve)
           .catch(reject);
         return;
       }
-      if (response.statusCode !== 200) {
-        fail(new Error(`HTTP ${response.statusCode}: ${url}`));
-        return;
-      }
-      const chunks = [];
-      let total = 0;
-      response.on('data', chunk => {
-        total += chunk.length;
-        if (total > maxBytes) {
-          request.abort();
-          fail(new Error(`The download exceeds the ${maxBytes}-byte limit.`));
-          return;
-        }
-        chunks.push(Buffer.from(chunk));
-      });
-      response.on('error', fail);
-      response.on('end', () => {
-        if (settled) return;
-        const data = Buffer.concat(chunks);
-        const actualHash = crypto.createHash('sha256').update(data).digest('hex');
-        if (expectedHash && actualHash.toLowerCase() !== expectedHash.toLowerCase()) {
-          fail(new Error(`SHA-256 mismatch: ${url}`));
-          return;
-        }
-        settled = true;
-        resolve(data);
-      });
+      resolve({ response, url });
     });
-    request.on('error', fail);
+    request.on('error', error => {
+      clearTimeout(timeout);
+      reject(error);
+    });
     request.end();
   });
 }
 
-async function fetchManifest() {
-  const data = await fetchUrl(MANIFEST_URL, { maxBytes: MAX_MANIFEST_BYTES });
-  return validateManifest(JSON.parse(data.toString('utf-8')));
-}
-
-async function downloadContent(url, target, expectedHash) {
-  const data = await fetchUrl(url, { maxBytes: MAX_CONTENT_BYTES, expectedHash });
-  await writeFile(target, data, { mode: 0o600 });
-}
-
-export async function checkForContentUpdates() {
-  try {
-    const manifest = await fetchManifest();
-    const localVer = await getLocalVersion();
-    const remoteVer = manifest.content_version;
-    if (remoteVer <= localVer) {
-      return { hasUpdate: false, localVersion: localVer, remoteVersion: remoteVer };
-    }
-    return {
-      hasUpdate: true,
-      localVersion: localVer,
-      remoteVersion: remoteVer,
-      updates: manifest.updates.map(({ path: updatePath, url, sha256 }) => ({
-        path: updatePath,
-        url,
-        ...(sha256 ? { sha256 } : {})
-      })),
-      updateCount: manifest.updates.length
-    };
-  } catch (error) {
-    console.error('Content update check failed:', error.message);
-    return { hasUpdate: false, error: error.message };
-  }
-}
-
-async function stageUpdates(items, stagingRoot) {
-  const contentRoot = getContentDir();
-  if (await exists(contentRoot)) await cp(contentRoot, stagingRoot, { recursive: true });
-  await mkdir(stagingRoot, { recursive: true });
-  for (const item of items) {
-    const staged = resolveContentFile(stagingRoot, item.relativePath);
-    await mkdir(path.dirname(staged), { recursive: true });
-    await downloadContent(item.url, staged, item.sha256);
-  }
-  const compiledManifest = 'assets/questions/compiled/manifest.json';
-  const updatesCompiledContent = items.some(item =>
-    item.relativePath.startsWith('assets/questions/compiled/')
-  );
-  const includesCompiledManifest = items.some(item => item.relativePath === compiledManifest);
-  if (updatesCompiledContent && !includesCompiledManifest) {
-    throw new Error('Compiled content updates must include their manifest.');
-  }
-  if (includesCompiledManifest) await validateCompiledRelease(stagingRoot);
-}
-
-async function commitStagedRelease(state) {
-  if (await exists(state.contentRoot)) {
-    await rename(state.contentRoot, state.backupRoot);
-    state.backedUp = true;
-  }
-  await rename(state.stagingRoot, state.contentRoot);
-  state.committed = true;
-  if (state.backedUp) {
-    await rm(state.backupRoot, { recursive: true, force: true }).catch(error =>
-      console.warn('Old content backup cleanup failed:', error.message)
+async function fetchBuffer(value, maxBytes) {
+  const { response, url } = await requestResponse(value);
+  if (response.statusCode !== 200) throw new Error(`HTTP ${response.statusCode}: ${url}`);
+  const chunks = [];
+  let total = 0;
+  let idleTimeout;
+  const resetTimeout = () => {
+    clearTimeout(idleTimeout);
+    idleTimeout = setTimeout(
+      () => response.destroy(new Error('Content manifest download timed out.')),
+      DOWNLOAD_IDLE_TIMEOUT_MS
     );
-  }
-}
-
-async function rollbackRelease(state, originalError) {
-  let failure = originalError;
-  if (state.committed && (await exists(state.contentRoot))) {
-    await rm(state.contentRoot, { recursive: true, force: true });
-  }
-  if (!state.backedUp || !(await exists(state.backupRoot))) return failure;
-  try {
-    await rename(state.backupRoot, state.contentRoot);
-  } catch (rollbackError) {
-    state.preserveBackup = true;
-    failure = new Error(
-      `${originalError.message} Recovery copy preserved at ${state.backupRoot}: ${rollbackError.message}`
-    );
-  }
-  return failure;
-}
-
-async function cleanupRelease(state) {
-  await rm(state.stagingRoot, { recursive: true, force: true }).catch(() => {});
-  if (!state.preserveBackup) {
-    await rm(state.backupRoot, { recursive: true, force: true }).catch(() => {});
-  }
-}
-
-async function applyContentUpdates(updates) {
-  const items = updates;
-  const contentRoot = getContentDir();
-  const parent = path.dirname(contentRoot);
-  const suffix = `${process.pid}-${Date.now()}`;
-  const state = {
-    contentRoot,
-    stagingRoot: path.join(parent, `.tpo-content-staging-${suffix}`),
-    backupRoot: path.join(parent, `.tpo-content-backup-${suffix}`),
-    backedUp: false,
-    committed: false,
-    preserveBackup: false
   };
   try {
-    await stageUpdates(items, state.stagingRoot);
-    await commitStagedRelease(state);
-    return items.map(item => ({ path: item.path, success: true }));
-  } catch (error) {
-    const failure = await rollbackRelease(state, error);
-    return items.map(item => ({ path: item.path, success: false, error: failure.message }));
+    resetTimeout();
+    for await (const chunk of response) {
+      resetTimeout();
+      total += chunk.length;
+      if (total > maxBytes) throw new Error('The content manifest exceeds its size limit.');
+      chunks.push(Buffer.from(chunk));
+    }
   } finally {
-    await cleanupRelease(state);
+    clearTimeout(idleTimeout);
+  }
+  return Buffer.concat(chunks);
+}
+
+export async function fetchContentManifest() {
+  const data = await fetchBuffer(`${manifestUrl()}?t=${Date.now()}`, MAX_MANIFEST_BYTES);
+  return assertPublishedContentManifest(JSON.parse(data.toString('utf8')));
+}
+
+async function hashExistingFile(filePath, bytes) {
+  const hash = crypto.createHash('sha256');
+  if (!bytes) return hash;
+  await new Promise((resolve, reject) => {
+    const input = fs.createReadStream(filePath);
+    input.on('data', chunk => hash.update(chunk));
+    input.on('error', reject);
+    input.on('end', resolve);
+  });
+  return hash;
+}
+
+async function downloadPack(pack, target, reportProgress) {
+  await mkdir(path.dirname(target), { recursive: true });
+  let existing = 0;
+  try {
+    existing = (await fs.promises.stat(target)).size;
+    if (existing === pack.size) {
+      const completedHash = await hashExistingFile(target, existing);
+      if (completedHash.digest('hex') === pack.archiveHash.toLowerCase()) {
+        reportProgress(existing);
+        return;
+      }
+      await rm(target, { force: true });
+      existing = 0;
+    } else if (existing > pack.size) {
+      await rm(target, { force: true });
+      existing = 0;
+    }
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+
+  const { response, url } = await requestResponse(pack.url, { start: existing });
+  const append = existing > 0 && response.statusCode === 206;
+  if (![200, 206].includes(response.statusCode) || (response.statusCode === 206 && !existing)) {
+    response.resume();
+    throw new Error(`HTTP ${response.statusCode}: ${url}`);
+  }
+  if (!append) existing = 0;
+  const hash = await hashExistingFile(target, existing);
+  const output = fs.createWriteStream(target, {
+    flags: append ? 'a' : 'w',
+    mode: 0o600
+  });
+  let total = existing;
+  reportProgress(total);
+
+  try {
+    await new Promise((resolve, reject) => {
+      let settled = false;
+      let idleTimeout;
+      const resetTimeout = () => {
+        clearTimeout(idleTimeout);
+        idleTimeout = setTimeout(
+          () => fail(new Error(`Content pack download timed out: ${pack.id}`)),
+          DOWNLOAD_IDLE_TIMEOUT_MS
+        );
+      };
+      const fail = error => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(idleTimeout);
+        response.destroy();
+        output.destroy();
+        reject(error);
+      };
+      response.on('data', chunk => {
+        resetTimeout();
+        total += chunk.length;
+        if (total > pack.size || total > MAX_PACK_BYTES) {
+          fail(new Error(`Content pack exceeds its declared size: ${pack.id}`));
+          return;
+        }
+        hash.update(chunk);
+        if (!output.write(chunk)) {
+          response.pause();
+          output.once('drain', () => response.resume());
+        }
+        reportProgress(total);
+      });
+      response.on('error', fail);
+      output.on('error', fail);
+      response.on('end', () => {
+        if (settled) return;
+        clearTimeout(idleTimeout);
+        output.end(() => {
+          settled = true;
+          resolve();
+        });
+      });
+      resetTimeout();
+    });
+  } catch (error) {
+    output.destroy();
+    throw error;
+  }
+  if (total !== pack.size || hash.digest('hex') !== pack.archiveHash.toLowerCase()) {
+    await rm(target, { force: true });
+    throw new Error(`Content pack integrity check failed: ${pack.id}`);
   }
 }
 
-export async function runContentUpdate() {
-  const manifest = await fetchManifest();
-  const results = await applyContentUpdates(manifest.updates);
-  const failures = results.filter(result => !result.success);
-  if (failures.length > 0) {
-    throw new Error(`Content update failed for ${failures.length} file(s).`);
+function parseVersion(value) {
+  const match = String(value || '').match(/^(\d+)\.(\d+)\.(\d+)/);
+  return match ? match.slice(1).map(Number) : [0, 0, 0];
+}
+
+function supportsManifest(manifest) {
+  const installed = parseVersion(app.getVersion());
+  const minimum = parseVersion(manifest.minAppVersion);
+  for (let index = 0; index < installed.length; index += 1) {
+    if (installed[index] !== minimum[index]) return installed[index] > minimum[index];
   }
-  await saveLocalVersion(manifest.content_version);
-  return { version: manifest.content_version, results };
+  return true;
 }
 
 async function exists(filePath) {
@@ -287,51 +249,236 @@ async function exists(filePath) {
   }
 }
 
-async function validateCompiledRelease(root) {
-  const manifestPath = resolveContentFile(root, 'assets/questions/compiled/manifest.json');
-  const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-  try {
-    assertQuestionManifest(manifest);
-  } catch {
-    throw new Error('The content release has an invalid compiled manifest.');
+async function findInstalledFile(contentRoot, manifest, relativePath) {
+  for (const root of activePackRoots(contentRoot, manifest)) {
+    const candidate = resolveContentFile(root, relativePath);
+    if (await exists(candidate)) return candidate;
   }
+  return null;
+}
+
+async function validateInstalledContent(contentRoot, manifest) {
+  const manifestPath = await findInstalledFile(
+    contentRoot,
+    manifest,
+    'assets/questions/compiled/manifest.json'
+  );
+  if (!manifestPath) throw new Error('The installed content catalog is missing.');
+  const catalog = assertQuestionManifest(JSON.parse(await readFile(manifestPath, 'utf8')));
+  const catalogHash = crypto
+    .createHash('sha256')
+    .update(canonicalQuestionEntries(catalog.entries))
+    .digest('hex');
+  if (catalogHash !== catalog.contentHash) throw new Error('The installed catalog is invalid.');
   const referencedMedia = new Set();
-  for (const entry of manifest.entries) {
-    const documentPath = resolveContentFile(root, normalizeContentPath(entry.documentPath));
+  for (const entry of catalog.entries) {
+    const documentPath = await findInstalledFile(contentRoot, manifest, entry.documentPath);
+    if (!documentPath) throw new Error(`Compiled content is missing: ${entry.documentPath}`);
     const serialized = await readFile(documentPath);
-    const actualHash = crypto.createHash('sha256').update(serialized).digest('hex');
-    if (actualHash.toLowerCase() !== entry.documentHash.toLowerCase()) {
+    const documentHash = crypto.createHash('sha256').update(serialized).digest('hex');
+    if (documentHash !== entry.documentHash) {
       throw new Error(`Compiled content hash mismatch: ${entry.documentPath}`);
     }
     const compiled = JSON.parse(serialized);
     assertCompiledMetadata(compiled, entry);
-    const sourceDirectory = path.dirname(normalizeContentPath(compiled?.source?.path));
-    collectMediaFiles(compiled?.document, referencedMedia, sourceDirectory);
-  }
-  const contentHash = crypto
-    .createHash('sha256')
-    .update(canonicalQuestionEntries(manifest.entries))
-    .digest('hex');
-  if (contentHash !== manifest.contentHash) {
-    throw new Error('The compiled content manifest hash is invalid.');
+    collectDocumentAssets(
+      compiled.document,
+      referencedMedia,
+      path.posix.dirname(normalizeContentPath(compiled.source.path))
+    );
   }
   for (const relativePath of referencedMedia) {
-    const mediaPath = resolveContentFile(root, relativePath);
-    if (!(await exists(mediaPath))) throw new Error(`Referenced media is missing: ${relativePath}`);
+    if (!(await findInstalledFile(contentRoot, manifest, relativePath))) {
+      throw new Error(`Referenced media is missing: ${relativePath}`);
+    }
   }
 }
 
-function collectMediaFiles(value, files, sourceDirectory) {
-  if (Array.isArray(value)) {
-    value.forEach(item => collectMediaFiles(item, files, sourceDirectory));
-    return;
+async function installPack(contentRoot, pack, progress) {
+  const destination = getPackDirectory(contentRoot, pack);
+  if (await exists(path.join(destination, 'pack.json'))) {
+    try {
+      await validateExtractedPack(destination, pack);
+      progress(pack.size);
+      return;
+    } catch {
+      await rm(destination, { recursive: true, force: true });
+    }
   }
-  if (!value || typeof value !== 'object') return;
-  if (typeof value.media?.file === 'string') {
-    files.add(normalizeContentPath(path.posix.join(sourceDirectory, value.media.file)));
+  const downloads = path.join(contentRoot, 'downloads');
+  const stagingRoot = path.join(contentRoot, 'staging');
+  const archivePath = path.join(downloads, `${pack.id}-${pack.contentHash}.zip.part`);
+  const staging = path.join(stagingRoot, `${pack.id}-${pack.contentHash}-${process.pid}`);
+  await downloadPack(pack, archivePath, progress);
+  await extractContentArchive(archivePath, staging);
+  await validateExtractedPack(staging, pack);
+  await installExtractedPack(staging, destination);
+  await rm(archivePath, { force: true });
+}
+
+async function installedPackIsUsable(contentRoot, pack) {
+  const destination = getPackDirectory(contentRoot, pack);
+  if (!(await exists(path.join(destination, 'pack.json')))) return false;
+  try {
+    await validateExtractedPack(destination, pack);
+    return true;
+  } catch {
+    return false;
   }
-  if (typeof value.image === 'string' && value.image) {
-    files.add(normalizeContentPath(path.posix.join(sourceDirectory, value.image)));
+}
+
+async function installedManifestIsUsable(contentRoot, manifest) {
+  if (!manifest) return false;
+  try {
+    for (const pack of manifest.packs) {
+      if (!(await installedPackIsUsable(contentRoot, pack))) return false;
+    }
+    await validateInstalledContent(contentRoot, manifest);
+    return true;
+  } catch {
+    return false;
   }
-  Object.values(value).forEach(item => collectMediaFiles(item, files, sourceDirectory));
+}
+
+async function activate(contentRoot, manifest) {
+  await activateManifest(contentRoot, manifest);
+  await rm(path.join(contentRoot, '.version'), { force: true });
+  await rm(path.join(contentRoot, 'assets'), { recursive: true, force: true });
+  await removeUnusedPacks(contentRoot, [manifest]);
+  activatedSink(manifest);
+  return emit({ status: 'ready', ready: true, manifestId: manifest.manifestId, progress: 100 });
+}
+
+async function runSynchronization() {
+  const contentRoot = getContentRoot(app.getPath('userData'));
+  const local = await readInstalledManifest(contentRoot);
+  const localReady =
+    (await isInstalledManifestReady(contentRoot, local)) || (await hasLegacyContent(contentRoot));
+  emit({ status: 'checking', ready: localReady, progress: 0 });
+  try {
+    const remote = await fetchContentManifest();
+    if (!supportsManifest(remote)) {
+      throw new Error(`Content requires app version ${remote.minAppVersion} or later.`);
+    }
+    const pending = await readPendingManifest(contentRoot);
+    if (
+      pending?.manifestId === remote.manifestId &&
+      !contentBusy &&
+      (await installedManifestIsUsable(contentRoot, pending))
+    ) {
+      return activate(contentRoot, pending);
+    }
+
+    const localPacks = new Map((local?.packs || []).map(pack => [pack.id, pack]));
+    const changed = [];
+    let deferredRepair = false;
+    for (const pack of remote.packs) {
+      const sameInstalledPack = localPacks.get(pack.id)?.contentHash === pack.contentHash;
+      if (!sameInstalledPack) {
+        changed.push(pack);
+      } else if (!(await installedPackIsUsable(contentRoot, pack))) {
+        if (contentBusy && localReady) deferredRepair = true;
+        else changed.push(pack);
+      }
+    }
+    const totalBytes = changed.reduce((sum, pack) => sum + pack.size, 0);
+    let completedBytes = 0;
+    for (const pack of changed) {
+      let currentBytes = 0;
+      await installPack(contentRoot, pack, bytes => {
+        currentBytes = bytes;
+        const downloadedBytes = completedBytes + currentBytes;
+        emit({
+          status: 'downloading',
+          ready: localReady,
+          packId: pack.id,
+          downloadedBytes,
+          totalBytes,
+          progress: totalBytes
+            ? Math.min(100, Math.round((downloadedBytes / totalBytes) * 100))
+            : 100
+        });
+      });
+      completedBytes += pack.size;
+    }
+    if (deferredRepair) {
+      synchronizeWhenIdle = true;
+      return emit({
+        status: 'ready',
+        ready: true,
+        manifestId: local?.manifestId || '',
+        progress: 100
+      });
+    }
+    await validateInstalledContent(contentRoot, remote);
+    if (!changed.length && localReady && local?.manifestId === remote.manifestId) {
+      return emit({ status: 'ready', ready: true, manifestId: local.manifestId, progress: 100 });
+    }
+    if (contentBusy && localReady) {
+      await savePendingManifest(contentRoot, remote);
+      await removeUnusedPacks(contentRoot, [local, remote]);
+      return emit({
+        status: 'pending',
+        ready: true,
+        manifestId: local?.manifestId || '',
+        pendingManifestId: remote.manifestId,
+        progress: 100
+      });
+    }
+    return activate(contentRoot, remote);
+  } catch (error) {
+    if (localReady) {
+      return emit({
+        status: 'ready',
+        ready: true,
+        manifestId: local?.manifestId || '',
+        warning: error.message,
+        progress: 100
+      });
+    }
+    return emit({ status: 'error', ready: false, error: error.message, progress: 0 });
+  }
+}
+
+export function synchronizeContent() {
+  synchronization ||= runSynchronization().finally(() => {
+    synchronization = null;
+  });
+  return synchronization;
+}
+
+export async function initializeContent() {
+  const contentRoot = getContentRoot(app.getPath('userData'));
+  const local = await readInstalledManifest(contentRoot);
+  const ready =
+    (await isInstalledManifestReady(contentRoot, local)) || (await hasLegacyContent(contentRoot));
+  if (ready) {
+    const pending = await readPendingManifest(contentRoot);
+    if (pending && (await installedManifestIsUsable(contentRoot, pending))) {
+      return activate(contentRoot, pending);
+    }
+    const state = emit({
+      status: 'ready',
+      ready: true,
+      manifestId: local?.manifestId || '',
+      progress: 100
+    });
+    void synchronizeContent().catch(() => {});
+    return state;
+  }
+  return synchronizeContent();
+}
+
+export async function setContentBusy(value) {
+  contentBusy = Boolean(value);
+  if (contentBusy) return;
+  const contentRoot = getContentRoot(app.getPath('userData'));
+  const pending = await readPendingManifest(contentRoot);
+  const shouldSynchronize = synchronizeWhenIdle;
+  synchronizeWhenIdle = false;
+  if (pending && (await installedManifestIsUsable(contentRoot, pending))) {
+    await activate(contentRoot, pending);
+    if (!shouldSynchronize) return;
+  }
+  if (pending || shouldSynchronize) await synchronizeContent();
 }

@@ -1,4 +1,3 @@
-import manifest from '../../content/question-manifest.json';
 import {
   assertCompiledMetadata,
   assertQuestionManifest,
@@ -15,7 +14,7 @@ function normalizeRelativePath(path) {
   return normalized;
 }
 
-export function listCatalog(catalog = manifest) {
+export function listCatalog(catalog = { entries: [] }) {
   const tests = new Map();
   for (const entry of catalog.entries) {
     if (!tests.has(entry.tpoId)) {

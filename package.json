@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "npm run content:manifest && vite",
     "content:manifest": "node scripts/generate-question-manifest.js",
+    "content:pull": "node scripts/pull-content.js",
+    "content:publish": "node scripts/publish-content.js",
     "build": "npm run content:manifest && vite build && node scripts/check-bundle-size.js",
     "preview": "vite preview",
     "test": "node --test tests/content/content.test.js tests/electron/*.test.js && vitest run",
@@ -40,7 +42,8 @@
     "javascript"
   ],
   "dependencies": {
-    "electron-updater": "^6.0.0"
+    "electron-updater": "^6.8.9",
+    "yauzl": "^3.4.0"
   },
   "overrides": {
     "fast-uri": "3.1.3",
@@ -64,7 +67,8 @@
     "vite": "^7.3.6",
     "vitest": "^4.1.10",
     "vue": "^3.5.39",
-    "vue-router": "^4.6.4"
+    "vue-router": "^4.6.4",
+    "yazl": "^3.3.1"
   },
   "engines": {
     "node": ">=24.0.0",
@@ -103,22 +107,6 @@
         ]
       },
       "package.json"
-    ],
-    "extraResources": [
-      {
-        "from": "dist/assets/questions",
-        "to": "content/assets/questions",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "dist/assets/audio",
-        "to": "content/assets/audio",
-        "filter": [
-          "**/*"
-        ]
-      }
     ],
     "mac": {
       "category": "public.app-category.education",
