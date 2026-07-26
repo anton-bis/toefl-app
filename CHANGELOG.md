@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Renamed the reading completion task to “Fill in the missing letters,” removed its repeated passage introduction, and enlarged its desktop reading layout.
 - Replaced the unstyled first-run question-bank status text with a responsive download, preparation, and retry experience.
 - Refined question-bank wording and balanced the update notification's action and dismiss controls.
 

@@ -2,6 +2,7 @@ import { createExamDocument } from '../pages.js';
 import { normalizeMarkdown, optionsFrom, sourceMeta, slug } from '../shared.js';
 
 const TYPES = [
+  ['Fill in the missing letters', 'complete-words'],
   ['Complete the Words', 'complete-words'],
   ['Text Chain', 'text-chain'],
   ['Academic Passage', 'academic-passage'],

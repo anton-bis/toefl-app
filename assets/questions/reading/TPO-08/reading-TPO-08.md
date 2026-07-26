@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Early civilizations, including those in Mesopotamia, Egypt, the Indus Valley, and China, emerged around river valleys, where fertile land and water resources supported agriculture. Th\_\_ developed sophis\_\_ social struc\_\_, written lang\_\_, and adva\_\_ technologies, wh\_\_ allowed th\_\_ to thr\_\_ and esta\_\_ cities, tr\_\_ networks, and even empires. Just as important were their significant contributions to fields like art, science, and law. These developments were crucial in shaping the course of human history.
 
@@ -168,9 +166,7 @@ A
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Consciousness is the state of being aware of and able to think about one's own existence, thoughts, and surroundings. Wh\_\_ you lo\_\_ in a mir\_\_ and recognize your\_\_, you exh\_\_ self-awareness, wh\_\_ is n\_\_ unique t\_\_ humans b\_\_ is al\_\_ found in dolphins and great apes. Consciousness is not to be confused with cognition. The latter refers to mental processes involved in gaining knowledge and solving problems, like thinking, judging, and remembering.
 

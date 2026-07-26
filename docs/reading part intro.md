@@ -6,7 +6,7 @@ TOEFL test takers will receive the Reading section first, followed by the Listen
 
 | Test Section          | Task Types                                                                 | Number of items | Estimated Time         |
 |-----------------------|----------------------------------------------------------------------------|-----------------|------------------------|
-| Reading (multistage)  | Complete the Words<br>Read in Daily Life<br>Read an Academic Passage       | 35–48           | About 18 to 27 minutes |
+| Reading (multistage)  | Fill in the missing letters<br>Read in Daily Life<br>Read an Academic Passage       | 35–48           | About 18 to 27 minutes |
 | Listening (multistage)| Listen and Choose a Response<br>Listen to a Conversation<br>Listen to an Announcement<br>Listen to an Academic Talk | 35–45 | About 18 to 27 minutes |
 | Writing               | Build a Sentence<br>Write an Email<br>Write for an Academic Discussion    | 12              | About 23 minutes       |
 | Speaking              | Listen and Repeat<br>Take an Interview                                     | 12              | About 8 minutes        |
@@ -15,12 +15,12 @@ TOEFL test takers will receive the Reading section first, followed by the Listen
 
 # 1. Reading
 
-The reading questions assess a test taker’s ability to comprehend both academic and nonacademic texts from various English-speaking contexts. Reading skills are measured with the following task types: *Complete the Words*, *Read in Daily Life*, and *Read an Academic Passage*.
+The reading questions assess a test taker’s ability to comprehend both academic and nonacademic texts from various English-speaking contexts. Reading skills are measured with the following task types: *Fill in the missing letters*, *Read in Daily Life*, and *Read an Academic Passage*.
 
 ---
 
-## Complete the Words
-The *Complete the Words* task assesses the ability to process written texts for meaning and form. It presents test takers with paragraph-length (about 70–100 words) academic texts. Following an intact first sentence, the second half of every second word is deleted, and the examinee must provide the missing letters. Each text contains 10 words with missing letters.
+## Fill in the missing letters
+The *Fill in the missing letters* task assesses the ability to process written texts for meaning and form. It presents test takers with paragraph-length (about 70–100 words) academic texts. Following an intact first sentence, the second half of every second word is deleted, and the examinee must provide the missing letters. Each text contains 10 words with missing letters.
 
 ---
 

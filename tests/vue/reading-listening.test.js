@@ -151,8 +151,9 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
+    expect(wrapper.find('.question-instruction').text()).toBe('Fill in the missing letters');
     expect(wrapper.find('.question-paragraph').attributes()).toMatchObject({
-      'aria-label': 'Complete words passage',
+      'aria-label': 'Fill in the missing letters passage',
       tabindex: '0'
     });
     expect(wrapper.findAll('.letter-box')).toHaveLength(3);

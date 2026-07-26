@@ -13,6 +13,10 @@
   margin: 0 0 20px;
   color: #222;
 }
+.reading-page .complete-words-page .question-instruction {
+  margin-bottom: clamp(24px, 3vh, 36px);
+  font-size: clamp(28px, 2vw, 34px);
+}
 .reading-page .two-column-layout {
   width: 100%;
   display: grid;
@@ -48,6 +52,11 @@
   font-size: 18px;
   line-height: 2.4;
   white-space: pre-wrap;
+}
+.reading-page .complete-words-page .question-paragraph {
+  padding: clamp(36px, 5vh, 56px) clamp(28px, 4vw, 64px);
+  font-size: clamp(22px, 1.45vw, 27px);
+  line-height: 2.65;
 }
 .reading-page .word-fill-container {
   display: inline-flex;
@@ -85,6 +94,12 @@
   font: 700 15px inherit;
   text-transform: lowercase;
 }
+.reading-page .complete-words-page .letter-box {
+  width: clamp(28px, 1.8vw, 34px);
+  height: clamp(32px, 2vw, 38px);
+  border-radius: 4px;
+  font-size: clamp(17px, 1.1vw, 21px);
+}
 .reading-page .letter-box:focus {
   outline: 2px solid #008080;
   background: #fff;
@@ -95,6 +110,10 @@
   bottom: -18px;
   color: #666;
   font-size: 10px;
+}
+.reading-page .complete-words-page .fill-question-number {
+  bottom: -20px;
+  font-size: 12px;
 }
 .reading-page .apple-email-container,
 .reading-page .apple-noticeboard-container,
@@ -302,5 +321,10 @@
   }
   .reading-page {
     padding-inline: 14px;
+  }
+  .reading-page .complete-words-page .question-paragraph {
+    padding: 24px 18px;
+    font-size: 20px;
+    line-height: 2.45;
   }
 }

@@ -1,5 +1,5 @@
 export const taskTypes = [
-  ['Reading', ['Complete the Words', 'Read in Daily Life', 'Read an Academic Passage']],
+  ['Reading', ['Fill in the missing letters', 'Read in Daily Life', 'Read an Academic Passage']],
   [
     'Listening',
     [

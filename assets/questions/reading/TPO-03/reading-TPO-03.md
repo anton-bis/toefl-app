@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 We know from drawings that have been preserved in caves for over 10,000 years that early humans performed dances as a group activity. We mi\_\_\_ think th\_\__ prehistoric peo\_\_\_ concentrated on\_\_ on ba\_\_\_ survival. How\_\_\_\_ it i\_ clear fr\_\_ the rec\_\_\_ that dan\_\_\_ was important to them. They recorded more drawings of dances than of any other group activity. Dances served various purposes, including ritualistic communication with the divine, storytelling, and social cohesion.
 
@@ -146,9 +144,7 @@ A
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 The human brain is a complex organ responsible for controlling all bodily functions and enabling thought, emotion, and memory. It i\_ divided   in\_\_ several reg\_\_\_\_, each wi\_\_ specific ro\_\_\_. The cerebrum, i\_\_ largest pa\_\_, is invo\_\_\_\_ in cogn\_\_\_\_\_ functions su\_\_ as reasoning, planning, and language. The cerebellum coordinates movement and balance, while the brainstem controls vital bodily functions like breathing and heart rate. Together, they enable the brain to perform its various tasks.
 

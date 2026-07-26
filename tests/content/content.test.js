@@ -247,6 +247,19 @@ test('reading complete-words tasks use one grouped question page', () => {
   }
 });
 
+test('missing-letter tasks use the current title without repeating it in the passage', () => {
+  let taskCount = 0;
+  for (const document of documentsFor('reading')) {
+    for (const task of document.modules.flatMap(module => module.tasks)) {
+      if (task.type !== 'complete-words') continue;
+      taskCount += 1;
+      assert.equal(task.title, 'Fill in the missing letters');
+      assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
+    }
+  }
+  assert.equal(taskCount, 19);
+});
+
 test('reading question numbers follow their declared module ranges', () => {
   for (const document of documentsFor('reading')) {
     for (const module of document.modules) {

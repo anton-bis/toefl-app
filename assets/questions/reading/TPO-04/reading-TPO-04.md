@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Maps are tools that help us understand the world around us. They sh\_\_ the loca\_\_\_\_ of pla\_\_\_ like cit\_\_\_, rivers, a\_\_ mountains. Th\_\_\_ visual gu\_\_\_\_ can al\_\_ display different ty\_\_\_ of infor\_\_\_\_\_\_ such as climate or population. There are many kinds, including physical, political, and thematic versions. The study of maps and cartography, the process by which they are made, can teach us about the geography of our planet and how people live in different regions.
 
@@ -173,9 +171,7 @@ B
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Elephants are social animals that live in groups called herds. They commu\_\_\_\_\_\_\_ using sou\_\_\_\_, gestures, a\_\_ touch. These ani\_\_\_\_\_ are kn\_\_\_\_ for th\_\_\_\_ strong fam\_\_\_\_ bonds and of\_\_\_\_ help ea\_\_ other i\_ times of need. They can remember the locations of water sources and food, which helps them survive in their natural environment. These highly intelligent creatures play an important role in their ecosystems, shaping the landscape, creating access to moisture, and spreading seeds.
 

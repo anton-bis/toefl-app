@@ -3,7 +3,7 @@ const START_DIRECTIONS = {
     description:
       'In the reading section, you will answer 35 - 48 questions to demonstrate how well you understand academic and non-academic texts in English. There are three types of tasks.',
     tasks: [
-      ['Complete the Words', 'Fill in the missing letters in a paragraph.'],
+      ['Fill in the missing letters', 'Complete the missing words in a paragraph.'],
       ['Read in Daily Life', 'Answer questions about everyday reading material.'],
       ['Read an Academic Passage', 'Answer questions about academic passages.']
     ]
@@ -99,7 +99,7 @@ export function introDirections(section, page, task) {
 
 const START_HELP = {
   reading:
-    '1. Complete the Words: Fill missing letters in paragraphs\n2. Read in Daily Life: Answer questions about everyday texts\n3. Read an Academic Passage: Answer questions about academic texts',
+    '1. Fill in the missing letters: Complete missing words in paragraphs\n2. Read in Daily Life: Answer questions about everyday texts\n3. Read an Academic Passage: Answer questions about academic texts',
   listening:
     'In the actual test, the Listening directions play once, then this screen advances automatically.',
   speaking:
