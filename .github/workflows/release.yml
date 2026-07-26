@@ -242,41 +242,24 @@ jobs:
           release-notes.md
           release-files/hashes.sha256
 
-      - name: Prepare develop prerelease notes
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: |
-          version=$(node -p "require('./package.json').version")
-          {
-            echo "## ${version}"
-            echo
-            echo "Automated testing build from the develop branch at commit \`${GITHUB_SHA:0:7}\`."
-            echo
-            echo "This is a prerelease for maintainer testing. It does not replace the latest stable release or enter the stable automatic-update channel."
-            echo
-            echo "### SHA256 hashes"
-            echo
-            echo '```text'
-            cat release-files/hashes.sha256
-            echo '```'
-          } > release-notes.md
-
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           release_tag="$GITHUB_REF_NAME"
-          release_title="TOEFL iBT Practice $GITHUB_REF_NAME"
+          release_title="$GITHUB_REF_NAME"
           release_flags=(--verify-tag --fail-on-no-commits)
+          release_notes=(--notes-file release-notes.md)
           if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
             version=$(node -p "require('./package.json').version")
             release_tag="v${version}"
-            release_title="TOEFL iBT Practice ${version} (Develop)"
+            release_title="$release_tag"
             release_flags=(--target "$GITHUB_SHA" --prerelease)
+            release_notes=(--notes "")
           elif [[ "$GITHUB_REF_NAME" == *-* ]]; then
             release_flags+=(--prerelease)
           fi
           gh release create "$release_tag" release-files/* \
-            --notes-file release-notes.md \
             --title "$release_title" \
+            "${release_notes[@]}" \
             "${release_flags[@]}"
