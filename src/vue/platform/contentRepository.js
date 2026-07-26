@@ -27,6 +27,8 @@ export function listCatalog(catalog = manifest) {
     }
     tests.get(entry.tpoId).sections[entry.section] = {
       id: entry.id,
+      tpoId: entry.tpoId,
+      section: entry.section,
       documentPath: entry.documentPath,
       sourcePath: entry.sourcePath,
       sourceHash: entry.sourceHash,
