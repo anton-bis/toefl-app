@@ -160,6 +160,9 @@ describe('content-addressed runtime updates', () => {
     const current = await readInstalledManifest(path.join(electron.userData, 'tpo-content'));
     expect(current.manifestId).toBe(release.manifest.manifestId);
     expect(electron.request).toHaveBeenCalledTimes(3);
+    for (const [options] of electron.request.mock.calls) {
+      expect(options.url).toMatch(/^https:\/\/v6\.gh-proxy\.org\/https:\/\//);
+    }
   });
 
   it('resumes a partial pack download without re-fetching completed bytes', async () => {

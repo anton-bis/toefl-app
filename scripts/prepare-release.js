@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
+import { proxyUpdateMetadata } from './proxy-update-metadata.js';
 
 const packageJson = JSON.parse(
   fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8')
@@ -51,6 +52,12 @@ export async function prepareRelease(directory, version = packageJson.version) {
       ].join('\n')
     );
   }
+
+  await Promise.all(
+    ['latest.yml', 'latest-linux.yml', 'latest-mac.yml'].map(file =>
+      proxyUpdateMetadata(path.join(directory, file))
+    )
+  );
 
   const updateTargets = new Map([
     ['latest.yml', `${expected.find(file => file.endsWith('-setup.exe'))}`],

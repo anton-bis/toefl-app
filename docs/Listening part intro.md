@@ -6,7 +6,7 @@ TOEFL test takers will receive the Reading section first, followed by the Listen
 
 | Test Section          | Task Types                                                                 | Number of items | Estimated Time         |
 |-----------------------|----------------------------------------------------------------------------|-----------------|------------------------|
-| Reading (multistage)  | Complete the Words<br>Read in Daily Life<br>Read an Academic Passage       | 35–48           | About 18 to 27 minutes |
+| Reading (multistage)  | Fill in the missing letters<br>Read in Daily Life<br>Read an Academic Passage       | 35–48           | About 18 to 27 minutes |
 | Listening (multistage)| Listen and Choose a Response<br>Listen to a Conversation<br>Listen to an Announcement<br>Listen to an Academic Talk | 35–45 | About 18 to 27 minutes |
 | Writing               | Build a Sentence<br>Write an Email<br>Write for an Academic Discussion    | 12              | About 23 minutes       |
 | Speaking              | Listen and Repeat<br>Take an Interview                                     | 12              | About 8 minutes        |

@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Conservation is the effort to protect plants and animals that are endangered because of human activities. Conservationists sa\_\_ endangered spe\_\_\_\_ by crea\_\_\_\_ areas wh\_\_\_ they c\_\_ live saf\_\_\_. Conservationists al\_\_ educate t\_\_\_ public ab\_\_\_ the impor\_\_\_\_\_ of preserving the natural world. Conservation is based on research about wildlife and ecosystems that aims to understand their needs and the threats they face. By taking care of the environment, conservationists help ensure a healthy planet for future generations.
 
@@ -169,9 +167,7 @@ A
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below:
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Economics is the study of how societies allocate resources and make decisions about production, distribution, and consumption. It exam\_\_\_\_ the behavior o\_ governments, busin\_\_\_\_\_, and indiv\_\_\_\_\_\_ in t\_\_ marketplace. Stud\_\_\_\_ economics is not just for th\_\_\_ who asp\_\_\_\_ to become economi\_\_\_ or bankers. Gaining a basic understanding of economic concept\_ benefits everyone. It enables us to make informed decisions and understand the broader economic forces that shape our daily lives.
 

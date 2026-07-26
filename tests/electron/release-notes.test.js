@@ -24,15 +24,16 @@ test('changelog extraction accepts a tag and stops before comparison links', () 
 
 test('current release notes contain the changelog and artifact hashes', () => {
   const packageJson = JSON.parse(fs.readFileSync(new URL('../../package.json', import.meta.url)));
+  const releaseVersion = packageJson.version.split('-')[0];
   const changelog = fs.readFileSync(new URL('../../CHANGELOG.md', import.meta.url), 'utf8');
   const hash = 'a'.repeat(64);
   const notes = createReleaseNotes(
     changelog,
-    packageJson.version,
-    `${hash}  TOEFL-iBT-Practice-${packageJson.version}-linux-x64.AppImage\n`
+    releaseVersion,
+    `${hash}  TOEFL-iBT-Practice-${releaseVersion}-linux-x64.AppImage\n`
   );
 
-  assert.match(notes, new RegExp(`^## ${packageJson.version}$`, 'm'));
+  assert.match(notes, new RegExp(`^## ${releaseVersion}$`, 'm'));
   assert.match(notes, /### SHA256 Hashes of the release artifacts/);
   assert.match(notes, /### macOS manual installation/);
   assert.match(notes, new RegExp(`\\* ${hash.toUpperCase()}`));
@@ -56,6 +57,22 @@ test('macOS releases support manual unsigned installation without partial creden
   assert.doesNotMatch(workflow, /--universal/);
   assert.doesNotMatch(workflow, /workflow_dispatch/);
   assert.doesNotMatch(workflow, /--generate-notes/);
+});
+
+test('develop pushes create isolated automatic prereleases', () => {
+  const workflow = fs.readFileSync(
+    new URL('../../.github/workflows/release.yml', import.meta.url),
+    'utf8'
+  );
+  assert.match(workflow, /branches: \[develop\]/);
+  assert.match(workflow, /cancel-in-progress:.*refs\/heads\/develop/);
+  assert.match(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
+  assert.match(workflow, /release_tag="v\$\{version\}"/);
+  assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease\)/);
+  assert.match(workflow, /release_title="\$release_tag"/);
+  assert.match(workflow, /release_notes=\(--notes ""\)/);
+  assert.doesNotMatch(workflow, /Prepare develop prerelease notes/);
+  assert.match(workflow, /release_flags=\(--verify-tag --fail-on-no-commits\)/);
 });
 
 test('the packaged user interface does not expose repository navigation', () => {

@@ -223,6 +223,22 @@ describe('SpeakingPage', () => {
     expect(navigator.mediaDevices.getUserMedia).not.toHaveBeenCalled();
   });
 
+  it('never exposes an infinite native prompt duration', async () => {
+    const wrapper = mountSpeaking({
+      question: { ...speakingQuestion, media: { file: 'speaking.mp3' } }
+    });
+    await flushPromises();
+    const element = wrapper.find('audio').element;
+    Object.defineProperty(element, 'duration', {
+      configurable: true,
+      value: Number.POSITIVE_INFINITY
+    });
+    await wrapper.find('audio').trigger('loadedmetadata');
+
+    expect(wrapper.find('.audio-player > span').text()).toBe('00:00 / 00:00');
+    expect(wrapper.text()).not.toContain('Infinity');
+  });
+
   it('plays segments once, reuses one session stream, and releases it on unmount', async () => {
     const wrapper = mountSpeaking();
     await flushPromises();

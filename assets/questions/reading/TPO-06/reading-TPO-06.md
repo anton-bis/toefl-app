@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Modern biochemistry focuses on the chemical processes within and related to living organisms. It i\_ a laboratory-based sci\_\_\_\_ that comb\_\_\_\_ biology a\_\_ chemistry. Biochemists inves\_\_\_\_\_\_ how cells func\_\_\_\_ and commu\_\_\_\_\_\_, exploring t\_\_ fundamental mecha\_\_\_\_\_\_ that sus\_\_\_\_ life. The field has advanced our understanding of how diseases occur and how they can be treated or prevented. Techniques such as molecular cloning and protein analysis are central to biochemistry, leading to innovations in medicine and biotechnology.
 
@@ -152,7 +150,7 @@ C
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Cognitive science and the study of consciousness delve into how humans and animals perceive the world, process information, and experience awareness. Cognition encom\_\_\_\_\_\_ mental activ\_\_\_\_\_ like mem\_\_\_, learning, a\_\_ decision-making, whe\_\_\_\_ consciousness invo\_\_\_\_ the subje\_\_\_\_\_ experience o\_\_ being aw\_\_\_\_. Researchers u\_\_ tools such as brain imaging to explore these complex processes. Findings in this field have far-reaching implications, from improving mental health care to advancing artificial intelligence and educational practices.
 

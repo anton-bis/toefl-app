@@ -36,7 +36,7 @@ const message = computed(() => {
       aria-label="Dismiss update notification"
       @click="updates.dismissUpdate"
     >
-      ×
+      <i class="fas fa-times" aria-hidden="true" />
     </button>
     <div class="copy">
       <strong>{{ title }}</strong>
@@ -76,19 +76,25 @@ const message = computed(() => {
   right: 22px;
   bottom: 22px;
   z-index: 900;
-  width: min(420px, calc(100vw - 44px));
+  width: min(440px, calc(100vw - 44px));
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto 30px;
   align-items: center;
-  gap: 14px;
-  padding: 16px 42px 16px 18px;
+  gap: 12px;
+  padding: 14px 14px 14px 18px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 10px;
   background: #fff;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.16);
 }
 .copy {
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
+}
+.copy strong {
+  font-size: 15px;
+  line-height: 1.35;
 }
 .update-notice p {
   display: -webkit-box;
@@ -106,23 +112,61 @@ const message = computed(() => {
   cursor: pointer;
 }
 .action {
-  border-radius: 7px;
+  min-height: 36px;
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0 14px;
+  border-radius: 6px;
   background: var(--teal);
   color: #fff;
-  padding: 9px 12px;
+  font-size: 14px;
+  font-weight: 600;
   white-space: nowrap;
+}
+.action:hover:not(:disabled) {
+  background: var(--teal-dark);
 }
 .action:disabled {
   cursor: default;
   opacity: 0.55;
 }
 .dismiss {
-  position: absolute;
-  top: 8px;
-  right: 10px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  grid-column: 3;
+  grid-row: 1;
+  place-items: center;
+  padding: 0;
+  border-radius: 6px;
   background: transparent;
   color: var(--muted);
-  font-size: 22px;
-  line-height: 1;
+  font-size: 14px;
+}
+.dismiss:hover {
+  background: var(--teal-light);
+  color: var(--text);
+}
+.action:focus-visible,
+.dismiss:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+@media (max-width: 520px) {
+  .update-notice {
+    grid-template-columns: minmax(0, 1fr) 30px;
+  }
+
+  .dismiss {
+    grid-column: 2;
+  }
+
+  .action {
+    width: 100%;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+  }
 }
 </style>

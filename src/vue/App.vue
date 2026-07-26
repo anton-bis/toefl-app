@@ -1,5 +1,6 @@
 <script setup>
 import {
+  computed,
   defineAsyncComponent,
   inject,
   onBeforeUnmount,
@@ -8,6 +9,7 @@ import {
   ref,
   watch
 } from 'vue';
+import ContentStartup from './components/ContentStartup.vue';
 import { flushDataStorage, suspendDataStorage } from './platform/storageLifecycle.js';
 import { useCatalogStore } from './stores/catalog.js';
 import { useUpdatesStore } from './stores/updates.js';
@@ -18,18 +20,54 @@ const electronEnabled = Boolean(window.electronAPI);
 const UpdateNotice = defineAsyncComponent(() => import('./components/UpdateNotice.vue'));
 const updates = useUpdatesStore();
 const catalog = useCatalogStore();
+const catalogError = ref('');
+const catalogLoading = ref(false);
 let disposed = false;
 let stopDataFlush;
+let catalogRefreshPromise;
 
 async function refreshCatalog() {
-  if (!updates.contentReady) return;
-  try {
-    catalog.invalidate();
-    await catalog.refreshCatalog();
-  } catch (error) {
-    fatalError.value = error?.message || 'The question catalog could not be loaded.';
-  }
+  if (!updates.contentReady) return false;
+  if (catalogRefreshPromise) return catalogRefreshPromise;
+  catalogError.value = '';
+  catalogLoading.value = true;
+  catalogRefreshPromise = (async () => {
+    try {
+      catalog.invalidate();
+      await catalog.refreshCatalog();
+      return true;
+    } catch (error) {
+      catalogError.value = error?.message || 'The question catalog could not be loaded.';
+      return false;
+    } finally {
+      catalogLoading.value = false;
+      catalogRefreshPromise = undefined;
+    }
+  })();
+  return catalogRefreshPromise;
 }
+
+async function retryStartup() {
+  catalogError.value = '';
+  if (!storageReady.value) return;
+  if (!updates.contentReady || updates.contentStatus === 'error') await updates.retryContent();
+  if (updates.contentReady) await refreshCatalog();
+}
+
+const startupStatus = computed(() => {
+  if (!storageReady.value) return 'storage';
+  if (catalogError.value) return 'error';
+  if (!updates.contentReady) {
+    if (updates.contentStatus === 'error') return 'error';
+    if (updates.contentStatus === 'downloading') {
+      return updates.contentProgress >= 100 ? 'preparing' : 'downloading';
+    }
+    return 'checking';
+  }
+  if (!catalog.catalogLoaded || catalogLoading.value) return 'catalog';
+  return 'ready';
+});
+const startupError = computed(() => catalogError.value || updates.contentError);
 
 async function handleDataFlush(request) {
   const id = typeof request === 'object' ? request.id : request;
@@ -73,32 +111,13 @@ onErrorCaptured(error => {
     <p>{{ fatalError }}</p>
     <button type="button" @click="location.reload()">Try Again</button>
   </main>
-  <main v-else-if="!storageReady" class="exam-route-state" aria-live="polite">
-    <i class="fas fa-spinner fa-spin" /> Loading your practice data…
-  </main>
-  <main v-else-if="!updates.contentReady" class="exam-route-state" aria-live="polite">
-    <template v-if="updates.contentStatus === 'error'">
-      <i class="fas fa-circle-exclamation" />
-      <p>{{ updates.contentError || 'The question bank could not be downloaded.' }}</p>
-      <button type="button" @click="updates.retryContent">Try Again</button>
-    </template>
-    <template v-else>
-      <i class="fas fa-spinner fa-spin" />
-      <p>
-        {{
-          updates.contentStatus === 'downloading'
-            ? 'Downloading question bank'
-            : 'Checking question bank'
-        }}
-        <template v-if="updates.contentStatus === 'downloading'">
-          {{ updates.contentProgress }}%</template
-        >
-      </p>
-    </template>
-  </main>
-  <RouterView v-else-if="catalog.catalogLoaded" />
-  <main v-else class="exam-route-state" aria-live="polite">
-    <i class="fas fa-spinner fa-spin" /> Loading the question catalog…
-  </main>
+  <ContentStartup
+    v-else-if="startupStatus !== 'ready'"
+    :status="startupStatus"
+    :progress="updates.contentProgress"
+    :error="startupError"
+    @retry="retryStartup"
+  />
+  <RouterView v-else />
   <UpdateNotice v-if="electronEnabled" />
 </template>

@@ -12,7 +12,7 @@ import {
 } from 'electron';
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import { getContentCandidates, normalizeContentPath } from './services/content-paths.js';
 import { createAppUpdaterController, initialAppUpdateState } from './services/app-updater.js';
 import { createBackgroundScheduler } from './services/background-scheduler.js';
@@ -30,6 +30,7 @@ import {
   synchronizeContent
 } from './services/content-updater.js';
 import { registerDataStorageIpc } from './services/database.js';
+import { createLocalFileResponse, registerContentProtocol } from './services/content-protocol.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -91,23 +92,25 @@ async function resolveContentFile(relativePath) {
 }
 
 function setupContentProtocol() {
-  protocol.handle('toefl-content', async request => {
-    const requestUrl = new URL(request.url);
-    const filePath = await resolveContentFile(
-      decodeURIComponent(requestUrl.pathname).replace(/^\/+/, '')
-    );
-    if (!filePath) return new Response('Not found', { status: 404 });
-    return net.fetch(pathToFileURL(filePath).toString(), { headers: request.headers });
+  registerContentProtocol({
+    protocol,
+    resolveFile: resolveContentFile,
+    onError: error => console.warn('Installed content request failed:', error.message)
   });
   protocol.handle('toefl-recording', async request => {
-    const requestUrl = new URL(request.url);
-    if (requestUrl.hostname !== 'playback') return new Response('Not found', { status: 404 });
-    const recording = await dataStorage.resolveRecordingFile({
-      sessionId: requestUrl.searchParams.get('session'),
-      questionId: requestUrl.searchParams.get('question')
-    });
-    if (!recording) return new Response('Not found', { status: 404 });
-    return net.fetch(pathToFileURL(recording.filePath).toString(), { headers: request.headers });
+    try {
+      const requestUrl = new URL(request.url);
+      if (requestUrl.hostname !== 'playback') return new Response('Not found', { status: 404 });
+      const recording = await dataStorage.resolveRecordingFile({
+        sessionId: requestUrl.searchParams.get('session'),
+        questionId: requestUrl.searchParams.get('question')
+      });
+      if (!recording) return new Response('Not found', { status: 404 });
+      return await createLocalFileResponse(request, recording.filePath);
+    } catch (error) {
+      console.warn('Recorded audio request failed:', error.message);
+      return new Response('Could not read recorded audio', { status: 500 });
+    }
   });
 }
 

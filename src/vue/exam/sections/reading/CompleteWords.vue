@@ -83,10 +83,10 @@ function paste(token, event) {
 
 <template>
   <section id="question-module" class="complete-words-page">
-    <p class="question-instruction">Complete the words</p>
+    <p class="question-instruction">Fill in the missing letters</p>
     <div
       class="question-paragraph exam-scroll-region"
-      aria-label="Complete words passage"
+      aria-label="Fill in the missing letters passage"
       tabindex="0"
     >
       <template v-for="(token, tokenIndex) in tokens" :key="tokenIndex">

@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import {
@@ -12,6 +14,86 @@ import {
   RUNTIME_CONTENT_EXTENSIONS,
   RUNTIME_MEDIA_EXTENSIONS
 } from '../../electron/services/runtime-content.js';
+import {
+  assertPublishedContentManifest,
+  contentDownloadUrl,
+  contentManifestUrl,
+  validateContentUrl
+} from '../../electron/services/content-config.js';
+import {
+  GITHUB_PROXY_PREFIX,
+  proxyGitHubDownloadUrl
+} from '../../electron/services/github-download.js';
+import { createContentProtocolHandler } from '../../electron/services/content-protocol.js';
+
+test('content protocol serves complete files and HTTP-compatible media ranges', async t => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'toefl-content-protocol-'));
+  t.after(() => fs.rmSync(directory, { recursive: true, force: true }));
+  const filePath = path.join(directory, 'test.mp3');
+  fs.writeFileSync(filePath, Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+  const handler = createContentProtocolHandler({
+    resolveFile: async relativePath => (relativePath === 'assets/audio/test.mp3' ? filePath : null)
+  });
+
+  const range = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', {
+      headers: { Range: 'bytes=2-5' }
+    })
+  );
+  assert.equal(range.status, 206);
+  assert.equal(range.headers.get('accept-ranges'), 'bytes');
+  assert.equal(range.headers.get('content-range'), 'bytes 2-5/10');
+  assert.equal(range.headers.get('content-length'), '4');
+  assert.equal(range.headers.get('content-type'), 'audio/mpeg');
+  assert.deepEqual(Buffer.from(await range.arrayBuffer()), Buffer.from([2, 3, 4, 5]));
+
+  const suffix = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', {
+      headers: { Range: 'bytes=-3' }
+    })
+  );
+  assert.equal(suffix.status, 206);
+  assert.equal(suffix.headers.get('content-range'), 'bytes 7-9/10');
+  assert.deepEqual(Buffer.from(await suffix.arrayBuffer()), Buffer.from([7, 8, 9]));
+
+  const head = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', { method: 'HEAD' })
+  );
+  assert.equal(head.status, 200);
+  assert.equal(head.headers.get('content-length'), '10');
+  assert.equal((await head.arrayBuffer()).byteLength, 0);
+
+  const invalid = await handler(
+    new Request('toefl-content://content/assets/audio/test.mp3', {
+      headers: { Range: 'bytes=20-' }
+    })
+  );
+  assert.equal(invalid.status, 416);
+  assert.equal(invalid.headers.get('content-range'), 'bytes */10');
+  assert.equal(
+    (await handler(new Request('toefl-content://content/assets/missing.json'))).status,
+    404
+  );
+  assert.equal((await handler(new Request('toefl-content://other/test.json'))).status, 404);
+});
+
+test('content protocol converts resolver failures into a safe response', async () => {
+  let reported;
+  const handler = createContentProtocolHandler({
+    resolveFile: async () => {
+      throw new Error('private path detail');
+    },
+    onError: error => {
+      reported = error;
+    }
+  });
+
+  const result = await handler(new Request('toefl-content://content/catalog.json'));
+  assert.equal(result.status, 500);
+  assert.equal(await result.text(), 'Could not read installed content');
+  assert.equal(reported.message, 'private path detail');
+});
 
 test('content paths normalize relative assets and reject unsafe paths', () => {
   for (const unsafePath of ['../secret.txt', '/etc/passwd', '']) {
@@ -38,6 +120,44 @@ test('runtime content policy covers packaged and hot-update asset types', () => 
   assert.equal(RUNTIME_MEDIA_EXTENSIONS.has('.mp3'), true);
   assert.equal(CONTENT_SCHEMA_VERSION, 1);
   assert.match(CONTENT_SCHEMA_MIN_APP_VERSION, /^\d+\.\d+\.\d+$/);
+});
+
+test('GitHub-hosted content downloads use the configured HTTPS proxy', () => {
+  const direct = 'https://github.com/example/content/releases/download/v1/catalog.zip';
+  const proxied = `${GITHUB_PROXY_PREFIX}${direct}`;
+
+  assert.equal(
+    contentManifestUrl('example/content', 'published'),
+    `${GITHUB_PROXY_PREFIX}https://raw.githubusercontent.com/example/content/published/manifest.json`
+  );
+  assert.equal(contentDownloadUrl(direct), proxied);
+  assert.equal(proxyGitHubDownloadUrl(proxied), proxied);
+  assert.equal(
+    proxyGitHubDownloadUrl(`https://gh-proxy.org/${direct}`),
+    `${GITHUB_PROXY_PREFIX}${direct}`
+  );
+  assert.equal(validateContentUrl(proxied).toString(), proxied);
+  assert.throws(
+    () => proxyGitHubDownloadUrl('https://v6.gh-proxy.org/https://example.com/payload.zip'),
+    /Untrusted GitHub download host/
+  );
+
+  const manifest = assertPublishedContentManifest({
+    schemaVersion: CONTENT_SCHEMA_VERSION,
+    manifestId: 'b75bd08014e4b982252327a2e57abb2de9f07cf27e841236737440fa549fee36',
+    publishedAt: '2026-07-26T00:00:00.000Z',
+    minAppVersion: '1.5.0',
+    packs: [
+      {
+        id: 'catalog',
+        contentHash: 'a'.repeat(64),
+        archiveHash: 'b'.repeat(64),
+        size: 10,
+        url: direct
+      }
+    ]
+  });
+  assert.equal(manifest.packs[0].url, proxied);
 });
 
 test('content candidates prefer active packs before development resources', () => {

@@ -28,8 +28,8 @@ import {
 import { collectDocumentAssets } from './content-assets.js';
 import {
   assertPublishedContentManifest,
-  contentManifestUrl,
-  validateContentUrl
+  contentDownloadUrl,
+  contentManifestUrl
 } from './content-config.js';
 
 const MAX_MANIFEST_BYTES = 2 * 1024 * 1024;
@@ -60,7 +60,7 @@ function manifestUrl() {
 
 function requestResponse(value, { start = 0, redirectCount = 0 } = {}) {
   if (redirectCount > 5) return Promise.reject(new Error('Too many content redirects.'));
-  const url = validateContentUrl(value).toString();
+  const url = contentDownloadUrl(value);
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: 'GET' });
     const timeout = setTimeout(() => {

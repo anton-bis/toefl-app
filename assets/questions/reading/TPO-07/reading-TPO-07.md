@@ -2,9 +2,7 @@
 
 ## Module 1: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
-
-Fill in the missing letters in a paragraph below
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Film and television play a powerful role in shaping cultural norms and public opinion. T\_\_ industry encom\_\_\_\_\_\_ a wide ra\_\_\_ of arti\_\_\_\_ and tech\_\_\_\_\_ processes, fr\_\_ scriptwriting a\_\_ directing t\_\_ post-production. Techno\_\_\_\_\_\_ innovations — su\_\_ as digital effects and streaming platforms — have significantly altered both how content is produced and how audiences engage with it. Studying film offers insights into narrative structure, visual storytelling, and the broader social impact of media. It also involves examining genres, audience responses, and the economic forces behind production.
 
@@ -144,7 +142,7 @@ A
 
 ## Module 2: Reading
 
-### Task 1 Complete the Words (Questions 1–10)
+### Task 1 Fill in the missing letters (Questions 1–10)
 
 Geology is the scientific study of Earth's physical makeup and the dynamic forces that shape its surface. Geologists inves\_\_\_\_\_\_ the compo\_\_\_\_\_\_ and form\_\_\_\_ of ro\_\_\_ and mine\_\_\_\_ to unc\_\_\_\_ the proc\_\_\_\_\_ that ha\_\_ influenced t\_\_ planet ov\_\_ time. This field helps explain natural events such as earthquakes and volcanic eruptions and provides essential knowledge for managing natural resources and mitigating environmental risks. Understanding geological systems is also key to addressing sustainability challenges in a rapidly changing world.
 

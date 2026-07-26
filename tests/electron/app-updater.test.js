@@ -187,6 +187,7 @@ test('manual macOS installer download verifies integrity and reuses a valid file
     downloadsDirectory: directory,
     fetchFile: async url => {
       fetches += 1;
+      assert.match(url, /^https:\/\/v6\.gh-proxy\.org\/https:\/\/github\.com\//);
       assert.match(url, /releases\/download\/v2\.0\.0\/TOEFL-iBT-Practice-2\.0\.0/);
       return new Response(contents);
     },

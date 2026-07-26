@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
@@ -140,9 +140,9 @@
       "**/*.node"
     ],
     "publish": {
-      "provider": "github",
-      "owner": "anton-bis",
-      "repo": "toefl-app"
+      "provider": "generic",
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/latest/download",
+      "channel": "latest"
     }
   }
 }

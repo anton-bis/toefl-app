@@ -69,10 +69,13 @@ function microphoneError(error) {
 function segmentBounds() {
   const start = Number(props.question?.media?.start) || 0;
   const declaredEnd = Number(props.question?.media?.end);
+  const nativeDuration = Number(audio.value?.duration);
   const end =
     Number.isFinite(declaredEnd) && declaredEnd > start
       ? declaredEnd
-      : audio.value?.duration || start;
+      : Number.isFinite(nativeDuration) && nativeDuration > start
+        ? nativeDuration
+        : start;
   return { start, end, duration: Math.max(0, end - start) };
 }
 function loadedAudio() {

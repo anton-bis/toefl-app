@@ -29,6 +29,12 @@ const documents = new Map(
 const documentsFor = section =>
   manifest.entries.filter(entry => entry.section === section).map(entry => documents.get(entry.id));
 
+test('packaged content protocol is allowed by the renderer security policy', () => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  assert.match(html, /connect-src[^;]*\btoefl-content:/);
+  assert.match(html, /media-src[^;]*\btoefl-content:/);
+});
+
 test('shared content builders normalize Markdown and page navigation', () => {
   assert.equal(normalizeMarkdown('first\r\nsecond\rthird'), 'first\nsecond\nthird');
   const document = createExamDocument({ id: 'fixture', section: 'reading' }, [
@@ -159,6 +165,11 @@ test('Electron packaging excludes independently published runtime content', () =
   assert.ok(packageMetadata.build.files.includes('!node_modules/**/*.map'));
   assert.equal(packageMetadata.build.extraResources, undefined);
   assert.deepEqual(packageMetadata.build.asarUnpack, ['**/*.node']);
+  assert.deepEqual(packageMetadata.build.publish, {
+    provider: 'generic',
+    url: 'https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/latest/download',
+    channel: 'latest'
+  });
 });
 
 test('all current Markdown documents parse into valid unified models', async t => {
@@ -234,6 +245,19 @@ test('reading complete-words tasks use one grouped question page', () => {
       }
     }
   }
+});
+
+test('missing-letter tasks use the current title without repeating it in the passage', () => {
+  let taskCount = 0;
+  for (const document of documentsFor('reading')) {
+    for (const task of document.modules.flatMap(module => module.tasks)) {
+      if (task.type !== 'complete-words') continue;
+      taskCount += 1;
+      assert.equal(task.title, 'Fill in the missing letters');
+      assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
+    }
+  }
+  assert.equal(taskCount, 19);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
