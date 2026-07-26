@@ -1,4 +1,6 @@
-export const GITHUB_PROXY_PREFIX = 'https://gh-proxy.org/';
+export const GITHUB_PROXY_PREFIX = 'https://v6.gh-proxy.org/';
+
+const GITHUB_PROXY_HOSTS = new Set(['v6.gh-proxy.org', 'gh-proxy.org']);
 
 const GITHUB_DOWNLOAD_HOSTS = new Set([
   'github.com',
@@ -12,7 +14,7 @@ function githubTargetUrl(value) {
   if (url.protocol !== 'https:' || url.username || url.password) {
     throw new Error('GitHub downloads must use HTTPS.');
   }
-  if (url.hostname !== 'gh-proxy.org') return url;
+  if (!GITHUB_PROXY_HOSTS.has(url.hostname)) return url;
   if (url.port) throw new Error('Invalid GitHub proxy URL.');
 
   try {
@@ -38,6 +40,6 @@ export function validateGitHubDownloadUrl(value) {
 
 export function proxyGitHubDownloadUrl(value) {
   const url = validateGitHubDownloadUrl(value);
-  if (url.hostname === 'gh-proxy.org') return url.toString();
-  return `${GITHUB_PROXY_PREFIX}${url.toString()}`;
+  if (url.hostname === 'v6.gh-proxy.org') return url.toString();
+  return `${GITHUB_PROXY_PREFIX}${githubTargetUrl(url).toString()}`;
 }

@@ -161,7 +161,7 @@ describe('content-addressed runtime updates', () => {
     expect(current.manifestId).toBe(release.manifest.manifestId);
     expect(electron.request).toHaveBeenCalledTimes(3);
     for (const [options] of electron.request.mock.calls) {
-      expect(options.url).toMatch(/^https:\/\/gh-proxy\.org\/https:\/\//);
+      expect(options.url).toMatch(/^https:\/\/v6\.gh-proxy\.org\/https:\/\//);
     }
   });
 

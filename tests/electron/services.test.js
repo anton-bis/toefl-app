@@ -107,9 +107,13 @@ test('GitHub-hosted content downloads use the configured HTTPS proxy', () => {
   );
   assert.equal(contentDownloadUrl(direct), proxied);
   assert.equal(proxyGitHubDownloadUrl(proxied), proxied);
+  assert.equal(
+    proxyGitHubDownloadUrl(`https://gh-proxy.org/${direct}`),
+    `${GITHUB_PROXY_PREFIX}${direct}`
+  );
   assert.equal(validateContentUrl(proxied).toString(), proxied);
   assert.throws(
-    () => proxyGitHubDownloadUrl('https://gh-proxy.org/https://example.com/payload.zip'),
+    () => proxyGitHubDownloadUrl('https://v6.gh-proxy.org/https://example.com/payload.zip'),
     /Untrusted GitHub download host/
   );
 

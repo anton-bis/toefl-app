@@ -40,7 +40,9 @@ export async function proxyUpdateMetadata(filePath) {
       const match = /^(\s*(?:-\s+)?(?:url|path):\s*)(.+?)\s*$/.exec(line);
       if (!match) return line;
       const value = unquote(match[2]);
-      if (/^https:\/\/gh-proxy\.org\/https:\/\//.test(value)) return `${match[1]}${value}`;
+      if (/^https:\/\/(?:v6\.)?gh-proxy\.org\/https:\/\//.test(value)) {
+        return `${match[1]}${proxyGitHubDownloadUrl(value)}`;
+      }
       return `${match[1]}${proxiedReleaseAssetUrl(version, value)}`;
     })
     .join('\n');

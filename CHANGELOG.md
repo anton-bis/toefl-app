@@ -6,14 +6,11 @@
 
 - Allowed packaged renderer requests to load installed question-bank files through the secure custom content protocol.
 - Kept question-catalog loading failures recoverable without reloading the app or downloading valid content again.
-- Kept update metadata filenames stable for automatically versioned prerelease builds.
 
 ### Changed
 
-- Routed GitHub-hosted application updates and question-bank downloads through the configured HTTPS proxy.
 - Replaced the unstyled first-run question-bank status text with a responsive download, preparation, and retry experience.
 - Refined question-bank wording and balanced the update notification's action and dismiss controls.
-- Added automatic, uniquely versioned develop-branch prereleases with concise titles, matching update metadata, and no release notes, without affecting stable releases or automatic updates.
 
 ## [1.5.1] - 2026-07-26
 
@@ -30,7 +27,6 @@
 - Stopped copying independently published question-bank media into Electron's intermediate `dist` directory.
 - Kept only the actively used `en-US` Chromium locale; Chinese text, filenames, input methods, and native system dialogs remain provided by the operating system.
 - Replaced the universal macOS package with smaller x64 and arm64 downloads and generated architecture-aware SHA-512 update metadata.
-- Streamed release hashing instead of loading complete installers into memory and removed redundant generated GitHub release notes.
 
 ## [1.5.0] - 2026-07-26
 
@@ -38,7 +34,6 @@
 
 - Separated the question bank from desktop installers into content-addressed GitHub Release packs.
 - Added automatic first-launch installation and background question-bank updates with no user commands or manual content versions.
-- Added one-command maintainer publishing and restoration while keeping question-bank media out of future Git history.
 - Reworked desktop application updates around a persistent, retryable state model with automatic recovery after connectivity and power-state changes.
 
 ### Fixes
@@ -56,7 +51,6 @@
 - Kept macOS releases available without a paid Apple account by downloading the DMG inside the app, verifying its SHA-512 hash, and opening it for prompted manual installation.
 - Removed browser-facing repository links and packaged repository metadata while retaining GitHub-backed application and question-bank delivery.
 - Added automatic macOS installation guidance to release notes and made unsigned builds explicit when no Apple credentials are configured.
-- Removed obsolete update IPC, duplicate scheduling paths, unused update-store code, and the release workflow's non-publishing manual trigger.
 - Updated vulnerable transitive build dependencies to patched versions without changing production runtime dependencies.
 
 ## [1.4.2] - 2026-07-18
@@ -70,7 +64,6 @@
 ### Fixes
 
 - Corrected reading question numbering and kept passages stable while moving between questions.
-- Updated CI and Electron preparation to use the supported Node.js toolchain and a reproducible staging flow.
 
 ### Build and Packaging Improvements
 
