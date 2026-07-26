@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.5.2] - 2026-07-27
+
 ### Fixed
 
 - Restored finite audio durations and seeking for question prompts and recorded responses in packaged desktop builds.
@@ -73,7 +75,8 @@
 - Moved bundled content outside the ASAR and made optional signing safe for universal macOS packaging.
 - Simplified the application architecture, removed obsolete code and assets, and expanded automated coverage for the main runtime and release paths.
 
-[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.5.2...HEAD
+[1.5.2]: https://github.com/anton-bis/toefl-app/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/anton-bis/toefl-app/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/anton-bis/toefl-app/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/anton-bis/toefl-app/compare/v1.4.1...v1.4.2
