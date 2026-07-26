@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "manifestId": "3f5f4c7afa58df344fce4289ba4489dbba3ad27e508ee58ed6b7d958d96c7468",
+  "publishedAt": "2026-07-26T09:42:22.928Z",
+  "minAppVersion": "1.5.0",
+  "packs": [
+    {
+      "id": "catalog",
+      "contentHash": "ef7e906080e009b2b0f90ad87666dc6a1d88e3a816feca9ed5aee5a2ebaaaec6",
+      "archiveHash": "5c889dd246c54229f3cf56718415e7380579e619c71a5266ca625acd86efc8f1",
+      "size": 3832,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/catalog-ef7e906080e0.zip"
+    },
+    {
+      "id": "tpo-01",
+      "contentHash": "b3d6385b5905fae56706a684cd4e98415e8b725a569f6fd4e91f0933a1539c96",
+      "archiveHash": "250aea9458d3c28a1165c4d88545abd55c5ee8137a4b3f0b40d89ad8248cc0d7",
+      "size": 15638798,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-01-b3d6385b5905.zip"
+    },
+    {
+      "id": "tpo-02",
+      "contentHash": "240aa38a8898e30dc91d74aa94b7e46c952fa20cec6c4ab7936c1fee858b2756",
+      "archiveHash": "9d5c3d2c7d13cdd46a899f70953bfede0b9cd7d1fdf7dd42f3f0d210503b345b",
+      "size": 14674929,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-02-240aa38a8898.zip"
+    },
+    {
+      "id": "tpo-03",
+      "contentHash": "557f0b72d0030f48dc37177fbe0c0c56a6ef41d26e4abfd86357851db64f202b",
+      "archiveHash": "94e3a79a902935dceb8fee29bce79cc6d424b4768c85ca0907ee956af7a37272",
+      "size": 12994394,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-03-557f0b72d003.zip"
+    },
+    {
+      "id": "tpo-04",
+      "contentHash": "3a63ddf18c12a100cf1d4b847aa60504a54466ea6c88523efec2c2159df4e746",
+      "archiveHash": "4fc13ad9eed6a6931aafeec9deba34531e7f614c717450ecc9d09334948fd74f",
+      "size": 11503599,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-04-3a63ddf18c12.zip"
+    },
+    {
+      "id": "tpo-05",
+      "contentHash": "1afa708fee447d60ea57eecdb766bb0cfd4fd5ec2284c35bb9ee92d3f2254605",
+      "archiveHash": "295c26e073a7721e5a21a99898c05d25560a9984ad2e1d986b6d8ac88451ca58",
+      "size": 4724013,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-05-1afa708fee44.zip"
+    },
+    {
+      "id": "tpo-06",
+      "contentHash": "40010cd3e9369e40ec421764a2e9668fffafa3b4c55eaccd4942636dd7ad0d1d",
+      "archiveHash": "3be61fd4b162b741559a2dcaf7701856ecfdaf46579429f475142f91c0622785",
+      "size": 4302735,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-06-40010cd3e936.zip"
+    },
+    {
+      "id": "tpo-07",
+      "contentHash": "8e74ac446232c5c176e41b19e79dd010a5945a92bc287f2c683d53f81c68a16b",
+      "archiveHash": "c5352149664897d4c43fa705d17a35cb9e9fe3bca3b88c810bf24f647708f8a2",
+      "size": 4283671,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-07-8e74ac446232.zip"
+    },
+    {
+      "id": "tpo-08",
+      "contentHash": "818901276e59a06121483563096394c42fbcedb320463aaf53170e5eed49259a",
+      "archiveHash": "c4a9c3d7aef66297dc96626a430e931021d556e8be87337c3e9ad3611c34e199",
+      "size": 9758,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-08-818901276e59.zip"
+    },
+    {
+      "id": "tpo-09",
+      "contentHash": "4bba7ba37f75e5f6bfec5580464f74a8be0a521e96b62d17b1c5603d66888532",
+      "archiveHash": "1a9f5657b0074f521c039e5d067f145b9bea6b3f268d37d26182aab9da8b4858",
+      "size": 9891,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/tpo-09-4bba7ba37f75.zip"
+    },
+    {
+      "id": "vocabulary",
+      "contentHash": "018dbb2cb575202637fbd25ee74f08b2d6612143707cb04048f32b7372fa5703",
+      "archiveHash": "03b555b233d5b533ff1d65c19e26748da85f5594358170659411fef762b869ed",
+      "size": 12784026,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/vocabulary-018dbb2cb575.zip"
+    },
+    {
+      "id": "typing",
+      "contentHash": "955ad9035c82550d0fdc26814f07eadeeee567d769e682030d3ba31807f4eeee",
+      "archiveHash": "97ecd5152bb612f0c6881434c570475c826b451d77ceb94bdf8a7f47c8086c77",
+      "size": 6591,
+      "url": "https://github.com/anton-bis/toefl-app/releases/download/content-3f5f4c7afa58/typing-955ad9035c82.zip"
+    }
+  ]
+}
