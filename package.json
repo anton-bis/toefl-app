@@ -140,9 +140,8 @@
       "**/*.node"
     ],
     "publish": {
-      "provider": "github",
-      "owner": "anton-bis",
-      "repo": "toefl-app"
+      "provider": "generic",
+      "url": "https://gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/latest/download"
     }
   }
 }

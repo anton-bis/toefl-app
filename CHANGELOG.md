@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Allowed packaged renderer requests to load installed question-bank files through the secure custom content protocol.
+- Kept question-catalog loading failures recoverable without reloading the app or downloading valid content again.
+
+### Changed
+
+- Routed GitHub-hosted application updates and question-bank downloads through the configured HTTPS proxy.
+- Replaced the unstyled first-run question-bank status text with a responsive download, preparation, and retry experience.
+
 ## [1.5.1] - 2026-07-26
 
 ### Highlights

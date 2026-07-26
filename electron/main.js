@@ -30,6 +30,7 @@ import {
   synchronizeContent
 } from './services/content-updater.js';
 import { registerDataStorageIpc } from './services/database.js';
+import { registerContentProtocol } from './services/content-protocol.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -91,13 +92,11 @@ async function resolveContentFile(relativePath) {
 }
 
 function setupContentProtocol() {
-  protocol.handle('toefl-content', async request => {
-    const requestUrl = new URL(request.url);
-    const filePath = await resolveContentFile(
-      decodeURIComponent(requestUrl.pathname).replace(/^\/+/, '')
-    );
-    if (!filePath) return new Response('Not found', { status: 404 });
-    return net.fetch(pathToFileURL(filePath).toString(), { headers: request.headers });
+  registerContentProtocol({
+    protocol,
+    net,
+    resolveFile: resolveContentFile,
+    onError: error => console.warn('Installed content request failed:', error.message)
   });
   protocol.handle('toefl-recording', async request => {
     const requestUrl = new URL(request.url);

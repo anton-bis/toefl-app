@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
+import { proxyGitHubDownloadUrl } from './github-download.js';
 
 function releaseAssetUrl(version, fileName) {
   if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) {
@@ -11,7 +12,9 @@ function releaseAssetUrl(version, fileName) {
   if (path.basename(fileName) !== fileName || !fileName.endsWith('.dmg')) {
     throw new Error('The macOS update does not contain a valid DMG.');
   }
-  return `https://github.com/anton-bis/toefl-app/releases/download/v${version}/${encodeURIComponent(fileName)}`;
+  return proxyGitHubDownloadUrl(
+    `https://github.com/anton-bis/toefl-app/releases/download/v${version}/${encodeURIComponent(fileName)}`
+  );
 }
 
 async function fileMatches(filePath, expectedSha512) {

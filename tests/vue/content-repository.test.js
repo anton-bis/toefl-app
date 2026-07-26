@@ -79,4 +79,12 @@ describe('compiled question content', () => {
       })
     ).rejects.toThrow('Content integrity check failed');
   });
+
+  it('reports packaged protocol failures as installed-content errors', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')));
+
+    await expect(readCatalogManifest()).rejects.toThrow(
+      'Could not read installed content: assets/questions/compiled/manifest.json'
+    );
+  });
 });

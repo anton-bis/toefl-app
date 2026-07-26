@@ -8,6 +8,7 @@ import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 import {
   assertPublishedContentManifest,
+  contentDownloadUrl,
   contentManifestUrl,
   DEFAULT_CONTENT_BRANCH,
   DEFAULT_CONTENT_REPOSITORY,
@@ -25,8 +26,10 @@ const repository = process.env.TOEFL_CONTENT_REPOSITORY || DEFAULT_CONTENT_REPOS
 const contentBranch = process.env.TOEFL_CONTENT_BRANCH || DEFAULT_CONTENT_BRANCH;
 
 async function download(url, outputPath, expectedHash, maxBytes) {
-  validateContentUrl(url);
-  const response = await fetch(url, { headers: { 'user-agent': 'toefl-content-puller' } });
+  const requestUrl = contentDownloadUrl(url);
+  const response = await fetch(requestUrl, {
+    headers: { 'user-agent': 'toefl-content-puller' }
+  });
   validateContentUrl(response.url);
   if (!response.ok || !response.body)
     throw new Error(`Content download failed: HTTP ${response.status}`);

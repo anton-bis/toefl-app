@@ -39,8 +39,15 @@ export function listCatalog(catalog = { entries: [] }) {
 
 export async function readText(path) {
   const relativePath = normalizeRelativePath(path);
-  const response = await fetch(resolveAssetUrl(relativePath));
-  if (!response.ok) throw new Error(`Content not found: ${relativePath}`);
+  let response;
+  try {
+    response = await fetch(resolveAssetUrl(relativePath));
+  } catch (error) {
+    throw new Error(`Could not read installed content: ${relativePath}`, { cause: error });
+  }
+  if (!response.ok) {
+    throw new Error(`Could not read installed content (${response.status}): ${relativePath}`);
+  }
   return response.text();
 }
 

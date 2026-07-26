@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   contentManifestUrl,
+  contentDownloadUrl,
   DEFAULT_CONTENT_BRANCH,
   DEFAULT_CONTENT_REPOSITORY,
   assertPublishedContentManifest
@@ -162,7 +163,9 @@ export async function publishContent() {
         contentHash: generated.contentHash,
         archiveHash: generated.archiveHash,
         size: generated.size,
-        url: `https://github.com/${repository}/releases/download/${tag}/${generated.fileName}`
+        url: contentDownloadUrl(
+          `https://github.com/${repository}/releases/download/${tag}/${generated.fileName}`
+        )
       };
     });
     const manifest = {
