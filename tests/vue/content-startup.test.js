@@ -13,7 +13,7 @@ describe('question-bank startup experience', () => {
       props: { status: 'downloading', progress: 19 }
     });
 
-    expect(wrapper.text()).toContain('Downloading your question bank');
+    expect(wrapper.text()).toContain('Downloading the question bank');
     expect(wrapper.text()).toContain('19%');
     expect(wrapper.get('[role="progressbar"]').attributes('aria-valuenow')).toBe('19');
     expect(wrapper.get('.content-startup__progress span').attributes('style')).toContain(

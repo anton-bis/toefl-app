@@ -12,6 +12,7 @@
 
 - Routed GitHub-hosted application updates and question-bank downloads through the configured HTTPS proxy.
 - Replaced the unstyled first-run question-bank status text with a responsive download, preparation, and retry experience.
+- Refined question-bank wording and balanced the update notification's action and dismiss controls.
 - Added automatic, uniquely versioned develop-branch prereleases with concise titles, matching update metadata, and no release notes, without affecting stable releases or automatic updates.
 
 ## [1.5.1] - 2026-07-26

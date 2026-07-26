@@ -19,19 +19,19 @@ const copy = computed(() => {
       detail: 'Loading your practice data…'
     },
     checking: {
-      title: 'Checking your question bank',
-      detail: 'Making sure your practice content is ready.'
+      title: 'Checking the question bank',
+      detail: 'Making sure the practice content is ready.'
     },
     downloading: {
-      title: 'Downloading your question bank',
+      title: 'Downloading the question bank',
       detail: 'This is only needed for new or updated practice content.'
     },
     preparing: {
-      title: 'Preparing your question bank',
-      detail: 'Verifying the download and getting your tests ready…'
+      title: 'Preparing the question bank',
+      detail: 'Verifying the download and getting the tests ready…'
     },
     catalog: {
-      title: 'Opening your question bank',
+      title: 'Opening the question bank',
       detail: 'Loading the available practice tests…'
     },
     error: {
