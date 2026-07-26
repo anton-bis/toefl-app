@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Fixes
+
+- Fixed compiled question metadata validation when opening exams from the home catalog.
+- Kept the desktop header and navigation stable while scrolling the TPO content pane.
+
 ## [1.4.2] - 2026-07-18
 
 ### Highlights
