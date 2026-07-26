@@ -46,17 +46,13 @@ export function generateQuestionContent(rootDir) {
 const scriptPath = fileURLToPath(import.meta.url);
 if (process.argv[1] && path.resolve(process.argv[1]) === scriptPath) {
   const rootDir = path.resolve(process.cwd());
-  const outputArg = process.argv.find(value => value.startsWith('--output='))?.slice(9);
-  const output = path.resolve(rootDir, outputArg || 'src/content/question-manifest.json');
   const compiled = generateQuestionContent(rootDir);
   const { manifest } = compiled;
   const compiledDirectory = path.join(rootDir, 'assets/questions/compiled');
   fs.rmSync(compiledDirectory, { recursive: true, force: true });
   writeCompiledQuestionContent(rootDir, compiled);
-  fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, `${JSON.stringify(manifest, null, 2)}\n`);
   console.log(
-    `Question manifest: ${manifest.entries.length} documents -> ${path.relative(rootDir, output)}`
+    `Question manifest: ${manifest.entries.length} documents -> assets/questions/compiled/manifest.json`
   );
   for (const warning of manifest.warnings) console.warn(`Warning: ${warning}`);
 }

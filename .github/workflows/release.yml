@@ -1,7 +1,6 @@
 name: Release
 
 on:
-  workflow_dispatch:
   push:
     tags: ['v*']
 
@@ -132,22 +131,32 @@ jobs:
           MAC_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
           MAC_APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
-          if [[ -n "$MAC_CERTIFICATE" ]]; then
-            export CSC_LINK="$MAC_CERTIFICATE"
-            export CSC_KEY_PASSWORD="$MAC_CERTIFICATE_PASSWORD"
+          configured=0
+          for value in "$MAC_CERTIFICATE" "$MAC_CERTIFICATE_PASSWORD" "$MAC_APPLE_ID" "$MAC_APPLE_APP_SPECIFIC_PASSWORD" "$MAC_APPLE_TEAM_ID"; do
+            if [[ -n "$value" ]]; then configured=$((configured + 1)); fi
+          done
+          if [[ "$configured" -ne 0 && "$configured" -ne 5 ]]; then
+            echo "Configure all macOS signing secrets or leave all of them empty."
+            exit 1
           fi
 
-          if [[ -n "$MAC_APPLE_ID$MAC_APPLE_APP_SPECIFIC_PASSWORD$MAC_APPLE_TEAM_ID" ]]; then
-            if [[ -z "$MAC_CERTIFICATE" || -z "$MAC_APPLE_ID" || -z "$MAC_APPLE_APP_SPECIFIC_PASSWORD" || -z "$MAC_APPLE_TEAM_ID" ]]; then
-              echo "macOS notarization requires the certificate and all Apple notarization secrets."
-              exit 1
-            fi
+          if [[ "$configured" -eq 5 ]]; then
+            export CSC_LINK="$MAC_CERTIFICATE"
+            export CSC_KEY_PASSWORD="$MAC_CERTIFICATE_PASSWORD"
             export APPLE_ID="$MAC_APPLE_ID"
             export APPLE_APP_SPECIFIC_PASSWORD="$MAC_APPLE_APP_SPECIFIC_PASSWORD"
             export APPLE_TEAM_ID="$MAC_APPLE_TEAM_ID"
-          fi
+            npm run release:macos
 
-          npm run release:macos
+            app_path="$(find release -maxdepth 3 -name '*.app' -print -quit)"
+            test -n "$app_path"
+            codesign --verify --deep --strict --verbose=2 "$app_path"
+            xcrun stapler validate release/TOEFL-iBT-Practice-*-macos-universal.dmg
+          else
+            echo "Building an unsigned macOS package for manual installation."
+            export CSC_IDENTITY_AUTO_DISCOVERY=false
+            npm run release:macos
+          fi
 
       - name: Upload release files
         uses: actions/upload-artifact@v6

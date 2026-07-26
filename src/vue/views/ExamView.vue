@@ -1,5 +1,13 @@
 <script setup>
-import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  watch
+} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ExamDialog from '../exam/shared/ExamDialog.vue';
 import ExamHeader from '../exam/shared/ExamHeader.vue';
@@ -41,6 +49,9 @@ const expiredOpen = ref(false);
 const readyOpen = ref(false);
 const sectionBusy = ref(false);
 let loadToken = 0;
+
+onMounted(() => window.electronAPI?.setContentBusy(true));
+onBeforeUnmount(() => window.electronAPI?.setContentBusy(false));
 
 const sectionComponents = {
   reading: defineAsyncComponent(() => import('../exam/sections/reading/ReadingPage.vue')),

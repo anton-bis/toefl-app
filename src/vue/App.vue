@@ -5,17 +5,31 @@ import {
   onBeforeUnmount,
   onErrorCaptured,
   onMounted,
-  ref
+  ref,
+  watch
 } from 'vue';
 import { flushDataStorage, suspendDataStorage } from './platform/storageLifecycle.js';
+import { useCatalogStore } from './stores/catalog.js';
+import { useUpdatesStore } from './stores/updates.js';
 
 const fatalError = ref('');
 const storageReady = inject('storageReady');
 const electronEnabled = Boolean(window.electronAPI);
 const UpdateNotice = defineAsyncComponent(() => import('./components/UpdateNotice.vue'));
-let updates;
+const updates = useUpdatesStore();
+const catalog = useCatalogStore();
 let disposed = false;
 let stopDataFlush;
+
+async function refreshCatalog() {
+  if (!updates.contentReady) return;
+  try {
+    catalog.invalidate();
+    await catalog.refreshCatalog();
+  } catch (error) {
+    fatalError.value = error?.message || 'The question catalog could not be loaded.';
+  }
+}
 
 async function handleDataFlush(request) {
   const id = typeof request === 'object' ? request.id : request;
@@ -33,16 +47,16 @@ async function handleDataFlush(request) {
 }
 
 onMounted(async () => {
-  if (!electronEnabled) return;
-  const { useUpdatesStore } = await import('./stores/updates.js');
-  if (disposed) return;
-  updates = useUpdatesStore();
-  updates.initialize();
-  stopDataFlush = window.electronAPI.data.onFlush(handleDataFlush);
+  if (electronEnabled) {
+    stopDataFlush = window.electronAPI.data.onFlush(handleDataFlush);
+    await updates.initialize();
+  }
+  if (!disposed && updates.contentReady) await refreshCatalog();
 });
+watch(() => updates.contentActivation, refreshCatalog);
 onBeforeUnmount(() => {
   disposed = true;
-  updates?.dispose();
+  updates.dispose();
   stopDataFlush?.();
 });
 
@@ -62,6 +76,29 @@ onErrorCaptured(error => {
   <main v-else-if="!storageReady" class="exam-route-state" aria-live="polite">
     <i class="fas fa-spinner fa-spin" /> Loading your practice data…
   </main>
-  <RouterView v-else />
+  <main v-else-if="!updates.contentReady" class="exam-route-state" aria-live="polite">
+    <template v-if="updates.contentStatus === 'error'">
+      <i class="fas fa-circle-exclamation" />
+      <p>{{ updates.contentError || 'The question bank could not be downloaded.' }}</p>
+      <button type="button" @click="updates.retryContent">Try Again</button>
+    </template>
+    <template v-else>
+      <i class="fas fa-spinner fa-spin" />
+      <p>
+        {{
+          updates.contentStatus === 'downloading'
+            ? 'Downloading question bank'
+            : 'Checking question bank'
+        }}
+        <template v-if="updates.contentStatus === 'downloading'">
+          {{ updates.contentProgress }}%</template
+        >
+      </p>
+    </template>
+  </main>
+  <RouterView v-else-if="catalog.catalogLoaded" />
+  <main v-else class="exam-route-state" aria-live="polite">
+    <i class="fas fa-spinner fa-spin" /> Loading the question catalog…
+  </main>
   <UpdateNotice v-if="electronEnabled" />
 </template>

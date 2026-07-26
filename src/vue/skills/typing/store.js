@@ -9,6 +9,7 @@ import {
   scheduleLocalJson,
   writeLocalJson
 } from '../../platform/localPersistence.js';
+import { readText } from '../../platform/contentRepository.js';
 
 export const TYPING_SESSION_KEY = 'toefl:typing:session';
 const MAX_HISTORY = 100;
@@ -100,9 +101,7 @@ function validHistoryRecord(record) {
 }
 
 async function loadArticles() {
-  const response = await fetch('assets/questions/typing/corpus.json');
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const corpus = await response.json();
+  const corpus = JSON.parse(await readText('assets/questions/typing/corpus.json'));
   return corpus.filter(article => article.content?.trim());
 }
 

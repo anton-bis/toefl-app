@@ -47,5 +47,19 @@ logs/
 # ===== 中间产物（开发过程中产生）=====
 assets/questions/compiled/
 
+# Runtime question-bank binaries are published as content-addressed GitHub Release assets.
+assets/questions/**/*.[mM][pP]3
+assets/questions/**/*.[oO][gG][gG]
+assets/questions/**/*.[mM][pP]4
+assets/questions/**/*.[wW][aA][vV]
+assets/questions/**/*.[mM]4[aA]
+assets/questions/**/*.[pP][nN][gG]
+assets/questions/**/*.[jJ][pP][gG]
+assets/questions/**/*.[jJ][pP][eE][gG]
+assets/questions/**/*.[gG][iI][fF]
+assets/questions/**/*.[wW][eE][bB][pP]
+assets/audio/
+.content-media-state.json
+
 # ===== AI 助手 =====
 .opencode/

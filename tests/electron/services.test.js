@@ -6,7 +6,12 @@ import {
   normalizeContentPath,
   resolveContentFile
 } from '../../electron/services/content-paths.js';
-import { RUNTIME_CONTENT_EXTENSIONS } from '../../electron/services/runtime-content.js';
+import {
+  CONTENT_SCHEMA_MIN_APP_VERSION,
+  CONTENT_SCHEMA_VERSION,
+  RUNTIME_CONTENT_EXTENSIONS,
+  RUNTIME_MEDIA_EXTENSIONS
+} from '../../electron/services/runtime-content.js';
 
 test('content paths normalize relative assets and reject unsafe paths', () => {
   for (const unsafePath of ['../secret.txt', '/etc/passwd', '']) {
@@ -29,19 +34,24 @@ test('runtime content policy covers packaged and hot-update asset types', () => 
     assert.equal(RUNTIME_CONTENT_EXTENSIONS.has(extension), true, extension);
   }
   assert.equal(RUNTIME_CONTENT_EXTENSIONS.has('.md'), false);
+  assert.equal(RUNTIME_MEDIA_EXTENSIONS.has('.json'), false);
+  assert.equal(RUNTIME_MEDIA_EXTENSIONS.has('.mp3'), true);
+  assert.equal(CONTENT_SCHEMA_VERSION, 1);
+  assert.match(CONTENT_SCHEMA_MIN_APP_VERSION, /^\d+\.\d+\.\d+$/);
 });
 
-test('packaged content candidates prefer updates before bundled resources', () => {
+test('content candidates prefer active packs before development resources', () => {
   assert.deepEqual(
     getContentCandidates({
       relativePath: 'assets/questions/compiled/manifest.json',
-      userDataPath: '/user-data',
-      appPath: '/app',
-      resourcesPath: '/resources'
+      activeRoots: ['/user-data/tpo-content/packs/catalog/hash'],
+      appPath: '/app'
     }),
     [
-      path.join('/user-data', 'tpo-content/assets/questions/compiled/manifest.json'),
-      path.join('/resources', 'content/assets/questions/compiled/manifest.json'),
+      path.join(
+        '/user-data/tpo-content/packs/catalog/hash',
+        'assets/questions/compiled/manifest.json'
+      ),
       path.join('/app', 'dist/assets/questions/compiled/manifest.json'),
       path.join('/app', 'assets/questions/compiled/manifest.json')
     ]

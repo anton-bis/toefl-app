@@ -14,6 +14,21 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { getContentCandidates, normalizeContentPath } from './services/content-paths.js';
+import { createAppUpdaterController, initialAppUpdateState } from './services/app-updater.js';
+import { createBackgroundScheduler } from './services/background-scheduler.js';
+import { downloadMacInstaller } from './services/manual-mac-update.js';
+import {
+  activePackRoots,
+  getContentRoot,
+  hasLegacyContent,
+  readInstalledManifest
+} from './services/content-installation.js';
+import {
+  configureContentUpdater,
+  initializeContent,
+  setContentBusy,
+  synchronizeContent
+} from './services/content-updater.js';
 import { registerDataStorageIpc } from './services/database.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
@@ -41,15 +56,26 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 const resolvedContentPaths = new Map();
+let installedContentRoots = [];
+let installedContentLoaded = false;
+
+async function refreshInstalledContent(manifest) {
+  const contentRoot = getContentRoot(app.getPath('userData'));
+  const activeManifest = manifest || (await readInstalledManifest(contentRoot));
+  installedContentRoots = activePackRoots(contentRoot, activeManifest);
+  if (!manifest && (await hasLegacyContent(contentRoot))) installedContentRoots.push(contentRoot);
+  installedContentLoaded = true;
+  resolvedContentPaths.clear();
+}
 
 async function resolveContentFile(relativePath) {
   const safePath = normalizeContentPath(relativePath);
   if (resolvedContentPaths.has(safePath)) return resolvedContentPaths.get(safePath);
+  if (!installedContentLoaded) await refreshInstalledContent();
   for (const candidate of getContentCandidates({
     relativePath: safePath,
-    userDataPath: app.getPath('userData'),
-    appPath: app.getAppPath(),
-    resourcesPath: process.resourcesPath
+    activeRoots: installedContentRoots,
+    appPath: app.getAppPath()
   })) {
     try {
       const stats = await fs.promises.stat(candidate);
@@ -87,37 +113,60 @@ function setupContentProtocol() {
 
 // Main window reference
 let mainWindow = null;
-let autoUpdaterPromise;
-let updaterConfigured = false;
-let appUpdateTimer;
-let contentUpdateTimer;
+let appUpdaterController;
+let appUpdaterControllerPromise;
+let appInstallBlocked = false;
+let backgroundScheduler;
+let updateInstallPrepared = false;
 let dataStorage;
 const pendingRendererFlushes = new Map();
 let nextFlushId = 1;
 let quittingRequested = false;
-const APP_UPDATE_INTERVAL = 6 * 60 * 60 * 1000;
-const CONTENT_UPDATE_INTERVAL = 24 * 60 * 60 * 1000;
 
-async function getAutoUpdater() {
+function sendToRenderer(channel, payload) {
+  if (!mainWindow || mainWindow.webContents.isDestroyed()) return;
+  mainWindow.webContents.send(channel, payload);
+}
+
+async function getAppUpdaterController() {
   if (!app.isPackaged) return null;
-  autoUpdaterPromise ??= import('electron-updater').then(module => module.default.autoUpdater);
-  const updater = await autoUpdaterPromise;
-  if (!updaterConfigured) {
-    configureAutoUpdater(updater);
-    updaterConfigured = true;
-  }
-  return updater;
+  appUpdaterControllerPromise ??= import('electron-updater')
+    .then(module => {
+      appUpdaterController = createAppUpdaterController({
+        updater: module.default.autoUpdater,
+        emitState: state => {
+          if (state.status === 'error') updateInstallPrepared = false;
+          sendToRenderer('update:state', state);
+        },
+        prepareToInstall: async () => {
+          await flushRendererData(5000);
+          updateInstallPrepared = true;
+        },
+        downloadManualInstaller:
+          process.platform === 'darwin'
+            ? async options => {
+                const installer = await downloadMacInstaller({
+                  ...options,
+                  downloadsDirectory: app.getPath('downloads'),
+                  fetchFile: url => net.fetch(url)
+                });
+                const error = await shell.openPath(installer);
+                if (error) throw new Error(error);
+              }
+            : undefined
+      });
+      appUpdaterController.setInstallBlocked(appInstallBlocked);
+      return appUpdaterController;
+    })
+    .catch(error => {
+      appUpdaterControllerPromise = null;
+      throw error;
+    });
+  return appUpdaterControllerPromise;
 }
 
 function canRunBackgroundWork() {
   return Boolean(mainWindow?.isVisible() && !mainWindow.isMinimized() && net.isOnline());
-}
-
-function clearBackgroundTimers() {
-  clearTimeout(appUpdateTimer);
-  clearTimeout(contentUpdateTimer);
-  appUpdateTimer = undefined;
-  contentUpdateTimer = undefined;
 }
 
 function flushRendererData(timeout = 3000, suspend = false) {
@@ -138,33 +187,16 @@ function flushRendererData(timeout = 3000, suspend = false) {
 }
 
 async function checkAppUpdate() {
-  if (!canRunBackgroundWork()) return;
-  const updater = await getAutoUpdater();
-  await updater?.checkForUpdates();
+  const controller = await getAppUpdaterController();
+  const state = await controller?.check();
+  if (state?.status === 'error') throw new Error(state.error);
 }
 
 async function checkContentUpdate() {
-  if (!canRunBackgroundWork()) return;
-  const { checkForContentUpdates } = await import('./services/content-updater.js');
-  const result = await checkForContentUpdates();
-  if (result.hasUpdate && mainWindow) {
-    mainWindow.webContents.send('content:update-available', result);
+  const state = await synchronizeContent();
+  if (state?.status === 'error' || state?.warning) {
+    throw new Error(state.error || state.warning);
   }
-}
-
-function scheduleBackgroundChecks(initialDelay = 30_000) {
-  if (!app.isPackaged) return;
-  clearBackgroundTimers();
-  appUpdateTimer = setTimeout(async function runAppUpdate() {
-    await checkAppUpdate().catch(error => console.warn('App update check failed:', error.message));
-    appUpdateTimer = setTimeout(runAppUpdate, APP_UPDATE_INTERVAL);
-  }, initialDelay);
-  contentUpdateTimer = setTimeout(async function runContentUpdateCheck() {
-    await checkContentUpdate().catch(error =>
-      console.warn('Content update check failed:', error.message)
-    );
-    contentUpdateTimer = setTimeout(runContentUpdateCheck, CONTENT_UPDATE_INTERVAL);
-  }, initialDelay + 15_000);
 }
 
 function isTrustedRenderer(event) {
@@ -238,19 +270,21 @@ function createWindow() {
       readyToShowMs: performance.now() - startupStartedAt
     }).catch(error => console.warn('Performance snapshot failed:', error.message));
 
-    scheduleBackgroundChecks();
+    backgroundScheduler?.restart();
   });
 
   // Release the window reference after closing.
   mainWindow.on('closed', () => {
-    clearBackgroundTimers();
+    backgroundScheduler?.stop();
     mainWindow = null;
   });
+
+  mainWindow.on('restore', () => backgroundScheduler?.restart(5000));
 
   let closeAllowed = false;
   let closePending = false;
   mainWindow.on('close', event => {
-    if (closeAllowed) return;
+    if (closeAllowed || updateInstallPrepared) return;
     event.preventDefault();
     if (closePending) return;
     closePending = true;
@@ -382,16 +416,14 @@ function createApplicationMenu() {
       label: 'Help',
       submenu: [
         {
-          label: 'User Guide',
-          click: () => {
-            shell.openExternal('https://github.com/anton-bis/toefl-app#readme');
-          }
-        },
-        {
           label: 'Check for Updates',
           click: async () => {
-            const updater = await getAutoUpdater();
-            await updater?.checkForUpdatesAndNotify();
+            try {
+              const controller = await getAppUpdaterController();
+              await controller?.check({ userInitiated: true });
+            } catch (error) {
+              dialog.showErrorBox('Update Check Failed', error.message);
+            }
           }
         },
         { type: 'separator' },
@@ -489,73 +521,64 @@ function setupIpcHandlers() {
     complete?.(result);
   });
 
-  // Runtime content updates
-  ipcMain.handle('content:apply', async event => {
+  ipcMain.handle('content:initialize', async event => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content initialization request.');
+    if (!app.isPackaged) return { status: 'ready', ready: true, progress: 100 };
+    return initializeContent();
+  });
+
+  ipcMain.handle('content:retry', async event => {
     if (!isTrustedRenderer(event)) throw new Error('Untrusted content update request.');
-    const { runContentUpdate } = await import('./services/content-updater.js');
-    const result = await runContentUpdate();
-    resolvedContentPaths.clear();
-    return result;
+    return synchronizeContent();
   });
 
-  ipcMain.handle('update:quit-and-install', async event => {
+  ipcMain.handle('content:set-busy', async (event, busy) => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content state request.');
+    appInstallBlocked = Boolean(busy);
+    if (appInstallBlocked) appUpdaterController?.setInstallBlocked(true);
+    await setContentBusy(busy);
+    if (!appInstallBlocked) appUpdaterController?.setInstallBlocked(false);
+  });
+
+  ipcMain.handle('background:resume-checks', event => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted background check request.');
+    backgroundScheduler?.restart(5000);
+  });
+
+  ipcMain.handle('update:get-state', event => {
     if (!isTrustedRenderer(event)) throw new Error('Untrusted update request.');
-    const updater = await getAutoUpdater();
-    updater?.quitAndInstall();
+    return appUpdaterController?.getState() || initialAppUpdateState();
   });
 
-  ipcMain.handle('update:download', async event => {
-    if (!isTrustedRenderer(event)) throw new Error('Untrusted update request.');
-    const updater = await getAutoUpdater();
-    return updater?.downloadUpdate();
-  });
-}
-
-// Automatic update events
-function configureAutoUpdater(updater) {
-  updater.autoDownload = false;
-  updater.autoInstallOnAppQuit = false;
-
-  updater.on('checking-for-update', () => {
-    console.log('Checking for updates...');
-  });
-
-  updater.on('update-available', info => {
-    console.log('Update available:', info.version);
-    if (mainWindow) {
-      mainWindow.webContents.send('update:available', info);
-    }
-  });
-
-  updater.on('update-not-available', () => {
-    console.log('The app is up to date.');
-  });
-
-  updater.on('error', err => {
-    console.error('Update check failed:', err);
-    if (mainWindow) {
-      mainWindow.webContents.send('update:error', err.message);
-    }
-  });
-
-  updater.on('download-progress', progressObj => {
-    if (mainWindow) {
-      mainWindow.webContents.send('update:progress', progressObj);
-    }
-  });
-
-  updater.on('update-downloaded', info => {
-    console.log('Update downloaded:', info.version);
-    if (mainWindow) {
-      mainWindow.webContents.send('update:downloaded', info);
-    }
-  });
+  for (const [channel, action] of [
+    ['update:download', 'download'],
+    ['update:retry', 'retry'],
+    ['update:install', 'install']
+  ]) {
+    ipcMain.handle(channel, async event => {
+      if (!isTrustedRenderer(event)) throw new Error('Untrusted update request.');
+      const controller = await getAppUpdaterController();
+      return controller?.[action]() || initialAppUpdateState();
+    });
+  }
 }
 
 // Initialize the app.
 function initializeApp() {
   try {
     console.log('Initializing the app...');
+
+    configureContentUpdater({
+      onState: state => sendToRenderer('content:state', state),
+      onActivated: manifest => {
+        refreshInstalledContent(manifest).catch(error =>
+          console.warn('Could not refresh installed content paths:', error.message)
+        );
+        sendToRenderer('content:activated', {
+          manifestId: manifest.manifestId
+        });
+      }
+    });
 
     // Register IPC handlers.
     setupIpcHandlers();
@@ -564,12 +587,22 @@ function initializeApp() {
     setupContentProtocol();
     console.log('Content protocol is ready.');
 
+    if (app.isPackaged) {
+      backgroundScheduler = createBackgroundScheduler({
+        canRun: canRunBackgroundWork,
+        runAppUpdate: checkAppUpdate,
+        runContentUpdate: checkContentUpdate,
+        onError: (kind, error) =>
+          console.warn(`${kind === 'app' ? 'App' : 'Content'} update check failed:`, error.message)
+      });
+    }
+
     // Create the main window.
     createWindow();
     console.log('Main window created.');
 
     if (app.isPackaged) {
-      powerMonitor.on('resume', () => scheduleBackgroundChecks(60_000));
+      powerMonitor.on('resume', () => backgroundScheduler?.restart(60_000));
     }
   } catch (error) {
     console.error('App initialization failed:', error);
@@ -591,7 +624,7 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => {
   quittingRequested = true;
-  clearBackgroundTimers();
+  backgroundScheduler?.stop();
 });
 
 app.on('will-quit', () => dataStorage?.close().catch(() => {}));

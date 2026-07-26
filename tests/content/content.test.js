@@ -20,9 +20,6 @@ import { copyRuntimeContent } from '../../vite.config.js';
 const root = path.resolve(import.meta.dirname, '../..');
 const compiledContent = generateQuestionContent(root);
 const { manifest } = compiledContent;
-const committedManifest = JSON.parse(
-  fs.readFileSync(path.join(root, 'src/content/question-manifest.json'), 'utf8')
-);
 const documents = new Map(
   manifest.entries.map(entry => [
     entry.id,
@@ -62,7 +59,6 @@ test('manifest discovery is deterministic and complete', () => {
       documentPath: entry.documentPath
     }))
   );
-  assert.deepEqual(manifest, committedManifest);
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
 });
 
@@ -149,18 +145,12 @@ test('application metadata identifies the English TOEFL product', () => {
   assert.match(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /<html lang="en">/);
 });
 
-test('Electron packaging keeps runtime content outside the ASAR', () => {
+test('Electron packaging excludes independently published runtime content', () => {
   const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   const distFiles = packageMetadata.build.files.find(entry => entry.from === 'dist');
   assert.ok(distFiles.filter.includes('!assets/questions/**'));
   assert.ok(distFiles.filter.includes('!assets/audio/**'));
-  assert.deepEqual(
-    packageMetadata.build.extraResources.map(entry => [entry.from, entry.to]),
-    [
-      ['dist/assets/questions', 'content/assets/questions'],
-      ['dist/assets/audio', 'content/assets/audio']
-    ]
-  );
+  assert.equal(packageMetadata.build.extraResources, undefined);
   assert.deepEqual(packageMetadata.build.asarUnpack, ['**/*.node']);
 });
 

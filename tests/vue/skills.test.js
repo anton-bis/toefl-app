@@ -327,15 +327,15 @@ describe('Vue vocabulary skill', () => {
     const bank = [{ id: 'a', word: 'ability', pos: [{ translation: 'skill' }] }];
     const fetchMock = vi
       .spyOn(globalThis, 'fetch')
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ reading: 1 }) })
-      .mockResolvedValueOnce({ ok: true, json: async () => bank });
+      .mockResolvedValueOnce({ ok: true, text: async () => JSON.stringify({ reading: 1 }) })
+      .mockResolvedValueOnce({ ok: true, text: async () => JSON.stringify(bank) });
     const store = useVocabularyStore();
     await store.initialize();
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenLastCalledWith('assets/questions/vocabulary/manifest.json');
+    expect(fetchMock).toHaveBeenLastCalledWith('/assets/questions/vocabulary/manifest.json');
     await store.selectSubject('reading');
     expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(fetchMock).toHaveBeenLastCalledWith('assets/questions/vocabulary/reading-words.json');
+    expect(fetchMock).toHaveBeenLastCalledWith('/assets/questions/vocabulary/reading-words.json');
   });
 
   it('preserves review set mappings when restoring a cross-set queue', () => {

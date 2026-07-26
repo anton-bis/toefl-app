@@ -1,243 +1,299 @@
 import { EventEmitter } from 'node:events';
-import { createHash } from 'node:crypto';
+import { Readable } from 'node:stream';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 
 const electron = vi.hoisted(() => ({
+  headers: [],
   plans: [],
   request: vi.fn(),
   userData: ''
 }));
 
 vi.mock('electron', () => ({
-  app: { getPath: () => electron.userData },
+  app: {
+    getPath: () => electron.userData,
+    getVersion: () => '9.0.0'
+  },
   net: { request: electron.request }
 }));
 
 import {
-  checkForContentUpdates,
-  runContentUpdate
+  configureContentUpdater,
+  initializeContent,
+  setContentBusy,
+  synchronizeContent
 } from '../../electron/services/content-updater.js';
-import { canonicalQuestionEntries } from '../../electron/services/runtime-content.js';
+import {
+  readInstalledManifest,
+  readPendingManifest
+} from '../../electron/services/content-installation.js';
+import {
+  canonicalContentPacks,
+  canonicalQuestionEntries,
+  CONTENT_SCHEMA_VERSION
+} from '../../electron/services/runtime-content.js';
+import { createPackManifest, sha256 } from '../../src/content/packs.js';
+import { writePackArchive } from '../../scripts/content-packages.js';
 
-const sha256 = value => createHash('sha256').update(value).digest('hex');
-const trustedUrl = file => `https://raw.githubusercontent.com/example/${file}`;
+function queueResponse(data, statusCode = 200) {
+  electron.plans.push({ data: Buffer.from(data), statusCode });
+}
 
-function queueUpdate(version, update, data) {
-  electron.plans.push({
-    data: Buffer.from(JSON.stringify({ content_version: version, updates: [update] }))
+function installNetworkMock() {
+  electron.request.mockImplementation(() => {
+    const request = new EventEmitter();
+    request.setHeader = vi.fn((name, value) => electron.headers.push([name, value]));
+    request.end = () => {
+      const plan = electron.plans.shift();
+      if (!plan) throw new Error('Unexpected content request.');
+      const response = Readable.from([plan.data]);
+      response.statusCode = plan.statusCode;
+      response.headers = {};
+      queueMicrotask(() => request.emit('response', response));
+    };
+    return request;
   });
-  if (data) electron.plans.push({ data });
 }
 
-async function installedContent(marker = 'current') {
-  const contentRoot = path.join(electron.userData, 'tpo-content');
-  await fs.mkdir(contentRoot, { recursive: true });
-  await fs.writeFile(path.join(contentRoot, 'installed.txt'), marker);
-  return contentRoot;
-}
-
-async function prepareCompiledRelease({ includeImage }) {
-  const contentRoot = path.join(electron.userData, 'tpo-content');
-  const sourcePath = 'assets/questions/speaking/TPO-10/speaking-TPO-10.md';
-  const documentPath = 'assets/questions/compiled/tpo-10-speaking.json';
+async function createRelease(root, marker) {
+  const sourcePath = 'assets/questions/reading/TPO-99/reading-TPO-99.md';
+  const documentPath = 'assets/questions/compiled/tpo-99-reading.json';
+  const sourceHash = sha256(`# ${marker}`);
   const compiled = {
-    source: { path: sourcePath, sha256: '1'.repeat(64) },
+    source: { path: sourcePath, sha256: sourceHash },
     document: {
-      id: 'tpo-10-speaking',
-      tpoId: '10',
-      section: 'speaking',
-      modules: [{ scenario: { image: 'avatar.svg' } }],
+      id: 'tpo-99-reading',
+      tpoId: '99',
+      section: 'reading',
+      marker,
+      modules: [],
       pages: []
     }
   };
-  const serialized = Buffer.from(JSON.stringify(compiled));
-  const entries = [
-    {
-      id: compiled.document.id,
-      tpoId: compiled.document.tpoId,
-      section: compiled.document.section,
-      sourcePath,
-      documentPath,
-      sourceHash: compiled.source.sha256,
-      documentHash: sha256(serialized)
-    }
-  ];
-  const manifest = Buffer.from(
-    JSON.stringify({ entries, contentHash: sha256(canonicalQuestionEntries(entries)) })
+  const serialized = `${JSON.stringify(compiled)}\n`;
+  const entry = {
+    id: compiled.document.id,
+    tpoId: compiled.document.tpoId,
+    section: compiled.document.section,
+    sourcePath,
+    documentPath,
+    sourceHash,
+    documentHash: sha256(serialized)
+  };
+  const catalog = {
+    entries: [entry],
+    contentHash: sha256(canonicalQuestionEntries([entry]))
+  };
+  await fs.mkdir(path.join(root, path.dirname(documentPath)), { recursive: true });
+  await fs.writeFile(path.join(root, documentPath), serialized);
+  await fs.writeFile(
+    path.join(root, 'assets/questions/compiled/manifest.json'),
+    JSON.stringify(catalog)
   );
-  await fs.mkdir(path.join(contentRoot, path.dirname(documentPath)), { recursive: true });
-  await fs.writeFile(path.join(contentRoot, documentPath), serialized);
-  if (includeImage) {
-    await fs.mkdir(path.join(contentRoot, path.dirname(sourcePath)), { recursive: true });
-    await fs.writeFile(
-      path.join(contentRoot, path.dirname(sourcePath), 'avatar.svg'),
-      '<svg></svg>'
+  const definitions = [
+    { id: 'catalog', files: ['assets/questions/compiled/manifest.json'] },
+    { id: 'tpo-99', files: [documentPath] }
+  ];
+  const output = path.join(root, 'output');
+  const archives = [];
+  for (const definition of definitions) {
+    archives.push(
+      await writePackArchive(root, output, {
+        definition,
+        manifest: createPackManifest(root, definition)
+      })
     );
   }
-  return { contentRoot, manifest };
+  const packs = archives.map(archive => ({
+    id: archive.id,
+    contentHash: archive.contentHash,
+    archiveHash: archive.archiveHash,
+    size: archive.size,
+    url: `https://github.com/example/content/${archive.fileName}`,
+    outputPath: archive.outputPath
+  }));
+  const publicPacks = packs.map(pack => ({
+    id: pack.id,
+    contentHash: pack.contentHash,
+    archiveHash: pack.archiveHash,
+    size: pack.size,
+    url: pack.url
+  }));
+  const manifest = {
+    schemaVersion: CONTENT_SCHEMA_VERSION,
+    manifestId: sha256(canonicalContentPacks(publicPacks)),
+    publishedAt: '2026-07-26T00:00:00.000Z',
+    minAppVersion: '1.0.0',
+    packs: publicPacks
+  };
+  return { manifest, packs };
 }
 
-function response(plan) {
-  const stream = new EventEmitter();
-  stream.statusCode = plan.statusCode ?? 200;
-  stream.headers = plan.headers || {};
-  queueMicrotask(() => {
-    if (plan.data) stream.emit('data', plan.data);
-    stream.emit('end');
-  });
-  return stream;
+async function queueRelease(release) {
+  queueResponse(JSON.stringify(release.manifest));
+  for (const pack of release.packs) queueResponse(await fs.readFile(pack.outputPath));
 }
 
 beforeEach(async () => {
   electron.userData = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-content-updater-'));
   electron.plans.length = 0;
+  electron.headers.length = 0;
   electron.request.mockReset();
-  electron.request.mockImplementation(() => {
-    const request = new EventEmitter();
-    request.abort = vi.fn();
-    request.end = () => {
-      const plan = electron.plans.shift();
-      queueMicrotask(() => request.emit('response', response(plan)));
-    };
-    return request;
-  });
+  installNetworkMock();
+  configureContentUpdater();
+  await setContentBusy(false);
 });
 
 afterEach(async () => {
   await fs.rm(electron.userData, { recursive: true, force: true });
 });
 
-describe('content updater downloads', () => {
-  it('follows trusted redirects and reads a bounded manifest', async () => {
-    electron.plans.push(
-      {
-        statusCode: 302,
-        headers: { location: 'https://raw.githubusercontent.com/example/manifest.json' }
-      },
-      {
-        data: Buffer.from(JSON.stringify({ content_version: 1, updates: [] }))
-      }
-    );
+describe('content-addressed runtime updates', () => {
+  it('installs a complete manifest automatically on first launch', async () => {
+    const release = await createRelease(electron.userData, 'first');
+    await queueRelease(release);
 
-    await expect(checkForContentUpdates()).resolves.toMatchObject({
-      hasUpdate: true,
-      remoteVersion: 1,
-      updateCount: 0
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    const current = await readInstalledManifest(path.join(electron.userData, 'tpo-content'));
+    expect(current.manifestId).toBe(release.manifest.manifestId);
+    expect(electron.request).toHaveBeenCalledTimes(3);
+  });
+
+  it('resumes a partial pack download without re-fetching completed bytes', async () => {
+    const release = await createRelease(electron.userData, 'resume');
+    const [firstPack, secondPack] = release.packs;
+    const archive = await fs.readFile(firstPack.outputPath);
+    const split = Math.floor(archive.length / 2);
+    const partialPath = path.join(
+      electron.userData,
+      'tpo-content',
+      'downloads',
+      `${firstPack.id}-${firstPack.contentHash}.zip.part`
+    );
+    await fs.mkdir(path.dirname(partialPath), { recursive: true });
+    await fs.writeFile(partialPath, archive.subarray(0, split));
+    queueResponse(JSON.stringify(release.manifest));
+    queueResponse(archive.subarray(split), 206);
+    queueResponse(await fs.readFile(secondPack.outputPath));
+
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    expect(electron.headers).toContainEqual(['Range', `bytes=${split}-`]);
+  });
+
+  it('builds byte-identical archives for unchanged pack contents', async () => {
+    const first = await createRelease(path.join(electron.userData, 'deterministic-1'), 'same');
+    const second = await createRelease(path.join(electron.userData, 'deterministic-2'), 'same');
+
+    expect(first.packs.map(pack => pack.archiveHash)).toEqual(
+      second.packs.map(pack => pack.archiveHash)
+    );
+  });
+
+  it('stages a background update while an exam is active and activates it afterwards', async () => {
+    const first = await createRelease(path.join(electron.userData, 'first'), 'first');
+    await queueRelease(first);
+    await initializeContent();
+
+    const second = await createRelease(path.join(electron.userData, 'second'), 'second');
+    await setContentBusy(true);
+    await queueRelease(second);
+    await expect(synchronizeContent()).resolves.toMatchObject({ status: 'pending', ready: true });
+    const contentRoot = path.join(electron.userData, 'tpo-content');
+    expect((await readInstalledManifest(contentRoot)).manifestId).toBe(first.manifest.manifestId);
+    expect((await readPendingManifest(contentRoot)).manifestId).toBe(second.manifest.manifestId);
+
+    await setContentBusy(false);
+    expect((await readInstalledManifest(contentRoot)).manifestId).toBe(second.manifest.manifestId);
+    expect(await readPendingManifest(contentRoot)).toBeNull();
+  });
+
+  it('keeps valid installed content available when a later check fails', async () => {
+    const first = await createRelease(electron.userData, 'stable');
+    await queueRelease(first);
+    await initializeContent();
+    queueResponse('not json');
+
+    await expect(synchronizeContent()).resolves.toMatchObject({
+      status: 'ready',
+      ready: true,
+      warning: expect.stringContaining('JSON')
     });
-    expect(electron.request).toHaveBeenCalledTimes(2);
   });
 
-  it('rejects untrusted redirect targets', async () => {
-    electron.plans.push({
-      statusCode: 302,
-      headers: { location: 'https://example.com/manifest.json' }
+  it('repairs a damaged installed pack even when the manifest id is unchanged', async () => {
+    const release = await createRelease(electron.userData, 'repair');
+    await queueRelease(release);
+    await initializeContent();
+    const damaged = release.packs[1];
+    const installedFile = path.join(
+      electron.userData,
+      'tpo-content',
+      'packs',
+      damaged.id,
+      damaged.contentHash,
+      'assets/questions/compiled/tpo-99-reading.json'
+    );
+    await fs.writeFile(installedFile, 'damaged');
+    queueResponse(JSON.stringify(release.manifest));
+    queueResponse(await fs.readFile(damaged.outputPath));
+
+    await expect(synchronizeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    expect(await fs.readFile(installedFile, 'utf8')).toContain('"marker":"repair"');
+  });
+
+  it('defers replacement of a damaged active pack until the exam closes', async () => {
+    const release = await createRelease(electron.userData, 'deferred-repair');
+    await queueRelease(release);
+    await initializeContent();
+    const damaged = release.packs[1];
+    const installedFile = path.join(
+      electron.userData,
+      'tpo-content',
+      'packs',
+      damaged.id,
+      damaged.contentHash,
+      'assets/questions/compiled/tpo-99-reading.json'
+    );
+    await fs.writeFile(installedFile, 'damaged');
+    await setContentBusy(true);
+    queueResponse(JSON.stringify(release.manifest));
+
+    await expect(synchronizeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    expect(await fs.readFile(installedFile, 'utf8')).toBe('damaged');
+
+    queueResponse(JSON.stringify(release.manifest));
+    queueResponse(await fs.readFile(damaged.outputPath));
+    await setContentBusy(false);
+    expect(await fs.readFile(installedFile, 'utf8')).toContain('"marker":"deferred-repair"');
+  });
+
+  it('rejects a manifest whose content identity was tampered with', async () => {
+    const release = await createRelease(electron.userData, 'tampered');
+    queueResponse(JSON.stringify({ ...release.manifest, manifestId: '0'.repeat(64) }));
+
+    await expect(initializeContent()).resolves.toMatchObject({
+      status: 'error',
+      ready: false,
+      error: expect.stringContaining('manifest id')
     });
+    expect(await readInstalledManifest(path.join(electron.userData, 'tpo-content'))).toBeNull();
+  });
 
-    await expect(checkForContentUpdates()).resolves.toMatchObject({
-      hasUpdate: false,
-      error: expect.stringContaining('Untrusted content host')
+  it('does not activate an archive that fails its mandatory SHA-256 check', async () => {
+    const release = await createRelease(electron.userData, 'corrupt');
+    queueResponse(JSON.stringify(release.manifest));
+    const archive = await fs.readFile(release.packs[0].outputPath);
+    archive[10] ^= 1;
+    queueResponse(archive);
+
+    await expect(initializeContent()).resolves.toMatchObject({
+      status: 'error',
+      ready: false,
+      error: expect.stringContaining('integrity check')
     });
-  });
-
-  it('aborts a manifest that exceeds the byte limit', async () => {
-    electron.plans.push({ data: Buffer.alloc(2 * 1024 * 1024 + 1) });
-
-    await expect(checkForContentUpdates()).resolves.toMatchObject({
-      hasUpdate: false,
-      error: expect.stringContaining('byte limit')
-    });
-  });
-
-  it('applies current incremental media updates without format version labels', async () => {
-    const contentRoot = await installedContent('keep me');
-    const image = Buffer.from('image bytes');
-    queueUpdate(4, { path: 'speaking/TPO-03/0.png', url: trustedUrl('0.png') }, image);
-
-    await expect(runContentUpdate()).resolves.toMatchObject({ version: 4 });
-    await expect(
-      fs.readFile(path.join(contentRoot, 'assets/questions/speaking/TPO-03/0.png'))
-    ).resolves.toEqual(image);
-    await expect(fs.readFile(path.join(contentRoot, 'installed.txt'), 'utf8')).resolves.toBe(
-      'keep me'
-    );
-    await expect(fs.readFile(path.join(contentRoot, '.version'), 'utf8')).resolves.toBe('4');
-  });
-
-  it('rejects a checksum mismatch without replacing installed content', async () => {
-    const contentRoot = await installedContent();
-    queueUpdate(
-      5,
-      {
-        path: 'listening/TPO-03/audio.mp3',
-        url: trustedUrl('audio.mp3'),
-        sha256: '0'.repeat(64)
-      },
-      Buffer.from('unexpected bytes')
-    );
-
-    await expect(runContentUpdate()).rejects.toThrow('Content update failed');
-    await expect(fs.readFile(path.join(contentRoot, 'installed.txt'), 'utf8')).resolves.toBe(
-      'current'
-    );
-    await expect(fs.access(path.join(contentRoot, '.version'))).rejects.toThrow();
-  });
-
-  it('leaves installed content untouched when staged content is invalid', async () => {
-    const contentRoot = await installedContent();
-    const invalidContent = Buffer.from('{}');
-    queueUpdate(
-      2,
-      {
-        path: 'assets/questions/compiled/manifest.json',
-        url: trustedUrl('manifest.json'),
-        sha256: sha256(invalidContent)
-      },
-      invalidContent
-    );
-
-    await expect(runContentUpdate()).rejects.toThrow('Content update failed');
-    await expect(fs.readFile(path.join(contentRoot, 'installed.txt'), 'utf8')).resolves.toBe(
-      'current'
-    );
-  });
-
-  it('validates images referenced by a complete compiled release', async () => {
-    const { contentRoot, manifest } = await prepareCompiledRelease({ includeImage: false });
-    await fs.writeFile(path.join(contentRoot, 'installed.txt'), 'current');
-    queueUpdate(
-      6,
-      {
-        path: 'assets/questions/compiled/manifest.json',
-        url: trustedUrl('manifest.json'),
-        sha256: sha256(manifest)
-      },
-      manifest
-    );
-
-    await expect(runContentUpdate()).rejects.toThrow('Content update failed');
-    await expect(fs.readFile(path.join(contentRoot, 'installed.txt'), 'utf8')).resolves.toBe(
-      'current'
-    );
-  });
-
-  it('accepts a complete compiled release when every referenced asset exists', async () => {
-    const { contentRoot, manifest } = await prepareCompiledRelease({ includeImage: true });
-    queueUpdate(
-      7,
-      {
-        path: 'assets/questions/compiled/manifest.json',
-        url: trustedUrl('manifest.json'),
-        sha256: sha256(manifest)
-      },
-      manifest
-    );
-
-    await expect(runContentUpdate()).resolves.toMatchObject({ version: 7 });
-    await expect(
-      fs.readFile(path.join(contentRoot, 'assets/questions/speaking/TPO-10/avatar.svg'), 'utf8')
-    ).resolves.toBe('<svg></svg>');
+    expect(await readInstalledManifest(path.join(electron.userData, 'tpo-content'))).toBeNull();
   });
 });

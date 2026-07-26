@@ -1,6 +1,7 @@
 import { createHash, webcrypto } from 'node:crypto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  listCatalog,
   readCatalogManifest,
   readQuestionDocument
 } from '../../src/vue/platform/contentRepository.js';
@@ -44,7 +45,13 @@ describe('compiled question content', () => {
     );
 
     await expect(readCatalogManifest()).resolves.toEqual(catalog);
-    await expect(readQuestionDocument(entry)).resolves.toEqual(compiledDocument);
+    const catalogEntry = listCatalog(catalog)[0].sections.reading;
+    expect(catalogEntry).toMatchObject({
+      id: entry.id,
+      tpoId: entry.tpoId,
+      section: entry.section
+    });
+    await expect(readQuestionDocument(catalogEntry)).resolves.toEqual(compiledDocument);
   });
 
   it('rejects duplicate manifest entries before trusting its hash', async () => {

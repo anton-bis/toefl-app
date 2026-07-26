@@ -1,7 +1,10 @@
 .home-page {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .app-header {
   background: var(--surface);
@@ -9,9 +12,9 @@
   height: var(--header-h);
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   padding: 0 28px;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
 }
 .logo-text {
@@ -26,7 +29,8 @@
 .app-layout {
   display: flex;
   flex: 1;
-  min-height: calc(100vh - var(--header-h));
+  min-height: 0;
+  overflow: hidden;
 }
 .sidebar {
   width: var(--sidebar-w);
@@ -34,7 +38,9 @@
   border-right: 1px solid var(--border);
   padding: 20px 0;
   flex-shrink: 0;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .sidebar-section {
   margin-bottom: 12px;
@@ -82,8 +88,13 @@
 }
 .home-page .main-content {
   flex: 1;
+  min-width: 0;
+  min-height: 0;
   padding: 32px 36px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 .panel-header {
   margin-bottom: 24px;
