@@ -16,9 +16,18 @@ const vocabularyRuntimeFiles = new Set(
   ].map(file => `questions/vocabulary/${file}`)
 );
 
-export function isRuntimeAsset(source, sourceRoot = assetsRoot) {
+export function isRuntimeAsset(source, sourceRoot = assetsRoot, includeContent = true) {
   const relative = path.relative(sourceRoot, source).split(path.sep).join('/');
   if (!relative) return true;
+  if (
+    !includeContent &&
+    (relative === 'questions' ||
+      relative.startsWith('questions/') ||
+      relative === 'audio' ||
+      relative.startsWith('audio/'))
+  ) {
+    return false;
+  }
   if (fs.statSync(source).isDirectory()) {
     if (relative === 'images' || relative.startsWith('images/')) return false;
     return true;
@@ -34,12 +43,12 @@ export function isRuntimeAsset(source, sourceRoot = assetsRoot) {
   );
 }
 
-export function copyRuntimeContent(sourceRoot, destinationRoot) {
+export function copyRuntimeContent(sourceRoot, destinationRoot, { includeContent = true } = {}) {
   function copyDirectory(directory) {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
       const source = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) continue;
-      if (!isRuntimeAsset(source, sourceRoot)) continue;
+      if (!isRuntimeAsset(source, sourceRoot, includeContent)) continue;
       if (entry.isDirectory()) {
         copyDirectory(source);
         continue;
@@ -84,7 +93,9 @@ export default defineConfig({
     {
       name: 'copy-runtime-content',
       closeBundle() {
-        copyRuntimeContent(assetsRoot, path.resolve(import.meta.dirname, 'dist/assets'));
+        copyRuntimeContent(assetsRoot, path.resolve(import.meta.dirname, 'dist/assets'), {
+          includeContent: !isElectron
+        });
       }
     }
   ],

@@ -67,7 +67,8 @@ export function createAppUpdaterController({
   updater,
   emitState,
   prepareToInstall,
-  downloadManualInstaller
+  downloadManualInstaller,
+  manualArchitecture
 }) {
   const manualInstall = typeof downloadManualInstaller === 'function';
   let manualAsset;
@@ -103,7 +104,12 @@ export function createAppUpdaterController({
   updater.autoInstallOnAppQuit = false;
 
   updater.on('update-available', info => {
-    manualAsset = info?.files?.find(file => String(file?.url || '').endsWith('.dmg'));
+    const manualAssets =
+      info?.files?.filter(file => String(file?.url || '').endsWith('.dmg')) || [];
+    manualAsset =
+      manualAssets.find(file => String(file.url).endsWith(`-${manualArchitecture}.dmg`)) ||
+      manualAssets.find(file => String(file.url).endsWith('-universal.dmg')) ||
+      manualAssets[0];
     publish({
       status: 'available',
       version: info?.version || '',

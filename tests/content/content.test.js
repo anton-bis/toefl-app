@@ -136,12 +136,18 @@ test('runtime asset copy excludes development directories without leaving empty 
   );
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/manifest.json')), true);
   assert.equal(fs.existsSync(path.join(destination, 'questions/vocabulary/ex-batches')), false);
+
+  const desktopDestination = path.join(temporaryRoot, 'desktop');
+  copyRuntimeContent(source, desktopDestination, { includeContent: false });
+  assert.equal(fs.existsSync(path.join(desktopDestination, 'icons/icon.png')), true);
+  assert.equal(fs.existsSync(path.join(desktopDestination, 'questions')), false);
 });
 
 test('application metadata identifies the English TOEFL product', () => {
   const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
   assert.equal(packageMetadata.productName, 'TOEFL iBT Practice');
   assert.equal(packageMetadata.build.productName, 'TOEFL iBT Practice');
+  assert.deepEqual(packageMetadata.build.electronLanguages, ['en-US']);
   assert.match(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /<html lang="en">/);
 });
 
@@ -150,6 +156,7 @@ test('Electron packaging excludes independently published runtime content', () =
   const distFiles = packageMetadata.build.files.find(entry => entry.from === 'dist');
   assert.ok(distFiles.filter.includes('!assets/questions/**'));
   assert.ok(distFiles.filter.includes('!assets/audio/**'));
+  assert.ok(packageMetadata.build.files.includes('!node_modules/**/*.map'));
   assert.equal(packageMetadata.build.extraResources, undefined);
   assert.deepEqual(packageMetadata.build.asarUnpack, ['**/*.node']);
 });

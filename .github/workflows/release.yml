@@ -123,7 +123,7 @@ jobs:
       - name: Prepare application
         run: npm run electron:prepare
 
-      - name: Build universal macOS packages
+      - name: Build architecture-specific macOS packages
         env:
           MAC_CERTIFICATE: ${{ secrets.MAC_CERTIFICATE }}
           MAC_CERTIFICATE_PASSWORD: ${{ secrets.MAC_CERTIFICATE_PASSWORD }}
@@ -148,10 +148,15 @@ jobs:
             export APPLE_TEAM_ID="$MAC_APPLE_TEAM_ID"
             npm run release:macos
 
-            app_path="$(find release -maxdepth 3 -name '*.app' -print -quit)"
-            test -n "$app_path"
-            codesign --verify --deep --strict --verbose=2 "$app_path"
-            xcrun stapler validate release/TOEFL-iBT-Practice-*-macos-universal.dmg
+            app_count=0
+            while IFS= read -r -d '' app_path; do
+              codesign --verify --deep --strict --verbose=2 "$app_path"
+              app_count=$((app_count + 1))
+            done < <(find release -maxdepth 3 -name '*.app' -print0)
+            test "$app_count" -eq 2
+            for dmg in release/TOEFL-iBT-Practice-*-macos-{x64,arm64}.dmg; do
+              xcrun stapler validate "$dmg"
+            done
           else
             echo "Building an unsigned macOS package for manual installation."
             export CSC_IDENTITY_AUTO_DISCOVERY=false
@@ -163,9 +168,12 @@ jobs:
         with:
           name: release-macos
           path: |
-            release/TOEFL-iBT-Practice-*-macos-universal.dmg
-            release/TOEFL-iBT-Practice-*-macos-universal.zip
-            release/TOEFL-iBT-Practice-*-macos-universal.zip.blockmap
+            release/TOEFL-iBT-Practice-*-macos-x64.dmg
+            release/TOEFL-iBT-Practice-*-macos-x64.zip
+            release/TOEFL-iBT-Practice-*-macos-x64.zip.blockmap
+            release/TOEFL-iBT-Practice-*-macos-arm64.dmg
+            release/TOEFL-iBT-Practice-*-macos-arm64.zip
+            release/TOEFL-iBT-Practice-*-macos-arm64.zip.blockmap
             release/latest-mac.yml
           compression-level: 0
           retention-days: 7
@@ -207,7 +215,6 @@ jobs:
           gh release create "$GITHUB_REF_NAME" release-files/* \
             --verify-tag \
             --fail-on-no-commits \
-            --generate-notes \
             --notes-file release-notes.md \
             --title "TOEFL iBT Practice $GITHUB_REF_NAME" \
             $prerelease_flag

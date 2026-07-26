@@ -51,7 +51,11 @@ test('macOS releases support manual unsigned installation without partial creden
   assert.match(workflow, /export CSC_LINK="\$MAC_CERTIFICATE"/);
   assert.match(workflow, /codesign --verify --deep --strict/);
   assert.match(workflow, /xcrun stapler validate/);
+  assert.match(workflow, /macos-x64\.dmg/);
+  assert.match(workflow, /macos-arm64\.dmg/);
+  assert.doesNotMatch(workflow, /--universal/);
   assert.doesNotMatch(workflow, /workflow_dispatch/);
+  assert.doesNotMatch(workflow, /--generate-notes/);
 });
 
 test('the packaged user interface does not expose repository navigation', () => {
