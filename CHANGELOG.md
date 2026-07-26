@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-07-26
+
+### Highlights
+
+- Reduced desktop download and build sizes without removing learning features or Chinese content support.
+
+### Fixes
+
+- Selected the correct Intel or Apple Silicon DMG when downloading a manual macOS update.
+
+### Build and Packaging Improvements
+
+- Stopped copying independently published question-bank media into Electron's intermediate `dist` directory.
+- Kept only the actively used `en-US` Chromium locale; Chinese text, filenames, input methods, and native system dialogs remain provided by the operating system.
+- Replaced the universal macOS package with smaller x64 and arm64 downloads and generated architecture-aware SHA-512 update metadata.
+- Streamed release hashing instead of loading complete installers into memory and removed redundant generated GitHub release notes.
+
 ## [1.5.0] - 2026-07-26
 
 ### Highlights
@@ -48,6 +65,7 @@
 - Moved bundled content outside the ASAR and made optional signing safe for universal macOS packaging.
 - Simplified the application architecture, removed obsolete code and assets, and expanded automated coverage for the main runtime and release paths.
 
-[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/anton-bis/toefl-app/compare/v1.5.1...HEAD
+[1.5.1]: https://github.com/anton-bis/toefl-app/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/anton-bis/toefl-app/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/anton-bis/toefl-app/compare/v1.4.1...v1.4.2

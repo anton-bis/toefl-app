@@ -153,7 +153,8 @@ async function getAppUpdaterController() {
                 const error = await shell.openPath(installer);
                 if (error) throw new Error(error);
               }
-            : undefined
+            : undefined,
+        manualArchitecture: process.arch
       });
       appUpdaterController.setInstallBlocked(appInstallBlocked);
       return appUpdaterController;

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 
 const packageJson = JSON.parse(
@@ -13,22 +14,25 @@ export function expectedReleaseFiles(version = packageJson.version) {
     `${prefix}-windows-x64-setup.exe`,
     `${prefix}-windows-x64-setup.exe.blockmap`,
     `${prefix}-linux-x64.AppImage`,
-    `${prefix}-macos-universal.dmg`,
-    `${prefix}-macos-universal.zip`,
-    `${prefix}-macos-universal.zip.blockmap`,
+    `${prefix}-macos-x64.dmg`,
+    `${prefix}-macos-x64.zip`,
+    `${prefix}-macos-x64.zip.blockmap`,
+    `${prefix}-macos-arm64.dmg`,
+    `${prefix}-macos-arm64.zip`,
+    `${prefix}-macos-arm64.zip.blockmap`,
     'latest.yml',
     'latest-linux.yml',
     'latest-mac.yml'
   ];
 }
 
-function sha256(filePath) {
+async function sha256(filePath) {
   const hash = crypto.createHash('sha256');
-  hash.update(fs.readFileSync(filePath));
+  await pipeline(fs.createReadStream(filePath), hash);
   return hash.digest('hex');
 }
 
-export function prepareRelease(directory, version = packageJson.version) {
+export async function prepareRelease(directory, version = packageJson.version) {
   const expected = expectedReleaseFiles(version).sort();
   const actual = fs
     .readdirSync(directory, { withFileTypes: true })
@@ -51,7 +55,7 @@ export function prepareRelease(directory, version = packageJson.version) {
   const updateTargets = new Map([
     ['latest.yml', `${expected.find(file => file.endsWith('-setup.exe'))}`],
     ['latest-linux.yml', `${expected.find(file => file.endsWith('.AppImage'))}`],
-    ['latest-mac.yml', `${expected.find(file => file.endsWith('.zip'))}`]
+    ['latest-mac.yml', `${expected.find(file => file.endsWith('-macos-arm64.zip'))}`]
   ]);
   for (const [metadata, artifact] of updateTargets) {
     const content = fs.readFileSync(path.join(directory, metadata), 'utf8');
@@ -60,20 +64,22 @@ export function prepareRelease(directory, version = packageJson.version) {
     }
   }
 
-  const manifest = actual.map(file => `${sha256(path.join(directory, file))}  ${file}`).join('\n');
+  const manifest = [];
+  for (const file of actual) {
+    manifest.push(`${await sha256(path.join(directory, file))}  ${file}`);
+  }
   const manifestPath = path.join(directory, 'hashes.sha256');
-  fs.writeFileSync(manifestPath, `${manifest}\n`);
+  await fs.promises.writeFile(manifestPath, `${manifest.join('\n')}\n`);
   return manifestPath;
 }
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   const directory = path.resolve(process.argv[2] || 'release-files');
-  try {
-    const manifestPath = prepareRelease(directory);
-    console.log(`Release files validated; wrote ${manifestPath}`);
-  } catch (error) {
-    console.error(error.message);
-    process.exitCode = 1;
-  }
+  prepareRelease(directory)
+    .then(manifestPath => console.log(`Release files validated; wrote ${manifestPath}`))
+    .catch(error => {
+      console.error(error.message);
+      process.exitCode = 1;
+    });
 }

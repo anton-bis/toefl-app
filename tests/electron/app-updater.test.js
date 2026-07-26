@@ -44,7 +44,8 @@ function controllerFixture(options = {}) {
     updater,
     emitState: state => states.push(state),
     prepareToInstall: options.prepareToInstall,
-    downloadManualInstaller: options.downloadManualInstaller
+    downloadManualInstaller: options.downloadManualInstaller,
+    manualArchitecture: options.manualArchitecture
   });
   return { updater, states, controller };
 }
@@ -150,11 +151,13 @@ test('download errors are retryable and installation waits for data persistence'
 test('manual macOS updates use the internal installer download instead of a browser', async () => {
   const opened = [];
   const { updater, controller } = controllerFixture({
-    downloadManualInstaller: async options => opened.push(options)
+    downloadManualInstaller: async options => opened.push(options),
+    manualArchitecture: 'arm64'
   });
-  const asset = { url: 'TOEFL-2.0.0.dmg', sha512: 'hash', size: 10 };
+  const x64Asset = { url: 'TOEFL-2.0.0-x64.dmg', sha512: 'x64-hash', size: 10 };
+  const asset = { url: 'TOEFL-2.0.0-arm64.dmg', sha512: 'arm64-hash', size: 10 };
   updater.checkAction = async () =>
-    updater.emit('update-available', { version: '2.0.0', files: [asset] });
+    updater.emit('update-available', { version: '2.0.0', files: [x64Asset, asset] });
 
   const available = await controller.check();
   assert.equal(available.installMode, 'manual');

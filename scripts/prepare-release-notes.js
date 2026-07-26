@@ -52,7 +52,7 @@ export function createReleaseNotes(changelog, releaseVersion, hashes = '') {
   const entry = extractChangelogEntry(changelog, version);
   const macInstructions = `### macOS manual installation
 
-The macOS package is not Apple-notarized. Download the DMG, drag the app into Applications and replace the previous version. On first launch, right-click the app and choose **Open**; if macOS still blocks it, allow it in **System Settings → Privacy & Security**.`;
+The macOS package is not Apple-notarized. Download the arm64 DMG for Apple Silicon or the x64 DMG for an Intel Mac, drag the app into Applications and replace the previous version. On first launch, right-click the app and choose **Open**; if macOS still blocks it, allow it in **System Settings → Privacy & Security**.`;
   return `## ${version}\n\n${entry}\n\n${macInstructions}${formatHashes(hashes)}\n`;
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
@@ -27,7 +27,7 @@
     "electron:pack": "npm run electron:prepare && electron-builder --dir",
     "release:windows": "electron-builder --win nsis --x64 --publish never",
     "release:linux": "electron-builder --linux AppImage --x64 --publish never",
-    "release:macos": "electron-builder --mac dmg zip --universal --publish never",
+    "release:macos": "electron-builder --mac dmg zip --x64 --arm64 --publish never && node scripts/prepare-mac-update-metadata.js release",
     "release:manifest": "node scripts/prepare-release.js release-files",
     "release:notes": "node scripts/prepare-release-notes.js",
     "perf:baseline": "cross-env ELECTRON=true npm run build && node scripts/measure-electron.js",
@@ -85,6 +85,9 @@
     "directories": {
       "output": "release"
     },
+    "electronLanguages": [
+      "en-US"
+    ],
     "files": [
       {
         "from": "dist",
@@ -102,7 +105,8 @@
           "**/*"
         ]
       },
-      "package.json"
+      "package.json",
+      "!node_modules/**/*.map"
     ],
     "mac": {
       "category": "public.app-category.education",
