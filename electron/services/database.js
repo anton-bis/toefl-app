@@ -30,6 +30,7 @@ const PUBLIC_OPERATIONS = {
   'exam:delete': { identifiers: ['id'] },
   'exam:listCompleted': {},
   'attempt:finalize': {},
+  'content:recordInstall': {},
   'vocabulary:list': {},
   'vocabulary:save': {
     identifiers: ['subject', 'setId'],
@@ -322,6 +323,10 @@ export class DataStorage {
     const definition = validatePublicRequest(operation, payload || {});
     if (definition.handler) return this[definition.handler](payload);
     return this.request(operation, payload);
+  }
+
+  recordContentInstallation(payload) {
+    return this.dispatch('content:recordInstall', payload);
   }
 
   async exportArchive(archivePath) {

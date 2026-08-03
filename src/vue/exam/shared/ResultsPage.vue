@@ -80,6 +80,7 @@ const restartText = computed(() => {
     return 'Are you sure you want to restart the listening test? This will clear all your answers and timer data.';
   return 'Are you sure you want to restart the test? This will clear all your answers and timer data.';
 });
+const inferredVersion = computed(() => Boolean(props.session.contentVersionInferred));
 </script>
 
 <template>
@@ -183,6 +184,10 @@ const restartText = computed(() => {
         </button>
       </div>
       <p class="results-footer">{{ rubricText }}</p>
+      <p v-if="inferredVersion" class="results-version-note">
+        <i class="fas fa-info-circle" />
+        题目版本为迁移时推定，可能与当前题库不完全一致。
+      </p>
     </main>
     <ExamDialog
       :open="helpOpen"

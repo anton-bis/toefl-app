@@ -514,6 +514,28 @@ test('an unrecognized database is backed up and replaced with a fresh one', asyn
   }
 });
 
+test('content activations are recorded and re-activation updates the state', async () => {
+  await withStorage(async storage => {
+    await storage.recordContentInstallation({
+      manifestId: 'a'.repeat(64),
+      schemaVersion: 1,
+      minAppVersion: '1.5.0'
+    });
+    await storage.recordContentInstallation({
+      manifestId: 'a'.repeat(64),
+      schemaVersion: 1,
+      minAppVersion: '1.6.0'
+    });
+    const rows = await storage.request(
+      'content:listInstallations',
+      {}
+    );
+    assert.equal(rows.length, 1);
+    assert.equal(rows[0].state, 'active');
+    assert.equal(rows[0].minAppVersion, '1.6.0');
+  });
+});
+
 test('migration records stay stable and a failed migration rolls back atomically', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
   const databasePath = path.join(directory, 'migration.sqlite');

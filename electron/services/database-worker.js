@@ -800,6 +800,41 @@ const OPERATION_HANDLERS = {
       Math.min(500, Math.max(1, Number(payload.limit) || 100))
     );
   },
+  'content:recordInstall'(payload) {
+    const manifestId = String(payload.manifestId || '');
+    if (!manifestId) throw new TypeError('Invalid manifest id');
+    const now = Date.now();
+    db.prepare(
+      `INSERT INTO content_installations(
+        manifest_id,content_hash,schema_version,min_app_version,state,
+        installed_at,activated_at,error_detail,value)
+        VALUES (?,?,?,?, 'active', ?, ?, NULL, ?)
+        ON CONFLICT(manifest_id) DO UPDATE SET
+          content_hash=excluded.content_hash,
+          schema_version=excluded.schema_version,
+          min_app_version=excluded.min_app_version,
+          state='active',
+          activated_at=excluded.activated_at,
+          value=excluded.value`
+    ).run(
+      manifestId,
+      String(payload.contentHash || ''),
+      Number.isInteger(payload.schemaVersion) ? payload.schemaVersion : null,
+      String(payload.minAppVersion || ''),
+      now,
+      now,
+      JSON.stringify({ manifestId })
+    );
+    return true;
+  },
+  'content:listInstallations'() {
+    return rows(
+      `SELECT manifest_id AS manifestId,content_hash AS contentHash,
+        schema_version AS schemaVersion,min_app_version AS minAppVersion,state,
+        installed_at AS installedAt,activated_at AS activatedAt
+        FROM content_installations ORDER BY activated_at DESC`
+    );
+  },
   'attempt:finalize'(payload) {
     const session = payload.session;
     if (!session || typeof session !== 'object' || Array.isArray(session)) {

@@ -593,6 +593,15 @@ function initializeApp() {
         sendToRenderer('content:activated', {
           manifestId: manifest.manifestId
         });
+        dataStorage
+          ?.recordContentInstallation({
+            manifestId: manifest.manifestId,
+            schemaVersion: manifest.schemaVersion,
+            minAppVersion: manifest.minAppVersion
+          })
+          .catch(error =>
+            console.warn('Could not record the content installation:', error.message)
+          );
       }
     });
 
