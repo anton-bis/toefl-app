@@ -232,7 +232,7 @@ describe('exam timer', () => {
 });
 
 describe('exam retention', () => {
-  it('keeps recent and unfinished TPOs while removing expired recordings', async () => {
+  it('never removes completed attempts, drafts or recordings', async () => {
     const storage = installMemoryStorage();
     for (let index = 1; index <= 22; index += 1) {
       const tpoId = String(index).padStart(2, '0');
@@ -253,20 +253,22 @@ describe('exam retention', () => {
     );
     storage.setItem(
       examStorageKey('00', 'reading'),
-      JSON.stringify({ tpoId: '00', section: 'reading', status: 'in-progress', updatedAt: 0 })
+      JSON.stringify({ tpoId: '00', section: 'reading', status: 'not-started', updatedAt: 0 })
     );
     const repository = { removeSession: vi.fn().mockResolvedValue() };
 
-    await expect(pruneCompletedExamHistory(storage, repository)).resolves.toEqual(['02', '01']);
-    expect(storage.getItem(examStorageKey('01', 'reading'))).toBeNull();
-    expect(storage.getItem(examStorageKey('02', 'reading'))).toBeNull();
+    await expect(pruneCompletedExamHistory(storage, repository)).resolves.toEqual([
+      'toefl:exam:00:reading'
+    ]);
+    expect(storage.getItem(examStorageKey('01', 'reading'))).not.toBeNull();
+    expect(storage.getItem(examStorageKey('22', 'reading'))).not.toBeNull();
+    expect(storage.getItem(examStorageKey('01', 'speaking'))).not.toBeNull();
     expect(storage.getItem(examStorageKey('02', 'speaking'))).not.toBeNull();
-    expect(storage.getItem(examStorageKey('00', 'reading'))).not.toBeNull();
-    expect(repository.removeSession).toHaveBeenCalledWith('tpo-01-speaking');
-    expect(repository.removeSession).not.toHaveBeenCalledWith('tpo-02-speaking');
+    expect(storage.getItem(examStorageKey('00', 'reading'))).toBeNull();
+    expect(repository.removeSession).not.toHaveBeenCalled();
   });
 
-  it('keeps completed sessions when recording cleanup fails', async () => {
+  it('keeps completed sessions even when recording cleanup is unavailable', async () => {
     const storage = installMemoryStorage({
       [examStorageKey('01', 'speaking')]: JSON.stringify({
         tpoId: '01',
@@ -289,9 +291,10 @@ describe('exam retention', () => {
     });
     const repository = { removeSession: vi.fn().mockRejectedValue(new Error('disk error')) };
 
-    await expect(pruneCompletedExamHistory(storage, repository, 1)).rejects.toThrow('disk error');
+    await expect(pruneCompletedExamHistory(storage, repository)).resolves.toEqual([]);
     expect(storage.getItem(examStorageKey('01', 'speaking'))).not.toBeNull();
     expect(storage.getItem(examStorageKey('01', 'reading'))).not.toBeNull();
+    expect(storage.getItem(examStorageKey('02', 'reading'))).not.toBeNull();
   });
 });
 

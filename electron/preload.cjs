@@ -28,6 +28,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
       delete: id => dataRequest('exam:delete', { id }),
       listCompleted: limit => dataRequest('exam:listCompleted', { limit })
     },
+    attempt: {
+      finalize: session => dataRequest('attempt:finalize', { session })
+    },
     vocabulary: {
       list: subject => dataRequest('vocabulary:list', { subject }),
       save: payload => dataRequest('vocabulary:save', payload),

@@ -248,7 +248,43 @@ test('completed sessions stay visible until finalized into pending_attempts', as
     );
     assert.equal(session.status, 'completed');
     assert.equal(session.clientAttemptId, '01XZZZZZZZZZZZZZZZZZZZZZZZ');
-    assert.equal((await storage.dispatch('exam:listCompleted', { limit: 100 })).length, 1);
+    assert.equal((await storage.dispatch('exam:listCompleted', { limit: 100 })).length, 0);
+  });
+});
+
+test('finalizing an attempt writes an immutable pending snapshot', async () => {
+  await withStorage(async storage => {
+    const session = {
+      tpoId: '01',
+      section: 'reading',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      documentKey: 'tpo-01-reading',
+      documentHash: 'a'.repeat(64),
+      contentManifestId: 'b'.repeat(64),
+      contentSchemaVersion: 1,
+      status: 'completed',
+      answers: { q1: 'A', q2: 'B' },
+      completedAt: 400,
+      updatedAt: 400
+    };
+    await storage.dispatch('attempt:finalize', { session });
+    await storage.dispatch('attempt:finalize', { session });
+
+    const boot = await storage.dispatch('bootstrap', {});
+    const restored = boot.examSessions.find(
+      value => value.tpoId === '01' && value.section === 'reading'
+    );
+    assert.equal(restored.status, 'completed');
+    assert.equal(restored.clientAttemptId, '01ABCDEFGHJKLMNPQRSTVWXYZ');
+    assert.deepEqual(restored.answers, { q1: 'A', q2: 'B' });
+    assert.equal(restored.documentHash, 'a'.repeat(64));
+
+    const attempts = await storage.request('attempt:list', {});
+    assert.equal(attempts.length, 1);
+
+    const listed = await storage.dispatch('exam:listCompleted', { limit: 100 });
+    assert.equal(listed.length, 1);
+    assert.equal(listed[0].clientAttemptId, '01ABCDEFGHJKLMNPQRSTVWXYZ');
   });
 });
 

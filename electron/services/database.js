@@ -29,6 +29,7 @@ const PUBLIC_OPERATIONS = {
   },
   'exam:delete': { identifiers: ['id'] },
   'exam:listCompleted': {},
+  'attempt:finalize': {},
   'vocabulary:list': {},
   'vocabulary:save': {
     identifiers: ['subject', 'setId'],

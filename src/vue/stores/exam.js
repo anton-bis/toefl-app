@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { createClientAttemptId } from '../../../electron/services/attempt-id.js';
-import { recordingRepository } from '../platform/dataRepository.js';
 import {
   cancelLocalWrite,
   flushLocalWrites,
@@ -8,6 +7,7 @@ import {
   readLocalJson,
   removeLocalValue,
   scheduleLocalJson,
+  trackDesktopWrite,
   writeLocalJson
 } from '../platform/localPersistence.js';
 
@@ -180,83 +180,39 @@ function persistSession(session, delayed = false) {
   else writeLocalJson(key, snapshot);
 }
 
-async function removeDesktopSessions(desktop, repository, limit) {
-  const completed = await desktop.exam.listCompleted(1000);
-  const expired = expiredTpos(completed, limit);
-  const removed = completed.filter(session => expired.has(session.tpoId));
-  await Promise.all(
-    removed.map(async session => {
-      removeExamSession(session.tpoId, session.section);
-      if (session.section === 'speaking' && repository) {
-        await repository.removeSession(`tpo-${session.tpoId}-speaking`);
-      }
-    })
-  );
-  await flushLocalWrites();
-  return [...expired];
+async function finalizeAttempt(session) {
+  const api = window.electronAPI?.data?.attempt;
+  if (!api) return;
+  const promise = api.finalize(session);
+  trackDesktopWrite(promise);
+  await promise;
 }
 
-function completedBrowserSessions(storage) {
+function pruneStaleBrowserKeys(storage) {
   if (!storage || !Number.isFinite(storage.length)) return [];
-  const completed = [];
-  for (let index = 0; index < storage.length; index += 1) {
+  const removed = [];
+  for (let index = storage.length - 1; index >= 0; index -= 1) {
     const key = storage.key(index);
     if (!key?.startsWith(`${EXAM_STORAGE_PREFIX}:`)) continue;
     try {
       const session = JSON.parse(storage.getItem(key));
-      if (session?.status === 'completed' && session.tpoId) {
-        completed.push({ key, session, time: session.completedAt || session.updatedAt || 0 });
+      if (session?.status === 'not-started') {
+        cancelLocalWrite(key);
+        storage.removeItem(key);
+        removed.push(key);
       }
     } catch {
       // Invalid records are ignored here and rejected by readExamSession.
     }
   }
-  return completed;
+  return removed;
 }
 
-async function removeBrowserSessions(storage, repository, limit) {
-  const completed = completedBrowserSessions(storage);
-  const expired = expiredTpos(
-    completed.map(({ session, time }) => ({ ...session, updatedAt: time })),
-    limit
-  );
-  const removed = completed.filter(({ session }) => expired.has(session.tpoId));
-  if (repository) {
-    await Promise.all(
-      removed
-        .filter(({ session }) => session.section === 'speaking')
-        .map(({ session }) => repository.removeSession(`tpo-${session.tpoId}-speaking`))
-    );
-  }
-  removed.forEach(({ key }) => {
-    cancelLocalWrite(key);
-    storage.removeItem(key);
-  });
-  return [...expired];
-}
-
-export function pruneCompletedExamHistory(
-  storage = globalThis.localStorage,
-  repository,
-  limit = 20
-) {
-  const desktop = globalThis.window?.electronAPI?.data;
-  return desktop
-    ? removeDesktopSessions(desktop, repository, limit)
-    : removeBrowserSessions(storage, repository, limit);
-}
-
-function expiredTpos(sessions, limit) {
-  const latest = new Map();
-  sessions.forEach(session => {
-    latest.set(session.tpoId, Math.max(latest.get(session.tpoId) || 0, session.updatedAt || 0));
-  });
-  return new Set(
-    [...latest]
-      .sort((a, b) => b[1] - a[1])
-      .slice(Math.max(0, limit))
-      .map(([tpoId]) => tpoId)
-  );
+// Completed attempts and their recordings are never deleted. Only stale
+// not-started keys left behind by older versions are cleaned up.
+export function pruneCompletedExamHistory(storage = globalThis.localStorage) {
+  if (globalThis.window?.electronAPI?.data) return Promise.resolve([]);
+  return Promise.resolve(pruneStaleBrowserKeys(storage));
 }
 
 export const useExamStore = defineStore('exam', {
@@ -354,7 +310,7 @@ export const useExamStore = defineStore('exam', {
         this.touch(now);
       }
     },
-    complete(now = Date.now()) {
+    async complete(now = Date.now()) {
       const session = this.requireActive();
       session.status = 'completed';
       session.completedAt = now;
@@ -364,7 +320,15 @@ export const useExamStore = defineStore('exam', {
       session.timer.scopeType = null;
       session.timer.scopeId = null;
       this.touch(now);
-      pruneCompletedExamHistory(globalThis.localStorage, recordingRepository).catch(() => {});
+      try {
+        await finalizeAttempt(session);
+        if (globalThis.window?.electronAPI?.data) {
+          removeExamSession(session.tpoId, session.section);
+        }
+      } catch (error) {
+        console.warn('Could not finalize the completed attempt:', error?.message);
+      }
+      pruneCompletedExamHistory(globalThis.localStorage).catch(() => {});
     },
     reset(tpoId, section, options = {}) {
       const id = examSessionId(tpoId, section);

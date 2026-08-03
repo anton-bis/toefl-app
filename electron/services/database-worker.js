@@ -508,6 +508,17 @@ function loadActiveSession(row) {
   };
 }
 
+function loadAttemptSnapshot(row) {
+  return {
+    ...parse(row.snapshot),
+    id: `tpo-${row.tpo_id}-${row.section}`,
+    tpoId: row.tpo_id,
+    section: row.section,
+    status: 'completed',
+    updatedAt: row.updated_at
+  };
+}
+
 function sessionKeyFor(tpoId, section) {
   return `${String(tpoId || '')}:${String(section || '')}`;
 }
@@ -540,6 +551,10 @@ function getRecording(payload) {
 const OPERATION_HANDLERS = {
   bootstrap() {
     const drafts = rows('SELECT * FROM active_exam_sessions ORDER BY updated_at DESC');
+    const attempts = rows(
+      `SELECT * FROM pending_attempts WHERE tpo_id IS NOT NULL
+        ORDER BY updated_at DESC`
+    );
     const legacyIds = rows('SELECT id FROM exam_sessions ORDER BY updated_at DESC');
     const seen = new Set();
     const examSessions = [];
@@ -547,6 +562,13 @@ const OPERATION_HANDLERS = {
       const session = loadActiveSession(draft);
       examSessions.push(session);
       seen.add(sessionKeyFor(session.tpoId, session.section));
+    }
+    const attemptSeen = new Set();
+    for (const attempt of attempts) {
+      const key = sessionKeyFor(attempt.tpo_id, attempt.section);
+      if (seen.has(key) || attemptSeen.has(key)) continue;
+      attemptSeen.add(key);
+      examSessions.push(loadAttemptSnapshot(attempt));
     }
     for (const { id } of legacyIds) {
       const session = loadExam(id);
@@ -643,9 +665,53 @@ const OPERATION_HANDLERS = {
   },
   'exam:listCompleted'(payload) {
     return rows(
-      `SELECT id,tpo_id AS tpoId,section,status,updated_at AS updatedAt
-        FROM exam_sessions WHERE status='completed' ORDER BY updated_at DESC LIMIT ?`,
+      `SELECT client_attempt_id AS clientAttemptId,tpo_id AS tpoId,section,status,
+        created_at AS createdAt,updated_at AS updatedAt
+        FROM pending_attempts ORDER BY updated_at DESC LIMIT ?`,
       Math.min(500, Math.max(1, Number(payload.limit) || 100))
+    );
+  },
+  'attempt:finalize'(payload) {
+    const session = payload.session;
+    if (!session || typeof session !== 'object' || Array.isArray(session)) {
+      throw new TypeError('Invalid attempt snapshot');
+    }
+    const tpoId = String(session.tpoId || '');
+    const section = String(session.section || '');
+    const attemptId = String(session.clientAttemptId || '');
+    if (!attemptId) throw new TypeError('Invalid client attempt id');
+    const now = Number.isFinite(session.completedAt)
+      ? session.completedAt
+      : Number.isFinite(session.updatedAt)
+        ? session.updatedAt
+        : Date.now();
+    db.prepare(
+      `INSERT INTO pending_attempts(
+        client_attempt_id,tpo_id,section,document_key,document_hash,
+        content_manifest_id,content_schema_version,content_version_inferred,
+        status,snapshot,retry_count,created_at,updated_at)
+        VALUES (?,?,?,?,?,?,?,?, 'pending-upload', ?, 0, ?, ?)
+        ON CONFLICT(client_attempt_id) DO NOTHING`
+    ).run(
+      attemptId,
+      tpoId,
+      section,
+      String(session.documentKey || `tpo-${tpoId}-${section}`),
+      String(session.documentHash || ''),
+      String(session.contentManifestId || ''),
+      Number.isInteger(session.contentSchemaVersion) ? session.contentSchemaVersion : null,
+      session.contentVersionInferred ? 1 : 0,
+      stringify(session),
+      now,
+      now
+    );
+    return true;
+  },
+  'attempt:list'() {
+    return rows(
+      `SELECT client_attempt_id AS clientAttemptId,tpo_id AS tpoId,section,status,
+        created_at AS createdAt,updated_at AS updatedAt FROM pending_attempts
+        ORDER BY updated_at DESC`
     );
   },
   'vocabulary:list'(payload) {
