@@ -2,8 +2,15 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parentPort, workerData } from 'node:worker_threads';
+import {
+  MIGRATIONS,
+  appliedVersions,
+  pendingMigrations,
+  runMigrations,
+  schemaMigrationTable
+} from './migrations.js';
 
-const REQUIRED_TABLES = {
+const LEGACY_TABLES = {
   settings: ['key', 'value', 'updated_at'],
   exam_sessions: ['id', 'tpo_id', 'section', 'status', 'value', 'updated_at'],
   vocabulary_progress: [
@@ -38,8 +45,8 @@ function tableColumns(database, name) {
     .map(column => column.name);
 }
 
-function hasCurrentStructure(database) {
-  return hasStructure(database, REQUIRED_TABLES);
+function hasLegacyStructure(database) {
+  return hasStructure(database, LEGACY_TABLES);
 }
 
 function hasStructure(database, definition) {
@@ -62,73 +69,119 @@ function hasStructure(database, definition) {
   );
 }
 
+function hasAnyTables(database) {
+  return Boolean(
+    database
+      .prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' LIMIT 1")
+      .get()
+  );
+}
+
+function sqlQuote(value) {
+  return `'${String(value).replace(/'/g, "''")}'`;
+}
+
+function copyDirectory(source, target) {
+  fs.mkdirSync(target, { recursive: true });
+  for (const entry of fs.readdirSync(source, { withFileTypes: true })) {
+    const sourcePath = path.join(source, entry.name);
+    const targetPath = path.join(target, entry.name);
+    if (entry.isDirectory()) copyDirectory(sourcePath, targetPath);
+    else if (entry.isFile()) fs.copyFileSync(sourcePath, targetPath);
+  }
+}
+
+function migrationBackupDirectory() {
+  return path.join(path.dirname(workerData.databasePath), '.migrations');
+}
+
+// Back up the SQLite database and the recordings directory before any
+// structural upgrade. A VACUUM INTO snapshot contains every committed row,
+// so sqlite/wal/shm are captured consistently in a single file.
+function backupStorage(database) {
+  const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const backupDir = path.join(migrationBackupDirectory(), `backup-${stamp}`);
+  fs.mkdirSync(backupDir, { recursive: true });
+  database.exec(`VACUUM INTO ${sqlQuote(path.join(backupDir, 'toefl-data.sqlite'))}`);
+  if (fs.existsSync(workerData.recordingsPath)) {
+    copyDirectory(workerData.recordingsPath, path.join(backupDir, 'recordings'));
+  }
+  return backupDir;
+}
+
+function restoreStorage(database, backupDir) {
+  database.close();
+  for (const suffix of ['', '-wal', '-shm']) {
+    fs.rmSync(`${workerData.databasePath}${suffix}`, { force: true });
+  }
+  fs.copyFileSync(path.join(backupDir, 'toefl-data.sqlite'), workerData.databasePath);
+  fs.rmSync(workerData.recordingsPath, { recursive: true, force: true });
+  const recordingsBackup = path.join(backupDir, 'recordings');
+  if (fs.existsSync(recordingsBackup)) copyDirectory(recordingsBackup, workerData.recordingsPath);
+}
+
+let recoveryBackupDir = null;
+
 function openDatabase() {
   let database = new DatabaseSync(workerData.databasePath);
-  const hasTables = database
-    .prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' LIMIT 1")
-    .get();
-  if (hasTables && !hasCurrentStructure(database)) {
+  database.exec(`
+    PRAGMA journal_mode = WAL;
+    PRAGMA synchronous = NORMAL;
+    PRAGMA foreign_keys = ON;
+    PRAGMA busy_timeout = 5000;
+  `);
+
+  const empty = !hasAnyTables(database);
+  const legacy = !empty && hasLegacyStructure(database);
+  schemaMigrationTable(database);
+  const applied = appliedVersions(database);
+
+  let backupDir = null;
+  if (!empty && !applied.length && !legacy) {
+    // The structure matches neither the legacy schema nor any known
+    // migration. Never delete user data: preserve everything in a backup,
+    // then start from a fresh v2 database.
+    backupDir = backupStorage(database);
     database.close();
     for (const suffix of ['', '-wal', '-shm']) {
       fs.rmSync(`${workerData.databasePath}${suffix}`, { force: true });
     }
     fs.rmSync(workerData.recordingsPath, { recursive: true, force: true });
     database = new DatabaseSync(workerData.databasePath);
+    database.exec(`
+      PRAGMA journal_mode = WAL;
+      PRAGMA synchronous = NORMAL;
+      PRAGMA foreign_keys = ON;
+      PRAGMA busy_timeout = 5000;
+    `);
+    schemaMigrationTable(database);
+    recoveryBackupDir = backupDir;
+    console.warn(
+      `Storage structure was unrecognized. Data preserved in ${backupDir}; started a fresh database.`
+    );
+  }
+
+  const pending = pendingMigrations(database, MIGRATIONS);
+  if (pending.length) {
+    const migrationBackup = backupDir || (empty ? null : backupStorage(database));
+    try {
+      runMigrations(database, { migrations: pending });
+    } catch (error) {
+      if (migrationBackup) {
+        try {
+          restoreStorage(database, migrationBackup);
+        } catch (restoreError) {
+          error.message = `${error.message} Restore of the pre-upgrade backup also failed: ${restoreError.message}`;
+        }
+      }
+      throw error;
+    }
   }
   return database;
 }
 
 const db = openDatabase();
 let databaseClosed = false;
-db.exec(`
-  PRAGMA journal_mode = WAL;
-  PRAGMA synchronous = NORMAL;
-  PRAGMA foreign_keys = ON;
-  PRAGMA busy_timeout = 5000;
-  CREATE TABLE IF NOT EXISTS settings (
-    key TEXT PRIMARY KEY,
-    value TEXT NOT NULL,
-    updated_at INTEGER NOT NULL
-  ) STRICT;
-  CREATE TABLE IF NOT EXISTS exam_sessions (
-    id TEXT PRIMARY KEY,
-    tpo_id TEXT NOT NULL,
-    section TEXT NOT NULL,
-    status TEXT NOT NULL,
-    value TEXT NOT NULL,
-    updated_at INTEGER NOT NULL
-  ) STRICT;
-  CREATE INDEX IF NOT EXISTS exam_sessions_status_date
-    ON exam_sessions(status, updated_at DESC);
-  CREATE TABLE IF NOT EXISTS vocabulary_progress (
-    subject TEXT NOT NULL,
-    set_id TEXT NOT NULL,
-    word_id TEXT NOT NULL,
-    value TEXT NOT NULL,
-    next_review TEXT,
-    last_q INTEGER,
-    updated_at INTEGER NOT NULL,
-    PRIMARY KEY(subject, set_id, word_id)
-  ) STRICT;
-  CREATE INDEX IF NOT EXISTS vocabulary_due
-    ON vocabulary_progress(subject, next_review, last_q);
-  CREATE TABLE IF NOT EXISTS typing_history (
-    id TEXT PRIMARY KEY,
-    article_id TEXT NOT NULL,
-    completed_at TEXT NOT NULL,
-    value TEXT NOT NULL
-  ) STRICT;
-  CREATE INDEX IF NOT EXISTS typing_history_date ON typing_history(completed_at DESC);
-  CREATE TABLE IF NOT EXISTS recordings (
-    session_id TEXT NOT NULL,
-    question_id TEXT NOT NULL,
-    relative_path TEXT NOT NULL UNIQUE,
-    mime TEXT NOT NULL,
-    size INTEGER NOT NULL,
-    updated_at INTEGER NOT NULL,
-    PRIMARY KEY(session_id, question_id)
-  ) STRICT;
-`);
 
 const parse = value => JSON.parse(value);
 const stringify = value => JSON.stringify(value ?? null);
@@ -470,7 +523,10 @@ const OPERATION_HANDLERS = {
       settings: Object.fromEntries(
         rows('SELECT key, value FROM settings').map(row => [row.key, parse(row.value)])
       ),
-      examSessions: sessionIds.map(({ id }) => loadExam(id))
+      examSessions: sessionIds.map(({ id }) => loadExam(id)),
+      storageState: recoveryBackupDir
+        ? { recoveryBackupDir, structureWasRecovered: true }
+        : undefined
     };
   },
   'archive:export'(payload) {

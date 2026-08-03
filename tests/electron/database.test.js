@@ -5,6 +5,12 @@ import path from 'node:path';
 import test from 'node:test';
 import { DatabaseSync } from 'node:sqlite';
 import { DataStorage } from '../../electron/services/database.js';
+import {
+  appliedVersions,
+  applyMigration,
+  migrationChecksum,
+  schemaMigrationTable
+} from '../../electron/services/migrations.js';
 
 async function withStorage(operation, options) {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
@@ -177,27 +183,169 @@ test('saving an exam replaces the complete session snapshot', async () => {
   });
 });
 
-test('an incompatible database is rebuilt and stale recordings are removed', async () => {
+test('a legacy v1 database is upgraded in place without losing data', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
   const databasePath = path.join(directory, 'toefl-data.sqlite');
   const recordingsPath = path.join(directory, 'recordings');
   const database = new DatabaseSync(databasePath);
-  database.exec('CREATE TABLE exam_sessions(id TEXT PRIMARY KEY, value TEXT)');
+  database.exec(`
+    PRAGMA journal_mode = WAL;
+    CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at INTEGER NOT NULL) STRICT;
+    CREATE TABLE exam_sessions (id TEXT PRIMARY KEY, tpo_id TEXT NOT NULL, section TEXT NOT NULL,
+      status TEXT NOT NULL, value TEXT NOT NULL, updated_at INTEGER NOT NULL) STRICT;
+    CREATE TABLE vocabulary_progress (subject TEXT NOT NULL, set_id TEXT NOT NULL, word_id TEXT NOT NULL,
+      value TEXT NOT NULL, next_review TEXT, last_q INTEGER, updated_at INTEGER NOT NULL,
+      PRIMARY KEY(subject,set_id,word_id)) STRICT;
+    CREATE TABLE typing_history (id TEXT PRIMARY KEY, article_id TEXT NOT NULL, completed_at TEXT NOT NULL,
+      value TEXT NOT NULL) STRICT;
+    CREATE TABLE recordings (session_id TEXT NOT NULL, question_id TEXT NOT NULL,
+      relative_path TEXT NOT NULL UNIQUE, mime TEXT NOT NULL, size INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL, PRIMARY KEY(session_id,question_id)) STRICT;
+    INSERT INTO settings(key,value,updated_at) VALUES ('theme','{"dark":true}',1);
+    INSERT INTO exam_sessions(id,tpo_id,section,status,value,updated_at) VALUES
+      ('tpo-01-reading','01','reading','completed','{"tpoId":"01","section":"reading","status":"completed","answers":{"q1":"A"}}',2);
+  `);
   database.close();
   await fs.mkdir(recordingsPath);
-  await fs.writeFile(path.join(recordingsPath, 'stale.webm'), Uint8Array.from([1]));
+  await fs.writeFile(path.join(recordingsPath, 'abc.webm'), Uint8Array.from([1, 2, 3]));
 
   const storage = new DataStorage(directory);
   try {
-    assert.deepEqual(await storage.dispatch('bootstrap', {}), {
-      settings: {},
-      examSessions: []
+    const boot = await storage.dispatch('bootstrap', {});
+    assert.deepEqual(boot.settings.theme, { dark: true });
+    assert.equal(boot.examSessions.find(session => session.id === 'tpo-01-reading').answers.q1, 'A');
+    assert.equal(boot.storageState, undefined);
+
+    const recording = await storage.loadRecording({
+      sessionId: 'tpo-01-speaking',
+      questionId: 'q1'
     });
-    await assert.rejects(fs.stat(path.join(recordingsPath, 'stale.webm')), /ENOENT/);
+    assert.equal(recording, null);
+    await storage.saveRecording({
+      sessionId: 'tpo-01-speaking',
+      questionId: 'q1',
+      mime: 'audio/webm',
+      bytes: Uint8Array.from([9, 9])
+    });
+    assert.equal(
+      [...(await storage.loadRecording({ sessionId: 'tpo-01-speaking', questionId: 'q1' })).bytes]
+        .join(','),
+      '9,9'
+    );
+
+    const migrated = new DatabaseSync(databasePath);
+    try {
+      const applied = migrated
+        .prepare('SELECT version FROM schema_migrations ORDER BY version')
+        .all()
+        .map(row => row.version);
+      assert.deepEqual(applied, [1]);
+      const tables = migrated
+        .prepare("SELECT name FROM sqlite_master WHERE type='table'")
+        .all()
+        .map(row => row.name);
+      for (const expected of [
+        'active_exam_sessions',
+        'pending_attempts',
+        'recordings_v2',
+        'sync_queue',
+        'content_installations'
+      ]) {
+        assert.ok(tables.includes(expected), `expected v2 table ${expected}`);
+      }
+      assert.equal(
+        migrated.prepare('SELECT value FROM settings WHERE key=?').get('theme').value,
+        '{"dark":true}'
+      );
+    } finally {
+      migrated.close();
+    }
   } finally {
     await storage.close();
     await fs.rm(directory, { recursive: true, force: true });
   }
+});
+
+test('an unrecognized database is backed up and replaced with a fresh one', async () => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
+  const databasePath = path.join(directory, 'toefl-data.sqlite');
+  const recordingsPath = path.join(directory, 'recordings');
+  const database = new DatabaseSync(databasePath);
+  database.exec('CREATE TABLE unrelated(value TEXT)');
+  database.close();
+  await fs.mkdir(recordingsPath);
+  await fs.writeFile(path.join(recordingsPath, 'kept.webm'), Uint8Array.from([7]));
+
+  const storage = new DataStorage(directory);
+  try {
+    const boot = await storage.dispatch('bootstrap', {});
+    assert.deepEqual(boot.settings, {});
+    assert.deepEqual(boot.examSessions, []);
+    assert.ok(boot.storageState?.recoveryBackupDir);
+    assert.equal(boot.storageState.structureWasRecovered, true);
+
+    const backups = await fs.readdir(path.join(directory, '.migrations'));
+    assert.equal(backups.length, 1);
+    const backupDir = path.join(directory, '.migrations', backups[0]);
+    await assert.doesNotReject(fs.stat(path.join(backupDir, 'toefl-data.sqlite')));
+    await assert.doesNotReject(fs.stat(path.join(backupDir, 'recordings', 'kept.webm')));
+
+    const fresh = new DatabaseSync(databasePath);
+    try {
+      const tables = fresh
+        .prepare("SELECT name FROM sqlite_master WHERE type='table'")
+        .all()
+        .map(row => row.name);
+      assert.ok(!tables.includes('unrelated'));
+      assert.ok(tables.includes('pending_attempts'));
+    } finally {
+      fresh.close();
+    }
+  } finally {
+    await storage.close();
+    await fs.rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('migration records stay stable and a failed migration rolls back atomically', async () => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
+  const databasePath = path.join(directory, 'migration.sqlite');
+  const database = new DatabaseSync(databasePath);
+  schemaMigrationTable(database);
+
+  const good = {
+    version: 2,
+    name: 'test-migration',
+    up(db) {
+      db.exec('CREATE TABLE created_by_migration(value TEXT) STRICT;');
+    }
+  };
+  applyMigration(database, good);
+  assert.deepEqual(appliedVersions(database), [2]);
+  assert.equal(
+    migrationChecksum(good),
+    migrationChecksum({ version: 2, name: 'test-migration', up: good.up })
+  );
+  assert.ok(!migrationChecksum(good).includes('other'));
+
+  const bad = {
+    version: 3,
+    name: 'test-failing',
+    up(db) {
+      db.exec('CREATE TABLE partial_change(value TEXT) STRICT;');
+      throw new Error('boom');
+    }
+  };
+  assert.throws(() => applyMigration(database, bad), /boom/);
+  assert.deepEqual(appliedVersions(database), [2]);
+  const tables = database
+    .prepare("SELECT name FROM sqlite_master WHERE type='table'")
+    .all()
+    .map(row => row.name);
+  assert.ok(!tables.includes('partial_change'));
+
+  database.close();
+  await fs.rm(directory, { recursive: true, force: true });
 });
 
 test('archives with an unsupported structure are rejected', async () => {
