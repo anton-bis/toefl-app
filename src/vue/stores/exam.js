@@ -319,10 +319,16 @@ export const useExamStore = defineStore('exam', {
       session.timer.expiredAt = null;
       session.timer.scopeType = null;
       session.timer.scopeId = null;
-      this.touch(now);
+      const desktop = Boolean(globalThis.window?.electronAPI?.data);
+      if (desktop) {
+        session.updatedAt = now;
+      } else {
+        // The browser path keeps the completed session in local storage.
+        this.touch(now);
+      }
       try {
         await finalizeAttempt(session);
-        if (globalThis.window?.electronAPI?.data) {
+        if (desktop) {
           removeExamSession(session.tpoId, session.section);
         }
       } catch (error) {

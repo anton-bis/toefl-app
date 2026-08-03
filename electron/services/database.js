@@ -47,15 +47,15 @@ const PUBLIC_OPERATIONS = {
   'recording:save': { handler: 'saveRecording', binary: true },
   'recording:load': {
     handler: 'loadRecording',
-    identifiers: ['sessionId', 'questionId']
+    identifiers: ['clientAttemptId', 'questionKey']
   },
   'recording:remove': {
     handler: 'removeRecording',
-    identifiers: ['sessionId', 'questionId']
+    identifiers: ['clientAttemptId', 'questionKey']
   },
-  'recording:removeSession': {
+  'recording:removeAttempt': {
     handler: 'removeRecording',
-    identifiers: ['sessionId']
+    identifiers: ['clientAttemptId']
   }
 };
 const MIME_EXTENSIONS = new Map([
@@ -73,12 +73,12 @@ function assertIdentifier(value, label) {
   return value;
 }
 
-function recordingName(sessionId, questionId, mime) {
+function recordingName(clientAttemptId, questionKey, mime) {
   const digest = crypto
     .createHash('sha256')
-    .update(sessionId)
+    .update(clientAttemptId)
     .update('\0')
-    .update(questionId)
+    .update(questionKey)
     .digest('hex');
   return `${digest}${MIME_EXTENSIONS.get(mime)}`;
 }
@@ -222,9 +222,9 @@ export class DataStorage {
     });
   }
 
-  async saveRecording({ sessionId, questionId, mime, bytes }) {
-    assertIdentifier(sessionId, 'session ID');
-    assertIdentifier(questionId, 'question ID');
+  async saveRecording({ clientAttemptId, questionKey, mime, bytes }) {
+    assertIdentifier(clientAttemptId, 'client attempt ID');
+    assertIdentifier(questionKey, 'question key');
     const normalizedMime = recordingMime(mime);
     if (!ArrayBuffer.isView(bytes) && !(bytes instanceof ArrayBuffer)) {
       throw new TypeError('Invalid recording bytes');
@@ -234,24 +234,26 @@ export class DataStorage {
       throw new RangeError('Invalid recording size');
     }
     await fs.mkdir(this.#recordingsPath, { recursive: true, mode: 0o700 });
-    const name = recordingName(sessionId, questionId, normalizedMime.base);
+    const name = recordingName(clientAttemptId, questionKey, normalizedMime.base);
     const destination = path.join(this.#recordingsPath, name);
     const temporary = `${destination}.tmp-${process.pid}-${crypto.randomUUID()}`;
     const backup = `${destination}.bak-${process.pid}-${crypto.randomUUID()}`;
-    const previous = await this.request('recording:get', { sessionId, questionId });
+    const previous = await this.request('recording:getV2', { clientAttemptId, questionKey });
     const updatedAt = Date.now();
     await fs.writeFile(temporary, data, { flag: 'wx', mode: 0o600 });
+    const sha256 = crypto.createHash('sha256').update(data).digest('hex');
     await replaceRecordingFile({
       temporary,
       destination,
       backup,
       commit: () =>
-        this.request('recording:upsert', {
-          sessionId,
-          questionId,
+        this.request('recording:upsertV2', {
+          clientAttemptId,
+          questionKey,
           relativePath: name,
           mime: normalizedMime.value,
           size: data.length,
+          sha256,
           updatedAt
         })
     });
@@ -263,18 +265,19 @@ export class DataStorage {
         .catch(() => {});
     }
     return {
-      sessionId,
-      questionId,
+      clientAttemptId,
+      questionKey,
       mime: normalizedMime.value,
       size: data.length,
+      sha256,
       updatedAt
     };
   }
 
-  async loadRecording({ sessionId, questionId }) {
-    assertIdentifier(sessionId, 'session ID');
-    assertIdentifier(questionId, 'question ID');
-    const record = await this.request('recording:get', { sessionId, questionId });
+  async loadRecording({ clientAttemptId, questionKey }) {
+    assertIdentifier(clientAttemptId, 'client attempt ID');
+    assertIdentifier(questionKey, 'question key');
+    const record = await this.request('recording:getV2', { clientAttemptId, questionKey });
     if (!record) return null;
     const filePath = this.#recordingFilePath(record.relativePath);
     try {
@@ -282,15 +285,15 @@ export class DataStorage {
       return { ...record, bytes };
     } catch (error) {
       if (error?.code !== 'ENOENT') throw error;
-      await this.request('recording:delete', { sessionId, questionId });
+      await this.request('recording:deleteV2', { clientAttemptId, questionKey });
       return null;
     }
   }
 
-  async resolveRecordingFile({ sessionId, questionId }) {
-    assertIdentifier(sessionId, 'session ID');
-    assertIdentifier(questionId, 'question ID');
-    const record = await this.request('recording:get', { sessionId, questionId });
+  async resolveRecordingFile({ clientAttemptId, questionKey }) {
+    assertIdentifier(clientAttemptId, 'client attempt ID');
+    assertIdentifier(questionKey, 'question key');
+    const record = await this.request('recording:getV2', { clientAttemptId, questionKey });
     if (!record) return null;
     const filePath = this.#recordingFilePath(record.relativePath);
     try {
@@ -298,14 +301,14 @@ export class DataStorage {
       return stats.isFile() ? { filePath, mime: record.mime } : null;
     } catch (error) {
       if (error?.code !== 'ENOENT') throw error;
-      await this.request('recording:delete', { sessionId, questionId });
+      await this.request('recording:deleteV2', { clientAttemptId, questionKey });
       return null;
     }
   }
 
   async removeRecording(payload) {
     const records = await this.request(
-      payload.questionId ? 'recording:delete' : 'recording:deleteSession',
+      payload.questionKey ? 'recording:deleteV2' : 'recording:deleteAttemptV2',
       payload
     );
     await Promise.all(

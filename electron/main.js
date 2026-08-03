@@ -102,8 +102,8 @@ function setupContentProtocol() {
       const requestUrl = new URL(request.url);
       if (requestUrl.hostname !== 'playback') return new Response('Not found', { status: 404 });
       const recording = await dataStorage.resolveRecordingFile({
-        sessionId: requestUrl.searchParams.get('session'),
-        questionId: requestUrl.searchParams.get('question')
+        clientAttemptId: requestUrl.searchParams.get('attempt'),
+        questionKey: requestUrl.searchParams.get('question')
       });
       if (!recording) return new Response('Not found', { status: 404 });
       return await createLocalFileResponse(request, recording.filePath);

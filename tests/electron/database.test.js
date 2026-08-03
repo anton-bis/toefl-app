@@ -48,42 +48,48 @@ test('recordings stay outside SQLite and identifiers cannot become paths', async
   await withStorage(async (storage, directory) => {
     const bytes = Uint8Array.from([1, 2, 3, 4]);
     await storage.saveRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'task-1',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'task-1',
       mime: 'audio/webm',
       bytes
     });
     const stored = await storage.loadRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'task-1'
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'task-1'
     });
     assert.deepEqual([...stored.bytes], [...bytes]);
     assert.equal(stored.mime, 'audio/webm');
+    assert.equal(stored.sha256.length, 64);
     await storage.saveRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'opus-task',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'opus-task',
       mime: 'audio/webm;codecs=opus',
       bytes
     });
     assert.equal(
-      (await storage.loadRecording({ sessionId: 'tpo-01-speaking', questionId: 'opus-task' })).mime,
+      (
+        await storage.loadRecording({
+          clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+          questionKey: 'opus-task'
+        })
+      ).mime,
       'audio/webm;codecs=opus'
     );
     await storage.removeRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'opus-task'
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'opus-task'
     });
     const playback = await storage.resolveRecordingFile({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'task-1'
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'task-1'
     });
     assert.equal(playback.mime, 'audio/webm');
     assert.equal(path.dirname(playback.filePath), path.join(directory, 'recordings'));
     let files = await fs.readdir(path.join(directory, 'recordings'));
     assert.match(files[0], /^[a-f0-9]{64}\.webm$/);
     await storage.saveRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'task-1',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'task-1',
       mime: 'audio/ogg',
       bytes: Uint8Array.from([5, 6])
     });
@@ -92,18 +98,54 @@ test('recordings stay outside SQLite and identifiers cannot become paths', async
     assert.match(files[0], /^[a-f0-9]{64}\.ogg$/);
     await assert.rejects(
       storage.saveRecording({
-        sessionId: '../escape',
-        questionId: 'task-2',
+        clientAttemptId: '../escape',
+        questionKey: 'task-2',
         mime: 'text/html',
         bytes
       }),
       /Unsupported recording type/
     );
-    await storage.removeRecording({ sessionId: 'tpo-01-speaking' });
+    await storage.removeRecording({ clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ' });
     assert.equal(
-      await storage.loadRecording({ sessionId: 'tpo-01-speaking', questionId: 'task-1' }),
+      await storage.loadRecording({
+        clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+        questionKey: 'task-1'
+      }),
       null
     );
+  });
+});
+
+test('recordings are bound to an attempt and never overwrite a prior one', async () => {
+  await withStorage(async (storage, directory) => {
+    const bytes = Uint8Array.from([9, 9, 9]);
+    const first = '01ABCDEFGHJKLMNPQRSTVWXYZ';
+    const second = '02ABCDEFGHJKLMNPQRSTVWXYZ';
+    await storage.saveRecording({
+      clientAttemptId: first,
+      questionKey: 'task-1',
+      mime: 'audio/webm',
+      bytes
+    });
+    await storage.saveRecording({
+      clientAttemptId: second,
+      questionKey: 'task-1',
+      mime: 'audio/webm',
+      bytes
+    });
+    const files = await fs.readdir(path.join(directory, 'recordings'));
+    assert.equal(files.length, 2);
+    assert.deepEqual(
+      [...(await storage.loadRecording({ clientAttemptId: first, questionKey: 'task-1' })).bytes],
+      [9, 9, 9]
+    );
+    assert.deepEqual(
+      [...(await storage.loadRecording({ clientAttemptId: second, questionKey: 'task-1' })).bytes],
+      [9, 9, 9]
+    );
+    const attempts = await storage.request('recording:listV2', { clientAttemptId: first });
+    assert.equal(attempts.length, 1);
+    assert.equal(attempts[0].questionKey, 'task-1');
   });
 });
 
@@ -115,28 +157,33 @@ test('public dispatch rejects unknown and oversized renderer requests', async ()
       /too large/
     );
     await assert.rejects(
-      storage.dispatch('recording:load', { sessionId: '', questionId: '../bad' }),
-      /Invalid sessionId/
+      storage.dispatch('recording:load', { clientAttemptId: '', questionKey: '../bad' }),
+      /Invalid clientAttemptId/
     );
   });
 });
 
-test('SQLite archives round-trip settings, complete exam sessions and external recordings', async () => {
+test('SQLite archives round-trip settings, attempts and attempt-bound recordings', async () => {
   await withStorage(async (storage, directory) => {
     await storage.dispatch('settings:set', { key: 'toefl:settings', value: { volume: 0.5 } });
-    await storage.dispatch('exam:save', {
-      id: 'tpo-01-reading',
-      tpoId: '01',
-      section: 'reading',
-      status: 'completed',
-      pageId: 'results',
-      answers: { q1: 'A' },
-      marks: {},
-      updatedAt: 123
+    await storage.dispatch('attempt:finalize', {
+      session: {
+        tpoId: '01',
+        section: 'reading',
+        clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+        documentKey: 'tpo-01-reading',
+        documentHash: 'a'.repeat(64),
+        status: 'completed',
+        pageId: 'results',
+        answers: { q1: 'A' },
+        marks: {},
+        completedAt: 123,
+        updatedAt: 123
+      }
     });
     await storage.saveRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'q1',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'q1',
       mime: 'audio/webm',
       bytes: Uint8Array.from([7, 8, 9])
     });
@@ -150,8 +197,8 @@ test('SQLite archives round-trip settings, complete exam sessions and external r
     const restored = (await storage.dispatch('bootstrap', {})).examSessions;
     assert.equal(restored.find(session => session.id === 'tpo-01-reading').answers.q1, 'A');
     const recording = await storage.loadRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'q1'
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      questionKey: 'q1'
     });
     assert.deepEqual([...recording.bytes], [7, 8, 9]);
   });
@@ -231,7 +278,7 @@ test('drafts persist into active_exam_sessions with a stable client attempt id',
   });
 });
 
-test('completed sessions stay visible until finalized into pending_attempts', async () => {
+test('exam:save only stores drafts; completed snapshots come via attempt:finalize', async () => {
   await withStorage(async storage => {
     await storage.dispatch('exam:save', {
       id: 'tpo-01-speaking',
@@ -246,7 +293,7 @@ test('completed sessions stay visible until finalized into pending_attempts', as
     const session = boot.examSessions.find(
       value => value.tpoId === '01' && value.section === 'speaking'
     );
-    assert.equal(session.status, 'completed');
+    assert.equal(session.status, 'in-progress');
     assert.equal(session.clientAttemptId, '01XZZZZZZZZZZZZZZZZZZZZZZZ');
     assert.equal((await storage.dispatch('exam:listCompleted', { limit: 100 })).length, 0);
   });
@@ -318,22 +365,24 @@ test('a legacy v1 database is upgraded in place without losing data', async () =
   try {
     const boot = await storage.dispatch('bootstrap', {});
     assert.deepEqual(boot.settings.theme, { dark: true });
-    assert.equal(boot.examSessions.find(session => session.id === 'tpo-01-reading').answers.q1, 'A');
+    const migratedSession = boot.examSessions.find(
+      session => session.tpoId === '01' && session.section === 'reading'
+    );
+    assert.equal(migratedSession.answers.q1, 'A');
+    assert.equal(migratedSession.status, 'completed');
+    assert.equal(migratedSession.contentVersionInferred, 1);
+    assert.ok(migratedSession.clientAttemptId);
     assert.equal(boot.storageState, undefined);
 
-    const recording = await storage.loadRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'q1'
-    });
-    assert.equal(recording, null);
+    const attemptId = migratedSession.clientAttemptId;
     await storage.saveRecording({
-      sessionId: 'tpo-01-speaking',
-      questionId: 'q1',
+      clientAttemptId: attemptId,
+      questionKey: 'q1',
       mime: 'audio/webm',
       bytes: Uint8Array.from([9, 9])
     });
     assert.equal(
-      [...(await storage.loadRecording({ sessionId: 'tpo-01-speaking', questionId: 'q1' })).bytes]
+      [...(await storage.loadRecording({ clientAttemptId: attemptId, questionKey: 'q1' })).bytes]
         .join(','),
       '9,9'
     );
@@ -344,11 +393,13 @@ test('a legacy v1 database is upgraded in place without losing data', async () =
         .prepare('SELECT version FROM schema_migrations ORDER BY version')
         .all()
         .map(row => row.version);
-      assert.deepEqual(applied, [1]);
+      assert.deepEqual(applied, [1, 2]);
       const tables = migrated
         .prepare("SELECT name FROM sqlite_master WHERE type='table'")
         .all()
         .map(row => row.name);
+      assert.ok(!tables.includes('exam_sessions'), 'legacy sessions table is dropped');
+      assert.ok(!tables.includes('recordings'), 'legacy recordings table is dropped');
       for (const expected of [
         'active_exam_sessions',
         'pending_attempts',
@@ -365,6 +416,57 @@ test('a legacy v1 database is upgraded in place without losing data', async () =
     } finally {
       migrated.close();
     }
+  } finally {
+    await storage.close();
+    await fs.rm(directory, { recursive: true, force: true });
+  }
+});
+
+test('legacy recordings are migrated into attempt-bound v2 recordings', async () => {
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
+  const databasePath = path.join(directory, 'toefl-data.sqlite');
+  const recordingsPath = path.join(directory, 'recordings');
+  const database = new DatabaseSync(databasePath);
+  database.exec(`
+    PRAGMA journal_mode = WAL;
+    CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at INTEGER NOT NULL) STRICT;
+    CREATE TABLE exam_sessions (id TEXT PRIMARY KEY, tpo_id TEXT NOT NULL, section TEXT NOT NULL,
+      status TEXT NOT NULL, value TEXT NOT NULL, updated_at INTEGER NOT NULL) STRICT;
+    CREATE TABLE vocabulary_progress (subject TEXT NOT NULL, set_id TEXT NOT NULL, word_id TEXT NOT NULL,
+      value TEXT NOT NULL, next_review TEXT, last_q INTEGER, updated_at INTEGER NOT NULL,
+      PRIMARY KEY(subject,set_id,word_id)) STRICT;
+    CREATE TABLE typing_history (id TEXT PRIMARY KEY, article_id TEXT NOT NULL, completed_at TEXT NOT NULL,
+      value TEXT NOT NULL) STRICT;
+    CREATE TABLE recordings (session_id TEXT NOT NULL, question_id TEXT NOT NULL,
+      relative_path TEXT NOT NULL UNIQUE, mime TEXT NOT NULL, size INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL, PRIMARY KEY(session_id,question_id)) STRICT;
+    INSERT INTO exam_sessions(id,tpo_id,section,status,value,updated_at) VALUES
+      ('tpo-01-speaking','01','speaking','completed','{"tpoId":"01","section":"speaking","status":"completed","answers":{"q1":"recorded"}}',50);
+    INSERT INTO recordings(session_id,question_id,relative_path,mime,size,updated_at) VALUES
+      ('tpo-01-speaking','q1','old.webm','audio/webm',3,50);
+  `);
+  database.close();
+  await fs.mkdir(recordingsPath);
+  await fs.writeFile(path.join(recordingsPath, 'old.webm'), Uint8Array.from([1, 2, 3]));
+
+  const storage = new DataStorage(directory);
+  try {
+    const boot = await storage.dispatch('bootstrap', {});
+    const session = boot.examSessions.find(
+      value => value.tpoId === '01' && value.section === 'speaking'
+    );
+    assert.equal(session.status, 'completed');
+    assert.equal(session.answers.q1, 'recorded');
+    const recording = await storage.loadRecording({
+      clientAttemptId: session.clientAttemptId,
+      questionKey: 'q1'
+    });
+    assert.deepEqual([...recording.bytes], [1, 2, 3]);
+    assert.equal(recording.sha256.length, 64);
+
+    const files = await fs.readdir(recordingsPath);
+    assert.equal(files.length, 1);
+    assert.match(files[0], /^[a-f0-9]{64}\.webm$/);
   } finally {
     await storage.close();
     await fs.rm(directory, { recursive: true, force: true });

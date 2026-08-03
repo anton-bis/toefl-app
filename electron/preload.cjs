@@ -44,11 +44,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
       save: payload => dataRequest('recording:save', payload),
       load: payload => dataRequest('recording:load', payload),
       remove: payload => dataRequest('recording:remove', payload),
-      removeSession: sessionId => dataRequest('recording:removeSession', { sessionId }),
-      playbackUrl: (sessionId, questionId) => {
+      removeAttempt: clientAttemptId => dataRequest('recording:removeAttempt', { clientAttemptId }),
+      playbackUrl: (clientAttemptId, questionKey) => {
         const parameters = new URLSearchParams({
-          session: sessionId,
-          question: String(questionId)
+          attempt: clientAttemptId,
+          question: String(questionKey)
         });
         return `toefl-recording://playback/audio?${parameters}`;
       }

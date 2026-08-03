@@ -25,10 +25,10 @@ function installDesktopApi() {
       save: vi.fn().mockResolvedValue(true),
       load: vi.fn().mockResolvedValue({ bytes: Uint8Array.from([1, 2]), mime: 'audio/webm' }),
       remove: vi.fn().mockResolvedValue(true),
-      removeSession: vi.fn().mockResolvedValue(true),
+      removeAttempt: vi.fn().mockResolvedValue(true),
       playbackUrl: vi.fn(
-        (sessionId, questionId) =>
-          `toefl-recording://playback/audio?session=${sessionId}&question=${questionId}`
+        (clientAttemptId, questionKey) =>
+          `toefl-recording://playback/audio?attempt=${clientAttemptId}&question=${questionKey}`
       )
     }
   };
@@ -40,13 +40,15 @@ describe('Electron data repository adapter', () => {
   it('moves recording bytes through the restricted recording API', async () => {
     const api = installDesktopApi();
     const { recordingRepository } = await import('../../src/vue/platform/dataRepository.js');
-    await recordingRepository.save('session', 'question', new Blob(['hi'], { type: 'audio/webm' }));
-    const loaded = await recordingRepository.load('session', 'question');
+    await recordingRepository.save('attempt-1', 'question', new Blob(['hi'], { type: 'audio/webm' }));
+    const loaded = await recordingRepository.load('attempt-1', 'question');
     expect(api.recording.save).toHaveBeenCalledWith(
-      expect.objectContaining({ sessionId: 'session', questionId: 'question' })
+      expect.objectContaining({ clientAttemptId: 'attempt-1', questionKey: 'question' })
     );
     expect(loaded).toBeInstanceOf(Blob);
     expect(loaded.size).toBe(2);
-    expect(recordingRepository.playbackUrl('session', 'question')).toContain('toefl-recording:');
+    expect(recordingRepository.playbackUrl('attempt-1', 'question')).toContain(
+      'toefl-recording:'
+    );
   });
 });

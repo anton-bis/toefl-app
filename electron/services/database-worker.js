@@ -26,11 +26,6 @@ const LEGACY_TABLES = {
   typing_history: ['id', 'article_id', 'completed_at', 'value'],
   recordings: ['session_id', 'question_id', 'relative_path', 'mime', 'size', 'updated_at']
 };
-const ARCHIVE_TABLES = {
-  archive_metadata: ['key', 'value'],
-  archive_rows: ['kind', 'key', 'value'],
-  archive_recordings: ['session_id', 'question_id', 'relative_path', 'mime', 'updated_at', 'bytes']
-};
 const RECORDING_MIME_TYPES = new Set([
   'audio/webm',
   'audio/ogg',
@@ -166,7 +161,7 @@ function openDatabase() {
   if (pending.length) {
     const migrationBackup = backupDir || (empty ? null : backupStorage(database));
     try {
-      runMigrations(database, { migrations: pending });
+      runMigrations(database, { migrations: pending, context: workerData });
     } catch (error) {
       if (migrationBackup) {
         try {
@@ -207,16 +202,20 @@ function exportArchive(archivePath) {
       CREATE TABLE archive_metadata(key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT;
       CREATE TABLE archive_rows(kind TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL,
         PRIMARY KEY(kind,key)) STRICT;
-      CREATE TABLE archive_recordings(session_id TEXT NOT NULL, question_id TEXT NOT NULL,
-        relative_path TEXT NOT NULL, mime TEXT NOT NULL, updated_at INTEGER NOT NULL,
-        bytes BLOB NOT NULL, PRIMARY KEY(session_id,question_id)) STRICT;
+      CREATE TABLE archive_recordings(client_attempt_id TEXT NOT NULL, question_key TEXT NOT NULL,
+        relative_path TEXT NOT NULL, mime TEXT NOT NULL, sha256 TEXT, size INTEGER NOT NULL,
+        updated_at INTEGER NOT NULL, bytes BLOB NOT NULL,
+        PRIMARY KEY(client_attempt_id,question_key)) STRICT;
       INSERT INTO archive_metadata(key,value) VALUES ('format','toefl-user-data');
+      INSERT INTO archive_metadata(key,value) VALUES ('version','2');
     `);
     const insert = archive.prepare('INSERT INTO archive_rows(kind,key,value) VALUES (?,?,?)');
     for (const row of rows('SELECT key,value FROM settings'))
       insert.run('settings', row.key, row.value);
-    for (const row of rows('SELECT * FROM exam_sessions'))
-      insert.run('exam_sessions', row.id, stringify(row));
+    for (const row of rows('SELECT * FROM active_exam_sessions'))
+      insert.run('active_exam_sessions', row.session_key, stringify(row));
+    for (const row of rows('SELECT * FROM pending_attempts'))
+      insert.run('pending_attempts', row.client_attempt_id, stringify(row));
     for (const row of rows('SELECT * FROM vocabulary_progress')) {
       insert.run(
         'vocabulary_progress',
@@ -227,15 +226,18 @@ function exportArchive(archivePath) {
     for (const row of rows('SELECT * FROM typing_history'))
       insert.run('typing_history', row.id, stringify(row));
     const insertRecording = archive.prepare(`INSERT INTO archive_recordings
-      (session_id,question_id,relative_path,mime,updated_at,bytes) VALUES (?,?,?,?,?,?)`);
-    for (const row of rows('SELECT * FROM recordings')) {
+      (client_attempt_id,question_key,relative_path,mime,sha256,size,updated_at,bytes)
+      VALUES (?,?,?,?,?,?,?,?)`);
+    for (const row of rows('SELECT * FROM recordings_v2')) {
       const filePath = path.join(workerData.recordingsPath, path.basename(row.relative_path));
       if (!fs.existsSync(filePath)) continue;
       insertRecording.run(
-        row.session_id,
-        row.question_id,
+        row.client_attempt_id,
+        row.question_key,
         row.relative_path,
         row.mime,
+        row.sha256,
+        row.size,
         row.updated_at,
         fs.readFileSync(filePath)
       );
@@ -300,6 +302,24 @@ function parseArchiveRow(record) {
       unsupportedArchive();
     }
     archiveTimestamp(value.updated_at);
+  } else if (record.kind === 'active_exam_sessions') {
+    for (const field of ['session_key', 'client_attempt_id', 'tpo_id', 'section']) {
+      archiveText(value[field]);
+    }
+    archiveOptionalText(value.document_key);
+    archiveObject(value.value);
+    if (value.status !== 'not-started' && value.status !== 'in-progress') unsupportedArchive();
+    archiveTimestamp(value.updated_at);
+    if (record.key !== value.session_key) unsupportedArchive();
+  } else if (record.kind === 'pending_attempts') {
+    for (const field of ['client_attempt_id', 'tpo_id', 'section']) archiveText(value[field]);
+    archiveOptionalText(value.document_key);
+    archiveObject(value.snapshot);
+    if (!['pending-upload', 'uploading', 'synced', 'failed', 'conflict'].includes(value.status)) {
+      unsupportedArchive();
+    }
+    archiveTimestamp(value.updated_at);
+    if (record.key !== value.client_attempt_id) unsupportedArchive();
   } else if (record.kind === 'vocabulary_progress') {
     for (const field of ['subject', 'set_id', 'word_id']) archiveText(value[field]);
     archiveObject(value.value);
@@ -316,27 +336,37 @@ function parseArchiveRow(record) {
   return { ...record, value };
 }
 
+function archiveTablesPresent(archive) {
+  const tables = archive
+    .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+    .all()
+    .map(row => row.name);
+  return ['archive_metadata', 'archive_rows', 'archive_recordings'].every(name =>
+    tables.includes(name)
+  );
+}
+
 function readArchive(archive) {
-  if (!hasStructure(archive, ARCHIVE_TABLES)) {
+  if (!archiveTablesPresent(archive)) {
     throw new Error('Unsupported archive structure');
   }
   const format = archive.prepare("SELECT value FROM archive_metadata WHERE key='format'").get();
-  const metadataCount = archive.prepare('SELECT COUNT(*) AS count FROM archive_metadata').get();
-  if (format?.value !== 'toefl-user-data' || metadataCount.count !== 1) unsupportedArchive();
+  if (format?.value !== 'toefl-user-data') unsupportedArchive();
+  const v2 = tableColumns(archive, 'archive_recordings').includes('client_attempt_id');
   const dataRows = archive.prepare('SELECT kind,key,value FROM archive_rows').all();
   const recordingRows = archive.prepare('SELECT * FROM archive_recordings').all();
   if (dataRows.length > 20_000 || recordingRows.length > 200) {
     throw new Error('The data archive contains too many records');
   }
-  return { dataRows: dataRows.map(parseArchiveRow), recordingRows };
+  return { dataRows: dataRows.map(parseArchiveRow), recordingRows, v2 };
 }
 
-function stageRecordings(recordingRows, staging) {
+function stageRecordings(recordingRows, staging, v2) {
   fs.rmSync(staging, { recursive: true, force: true });
   fs.mkdirSync(staging, { recursive: true, mode: 0o700 });
   for (const recording of recordingRows) {
-    archiveText(recording.session_id);
-    archiveText(recording.question_id);
+    archiveText(v2 ? recording.client_attempt_id : recording.session_id);
+    archiveText(v2 ? recording.question_key : recording.question_id);
     archiveText(recording.mime);
     archiveTimestamp(recording.updated_at);
     archiveText(recording.relative_path);
@@ -359,32 +389,129 @@ function stageRecordings(recordingRows, staging) {
   }
 }
 
-function replaceDatabaseRows(dataRows, recordingRows) {
+function replaceDatabaseRows(dataRows, recordingRows, v2) {
   transaction(() => {
-    db.exec(`DELETE FROM exam_sessions; DELETE FROM settings;
-      DELETE FROM vocabulary_progress; DELETE FROM typing_history; DELETE FROM recordings;`);
+    db.exec(`DELETE FROM settings; DELETE FROM vocabulary_progress; DELETE FROM typing_history;
+      DELETE FROM active_exam_sessions; DELETE FROM pending_attempts; DELETE FROM recordings_v2;`);
     const statements = {
       settings: db.prepare('INSERT INTO settings(key,value,updated_at) VALUES (?,?,?)'),
-      exam_sessions: db.prepare(`INSERT INTO exam_sessions
-        (id,tpo_id,section,status,value,updated_at) VALUES (?,?,?,?,?,?)`),
+      active_exam_sessions: db.prepare(`INSERT INTO active_exam_sessions(
+        session_key,client_attempt_id,tpo_id,section,document_key,document_hash,
+        content_manifest_id,content_schema_version,content_version_inferred,
+        status,value,created_at,updated_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`),
+      pending_attempts: db.prepare(`INSERT INTO pending_attempts(
+        client_attempt_id,remote_attempt_id,tpo_id,section,document_key,document_hash,
+        content_manifest_id,content_schema_version,content_version_inferred,
+        status,snapshot,retry_count,next_retry_at,last_error,created_at,updated_at,synced_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`),
       vocabulary_progress: db.prepare(`INSERT INTO vocabulary_progress
         (subject,set_id,word_id,value,next_review,last_q,updated_at) VALUES (?,?,?,?,?,?,?)`),
       typing_history: db.prepare(`INSERT INTO typing_history
-        (id,article_id,completed_at,value) VALUES (?,?,?,?)`)
+        (id,article_id,completed_at,value) VALUES (?,?,?,?)`),
+      recordingsV2: db.prepare(`INSERT INTO recordings_v2(
+        client_attempt_id,question_key,relative_path,mime,size,sha256,duration_ms,
+        upload_status,updated_at)
+        VALUES (?,?,?,?,?,?,?, 'local', ?)`)
     };
+    const insertLegacyDraft = db.prepare(`INSERT INTO active_exam_sessions(
+      session_key,client_attempt_id,tpo_id,section,document_key,document_hash,
+      content_manifest_id,content_schema_version,content_version_inferred,
+      status,value,created_at,updated_at)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`);
+    const insertLegacyPending = db.prepare(`INSERT INTO pending_attempts(
+      client_attempt_id,remote_attempt_id,tpo_id,section,document_key,document_hash,
+      content_manifest_id,content_schema_version,content_version_inferred,
+      status,snapshot,retry_count,next_retry_at,last_error,created_at,updated_at,synced_at)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`);
     for (const record of dataRows) {
       const value = record.value;
       if (record.kind === 'settings') {
         statements.settings.run(record.key, record.value, Date.now());
-      } else if (record.kind === 'exam_sessions') {
-        statements.exam_sessions.run(
-          value.id,
+      } else if (record.kind === 'active_exam_sessions') {
+        statements.active_exam_sessions.run(
+          value.session_key,
+          value.client_attempt_id,
           value.tpo_id,
           value.section,
+          value.document_key,
+          value.document_hash,
+          value.content_manifest_id,
+          value.content_schema_version,
+          value.content_version_inferred,
           value.status,
           value.value,
+          value.created_at,
           value.updated_at
         );
+      } else if (record.kind === 'pending_attempts') {
+        statements.pending_attempts.run(
+          value.client_attempt_id,
+          value.remote_attempt_id,
+          value.tpo_id,
+          value.section,
+          value.document_key,
+          value.document_hash,
+          value.content_manifest_id,
+          value.content_schema_version,
+          value.content_version_inferred,
+          value.status,
+          value.snapshot,
+          value.retry_count,
+          value.next_retry_at,
+          value.last_error,
+          value.created_at,
+          value.updated_at,
+          value.synced_at
+        );
+      } else if (record.kind === 'exam_sessions') {
+        const attemptId = String(value.value.clientAttemptId || createClientAttemptId());
+        const sessionValue = {
+          ...JSON.parse(JSON.stringify(value.value)),
+          clientAttemptId: attemptId
+        };
+        const inferred = sessionValue.documentHash ? 0 : 1;
+        if (value.status === 'completed') {
+          insertLegacyPending.run(
+            attemptId,
+            null,
+            value.tpo_id,
+            value.section,
+            sessionValue.documentKey || value.id,
+            sessionValue.documentHash || '',
+            sessionValue.contentManifestId || '',
+            Number.isInteger(sessionValue.contentSchemaVersion)
+              ? sessionValue.contentSchemaVersion
+              : null,
+            inferred,
+            'pending-upload',
+            JSON.stringify(sessionValue),
+            0,
+            null,
+            null,
+            value.updated_at,
+            value.updated_at,
+            null
+          );
+        } else {
+          insertLegacyDraft.run(
+            `${value.tpo_id}:${value.section}`,
+            attemptId,
+            value.tpo_id,
+            value.section,
+            sessionValue.documentKey || value.id,
+            sessionValue.documentHash || '',
+            sessionValue.contentManifestId || '',
+            Number.isInteger(sessionValue.contentSchemaVersion)
+              ? sessionValue.contentSchemaVersion
+              : null,
+            inferred,
+            value.status,
+            JSON.stringify(sessionValue),
+            value.updated_at,
+            value.updated_at
+          );
+        }
       } else if (record.kind === 'vocabulary_progress') {
         statements.vocabulary_progress.run(
           value.subject,
@@ -399,17 +526,63 @@ function replaceDatabaseRows(dataRows, recordingRows) {
         statements.typing_history.run(value.id, value.article_id, value.completed_at, value.value);
       }
     }
-    const insertRecording = db.prepare(`INSERT INTO recordings
-      (session_id,question_id,relative_path,mime,size,updated_at) VALUES (?,?,?,?,?,?)`);
     for (const recording of recordingRows) {
-      insertRecording.run(
-        recording.session_id,
-        recording.question_id,
-        recording.relative_path,
-        recording.mime,
-        recording.bytes.byteLength,
-        recording.updated_at
-      );
+      if (v2) {
+        statements.recordingsV2.run(
+          recording.client_attempt_id,
+          recording.question_key,
+          recording.relative_path,
+          recording.mime,
+          recording.size,
+          recording.sha256 || null,
+          null,
+          recording.updated_at
+        );
+      } else {
+        const attemptId = createClientAttemptId();
+        const match = /^tpo-([^:]+)-([a-z]+)$/.exec(String(recording.session_id || ''));
+        const tpoId = match?.[1] || '';
+        const section = match?.[2] || 'speaking';
+        insertLegacyPending.run(
+          attemptId,
+          null,
+          tpoId,
+          section,
+          recording.session_id,
+          '',
+          '',
+          null,
+          1,
+          'pending-upload',
+          JSON.stringify({
+            tpoId,
+            section,
+            status: 'completed',
+            clientAttemptId: attemptId,
+            documentKey: recording.session_id,
+            documentHash: '',
+            contentVersionInferred: 1,
+            answers: {},
+            updatedAt: recording.updated_at
+          }),
+          0,
+          null,
+          null,
+          recording.updated_at,
+          recording.updated_at,
+          null
+        );
+        statements.recordingsV2.run(
+          attemptId,
+          recording.question_id,
+          recording.relative_path,
+          recording.mime,
+          recording.bytes.byteLength,
+          null,
+          null,
+          recording.updated_at
+        );
+      }
     }
   });
 }
@@ -461,11 +634,11 @@ function importArchive(archivePath) {
   let backupCreated = false;
   let installed = false;
   try {
-    const { dataRows, recordingRows } = readArchive(archive);
-    stageRecordings(recordingRows, staging);
+    const { dataRows, recordingRows, v2 } = readArchive(archive);
+    stageRecordings(recordingRows, staging, v2);
     backupCreated = installStagedRecordings(staging, backup);
     installed = true;
-    replaceDatabaseRows(dataRows, recordingRows);
+    replaceDatabaseRows(dataRows, recordingRows, v2);
     installed = false;
     removeDirectory(backup);
     return true;
@@ -477,24 +650,6 @@ function importArchive(archivePath) {
     removeDirectory(staging);
     if (!installed) removeDirectory(backup);
   }
-}
-
-function loadExam(id) {
-  const session = db
-    .prepare(
-      `SELECT id,tpo_id AS tpoId,section,status,
-      value,updated_at AS updatedAt FROM exam_sessions WHERE id = ?`
-    )
-    .get(id);
-  if (!session) return null;
-  return {
-    ...parse(session.value),
-    id: session.id,
-    tpoId: session.tpoId,
-    section: session.section,
-    status: session.status,
-    updatedAt: session.updatedAt
-  };
 }
 
 function loadActiveSession(row) {
@@ -537,14 +692,16 @@ function vocabularyDueSummary(date) {
   );
 }
 
-function getRecording(payload) {
+function getRecordingV2(payload) {
   return (
     db
       .prepare(
-        `SELECT session_id AS sessionId,question_id AS questionId,relative_path AS relativePath,
-        mime,size,updated_at AS updatedAt FROM recordings WHERE session_id=? AND question_id=?`
+        `SELECT client_attempt_id AS clientAttemptId,question_key AS questionKey,
+        relative_path AS relativePath,mime,size,sha256,duration_ms AS durationMs,
+        upload_status AS uploadStatus,updated_at AS updatedAt
+        FROM recordings_v2 WHERE client_attempt_id=? AND question_key=?`
       )
-      .get(payload.sessionId, payload.questionId) || null
+      .get(payload.clientAttemptId, payload.questionKey) || null
   );
 }
 
@@ -555,7 +712,6 @@ const OPERATION_HANDLERS = {
       `SELECT * FROM pending_attempts WHERE tpo_id IS NOT NULL
         ORDER BY updated_at DESC`
     );
-    const legacyIds = rows('SELECT id FROM exam_sessions ORDER BY updated_at DESC');
     const seen = new Set();
     const examSessions = [];
     for (const draft of drafts) {
@@ -563,17 +719,10 @@ const OPERATION_HANDLERS = {
       examSessions.push(session);
       seen.add(sessionKeyFor(session.tpoId, session.section));
     }
-    const attemptSeen = new Set();
     for (const attempt of attempts) {
       const key = sessionKeyFor(attempt.tpo_id, attempt.section);
-      if (seen.has(key) || attemptSeen.has(key)) continue;
-      attemptSeen.add(key);
+      if (seen.has(key)) continue;
       examSessions.push(loadAttemptSnapshot(attempt));
-    }
-    for (const { id } of legacyIds) {
-      const session = loadExam(id);
-      if (!session || seen.has(sessionKeyFor(session.tpoId, session.section))) continue;
-      examSessions.push(session);
     }
     return {
       settings: Object.fromEntries(
@@ -601,29 +750,10 @@ const OPERATION_HANDLERS = {
   'exam:save'(payload) {
     const tpoId = String(payload.tpoId || '');
     const section = String(payload.section || '');
-    const status = ['not-started', 'in-progress', 'completed'].includes(payload.status)
+    const status = ['not-started', 'in-progress'].includes(payload.status)
       ? payload.status
-      : 'not-started';
+      : 'in-progress';
     const now = Date.now();
-    if (status === 'completed') {
-      // Completed sessions stay in the legacy table until completion is
-      // finalized into pending_attempts by a later migration.
-      const id = String(payload.id || `tpo-${tpoId}-${section}`);
-      db.prepare(
-        `INSERT INTO exam_sessions(id,tpo_id,section,status,value,updated_at)
-          VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET tpo_id=excluded.tpo_id,
-          section=excluded.section,status=excluded.status,value=excluded.value,
-          updated_at=excluded.updated_at`
-      ).run(
-        id,
-        tpoId,
-        section,
-        status,
-        stringify(payload),
-        Number.isFinite(payload.updatedAt) ? payload.updatedAt : now
-      );
-      return true;
-    }
     const sessionKey = sessionKeyFor(tpoId, section);
     db.prepare(
       `INSERT INTO active_exam_sessions(
@@ -660,7 +790,6 @@ const OPERATION_HANDLERS = {
     const legacyId = String(payload.id || '');
     const key = sessionKeyFromLegacyId(legacyId) || sessionKeyFor(payload.tpoId, payload.section);
     if (key) db.prepare('DELETE FROM active_exam_sessions WHERE session_key = ?').run(key);
-    if (legacyId) db.prepare('DELETE FROM exam_sessions WHERE id = ?').run(legacyId);
     return true;
   },
   'exam:listCompleted'(payload) {
@@ -769,37 +898,50 @@ const OPERATION_HANDLERS = {
       return true;
     });
   },
-  'recording:upsert'(payload) {
+  'recording:upsertV2'(payload) {
     db.prepare(
-      `INSERT INTO recordings(session_id,question_id,relative_path,mime,size,updated_at)
-        VALUES (?,?,?,?,?,?) ON CONFLICT(session_id,question_id) DO UPDATE SET relative_path=excluded.relative_path,
-        mime=excluded.mime,size=excluded.size,updated_at=excluded.updated_at`
+      `INSERT INTO recordings_v2(
+        client_attempt_id,question_key,relative_path,mime,size,sha256,duration_ms,
+        upload_status,updated_at)
+        VALUES (?,?,?,?,?,?,?, 'local', ?)
+        ON CONFLICT(client_attempt_id,question_key) DO UPDATE SET
+          relative_path=excluded.relative_path,mime=excluded.mime,size=excluded.size,
+          sha256=excluded.sha256,duration_ms=excluded.duration_ms,updated_at=excluded.updated_at`
     ).run(
-      payload.sessionId,
-      payload.questionId,
+      payload.clientAttemptId,
+      payload.questionKey,
       payload.relativePath,
       payload.mime,
       payload.size,
+      payload.sha256 || null,
+      payload.durationMs ?? null,
       payload.updatedAt
     );
     return true;
   },
-  'recording:get': getRecording,
-  'recording:delete'(payload) {
-    const record = getRecording(payload);
-    db.prepare('DELETE FROM recordings WHERE session_id=? AND question_id=?').run(
-      payload.sessionId,
-      payload.questionId
-    );
+  'recording:getV2': getRecordingV2,
+  'recording:deleteV2'(payload) {
+    const record = getRecordingV2(payload);
+    db.prepare(
+      'DELETE FROM recordings_v2 WHERE client_attempt_id=? AND question_key=?'
+    ).run(payload.clientAttemptId, payload.questionKey);
     return record ? [record] : [];
   },
-  'recording:deleteSession'(payload) {
+  'recording:deleteAttemptV2'(payload) {
     const records = rows(
-      'SELECT relative_path AS relativePath FROM recordings WHERE session_id=?',
-      payload.sessionId
+      'SELECT relative_path AS relativePath FROM recordings_v2 WHERE client_attempt_id=?',
+      payload.clientAttemptId
     );
-    db.prepare('DELETE FROM recordings WHERE session_id=?').run(payload.sessionId);
+    db.prepare('DELETE FROM recordings_v2 WHERE client_attempt_id=?').run(payload.clientAttemptId);
     return records;
+  },
+  'recording:listV2'(payload) {
+    return rows(
+      `SELECT client_attempt_id AS clientAttemptId,question_key AS questionKey,
+        relative_path AS relativePath,mime,size,sha256,updated_at AS updatedAt
+        FROM recordings_v2 WHERE client_attempt_id=?`,
+      payload.clientAttemptId
+    );
   }
 };
 

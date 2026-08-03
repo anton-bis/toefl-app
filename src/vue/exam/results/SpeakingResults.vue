@@ -1,8 +1,9 @@
 <script setup>
-import { onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { recordingRepository } from '../../platform/dataRepository.js';
 import { resolveQuestionAsset } from '../../platform/contentRepository.js';
 import { questionPageId } from '../shared/model.js';
+import { useExamStore } from '../../stores/exam.js';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -11,6 +12,8 @@ const props = defineProps({
 });
 defineEmits(['select-question']);
 
+const exam = useExamStore();
+const attemptId = computed(() => exam.activeSession?.clientAttemptId || props.document.id);
 const urls = ref({});
 const states = ref({});
 let generation = 0;
@@ -35,7 +38,7 @@ function resetRecordings() {
 async function loadRecording(questionId) {
   const currentGeneration = generation;
   states.value = { ...states.value, [questionId]: 'loading' };
-  const playbackUrl = recordingRepository.playbackUrl?.(props.document.id, questionId);
+  const playbackUrl = recordingRepository.playbackUrl?.(attemptId.value, questionId);
   if (playbackUrl) {
     urls.value = { ...urls.value, [questionId]: playbackUrl };
     states.value = { ...states.value, [questionId]: 'ready' };
@@ -43,7 +46,7 @@ async function loadRecording(questionId) {
   }
   let blob = null;
   try {
-    blob = await recordingRepository.load(props.document.id, questionId);
+    blob = await recordingRepository.load(attemptId.value, questionId);
   } catch {
     // Missing and unreadable responses have the same result presentation.
   }

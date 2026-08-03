@@ -1,6 +1,38 @@
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { createClientAttemptId } from './attempt-id.js';
 
 const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');
+
+const MIME_EXTENSIONS = new Map([
+  ['audio/webm', '.webm'],
+  ['audio/ogg', '.ogg'],
+  ['audio/mp4', '.m4a'],
+  ['audio/mpeg', '.mp3'],
+  ['audio/wav', '.wav']
+]);
+
+function tableExists(db, name) {
+  return Boolean(
+    db
+      .prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name = ?")
+      .get(name)
+  );
+}
+
+function recordingExtension(mime) {
+  const base = String(mime || '').split(';', 1)[0].trim().toLowerCase();
+  return MIME_EXTENSIONS.get(base) || '';
+}
+
+function jsonOrDefault(value) {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return {};
+  }
+}
 
 export const MIGRATIONS = [
   {
@@ -165,6 +197,178 @@ export const MIGRATIONS = [
           ON content_installations(state, activated_at DESC);
       `);
     }
+  },
+  {
+    version: 2,
+    name: 'migrate-v1-sessions-and-recordings',
+    up(db, context) {
+      const hasLegacySessions = tableExists(db, 'exam_sessions');
+      const hasLegacyRecordings = tableExists(db, 'recordings');
+      if (!hasLegacySessions && !hasLegacyRecordings) return;
+
+      const attemptIdBySession = new Map();
+      const legacySessions = hasLegacySessions
+        ? db.prepare('SELECT * FROM exam_sessions').all()
+        : [];
+      const insertPending = db.prepare(
+        `INSERT INTO pending_attempts(
+          client_attempt_id,tpo_id,section,document_key,document_hash,
+          content_manifest_id,content_schema_version,content_version_inferred,
+          status,snapshot,retry_count,created_at,updated_at)
+          VALUES (?,?,?,?,?,?,?,?,'pending-upload',?,0,?,?)
+          ON CONFLICT(client_attempt_id) DO NOTHING`
+      );
+      const insertDraft = db.prepare(
+        `INSERT INTO active_exam_sessions(
+          session_key,client_attempt_id,tpo_id,section,document_key,document_hash,
+          content_manifest_id,content_schema_version,content_version_inferred,
+          status,value,created_at,updated_at)
+          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+          ON CONFLICT(session_key) DO UPDATE SET
+            client_attempt_id=excluded.client_attempt_id,
+            tpo_id=excluded.tpo_id, section=excluded.section,
+            document_key=excluded.document_key, document_hash=excluded.document_hash,
+            content_manifest_id=excluded.content_manifest_id,
+            content_schema_version=excluded.content_schema_version,
+            content_version_inferred=excluded.content_version_inferred,
+            status=excluded.status, value=excluded.value, updated_at=excluded.updated_at`
+      );
+
+      for (const row of legacySessions) {
+        const value = jsonOrDefault(row.value);
+        const attemptId = String(value.clientAttemptId || createClientAttemptId());
+        value.clientAttemptId = attemptId;
+        const tpoId = String(row.tpo_id || '');
+        const section = String(row.section || '');
+        const documentKey = String(value.documentKey || row.id || `tpo-${tpoId}-${section}`);
+        const documentHash = String(value.documentHash || '');
+        const manifestId = String(value.contentManifestId || '');
+        const schemaVersion = Number.isInteger(value.contentSchemaVersion)
+          ? value.contentSchemaVersion
+          : null;
+        const inferred = value.contentVersionInferred ? 1 : documentHash ? 0 : 1;
+        const now = Number.isFinite(row.updated_at) ? row.updated_at : Date.now();
+        value.contentVersionInferred = inferred;
+        value.documentKey = documentKey;
+        value.documentHash = documentHash;
+        value.contentManifestId = manifestId;
+        value.contentSchemaVersion = schemaVersion;
+        if (!Number.isFinite(value.createdAt)) value.createdAt = now;
+        const snapshot = JSON.stringify(value);
+        if (row.status === 'completed') {
+          insertPending.run(
+            attemptId,
+            tpoId,
+            section,
+            documentKey,
+            documentHash,
+            manifestId,
+            schemaVersion,
+            inferred,
+            snapshot,
+            now,
+            now
+          );
+        } else {
+          insertDraft.run(
+            `${tpoId}:${section}`,
+            attemptId,
+            tpoId,
+            section,
+            documentKey,
+            documentHash,
+            manifestId,
+            schemaVersion,
+            inferred,
+            String(row.status || 'in-progress'),
+            snapshot,
+            now,
+            now
+          );
+        }
+        attemptIdBySession.set(row.id, attemptId);
+      }
+
+      const recordingsPath = context?.recordingsPath;
+      if (hasLegacyRecordings && recordingsPath) {
+        const legacyRecordings = db.prepare('SELECT * FROM recordings').all();
+        const insertV2 = db.prepare(
+          `INSERT INTO recordings_v2(
+            client_attempt_id,question_key,relative_path,mime,size,sha256,duration_ms,
+            upload_status,updated_at)
+            VALUES (?,?,?,?,?,?,?, 'local', ?)`
+        );
+        const insertOrphanAttempt = db.prepare(
+          `INSERT INTO pending_attempts(
+            client_attempt_id,tpo_id,section,document_key,document_hash,
+            content_manifest_id,content_schema_version,content_version_inferred,
+            status,snapshot,retry_count,created_at,updated_at)
+            VALUES (?,?,?,?,?,?,?,1,'pending-upload',?,0,?,?)
+            ON CONFLICT(client_attempt_id) DO NOTHING`
+        );
+        const superseded = [];
+        for (const record of legacyRecordings) {
+          const sessionId = String(record.session_id || '');
+          const questionKey = String(record.question_id || '');
+          let attemptId = attemptIdBySession.get(sessionId);
+          if (!attemptId) {
+            attemptId = createClientAttemptId();
+            const match = /^tpo-([^:]+)-([a-z]+)$/.exec(sessionId);
+            const tpoId = match?.[1] || '';
+            const section = match?.[2] || 'speaking';
+            const now = Number.isFinite(record.updated_at) ? record.updated_at : Date.now();
+            insertOrphanAttempt.run(
+              attemptId,
+              tpoId,
+              section,
+              sessionId,
+              '',
+              '',
+              null,
+              JSON.stringify({
+                tpoId,
+                section,
+                status: 'completed',
+                clientAttemptId: attemptId,
+                documentKey: sessionId,
+                documentHash: '',
+                contentVersionInferred: 1,
+                answers: {},
+                updatedAt: now
+              }),
+              now,
+              now
+            );
+          }
+          const extension = recordingExtension(record.mime) || path.extname(record.relative_path);
+          const relativePath = `${sha256(`${attemptId}\0${questionKey}`)}${extension}`;
+          const oldPath = path.join(recordingsPath, path.basename(record.relative_path));
+          const newPath = path.join(recordingsPath, relativePath);
+          let fileSha = null;
+          let size = Number(record.size) || 0;
+          if (fs.existsSync(oldPath)) {
+            fs.copyFileSync(oldPath, newPath);
+            fileSha = sha256(fs.readFileSync(newPath));
+            size = fs.statSync(newPath).size;
+            if (oldPath !== newPath) superseded.push(oldPath);
+          }
+          insertV2.run(
+            attemptId,
+            questionKey,
+            relativePath,
+            record.mime,
+            size,
+            fileSha,
+            null,
+            Number.isFinite(record.updated_at) ? record.updated_at : Date.now()
+          );
+        }
+        for (const oldPath of superseded) fs.rmSync(oldPath, { force: true });
+      }
+
+      if (hasLegacySessions) db.exec('DROP TABLE IF EXISTS exam_sessions');
+      if (hasLegacyRecordings) db.exec('DROP TABLE IF EXISTS recordings');
+    }
   }
 ];
 
@@ -195,11 +399,11 @@ export function migrationChecksum(migration) {
   return sha256(`${migration.version}:${migration.name}:${migration.up.toString()}`);
 }
 
-export function applyMigration(db, migration) {
+export function applyMigration(db, migration, context) {
   const checksum = migrationChecksum(migration);
   db.exec('BEGIN IMMEDIATE');
   try {
-    migration.up(db);
+    migration.up(db, context);
     db.prepare(
       'INSERT INTO schema_migrations(version, name, checksum, applied_at) VALUES (?, ?, ?, ?)'
     ).run(migration.version, migration.name, checksum, Date.now());
@@ -210,8 +414,8 @@ export function applyMigration(db, migration) {
   }
 }
 
-export function runMigrations(db, { migrations = MIGRATIONS } = {}) {
+export function runMigrations(db, { migrations = MIGRATIONS, context } = {}) {
   const pending = pendingMigrations(db, migrations);
-  for (const migration of pending) applyMigration(db, migration);
+  for (const migration of pending) applyMigration(db, migration, context);
   return pending;
 }

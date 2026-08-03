@@ -1,5 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import { defineComponent } from 'vue';
+import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const repository = vi.hoisted(() => ({
@@ -183,6 +184,7 @@ describe('SpeakingPage', () => {
   }
 
   beforeEach(() => {
+    setActivePinia(createPinia());
     repository.load.mockReset().mockResolvedValue(null);
     repository.save.mockReset().mockResolvedValue(undefined);
     repository.remove.mockReset().mockResolvedValue(undefined);
@@ -367,6 +369,9 @@ describe('SpeakingPage', () => {
 });
 
 describe('speaking results recordings', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia());
+  });
   const mountResults = () =>
     mount(ResultsPage, {
       props: { document: speakingResultsDocument, session: speakingResultsSession }
