@@ -1,0 +1,17 @@
+{
+  "name": "content-core",
+  "version": "1.0.0",
+  "description": "Shared TOEFL content pipeline: Markdown parsers, validation, manifests and objective scoring.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./scoring.js": "./scoring.js",
+    "./parsers/*": "./parsers/*.js",
+    "./validate.js": "./validate.js",
+    "./manifest.js": "./manifest.js",
+    "./pages.js": "./pages.js",
+    "./shared.js": "./shared.js"
+  },
+  "license": "MIT"
+}

@@ -2,8 +2,8 @@ import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { canonicalQuestionEntries } from '../../electron/services/runtime-content.js';
-import { parseExamDocument } from './parsers/index.js';
-import { assertValidExamDocument } from './validate.js';
+import { parseExamDocument } from '../../content-core/parsers/index.js';
+import { assertValidExamDocument } from '../../content-core/validate.js';
 
 function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
