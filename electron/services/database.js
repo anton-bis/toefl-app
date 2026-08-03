@@ -10,8 +10,12 @@ const PUBLIC_OPERATIONS = {
   bootstrap: {},
   'settings:set': { identifiers: ['key'] },
   'exam:save': {
-    identifiers: ['id', 'tpoId', 'section', 'status'],
+    identifiers: ['tpoId', 'section', 'status'],
     validate(payload) {
+      if (payload.id !== undefined) assertIdentifier(payload.id, 'id');
+      if (payload.clientAttemptId !== undefined) {
+        assertIdentifier(payload.clientAttemptId, 'clientAttemptId');
+      }
       if (!['not-started', 'in-progress', 'completed'].includes(payload.status)) {
         throw new TypeError('Invalid exam status');
       }

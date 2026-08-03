@@ -536,6 +536,18 @@ function setupIpcHandlers() {
     return synchronizeContent();
   });
 
+  ipcMain.handle('content:get-descriptor', async event => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content descriptor request.');
+    const contentRoot = getContentRoot(app.getPath('userData'));
+    let manifestId = '';
+    try {
+      manifestId = (await readInstalledManifest(contentRoot))?.manifestId || '';
+    } catch {
+      manifestId = '';
+    }
+    return { manifestId };
+  });
+
   ipcMain.handle('content:set-busy', async (event, busy) => {
     if (!isTrustedRenderer(event)) throw new Error('Untrusted content state request.');
     appInstallBlocked = Boolean(busy);

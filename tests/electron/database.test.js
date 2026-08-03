@@ -183,6 +183,75 @@ test('saving an exam replaces the complete session snapshot', async () => {
   });
 });
 
+test('drafts persist into active_exam_sessions with a stable client attempt id', async () => {
+  await withStorage(async storage => {
+    await storage.dispatch('exam:save', {
+      tpoId: '01',
+      section: 'reading',
+      status: 'in-progress',
+      clientAttemptId: '01ABCDEFGHJKLMNPQRSTVWXYZ',
+      documentKey: 'tpo-01-reading',
+      documentHash: 'a'.repeat(64),
+      contentManifestId: 'b'.repeat(64),
+      contentSchemaVersion: 1,
+      pageId: 'question-1',
+      answers: { q1: 'A' },
+      createdAt: 90,
+      updatedAt: 100
+    });
+    let boot = await storage.dispatch('bootstrap', {});
+    const draft = boot.examSessions.find(session => session.tpoId === '01' && session.section === 'reading');
+    assert.equal(draft.status, 'in-progress');
+    assert.equal(draft.clientAttemptId, '01ABCDEFGHJKLMNPQRSTVWXYZ');
+    assert.equal(draft.answers.q1, 'A');
+    assert.equal(draft.documentHash, 'a'.repeat(64));
+    assert.equal(draft.contentManifestId, 'b'.repeat(64));
+    assert.equal(draft.contentSchemaVersion, 1);
+
+    await storage.dispatch('exam:save', {
+      ...draft,
+      pageId: 'question-2',
+      answers: { q2: 'C' },
+      updatedAt: 200
+    });
+    boot = await storage.dispatch('bootstrap', {});
+    const updated = boot.examSessions.find(
+      session => session.tpoId === '01' && session.section === 'reading'
+    );
+    assert.equal(updated.clientAttemptId, '01ABCDEFGHJKLMNPQRSTVWXYZ');
+    assert.equal(updated.pageId, 'question-2');
+    assert.deepEqual(updated.answers, { q2: 'C' });
+
+    await storage.dispatch('exam:delete', { id: 'tpo-01-reading' });
+    boot = await storage.dispatch('bootstrap', {});
+    assert.equal(
+      boot.examSessions.some(session => session.tpoId === '01' && session.section === 'reading'),
+      false
+    );
+  });
+});
+
+test('completed sessions stay visible until finalized into pending_attempts', async () => {
+  await withStorage(async storage => {
+    await storage.dispatch('exam:save', {
+      id: 'tpo-01-speaking',
+      tpoId: '01',
+      section: 'speaking',
+      status: 'completed',
+      clientAttemptId: '01XZZZZZZZZZZZZZZZZZZZZZZZ',
+      answers: { q1: 'recorded' },
+      updatedAt: 300
+    });
+    const boot = await storage.dispatch('bootstrap', {});
+    const session = boot.examSessions.find(
+      value => value.tpoId === '01' && value.section === 'speaking'
+    );
+    assert.equal(session.status, 'completed');
+    assert.equal(session.clientAttemptId, '01XZZZZZZZZZZZZZZZZZZZZZZZ');
+    assert.equal((await storage.dispatch('exam:listCompleted', { limit: 100 })).length, 1);
+  });
+});
+
 test('a legacy v1 database is upgraded in place without losing data', async () => {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-data-test-'));
   const databasePath = path.join(directory, 'toefl-data.sqlite');

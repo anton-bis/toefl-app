@@ -9,6 +9,7 @@ import {
   runMigrations,
   schemaMigrationTable
 } from './migrations.js';
+import { createClientAttemptId } from './attempt-id.js';
 
 const LEGACY_TABLES = {
   settings: ['key', 'value', 'updated_at'],
@@ -496,6 +497,26 @@ function loadExam(id) {
   };
 }
 
+function loadActiveSession(row) {
+  return {
+    ...parse(row.value),
+    id: `tpo-${row.tpo_id}-${row.section}`,
+    tpoId: row.tpo_id,
+    section: row.section,
+    status: row.status,
+    updatedAt: row.updated_at
+  };
+}
+
+function sessionKeyFor(tpoId, section) {
+  return `${String(tpoId || '')}:${String(section || '')}`;
+}
+
+function sessionKeyFromLegacyId(id) {
+  const match = /^tpo-([^:]+)-([a-z]+)$/.exec(String(id || ''));
+  return match ? `${match[1]}:${match[2]}` : null;
+}
+
 function vocabularyDueSummary(date) {
   return rows(
     `SELECT subject, COUNT(*) AS count FROM vocabulary_progress
@@ -518,12 +539,25 @@ function getRecording(payload) {
 
 const OPERATION_HANDLERS = {
   bootstrap() {
-    const sessionIds = rows('SELECT id FROM exam_sessions ORDER BY updated_at DESC');
+    const drafts = rows('SELECT * FROM active_exam_sessions ORDER BY updated_at DESC');
+    const legacyIds = rows('SELECT id FROM exam_sessions ORDER BY updated_at DESC');
+    const seen = new Set();
+    const examSessions = [];
+    for (const draft of drafts) {
+      const session = loadActiveSession(draft);
+      examSessions.push(session);
+      seen.add(sessionKeyFor(session.tpoId, session.section));
+    }
+    for (const { id } of legacyIds) {
+      const session = loadExam(id);
+      if (!session || seen.has(sessionKeyFor(session.tpoId, session.section))) continue;
+      examSessions.push(session);
+    }
     return {
       settings: Object.fromEntries(
         rows('SELECT key, value FROM settings').map(row => [row.key, parse(row.value)])
       ),
-      examSessions: sessionIds.map(({ id }) => loadExam(id)),
+      examSessions,
       storageState: recoveryBackupDir
         ? { recoveryBackupDir, structureWasRecovered: true }
         : undefined
@@ -543,23 +577,68 @@ const OPERATION_HANDLERS = {
     return true;
   },
   'exam:save'(payload) {
+    const tpoId = String(payload.tpoId || '');
+    const section = String(payload.section || '');
+    const status = ['not-started', 'in-progress', 'completed'].includes(payload.status)
+      ? payload.status
+      : 'not-started';
+    const now = Date.now();
+    if (status === 'completed') {
+      // Completed sessions stay in the legacy table until completion is
+      // finalized into pending_attempts by a later migration.
+      const id = String(payload.id || `tpo-${tpoId}-${section}`);
+      db.prepare(
+        `INSERT INTO exam_sessions(id,tpo_id,section,status,value,updated_at)
+          VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET tpo_id=excluded.tpo_id,
+          section=excluded.section,status=excluded.status,value=excluded.value,
+          updated_at=excluded.updated_at`
+      ).run(
+        id,
+        tpoId,
+        section,
+        status,
+        stringify(payload),
+        Number.isFinite(payload.updatedAt) ? payload.updatedAt : now
+      );
+      return true;
+    }
+    const sessionKey = sessionKeyFor(tpoId, section);
     db.prepare(
-      `INSERT INTO exam_sessions(id,tpo_id,section,status,value,updated_at)
-        VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET tpo_id=excluded.tpo_id,
-        section=excluded.section,status=excluded.status,value=excluded.value,
-        updated_at=excluded.updated_at`
+      `INSERT INTO active_exam_sessions(
+        session_key,client_attempt_id,tpo_id,section,document_key,document_hash,
+        content_manifest_id,content_schema_version,content_version_inferred,
+        status,value,created_at,updated_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ON CONFLICT(session_key) DO UPDATE SET
+          client_attempt_id=excluded.client_attempt_id,
+          tpo_id=excluded.tpo_id, section=excluded.section,
+          document_key=excluded.document_key, document_hash=excluded.document_hash,
+          content_manifest_id=excluded.content_manifest_id,
+          content_schema_version=excluded.content_schema_version,
+          content_version_inferred=excluded.content_version_inferred,
+          status=excluded.status, value=excluded.value, updated_at=excluded.updated_at`
     ).run(
-      payload.id,
-      payload.tpoId,
-      payload.section,
-      payload.status,
+      sessionKey,
+      String(payload.clientAttemptId || createClientAttemptId()),
+      tpoId,
+      section,
+      String(payload.documentKey || `tpo-${tpoId}-${section}`),
+      String(payload.documentHash || ''),
+      String(payload.contentManifestId || ''),
+      Number.isInteger(payload.contentSchemaVersion) ? payload.contentSchemaVersion : null,
+      payload.contentVersionInferred ? 1 : 0,
+      status,
       stringify(payload),
-      Number.isFinite(payload.updatedAt) ? payload.updatedAt : Date.now()
+      Number.isFinite(payload.createdAt) ? payload.createdAt : now,
+      Number.isFinite(payload.updatedAt) ? payload.updatedAt : now
     );
     return true;
   },
   'exam:delete'(payload) {
-    db.prepare('DELETE FROM exam_sessions WHERE id = ?').run(payload.id);
+    const legacyId = String(payload.id || '');
+    const key = sessionKeyFromLegacyId(legacyId) || sessionKeyFor(payload.tpoId, payload.section);
+    if (key) db.prepare('DELETE FROM active_exam_sessions WHERE session_key = ?').run(key);
+    if (legacyId) db.prepare('DELETE FROM exam_sessions WHERE id = ?').run(legacyId);
     return true;
   },
   'exam:listCompleted'(payload) {

@@ -57,6 +57,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Runtime content updates
   initializeContent: () => ipcRenderer.invoke('content:initialize'),
   retryContent: () => ipcRenderer.invoke('content:retry'),
+  getContentDescriptor: () => ipcRenderer.invoke('content:get-descriptor'),
   setContentBusy: busy => ipcRenderer.invoke('content:set-busy', Boolean(busy)),
   getContentAssetUrl: relativePath =>
     `toefl-content://content/${String(relativePath)

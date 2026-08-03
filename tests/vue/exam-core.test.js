@@ -125,6 +125,52 @@ describe('exam sessions', () => {
     expect(settings.volume('listening')).toBe(0.35);
     expect(JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)).volumes.listening).toBe(0.35);
   });
+
+  it('assigns a stable client attempt id and records content identity', () => {
+    const store = useExamStore();
+    const content = {
+      documentKey: 'tpo-01-reading',
+      documentHash: 'a'.repeat(64),
+      contentManifestId: 'b'.repeat(64),
+      contentSchemaVersion: 1
+    };
+    store.openSession({ tpoId: '01', section: 'reading', content });
+    const first = store.activeSession.clientAttemptId;
+    expect(first).toMatch(/^[0-9A-HJKMNP-TV-Z]{26}$/);
+    expect(store.activeSession).toMatchObject({
+      documentKey: 'tpo-01-reading',
+      documentHash: 'a'.repeat(64),
+      contentManifestId: 'b'.repeat(64),
+      contentSchemaVersion: 1,
+      contentVersionInferred: 0
+    });
+    store.start();
+    expect(store.activeSession.clientAttemptId).toBe(first);
+    expect(
+      JSON.parse(localStorage.getItem(examStorageKey('01', 'reading'))).clientAttemptId
+    ).toBe(first);
+
+    store.openSession({ tpoId: '01', section: 'reading', restart: true, content });
+    expect(store.activeSession.clientAttemptId).not.toBe(first);
+  });
+
+  it('gives a legacy stored session a stable attempt id on read', () => {
+    storeJson(examStorageKey('05', 'writing'), {
+      tpoId: '05',
+      section: 'writing',
+      status: 'in-progress',
+      updatedAt: 10,
+      answers: { w: 'x' }
+    });
+    const store = useExamStore();
+    const session = store.openSession({ tpoId: '05', section: 'writing' });
+    expect(session.clientAttemptId).toMatch(/^[0-9A-HJKMNP-TV-Z]{26}$/);
+    expect(session.contentVersionInferred).toBe(1);
+    store.start();
+    expect(
+      JSON.parse(localStorage.getItem(examStorageKey('05', 'writing'))).clientAttemptId
+    ).toBe(session.clientAttemptId);
+  });
 });
 
 describe('exam timer', () => {

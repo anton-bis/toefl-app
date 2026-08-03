@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { createClientAttemptId } from '../../../electron/services/attempt-id.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import {
   cancelLocalWrite,
@@ -45,13 +46,25 @@ function createExamSession({
   section,
   pageId = 'start',
   durationSeconds = null,
-  now = Date.now()
+  now = Date.now(),
+  content = {}
 }) {
   const finiteDuration = Number.isFinite(durationSeconds) && durationSeconds >= 0;
   return {
     tpoId: asId(tpoId),
     section: asId(section),
     pageId: String(pageId || 'start'),
+    clientAttemptId: createClientAttemptId(now),
+    documentKey: String(content.documentKey || `tpo-${asId(tpoId)}-${asId(section)}`),
+    documentHash: String(content.documentHash || ''),
+    contentManifestId: String(content.contentManifestId || ''),
+    contentSchemaVersion:
+      Number.isInteger(content.contentSchemaVersion) ? content.contentSchemaVersion : null,
+    contentVersionInferred: content.contentVersionInferred
+      ? 1
+      : content.documentHash
+        ? 0
+        : 1,
     answers: {},
     marks: {},
     lockedQuestionIds: {},
@@ -68,6 +81,7 @@ function createExamSession({
     status: 'not-started',
     startedAt: null,
     completedAt: null,
+    createdAt: now,
     updatedAt: now
   };
 }
@@ -82,6 +96,23 @@ function plainObject(value) {
   return isPlainObject(value) ? value : {};
 }
 
+function contentVersionFields(value, fallback = {}) {
+  return {
+    clientAttemptId: String(
+      value.clientAttemptId || fallback.clientAttemptId || createClientAttemptId()
+    ),
+    documentKey: String(value.documentKey || fallback.documentKey || ''),
+    documentHash: String(value.documentHash || fallback.documentHash || ''),
+    contentManifestId: String(value.contentManifestId || fallback.contentManifestId || ''),
+    contentSchemaVersion: Number.isInteger(value.contentSchemaVersion)
+      ? value.contentSchemaVersion
+      : Number.isInteger(fallback.contentSchemaVersion)
+        ? fallback.contentSchemaVersion
+        : null,
+    contentVersionInferred: value.contentVersionInferred ? 1 : value.documentHash ? 0 : 1
+  };
+}
+
 function normalizeSession(value, expected) {
   if (!isPlainObject(value)) return null;
   if (!boundedData(value)) return null;
@@ -92,6 +123,7 @@ function normalizeSession(value, expected) {
     ...value,
     tpoId: fresh.tpoId,
     section: fresh.section,
+    ...contentVersionFields(value, fresh),
     pageId: typeof value.pageId === 'string' && value.pageId.length <= 200 ? value.pageId : 'start',
     status: ['not-started', 'in-progress', 'completed'].includes(value.status)
       ? value.status
@@ -99,7 +131,8 @@ function normalizeSession(value, expected) {
     answers: plainObject(value.answers),
     marks: plainObject(value.marks),
     timer: { ...fresh.timer, ...plainObject(value.timer) },
-    lockedQuestionIds: plainObject(value.lockedQuestionIds)
+    lockedQuestionIds: plainObject(value.lockedQuestionIds),
+    createdAt: Number.isFinite(value.createdAt) ? value.createdAt : fresh.createdAt
   };
 }
 
@@ -119,7 +152,8 @@ function compactSession(session) {
     section: session.section,
     pageId: session.pageId,
     status: session.status,
-    updatedAt: session.updatedAt
+    updatedAt: session.updatedAt,
+    ...contentVersionFields(session)
   };
   if (Object.keys(session.answers).length) compact.answers = session.answers;
   if (Object.keys(session.marks).length) compact.marks = session.marks;
@@ -129,6 +163,7 @@ function compactSession(session) {
     compact.startedAt = session.startedAt;
     compact.completedAt = session.completedAt;
     compact.timer = session.timer;
+    compact.createdAt = session.createdAt;
   }
   return compact;
 }
@@ -241,7 +276,12 @@ export const useExamStore = defineStore('exam', {
       let session = options.restart
         ? null
         : this.sessions[id] || readExamSession(options.tpoId, options.section);
-      if (!session) session = createExamSession(options);
+      if (!session) {
+        session = createExamSession(options);
+      } else {
+        Object.assign(session, contentVersionFields(session, { ...options.content }));
+        if (!session.createdAt) session.createdAt = session.updatedAt;
+      }
       this.sessions[id] = session;
       this.activeId = id;
       return session;
