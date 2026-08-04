@@ -5,6 +5,7 @@ import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../../utils/
 import { normalizeVolume } from '../../../utils/volume.js';
 import { useRecorder } from '../../composables/useRecorder.js';
 import { examQuestions } from '../../shared/model.js';
+import { useExamStore } from '../../../stores/exam.js';
 
 const props = defineProps({
   document: { type: Object, required: true },
@@ -15,7 +16,9 @@ const props = defineProps({
   readOnly: { type: Boolean, default: false }
 });
 const emit = defineEmits(['answer', 'navigation-state']);
-const recorder = useRecorder({ sessionId: computed(() => props.document.id) });
+const exam = useExamStore();
+const attemptId = computed(() => exam.activeSession?.clientAttemptId || props.document.id);
+const recorder = useRecorder({ sessionId: attemptId });
 const audio = ref();
 const audioPlayed = ref(false);
 const audioProgress = ref(0);
@@ -151,7 +154,7 @@ async function finishResponse() {
   phase.value = blob ? 'recorded' : recorder.error.value ? 'error' : 'listen';
   if (blob && activeQuestionId) {
     emit('answer', activeQuestionId, {
-      recordingKey: `${props.document.id}:${activeQuestionId}`,
+      recordingKey: `${attemptId.value}:${activeQuestionId}`,
       mimeType: blob.type,
       size: blob.size,
       recordedAt: Date.now()
@@ -196,7 +199,7 @@ async function resetQuestion() {
       ringProgress.value = 1;
       phase.value = 'recorded';
       emit('answer', requestedId, {
-        recordingKey: `${props.document.id}:${requestedId}`,
+        recordingKey: `${attemptId.value}:${requestedId}`,
         mimeType: stored.type,
         size: stored.size,
         recordedAt: Date.now()

@@ -231,7 +231,8 @@ async function loadExam() {
     const active = exam.openSession({
       tpoId: props.tpoId,
       section: normalizedSection.value,
-      pageId: loaded.pages.some(item => item.id === props.pageId) ? props.pageId : 'start'
+      pageId: loaded.pages.some(item => item.id === props.pageId) ? props.pageId : 'start',
+      content: catalog.contentIdentity(props.tpoId, normalizedSection.value, loaded.id)
     });
     const entry = resolveExamEntry({
       pages: loaded.pages,
@@ -251,7 +252,10 @@ async function loadExam() {
       return;
     }
     if (entry.action === 'restart') {
-      exam.reset(props.tpoId, normalizedSection.value, { pageId: 'start' });
+      exam.reset(props.tpoId, normalizedSection.value, {
+        pageId: 'start',
+        content: catalog.contentIdentity(props.tpoId, normalizedSection.value, loaded.id)
+      });
       await router.replace({ name: 'exam', params: { ...route.params, pageId: 'start' } });
       return;
     }

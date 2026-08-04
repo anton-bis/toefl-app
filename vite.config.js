@@ -88,7 +88,13 @@ export default defineConfig({
     {
       name: 'remove-crossorigin',
       enforce: 'post',
-      transformIndexHtml: html => html.replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ')
+      transformIndexHtml: html => {
+        let result = html.replace(/\s*crossorigin(?:\s*=\s*"[^"]*")?\s*/g, ' ');
+        if (!isElectron) result = result.replace(
+          /<meta\s+http-equiv="Content-Security-Policy"[^>]*>/i, ''
+        );
+        return result;
+      }
     },
     {
       name: 'copy-runtime-content',

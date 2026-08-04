@@ -28,6 +28,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
       delete: id => dataRequest('exam:delete', { id }),
       listCompleted: limit => dataRequest('exam:listCompleted', { limit })
     },
+    attempt: {
+      finalize: session => dataRequest('attempt:finalize', { session })
+    },
     vocabulary: {
       list: subject => dataRequest('vocabulary:list', { subject }),
       save: payload => dataRequest('vocabulary:save', payload),
@@ -41,11 +44,11 @@ contextBridge.exposeInMainWorld('electronAPI', {
       save: payload => dataRequest('recording:save', payload),
       load: payload => dataRequest('recording:load', payload),
       remove: payload => dataRequest('recording:remove', payload),
-      removeSession: sessionId => dataRequest('recording:removeSession', { sessionId }),
-      playbackUrl: (sessionId, questionId) => {
+      removeAttempt: clientAttemptId => dataRequest('recording:removeAttempt', { clientAttemptId }),
+      playbackUrl: (clientAttemptId, questionKey) => {
         const parameters = new URLSearchParams({
-          session: sessionId,
-          question: String(questionId)
+          attempt: clientAttemptId,
+          question: String(questionKey)
         });
         return `toefl-recording://playback/audio?${parameters}`;
       }
@@ -57,6 +60,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Runtime content updates
   initializeContent: () => ipcRenderer.invoke('content:initialize'),
   retryContent: () => ipcRenderer.invoke('content:retry'),
+  getContentDescriptor: () => ipcRenderer.invoke('content:get-descriptor'),
   setContentBusy: busy => ipcRenderer.invoke('content:set-busy', Boolean(busy)),
   getContentAssetUrl: relativePath =>
     `toefl-content://content/${String(relativePath)

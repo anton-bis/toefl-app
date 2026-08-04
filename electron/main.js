@@ -102,8 +102,8 @@ function setupContentProtocol() {
       const requestUrl = new URL(request.url);
       if (requestUrl.hostname !== 'playback') return new Response('Not found', { status: 404 });
       const recording = await dataStorage.resolveRecordingFile({
-        sessionId: requestUrl.searchParams.get('session'),
-        questionId: requestUrl.searchParams.get('question')
+        clientAttemptId: requestUrl.searchParams.get('attempt'),
+        questionKey: requestUrl.searchParams.get('question')
       });
       if (!recording) return new Response('Not found', { status: 404 });
       return await createLocalFileResponse(request, recording.filePath);
@@ -536,6 +536,18 @@ function setupIpcHandlers() {
     return synchronizeContent();
   });
 
+  ipcMain.handle('content:get-descriptor', async event => {
+    if (!isTrustedRenderer(event)) throw new Error('Untrusted content descriptor request.');
+    const contentRoot = getContentRoot(app.getPath('userData'));
+    let manifestId = '';
+    try {
+      manifestId = (await readInstalledManifest(contentRoot))?.manifestId || '';
+    } catch {
+      manifestId = '';
+    }
+    return { manifestId };
+  });
+
   ipcMain.handle('content:set-busy', async (event, busy) => {
     if (!isTrustedRenderer(event)) throw new Error('Untrusted content state request.');
     appInstallBlocked = Boolean(busy);
@@ -581,6 +593,15 @@ function initializeApp() {
         sendToRenderer('content:activated', {
           manifestId: manifest.manifestId
         });
+        dataStorage
+          ?.recordContentInstallation({
+            manifestId: manifest.manifestId,
+            schemaVersion: manifest.schemaVersion,
+            minAppVersion: manifest.minAppVersion
+          })
+          .catch(error =>
+            console.warn('Could not record the content installation:', error.message)
+          );
       }
     });
 

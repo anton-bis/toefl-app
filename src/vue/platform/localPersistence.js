@@ -22,6 +22,8 @@ function trackDesktopWrite(promise) {
   promise.finally(() => desktopWrites.delete(promise)).catch(() => {});
 }
 
+export { trackDesktopWrite };
+
 function desktopExamId(key) {
   const match = key.match(/^toefl:exam:([^:]+):([^:]+)$/);
   return match ? `tpo-${decodeURIComponent(match[1])}-${decodeURIComponent(match[2])}` : null;

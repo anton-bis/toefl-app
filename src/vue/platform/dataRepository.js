@@ -1,6 +1,6 @@
 const DATA_DB_NAME = 'toefl-data';
 // IndexedDB requires a numeric database generation when stores are created.
-const DATA_DB_GENERATION = 2;
+const DATA_DB_GENERATION = 3;
 
 const STORES = {
   recordings: 'recordings',
@@ -49,8 +49,8 @@ export function openDataDatabase() {
       const recordings = transaction.objectStore(STORES.recordings);
       const vocabulary = transaction.objectStore(STORES.vocabularyProgress);
       const typing = transaction.objectStore(STORES.typingHistory);
-      if (!recordings.indexNames.contains('sessionId'))
-        recordings.createIndex('sessionId', 'sessionId');
+      if (!recordings.indexNames.contains('clientAttemptId'))
+        recordings.createIndex('clientAttemptId', 'clientAttemptId');
       if (!vocabulary.indexNames.contains('subject')) vocabulary.createIndex('subject', 'subject');
       if (!typing.indexNames.contains('completedAt')) {
         typing.createIndex('completedAt', 'value.completedAt');
@@ -264,63 +264,63 @@ export async function replaceTypingHistory(history) {
 }
 
 export const recordingRepository = {
-  playbackUrl(sessionId, questionId) {
-    return desktopData()?.recording.playbackUrl?.(sessionId, String(questionId)) || null;
+  playbackUrl(clientAttemptId, questionKey) {
+    return desktopData()?.recording.playbackUrl?.(clientAttemptId, String(questionKey)) || null;
   },
-  async save(sessionId, questionId, blob) {
+  async save(clientAttemptId, questionKey, blob) {
     if (!(blob instanceof Blob)) throw new TypeError('Recording must be a Blob');
     if (desktopData()) {
       const api = desktopData();
       return writeOperation(async () =>
         api.recording.save({
-          sessionId,
-          questionId: String(questionId),
+          clientAttemptId,
+          questionKey: String(questionKey),
           mime: blob.type,
           bytes: new Uint8Array(await blobBytes(blob))
         })
       );
     }
     return put(STORES.recordings, {
-      key: recordingKey(sessionId, questionId),
-      sessionId,
-      questionId: String(questionId),
+      key: recordingKey(clientAttemptId, questionKey),
+      clientAttemptId,
+      questionKey: String(questionKey),
       blob,
       updatedAt: Date.now()
     });
   },
-  async load(sessionId, questionId) {
+  async load(clientAttemptId, questionKey) {
     if (desktopData()) {
       const record = await desktopData().recording.load({
-        sessionId,
-        questionId: String(questionId)
+        clientAttemptId,
+        questionKey: String(questionKey)
       });
       return record ? new Blob([record.bytes], { type: record.mime }) : null;
     }
     const database = await openDataDatabase();
     const transaction = database.transaction(STORES.recordings, 'readonly');
     const record = await requestResult(
-      transaction.objectStore(STORES.recordings).get(recordingKey(sessionId, questionId)),
+      transaction.objectStore(STORES.recordings).get(recordingKey(clientAttemptId, questionKey)),
       "Couldn't read the recording"
     );
     return record?.blob instanceof Blob ? record.blob : null;
   },
-  remove(sessionId, questionId) {
+  remove(clientAttemptId, questionKey) {
     if (desktopData()) {
       return writeOperation(() =>
-        desktopData().recording.remove({ sessionId, questionId: String(questionId) })
+        desktopData().recording.remove({ clientAttemptId, questionKey: String(questionKey) })
       );
     }
-    return remove(STORES.recordings, recordingKey(sessionId, questionId));
+    return remove(STORES.recordings, recordingKey(clientAttemptId, questionKey));
   },
-  async removeSession(sessionId) {
+  async removeAttempt(clientAttemptId) {
     if (desktopData()) {
-      await writeOperation(() => desktopData().recording.removeSession(sessionId));
+      await writeOperation(() => desktopData().recording.removeAttempt(clientAttemptId));
       return;
     }
     await writeOperation(() =>
       runTransaction(STORES.recordings, 'readwrite', transaction => {
-        const index = transaction.objectStore(STORES.recordings).index('sessionId');
-        const cursor = index.openKeyCursor(IDBKeyRange.only(sessionId));
+        const index = transaction.objectStore(STORES.recordings).index('clientAttemptId');
+        const cursor = index.openKeyCursor(IDBKeyRange.only(clientAttemptId));
         cursor.onsuccess = () => {
           if (!cursor.result) return;
           transaction.objectStore(STORES.recordings).delete(cursor.result.primaryKey);

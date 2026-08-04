@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { recordingRepository } from '../platform/dataRepository.js';
+import { createClientAttemptId } from '../../../electron/services/attempt-id.js';
 import {
   cancelLocalWrite,
   flushLocalWrites,
@@ -7,6 +7,7 @@ import {
   readLocalJson,
   removeLocalValue,
   scheduleLocalJson,
+  trackDesktopWrite,
   writeLocalJson
 } from '../platform/localPersistence.js';
 
@@ -45,13 +46,25 @@ function createExamSession({
   section,
   pageId = 'start',
   durationSeconds = null,
-  now = Date.now()
+  now = Date.now(),
+  content = {}
 }) {
   const finiteDuration = Number.isFinite(durationSeconds) && durationSeconds >= 0;
   return {
     tpoId: asId(tpoId),
     section: asId(section),
     pageId: String(pageId || 'start'),
+    clientAttemptId: createClientAttemptId(now),
+    documentKey: String(content.documentKey || `tpo-${asId(tpoId)}-${asId(section)}`),
+    documentHash: String(content.documentHash || ''),
+    contentManifestId: String(content.contentManifestId || ''),
+    contentSchemaVersion:
+      Number.isInteger(content.contentSchemaVersion) ? content.contentSchemaVersion : null,
+    contentVersionInferred: content.contentVersionInferred
+      ? 1
+      : content.documentHash
+        ? 0
+        : 1,
     answers: {},
     marks: {},
     lockedQuestionIds: {},
@@ -68,6 +81,7 @@ function createExamSession({
     status: 'not-started',
     startedAt: null,
     completedAt: null,
+    createdAt: now,
     updatedAt: now
   };
 }
@@ -82,6 +96,23 @@ function plainObject(value) {
   return isPlainObject(value) ? value : {};
 }
 
+function contentVersionFields(value, fallback = {}) {
+  return {
+    clientAttemptId: String(
+      value.clientAttemptId || fallback.clientAttemptId || createClientAttemptId()
+    ),
+    documentKey: String(value.documentKey || fallback.documentKey || ''),
+    documentHash: String(value.documentHash || fallback.documentHash || ''),
+    contentManifestId: String(value.contentManifestId || fallback.contentManifestId || ''),
+    contentSchemaVersion: Number.isInteger(value.contentSchemaVersion)
+      ? value.contentSchemaVersion
+      : Number.isInteger(fallback.contentSchemaVersion)
+        ? fallback.contentSchemaVersion
+        : null,
+    contentVersionInferred: value.contentVersionInferred ? 1 : value.documentHash ? 0 : 1
+  };
+}
+
 function normalizeSession(value, expected) {
   if (!isPlainObject(value)) return null;
   if (!boundedData(value)) return null;
@@ -92,6 +123,7 @@ function normalizeSession(value, expected) {
     ...value,
     tpoId: fresh.tpoId,
     section: fresh.section,
+    ...contentVersionFields(value, fresh),
     pageId: typeof value.pageId === 'string' && value.pageId.length <= 200 ? value.pageId : 'start',
     status: ['not-started', 'in-progress', 'completed'].includes(value.status)
       ? value.status
@@ -99,7 +131,8 @@ function normalizeSession(value, expected) {
     answers: plainObject(value.answers),
     marks: plainObject(value.marks),
     timer: { ...fresh.timer, ...plainObject(value.timer) },
-    lockedQuestionIds: plainObject(value.lockedQuestionIds)
+    lockedQuestionIds: plainObject(value.lockedQuestionIds),
+    createdAt: Number.isFinite(value.createdAt) ? value.createdAt : fresh.createdAt
   };
 }
 
@@ -119,7 +152,8 @@ function compactSession(session) {
     section: session.section,
     pageId: session.pageId,
     status: session.status,
-    updatedAt: session.updatedAt
+    updatedAt: session.updatedAt,
+    ...contentVersionFields(session)
   };
   if (Object.keys(session.answers).length) compact.answers = session.answers;
   if (Object.keys(session.marks).length) compact.marks = session.marks;
@@ -129,6 +163,7 @@ function compactSession(session) {
     compact.startedAt = session.startedAt;
     compact.completedAt = session.completedAt;
     compact.timer = session.timer;
+    compact.createdAt = session.createdAt;
   }
   return compact;
 }
@@ -145,83 +180,39 @@ function persistSession(session, delayed = false) {
   else writeLocalJson(key, snapshot);
 }
 
-async function removeDesktopSessions(desktop, repository, limit) {
-  const completed = await desktop.exam.listCompleted(1000);
-  const expired = expiredTpos(completed, limit);
-  const removed = completed.filter(session => expired.has(session.tpoId));
-  await Promise.all(
-    removed.map(async session => {
-      removeExamSession(session.tpoId, session.section);
-      if (session.section === 'speaking' && repository) {
-        await repository.removeSession(`tpo-${session.tpoId}-speaking`);
-      }
-    })
-  );
-  await flushLocalWrites();
-  return [...expired];
+async function finalizeAttempt(session) {
+  const api = window.electronAPI?.data?.attempt;
+  if (!api) return;
+  const promise = api.finalize(session);
+  trackDesktopWrite(promise);
+  await promise;
 }
 
-function completedBrowserSessions(storage) {
+function pruneStaleBrowserKeys(storage) {
   if (!storage || !Number.isFinite(storage.length)) return [];
-  const completed = [];
-  for (let index = 0; index < storage.length; index += 1) {
+  const removed = [];
+  for (let index = storage.length - 1; index >= 0; index -= 1) {
     const key = storage.key(index);
     if (!key?.startsWith(`${EXAM_STORAGE_PREFIX}:`)) continue;
     try {
       const session = JSON.parse(storage.getItem(key));
-      if (session?.status === 'completed' && session.tpoId) {
-        completed.push({ key, session, time: session.completedAt || session.updatedAt || 0 });
+      if (session?.status === 'not-started') {
+        cancelLocalWrite(key);
+        storage.removeItem(key);
+        removed.push(key);
       }
     } catch {
       // Invalid records are ignored here and rejected by readExamSession.
     }
   }
-  return completed;
+  return removed;
 }
 
-async function removeBrowserSessions(storage, repository, limit) {
-  const completed = completedBrowserSessions(storage);
-  const expired = expiredTpos(
-    completed.map(({ session, time }) => ({ ...session, updatedAt: time })),
-    limit
-  );
-  const removed = completed.filter(({ session }) => expired.has(session.tpoId));
-  if (repository) {
-    await Promise.all(
-      removed
-        .filter(({ session }) => session.section === 'speaking')
-        .map(({ session }) => repository.removeSession(`tpo-${session.tpoId}-speaking`))
-    );
-  }
-  removed.forEach(({ key }) => {
-    cancelLocalWrite(key);
-    storage.removeItem(key);
-  });
-  return [...expired];
-}
-
-export function pruneCompletedExamHistory(
-  storage = globalThis.localStorage,
-  repository,
-  limit = 20
-) {
-  const desktop = globalThis.window?.electronAPI?.data;
-  return desktop
-    ? removeDesktopSessions(desktop, repository, limit)
-    : removeBrowserSessions(storage, repository, limit);
-}
-
-function expiredTpos(sessions, limit) {
-  const latest = new Map();
-  sessions.forEach(session => {
-    latest.set(session.tpoId, Math.max(latest.get(session.tpoId) || 0, session.updatedAt || 0));
-  });
-  return new Set(
-    [...latest]
-      .sort((a, b) => b[1] - a[1])
-      .slice(Math.max(0, limit))
-      .map(([tpoId]) => tpoId)
-  );
+// Completed attempts and their recordings are never deleted. Only stale
+// not-started keys left behind by older versions are cleaned up.
+export function pruneCompletedExamHistory(storage = globalThis.localStorage) {
+  if (globalThis.window?.electronAPI?.data) return Promise.resolve([]);
+  return Promise.resolve(pruneStaleBrowserKeys(storage));
 }
 
 export const useExamStore = defineStore('exam', {
@@ -241,7 +232,12 @@ export const useExamStore = defineStore('exam', {
       let session = options.restart
         ? null
         : this.sessions[id] || readExamSession(options.tpoId, options.section);
-      if (!session) session = createExamSession(options);
+      if (!session) {
+        session = createExamSession(options);
+      } else {
+        Object.assign(session, contentVersionFields(session, { ...options.content }));
+        if (!session.createdAt) session.createdAt = session.updatedAt;
+      }
       this.sessions[id] = session;
       this.activeId = id;
       return session;
@@ -314,7 +310,7 @@ export const useExamStore = defineStore('exam', {
         this.touch(now);
       }
     },
-    complete(now = Date.now()) {
+    async complete(now = Date.now()) {
       const session = this.requireActive();
       session.status = 'completed';
       session.completedAt = now;
@@ -323,8 +319,22 @@ export const useExamStore = defineStore('exam', {
       session.timer.expiredAt = null;
       session.timer.scopeType = null;
       session.timer.scopeId = null;
-      this.touch(now);
-      pruneCompletedExamHistory(globalThis.localStorage, recordingRepository).catch(() => {});
+      const desktop = Boolean(globalThis.window?.electronAPI?.data);
+      if (desktop) {
+        session.updatedAt = now;
+      } else {
+        // The browser path keeps the completed session in local storage.
+        this.touch(now);
+      }
+      try {
+        await finalizeAttempt(session);
+        if (desktop) {
+          removeExamSession(session.tpoId, session.section);
+        }
+      } catch (error) {
+        console.warn('Could not finalize the completed attempt:', error?.message);
+      }
+      pruneCompletedExamHistory(globalThis.localStorage).catch(() => {});
     },
     reset(tpoId, section, options = {}) {
       const id = examSessionId(tpoId, section);

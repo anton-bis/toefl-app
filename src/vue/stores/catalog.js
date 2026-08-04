@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { markRaw } from 'vue';
+import { CONTENT_SCHEMA_VERSION } from '../../../electron/services/runtime-content.js';
 import {
   listCatalog,
   readCatalogManifest,
@@ -12,17 +13,40 @@ export const useCatalogStore = defineStore('catalog', {
     documents: {},
     catalogLoaded: false,
     loading: false,
-    error: ''
+    error: '',
+    contentManifestId: '',
+    catalogContentHash: ''
   }),
   getters: {
     entry: state => (tpoId, section) =>
-      state.tests.find(test => test.tpoId === tpoId)?.sections[section]
+      state.tests.find(test => test.tpoId === tpoId)?.sections[section],
+    contentIdentity: state => (tpoId, section, documentKey = '') => {
+      const entry = state.tests.find(test => test.tpoId === tpoId)?.sections[section];
+      return {
+        documentKey: documentKey || `tpo-${tpoId}-${section}`,
+        documentHash: entry?.documentHash || '',
+        contentManifestId: state.contentManifestId || state.catalogContentHash,
+        contentSchemaVersion: CONTENT_SCHEMA_VERSION
+      };
+    }
   },
   actions: {
+    async refreshContentDescriptor() {
+      const api = window.electronAPI;
+      if (!api?.getContentDescriptor) return;
+      try {
+        const descriptor = await api.getContentDescriptor();
+        if (descriptor?.manifestId) this.contentManifestId = descriptor.manifestId;
+      } catch {
+        // The descriptor is best effort; the catalog hash remains the fallback.
+      }
+    },
     async refreshCatalog() {
       const catalog = await readCatalogManifest();
       this.tests = listCatalog(catalog);
+      this.catalogContentHash = catalog.contentHash || '';
       this.catalogLoaded = true;
+      await this.refreshContentDescriptor();
     },
     async loadDocument(tpoId, section) {
       const cacheKey = `${tpoId}:${section}`;
