@@ -4,8 +4,9 @@
 |------|------|
 | **版本** | v1.0 |
 | **状态** | 定稿 |
-| **技术栈** | Vue 3 + Vite + Tailwind CSS + Express + MySQL |
-| **部署策略** | 第一阶段 Vercel + Railway 免费层，第二阶段迁移至国内云服务器 |
+| **技术栈** | Vue 3 + Vite + TypeScript + Tailwind CSS + NestJS + Fastify + MySQL（Prisma） |
+| **部署策略** | 第一阶段 Vercel + Railway/Render 免费层，第二阶段迁移至国内云服务器 |
+| **配套文档** | 数据库设计见 `docs/database-design-v2.md`，技术设计见 `docs/tech-design.md` |
 
 ---
 
@@ -156,7 +157,7 @@
 
 ```
 GitHub 仓库 → Vercel（免费）→ Vue 3 前端
-           → Railway 免费额度 → Express 后端 + MySQL
+           → Railway/Render 免费额度 → NestJS 后端 + MySQL
 ```
 
 ### 第二阶段（用户增长后）
