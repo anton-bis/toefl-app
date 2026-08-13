@@ -54,7 +54,9 @@ const statusText = computed(() => {
   if (recorder.status.value === 'recorded') return 'Response recorded';
   return audioPlayed.value ? 'Recording...' : 'Click play to listen';
 });
-const imageUrl = computed(() => assetUrl(props.question?.image || props.page.scenario?.image));
+const imageUrl = computed(() =>
+  assetUrl(props.question?.image || props.task?.image || props.page.scenario?.image)
+);
 const audioUrl = computed(() => assetUrl(props.question?.media?.file || props.task?.media?.file));
 
 function assetUrl(filename) {

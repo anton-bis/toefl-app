@@ -9,6 +9,7 @@ function parseTask(title, body, taskNumber) {
     title,
     type,
     scenario: { title: '', image: '' },
+    image: null,
     media: null,
     questions: []
   };
@@ -23,6 +24,10 @@ function parseTask(title, body, taskNumber) {
     }
     if (line.startsWith('scenario_image:')) {
       task.scenario.image = line.slice(15).trim();
+      continue;
+    }
+    if (line.startsWith('image:') && !current) {
+      task.image = line.slice(6).trim();
       continue;
     }
     if (line.startsWith('audio:')) {
@@ -61,7 +66,10 @@ function parseTask(title, body, taskNumber) {
       if (play) current.media = media(audio, seconds(play[1]), seconds(play[2]));
     }
   }
-  for (const question of task.questions) if (!question.media) question.media = media(audio);
+  for (const question of task.questions) {
+    if (!question.media) question.media = media(audio);
+    if (!question.image && task.image) question.image = task.image;
+  }
   return task;
 }
 

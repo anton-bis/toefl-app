@@ -18,6 +18,7 @@ import {
 import { copyRuntimeContent } from '../../vite.config.js';
 import { parseReading } from '../../content-core/parsers/reading.js';
 import { parseListening } from '../../content-core/parsers/listening.js';
+import { parseSpeaking } from '../../content-core/parsers/speaking.js';
 import { parseWriting } from '../../content-core/parsers/writing.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
@@ -377,6 +378,35 @@ test('listening parses question-level and task-level images', () => {
   assert.equal(talk.questions[0].image, 'talk.png');
   assert.equal(lcar.image, null);
   assert.equal(lcar.questions[0].image, 'q3.png');
+});
+
+test('speaking parses a task-level image inherited by interview questions', () => {
+  const [repeat, interview] = parseSpeaking(
+    [
+      '# speaking-fixture',
+      '### Listen and Repeat',
+      'scenario_title: Repeat the weather report.',
+      'scenario_image: 0.png',
+      'audio: a.m4a',
+      '1.',
+      'image: 1.png',
+      '>> play: 00:05-00:10',
+      'transcript: Sunny today.',
+      '### Take an Interview',
+      'scenario_title: Cultural festivals interview.',
+      'scenario_image: 8.png',
+      'image: 8.png',
+      'audio: a.m4a',
+      '8.',
+      '>> play: 00:30-00:40',
+      'transcript: First question?'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/speaking/fixture.md' }
+  ).modules[0].tasks;
+  assert.equal(repeat.image, null);
+  assert.equal(repeat.questions[0].image, '1.png');
+  assert.equal(interview.image, '8.png');
+  assert.equal(interview.questions[0].image, '8.png');
 });
 
 test('writing parses build-sentence speaker avatars', () => {
