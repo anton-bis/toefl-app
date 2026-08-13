@@ -16,6 +16,9 @@ import {
   scanQuestionFiles
 } from '../../scripts/generate-question-manifest.js';
 import { copyRuntimeContent } from '../../vite.config.js';
+import { parseReading } from '../../content-core/parsers/reading.js';
+import { parseListening } from '../../content-core/parsers/listening.js';
+import { parseWriting } from '../../content-core/parsers/writing.js';
 
 const root = path.resolve(import.meta.dirname, '../..');
 const compiledContent = generateQuestionContent(root);
@@ -53,10 +56,13 @@ test('shared content builders normalize Markdown and page navigation', () => {
 test('manifest discovery is deterministic and complete', () => {
   const paths = scanQuestionFiles(root);
   assert.ok(paths.length > 0);
-  assert.equal(manifest.entries.length, paths.length);
+  const tpoPaths = paths.filter(path =>
+    /^assets[\\/]questions[\\/](reading|listening|writing|speaking)[\\/]TPO-\d+[\\/]/.test(path)
+  );
+  assert.equal(manifest.entries.length, tpoPaths.length);
   assert.equal(new Set(manifest.entries.map(entry => entry.id)).size, manifest.entries.length);
   assert.deepEqual(
-    buildQuestionManifest([...paths].reverse()).entries,
+    buildQuestionManifest([...tpoPaths].reverse()).entries,
     manifest.entries.map(entry => ({
       id: entry.id,
       tpoId: entry.tpoId,
@@ -316,4 +322,114 @@ test('speaking keeps one scenario before each task question sequence', () => {
       );
     }
   }
+});
+
+test('reading recognizes Announcement as a daily-life subtype', () => {
+  const document = parseReading(
+    [
+      '# reading-fixture',
+      '## Module 1: Reading',
+      '### Task 1 Read in Daily Life – Announcement (Questions 1–2)',
+      'Title: Campus News',
+      'Closed today.',
+      '1. What is this?',
+      'A. A notice',
+      'B. An email',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/reading/fixture.md' }
+  );
+  const task = document.modules[0].tasks[0];
+  assert.equal(task.type, 'announcement');
+  assert.equal(task.id, 'task-1-announcement');
+});
+
+test('listening parses question-level and task-level images', () => {
+  const document = parseListening(
+    [
+      '# listening-fixture',
+      '## Module 1',
+      '### Listen to a Talk – Questions 1-2',
+      'audio: a.m4a',
+      'image: talk.png',
+      '1. What is the talk about?',
+      'A. One',
+      'B. Two',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]',
+      '### Listen and Choose a Response – Questions 3-4',
+      'audio: a.m4a',
+      '3. Prompt',
+      'image: q3.png',
+      'A. One',
+      'B. Two',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/listening/fixture.md' }
+  );
+  const [talk, lcar] = document.modules[0].tasks;
+  assert.equal(talk.image, 'talk.png');
+  assert.equal(talk.questions[0].image, 'talk.png');
+  assert.equal(lcar.image, null);
+  assert.equal(lcar.questions[0].image, 'q3.png');
+});
+
+test('writing parses build-sentence speaker avatars', () => {
+  const document = parseWriting(
+    [
+      '# writing-fixture',
+      '## Build a Sentence',
+      '### Build a Sentence – 1',
+      'Speaker A: Hi.',
+      'Speaker B: ____ ____.',
+      'speaker_a_image: avatar-1.png',
+      'speaker_b_image: avatar-2.png',
+      'Candidates: a / b',
+      '\\[ANSWER\\]',
+      'A b.',
+      '\\[/ANSWER\\]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/writing/fixture.md' }
+  );
+  const question = document.modules[0].tasks[0].questions[0];
+  assert.equal(question.speakerAImage, 'avatar-1.png');
+  assert.equal(question.speakerBImage, 'avatar-2.png');
+});
+
+test('writing parses discussion professor and student avatars', () => {
+  const document = parseWriting(
+    [
+      '# writing-fixture',
+      '## Write for an Academic Discussion',
+      '### Write for an Academic Discussion – 1',
+      'Subject: sociology',
+      'Instructor: Dr. Gupta',
+      'professor_image: avatar-9.png',
+      'Professor: Question?',
+      'student_a_image: avatar-3.png',
+      'Kelly: View A.',
+      'student_b_image: avatar-5.png',
+      'Andrew: View B.',
+      'Requirements:',
+      '- Express your opinion.'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/writing/fixture.md' }
+  );
+  const question = document.modules[0].tasks.find(
+    task => task.type === 'academic-discussion'
+  ).questions[0];
+  assert.equal(question.professorImage, 'avatar-9.png');
+  assert.deepEqual(
+    question.students.map(student => [student.name, student.image]),
+    [
+      ['Kelly', 'avatar-3.png'],
+      ['Andrew', 'avatar-5.png']
+    ]
+  );
+  assert.deepEqual(question.requirements, ['Express your opinion.']);
 });

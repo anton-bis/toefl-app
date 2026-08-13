@@ -11,6 +11,7 @@ import {
   parseDailyPassage,
   parseTextChain
 } from '../../src/vue/exam/sections/reading/helpers.js';
+import AcademicPassage from '../../src/vue/exam/sections/reading/AcademicPassage.vue';
 import {
   listeningResponseSeconds,
   segmentDuration
@@ -220,6 +221,31 @@ describe('ReadingPage', () => {
     await point.findAll('.insertion-marker')[1].trigger('click');
     expect(point.emitted('answer').at(-1)).toEqual([insertQuestion.id, 'B']);
   });
+
+  it('highlights any quoted phrase as the marked vocabulary', async () => {
+    const passage = 'Music shapes emotions. The mechanism behind it is quantum mechanics for now.';
+    const wrapper = mount(AcademicPassage, {
+      props: {
+        document,
+        page: { id: 'q34' },
+        task: {
+          type: 'academic-passage',
+          title: 'Read an Academic Passage – Music',
+          passage,
+          questions: [{ id: 'q34', prompt: 'Why does the author discuss "quantum mechanics"?' }]
+        },
+        question: {
+          id: 'q34',
+          prompt: 'Why does the author discuss "quantum mechanics"?',
+          options: [{ id: 'A', label: 'A', text: 'Option A' }]
+        },
+        answers: {},
+        checked: false,
+        locked: false
+      }
+    });
+    expect(wrapper.find('mark').text()).toBe('quantum mechanics');
+  });
 });
 
 describe('listening section', () => {
@@ -272,6 +298,55 @@ describe('listening section', () => {
     ).toBe(true);
     expect(wrapper.find('.option-item-apple.correct').exists()).toBe(false);
     expect(wrapper.find('.option-item-apple.incorrect').exists()).toBe(false);
+  });
+
+  it('renders a question-level image for listen-response questions', async () => {
+    const imageQuestion = {
+      ...question,
+      id: 'lq-img',
+      type: 'listen-response',
+      prompt: '',
+      transcript: 'How are you?',
+      image: 'q1.png',
+      media: { file: 'audio.mp3', start: 0, end: 4 }
+    };
+    const wrapper = mount(ListeningPage, {
+      props: {
+        document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
+        page: { id: 'lq-img', type: 'question' },
+        task: { type: 'listen-response', title: 'Listen and Choose a Response', questions: [imageQuestion] },
+        question: imageQuestion,
+        answers: {},
+        checked: false,
+        volume: 0.5
+      }
+    });
+    const image = wrapper.find('.listening-visual-image');
+    expect(image.exists()).toBe(true);
+    expect(image.attributes('src')).toContain('listening/TPO-03/q1.png');
+  });
+
+  it('renders a task-level image for conversation stimulus pages', async () => {
+    const wrapper = mount(ListeningPage, {
+      props: {
+        document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
+        page: { id: 'conv-stimulus', type: 'stimulus' },
+        task: {
+          type: 'conversation',
+          title: 'Listen to a Conversation',
+          image: 'scene.png',
+          media: { file: 'a.mp3', start: 0, end: 10 },
+          questions: []
+        },
+        question: null,
+        answers: {},
+        checked: false,
+        volume: 0.5
+      }
+    });
+    expect(wrapper.find('.listening-visual-image').attributes('src')).toContain(
+      'listening/TPO-03/scene.png'
+    );
   });
 
   it('renders a separate stimulus and gives academic questions 30 seconds', async () => {

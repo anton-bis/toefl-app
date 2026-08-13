@@ -6,6 +6,7 @@ export function instructionFor(type) {
       email: 'Read an email',
       'text-chain': 'Read a text chain',
       notice: 'Read a notice',
+      announcement: 'Read an announcement',
       advertisement: 'Read an advertisement',
       'social-media': 'Read a social media post',
       'academic-passage': 'Read an academic passage'

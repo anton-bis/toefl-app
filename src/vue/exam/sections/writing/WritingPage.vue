@@ -1,9 +1,11 @@
 <script setup>
 import { computed } from 'vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import BuildSentence from './BuildSentence.vue';
 import ResponseEditor from './ResponseEditor.vue';
 
 const props = defineProps({
+  document: { type: Object, default: null },
   page: { type: Object, required: true },
   task: { type: Object, default: null },
   question: { type: Object, default: null },
@@ -17,11 +19,18 @@ const answer = computed(() => (props.question ? props.answers[props.question.id]
 function save(value) {
   if (props.question) emit('answer', props.question.id, value);
 }
+const professorImage = computed(() =>
+  resolveQuestionAsset(props.document, props.question?.professorImage)
+);
+function studentImage(student) {
+  return resolveQuestionAsset(props.document, student?.image);
+}
 </script>
 
 <template>
   <BuildSentence
     v-if="question?.type === 'build-sentence'"
+    :document="document"
     :question="question"
     :answer="answer"
     :checked="checked"
@@ -63,7 +72,7 @@ function save(value) {
     class="writing-response discussion exam-content-pane"
   >
     <div
-      class="prompt-card exam-scroll-region"
+      class="discussion-left exam-scroll-region"
       role="region"
       aria-label="Writing prompt"
       tabindex="0"
@@ -72,9 +81,23 @@ function save(value) {
         Your professor is teaching a class on {{ question.subject }}. Write a post responding to the
         professor's questions.
       </p>
-      <strong>{{ question.instructor }}</strong>
-      <p>{{ question.professor }}</p>
-      <em>An effective response will contain at least 100 words.</em>
+      <strong>In your response, you should do the following:</strong>
+      <ul>
+        <li v-for="requirement in question.requirements" :key="requirement">
+          {{ requirement }}
+        </li>
+      </ul>
+      <div class="discussion-professor">
+        <img
+          v-if="professorImage"
+          :src="professorImage"
+          alt="Professor"
+          class="discussion-avatar professor-avatar"
+        />
+        <span v-else class="mini-avatar professor-avatar"><i class="fas fa-user-circle" /></span>
+        <strong>{{ question.instructor }}</strong>
+        <p>{{ question.professor }}</p>
+      </div>
     </div>
     <div class="response-column">
       <div
@@ -83,7 +106,13 @@ function save(value) {
         tabindex="0"
       >
         <div v-for="student in question.students" :key="student.name" class="student">
-          <span class="mini-avatar"><i class="fas fa-user-circle" /></span>
+          <img
+            v-if="studentImage(student)"
+            :src="studentImage(student)"
+            :alt="student.name"
+            class="mini-avatar"
+          />
+          <span v-else class="mini-avatar"><i class="fas fa-user-circle" /></span>
           <p>
             <strong>{{ student.name }}</strong
             ><br />{{ student.text }}
@@ -123,6 +152,33 @@ function save(value) {
   line-height: 1.5;
   overflow: auto;
   box-sizing: border-box;
+}
+.discussion-left {
+  width: 35%;
+  border: 1px solid #d1d1d6;
+  border-radius: 12px;
+  padding: 18px 24px;
+  font-size: 18px;
+  line-height: 1.5;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.discussion-professor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  text-align: center;
+}
+.discussion-professor p {
+  margin: 8px 0 0;
+  text-align: left;
+}
+.professor-avatar {
+  width: 108px;
+  height: 108px;
+  font-size: 48px;
+  margin-bottom: 8px;
 }
 .prompt-card strong {
   display: block;
@@ -165,6 +221,13 @@ function save(value) {
   color: #aaa;
   font-size: 28px;
   flex: none;
+  overflow: hidden;
+}
+.mini-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .writing-intro {
   text-align: center;

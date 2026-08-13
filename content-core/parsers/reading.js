@@ -9,6 +9,7 @@ const TYPES = [
   ['Advertisement', 'advertisement'],
   ['Social Media Post', 'social-media'],
   ['Notice', 'notice'],
+  ['Announcement', 'announcement'],
   ['Email', 'email']
 ];
 

@@ -140,7 +140,7 @@ const contentProps = computed(() => {
     return { ...answerProps, document: document.value, volume: volume.value };
   }
   return normalizedSection.value === 'writing'
-    ? { ...answerProps, readOnly: readOnlyMode.value }
+    ? { ...answerProps, document: document.value, readOnly: readOnlyMode.value }
     : answerProps;
 });
 const contentListeners = computed(() => ({

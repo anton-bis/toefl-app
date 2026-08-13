@@ -32,6 +32,8 @@ function buildSentenceQuestions(body) {
       type: 'build-sentence',
       prompt: value('Speaker B:'),
       speakerA: value('Speaker A:'),
+      speakerAImage: value('speaker_a_image:') || null,
+      speakerBImage: value('speaker_b_image:') || null,
       candidates: value('Candidates:')
         .split('/')
         .map(value => value.trim())
@@ -55,6 +57,7 @@ function metadataQuestion(body, kind) {
   const data = {};
   const requirements = [];
   const students = [];
+  const studentImages = [];
   for (const raw of lines) {
     const line = raw.trim();
     if (!line || line === 'Requirements:') continue;
@@ -65,10 +68,21 @@ function metadataQuestion(body, kind) {
     const match = line.match(/^([A-Za-z_ ]+):\s*(.*)$/);
     if (!match) continue;
     const key = match[1].toLowerCase();
-    if (!['identity', 'to', 'subject', 'instructor', 'professor', 'hint'].includes(key)) {
-      students.push({ name: match[1], text: match[2] });
-    } else data[key] = match[2];
+    if (key === 'student_a_image' || key === 'student_b_image') {
+      studentImages.push(match[2].trim());
+      continue;
+    }
+    if (key === 'professor_image') {
+      data.professorImage = match[2].trim();
+      continue;
+    }
+    if (['identity', 'to', 'subject', 'instructor', 'professor', 'hint'].includes(key)) {
+      data[key] = match[2];
+    } else students.push({ name: match[1], text: match[2] });
   }
+  students.forEach((student, index) => {
+    if (studentImages[index]) student.image = studentImages[index];
+  });
   const number = Number(questionMatch[1]);
   const type = kind === 'Write an Email' ? 'write-email' : 'academic-discussion';
   return [

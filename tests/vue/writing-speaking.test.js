@@ -149,17 +149,70 @@ describe('writing components', () => {
         answers: {}
       }
     });
-    expect(wrapper.find('.prompt-card').attributes()).toMatchObject({
+    expect(wrapper.find('.discussion-left').attributes()).toMatchObject({
       'aria-label': 'Writing prompt',
       role: 'region',
       tabindex: '0'
     });
-    expect(wrapper.find('.prompt-card').classes()).toContain('exam-scroll-region');
+    expect(wrapper.find('.discussion-left').classes()).toContain('exam-scroll-region');
     expect(wrapper.find('.discussion-context').attributes()).toMatchObject({
       'aria-label': 'Student responses',
       tabindex: '0'
     });
     expect(wrapper.find('.discussion-context').classes()).toContain('exam-scroll-region');
+  });
+
+  it('renders speaker avatars for build-sentence questions', async () => {
+    const avatarQuestion = {
+      ...sentenceQuestion,
+      id: 'writing-build-q-avatar',
+      speakerAImage: 'avatar-1.png',
+      speakerBImage: 'avatar-2.png'
+    };
+    const wrapper = mount(BuildSentence, {
+      props: {
+        question: avatarQuestion,
+        document: { sourcePath: 'assets/questions/writing/TPO-03/writing-TPO-03.md' },
+        answer: null,
+        checked: false
+      }
+    });
+    const avatars = wrapper.findAll('.avatar img');
+    expect(avatars).toHaveLength(2);
+    expect(avatars[0].attributes('src')).toContain('writing/TPO-03/avatar-1.png');
+    expect(avatars[1].attributes('src')).toContain('writing/TPO-03/avatar-2.png');
+  });
+
+  it('renders professor and student avatars for academic discussions', async () => {
+    const wrapper = mount(WritingPage, {
+      props: {
+        document: { sourcePath: 'assets/questions/writing/TPO-03/writing-TPO-03.md' },
+        page: { id: 'discussion-q2', type: 'question' },
+        task: { type: 'academic-discussion' },
+        question: {
+          id: 'discussion-q2',
+          type: 'academic-discussion',
+          subject: 'city planning',
+          instructor: 'Dr. Smith',
+          professor: 'Explain your position.',
+          professorImage: 'professor.png',
+          students: [
+            { name: 'Kelly', text: 'Transit is good.', image: 'kelly.png' },
+            { name: 'Andrew', text: 'Roads matter.', image: 'andrew.png' }
+          ]
+        },
+        answers: {}
+      }
+    });
+    const professor = wrapper.find('.discussion-professor img');
+    expect(professor.exists()).toBe(true);
+    expect(professor.attributes('src')).toContain('writing/TPO-03/professor.png');
+    const studentImages = wrapper.findAll('.discussion-context .student img.mini-avatar');
+    expect(studentImages).toHaveLength(2);
+    expect(studentImages[0].attributes('src')).toContain('writing/TPO-03/kelly.png');
+    expect(studentImages[1].attributes('src')).toContain('writing/TPO-03/andrew.png');
+    expect(wrapper.find('.discussion-left').text()).toContain('In your response, you should do the following:');
+    expect(wrapper.find('.discussion-left').text()).toContain('city planning');
   });
 });
 

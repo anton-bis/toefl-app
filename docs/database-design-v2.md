@@ -513,6 +513,11 @@ tpo-01-speaking
 
 由 compiled document 自动导入，不手工维护正文。
 
+> 内容中引用的图片 / 头像（`question.image`、`task.image`、`speakerAImage`、
+> `speakerBImage`、`professorImage`、`student.image` 等）随 compiled metadata 与
+> `metadata_json` 一并登记；资源文件由 `collectDocumentAssets` 收集进内容包，
+> 不额外建表。
+
 用于支持：
 
 - 题型筛选；

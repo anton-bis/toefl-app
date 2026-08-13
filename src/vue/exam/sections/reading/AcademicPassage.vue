@@ -24,9 +24,12 @@ const paragraphs = computed(() =>
 const pointParagraph = computed(() =>
   Number(props.question.prompt.match(/paragraph\s+(\d+)/i)?.[1] || 0)
 );
-const vocab = computed(
-  () => props.question.prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || ''
-);
+const vocab = computed(() => {
+  const prompt = props.question.prompt || '';
+  const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
+  if (direct) return direct;
+  return prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+});
 const isChecked = computed(() => checkedQuestion(props.checked, props.question.id));
 const isLocked = computed(() => checkedQuestion(props.locked, props.question.id));
 const isReadOnly = computed(() => isChecked.value || isLocked.value);

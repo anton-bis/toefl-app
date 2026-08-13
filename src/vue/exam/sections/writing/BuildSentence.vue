@@ -1,14 +1,19 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import { sentenceParts, solveAnswerOrder } from './writingLogic.js';
 
 const props = defineProps({
   question: { type: Object, required: true },
+  document: { type: Object, default: null },
   answer: { type: [Object, Array, String], default: null },
   checked: { type: [Boolean, Object], default: false },
   locked: { type: [Boolean, Object], default: false }
 });
 const emit = defineEmits(['answer']);
+
+const avatarA = computed(() => resolveQuestionAsset(props.document, props.question?.speakerAImage));
+const avatarB = computed(() => resolveQuestionAsset(props.document, props.question?.speakerBImage));
 
 const parts = computed(() => sentenceParts(props.question.prompt));
 const blankCount = computed(() => parts.value.filter(part => part.type === 'blank').length);
@@ -115,13 +120,15 @@ function slotText(index) {
     <h2>Make an appropriate sentence</h2>
     <div class="dialogue-row">
       <div class="avatar">
-        <i class="fas fa-user-circle" />
+        <img v-if="avatarA" :src="avatarA" alt="Speaker A" />
+        <i v-else class="fas fa-user-circle" />
       </div>
       <p>{{ question.speakerA }}</p>
     </div>
     <div class="dialogue-row">
       <div class="avatar">
-        <i class="fas fa-user-circle" />
+        <img v-if="avatarB" :src="avatarB" alt="Speaker B" />
+        <i v-else class="fas fa-user-circle" />
       </div>
       <div class="sentence-line">
         <template v-for="(part, index) in parts" :key="index">
@@ -196,6 +203,13 @@ function slotText(index) {
   color: #aaa;
   font-size: 48px;
   flex: none;
+  overflow: hidden;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .sentence-line {
   display: flex;

@@ -25,6 +25,7 @@ function parseTask(title, body, moduleId, taskNumber) {
   let audio = '';
   let taskStart = null;
   let taskEnd = null;
+  let taskImage = null;
   let current = null;
   const answers = [];
   let inAnswers = false;
@@ -49,6 +50,11 @@ function parseTask(title, body, moduleId, taskNumber) {
     }
     if (line.startsWith('audio:')) {
       audio = line.slice(6).trim();
+      continue;
+    }
+    if (line.startsWith('image:')) {
+      if (current) current.image = line.slice(6).trim();
+      else taskImage = line.slice(6).trim();
       continue;
     }
 
@@ -88,6 +94,7 @@ function parseTask(title, body, moduleId, taskNumber) {
   questions.forEach((question, index) => {
     question.options = optionsFrom(question.options);
     question.answer = answers[index] || null;
+    if (!question.image && taskImage) question.image = taskImage;
     if (!question.media) question.media = media(audio, taskStart, taskEnd);
   });
   const range = title.match(/Questions?\s+(\d+)[–-](\d+)/i);
@@ -101,6 +108,7 @@ function parseTask(title, body, moduleId, taskNumber) {
       : questions.length
         ? [questions[0].number, questions.at(-1).number]
         : null,
+    image: taskImage,
     transcript: transcript.join('\n'),
     media: media(audio, taskStart, taskEnd),
     questions

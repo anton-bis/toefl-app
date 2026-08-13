@@ -43,6 +43,11 @@
 | writing | write-email | 写邮件 |
 | writing | academic-discussion | 学术讨论 |
 
+> **Parser 内部子类型（不进 DB type 维度，仅用于解析与渲染区分）**：
+> reading 的 `read-in-daily-life` 下含 email / notice / announcement / advertisement / text-chain /
+> social-media 等子类型。标题里出现 "Announcement" 会解析为 `announcement`（渲染为通知公告卡片，
+> 指令文案 "Read an announcement"）；出现 "Notice" 解析为 `notice`。DB 层不做新增题型。
+
 ## 4. 打标规则（title / subtitle / topic 怎么填）
 
 | 题型 | title | subtitle | topic |
@@ -71,6 +76,24 @@
 - 话题标签最终会进入 topics 表（按 namespace 分类：
   subject 生物/地理/历史/艺术；scene 校园生活/工作/服务；
   letter_type 投诉/沟通/通知/赞扬；skill 发音/组织/语法/词汇）。
+
+### 5.1 图片与头像字段约定
+
+题目中可引用图片 / 头像文件，文件名需与 Markdown 同目录存放，编译时由
+`collectDocumentAssets` 自动收集进内容包（`.png/.jpg/.jpeg/.gif/.webp` 等）。
+
+| 字段（Markdown） | 作用范围 | 编译后字段 | 说明 |
+|---|---|---|---|
+| `image: xxx.png` | listening 题目 / task 级 | `question.image` / `task.image` | 题目行之后出现 → 该题图片；题目区之前出现 → 整段共用场景图 |
+| `scenario_image:` | speaking 场景 | `task.scenario.image` | speaking 场景图（已有） |
+| `speaker_a_image:` / `speaker_b_image:` | writing build-sentence | `question.speakerAImage` / `speakerBImage` | 造句两位发言人头像，无图时渲染图标兜底 |
+| `professor_image:` | writing academic-discussion | `question.professorImage` | 教授头像，居中于左侧发言区 |
+| `student_a_image:` / `student_b_image:` | writing academic-discussion | `students[0].image` / `students[1].image` | 按出现顺序绑定到对应学生发言 |
+| `image:`（speaking 每题） | speaking 题目 | `question.image` | speaking 每题图片（已有） |
+
+命名约定：Markdown 用 snake_case（`speaker_a_image`），编译产物用 camelCase（`speakerAImage`）。
+write-email 不使用头像。
+
 
 ## 6. 日常工作流程
 

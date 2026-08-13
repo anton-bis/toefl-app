@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import AudioSegment from './AudioSegment.vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 
@@ -20,6 +21,9 @@ const isStimulus = computed(
     (!props.question && props.task.type !== 'listen-response')
 );
 const media = computed(() => props.question?.media || props.task.media);
+const imageUrl = computed(() =>
+  resolveQuestionAsset(props.document, props.question?.image || props.task?.image || props.page?.scenario?.image)
+);
 const title = computed(() =>
   props.task.title.replace(/\s*[–-]\s*Questions?\s+\d+[–-]\d+.*$/i, '').trim()
 );
@@ -38,7 +42,8 @@ const title = computed(() =>
       </div>
       <div class="listening-surface listening-stimulus-card">
         <div class="speaker-area">
-          <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
+          <img v-if="imageUrl" :src="imageUrl" alt="Stimulus Image" class="listening-visual-image" />
+          <div v-else class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
           <div class="speaker-label">Speaker</div>
         </div>
         <AudioSegment
@@ -55,7 +60,8 @@ const title = computed(() =>
       class="listen-response-layout two-column-layout"
     >
       <div class="left-column listening-visual-panel">
-        <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
+        <img v-if="imageUrl" :src="imageUrl" alt="Question Visual" class="listening-visual-image" />
+        <div v-else class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
         <AudioSegment
           :document="document"
@@ -83,7 +89,8 @@ const title = computed(() =>
 
     <section v-else class="listening-question-layout two-column-layout">
       <div class="left-column listening-visual-panel">
-        <div class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
+        <img v-if="imageUrl" :src="imageUrl" alt="Question Visual" class="listening-visual-image" />
+        <div v-else class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
         <div class="speaker-label">Speaker</div>
       </div>
       <div
