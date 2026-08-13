@@ -33,7 +33,7 @@ transcript: We offer group tours of gallery highlights at no extra charge.
 6.
 image: 6.png
 >> play: 02:32-02:39
-transcript: The sculpture hall is currently under renovation.
+transcript: Unfortunately, the sculpture hall is currently under renovation.
 
 7.
 image: 7.png
