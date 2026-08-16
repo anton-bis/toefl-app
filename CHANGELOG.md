@@ -2,6 +2,32 @@
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-08-16
+
+### Highlights
+
+- Added the 2026-01-27 real-exam question bank with AI-narrated per-question audio.
+- Split the home catalog into Practice Tests and Official Tests panels.
+- Restored missing listening/speaking audio for TPO-05/06/07.
+
+### Added
+
+- Official real-exam questions (TPO 01-27) with per-question AI audio (Edge TTS).
+- Official Tests catalog panel; date-based exam folders are indexed alongside TPO folders.
+- docs/question-submission-workflow.md and avatar-library conventions.
+
+### Changed
+
+- Speaking/listening parsers support per-question audio (whole-file + timestamps, or per-question files).
+- Academic-discussion layout: professor avatar and student avatars rendered as images.
+- Reading fixes: announcement passage no longer truncated by numbered lists; title metadata; paragraph-scoped phrase highlighting; complete-words blank counts follow answers.
+- Results page navigation for grouped complete-words questions.
+
+### Fixed
+
+- Speaking exit/restart: recordingRepository.removeAttempt replaces the missing removeSession call.
+- Listening and speaking section media referenced by markdown is now restored and packaged.
+
 ## [1.5.2] - 2026-07-27
 
 ### Fixed
