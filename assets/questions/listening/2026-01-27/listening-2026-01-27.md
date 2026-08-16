@@ -4,11 +4,10 @@
 
 ### Listen and Choose a Response – Questions 1-12
 
-audio: 2026-01-27-listening.m4a
 
 1. Where can I find the study materials?
 image: 1.png
->> play: 00:12-00:15
+audio: listening-q1.m4a
 A. It was yesterday.
 B. Yes, please do that.
 C. I don't have a preference.
@@ -16,7 +15,7 @@ D. They're right here.
 
 2. When does the show start?
 image: 2.png
->> play: 00:29-00:32
+audio: listening-q2.m4a
 A. In about an hour.
 B. The orchestra.
 C. At the campus theater.
@@ -24,7 +23,7 @@ D. It's free for students.
 
 3. Where should we go for our team outing?
 image: 3.png
->> play: 00:41-00:44
+audio: listening-q3.m4a
 A. Let's all wear team shirts.
 B. The outing will take place next weekend.
 C. Should we vote on options?
@@ -32,7 +31,7 @@ D. It's for the team's anniversary.
 
 4. Where do I submit the application form?
 image: 4.png
->> play: 01:01-01:05
+audio: listening-q4.m4a
 A. It takes over an hour to complete.
 B. I already filled it out.
 C. Tomorrow morning is the deadline.
@@ -40,7 +39,7 @@ D. Through the hiring website.
 
 5. Who's the guest speaker?
 image: 5.png
->> play: 01:15 -01:18
+audio: listening-q5.m4a
 A. A friend of the professor.
 B. It will be live streamed.
 C. The speaker was difficult to follow.
@@ -48,7 +47,7 @@ D. A lecture about climate change.
 
 6. Where should we eat for lunch?
 image: 6.png
->> play: 01:30-01:34
+audio: listening-q6.m4a
 A. Thanks, it was delicious.
 B. At 8 p.m.
 C. The cafeteria.
@@ -56,7 +55,7 @@ D. Sure, that works.
 
 7. Who do you want to nominate for class president?
 image: 7.png
->> play: 01:55-01:58
+audio: listening-q7.m4a
 A. My choice is Sarah.
 B. She asked me to join the team.
 C. The election is in three weeks.
@@ -64,7 +63,7 @@ D. I don't know her.
 
 8. Who can make copies of her class notes?
 image: 8.png
->> play: 01:59-02:12
+audio: listening-q8.m4a
 A. Yes, I made copies of the spreadsheet.
 B. Tom may be able to.
 C. The printer is for teachers only.
@@ -72,7 +71,7 @@ D. In three hours.
 
 9. Who will be speaking at graduation tomorrow?
 image: 9.png
->> play: 02:26-02:29
+audio: listening-q9.m4a
 A. I believe it's Dr. Thomas.
 B. Dr. Yoshida is on the phone.
 C. It was informative.
@@ -80,7 +79,7 @@ D. We can go today.
 
 10. What happened at the graduate student conference?
 image: 10.png
->> play: 02:41-02:44
+audio: listening-q10.m4a
 A. I didn't expect that.
 B. Some attendees didn't get along.
 C. No, it didn't start on time.
@@ -88,7 +87,7 @@ D. Yes, that's what happened.
 
 11. How long have you been on the tennis team?
 image: 11.png
->> play: 02:47-03:00
+audio: listening-q11.m4a
 A. It's good exercise.
 B. Since my freshman year.
 C. Tennis rackets are expensive.
@@ -96,7 +95,7 @@ D. About once a week.
 
 12. Is the creative writing workshop starting soon?
 image: 12.png
->> play: 03:13-03:16
+audio: listening-q12.m4a
 A. My advisor is one of the instructors.
 B. Yes, the workload is heavy.
 C. I'll finish writing this tomorrow.
@@ -121,9 +120,8 @@ C
 
 ### Listen to a Conversation – Questions 13-14
 
-audio: 2026-01-27-listening.m4a
+audio: listening-conv2.m4a
 image: 13.png
->> play: 03:37-04:07
 Woman: Are you going to the outdoor concert this Saturday?
 Man: Is it still happening with all the rain in the forecast?
 Woman: They said it's on, rain or shine. Plus, we might get a dry window in the evening.
@@ -149,9 +147,8 @@ A
 
 ### Listen to a Conversation – Questions 15-16
 
-audio: 2026-01-27-listening.m4a
+audio: listening-conv3.m4a
 image: 14.png
->> play: 04:33-05:07
 
 Woman: I'm looking for a good restaurant to celebrate finishing my thesis. Do you have any recommendations?
 Man: How about that new French restaurant downtown? I went last week and I had a chicken dish that was delicious.
@@ -178,9 +175,8 @@ C
 
 ### Listen to a Conversation – Questions 17-18
 
-audio: 2026-01-27-listening.m4a
+audio: listening-conv4.m4a
 image: 15.png
->> play: 05:26-05:55
 
 Man: I've been having trouble concentrating when I study. Do you have any advice?
 Woman: Have you tried taking short breaks throughout the day? That can help refresh your mind.
@@ -207,9 +203,8 @@ A
 
 ### Listen to an Announcement at a university gym – Questions 19-20
 
-audio: 2026-01-27-listening.m4a
+audio: listening-ann5.m4a
 image: 16.png
->> play: 06:15-06:47
 Man: The fitness center will be closing in two minutes. Please wrap up your workouts. Remember to return all dumbbells, bars, and other items to their proper places. As a reminder, we'll be closed for our cleanup day tomorrow. But we hope to see you again when we reopen on Saturday morning, the day after tomorrow. Have a good night and a safe trip home.
 
 19. What are visitors asked to do?
@@ -231,9 +226,8 @@ A
 
 ### Listen to an Announcement on a university radio station – Questions 21-22
 
-audio: 2026-01-27-listening.m4a
+audio: listening-ann6.m4a
 image: 17.png
->> play: 07:14-08:00
 Man: Are you someone who loves writing research papers? Do you find yourself often reading something and thinking this could use some work? Become a peer writing mentor. An information session will be held next Tuesday at 7 p.m. in the campus center. Year after year, graduating students say the writing mentor program was the biggest factor in their academic success. This is a great opportunity to meet new people, make a positive impact, and gain valuable experience. See you on Tuesday.
 
 21. What is the main purpose of the announcement?
@@ -257,9 +251,8 @@ C
 
 ### Listen to an Announcement in a classroom – Questions 23-24
 
-audio: 2026-01-27-listening.m4a
+audio: listening-ann7.m4a
 image: 18.png
->> play: 08:22-08:58
 Man: Attention students, I want to explain the new campus recycling policy that will begin next Monday. Recycling bins for paper, plastic, and metal will be placed in all academic buildings and residence halls. Items must be sorted correctly to avoid contamination. This policy is part of our effort to reduce waste and support environmental sustainability. We hope all of you will do your best to support a more sustainable campus. If you have questions, please contact the campus sustainability office.
 
 23. Why has a new campus policy been put into place?
@@ -281,9 +274,8 @@ C
 
 ### Listen to a Talk in a psychology class – Questions 25-28
 
-audio: 2026-01-27-listening.m4a
+audio: listening-talk8.m4a
 image: 19.png
->> play: 09:25-10:55
 Professor: Positive reinforcement is a powerful concept in psychology and behavior training. It means giving a reward after someone performs an action you want them to do again. The basic idea is that when a behavior leads to a positive outcome, it's more likely to be repeated. In other words, we tend to repeat actions that bring us something positive. This principle applies to both humans and animals, but the way it works can differ. Animals need to receive rewards immediately after the desired behavior. For example, if a dog sits and gets a treat right away, it learns that sitting leads to something good. If the reward comes too late, the connection is lost. Humans, however, can understand delayed rewards. They might work hard today because they're aiming for a future goal, like earning a degree, or they might feel motivated by praise, even if the reward isn't tangible or instant. But rewards must be used carefully. If a parent gives a child candy to stop whining, the child may learn that whining gets rewarded. It's like watering weeds instead of flowers. You're encouraging the wrong behavior. And if rewards are given too frequently, they can reduce a person's internal motivation, making them rely more on external incentives to take action. So while positive reinforcement is effective, it works best when applied thoughtfully and with clear intent.
 
 25. What is the main topic of the talk?
@@ -317,9 +309,8 @@ B
 
 ### Listen to a Talk in an economics class – Questions 29-32
 
-audio: 2026-01-27-listening.m4a
+audio: listening-talk9.m4a
 image: 20.png
->> play: 11:54-13:19
 Professor: Imagine that you have a full-time job, but you want to take a year off to go back to school. What is it going to cost you? Of course, there's the cost of tuition for your classes plus living expenses, but what about the money you're no longer earning at your job because you're now a student? We call that the opportunity cost. Opportunity cost refers to the value of the next best alternative that must be given up when making a choice. It's a fundamental principle in economics that helps individuals and businesses understand the true cost of their decisions. My exercise in imagination illustrates a personal decision, but businesses also face opportunity costs in their operations. For instance, a company may choose to invest in new equipment rather than spend money to expand its product line. The opportunity cost of this decision is the potential revenue that could have been generated from the new products. Understanding opportunity cost helps individuals as well as businesses make informed decisions that maximize their benefits and minimize their losses. It's important to note that opportunity cost is not always measured in financial terms. It can also be related to factors like time, convenience, or personal satisfaction. For that reason, opportunity cost can be difficult to quantify, especially when dealing with non-monetary factors. Have you ever had to make a decision that included an opportunity cost? Take a few minutes now to think, and then I'll ask for volunteers to share.
 
 29. Why does the speaker ask listeners to imagine a situation at the start of the talk?
@@ -355,11 +346,10 @@ B
 
 ### Listen and Choose a Response – Questions 1-3
 
-audio: 2026-01-27-listening.m4a
 
 1. How far is the beach from campus?
 image: 21.png
->> play: 15:12-15:16
+audio: listening-m2q1.m4a
 A. The beach is crowded.
 B. It's a short drive away.
 C. I love swimming in the ocean.
@@ -367,7 +357,7 @@ D. I spent the day there yesterday.
 
 2. Will you be at today's student volunteer meeting?
 image: 22.png
->> play: 15:27-15:31
+audio: listening-m2q2.m4a
 A. Will it rain on those days?
 B. I'm eating too.
 C. Yes, yesterday.
@@ -375,7 +365,7 @@ D. Are you sure?
 
 3. Is the library open today?
 image: 23.png
->> play: 15:41-15:45
+audio: listening-m2q3.m4a
 A. This is the main entrance.
 B. The hours are posted on their website.
 C. I should go home to study for an exam.
@@ -391,9 +381,8 @@ B
 
 ### Listen to a Conversation – Questions 4-5
 
-audio: 2026-01-27-listening.m4a
+audio: listening-conv10.m4a
 image: 24.png
->> play: 15:58-16:35
 Woman: My printer isn't working, and I have to print this report now.
 Man: What's the rush?
 Woman: I have class at three o'clock.
@@ -421,9 +410,8 @@ C
 
 ### Listen to a Conversation – Questions 6-7
 
-audio: 2026-01-27-listening.m4a
+audio: listening-conv11.m4a
 image: 25.png
->> play: 16:57-17:26
 Woman: Did you print a copy of your resume for the interview tomorrow?
 Man: I didn't need to. I submitted it online. That was what they requested.
 Woman: Okay, I had to bring several copies of mine when I applied for that internship, and I met with several people for the interview.
@@ -451,9 +439,8 @@ A
 
 ### Listen to a Talk in a history class – Questions 8-11
 
-audio: 2026-01-27-listening.m4a
+audio: listening-talk12.m4a
 image: 26.png
->> play: 17:49-19:36
 Professor: The Renaissance was a pivotal period in European history, spanning roughly the 14th to the 17th centuries. The Renaissance is characterized by a renewed interest in art, science, and literature. It marked a significant departure from the Middle Ages and laid the groundwork for the modern era. One of the defining features of the Renaissance was the revival of classical learning. Scholars and artists looked back to the texts and artistic achievements of ancient Greece and Rome for inspiration. This led to a flourishing of ideas and creativity, evident in the works of figures like Leonardo da Vinci, Michelangelo, and Galileo Galilei. The invention of the printing press by Johannes Gutenberg around 1440 was a crucial development during this time. It allowed for the mass production of books, making literature and scholarly works more accessible to a broader audience. This contributed to increased literacy and the spread of Renaissance ideas. The Renaissance also saw major advancements in science, particularly in astronomy. Nicolaus Copernicus proposed a heliocentric model of the solar system, placing the sun, not the earth, at the center. Galileo Galilei later used a telescope to observe celestial bodies, providing evidence that supported Copernicus's theory. These discoveries challenged long-held beliefs and laid the foundation for modern astronomy. Despite political instability in some regions, the Renaissance left a lasting legacy on European society. Its influence can still be seen today in art, science, and education.
 
 8. What is the talk mainly about?
@@ -487,9 +474,8 @@ C
 
 ### Listen to a Talk in a geography class – Questions 12-15
 
-audio: 2026-01-27-listening.m4a
+audio: listening-talk13.m4a
 image: 27.png
->> play: 21:00-22:49
 Professor: Urbanization is frequently associated with negative outcomes, pollution, overcrowding, and especially traffic congestion. In many cities, poor planning has led to increased noise and emissions, as well as reduced quality of life. However, urbanization doesn't have to be this way if approached thoughtfully. An alternative to traffic jams and congested city streets is to foster sustainable transportation. Copenhagen and Denmark, for instance, has made bicycles a central part of its urban design. The city's extensive network of protected bike lanes and pro-cycling policies have encouraged residents to choose bicycles over cars. In addition to lowering automobile emissions, this shift has also improved public health and reduced traffic-related stress. Also, when kept in control and planned properly, urbanization, in this case compact urban living, minimizes land use and energy consumption compared to sprawling suburban development. Suburban neighborhoods require large plots of land for individual homes, roads, and parking. When housing, services, and infrastructure are concentrated, this can actually preserve surrounding natural areas and agricultural lands. So, even though this may seem strange, urban growth is actually more compatible with environmental conservation. Urbanization, also by necessity, has led to some innovative thinking, especially concerning the efficient use of land and space. Many cities are incorporating such innovation in food production by creating rooftop farms and using vertical agriculture, which grows crops in stacked vertical layers. In particular, Singapore has invested in high-tech urban farming systems that grow vegetables in controlled environments, helping increase local food supply and reduce dependence on imports.
 
 12. What is the talk mainly about?
