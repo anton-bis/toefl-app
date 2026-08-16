@@ -94,6 +94,18 @@
 命名约定：Markdown 用 snake_case（`speaker_a_image`），编译产物用 camelCase（`speakerAImage`）。
 write-email 不使用头像。
 
+#### Writing 头像库
+
+Writing 头像统一存放于 `assets/questions/writing/avatars/`（详见该目录 README.md），
+按题型区分两套：
+
+- **Build Sentence（白底）**：`avatar-bs-1.png` … `avatar-bs-16.png`
+- **Academic Discussion（场景底）**：`avatar-d-1.png` … `avatar-d-7.png`
+
+头像与引用它的 Markdown 同级目录存放（收集管线按 `sourceDirectory + 文件名` 解析，
+路径不允许 `..`，故不用子目录；统一 400×400 透明底 PNG）。
+分配规则：各题型从对应子集随机抽取、同一题内不重复、不同题可复用、无图时图标兜底。
+
 
 ## 6. 日常工作流程
 
@@ -101,6 +113,15 @@ write-email 不使用头像。
 2. 完成后来一段"导入指令"，AI 会：读 Markdown → 编译校验 → 生成不可变版本
    → 自动打标 title/subtitle/topic → 写入索引。
 3. 打标结果可人工复核（AI 标注会带 source=ai + confidence）。
+
+### 6.1 真真题（日期文件夹）索引
+
+- 真真题（非 ETS 官方 TPO 样题）以日期文件夹命名：`assets/questions/<section>/2026-01-27/`。
+- `content-core/manifest.js` 同时支持 `TPO-\d+` 与 `YYYY-MM-DD` 两类文件夹，
+  `tpoId` 对日期文件夹取文件夹名（如 `2026-01-27`）。
+- 文件名需与文件夹一致：`<section>-2026-01-27.md`。
+- 排序：TPO 数字在前，日期文件夹按字符串序在后（localeCompare）。
+- 标题 warning 校验只针对 TPO 数字文件夹，日期文件夹跳过。
 
 ## 7. 参考文件
 

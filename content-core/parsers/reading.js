@@ -17,6 +17,31 @@ function questionType(title) {
   return TYPES.find(([needle]) => title.includes(needle))?.[1] || 'reading-passage';
 }
 
+/**
+ * Find the character index where real questions begin.
+ * A numbered line only counts as a question when it is followed by an
+ * option block starting with "A."; this avoids mistaking numbered lists in
+ * passage bodies (e.g. "1. Book Returns: ...") for questions.
+ */
+function findQuestionStart(content) {
+  const lines = content.split('\n');
+  let index = 0;
+  for (let lineIndex = 0; lineIndex < lines.length; lineIndex += 1) {
+    const line = lines[lineIndex];
+    if (!/^\d+\.\s/.test(line)) {
+      index += line.length + 1;
+      continue;
+    }
+    for (let lookahead = lineIndex + 1; lookahead < lines.length; lookahead += 1) {
+      const candidate = lines[lookahead].trim();
+      if (/^[A-E]\.\s/.test(candidate)) return index;
+      if (/^\d+\.\s/.test(candidate) || !candidate) break;
+    }
+    index += line.length + 1;
+  }
+  return -1;
+}
+
 function parseChoiceQuestions(text, moduleId, taskId, type) {
   const questions = [];
   const regex = /(?:^|\n)(\d+)\.\s*([\s\S]*?)(?=\n\d+\.\s*|$)/g;
@@ -91,7 +116,7 @@ export function parseReading(markdown, options = {}) {
         .trim()
         .replace(/^---\s*$/gm, '')
         .trim();
-      const firstQuestion = content.search(/^\d+\.\s*/m);
+      const firstQuestion = findQuestionStart(content);
       const passage =
         firstQuestion < 0
           ? content.replace(/\\?\[ANSWER\\?\][\s\S]*$/, '').trim()

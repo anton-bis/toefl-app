@@ -31,8 +31,13 @@ function parseTask(title, body, taskNumber) {
       continue;
     }
     if (line.startsWith('audio:')) {
-      audio = line.slice(6).trim();
-      task.media = media(audio);
+      const file = line.slice(6).trim();
+      if (current) {
+        current.media = media(file);
+      } else {
+        audio = file;
+        task.media = media(file);
+      }
       continue;
     }
     const q = line.match(/^(\d+)\.?\s*$/);

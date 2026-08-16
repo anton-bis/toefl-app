@@ -21,7 +21,7 @@ const questions = computed(() => examQuestions(props.document));
 const moduleGroups = computed(() =>
   (props.document.modules || []).map(module => ({
     ...module,
-    questions: module.tasks.flatMap(task => task.questions)
+    questions: questions.value.filter(question => question.moduleId === module.id)
   }))
 );
 const helpOpen = ref(false);

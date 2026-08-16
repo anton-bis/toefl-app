@@ -408,7 +408,7 @@ function saveAndExit() {
 
 async function clearAndExit() {
   if (normalizedSection.value === 'speaking' && document.value?.id) {
-    await recordingRepository.removeSession(document.value.id).catch(() => {});
+    await recordingRepository.removeAttempt(document.value.id).catch(() => {});
   }
   exam.remove(props.tpoId, normalizedSection.value);
   exitOpen.value = false;
@@ -417,7 +417,7 @@ async function clearAndExit() {
 
 async function restart() {
   if (normalizedSection.value === 'speaking' && document.value?.id) {
-    await recordingRepository.removeSession(document.value.id).catch(() => {});
+    await recordingRepository.removeAttempt(document.value.id).catch(() => {});
   }
   exam.reset(props.tpoId, normalizedSection.value, { pageId: 'start' });
   router.push({

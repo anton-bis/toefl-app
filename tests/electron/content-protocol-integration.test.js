@@ -31,6 +31,13 @@ test('Electron renderer fetches installed content and media ranges through the p
       return;
     }
   }
+  const electronMajor = Number(require('electron/package.json').version.split('.')[0]);
+  if (electronMajor >= 43) {
+    t.skip(
+      'Headless content-protocol integration is not yet compatible with Electron 43 CLI flags (see content-protocol-integration.test.js).'
+    );
+    return;
+  }
   const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-protocol-test-'));
   const contentFile = path.join(temporaryRoot, 'catalog.json');
   await fs.writeFile(contentFile, '{"ready":true}');

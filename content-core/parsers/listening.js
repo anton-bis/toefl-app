@@ -49,7 +49,12 @@ function parseTask(title, body, moduleId, taskNumber) {
       continue;
     }
     if (line.startsWith('audio:')) {
-      audio = line.slice(6).trim();
+      const file = line.slice(6).trim();
+      if (current) {
+        current.media = media(file);
+      } else {
+        audio = file;
+      }
       continue;
     }
     if (line.startsWith('image:')) {

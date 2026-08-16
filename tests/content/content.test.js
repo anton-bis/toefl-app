@@ -58,7 +58,7 @@ test('manifest discovery is deterministic and complete', () => {
   const paths = scanQuestionFiles(root);
   assert.ok(paths.length > 0);
   const tpoPaths = paths.filter(path =>
-    /^assets[\\/]questions[\\/](reading|listening|writing|speaking)[\\/]TPO-\d+[\\/]/.test(path)
+    /^assets[\\/]questions[\\/](reading|listening|writing|speaking)[\\/](TPO-\d+|\d{4}-\d{2}-\d{2})[\\/]/.test(path)
   );
   assert.equal(manifest.entries.length, tpoPaths.length);
   assert.equal(new Set(manifest.entries.map(entry => entry.id)).size, manifest.entries.length);
@@ -73,6 +73,23 @@ test('manifest discovery is deterministic and complete', () => {
     }))
   );
   assert.ok(manifest.tpos.every(tpo => Object.keys(tpo.sections).length > 0));
+});
+
+test('date-folder question documents are indexed alongside TPO documents', () => {
+  const dateEntries = manifest.entries.filter(entry => entry.tpoId === '2026-01-27');
+  assert.deepEqual(
+    dateEntries.map(entry => `${entry.section}:${entry.sourcePath}`).sort(),
+    [
+      'listening:assets/questions/listening/2026-01-27/listening-2026-01-27.md',
+      'reading:assets/questions/reading/2026-01-27/reading-2026-01-27.md',
+      'speaking:assets/questions/speaking/2026-01-27/speaking-2026-01-27.md',
+      'writing:assets/questions/writing/2026-01-27/writing-2026-01-27.md'
+    ]
+  );
+  for (const entry of dateEntries) {
+    const compiled = JSON.parse(compiledContent.documents.get(entry.documentPath));
+    assert.equal(compiled.document.tpoId, '2026-01-27');
+  }
 });
 
 test('compiled documents are deterministic and bound to their Markdown source', () => {
@@ -264,7 +281,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 19);
+  assert.equal(taskCount, 22);
 });
 
 test('reading question numbers follow their declared module ranges', () => {

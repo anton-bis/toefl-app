@@ -43,8 +43,9 @@ function sentenceClass(sentence) {
   return selected ? 'incorrect locked' : 'locked';
 }
 
-function highlightedParts(paragraph) {
+function highlightedParts(paragraph, paragraphNumber) {
   if (!vocab.value) return [paragraph];
+  if (pointParagraph.value && paragraphNumber !== pointParagraph.value) return [paragraph];
   const escaped = vocab.value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return paragraph.split(new RegExp(`(${escaped})`, 'gi'));
 }
@@ -95,7 +96,7 @@ function highlightedParts(paragraph) {
               </template>
             </template>
             <template v-else>
-              <template v-for="(part, partIndex) in highlightedParts(paragraph)" :key="partIndex">
+              <template v-for="(part, partIndex) in highlightedParts(paragraph, index + 1)" :key="partIndex">
                 <mark v-if="vocab && part.toLowerCase() === vocab.toLowerCase()">{{ part }}</mark
                 ><span v-else>{{ part }}</span>
               </template>

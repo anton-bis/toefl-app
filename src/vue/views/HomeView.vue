@@ -22,6 +22,13 @@ const sections = [
 ];
 
 const tests = computed(() => catalog.tests);
+const isDateId = tpoId => /^\d{4}-\d{2}-\d{2}$/.test(String(tpoId || ''));
+const practiceTests = computed(() => tests.value.filter(test => !isDateId(test.tpoId)));
+const officialTests = computed(() => tests.value.filter(test => isDateId(test.tpoId)));
+function displayId(tpoId) {
+  const match = String(tpoId || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return match ? `TPO ${match[2]}-${match[3]}` : `TPO ${tpoId}`;
+}
 const practiceState = computed(() => {
   const completed = pendingExam.value?.status === 'completed';
   if (completed) {
@@ -88,7 +95,7 @@ async function confirmRestart() {
   const { tpoId, section } = pendingExam.value;
   removeExamSession(tpoId, section);
   if (section === 'speaking') {
-    await recordingRepository.removeSession(`tpo-${tpoId}-speaking`).catch(() => {});
+    await recordingRepository.removeAttempt(`tpo-${tpoId}-speaking`).catch(() => {});
   }
   closePractice();
   router.push(`/exam/${tpoId}/${section}/start`);
@@ -160,7 +167,7 @@ function hasReport(test) {
             <h2>Practice Tests</h2>
             <p>Official ETS samples for the 2026 TOEFL iBT update</p>
           </div>
-          <div class="table-scroll">
+          <div v-if="practiceTests.length" class="table-scroll">
             <table class="data-table">
               <thead>
                 <tr>
@@ -174,9 +181,9 @@ function hasReport(test) {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="test in tests" :key="test.tpoId">
+                <tr v-for="test in practiceTests" :key="test.tpoId">
                   <td class="id-cell">
-                    <span class="tpo-id">TPO {{ test.tpoId }}</span>
+                    <span class="tpo-id">{{ displayId(test.tpoId) }}</span>
                   </td>
                   <td class="desc-cell">
                     {{ test.description }}
@@ -204,6 +211,67 @@ function hasReport(test) {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div v-else class="empty-panel">
+            <div class="empty-icon"><i class="fas fa-inbox" /></div>
+            <h3>More official practice is coming soon</h3>
+            <p>Check back soon.</p>
+          </div>
+        </section>
+        <section v-else-if="panel === 'real'" class="panel active">
+          <div class="panel-header">
+            <h2>Official Tests</h2>
+            <p>Official ETS Tests for the 2026 TOEFL IBT</p>
+          </div>
+          <div v-if="officialTests.length" class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="id-heading">ID</th>
+                  <th>Description</th>
+                  <th>Reading</th>
+                  <th>Listening</th>
+                  <th>Writing</th>
+                  <th>Speaking</th>
+                  <th>Report</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="test in officialTests" :key="test.tpoId">
+                  <td class="id-cell">
+                    <span class="tpo-id">{{ displayId(test.tpoId) }}</span>
+                  </td>
+                  <td class="desc-cell">
+                    {{ test.description }}
+                  </td>
+                  <td v-for="[section, label] in sections" :key="section" class="module-cell">
+                    <button
+                      v-if="test.sections[section]"
+                      class="mod-btn available"
+                      @click="openExam(test.tpoId, section)"
+                    >
+                      {{ label }}
+                    </button>
+                    <span v-else class="mod-na">—</span>
+                  </td>
+                  <td class="report-cell">
+                    <button
+                      class="mod-btn"
+                      :class="{ available: hasReport(test) }"
+                      :disabled="!hasReport(test)"
+                      @click="openReport(test)"
+                    >
+                      View Report
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-else class="empty-panel">
+            <div class="empty-icon"><i class="fas fa-inbox" /></div>
+            <h3>No official tests yet</h3>
+            <p>Check back soon.</p>
           </div>
         </section>
         <section v-else class="empty-panel">
