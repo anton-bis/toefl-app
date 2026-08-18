@@ -116,8 +116,7 @@
   font-size: 12px;
 }
 .reading-page .apple-email-container,
-.reading-page .apple-noticeboard-container,
-.reading-page .apple-social-container {
+.reading-page .apple-noticeboard-container {
   max-width: 620px;
   border-radius: 12px;
   background: #fff;
@@ -126,8 +125,7 @@
   box-shadow: 0 3px 14px #00000012;
 }
 .reading-page .email-header-apple,
-.reading-page .noticeboard-header,
-.reading-page .social-profile {
+.reading-page .noticeboard-header {
   padding: 18px 22px;
   background: #f5f5f7;
   border-bottom: 1px solid #ddd;
@@ -148,9 +146,70 @@
 .reading-page .email-signature-apple {
   padding-top: 0;
 }
-.reading-page .apple-noticeboard-container.advertisement .noticeboard-header {
-  color: white;
-  background: #008080;
+.reading-page .apple-label-container,
+.reading-page .apple-receipt-container {
+  max-width: 520px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #d1d1d6;
+  overflow: hidden;
+  box-shadow: 0 3px 14px #00000012;
+}
+.reading-page .label-header {
+  padding: 18px 22px;
+  background: #f5f5f7;
+  border-bottom: 1px solid #ddd;
+}
+.reading-page .label-header h2 {
+  margin: 0;
+  color: #1d1d1f;
+  font-size: 26px;
+}
+.reading-page .label-subtitle,
+.reading-page .receipt-subtitle {
+  margin: 6px 0 0;
+  color: #666;
+  font-weight: 600;
+}
+.reading-page .label-content {
+  padding: 22px;
+  line-height: 1.7;
+}
+.reading-page .label-line {
+  margin: 0;
+}
+.reading-page .apple-receipt-container {
+  max-width: 460px;
+  font-family: 'Courier New', ui-monospace, monospace;
+}
+.reading-page .receipt-header {
+  padding: 18px 22px;
+  text-align: center;
+  border-bottom: 2px dashed #c8c8cd;
+  background: #fafafa;
+}
+.reading-page .receipt-header h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+.reading-page .receipt-content {
+  padding: 22px;
+  line-height: 1.6;
+}
+.reading-page .receipt-line {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.reading-page .social-profile {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+}
+.reading-page .social-media-content {
+  background: #fff;
+  border-radius: 0 0 16px 16px;
 }
 .reading-page .profile-avatar {
   display: inline-grid;
@@ -162,7 +221,8 @@
   color: white;
   background: #008080;
 }
-.reading-page .apple-textchain-container {
+.reading-page .apple-textchain-container,
+.reading-page .apple-social-container {
   max-width: 430px;
   padding: 14px;
   border: 8px solid #1d1d1f;

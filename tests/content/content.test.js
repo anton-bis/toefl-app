@@ -281,7 +281,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 22);
+  assert.equal(taskCount, 25);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
@@ -362,6 +362,59 @@ test('reading recognizes Announcement as a daily-life subtype', () => {
   const task = document.modules[0].tasks[0];
   assert.equal(task.type, 'announcement');
   assert.equal(task.id, 'task-1-announcement');
+});
+
+test('reading recognizes Label and Receipt as daily-life subtypes', () => {
+  const document = parseReading(
+    [
+      '# reading-fixture',
+      '## Module 1: Reading',
+      '### Task 1 Read a Label (Questions 1–2)',
+      'Organic Almond Butter 250g',
+      '1. What is the weight?',
+      'A. 100g',
+      'B. 250g',
+      '[ANSWER]',
+      'B',
+      '[/ANSWER]',
+      '### Task 2 Read a Receipt (Questions 3–4)',
+      'Thank you for shopping!',
+      '3. What is the total?',
+      'A. 10.00',
+      'B. 20.00',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/reading/fixture.md' }
+  );
+  const [label, receipt] = document.modules[0].tasks;
+  assert.equal(label.type, 'label');
+  assert.equal(label.id, 'task-1-label');
+  assert.equal(receipt.type, 'receipt');
+  assert.equal(receipt.id, 'task-2-receipt');
+});
+
+test('reading parser rejects unknown daily-life subtypes instead of silently falling back', () => {
+  assert.throws(
+    () =>
+      parseReading(
+        [
+          '# reading-fixture',
+          '## Module 1: Reading',
+          '### Task 1 Read a Coupon (Questions 1–2)',
+          'Save 20%',
+          '1. What is this?',
+          'A. A coupon',
+          'B. An email',
+          '[ANSWER]',
+          'A',
+          '[/ANSWER]'
+        ].join('\n'),
+        { tpoId: '01', sourcePath: 'assets/questions/reading/fixture.md' }
+      ),
+    /Unsupported reading task type/
+  );
 });
 
 test('listening parses question-level and task-level images', () => {

@@ -115,6 +115,10 @@ const QUESTION_HELP = {
     '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   advertisement:
     '1. Read the notice on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  label:
+    '1. Read the product label on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  receipt:
+    '1. Read the receipt on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'social-media':
     '1. Read the social media post on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'text-chain':

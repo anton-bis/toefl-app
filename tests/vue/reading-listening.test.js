@@ -63,6 +63,25 @@ describe('reading section helpers', () => {
     ]);
   });
 
+  it('promotes the first content line to a title for label/receipt/advertisement', () => {
+    expect(
+      parseDailyPassage('Organic Almond Butter 250g\nIngredients: Almonds, salt', 'label')
+    ).toMatchObject({ title: 'Organic Almond Butter 250g', body: 'Ingredients: Almonds, salt' });
+    expect(
+      parseDailyPassage('Thank you for shopping!\nDate: Oct 8\nTotal: 20.00', 'receipt')
+    ).toMatchObject({
+      title: 'Thank you for shopping!',
+      body: 'Date: Oct 8\n\nTotal: 20.00'
+    });
+    expect(
+      parseDailyPassage('EXPLORE THE WONDERS OF ROME!\nJoin our tour.', 'advertisement')
+    ).toMatchObject({ title: 'EXPLORE THE WONDERS OF ROME!', body: 'Join our tour.' });
+    expect(parseDailyPassage('Title: Kept\nBody text.', 'advertisement')).toMatchObject({
+      title: 'Kept',
+      body: 'Body text.'
+    });
+  });
+
   it('detects academic point-sentence and insertion interactions', () => {
     expect(academicMode({ prompt: 'Click on the sentence in paragraph 3 that explains it.' })).toBe(
       'point-sentence'

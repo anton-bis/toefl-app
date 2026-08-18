@@ -8,13 +8,17 @@ const TYPES = [
   ['Academic Passage', 'academic-passage'],
   ['Advertisement', 'advertisement'],
   ['Social Media Post', 'social-media'],
+  ['Label', 'label'],
+  ['Receipt', 'receipt'],
   ['Notice', 'notice'],
   ['Announcement', 'announcement'],
   ['Email', 'email']
 ];
 
 function questionType(title) {
-  return TYPES.find(([needle]) => title.includes(needle))?.[1] || 'reading-passage';
+  const match = TYPES.find(([needle]) => title.includes(needle));
+  if (match) return match[1];
+  throw new Error(`Unsupported reading task type in title: "${title}". Add it to TYPES in content-core/parsers/reading.js.`);
 }
 
 /**

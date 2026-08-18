@@ -1,5 +1,11 @@
 const META_LINE = /^(To|From|Date|Subject|Title|Subtitle|username)[：:]\s*(.*)$/i;
 
+/**
+ * Subtypes whose card header should fall back to the first content line
+ * as a title when the passage has no explicit `Title:` line.
+ */
+const FIRST_LINE_TITLE = new Set(['label', 'receipt', 'advertisement']);
+
 export function instructionFor(type) {
   return (
     {
@@ -8,6 +14,8 @@ export function instructionFor(type) {
       notice: 'Read a notice',
       announcement: 'Read an announcement',
       advertisement: 'Read an advertisement',
+      label: 'Read a label',
+      receipt: 'Read a receipt',
       'social-media': 'Read a social media post',
       'academic-passage': 'Read an academic passage'
     }[type] || 'Read the passage'
@@ -20,10 +28,12 @@ export function parseDailyPassage(passage, type) {
     .map(line => line.trim());
   const meta = {};
   const content = [];
+  const metaKeys = type === 'receipt' ? new Set(['title', 'subtitle']) : null;
   for (const line of lines) {
     const match = line.match(META_LINE);
-    if (match) meta[match[1].toLowerCase()] = match[2].trim();
-    else if (line) content.push(line);
+    if (match && (!metaKeys || metaKeys.has(match[1].toLowerCase()))) {
+      meta[match[1].toLowerCase()] = match[2].trim();
+    } else if (line) content.push(line);
   }
 
   if (type === 'email') {
@@ -38,6 +48,11 @@ export function parseDailyPassage(passage, type) {
         .join('\n\n'),
       signature: signoffIndex < 0 ? '' : content.slice(signoffIndex).join('\n')
     };
+  }
+
+  if (FIRST_LINE_TITLE.has(type) && !meta.title && content.length) {
+    meta.title = content[0];
+    content.shift();
   }
   return { ...meta, body: content.join('\n\n') };
 }

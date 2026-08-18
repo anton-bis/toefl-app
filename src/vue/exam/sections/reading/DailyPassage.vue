@@ -13,6 +13,13 @@ const props = defineProps({
 const emit = defineEmits(['answer']);
 const content = computed(() => parseDailyPassage(props.task.passage, props.task.type));
 const messages = computed(() => parseTextChain(props.task.passage));
+const labelLines = computed(() =>
+  String(content.value.body || '')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+);
+const receiptLines = labelLines;
 </script>
 
 <template>
@@ -65,6 +72,7 @@ const messages = computed(() => parseTextChain(props.task.passage));
           v-else-if="task.type === 'social-media'"
           class="daily-passage-card apple-social-container"
         >
+          <div class="phone-status-bar"><strong>9:41</strong><span>● ● ●</span></div>
           <header class="social-profile">
             <span class="profile-avatar">{{ (content.username || 'U')[0] }}</span
             ><strong>{{ content.username }}</strong>
@@ -72,7 +80,49 @@ const messages = computed(() => parseTextChain(props.task.passage));
           <div class="social-media-content">{{ content.body }}</div>
         </article>
 
-        <article v-else class="daily-passage-card apple-noticeboard-container" :class="task.type">
+        <article
+          v-else-if="task.type === 'label'"
+          class="daily-passage-card apple-label-container"
+        >
+          <header class="label-header">
+            <h2>{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="label-subtitle">{{ content.subtitle }}</p>
+          </header>
+          <div class="label-content">
+            <p v-for="(line, index) in labelLines" :key="index" class="label-line">
+              {{ line }}
+            </p>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'receipt'"
+          class="daily-passage-card apple-receipt-container"
+        >
+          <header class="receipt-header">
+            <h2>{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="receipt-subtitle">{{ content.subtitle }}</p>
+          </header>
+          <div class="receipt-content">
+            <p v-for="(line, index) in receiptLines" :key="index" class="receipt-line">
+              {{ line }}
+            </p>
+          </div>
+        </article>
+
+        <article
+          v-else-if="['advertisement', 'notice', 'announcement'].includes(task.type)"
+          class="daily-passage-card apple-noticeboard-container"
+          :class="task.type"
+        >
+          <header class="noticeboard-header">
+            <h2>{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle">{{ content.subtitle }}</p>
+          </header>
+          <div class="notice-content">{{ content.body }}</div>
+        </article>
+
+        <article v-else class="daily-passage-card apple-noticeboard-container">
           <header class="noticeboard-header">
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
