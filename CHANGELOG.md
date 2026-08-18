@@ -2,6 +2,31 @@
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-08-18
+
+### Highlights
+
+- Added the 2026-01-28 real-exam question bank (reading, listening, speaking, writing) with enhanced audio.
+- Root-cause fixes for reading daily-life rendering: subtype-aware parsing and automatic title extraction.
+
+### Added
+
+- 2026-01-28 real exam four-section question bank (Official Tests panel).
+- Reading parser now rejects unknown daily-life subtypes at parse time instead of silently mis-rendering them.
+- Label / Receipt / Advertisement cards automatically use the first content line as their title; receipt keeps its date line in the body.
+- Advertisement gets an explicit rendering branch with a grey header (matches label style).
+- Social-media posts render inside the phone container (consistent with text-chain).
+
+### Changed
+
+- Listening and speaking audio are loudness-normalized and presence-enhanced (EQ + soft limit), keeping original durations and timestamps.
+- Listening M2 Q6-7 conversation uses an AI-narrated audio track.
+
+### Fixed
+
+- Reading page instruction now shows "Read a label" / "Read a receipt" instead of falling back to "Read a passage".
+- Electron production bundle is built with a relative asset base so the app no longer opens a blank window.
+
 ## [1.6.0] - 2026-08-16
 
 ### Highlights

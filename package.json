@@ -1,6 +1,6 @@
 {
   "name": "toefl-practice-system",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
@@ -82,6 +82,7 @@
     "appId": "io.github.antonbis.toeflpractice",
     "productName": "TOEFL iBT Practice",
     "executableName": "toefl-practice",
+    "electronDist": "node_modules/electron/dist",
     "directories": {
       "output": "release"
     },

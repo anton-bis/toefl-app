@@ -23,9 +23,20 @@ const distDir = path.join(__dirname, '../dist');
 const electronSourceDir = path.join(__dirname, '../electron');
 const electronDir = path.join(__dirname, '../build/electron');
 
+// Recursive directory copy. fs.cpSync can crash on Windows under ESM
+// (0xC0000409) for this tree, so copy entry-by-entry instead.
+function copyDirectory(sourceDir, destinationDir) {
+  fs.mkdirSync(destinationDir, { recursive: true });
+  for (const entry of fs.readdirSync(sourceDir, { withFileTypes: true })) {
+    const sourcePath = path.join(sourceDir, entry.name);
+    const destinationPath = path.join(destinationDir, entry.name);
+    if (entry.isDirectory()) copyDirectory(sourcePath, destinationPath);
+    else fs.copyFileSync(sourcePath, destinationPath);
+  }
+}
+
 // Find JavaScript files.
-async function findJsFiles(dir) {
-  try {
+async function findJsFiles(dir) {  try {
     const entries = await fs.promises.readdir(dir, { withFileTypes: true });
     const nested = await Promise.all(
       entries.map(entry => {
@@ -105,10 +116,10 @@ async function main() {
     process.exit(1);
   }
 
-  // Electron source files are copied before obfuscation so a package build never mutates the repo.
-  fs.rmSync(electronDir, { recursive: true, force: true });
-  fs.mkdirSync(path.dirname(electronDir), { recursive: true });
-  fs.cpSync(electronSourceDir, electronDir, { recursive: true });
+// Electron source files are copied before obfuscation so a package build never mutates the repo.
+fs.rmSync(electronDir, { recursive: true, force: true });
+fs.mkdirSync(path.dirname(electronDir), { recursive: true });
+copyDirectory(electronSourceDir, electronDir);
 
   // Find every JavaScript file.
   const electronFiles = await findJsFiles(electronDir);
