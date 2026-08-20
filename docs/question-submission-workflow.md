@@ -23,18 +23,23 @@ assets/questions/writing/2026-01-27/writing-2026-01-27.md
 - 首页显示：日期 ID 显示为 `TPO 01-27`，Description 为 `2026 TOEFL Official Exam`
 - 真题只在 **Official Tests** 面板（`panel === 'real'`），不进 Practice Tests
 
-### 1.2 音频命名（AI 复读版，每问独立）
+### 1.2 音频方案（原始音频 + 时间戳，优先）
 
-- **Speaking**：每题一个 `speaking-qN.m4a`（N=1..n）
-- **Listening LCAR**：每题一个 `listening-qN.m4a`（M2 用 `listening-m2qN.m4a`）
-- **Listening 对话/通知/讲座**：每任务一个 `listening-convN.m4a` / `listening-annN.m4a` / `listening-talkN.m4a`
+> **推荐路线（2026-01-28 起）**：源音频质量好时，直接用**原始音频 + `>> play:` 时间戳**，
+> 不再默认用 AI 复读。仅当原始音频被切割/有人声干扰（如听力 M2 Q6-7）才用 AI 补录。
+
+- **Listening**：整段原始音频放同级目录（`listening-part1.m4a` / `listening-part2.m4a`），
+  LCAR 每题 `>> play: 0:20 - 0:24`，对话/通知/讲座任务级 `>> play: 3:29 - 3:56`
+- **Speaking**：降噪增强后整段 `speaking-2026-01-28.m4a` + 每题 `>> play:`
+- AI 补录命名：`listening-convN.m4a`（Edge TTS 多角色合成）
 - 音频与 markdown 同级目录，`collectDocumentAssets` 自动收集进内容包
 
-### 1.3 AI 版音频特性
+### 1.3 音频后处理（人声增强）
 
-- **每问独立音频，无时间戳**：markdown 里每题 `audio: xxx.m4a`，不加 `>> play:`
-- **兼容两种模式**：parser 同时支持"整体音频 + `>> play:` 时间戳"和"每题独立 audio"
-- 角色音色：Woman=`en-US-JennyNeural`，Man=`en-US-GuyNeural`，Professor=`en-US-ChristopherNeural`
+- 原始音频 → **DeepFilterNet 降噪**（压键盘声等背景）→ **EQ + 响度归一 + 软限幅**
+- 脚本参考：`C:\Users\lj115\AppData\Local\Temp\opencode\enhance-voice.py`（说话段 RMS 目标 -18.5dB，峰值 ≤ -1.5dB）
+- 处理只改振幅不改时长，`>> play:` 时间戳不受影响
+- 角色音色（AI 补录时）：Woman=`en-US-JennyNeural`，Man=`en-US-GuyNeural`，Professor=`en-US-ChristopherNeural`
 
 ---
 
@@ -144,6 +149,47 @@ npm run content:publish
 
 ---
 
+## 5.5 发布安装包（重要教训）
+
+> **⚠️ 发布应用版本必须走 CI，禁止本地手动 `electron:build` + `gh release create`。**
+> 本地打包只能产 Windows，会丢失 macOS / Linux 全平台资产（v1.6.0 / v1.7.0 曾因此出错）。
+
+### 5.5.1 正确流程（三平台全自动）
+
+1. 代码先合并到 **`develop`** 分支（release.yml 的触发分支）
+2. 打**注解 tag** `vX.Y.Z`（必须 = `package.json` 的 version，且 CHANGELOG 有对应条目）
+3. `git push origin vX.Y.Z` → 触发 GitHub Actions `release.yml`
+4. CI 自动：verify（tag 校验 + lint + test）→ package-windows / package-linux / package-macos 三平台并行构建 → publish 汇总（含 `hashes.sha256` + 各平台 `latest*.yml`，URL 自动代理到 `v6.gh-proxy.org`）
+
+```bash
+# 正确发布
+git checkout develop
+git merge --ff-only <feature-branch>   # 合并功能
+git push origin develop                 # 会先触发一个 dev 预发布（正常）
+git tag -a vX.Y.Z -m "release: vX.Y.Z"
+git push origin vX.Y.Z                  # 触发正式三平台构建
+```
+
+### 5.5.2 已踩过的坑（勿重犯）
+
+| 坑 | 现象 | 修复 |
+|---|---|---|
+| 本地手动打包 | 只产 Windows，release 缺 mac/linux | 走 CI tag 发布 |
+| tag 指向旧 commit | CI verify 失败（tag ≠ package version 对应提交） | 用 `git tag -a` 打注解 tag 且指向最新合并提交 |
+| `fs.cpSync` ESM 崩溃 | obfuscate 崩 `0xC0000409`（Windows） | 已改手动递归复制 `copyDirectory` |
+| `electronDist` 覆盖 | CI 报 electronDist 不存在（CI 的 npm ci 未下载 dist） | 移除该配置，让 electron-builder 默认下载 |
+
+### 5.5.3 回滚/修正已误发的 release
+
+```bash
+# 删除错误 release + 远端 tag
+gh release delete vX.Y.Z --repo anton-bis/toefl-app --yes
+git push origin --delete refs/tags/vX.Y.Z
+git tag -d vX.Y.Z   # 仅本地有时
+```
+
+---
+
 ## 6. 回滚预案
 
 | 场景 | 回滚方式 |
@@ -155,17 +201,23 @@ npm run content:publish
 
 ---
 
-## 7. 音频处理（AI 复读版）工作流
+## 7. 音频处理工作流
 
-### 7.1 生成
+### 7.1 原始音频增强（优先）
+
+1. 源音频转 48kHz mono wav（`m4a2wav.py` / PyAV resampler）
+2. **DeepFilterNet 降噪**（`df_enhance.py`）：压制键盘声等背景噪声
+3. **人声增强**（`enhance-voice.py`）：EQ 提亮（2.8k/5.2k/8k）+ 说话段 RMS 归一（-18.5dB）+ 软限幅（峰值 ≤ -1.5dB）
+4. 转回 m4a（`wav2m4a.py`），保持原时长
+
+### 7.2 AI 补录（仅在原始音频不可用时）
 
 ```bash
-# edge-tts 环境
 pip install edge-tts   # 清华镜像
-python scripts/ai-audio/generate.py   # 或项目对应脚本
+# 多角色对话用 PyAV 逐句合成 + 拼接（参考 listening-conv11 生成方式）
 ```
 
-### 7.2 角色映射
+### 7.3 角色映射
 
 | 角色 | 音色 |
 |---|---|
@@ -173,7 +225,8 @@ python scripts/ai-audio/generate.py   # 或项目对应脚本
 | Man / researcher | `en-US-GuyNeural` |
 | Professor | `en-US-ChristopherNeural` |
 
-### 7.3 质量要求
+### 7.4 质量要求
 
-- 每问独立 m4a，时长正确，无"电流声"伪影
-- 若 AI 版音质不达标，可回退 EQ 版（备份中）或调整后处理
+- 原始音频优先，增强只改振幅不改时长（时间戳不受影响）
+- 说话段 RMS 达 -17~-19dB、峰值 ≤ -1.5dB，无失真/电流声
+- 输出前先出**小样**给用户试听，确认响度/清晰度后再全量应用
