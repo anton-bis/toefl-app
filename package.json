@@ -82,7 +82,6 @@
     "appId": "io.github.antonbis.toeflpractice",
     "productName": "TOEFL iBT Practice",
     "executableName": "toefl-practice",
-    "electronDist": "node_modules/electron/dist",
     "directories": {
       "output": "release"
     },
