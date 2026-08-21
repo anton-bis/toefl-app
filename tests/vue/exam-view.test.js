@@ -306,19 +306,9 @@ describe('ExamView route guard and flow', () => {
     expect(wrapper.find('.daily-passage-card').element).toBe(passageCard);
     expect(wrapper.find('.right-column').element).not.toBe(questionSurface);
     expect(globalThis.document.querySelector('.question-navigator')).toBeNull();
-
-    exam.complete();
-    await flushPromises();
-    expect(wrapper.text()).not.toContain('Questions');
-    const next = [...wrapper.element.querySelectorAll('button')].find(
-      button => button.textContent.trim() === 'Next'
-    );
-    expect(next.disabled).toBe(true);
-    await clickButton(wrapper.element, 'Results');
-    expect(router.currentRoute.value.params.pageId).toBe('results');
   });
 
-  it('keeps report links read-only and routes back to results', async () => {
+  it('redirects legacy report question links to the in-page answer review', async () => {
     storeJson(examStorageKey('03', 'reading'), {
       tpoId: '03',
       section: 'reading',
@@ -329,15 +319,14 @@ describe('ExamView route guard and flow', () => {
       updatedAt: 100
     });
     const { wrapper, router } = await mountRoute('/exam/03/reading/q1?mode=report');
+    await vi.waitFor(() => expect(router.currentRoute.value.params.pageId).toBe('results'));
     await vi.waitFor(() => expect(wrapper.text()).toContain('When does it open?'));
     expect(wrapper.text()).not.toContain('Questions');
+    expect(wrapper.text()).not.toContain('Review Answers');
     expect(
       wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
     ).toBe(true);
     expect(wrapper.find('.option-item-apple.correct').attributes('data-option')).toBe('A');
-
-    await clickButton(wrapper.element, 'Results');
-    expect(router.currentRoute.value.params.pageId).toBe('results');
     expect(router.currentRoute.value.query.mode).toBe('report');
 
     await vi.waitFor(() => expect(wrapper.text()).toContain('Restart Test'));
@@ -351,7 +340,7 @@ describe('ExamView route guard and flow', () => {
     expect(router.currentRoute.value.query).toEqual({});
   });
 
-  it('numbers result questions by their order within each module', async () => {
+  it('keeps folded result cards on the results route instead of jumping to questions', async () => {
     const repeatedTaskNumbers = {
       ...readingNavigationDocument,
       modules: [
@@ -383,15 +372,19 @@ describe('ExamView route guard and flow', () => {
       updatedAt: 100
     });
 
-    const { wrapper } = await mountRoute(
+    const { wrapper, router } = await mountRoute(
       '/exam/03/reading/results?mode=report',
       repeatedTaskNumbers
     );
     await vi.waitFor(() => expect(wrapper.findAll('.results-module')).toHaveLength(2));
-    const moduleButtons = wrapper.findAll('.results-module')[0].findAll('.results-grid button');
-    expect(moduleButtons.map(button => button.text())).toEqual(['1', '2']);
-    await moduleButtons[1].trigger('click');
-    await vi.waitFor(() => expect(wrapper.text()).toContain('When does it close?'));
+    const cards = wrapper.findAll('.results-module')[0].findAll('.answer-review-card');
+    expect(cards).toHaveLength(2);
+    expect(cards.every(card => card.attributes('open') === undefined)).toBe(true);
+    expect(wrapper.find('.results-legend').exists()).toBe(false);
+    expect(wrapper.find('.answer-review-card__state').exists()).toBe(false);
+    await cards[1].get('summary').trigger('click');
+    expect(router.currentRoute.value.params.pageId).toBe('results');
+    expect(cards[1].text()).toContain('Correct answer');
   });
 
   it('rejects report access for an unfinished session without moving its saved page', async () => {
@@ -456,8 +449,17 @@ describe('ExamView route guard and flow', () => {
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(exam.activeSession.answers.lq2).toBe('A');
 
-    expect(wrapper.text()).not.toContain('Questions');
+    expect(wrapper.text()).toContain('Questions');
     expect(wrapper.text()).not.toContain('Back');
+
+    await clickButton(wrapper.element, 'Questions');
+    const navigator = globalThis.document.querySelector('.question-navigator');
+    expect(navigator.textContent).toContain('Status only');
+    expect(navigator.querySelectorAll('.question-navigator__question--readonly')).toHaveLength(2);
+    expect(navigator.querySelectorAll('.question-navigator__mark')).toHaveLength(0);
+    navigator.querySelector('.question-navigator__question--readonly').click();
+    await flushPromises();
+    expect(router.currentRoute.value.params.pageId).toBe('lq2');
 
     await router.push('/exam/03/listening/lq1');
     await flushPromises();

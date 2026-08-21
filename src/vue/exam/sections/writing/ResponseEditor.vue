@@ -3,8 +3,7 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { countWords, stripCjk } from './writingLogic.js';
 
 const props = defineProps({
-  modelValue: { type: String, default: '' },
-  readOnly: { type: Boolean, default: false }
+  modelValue: { type: String, default: '' }
 });
 const emit = defineEmits(['update:modelValue']);
 const textarea = ref();
@@ -99,7 +98,7 @@ function keyboard(event) {
 
 <template>
   <div class="editor">
-    <div v-if="!readOnly" class="toolbar">
+    <div class="toolbar">
       <div>
         <button type="button" @click="cut"><i class="fas fa-cut" /> Cut</button
         ><button type="button" @click="paste"><i class="fas fa-paste" /> Paste</button
@@ -118,7 +117,6 @@ function keyboard(event) {
     <textarea
       ref="textarea"
       :value="text"
-      :readonly="readOnly"
       placeholder="Enter your response here..."
       @input="onInput"
       @keydown="keyboard"
@@ -181,7 +179,7 @@ textarea {
   border-top: 1px solid #d1d1d6;
   padding: 12px 14px;
   font:
-    18px/1.5 Arial,
+    clamp(19px, 1.35vw, 21px) / 1.55 Arial,
     sans-serif;
   resize: none;
   box-sizing: border-box;

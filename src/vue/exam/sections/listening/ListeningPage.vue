@@ -10,7 +10,6 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false },
   volume: { type: Number, default: 0.8 }
 });
@@ -22,7 +21,10 @@ const isStimulus = computed(
 );
 const media = computed(() => props.question?.media || props.task.media);
 const imageUrl = computed(() =>
-  resolveQuestionAsset(props.document, props.question?.image || props.task?.image || props.page?.scenario?.image)
+  resolveQuestionAsset(
+    props.document,
+    props.question?.image || props.task?.image || props.page?.scenario?.image
+  )
 );
 const title = computed(() =>
   props.task.title.replace(/\s*[–-]\s*Questions?\s+\d+[–-]\d+.*$/i, '').trim()
@@ -42,7 +44,12 @@ const title = computed(() =>
       </div>
       <div class="listening-surface listening-stimulus-card">
         <div class="speaker-area">
-          <img v-if="imageUrl" :src="imageUrl" alt="Stimulus Image" class="listening-visual-image" />
+          <img
+            v-if="imageUrl"
+            :src="imageUrl"
+            alt="Stimulus Image"
+            class="listening-visual-image"
+          />
           <div v-else class="speaker-placeholder"><i class="fas fa-user"></i><span>♟</span></div>
           <div class="speaker-label">Speaker</div>
         </div>
@@ -79,7 +86,6 @@ const title = computed(() =>
         <ChoiceQuestion
           :question="question"
           :answers="answers"
-          :checked="checked"
           :locked="locked"
           :show-prompt="false"
           @answer="(id, value) => emit('answer', id, value)"
@@ -102,7 +108,6 @@ const title = computed(() =>
         <ChoiceQuestion
           :question="question"
           :answers="answers"
-          :checked="checked"
           :locked="locked"
           @answer="(id, value) => emit('answer', id, value)"
         />

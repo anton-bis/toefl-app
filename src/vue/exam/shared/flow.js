@@ -31,11 +31,14 @@ export function resolveExamEntry({ pages, requestedPageId, session, section, rep
   const resultRedirect = redirectFromResults(pages, requested, session);
   if (resultRedirect) return resultRedirect;
   if (report && session.status !== 'completed') return { action: 'home' };
+  if (!requested) return { action: 'redirect', pageId: 'start' };
+  if (restart) return { action: 'restart', pageId: 'start' };
+  if (session.status === 'completed' && requested.type !== 'results') {
+    return { action: 'redirect', pageId: 'results' };
+  }
   if (blocksListeningHistory(section, pages, requested, session)) {
     return { action: 'redirect', pageId: session.pageId };
   }
-  if (!requested) return { action: 'redirect', pageId: 'start' };
-  if (restart) return { action: 'restart', pageId: 'start' };
   const statusRedirect = redirectFromStatus(requestedPageId, requested, session);
   if (statusRedirect) return statusRedirect;
   return { action: 'enter', page: requested };

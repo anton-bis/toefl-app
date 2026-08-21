@@ -2,12 +2,10 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { selectedAnswer } from '../../shared/choice.js';
 import { fillTokens } from './helpers.js';
-import { isCorrectAnswer } from '../../shared/model.js';
 
 const props = defineProps({
   task: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
@@ -15,12 +13,6 @@ const inputs = ref({});
 const tokens = computed(() =>
   fillTokens(props.task.passage || props.task.questions?.[0]?.prompt, props.task.questions || [])
 );
-function isChecked(questionId) {
-  if (props.checked === true) return true;
-  if (Array.isArray(props.checked)) return props.checked.includes(questionId);
-  return Boolean(props.checked?.[questionId]);
-}
-
 function isLocked(questionId) {
   if (props.locked === true) return true;
   if (Array.isArray(props.locked)) return props.locked.includes(questionId);
@@ -28,10 +20,7 @@ function isLocked(questionId) {
 }
 
 function stateFor(question) {
-  if (!isChecked(question.id)) return isLocked(question.id) ? 'locked' : '';
-  const answer = selectedAnswer(props.answers, question.id);
-  if (!answer) return 'empty locked';
-  return isCorrectAnswer(answer, question) ? 'correct locked' : 'incorrect locked';
+  return isLocked(question.id) ? 'locked' : '';
 }
 
 function syncAnswers() {
@@ -104,7 +93,7 @@ function paste(token, event) {
               :value="inputs[token.question.id][index]"
               class="letter-box"
               maxlength="1"
-              :disabled="isChecked(token.question.id) || isLocked(token.question.id)"
+              :disabled="isLocked(token.question.id)"
               :aria-label="`Question ${token.question.number}, letter ${index + 1}`"
               @input="update(token, index, $event)"
               @keydown="onKeydown(token, index, $event)"

@@ -8,7 +8,6 @@ defineProps({
   task: { type: Object, required: true },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
@@ -20,7 +19,6 @@ const emit = defineEmits(['answer']);
       v-if="task.type === 'complete-words'"
       :task="task"
       :answers="answers"
-      :checked="checked"
       :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
@@ -29,7 +27,6 @@ const emit = defineEmits(['answer']);
       :task="task"
       :question="question"
       :answers="answers"
-      :checked="checked"
       :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />
@@ -38,7 +35,6 @@ const emit = defineEmits(['answer']);
       :task="task"
       :question="question"
       :answers="answers"
-      :checked="checked"
       :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"
     />

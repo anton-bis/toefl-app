@@ -1,13 +1,12 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
-import { sentenceParts, solveAnswerOrder } from './writingLogic.js';
+import { sentenceParts } from './writingLogic.js';
 
 const props = defineProps({
   question: { type: Object, required: true },
   document: { type: Object, default: null },
   answer: { type: [Object, Array, String], default: null },
-  checked: { type: [Boolean, Object], default: false },
   locked: { type: [Boolean, Object], default: false }
 });
 const emit = defineEmits(['answer']);
@@ -19,16 +18,9 @@ const parts = computed(() => sentenceParts(props.question.prompt));
 const blankCount = computed(() => parts.value.filter(part => part.type === 'blank').length);
 const slots = ref([]);
 const dragged = ref(null);
-const target = computed(() => solveAnswerOrder(props.question));
-const isChecked = computed(() =>
-  typeof props.checked === 'object'
-    ? Boolean(props.checked?.[props.question.id] ?? props.checked?.revealed)
-    : props.checked
-);
 const isLocked = computed(() =>
   typeof props.locked === 'object' ? Boolean(props.locked?.[props.question.id]) : props.locked
 );
-const readOnly = computed(() => isChecked.value || isLocked.value);
 
 function restoredSlots(value) {
   const raw = Array.isArray(value) ? value : value?.slots;
@@ -60,23 +52,23 @@ function save() {
   emit('answer', { slots: [...slots.value] });
 }
 function place(candidateIndex, targetSlot = slots.value.indexOf(null)) {
-  if (readOnly.value || targetSlot < 0 || used.value.has(candidateIndex)) return;
+  if (isLocked.value || targetSlot < 0 || used.value.has(candidateIndex)) return;
   if (slots.value[targetSlot] != null) slots.value[targetSlot] = null;
   slots.value[targetSlot] = candidateIndex;
   save();
 }
 function clearSlot(index) {
-  if (readOnly.value || slots.value[index] == null) return;
+  if (isLocked.value || slots.value[index] == null) return;
   slots.value[index] = null;
   save();
 }
 function startDrag(source, index, event) {
-  if (readOnly.value) return event.preventDefault();
+  if (isLocked.value) return event.preventDefault();
   dragged.value = { source, index };
   event.dataTransfer?.setData('text/plain', JSON.stringify(dragged.value));
 }
 function dropOnSlot(index) {
-  if (!dragged.value || readOnly.value) return;
+  if (!dragged.value || isLocked.value) return;
   if (dragged.value.source === 'candidate') place(dragged.value.index, index);
   else if (dragged.value.source === 'slot' && dragged.value.index !== index) {
     [slots.value[index], slots.value[dragged.value.index]] = [
@@ -91,14 +83,6 @@ function dropInBank() {
   if (dragged.value?.source === 'slot') clearSlot(dragged.value.index);
   dragged.value = null;
 }
-function slotState(index) {
-  if (!isChecked.value) return '';
-  if (slots.value[index] == null) return 'empty';
-  return (props.question.candidates[slots.value[index]] || '').toLowerCase() ===
-    (target.value[index] || '').toLowerCase()
-    ? 'correct'
-    : 'incorrect';
-}
 function capitalizeFirstSlot(value, index) {
   if (index !== 0 || !value) return value;
   const offset = value.startsWith('(') ? 1 : 0;
@@ -106,12 +90,7 @@ function capitalizeFirstSlot(value, index) {
 }
 function slotText(index) {
   const candidate = slots.value[index] == null ? '' : props.question.candidates[slots.value[index]];
-  const expected = target.value[index] || '';
-  let value = candidate;
-  if (isChecked.value && !candidate) value = expected ? `(${expected})` : '';
-  else if (isChecked.value && slotState(index) === 'incorrect')
-    value = `${candidate} (${expected})`;
-  return capitalizeFirstSlot(value, index);
+  return capitalizeFirstSlot(candidate, index);
 }
 </script>
 
@@ -137,9 +116,8 @@ function slotText(index) {
             v-else
             type="button"
             class="blank-slot"
-            :class="slotState(part.index)"
-            :disabled="readOnly"
-            :draggable="slots[part.index] != null && !readOnly"
+            :disabled="isLocked"
+            :draggable="slots[part.index] != null && !isLocked"
             :aria-label="`Blank ${part.index + 1}`"
             @click="clearSlot(part.index)"
             @dragstart="startDrag('slot', part.index, $event)"
@@ -158,8 +136,8 @@ function slotText(index) {
         type="button"
         class="candidate-chip"
         :class="{ used: used.has(index) }"
-        :disabled="used.has(index) || readOnly"
-        :draggable="!used.has(index) && !readOnly"
+        :disabled="used.has(index) || isLocked"
+        :draggable="!used.has(index) && !isLocked"
         @click="place(index)"
         @dragstart="startDrag('candidate', index, $event)"
       >
@@ -189,7 +167,7 @@ function slotText(index) {
 }
 .dialogue-row p,
 .sentence-line {
-  font-size: 20px;
+  font-size: clamp(20px, 1.45vw, 22px);
   line-height: 1.5;
   margin: 0;
 }
@@ -230,18 +208,6 @@ function slotText(index) {
   font: inherit;
   cursor: pointer;
 }
-.blank-slot.correct {
-  border-color: #4caf50;
-  background: #e8f5e9;
-}
-.blank-slot.incorrect {
-  border-color: #f44336;
-  background: #ffebee;
-}
-.blank-slot.empty {
-  border-color: #ff9800;
-  background: #fff3e0;
-}
 .candidates {
   display: flex;
   justify-content: center;
@@ -255,7 +221,7 @@ function slotText(index) {
   border: 1px solid #ccc;
   border-radius: 20px;
   background: #fff;
-  font-size: 20px;
+  font-size: clamp(20px, 1.45vw, 22px);
   cursor: pointer;
 }
 .candidate-chip:hover {

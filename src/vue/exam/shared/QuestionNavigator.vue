@@ -7,7 +7,9 @@ const props = defineProps({
   document: { type: Object, default: () => ({}) },
   answers: { type: Object, default: () => ({}) },
   marks: { type: Object, default: () => ({}) },
-  pageId: { type: String, default: '' }
+  pageId: { type: String, default: '' },
+  navigationEnabled: { type: Boolean, default: true },
+  markEnabled: { type: Boolean, default: true }
 });
 defineEmits(['close', 'select', 'toggle-mark']);
 
@@ -37,16 +39,22 @@ function questionLabel(question, index) {
             <i class="fas fa-times" />
           </button>
         </header>
-        <div class="question-navigator__stats">
+        <div
+          class="question-navigator__stats"
+          :class="{ 'question-navigator__stats--single': !markEnabled }"
+        >
           <span
             ><b class="is-answered">{{ answeredCount }} / {{ questions.length }}</b
             >Answered</span
           >
-          <span
+          <span v-if="markEnabled"
             ><b class="is-marked">{{ markedCount }}</b
             >Marked</span
           >
         </div>
+        <p v-if="!navigationEnabled" class="question-navigator__readonly-note">
+          Status only — this section must be completed in order.
+        </p>
         <div class="question-navigator__list">
           <div
             v-for="(question, index) in questions"
@@ -59,6 +67,7 @@ function questionLabel(question, index) {
             }"
           >
             <button
+              v-if="navigationEnabled"
               class="question-navigator__question"
               type="button"
               :aria-label="`Question ${index + 1}: ${questionLabel(question, index)}. ${isAnswered(answers[question.id]) ? 'Answered' : 'Unanswered'}`"
@@ -68,7 +77,16 @@ function questionLabel(question, index) {
               <span class="question-navigator__number">{{ index + 1 }}</span>
               <small>{{ isAnswered(answers[question.id]) ? 'Answered' : 'Open' }}</small>
             </button>
+            <div
+              v-else
+              class="question-navigator__question question-navigator__question--readonly"
+              :aria-label="`Question ${index + 1}. ${isAnswered(answers[question.id]) ? 'Answered' : 'Open'}`"
+            >
+              <span class="question-navigator__number">{{ index + 1 }}</span>
+              <small>{{ isAnswered(answers[question.id]) ? 'Answered' : 'Open' }}</small>
+            </div>
             <button
+              v-if="markEnabled"
               class="question-navigator__mark"
               type="button"
               :class="{ active: marks[question.id] }"

@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { examQuestions, isCorrectAnswer, questionPageId } from './model.js';
+import { examQuestions, isCorrectAnswer } from './model.js';
 import ExamDialog from './ExamDialog.vue';
 import ObjectiveResults from '../results/ObjectiveResults.vue';
 import SpeakingResults from '../results/SpeakingResults.vue';
@@ -10,20 +10,14 @@ const props = defineProps({
   document: { type: Object, required: true },
   page: { type: Object, default: () => ({}) },
   session: { type: Object, required: true },
-  score: { type: Number, default: null },
-  maxScore: { type: Number, default: null },
+  displayScore: { type: Number, default: null },
+  volume: { type: Number, default: 0.8 },
   reportPrevious: { type: Boolean, default: false },
   reportNext: { type: Boolean, default: false }
 });
-defineEmits(['select-question', 'restart', 'exit', 'report-previous', 'report-next']);
+defineEmits(['restart', 'exit', 'report-previous', 'report-next']);
 const section = computed(() => props.document.section);
 const questions = computed(() => examQuestions(props.document));
-const moduleGroups = computed(() =>
-  (props.document.modules || []).map(module => ({
-    ...module,
-    questions: questions.value.filter(question => question.moduleId === module.id)
-  }))
-);
 const helpOpen = ref(false);
 const restartOpen = ref(false);
 function questionCorrect(question) {
@@ -39,15 +33,10 @@ const scoredQuestions = computed(() =>
     : questions.value
 );
 const scoredCorrect = computed(() => scoredQuestions.value.filter(questionCorrect).length);
-const percentage = computed(() => {
-  if (props.score != null && props.maxScore)
-    return Math.round((props.score / props.maxScore) * 100);
-  return scoredQuestions.value.length
+const percentage = computed(() =>
+  scoredQuestions.value.length
     ? Math.round((scoredCorrect.value / scoredQuestions.value.length) * 100)
-    : 0;
-});
-const sixPointScore = computed(() =>
-  props.score != null && props.maxScore === 30 ? Math.round((props.score / 30) * 6 * 2) / 2 : null
+    : 0
 );
 const elapsed = computed(() => {
   if (!props.session.startedAt) return '--:--';
@@ -125,9 +114,14 @@ const inferredVersion = computed(() => Boolean(props.session.contentVersionInfer
         <section v-if="section !== 'speaking'" class="results-card results-score">
           <div class="results-donut" :style="{ '--score': `${percentage * 3.6}deg` }">
             <div>
-              <b>{{ score ?? scoredCorrect }}</b
-              ><small>/ {{ maxScore ?? scoredQuestions.length }}</small>
-              <em v-if="sixPointScore != null">{{ sixPointScore.toFixed(1) }} / 6</em>
+              <template v-if="displayScore != null">
+                <b>{{ displayScore.toFixed(1) }}</b
+                ><small>/ 6</small>
+              </template>
+              <template v-else>
+                <b>{{ scoredCorrect }}</b
+                ><small>/ {{ scoredQuestions.length }}</small>
+              </template>
             </div>
           </div>
           <span>{{
@@ -152,33 +146,25 @@ const inferredVersion = computed(() => Boolean(props.session.contentVersionInfer
       </div>
       <ObjectiveResults
         v-if="['reading', 'listening'].includes(section)"
+        :document="document"
         :section="section"
-        :groups="moduleGroups"
+        :modules="document.modules || []"
         :answers="session.answers"
-        @select-question="$emit('select-question', $event)"
+        :volume="volume"
       />
       <WritingResults
         v-else-if="section === 'writing'"
-        :tasks="moduleGroups[0]?.tasks || []"
+        :tasks="document.modules?.[0]?.tasks || []"
         :answers="session.answers"
-        @select-question="$emit('select-question', $event)"
       />
       <SpeakingResults
         v-else
         :document="document"
-        :tasks="moduleGroups[0]?.tasks || []"
+        :tasks="document.modules?.[0]?.tasks || []"
         :answers="session.answers"
-        @select-question="$emit('select-question', $event)"
+        :volume="volume"
       />
       <div class="results-actions">
-        <button
-          v-if="questions.length"
-          class="exam-primary-button"
-          type="button"
-          @click="$emit('select-question', questionPageId(questions[0]))"
-        >
-          <i class="fas fa-chart-bar" /> Review Answers
-        </button>
         <button class="exam-secondary-button" type="button" @click="restartOpen = true">
           <i class="fas fa-redo" /> Restart Test
         </button>

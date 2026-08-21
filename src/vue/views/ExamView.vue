@@ -99,7 +99,7 @@ const questionInfo = computed(() =>
 const questionNumber = computed(() => questionInfo.value.number);
 const totalQuestions = computed(() => questionInfo.value.total);
 const questionLabel = computed(() => questionInfo.value.label);
-const scaledScore = computed(() => {
+const displayScore = computed(() => {
   if (!['reading', 'listening'].includes(normalizedSection.value)) return null;
   const ratios = (document.value?.modules || []).slice(0, 2).map(item => {
     const items = item.tasks.flatMap(currentTask => currentTask.questions);
@@ -108,12 +108,12 @@ const scaledScore = computed(() => {
     ).length;
     return items.length ? correct / items.length : 0;
   });
-  return Math.round(30 * ((ratios[0] || 0) * 0.4 + (ratios[1] || 0) * 0.6));
+  const weightedRatio =
+    ratios.length === 1 ? ratios[0] : (ratios[0] || 0) * 0.4 + (ratios[1] || 0) * 0.6;
+  return Math.round(weightedRatio * 6 * 2) / 2;
 });
 const session = computed(() => exam.activeSession);
 const volume = computed(() => settings.volume(normalizedSection.value));
-const readOnlyMode = computed(() => session.value?.status === 'completed');
-const checkedState = computed(() => readOnlyMode.value);
 const lockedState = computed(() => session.value?.lockedQuestionIds || {});
 const contentComponent = computed(() => sectionComponents[normalizedSection.value]);
 const contentProps = computed(() => {
@@ -126,21 +126,19 @@ const contentProps = computed(() => {
     return {
       ...common,
       document: document.value,
-      volume: volume.value,
-      readOnly: readOnlyMode.value
+      volume: volume.value
     };
   }
   const answerProps = {
     ...common,
     answers: session.value.answers,
-    checked: checkedState.value,
     locked: lockedState.value
   };
   if (normalizedSection.value === 'listening') {
     return { ...answerProps, document: document.value, volume: volume.value };
   }
   return normalizedSection.value === 'writing'
-    ? { ...answerProps, document: document.value, readOnly: readOnlyMode.value }
+    ? { ...answerProps, document: document.value }
     : answerProps;
 });
 const contentListeners = computed(() => ({
@@ -165,13 +163,18 @@ const scopedDocument = computed(() => {
   return { ...document.value, modules: [module.value] };
 });
 const questionNavigatorDocument = computed(() => {
-  if (normalizedSection.value === 'reading') return scopedDocument.value;
-  if (normalizedSection.value !== 'writing' || task.value?.type !== 'build-sentence') return {};
+  if (['reading', 'listening'].includes(normalizedSection.value)) return scopedDocument.value;
+  if (!module.value || !task.value) return {};
   return {
     ...document.value,
     modules: [{ ...module.value, tasks: [task.value] }]
   };
 });
+const questionNavigationEnabled = computed(
+  () =>
+    normalizedSection.value === 'reading' ||
+    (normalizedSection.value === 'writing' && task.value?.type === 'build-sentence')
+);
 function adjacentPage(direction) {
   const id = page.value?.[direction];
   return id ? document.value?.pages.find(item => item.id === id) : null;
@@ -180,13 +183,9 @@ function adjacentPage(direction) {
 const canBack = computed(() => {
   if (sectionBusy.value || !page.value?.previous || page.value.type === 'scenario') return false;
   const previous = adjacentPage('previous');
-  if (readOnlyMode.value) return previous?.type === 'question';
   return previous && !['intro', 'start', 'scenario'].includes(previous.type);
 });
-const canNext = computed(() => {
-  if (!page.value?.next || sectionBusy.value) return false;
-  return !readOnlyMode.value || adjacentPage('next')?.type === 'question';
-});
+const canNext = computed(() => Boolean(page.value?.next) && !sectionBusy.value);
 const reportSections = computed(() => {
   if (route.query.mode !== 'report') return [];
   const test = catalog.tests.find(item => item.tpoId === props.tpoId);
@@ -194,17 +193,11 @@ const reportSections = computed(() => {
 });
 const reportIndex = computed(() => reportSections.value.indexOf(normalizedSection.value));
 const showBack = computed(() => {
-  if (normalizedSection.value === 'listening' && !readOnlyMode.value) return false;
+  if (normalizedSection.value === 'listening') return false;
   if (normalizedSection.value === 'writing' && task.value?.type !== 'build-sentence') return false;
   return canBack.value;
 });
-const showQuestions = computed(
-  () =>
-    !readOnlyMode.value &&
-    page.value?.type === 'question' &&
-    (normalizedSection.value === 'reading' ||
-      (normalizedSection.value === 'writing' && task.value?.type === 'build-sentence'))
-);
+const showQuestions = computed(() => page.value?.type === 'question' && Boolean(question.value));
 
 function routeTo(pageId, replace = false) {
   const target = {
@@ -277,7 +270,6 @@ function enterPage(currentPage, previousSessionPage) {
     currentPage.type === 'question' &&
     task.value?.type !== 'listen-response' &&
     !session.value.lockedQuestionIds[currentPage.questionIds?.[0]] &&
-    !readOnlyMode.value &&
     (session.value.timer.scopeId !== currentPage.id || previousSessionPage !== currentPage.id)
   ) {
     exam.start({
@@ -290,7 +282,6 @@ function enterPage(currentPage, previousSessionPage) {
 }
 
 function begin() {
-  if (readOnlyMode.value) return;
   const next = document.value.pages.find(item => item.id === page.value.next);
   if (!next) return;
   const duration = page.value.type === 'intro' ? durationFor(page.value) : null;
@@ -316,13 +307,7 @@ function begin() {
 function navigate(direction) {
   const target = page.value?.[direction];
   if (!target) return;
-  const targetPage = document.value.pages.find(item => item.id === target);
-  if (readOnlyMode.value && targetPage?.type !== 'question') return;
-  if (
-    normalizedSection.value === 'listening' &&
-    page.value.type === 'question' &&
-    !readOnlyMode.value
-  ) {
+  if (normalizedSection.value === 'listening' && page.value.type === 'question') {
     exam.lockQuestions(page.value.questionIds || []);
     exam.continueUnlimited();
   }
@@ -343,7 +328,6 @@ function mediaState(state) {
 }
 
 function beginInstruction() {
-  if (readOnlyMode.value) return;
   if (page.value.type === 'start') begin();
   else readyOpen.value = true;
 }
@@ -389,10 +373,6 @@ function finishExpired() {
 
 function requestExit() {
   readyOpen.value = false;
-  if (readOnlyMode.value) {
-    routeTo('results');
-    return;
-  }
   if (sectionBusy.value) return;
   if (session.value?.status === 'not-started') {
     router.push('/');
@@ -478,11 +458,10 @@ watch(
       :document="document"
       :page="page"
       :session="session"
-      :score="scaledScore"
-      :max-score="scaledScore == null ? null : 30"
+      :display-score="displayScore"
+      :volume="volume"
       :report-previous="reportIndex > 0"
       :report-next="reportIndex >= 0 && reportIndex < reportSections.length - 1"
-      @select-question="selectQuestion"
       @restart="restart"
       @exit="router.push('/')"
       @report-previous="navigateReport(-1)"
@@ -490,7 +469,7 @@ watch(
     />
     <template v-else-if="isContentPage">
       <ExamHeader
-        :timer="normalizedSection === 'speaking' || readOnlyMode ? null : session.timer"
+        :timer="normalizedSection === 'speaking' ? null : session.timer"
         :question-number="questionNumber"
         :total-questions="totalQuestions"
         :question-label="questionLabel"
@@ -500,12 +479,10 @@ watch(
         :show-volume="normalizedSection !== 'writing'"
         :show-back="showBack"
         :show-questions="showQuestions"
-        :show-results="readOnlyMode"
         @exit="requestExit"
         @volume="volumeOpen = true"
         @help="helpOpen = true"
         @questions="questionsOpen = true"
-        @results="routeTo('results')"
         @back="navigate('previous')"
         @next="navigate('next')"
         @toggle-time="exam.setTimerHidden(!session.timer.hidden)"
@@ -544,6 +521,8 @@ watch(
       :answers="session.answers"
       :marks="session.marks"
       :page-id="page.id"
+      :navigation-enabled="questionNavigationEnabled"
+      :mark-enabled="questionNavigationEnabled"
       @close="questionsOpen = false"
       @select="selectQuestion"
       @toggle-mark="exam.toggleMark"

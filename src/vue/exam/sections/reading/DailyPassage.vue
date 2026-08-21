@@ -7,7 +7,6 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
@@ -80,10 +79,7 @@ const receiptLines = labelLines;
           <div class="social-media-content">{{ content.body }}</div>
         </article>
 
-        <article
-          v-else-if="task.type === 'label'"
-          class="daily-passage-card apple-label-container"
-        >
+        <article v-else-if="task.type === 'label'" class="daily-passage-card apple-label-container">
           <header class="label-header">
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle" class="label-subtitle">{{ content.subtitle }}</p>
@@ -165,7 +161,6 @@ const receiptLines = labelLines;
         <ChoiceQuestion
           :question="question"
           :answers="answers"
-          :checked="checked"
           :locked="locked"
           @answer="(id, value) => emit('answer', id, value)"
         />

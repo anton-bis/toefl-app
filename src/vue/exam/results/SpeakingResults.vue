@@ -1,16 +1,15 @@
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { recordingRepository } from '../../platform/dataRepository.js';
-import { resolveQuestionAsset } from '../../platform/contentRepository.js';
-import { questionPageId } from '../shared/model.js';
 import { useExamStore } from '../../stores/exam.js';
+import AudioSegment from '../sections/listening/AudioSegment.vue';
 
 const props = defineProps({
   document: { type: Object, required: true },
   tasks: { type: Array, required: true },
-  answers: { type: Object, required: true }
+  answers: { type: Object, required: true },
+  volume: { type: Number, default: 0.8 }
 });
-defineEmits(['select-question']);
 
 const exam = useExamStore();
 const attemptId = computed(() => exam.activeSession?.clientAttemptId || props.document.id);
@@ -19,7 +18,6 @@ const states = ref({});
 let generation = 0;
 let disposed = false;
 
-const promptAudio = question => resolveQuestionAsset(props.document, question.media?.file);
 const hasRecording = questionId => Boolean(props.answers[questionId]?.recordingKey);
 
 function releaseUrls() {
@@ -65,39 +63,45 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="results-section-list">
-    <section v-for="group in tasks" :key="group.id" class="results-detail-card">
+    <section v-for="group in tasks" :key="group.id" class="results-detail-card results-task">
       <header>
-        <strong>{{ group.title }}</strong
-        ><span>{{ group.questions.length }} questions</span>
+        <strong>{{ group.title }}</strong>
       </header>
       <div class="speaking-results-list">
-        <article v-for="question in group.questions" :key="question.id">
-          <button type="button" @click="$emit('select-question', questionPageId(question))">
-            Question {{ question.number }}
-          </button>
-          <p>{{ question.transcript || question.prompt || '(No transcript available)' }}</p>
-          <audio
-            v-if="promptAudio(question)"
-            :src="promptAudio(question)"
-            preload="none"
-            controls
-          />
-          <label v-if="urls[question.id]">
-            Your Response
-            <audio :src="urls[question.id]" preload="none" controls />
-          </label>
-          <span v-else-if="!hasRecording(question.id) || states[question.id] === 'missing'">
-            No recording submitted
-          </span>
-          <button
-            v-else
-            type="button"
-            :disabled="states[question.id] === 'loading'"
-            @click="loadRecording(question.id)"
-          >
-            {{ states[question.id] === 'loading' ? 'Loading response…' : 'Load your response' }}
-          </button>
-        </article>
+        <details v-for="question in group.questions" :key="question.id" class="answer-review-card">
+          <summary>
+            <span class="answer-review-card__number">Question {{ question.number }}</span>
+            <span class="answer-review-card__prompt">
+              {{ question.transcript || question.prompt || 'No transcript available' }}
+            </span>
+          </summary>
+          <div class="answer-review-card__body">
+            <div v-if="question.media?.file" class="answer-review-card__media">
+              <AudioSegment
+                :document="document"
+                :media="question.media"
+                :volume="volume"
+                :play-once="false"
+              />
+            </div>
+            <label v-if="urls[question.id]" class="speaking-response-playback">
+              Your Response
+              <audio :src="urls[question.id]" preload="none" controls />
+            </label>
+            <span v-else-if="!hasRecording(question.id) || states[question.id] === 'missing'">
+              No recording submitted
+            </span>
+            <button
+              v-else
+              type="button"
+              class="exam-secondary-button speaking-load-response"
+              :disabled="states[question.id] === 'loading'"
+              @click="loadRecording(question.id)"
+            >
+              {{ states[question.id] === 'loading' ? 'Loading response…' : 'Load your response' }}
+            </button>
+          </div>
+        </details>
       </div>
     </section>
   </div>

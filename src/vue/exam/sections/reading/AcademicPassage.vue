@@ -8,7 +8,6 @@ const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object, Array], default: false },
   locked: { type: [Boolean, Object, Array], default: false }
 });
 const emit = defineEmits(['answer']);
@@ -30,17 +29,11 @@ const vocab = computed(() => {
   if (direct) return direct;
   return prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
 });
-const isChecked = computed(() => checkedQuestion(props.checked, props.question.id));
 const isLocked = computed(() => checkedQuestion(props.locked, props.question.id));
-const isReadOnly = computed(() => isChecked.value || isLocked.value);
 
 function sentenceClass(sentence) {
   const selected = selectedAnswer(props.answers, props.question.id) === sentence;
-  if (!isChecked.value) {
-    return [selected ? 'selected' : '', isLocked.value ? 'locked' : ''].filter(Boolean).join(' ');
-  }
-  if (sentence === props.question.answer) return 'correct locked';
-  return selected ? 'incorrect locked' : 'locked';
+  return [selected ? 'selected' : '', isLocked.value ? 'locked' : ''].filter(Boolean).join(' ');
 }
 
 function highlightedParts(paragraph, paragraphNumber) {
@@ -71,7 +64,7 @@ function highlightedParts(paragraph, paragraphNumber) {
                 type="button"
                 class="passage-sentence-hl"
                 :class="sentenceClass(sentence)"
-                :disabled="isReadOnly"
+                :disabled="isLocked"
                 @click="emit('answer', question.id, sentence)"
               >
                 {{ sentence }}
@@ -87,7 +80,7 @@ function highlightedParts(paragraph, paragraphNumber) {
                   type="button"
                   class="insertion-marker"
                   :class="{ selected: selectedAnswer(answers, question.id) === part[1] }"
-                  :disabled="isReadOnly"
+                  :disabled="isLocked"
                   @click="emit('answer', question.id, part[1])"
                 >
                   {{ part }}
@@ -96,7 +89,10 @@ function highlightedParts(paragraph, paragraphNumber) {
               </template>
             </template>
             <template v-else>
-              <template v-for="(part, partIndex) in highlightedParts(paragraph, index + 1)" :key="partIndex">
+              <template
+                v-for="(part, partIndex) in highlightedParts(paragraph, index + 1)"
+                :key="partIndex"
+              >
                 <mark v-if="vocab && part.toLowerCase() === vocab.toLowerCase()">{{ part }}</mark
                 ><span v-else>{{ part }}</span>
               </template>
@@ -121,7 +117,7 @@ function highlightedParts(paragraph, paragraphNumber) {
               type="button"
               class="sentence-option-row"
               :class="sentenceClass(sentence)"
-              :disabled="isReadOnly"
+              :disabled="isLocked"
               @click="emit('answer', question.id, sentence)"
             >
               <span class="sentence-number">{{ index + 1 }}</span
@@ -133,7 +129,6 @@ function highlightedParts(paragraph, paragraphNumber) {
           v-else
           :question="question"
           :answers="answers"
-          :checked="checked"
           :locked="locked"
           @answer="(id, value) => emit('answer', id, value)"
         >

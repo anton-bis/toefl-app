@@ -97,7 +97,7 @@
 }
 .listening-page .question-text-apple {
   margin-bottom: 24px;
-  font-size: 17px;
+  font-size: clamp(20px, 1.45vw, 22px);
   font-weight: 500;
   line-height: 1.5;
   white-space: pre-wrap;
