@@ -123,6 +123,12 @@ const QUESTION_HELP = {
     '1. Read the social media post on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'text-chain':
     '1. Read the text chain conversation on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  poster:
+    '1. Read the poster on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  instructions:
+    '1. Read the instructions on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  form:
+    '1. Read the form on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   email:
     '1. Read the email carefully\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'academic-passage':

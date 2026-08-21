@@ -1,25 +1,22 @@
 const META_LINE = /^(To|From|Date|Subject|Title|Subtitle|username)[：:]\s*(.*)$/i;
 
-/**
- * Subtypes whose card header should fall back to the first content line
- * as a title when the passage has no explicit `Title:` line.
- */
-const FIRST_LINE_TITLE = new Set(['label', 'receipt', 'advertisement']);
-
 export function instructionFor(type) {
-  return (
-    {
-      email: 'Read an email',
-      'text-chain': 'Read a text chain',
-      notice: 'Read a notice',
-      announcement: 'Read an announcement',
-      advertisement: 'Read an advertisement',
-      label: 'Read a label',
-      receipt: 'Read a receipt',
-      'social-media': 'Read a social media post',
-      'academic-passage': 'Read an academic passage'
-    }[type] || 'Read the passage'
-  );
+  const label = {
+    email: 'Read an email',
+    'text-chain': 'Read a text chain',
+    notice: 'Read a notice',
+    announcement: 'Read an announcement',
+    advertisement: 'Read an advertisement',
+    label: 'Read a label',
+    receipt: 'Read a receipt',
+    'social-media': 'Read a social media post',
+    poster: 'Read a poster',
+    instructions: 'Read some instructions',
+    form: 'Read a form',
+    'academic-passage': 'Read an academic passage'
+  }[type];
+  if (label) return label;
+  return `Read the ${String(type || 'passage').replace(/[-\s]+/g, ' ')}`;
 }
 
 export function parseDailyPassage(passage, type) {
@@ -50,7 +47,11 @@ export function parseDailyPassage(passage, type) {
     };
   }
 
-  if (FIRST_LINE_TITLE.has(type) && !meta.title && content.length) {
+  // Every non-email daily-life subtype promotes its first content line to a
+  // card title (unless the passage declares an explicit `Title:` meta line).
+  // This is intentional: subtypes must not rely on a hand-maintained allowlist,
+  // otherwise adding a new template silently regresses to the task title.
+  if (!meta.title && content.length) {
     meta.title = content[0];
     content.shift();
   }

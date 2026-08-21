@@ -47,6 +47,17 @@ assets/questions/writing/2026-01-27/writing-2026-01-27.md
 
 ### 2.1 正确的 Electron 启动方式
 
+> ⚠️ **预览前必须先构建 dist，且必须 `ELECTRON=true`（否则白屏）**：
+> ```bash
+> $env:ELECTRON = "true"
+> npm run build
+> ```
+> `vite.config.js` 的 `base` 依赖该变量（`ELECTRON=true` → `'./'` 相对路径；否则 → `'/'` 绝对路径）。
+> 裸跑 `npm run build`（无 ELECTRON）会产出绝对路径 `/assets/...` 的 `dist/index.html`，
+> Electron `loadFile`（`file://`）把它解析成磁盘根目录 → JS/CSS 全 404 → **窗口白屏且"关不掉"**
+> （渲染进程崩了，主进程 `close` 会一直等 `flushRendererData()`，超时弹 "Could Not Save Changes" 对话框）。
+> 判断方法：打开 `dist/index.html`，资源引用必须是 `./assets/...`（相对），不是 `/assets/...`。
+
 ```bash
 # 生产模式（加载 dist + 工作区内容），必须设置隔离 userData 才能看到工作区新题
 $env:ELECTRON = "true"
@@ -54,6 +65,9 @@ $env:NODE_ENV = "production"
 $env:TOEFL_PERF_USER_DATA = "C:\Users\lj115\AppData\Local\Temp\opencode\toefl-preview-userdata"
 npx electron .
 ```
+
+> 若预览窗口白屏/卡死：`Stop-Process -Name electron -Force` 杀干净，
+> 并把隔离 userData 目录（`TOEFL_PERF_USER_DATA`）改名备份后清空重建（坏缓存也会导致白屏）。
 
 > ⚠️ **必须带 `TOEFL_PERF_USER_DATA`**：
 > - 不带 → Electron 用真实 userData，读**已安装的内容包**（旧版，无新题）
@@ -94,6 +108,7 @@ node scripts/generate-question-manifest.js   # 输出 "Question manifest: N docu
 - [ ] Electron 43 下 `content-protocol-integration` 测试自动 skip（已知，不阻塞）
 - [ ] 完形填空框数 = 答案需填字母数（转义下划线 `\_` 样式）
 - [ ] Announcement/Notice 正文编号列表不被误判为题目
+- [ ] Electron 预览用的 dist 是 `ELECTRON=true` 构建的（`dist/index.html` 资源为 `./assets/...`）
 
 ---
 

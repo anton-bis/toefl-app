@@ -106,6 +106,20 @@ Writing 头像统一存放于 `assets/questions/writing/avatars/`（详见该目
 路径不允许 `..`，故不用子目录；统一 400×400 透明底 PNG）。
 分配规则：各题型从对应子集随机抽取、同一题内不重复、不同题可复用、无图时图标兜底。
 
+### 5.2 Reading daily-life 卡片标题与页面主标题（防复发规则）
+
+- **页面主标题** = parser 生成的 `task.title`（题型名，如 `Read a Poster`）。前端直接渲染 `task.title`，
+  不要走指令文案的 fallback（早期用 `instructionFor`，漏配类型时退化成 "Read the passage"）。
+- **卡片标题（左侧内容区主标题）** = 正文第一行（如 `Join the Mechanicsburg Clean-Up Day!` /
+  `Downtown School of Data Skills`）。由 `parseDailyPassage` 对**所有非 email 子类型统一提取**
+  （除非 passage 带显式 `Title:` 元数据），**不依赖手写类型枚举**。
+- **新增 daily-life 子类型时无需改前端/helpers**：只需在 `content-core/parsers/reading.js` 的 TYPES 加映射。
+  标题、指令、渲染全部由通用规则自动覆盖。
+- 已踩坑（两处均根治，勿回退）：
+  1. 早期用 `FIRST_LINE_TITLE` 手写枚举，漏了 notice/announcement → 卡片标题退化成题型名；
+  2. 改完代码未用 `ELECTRON=true` 重建 dist → 页面主标题显示旧的 fallback 文案。
+
+
 
 ## 6. 日常工作流程
 

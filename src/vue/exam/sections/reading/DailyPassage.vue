@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
-import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
+import { parseDailyPassage, parseTextChain } from './helpers.js';
 
 const props = defineProps({
   task: { type: Object, required: true },
@@ -24,7 +24,7 @@ const receiptLines = labelLines;
 
 <template>
   <section id="question-module" class="daily-reading-page">
-    <p class="question-instruction">{{ instructionFor(task.type) }}</p>
+    <p class="question-instruction">{{ task.title }}</p>
     <div class="two-column-layout">
       <div
         class="left-column exam-scroll-region"
@@ -111,7 +111,7 @@ const receiptLines = labelLines;
         </article>
 
         <article
-          v-else-if="['advertisement', 'notice', 'announcement'].includes(task.type)"
+          v-else-if="['advertisement', 'notice', 'announcement', 'poster'].includes(task.type)"
           class="daily-passage-card apple-noticeboard-container"
           :class="task.type"
         >
@@ -120,6 +120,31 @@ const receiptLines = labelLines;
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="notice-content">{{ content.body }}</div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'instructions'"
+          class="daily-passage-card apple-instructions-container"
+        >
+          <header class="instructions-header">
+            <h2>{{ content.title || task.title }}</h2>
+          </header>
+          <div class="instructions-content">
+            <p v-for="(line, index) in labelLines" :key="index" class="instructions-line">
+              {{ line }}
+            </p>
+          </div>
+        </article>
+
+        <article v-else-if="task.type === 'form'" class="daily-passage-card apple-form-container">
+          <header class="form-header">
+            <h2>{{ content.title || task.title }}</h2>
+          </header>
+          <div class="form-content">
+            <p v-for="(line, index) in labelLines" :key="index" class="form-line">
+              {{ line }}
+            </p>
+          </div>
         </article>
 
         <article v-else class="daily-passage-card apple-noticeboard-container">
