@@ -10,9 +10,7 @@ const props = defineProps({
   task: { type: Object, default: null },
   question: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
-  checked: { type: [Boolean, Object], default: false },
-  locked: { type: [Boolean, Object], default: false },
-  readOnly: { type: Boolean, default: false }
+  locked: { type: [Boolean, Object], default: false }
 });
 const emit = defineEmits(['answer']);
 const answer = computed(() => (props.question ? props.answers[props.question.id] : null));
@@ -33,7 +31,6 @@ function studentImage(student) {
     :document="document"
     :question="question"
     :answer="answer"
-    :checked="checked"
     :locked="locked"
     @answer="save"
   />
@@ -60,11 +57,7 @@ function studentImage(student) {
       <h2>Your Response:</h2>
       <strong>To: {{ question.to }}</strong
       ><strong>Subject: {{ question.subject }}</strong
-      ><ResponseEditor
-        :model-value="answer || ''"
-        :read-only="readOnly"
-        @update:model-value="save"
-      />
+      ><ResponseEditor :model-value="answer || ''" @update:model-value="save" />
     </div>
   </section>
   <section
@@ -119,11 +112,7 @@ function studentImage(student) {
           </p>
         </div>
       </div>
-      <ResponseEditor
-        :model-value="answer || ''"
-        :read-only="readOnly"
-        @update:model-value="save"
-      />
+      <ResponseEditor :model-value="answer || ''" @update:model-value="save" />
     </div>
   </section>
   <section v-else class="writing-intro">
@@ -148,7 +137,7 @@ function studentImage(student) {
   border: 1px solid #d1d1d6;
   border-radius: 12px;
   padding: 18px 24px;
-  font-size: 18px;
+  font-size: clamp(19px, 1.35vw, 21px);
   line-height: 1.5;
   overflow: auto;
   box-sizing: border-box;
@@ -158,7 +147,7 @@ function studentImage(student) {
   border: 1px solid #d1d1d6;
   border-radius: 12px;
   padding: 18px 24px;
-  font-size: 18px;
+  font-size: clamp(19px, 1.35vw, 21px);
   line-height: 1.5;
   overflow: auto;
   box-sizing: border-box;
@@ -208,7 +197,7 @@ function studentImage(student) {
 }
 .student p {
   margin: 0 0 10px;
-  font-size: 17px;
+  font-size: clamp(18px, 1.25vw, 20px);
   line-height: 1.45;
 }
 .mini-avatar {

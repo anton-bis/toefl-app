@@ -12,8 +12,7 @@ const props = defineProps({
   page: { type: Object, required: true },
   task: { type: Object, default: null },
   question: { type: Object, default: null },
-  volume: { type: Number, default: 0.8 },
-  readOnly: { type: Boolean, default: false }
+  volume: { type: Number, default: 0.8 }
 });
 const emit = defineEmits(['answer', 'navigation-state']);
 const exam = useExamStore();
@@ -116,7 +115,7 @@ function finishPrompt() {
   startResponse();
 }
 async function startResponse() {
-  if (!props.question || props.readOnly || recorder.status.value === 'recording') return;
+  if (!props.question || recorder.status.value === 'recording') return;
   activeQuestionId = props.question.id;
   cancelAnimationFrame(animationFrame);
   phase.value = 'recording';
@@ -164,7 +163,7 @@ async function finishResponse() {
   }
 }
 async function rerecord() {
-  if (!props.question || props.readOnly) return;
+  if (!props.question) return;
   await recorder.clear(props.question.id);
   emit('answer', props.question.id, null);
   await startResponse();
@@ -283,7 +282,7 @@ onBeforeUnmount(() => {
       <div class="response-header">Response Time</div>
       <div class="response-body" :class="phase">
         <button
-          v-if="recorder.status.value === 'recorded' && !readOnly"
+          v-if="recorder.status.value === 'recorded'"
           type="button"
           class="response-action"
           title="Re-record"

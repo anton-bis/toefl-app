@@ -11,15 +11,13 @@ const props = defineProps({
   canNext: { type: Boolean, default: true },
   showVolume: { type: Boolean, default: true },
   showBack: { type: Boolean, default: true },
-  showQuestions: { type: Boolean, default: false },
-  showResults: { type: Boolean, default: false }
+  showQuestions: { type: Boolean, default: false }
 });
 const emit = defineEmits([
   'exit',
   'volume',
   'help',
   'questions',
-  'results',
   'back',
   'next',
   'toggle-time',
@@ -63,14 +61,6 @@ const { display: timeText, urgent } = useExamTimer(() => props.timer, {
         @click="$emit('questions')"
       >
         <span>Questions</span><i class="fas fa-list-check" aria-hidden="true" />
-      </button>
-      <button
-        v-if="showResults"
-        class="exam-nav-button exam-nav-button--dark"
-        type="button"
-        @click="$emit('results')"
-      >
-        <span>Results</span><i class="fas fa-chart-bar" aria-hidden="true" />
       </button>
       <button
         v-if="showBack"

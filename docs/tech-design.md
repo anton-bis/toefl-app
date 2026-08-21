@@ -1,12 +1,12 @@
 # Tech Design — TOEFL AI 批改平台
 
-| 字段 | 内容 |
-|------|------|
-| **版本** | v2.0（完整版） |
-| **日期** | 2026-08-04 |
-| **状态** | 定稿 |
-| **前置文档** | `docs/WEB-PRD.md`（PRD）、`docs/database-design-v2.md`（数据层蓝本） |
-| **配套文件** | `docs/mysql-schema-v2.sql`、`docs/sqlite-local-schema-v2.sql` |
+| 字段         | 内容                                                                                                |
+| ------------ | --------------------------------------------------------------------------------------------------- |
+| **版本**     | v2.0（完整版）                                                                                      |
+| **日期**     | 2026-08-04                                                                                          |
+| **状态**     | 定稿                                                                                                |
+| **前置文档** | `docs/WEB-PRD.md`（PRD）、`docs/database-design-v2.md`（数据层蓝本）                                |
+| **配套文件** | `docs/mysql-schema-v2.sql`、`docs/sqlite-local-schema-v2.sql`                                       |
 | **对齐说明** | 本文档以 `database-design-v2.md` 为蓝本，术语、表名、状态机、ID 与时间约定全部沿用 v2，不另起一套。 |
 
 ---
@@ -53,12 +53,12 @@
 
 ### 2.1 可复用的现有资产
 
-| 资产 | 位置 | 用途 |
-|------|------|------|
-| Markdown 题库（真值） | `assets/questions/**/*.md` | 内容源，不动 |
-| 内容解析器 / 校验 / 判分 | `content-core/`（已抽取） | 编译 Markdown → 结构化文档；客观题判分 |
-| 评分标准 rubrics | `src/ai/rubrics.js` | 四套 ETS 对齐评分标准，导入 `rubric_versions` |
-| 本地数据安全（阶段 A） | `feat/phase-a-data-safety`（已验收） | SQLite 迁移 / attempt 固化 / 录音绑定 |
+| 资产                     | 位置                                 | 用途                                          |
+| ------------------------ | ------------------------------------ | --------------------------------------------- |
+| Markdown 题库（真值）    | `assets/questions/**/*.md`           | 内容源，不动                                  |
+| 内容解析器 / 校验 / 判分 | `content-core/`（已抽取）            | 编译 Markdown → 结构化文档；客观题判分        |
+| 评分标准 rubrics         | `src/ai/rubrics.js`                  | 四套 ETS 对齐评分标准，导入 `rubric_versions` |
+| 本地数据安全（阶段 A）   | `feat/phase-a-data-safety`（已验收） | SQLite 迁移 / attempt 固化 / 录音绑定         |
 
 ### 2.2 硬性约束（沿用 v2）
 
@@ -94,27 +94,27 @@
 
 ### 4.1 与 v2 完全一致的约定
 
-| 约定 | 规范 |
-|------|------|
-| ID | 内部 `BIGINT UNSIGNED`；API/URL 用 `CHAR(26)` ULID；内容哈希 `CHAR(64)` SHA-256 |
-| 时间 | 全部 UTC `DATETIME(3)`；前端展示时转换用户时区 |
-| 金额 | 最小货币单位整数（`amount_minor`），禁止浮点数 |
-| 币种 | ISO 4217 三位码（`CNY`） |
-| 状态字段 | `VARCHAR + CHECK`，由领域服务控制跳转 |
-| 删除策略 | 财务/评分/审计禁删；外键默认 RESTRICT |
-| 字符集 | utf8mb4 / utf8mb4_0900_ai_ci，InnoDB |
+| 约定     | 规范                                                                            |
+| -------- | ------------------------------------------------------------------------------- |
+| ID       | 内部 `BIGINT UNSIGNED`；API/URL 用 `CHAR(26)` ULID；内容哈希 `CHAR(64)` SHA-256 |
+| 时间     | 全部 UTC `DATETIME(3)`；前端展示时转换用户时区                                  |
+| 金额     | 最小货币单位整数（`amount_minor`），禁止浮点数                                  |
+| 币种     | ISO 4217 三位码（`CNY`）                                                        |
+| 状态字段 | `VARCHAR + CHECK`，由领域服务控制跳转                                           |
+| 删除策略 | 财务/评分/审计禁删；外键默认 RESTRICT                                           |
+| 字符集   | utf8mb4 / utf8mb4_0900_ai_ci，InnoDB                                            |
 
 ### 4.2 应用层新增约定
 
-| 约定 | 规范 |
-|------|------|
-| REST 前缀 | `/v1/...` |
-| 幂等键 | 写操作必带 `Idempotency-Key` 头（ULID）；服务端写入 `idempotency_records` |
-| 错误码 | `DOMAIN:CODE` 格式，如 `ATTEMPT:NOT_FOUND`、`CREDIT:INSUFFICIENT`、`GRADING:PROVIDER_FAILED` |
-| 统一响应 | 成功 `{ data }`；失败 `{ error: { code, message, requestId, details? } }` |
-| 分页 | `?cursor=`（游标）或 `?page=&limit=`（偏移），列表接口统一返回 `{ items, nextCursor }` |
-| 日志 | 结构化 JSON；禁止记录完整作文/录音/token/密码/支付密钥 |
-| 敏感字段 | 全部走服务端 secret manager / 环境变量，前端不可见 |
+| 约定      | 规范                                                                                         |
+| --------- | -------------------------------------------------------------------------------------------- |
+| REST 前缀 | `/v1/...`                                                                                    |
+| 幂等键    | 写操作必带 `Idempotency-Key` 头（ULID）；服务端写入 `idempotency_records`                    |
+| 错误码    | `DOMAIN:CODE` 格式，如 `ATTEMPT:NOT_FOUND`、`CREDIT:INSUFFICIENT`、`GRADING:PROVIDER_FAILED` |
+| 统一响应  | 成功 `{ data }`；失败 `{ error: { code, message, requestId, details? } }`                    |
+| 分页      | `?cursor=`（游标）或 `?page=&limit=`（偏移），列表接口统一返回 `{ items, nextCursor }`       |
+| 日志      | 结构化 JSON；禁止记录完整作文/录音/token/密码/支付密钥                                       |
+| 敏感字段  | 全部走服务端 secret manager / 环境变量，前端不可见                                           |
 
 ---
 
@@ -142,16 +142,16 @@ flowchart LR
 
 ### 5.1 真值与投影（沿用 v2 第 5.1 节）
 
-| 数据 | 真值 | 投影 / 缓存 |
-|------|------|------------|
-| 题目源码 | Git Markdown | 无 |
-| 运行时题目 | 不可变 compiled document / pack | 客户端本地安装内容 |
-| 内容检索 | compiled document 可重建 | MySQL `content_tasks / content_questions` |
-| 作答草稿 | 用户设备本地 session | Pinia 状态 |
-| 正式提交 | 云端 `attempts / attempt_responses` | 本地已同步缓存 |
-| AI 结果 | `grading_results` | 报告页面缓存 |
-| 次数余额 | `credit_ledger` 可重放，`credit_accounts` 事务余额 | 前端显示余额 |
-| 支付状态 | 支付平台 + `payments / webhook_events` | 订单页面 |
+| 数据       | 真值                                               | 投影 / 缓存                               |
+| ---------- | -------------------------------------------------- | ----------------------------------------- |
+| 题目源码   | Git Markdown                                       | 无                                        |
+| 运行时题目 | 不可变 compiled document / pack                    | 客户端本地安装内容                        |
+| 内容检索   | compiled document 可重建                           | MySQL `content_tasks / content_questions` |
+| 作答草稿   | 用户设备本地 session                               | Pinia 状态                                |
+| 正式提交   | 云端 `attempts / attempt_responses`                | 本地已同步缓存                            |
+| AI 结果    | `grading_results`                                  | 报告页面缓存                              |
+| 次数余额   | `credit_ledger` 可重放，`credit_accounts` 事务余额 | 前端显示余额                              |
+| 支付状态   | 支付平台 + `payments / webhook_events`             | 订单页面                                  |
 
 ---
 
@@ -202,82 +202,82 @@ toefl-web/                     ← 新仓库，与 toefl-app 分离
 
 ### 7.1 auth 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| POST | /v1/auth/register | 公开 | 邮箱+密码注册；创建 users + user_identities(provider=password) + credit_accounts |
-| POST | /v1/auth/login | 公开 | 校验密码 → 创建 auth_sessions → 返回 access+refresh token |
-| POST | /v1/auth/refresh | 公开(refresh token) | 刷新会话 |
-| POST | /v1/auth/logout | 用户 | 撤销当前 auth_session |
-| GET | /v1/auth/me | 用户 | 当前用户信息 + 额度 + 有效订阅 |
-| POST | /v1/auth/password/reset | 公开 | 忘记密码（P1） |
+| 方法 | 路径                    | 鉴权                | 说明                                                                             |
+| ---- | ----------------------- | ------------------- | -------------------------------------------------------------------------------- |
+| POST | /v1/auth/register       | 公开                | 邮箱+密码注册；创建 users + user_identities(provider=password) + credit_accounts |
+| POST | /v1/auth/login          | 公开                | 校验密码 → 创建 auth_sessions → 返回 access+refresh token                        |
+| POST | /v1/auth/refresh        | 公开(refresh token) | 刷新会话                                                                         |
+| POST | /v1/auth/logout         | 用户                | 撤销当前 auth_session                                                            |
+| GET  | /v1/auth/me             | 用户                | 当前用户信息 + 额度 + 有效订阅                                                   |
+| POST | /v1/auth/password/reset | 公开                | 忘记密码（P1）                                                                   |
 
 ### 7.2 users 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| GET | /v1/users/me/credits | 用户 | 额度账户概览（available/reserved） |
-| GET | /v1/users/me/credit-ledger | 用户 | 额度流水（分页） |
-| GET | /v1/users/me/subscriptions | 用户 | 当前订阅 |
-| PATCH | /v1/users/me/profile | 用户 | 改昵称等（非敏感） |
+| 方法  | 路径                       | 鉴权 | 说明                               |
+| ----- | -------------------------- | ---- | ---------------------------------- |
+| GET   | /v1/users/me/credits       | 用户 | 额度账户概览（available/reserved） |
+| GET   | /v1/users/me/credit-ledger | 用户 | 额度流水（分页）                   |
+| GET   | /v1/users/me/subscriptions | 用户 | 当前订阅                           |
+| PATCH | /v1/users/me/profile       | 用户 | 改昵称等（非敏感）                 |
 
 ### 7.3 content 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| GET | /v1/content/tests | 用户 | 套题列表（分组：分科/套题/话题） |
-| GET | /v1/content/tests/:testId | 用户 | 单套详情（含各 section 状态） |
-| GET | /v1/content/documents/:documentVersionId | 用户 | 题目文档内容（compiled JSON） |
-| GET | /v1/content/tasks | 用户 | 任务列表，支持 section/type/topic/title/subtitle 筛选 |
-| GET | /v1/content/tasks/:taskId | 用户 | 任务详情（含题目） |
-| GET | /v1/content/search | 用户 | 全文搜索（title/subtitle/search_text，可跨 TPO） |
-| GET | /v1/content/topics | 用户 | 话题分类树（P1） |
-| GET | /v1/content/releases | 用户 | 当前激活内容版本信息 |
+| 方法 | 路径                                     | 鉴权 | 说明                                                  |
+| ---- | ---------------------------------------- | ---- | ----------------------------------------------------- |
+| GET  | /v1/content/tests                        | 用户 | 套题列表（分组：分科/套题/话题）                      |
+| GET  | /v1/content/tests/:testId                | 用户 | 单套详情（含各 section 状态）                         |
+| GET  | /v1/content/documents/:documentVersionId | 用户 | 题目文档内容（compiled JSON）                         |
+| GET  | /v1/content/tasks                        | 用户 | 任务列表，支持 section/type/topic/title/subtitle 筛选 |
+| GET  | /v1/content/tasks/:taskId                | 用户 | 任务详情（含题目）                                    |
+| GET  | /v1/content/search                       | 用户 | 全文搜索（title/subtitle/search_text，可跨 TPO）      |
+| GET  | /v1/content/topics                       | 用户 | 话题分类树（P1）                                      |
+| GET  | /v1/content/releases                     | 用户 | 当前激活内容版本信息                                  |
 
 ### 7.4 attempts 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| POST | /v1/attempts | 用户 | 创建 attempt（幂等：client_attempt_id） |
-| PUT | /v1/attempts/:clientAttemptId/draft | 用户 | 保存草稿（lock_version 乐观锁） |
-| PUT | /v1/attempts/:clientAttemptId/responses | 用户 | 逐题保存响应（幂等） |
-| POST | /v1/attempts/:clientAttemptId/submit | 用户 | 正式提交（Idempotency-Key）→ 客观题判分 → 主观题建 grading_job |
-| GET | /v1/attempts/:clientAttemptId | 用户 | attempt 详情（含响应与状态） |
-| GET | /v1/attempts | 用户 | 历史记录（分页，user_id + started_at DESC） |
-| GET | /v1/attempts/:clientAttemptId/results | 用户 | 评分结果报告（display_score + 分项 + 润色版） |
-| POST | /v1/media/presign | 用户 | 录音上传预签名 URL（幂等） |
-| POST | /v1/media/complete | 用户 | 录音上传完成确认（写 media_objects） |
+| 方法 | 路径                                    | 鉴权 | 说明                                                           |
+| ---- | --------------------------------------- | ---- | -------------------------------------------------------------- |
+| POST | /v1/attempts                            | 用户 | 创建 attempt（幂等：client_attempt_id）                        |
+| PUT  | /v1/attempts/:clientAttemptId/draft     | 用户 | 保存草稿（lock_version 乐观锁）                                |
+| PUT  | /v1/attempts/:clientAttemptId/responses | 用户 | 逐题保存响应（幂等）                                           |
+| POST | /v1/attempts/:clientAttemptId/submit    | 用户 | 正式提交（Idempotency-Key）→ 客观题判分 → 主观题建 grading_job |
+| GET  | /v1/attempts/:clientAttemptId           | 用户 | attempt 详情（含响应与状态）                                   |
+| GET  | /v1/attempts                            | 用户 | 历史记录（分页，user_id + started_at DESC）                    |
+| GET  | /v1/attempts/:clientAttemptId/results   | 用户 | 评分结果报告（display_score + 分项 + 润色版）                  |
+| POST | /v1/media/presign                       | 用户 | 录音上传预签名 URL（幂等）                                     |
+| POST | /v1/media/complete                      | 用户 | 录音上传完成确认（写 media_objects）                           |
 
 ### 7.5 grading 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
+| 方法 | 路径                                   | 鉴权 | 说明                                       |
+| ---- | -------------------------------------- | ---- | ------------------------------------------ |
 | POST | /v1/attempts/:clientAttemptId/re-grade | 用户 | 对已提交响应重新评分（创建新 grading_job） |
-| GET | /v1/grading/jobs/:jobPublicId | 用户 | 评分任务状态（供 SSE 断线后查询） |
-| GET | /v1/grading/results/:resultPublicId | 用户 | 评分结果详情 |
-| GET | /v1/attempts/:clientAttemptId/events | 用户 | SSE 订阅评分进度事件 |
+| GET  | /v1/grading/jobs/:jobPublicId          | 用户 | 评分任务状态（供 SSE 断线后查询）          |
+| GET  | /v1/grading/results/:resultPublicId    | 用户 | 评分结果详情                               |
+| GET  | /v1/attempts/:clientAttemptId/events   | 用户 | SSE 订阅评分进度事件                       |
 
 ### 7.6 billing 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| GET | /v1/billing/products | 公开 | 商品+价格+权益列表 |
-| POST | /v1/billing/orders | 用户 | 创建订单（幂等）→ 返回支付参数 |
-| GET | /v1/billing/orders/:orderId | 用户 | 订单详情 |
-| POST | /v1/billing/payments/:paymentId/notify | 公开(验签) | 支付平台 webhook（幂等去重） |
-| GET | /v1/billing/orders | 用户 | 订单历史（分页） |
-| POST | /v1/billing/subscriptions/:subId/cancel | 用户 | 取消续订（cancel_at_period_end） |
-| POST | /v1/billing/refunds | admin | 退款（P1，带审计） |
+| 方法 | 路径                                    | 鉴权       | 说明                             |
+| ---- | --------------------------------------- | ---------- | -------------------------------- |
+| GET  | /v1/billing/products                    | 公开       | 商品+价格+权益列表               |
+| POST | /v1/billing/orders                      | 用户       | 创建订单（幂等）→ 返回支付参数   |
+| GET  | /v1/billing/orders/:orderId             | 用户       | 订单详情                         |
+| POST | /v1/billing/payments/:paymentId/notify  | 公开(验签) | 支付平台 webhook（幂等去重）     |
+| GET  | /v1/billing/orders                      | 用户       | 订单历史（分页）                 |
+| POST | /v1/billing/subscriptions/:subId/cancel | 用户       | 取消续订（cancel_at_period_end） |
+| POST | /v1/billing/refunds                     | admin      | 退款（P1，带审计）               |
 
 ### 7.7 admin 模块
 
-| 方法 | 路径 | 鉴权 | 说明 |
-|------|------|------|------|
-| POST | /v1/admin/content/release | admin/content_editor | 发布内容 release（关联 git commit） |
-| GET | /v1/admin/content/releases | admin | release 列表/状态 |
-| PATCH | /v1/admin/users/:userId/status | admin | 禁用/启用用户（写 audit_logs） |
-| POST | /v1/admin/users/:userId/credits/adjust | admin/finance | 额度调整（写 credit_ledger + audit_logs） |
-| GET | /v1/admin/metrics | admin | 运营指标（对齐第 14 节） |
-| GET | /v1/admin/audit-logs | admin | 审计日志查询 |
+| 方法  | 路径                                   | 鉴权                 | 说明                                      |
+| ----- | -------------------------------------- | -------------------- | ----------------------------------------- |
+| POST  | /v1/admin/content/release              | admin/content_editor | 发布内容 release（关联 git commit）       |
+| GET   | /v1/admin/content/releases             | admin                | release 列表/状态                         |
+| PATCH | /v1/admin/users/:userId/status         | admin                | 禁用/启用用户（写 audit_logs）            |
+| POST  | /v1/admin/users/:userId/credits/adjust | admin/finance        | 额度调整（写 credit_ledger + audit_logs） |
+| GET   | /v1/admin/metrics                      | admin                | 运营指标（对齐第 14 节）                  |
+| GET   | /v1/admin/audit-logs                   | admin                | 审计日志查询                              |
 
 ---
 
@@ -351,14 +351,14 @@ Authorization: Bearer <jwt>
 
 ### 9.3 事件类型
 
-| event | data | 说明 |
-|-------|------|------|
-| `grading.pending` | `{ attemptId, status }` | 已排队 |
-| `grading.processing` | `{ attemptId }` | AI 批改中 |
-| `grading.retry` | `{ attemptId, retryCount }` | 重试中 |
-| `grading.completed` | `{ attemptId, resultId }` | 完成，前端据此拉取结果 |
-| `grading.failed` | `{ attemptId, retryable }` | 失败（可重试/已退回次数） |
-| `ping` | `{ ts }` | 心跳，每 30s，防中间层掐断 |
+| event                | data                        | 说明                       |
+| -------------------- | --------------------------- | -------------------------- |
+| `grading.pending`    | `{ attemptId, status }`     | 已排队                     |
+| `grading.processing` | `{ attemptId }`             | AI 批改中                  |
+| `grading.retry`      | `{ attemptId, retryCount }` | 重试中                     |
+| `grading.completed`  | `{ attemptId, resultId }`   | 完成，前端据此拉取结果     |
+| `grading.failed`     | `{ attemptId, retryable }`  | 失败（可重试/已退回次数）  |
+| `ping`               | `{ ts }`                    | 心跳，每 30s，防中间层掐断 |
 
 ### 9.4 断线与兜底
 
@@ -371,6 +371,17 @@ EventSource 断线 → 浏览器自动重连（retry 字段/EventSource 内置�
   - 结果页下拉刷新 → GET /v1/attempts/:id/results
   - 任何情况下结果不丢（数据在 MySQL）
 ```
+
+### 9.5 客户端答案复盘与题目状态
+
+- 科目完成后，结果页按 Module / Task 原位展示可折叠答案卡，不通过题号网格或独立
+  Detailed Review 路由查看答案。
+- 答案卡只消费不可变 compiled document 与对应 attempt responses：客观题展示用户答案、
+  正确答案；听力/口语展示可重复播放的分段音频与 transcript；口语录音按需读取。
+- `Questions` 状态面板覆盖四科。Reading 与 Writing Build a Sentence 可在当前合法范围内
+  跳题和标记；Listening、Speaking 和长写作仅显示 Answered / Open 状态，不产生导航或标记。
+- 已完成科目的旧题目报告 URL 重定向到结果页。前端只呈现 6 分制 `display_score`，不接收或
+  展示 raw 0-5 分与 30 分制中间分。
 
 ---
 
@@ -465,21 +476,21 @@ rubric_versions 表绑定：rubric_code + version + prompt_template + output_sch
 
 ### 11.4 分数映射（score_mapping_version）
 
-| 内部字段 | 值 | 展示 |
-|---------|-----|------|
-| raw_score | 0-5（ETS 对齐） | ❌ |
-| display_score | 0-6（映射后） | ✅ 唯一展示 |
+| 内部字段      | 值              | 展示        |
+| ------------- | --------------- | ----------- |
+| raw_score     | 0-5（ETS 对齐） | ❌          |
+| display_score | 0-6（映射后）   | ✅ 唯一展示 |
 
 映射规则版本化（`score_mapping_version`），未来调整映射不影响历史记录解释。
 
 ### 11.5 各题型评分与润色规则（对齐 PRD）
 
-| 题型 | 评分 | 分项反馈 | AI 润色版 |
-|------|------|---------|----------|
-| Write an Email | ✅ | ✅ | ✅ |
-| Academic Discussion | ✅ | ✅ | ✅ |
-| Take an Interview | ✅ | ✅ | ✅ |
-| Listen and Repeat | ✅ | ✅ 发音/连读/口误 | ❌ |
+| 题型                | 评分 | 分项反馈          | AI 润色版 |
+| ------------------- | ---- | ----------------- | --------- |
+| Write an Email      | ✅   | ✅                | ✅        |
+| Academic Discussion | ✅   | ✅                | ✅        |
+| Take an Interview   | ✅   | ✅                | ✅        |
+| Listen and Repeat   | ✅   | ✅ 发音/连读/口误 | ❌        |
 
 ---
 
@@ -504,16 +515,16 @@ rubric_versions 表绑定：rubric_code + version + prompt_template + output_sch
 
 ### 12.2 错误码规范（`DOMAIN:CODE`）
 
-| 域 | 示例 |
-|----|------|
-| AUTH | `AUTH:INVALID_CREDENTIALS`、`AUTH:TOKEN_EXPIRED`、`AUTH:ACCOUNT_DISABLED` |
-| USER | `USER:NOT_FOUND` |
-| CONTENT | `CONTENT:NOT_FOUND`、`CONTENT:RELEASE_UNVERIFIED` |
-| ATTEMPT | `ATTEMPT:NOT_FOUND`、`ATTEMPT:ALREADY_SUBMITTED`、`ATTEMPT:NOT_OWNER` |
-| GRADING | `GRADING:PROVIDER_FAILED`、`GRADING:OUTPUT_INVALID`、`GRADING:RETRY_EXHAUSTED` |
-| CREDIT | `CREDIT:INSUFFICIENT`、`CREDIT:RESERVATION_EXPIRED` |
-| BILLING | `BILLING:ORDER_EXPIRED`、`BILLING:WEBHOOK_SIGNATURE`、`BILLING:IDEMPOTENCY_CONFLICT` |
-| IDEMPOTENCY | `IDEMPOTENCY:KEY_REUSED_WITH_DIFFERENT_REQUEST` |
+| 域          | 示例                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------ |
+| AUTH        | `AUTH:INVALID_CREDENTIALS`、`AUTH:TOKEN_EXPIRED`、`AUTH:ACCOUNT_DISABLED`            |
+| USER        | `USER:NOT_FOUND`                                                                     |
+| CONTENT     | `CONTENT:NOT_FOUND`、`CONTENT:RELEASE_UNVERIFIED`                                    |
+| ATTEMPT     | `ATTEMPT:NOT_FOUND`、`ATTEMPT:ALREADY_SUBMITTED`、`ATTEMPT:NOT_OWNER`                |
+| GRADING     | `GRADING:PROVIDER_FAILED`、`GRADING:OUTPUT_INVALID`、`GRADING:RETRY_EXHAUSTED`       |
+| CREDIT      | `CREDIT:INSUFFICIENT`、`CREDIT:RESERVATION_EXPIRED`                                  |
+| BILLING     | `BILLING:ORDER_EXPIRED`、`BILLING:WEBHOOK_SIGNATURE`、`BILLING:IDEMPOTENCY_CONFLICT` |
+| IDEMPOTENCY | `IDEMPOTENCY:KEY_REUSED_WITH_DIFFERENT_REQUEST`                                      |
 
 ### 12.3 全局错误处理
 
@@ -525,16 +536,16 @@ rubric_versions 表绑定：rubric_code + version + prompt_template + output_sch
 
 ## 13. 安全与隐私（对齐 v2 第 18 节）
 
-| 项 | 措施 |
-|----|------|
-| 密码 | Argon2id / bcrypt，只存哈希 |
-| Token | 只存哈希（auth_sessions.token_hash） |
-| API Key | 仅服务端 secret manager，前端不可见 |
-| AI Key | DeepSeek/智谱 key 只存服务端环境变量 |
+| 项       | 措施                                              |
+| -------- | ------------------------------------------------- |
+| 密码     | Argon2id / bcrypt，只存哈希                       |
+| Token    | 只存哈希（auth_sessions.token_hash）              |
+| API Key  | 仅服务端 secret manager，前端不可见               |
+| AI Key   | DeepSeek/智谱 key 只存服务端环境变量              |
 | 用户内容 | 作文/录音访问必须鉴权；私有 bucket + 短期签名 URL |
-| 支付 | webhook 验签；payload 入库前脱敏 |
-| 日志 | 禁止记录完整作文/录音/token/密码/支付密钥 |
-| 用户删除 | 状态标记 deleted + 匿名化，财务记录保留法定字段 |
+| 支付     | webhook 验签；payload 入库前脱敏                  |
+| 日志     | 禁止记录完整作文/录音/token/密码/支付密钥         |
+| 用户删除 | 状态标记 deleted + 匿名化，财务记录保留法定字段   |
 
 ---
 
@@ -542,16 +553,16 @@ rubric_versions 表绑定：rubric_code + version + prompt_template + output_sch
 
 ### 14.1 必监控项
 
-| 指标 | 监控点 |
-|------|--------|
-| grading 队列 | 队列长度、最老任务等待时间 |
-| AI | 各模型 token、成本、P95 latency、retry/terminal failure 比例 |
-| 支付 | webhook 失败与积压 |
-| 额度 | credit_ledger 对账差异（periodic check：ledger 末条 = account 余额） |
-| Outbox | 未发布数量 |
-| 同步 | attempt 同步失败与冲突 |
-| 内容 | release 客户端激活比例 |
-| 数据库 | 慢查询、连接池、锁等待、容量 |
+| 指标         | 监控点                                                               |
+| ------------ | -------------------------------------------------------------------- |
+| grading 队列 | 队列长度、最老任务等待时间                                           |
+| AI           | 各模型 token、成本、P95 latency、retry/terminal failure 比例         |
+| 支付         | webhook 失败与积压                                                   |
+| 额度         | credit_ledger 对账差异（periodic check：ledger 末条 = account 余额） |
+| Outbox       | 未发布数量                                                           |
+| 同步         | attempt 同步失败与冲突                                               |
+| 内容         | release 客户端激活比例                                               |
+| 数据库       | 慢查询、连接池、锁等待、容量                                         |
 
 ### 14.2 对账机制
 
@@ -565,15 +576,15 @@ credit_ledger 最后一条 available_after / reserved_after
 
 ## 15. 测试策略
 
-| 层 | 工具 | 覆盖 |
-|----|------|------|
-| 单元 | Vitest | 评分映射、rubric 解析、错误码映射、prompt 组装 |
-| 接口 | Jest + Supertest | 每个 REST 端点的状态码/入参/出参/鉴权 |
-| 数据库 | 真实 MySQL + Prisma migrate reset | 迁移可执行、回填幂等 |
-| 并发 | 模拟并发提交 | 额度并发只有允许数量成功；同一 client_attempt_id 只创建一次 |
-| 重放 | webhook 重复推送 | 不重复发放权益；幂等键复用返回旧结果 |
-| 评分 | mock AI provider | 输出校验、重试、失败释放预占 |
-| 前端 | Vitest + Vue Test Utils | 组件渲染、SSE 事件处理、断线兜底 |
+| 层     | 工具                              | 覆盖                                                        |
+| ------ | --------------------------------- | ----------------------------------------------------------- |
+| 单元   | Vitest                            | 评分映射、rubric 解析、错误码映射、prompt 组装              |
+| 接口   | Jest + Supertest                  | 每个 REST 端点的状态码/入参/出参/鉴权                       |
+| 数据库 | 真实 MySQL + Prisma migrate reset | 迁移可执行、回填幂等                                        |
+| 并发   | 模拟并发提交                      | 额度并发只有允许数量成功；同一 client_attempt_id 只创建一次 |
+| 重放   | webhook 重复推送                  | 不重复发放权益；幂等键复用返回旧结果                        |
+| 评分   | mock AI provider                  | 输出校验、重试、失败释放预占                                |
+| 前端   | Vitest + Vue Test Utils           | 组件渲染、SSE 事件处理、断线兜底                            |
 
 关键路径必须有测试：注册/登录/提交/评分/支付/额度。
 
@@ -627,13 +638,13 @@ CLIENT_ORIGIN（CORS）
 
 ## 17. 实施阶段（对齐 database-design-v2 第 22 节）
 
-| 阶段 | 内容 | 交付物 | 状态 |
-|------|------|--------|------|
+| 阶段  | 内容                                           | 交付物                   | 状态      |
+| ----- | ---------------------------------------------- | ------------------------ | --------- |
 | **A** | 本地 SQLite 迁移 + attempt 改造（Electron 端） | 数据不再删库，历史可追溯 | ✅ 已验收 |
-| **B** | 用户登录 + 内容登记 + attempts 同步 + 历史页面 | 云端只读可用 | 待启动 |
-| **C** | AI 异步评分（jobs/worker/results/SSE） | 写作+口语评分跑通 | 待启动 |
-| **D** | 商业化（商品/订单/支付/额度/订阅） | 可收费 | 待启动 |
-| **E** | 话题分类 + 搜索优化 + 后台运营 | 内容运营 | 待启动 |
+| **B** | 用户登录 + 内容登记 + attempts 同步 + 历史页面 | 云端只读可用             | 待启动    |
+| **C** | AI 异步评分（jobs/worker/results/SSE）         | 写作+口语评分跑通        | 待启动    |
+| **D** | 商业化（商品/订单/支付/额度/订阅）             | 可收费                   | 待启动    |
+| **E** | 话题分类 + 搜索优化 + 后台运营                 | 内容运营                 | 待启动    |
 
 > 原则：先 B+C 跑通"提交→评分→展示"，再 D 收费。命名改造（双轨命名）在阶段 A 稳定后单独分支推进。
 
@@ -642,16 +653,19 @@ CLIENT_ORIGIN（CORS）
 ## 18. 验收清单
 
 ### 认证与用户
+
 - [ ] 注册/登录/刷新/登出全流程可用
 - [ ] 密码与 token 只存哈希
 - [ ] 角色守卫生效，越权返回 403
 
 ### 内容
+
 - [ ] Markdown 不变时不重复创建 document version
 - [ ] source hash 变化产生新 version
 - [ ] 搜索索引可从 compiled content 全量重建
 
 ### 作答
+
 - [ ] 同一 client_attempt_id 重传只创建一次
 - [ ] 一套题可保存无限次 attempt
 - [ ] 旧 attempt 不因内容更新改变题目
@@ -659,6 +673,7 @@ CLIENT_ORIGIN（CORS）
 - [ ] 断网录音恢复后可继续上传
 
 ### AI 评分
+
 - [ ] 用户原文/录音引用在 AI 调用前已提交
 - [ ] 同一幂等键只创建一个 job
 - [ ] 自动重试不重复扣费
@@ -668,6 +683,7 @@ CLIENT_ORIGIN（CORS）
 - [ ] SSE 完成事件后可从 REST 拉取结果（断线兜底）
 
 ### 支付与额度
+
 - [ ] 重复 webhook 不重复发放权益
 - [ ] 金额币种与支付平台一致
 - [ ] 订单/payment/权益在一个事务内落地
@@ -676,6 +692,7 @@ CLIENT_ORIGIN（CORS）
 - [ ] 退款产生冲正记录，不修改旧流水
 
 ### 运维
+
 - [ ] 所有 schema 变更通过 migration
 - [ ] SQLite 升级不删除用户数据
 - [ ] 备份可实际恢复
@@ -686,11 +703,11 @@ CLIENT_ORIGIN（CORS）
 
 ## 19. 待定事项（开发时确定）
 
-| # | 事项 | 当前倾向 |
-|---|------|---------|
-| 1 | 开发期后端托管 | Railway 或 Render 皆可，开发时选定 |
-| 2 | Web 前端 UI 负责人 | 待分工 |
-| 3 | 前端 UI 风格 | 沿用现有 Electron Apple 风格 |
-| 4 | Redis 引入时机 | 用户量上来后评估，第一版用数据库 Outbox |
-| 5 | 支付渠道首选 | 支付宝 / 微信，接入时按个人资质选定 |
-| 6 | 域名与备案 | 正式上线国内服务器时处理 |
+| #   | 事项               | 当前倾向                                |
+| --- | ------------------ | --------------------------------------- |
+| 1   | 开发期后端托管     | Railway 或 Render 皆可，开发时选定      |
+| 2   | Web 前端 UI 负责人 | 待分工                                  |
+| 3   | 前端 UI 风格       | 沿用现有 Electron Apple 风格            |
+| 4   | Redis 引入时机     | 用户量上来后评估，第一版用数据库 Outbox |
+| 5   | 支付渠道首选       | 支付宝 / 微信，接入时按个人资质选定     |
+| 6   | 域名与备案         | 正式上线国内服务器时处理                |

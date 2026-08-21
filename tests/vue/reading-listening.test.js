@@ -4,6 +4,7 @@ import ReadingPage from '../../src/vue/exam/sections/reading/ReadingPage.vue';
 import ListeningPage from '../../src/vue/exam/sections/listening/ListeningPage.vue';
 import AudioSegment from '../../src/vue/exam/sections/listening/AudioSegment.vue';
 import QuestionNavigator from '../../src/vue/exam/shared/QuestionNavigator.vue';
+import ObjectiveResults from '../../src/vue/exam/results/ObjectiveResults.vue';
 import {
   academicMode,
   fillTokens,
@@ -124,6 +125,162 @@ describe('QuestionNavigator', () => {
       'complete-words prompt'
     );
   });
+
+  it('renders status-only items without navigation or mark actions', () => {
+    const wrapper = mount(QuestionNavigator, {
+      props: {
+        open: true,
+        document: {
+          pages: [{ id: 'q1', questionIds: ['q1'] }],
+          modules: [{ id: 'module-1', tasks: [{ id: 'task-1', questions: [{ id: 'q1' }] }] }]
+        },
+        pageId: 'q1',
+        answers: { q1: 'recorded' },
+        marks: {},
+        navigationEnabled: false,
+        markEnabled: false
+      }
+    });
+    const navigator = globalThis.document.querySelector('.question-navigator');
+    expect(navigator.textContent).toContain('Status only');
+    expect(navigator.querySelector('.question-navigator__stats').textContent).toContain(
+      '1 / 1Answered'
+    );
+    expect(navigator.querySelector('.question-navigator__stats').textContent).not.toContain(
+      'Marked'
+    );
+    expect(navigator.querySelector('.question-navigator__question--readonly')).toBeTruthy();
+    expect(navigator.querySelector('button.question-navigator__question')).toBeNull();
+    expect(navigator.querySelector('.question-navigator__mark')).toBeNull();
+    expect(wrapper.emitted('select')).toBeUndefined();
+  });
+});
+
+describe('objective answer review', () => {
+  beforeEach(() => {
+    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
+    vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
+  });
+
+  it('keeps Complete Words together in one folded answer card', () => {
+    const questions = [
+      { id: 'q1', number: 1, type: 'complete-words', answer: 'might', options: [] },
+      { id: 'q2', number: 2, type: 'complete-words', answer: 'that', options: [] }
+    ];
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'We mi___ think th__ is true.',
+                questionRange: [1, 2],
+                questions
+              }
+            ]
+          }
+        ],
+        answers: { q1: 'might' }
+      }
+    });
+    expect(wrapper.findAll('.answer-review-card')).toHaveLength(1);
+    expect(wrapper.find('.answer-review-card').attributes('open')).toBeUndefined();
+    expect(wrapper.findAll('.fill-review-row')).toHaveLength(2);
+    expect(wrapper.findAll('.fill-review-answer')[3].text()).toBe('Correct answer that');
+    expect(wrapper.find('.results-legend').exists()).toBe(false);
+    expect(wrapper.find('.answer-review-card__state').exists()).toBe(false);
+  });
+
+  it('renders folded listening source and answer cards with transcript and locked answers', () => {
+    const listeningQuestion = {
+      ...question,
+      id: 'lq1',
+      number: 1,
+      prompt: 'What did the speaker recommend?'
+    };
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document: {
+          section: 'listening',
+          sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md'
+        },
+        section: 'listening',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'conversation',
+                title: 'Conversation',
+                type: 'conversation',
+                transcript: 'A complete conversation transcript.',
+                media: { file: 'conversation.mp3', start: 3, end: 9 },
+                questions: [listeningQuestion]
+              }
+            ]
+          }
+        ],
+        answers: { lq1: 'B' }
+      }
+    });
+    expect(wrapper.find('.results-source-card').attributes('open')).toBeUndefined();
+    expect(wrapper.find('.answer-review-card').attributes('open')).toBeUndefined();
+    expect(wrapper.text()).toContain('A complete conversation transcript.');
+    expect(wrapper.text().split(listeningQuestion.prompt)).toHaveLength(2);
+    expect(
+      wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
+    ).toBe(true);
+    expect(wrapper.find('.option-item-apple.correct').attributes('data-option')).toBe('A');
+    expect(wrapper.find('.option-item-apple.incorrect').attributes('data-option')).toBe('B');
+  });
+
+  it('keeps a listen-response transcript in the expandable summary without repeating it', () => {
+    const transcript = 'Woman: How can I access my account?';
+    const listenResponse = {
+      ...question,
+      id: 'lq-response',
+      number: 1,
+      type: 'listen-response',
+      prompt: '',
+      transcript,
+      media: { file: 'response.mp3', start: 2, end: 5 }
+    };
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document: {
+          section: 'listening',
+          sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md'
+        },
+        section: 'listening',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'responses',
+                title: 'Listen and Choose a Response',
+                type: 'listen-response',
+                questions: [listenResponse]
+              }
+            ]
+          }
+        ],
+        answers: {}
+      }
+    });
+
+    expect(wrapper.text().split(transcript)).toHaveLength(2);
+    expect(wrapper.find('.audio-inline-player').exists()).toBe(true);
+  });
 });
 
 describe('ReadingPage', () => {
@@ -135,7 +292,6 @@ describe('ReadingPage', () => {
         task: { type: 'notice', title: 'Notice', passage: 'Title: Campus News\nClosed today.' },
         question,
         answers: {},
-        checked: false,
         volume: 0.8
       }
     });
@@ -167,7 +323,6 @@ describe('ReadingPage', () => {
         task: { type: 'complete-words', passage: fillQuestion.prompt, questions: [fillQuestion] },
         question: fillQuestion,
         answers: {},
-        checked: false,
         volume: 0.8
       }
     });
@@ -200,8 +355,7 @@ describe('ReadingPage', () => {
         page: { id: pointQuestion.id },
         task,
         question: pointQuestion,
-        answers: {},
-        checked: false
+        answers: {}
       }
     });
     expect(point.classes()).toContain('exam-content-pane');
@@ -259,7 +413,6 @@ describe('ReadingPage', () => {
           options: [{ id: 'A', label: 'A', text: 'Option A' }]
         },
         answers: {},
-        checked: false,
         locked: false
       }
     });
@@ -302,7 +455,6 @@ describe('listening section', () => {
         task,
         question: listenQuestion,
         answers: {},
-        checked: false,
         volume: 0.5
       }
     });
@@ -311,7 +463,7 @@ describe('listening section', () => {
     expect(wrapper.emitted('answer')).toEqual([['lq1', 'A']]);
     expect(wrapper.emitted('media-state').some(([state]) => state.state === 'playing')).toBe(true);
 
-    await wrapper.setProps({ checked: {}, locked: { lq1: true } });
+    await wrapper.setProps({ locked: { lq1: true } });
     expect(
       wrapper.findAll('.option-item-apple').every(option => option.attributes('disabled') === '')
     ).toBe(true);
@@ -333,10 +485,13 @@ describe('listening section', () => {
       props: {
         document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
         page: { id: 'lq-img', type: 'question' },
-        task: { type: 'listen-response', title: 'Listen and Choose a Response', questions: [imageQuestion] },
+        task: {
+          type: 'listen-response',
+          title: 'Listen and Choose a Response',
+          questions: [imageQuestion]
+        },
         question: imageQuestion,
         answers: {},
-        checked: false,
         volume: 0.5
       }
     });
@@ -359,7 +514,6 @@ describe('listening section', () => {
         },
         question: null,
         answers: {},
-        checked: false,
         volume: 0.5
       }
     });
@@ -384,8 +538,7 @@ describe('listening section', () => {
         page: { id: 'talk-stimulus', type: 'stimulus' },
         task,
         question: null,
-        answers: {},
-        checked: false
+        answers: {}
       }
     });
     expect(wrapper.find('.listening-stimulus').exists()).toBe(true);
@@ -407,7 +560,7 @@ describe('listening section', () => {
   it('stops and detaches segment media when unmounted', () => {
     const wrapper = mount(AudioSegment, {
       props: {
-        document: { assetBase: '/content' },
+        document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
         media: { file: 'talk.ogg', start: 0, end: 10 },
         volume: 0.8
       }
@@ -438,5 +591,31 @@ describe('listening section', () => {
     });
     await wrapper.find('audio').trigger('loadedmetadata');
     expect(wrapper.find('.audio-time').text()).toBe('00:00 / 00:00');
+  });
+
+  it('pauses and replays a completed segment when play-once is disabled', async () => {
+    const wrapper = mount(AudioSegment, {
+      props: {
+        document: { sourcePath: 'assets/questions/listening/TPO-03/listening-TPO-03.md' },
+        media: { file: 'talk.ogg', start: 4, end: 8 },
+        playOnce: false
+      }
+    });
+    const element = wrapper.find('audio').element;
+    Object.defineProperty(element, 'duration', { configurable: true, value: 20 });
+    await wrapper.find('audio').trigger('loadedmetadata');
+    await wrapper.find('.audio-play-btn').trigger('click');
+    expect(element.currentTime).toBe(4);
+    expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('playing');
+
+    await wrapper.find('.audio-play-btn').trigger('click');
+    expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('paused');
+
+    element.currentTime = 8;
+    await wrapper.find('audio').trigger('timeupdate');
+    expect(wrapper.emitted('media-state').at(-1)[0].state).toBe('ended');
+    await wrapper.find('.audio-play-btn').trigger('click');
+    expect(element.currentTime).toBe(4);
+    expect(HTMLMediaElement.prototype.play).toHaveBeenCalled();
   });
 });

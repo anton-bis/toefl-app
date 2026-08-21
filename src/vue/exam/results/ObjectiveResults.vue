@@ -1,60 +1,139 @@
 <script setup>
-import { computed } from 'vue';
-import { isAnswered, isCorrectAnswer, questionPageId } from '../shared/model.js';
+import { isAnswered } from '../shared/model.js';
+import ChoiceList from '../shared/ChoiceList.vue';
+import AudioSegment from '../sections/listening/AudioSegment.vue';
 
-const props = defineProps({
+defineProps({
+  document: { type: Object, required: true },
   section: { type: String, required: true },
-  groups: { type: Array, required: true },
-  answers: { type: Object, required: true }
+  modules: { type: Array, required: true },
+  answers: { type: Object, required: true },
+  volume: { type: Number, default: 0.8 }
 });
-defineEmits(['select-question']);
 
-const scoredGroups = computed(() =>
-  props.groups.map(group => ({
-    ...group,
-    correctCount: group.questions.filter(question =>
-      isCorrectAnswer(props.answers[question.id], question)
-    ).length
-  }))
-);
+function answerLabel(question, value) {
+  if (!isAnswered(value)) return 'No answer submitted';
+  const values = Array.isArray(value) ? value : [value];
+  return values
+    .map(item => {
+      const option = question.options?.find(candidate => candidate.id === item);
+      return option ? `${option.label || option.id}. ${option.text}` : String(item);
+    })
+    .join(', ');
+}
 
-function stateFor(question, answers) {
-  const answer = answers[question.id];
-  if (isCorrectAnswer(answer, question)) return 'correct';
-  return isAnswered(answer) ? 'incorrect' : 'unanswered';
+function shortPrompt(section, task, question) {
+  if (section === 'listening' && task.type === 'listen-response')
+    return question.transcript || question.prompt || `Question ${question.number}`;
+  return question.prompt || question.transcript || `Question ${question.number}`;
+}
+
+function hasTaskSource(section, task) {
+  if (section === 'reading') return Boolean(task.passage);
+  return task.type !== 'listen-response' && Boolean(task.transcript || task.media?.file);
 }
 </script>
 
 <template>
-  <div class="results-legend">
-    <span><i class="correct" /> Correct</span><span><i class="incorrect" /> Incorrect</span
-    ><span><i class="unanswered" /> Unanswered</span>
-  </div>
   <div class="results-module-list">
-    <section v-for="group in scoredGroups" :key="group.id" class="results-module">
+    <section v-for="examModule in modules" :key="examModule.id" class="results-module">
       <h2>
         <i :class="section === 'reading' ? 'fas fa-book' : 'fas fa-volume-up'" />
-        {{ group.title }}
-        <small>{{ group.correctCount }} / {{ group.questions.length }} correct</small>
+        {{ examModule.title }}
       </h2>
-      <div class="module-progress-track">
-        <span
-          :style="{
-            width: `${group.questions.length ? (group.correctCount / group.questions.length) * 100 : 0}%`
-          }"
-        />
-      </div>
-      <div class="results-grid">
-        <button
-          v-for="(question, index) in group.questions"
+
+      <section v-for="task in examModule.tasks" :key="task.id" class="results-task">
+        <header class="results-task__header">
+          <strong>{{ task.title }}</strong>
+        </header>
+
+        <details v-if="hasTaskSource(section, task)" class="results-source-card">
+          <summary>
+            {{ section === 'reading' ? 'View source passage' : 'View audio and transcript' }}
+          </summary>
+          <div class="results-source-card__body">
+            <AudioSegment
+              v-if="section === 'listening' && task.media?.file"
+              :document="document"
+              :media="task.media"
+              :volume="volume"
+              :play-once="false"
+            />
+            <p v-if="section === 'reading'" class="results-source-text">{{ task.passage }}</p>
+            <p v-else-if="task.transcript" class="results-source-text">{{ task.transcript }}</p>
+            <p v-else class="results-empty-copy">No transcript available.</p>
+          </div>
+        </details>
+
+        <details v-if="task.type === 'complete-words'" class="answer-review-card fill-review-card">
+          <summary>
+            <span class="answer-review-card__number"
+              >Questions {{ task.questionRange?.join('–') }}</span
+            >
+            <span class="answer-review-card__prompt">Review answers</span>
+          </summary>
+          <div class="answer-review-card__body fill-review-list">
+            <div v-for="question in task.questions" :key="question.id" class="fill-review-row">
+              <strong>Question {{ question.number }}</strong>
+              <span class="fill-review-answer">
+                <small>Your answer</small>
+                {{ answerLabel(question, answers[question.id]) }}
+              </span>
+              <span class="fill-review-answer">
+                <small>Correct answer</small>
+                {{ answerLabel(question, question.answer) }}
+              </span>
+            </div>
+          </div>
+        </details>
+
+        <details
+          v-for="question in task.type === 'complete-words' ? [] : task.questions"
           :key="question.id"
-          type="button"
-          :class="stateFor(question, answers)"
-          @click="$emit('select-question', questionPageId(question))"
+          class="answer-review-card"
         >
-          {{ index + 1 }}
-        </button>
-      </div>
+          <summary>
+            <span class="answer-review-card__number">Question {{ question.number }}</span>
+            <span class="answer-review-card__prompt">{{
+              shortPrompt(section, task, question)
+            }}</span>
+          </summary>
+          <div class="answer-review-card__body">
+            <div
+              v-if="section === 'listening' && task.type === 'listen-response'"
+              class="answer-review-card__media"
+            >
+              <AudioSegment
+                v-if="question.media?.file"
+                :document="document"
+                :media="question.media"
+                :volume="volume"
+                :play-once="false"
+              />
+            </div>
+            <ChoiceList
+              v-if="question.options?.length"
+              :question="question"
+              :answers="answers"
+              :checked="true"
+              :locked="true"
+            />
+            <dl
+              class="answer-review-card__answers"
+              :class="{ 'answer-review-card__answers--compact': question.options?.length }"
+            >
+              <div>
+                <dt>Your answer</dt>
+                <dd>{{ answerLabel(question, answers[question.id]) }}</dd>
+              </div>
+              <div>
+                <dt>Correct answer</dt>
+                <dd>{{ answerLabel(question, question.answer) }}</dd>
+              </div>
+            </dl>
+          </div>
+        </details>
+      </section>
     </section>
   </div>
 </template>

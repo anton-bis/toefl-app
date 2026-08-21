@@ -51,7 +51,21 @@ function reset() {
 async function play() {
   if (!audio.value || !source.value || (props.playOnce && status.value === 'ended')) return;
   const start = Number(props.media?.start || 0);
-  if (status.value === 'idle' || audio.value.currentTime < start) audio.value.currentTime = start;
+  const end = Number(props.media?.end);
+  if (status.value === 'playing') {
+    audio.value.pause();
+    publish('paused');
+    return;
+  }
+  if (
+    status.value === 'idle' ||
+    status.value === 'ended' ||
+    audio.value.currentTime < start ||
+    (Number.isFinite(end) && audio.value.currentTime >= end)
+  ) {
+    audio.value.currentTime = start;
+    elapsed.value = 0;
+  }
   applyVolume(props.volume);
   try {
     await audio.value.play();
@@ -102,12 +116,12 @@ onBeforeUnmount(() => {
     <button
       type="button"
       class="audio-play-btn"
-      :class="{ played: status === 'ended' }"
+      :class="{ played: playOnce && status === 'ended' }"
       :disabled="!source || (playOnce && status === 'ended')"
-      aria-label="Play audio"
+      :aria-label="status === 'playing' ? 'Pause audio' : 'Play audio'"
       @click="play"
     >
-      <i class="fas" :class="status === 'playing' ? 'fa-volume-up' : 'fa-play'"></i>
+      <i class="fas" :class="status === 'playing' ? 'fa-pause' : 'fa-play'"></i>
     </button>
     <div class="audio-progress-bar">
       <div class="audio-progress-fill" :style="{ width: `${progress}%` }"></div>

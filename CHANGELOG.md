@@ -2,6 +2,30 @@
 
 ## [Unreleased]
 
+### Highlights
+
+- Rebuilt all four section results pages around concise, in-page answer review cards.
+- Extended question-status visibility across reading, listening, speaking, and writing without weakening sequential test rules.
+
+### Added
+
+- Folded Module / Task answer cards showing the submitted answer and the correct answer where applicable.
+- Results-page playback and transcripts for listening and speaking prompts, plus on-demand playback of recorded speaking responses.
+- Status-only Questions panels for listening, speaking, Write Email, and Academic Discussion; these panels cannot navigate or mark questions.
+
+### Changed
+
+- Reading and Build a Sentence retain Questions-panel navigation within their valid Module / Task scope.
+- Non-fill question prompts, answer choices, passages, and writing context use larger responsive type; Complete Words sizing remains unchanged.
+- Results review uses compact typography and answer rows, keeps prompts and transcripts in the expandable summary instead of repeating them in the body, and balances Module, Task, question, and option spacing.
+- Results expose only the 6-point display score while retaining question counts and accuracy.
+- Segment audio can be paused and replayed from its exact start without playing beyond its configured end.
+
+### Removed
+
+- Removed result-page question grids, the separate Review Answers / Detailed Review flow, and completed-attempt question-page navigation.
+- Removed obsolete completed-page compatibility branches, read-only question props, answer-reveal styling, and related header actions.
+
 ## [1.7.0] - 2026-08-18
 
 ### Highlights

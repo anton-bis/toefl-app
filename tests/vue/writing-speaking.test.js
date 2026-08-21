@@ -18,6 +18,7 @@ import ResponseEditor from '../../src/vue/exam/sections/writing/ResponseEditor.v
 import WritingPage from '../../src/vue/exam/sections/writing/WritingPage.vue';
 import SpeakingPage from '../../src/vue/exam/sections/speaking/SpeakingPage.vue';
 import ResultsPage from '../../src/vue/exam/shared/ResultsPage.vue';
+import WritingResults from '../../src/vue/exam/results/WritingResults.vue';
 import {
   countWords,
   renderSentence,
@@ -66,7 +67,21 @@ const speakingResultsDocument = {
   modules: [
     {
       id: 'module-1',
-      tasks: [{ id: 'task-1', questions: [{ id: 'q1', number: 1, type: 'interview' }] }]
+      tasks: [
+        {
+          id: 'task-1',
+          title: 'Take an Interview',
+          questions: [
+            {
+              id: 'q1',
+              number: 1,
+              type: 'interview',
+              transcript: 'Tell me about your hometown.',
+              media: { file: 'speaking.mp3', start: 12, end: 18 }
+            }
+          ]
+        }
+      ]
     }
   ]
 };
@@ -106,7 +121,7 @@ describe('writing logic', () => {
 describe('writing components', () => {
   it('places, removes, restores and locks Build a Sentence answers', async () => {
     const wrapper = mount(BuildSentence, {
-      props: { question: sentenceQuestion, answer: null, checked: false }
+      props: { question: sentenceQuestion, answer: null }
     });
     const candidates = wrapper.findAll('.candidate-chip');
     await candidates[6].trigger('click');
@@ -115,8 +130,37 @@ describe('writing components', () => {
     await wrapper.findAll('.blank-slot')[1].trigger('click');
     expect(wrapper.emitted('answer').at(-1)[0].slots[1]).toBeNull();
 
-    await wrapper.setProps({ answer: { slots: [6, 0, 1, 3, 5, 4, 7] }, checked: true });
-    expect(wrapper.findAll('.blank-slot.correct')).toHaveLength(7);
+    await wrapper.setProps({
+      answer: { slots: [6, 0, 1, 3, 5, 4, 7] },
+      locked: { [sentenceQuestion.id]: true }
+    });
+    expect(wrapper.findAll('.blank-slot').every(slot => slot.attributes('disabled') === '')).toBe(
+      true
+    );
+  });
+
+  it('renders Build a Sentence as a folded in-page answer review', () => {
+    const answer = { slots: [6, 0, 1, 3, 5, 4, 7] };
+    const wrapper = mount(WritingResults, {
+      props: {
+        tasks: [
+          {
+            id: 'build-sentence',
+            title: 'Build a Sentence',
+            type: 'build-sentence',
+            questions: [sentenceQuestion]
+          }
+        ],
+        answers: { [sentenceQuestion.id]: answer }
+      }
+    });
+    expect(wrapper.find('.answer-review-card').attributes('open')).toBeUndefined();
+    expect(wrapper.find('.answer-review-card__state').exists()).toBe(false);
+    expect(wrapper.text().split(sentenceQuestion.speakerA)).toHaveLength(2);
+    expect(wrapper.text().split(sentenceQuestion.prompt)).toHaveLength(2);
+    expect(wrapper.text()).toContain('Your answer');
+    expect(wrapper.text()).toContain('Correct answer');
+    expect(wrapper.text()).toContain(sentenceQuestion.answer);
   });
 
   it('filters CJK, reports words and supports toolbar undo/redo', async () => {
@@ -173,8 +217,7 @@ describe('writing components', () => {
       props: {
         question: avatarQuestion,
         document: { sourcePath: 'assets/questions/writing/TPO-03/writing-TPO-03.md' },
-        answer: null,
-        checked: false
+        answer: null
       }
     });
     const avatars = wrapper.findAll('.avatar img');
@@ -211,7 +254,9 @@ describe('writing components', () => {
     expect(studentImages).toHaveLength(2);
     expect(studentImages[0].attributes('src')).toContain('writing/TPO-03/kelly.png');
     expect(studentImages[1].attributes('src')).toContain('writing/TPO-03/andrew.png');
-    expect(wrapper.find('.discussion-left').text()).toContain('In your response, you should do the following:');
+    expect(wrapper.find('.discussion-left').text()).toContain(
+      'In your response, you should do the following:'
+    );
     expect(wrapper.find('.discussion-left').text()).toContain('city planning');
   });
 });
@@ -263,7 +308,6 @@ describe('SpeakingPage', () => {
         task: speakingTask,
         question: speakingQuestion,
         answers: {},
-        checked: false,
         volume: 0.8,
         ...props
       }
@@ -424,6 +468,8 @@ describe('SpeakingPage', () => {
 describe('speaking results recordings', () => {
   beforeEach(() => {
     setActivePinia(createPinia());
+    vi.spyOn(HTMLMediaElement.prototype, 'pause').mockImplementation(() => {});
+    vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
   });
   const mountResults = () =>
     mount(ResultsPage, {
@@ -437,7 +483,11 @@ describe('speaking results recordings', () => {
     const wrapper = mountResults();
 
     expect(repository.load).not.toHaveBeenCalled();
-    await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
+    expect(wrapper.find('.answer-review-card').attributes('open')).toBeUndefined();
+    expect(wrapper.text()).toContain('Tell me about your hometown.');
+    expect(wrapper.text().split('Tell me about your hometown.')).toHaveLength(2);
+    expect(wrapper.find('.audio-inline-player').exists()).toBe(true);
+    await wrapper.get('.speaking-load-response').trigger('click');
     await flushPromises();
 
     expect(repository.load).toHaveBeenCalledWith('tpo-03-speaking', 'q1');
@@ -456,7 +506,7 @@ describe('speaking results recordings', () => {
     const createObjectURL = vi.fn(() => 'blob:late');
     vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL: vi.fn() });
     const wrapper = mountResults();
-    await wrapper.get('.speaking-results-list article > button:last-child').trigger('click');
+    await wrapper.get('.speaking-load-response').trigger('click');
     wrapper.unmount();
     resolveLoad(new Blob(['late'], { type: 'audio/webm' }));
     await flushPromises();
