@@ -281,7 +281,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 25);
+  assert.equal(taskCount, 28);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
@@ -393,6 +393,49 @@ test('reading recognizes Label and Receipt as daily-life subtypes', () => {
   assert.equal(label.id, 'task-1-label');
   assert.equal(receipt.type, 'receipt');
   assert.equal(receipt.id, 'task-2-receipt');
+});
+
+test('reading recognizes Poster, Instructions and Form as daily-life subtypes', () => {
+  const document = parseReading(
+    [
+      '# reading-fixture',
+      '## Module 1: Reading',
+      '### Task 1 Read a Poster (Questions 1–2)',
+      'Join the Clean-Up Day!',
+      '1. What is the main purpose?',
+      'A. To recruit volunteers',
+      'B. To sell tickets',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]',
+      '### Task 2 Read Some Instructions (Questions 3–4)',
+      'Build a Raised Garden Bed',
+      'Step 1: Prepare boards.',
+      '3. What will someone build?',
+      'A. A picture frame',
+      'B. A garden bed',
+      '[ANSWER]',
+      'B',
+      '[/ANSWER]',
+      '### Task 3 Read a Form (Questions 5–6)',
+      'UNIVERSITY IT HELP DESK',
+      'STUDENT REQUEST FORM',
+      '5. What is the form for?',
+      'A. A job application',
+      'B. Technical support',
+      '[ANSWER]',
+      'B',
+      '[/ANSWER]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/reading/fixture.md' }
+  );
+  const [poster, instructions, form] = document.modules[0].tasks;
+  assert.equal(poster.type, 'poster');
+  assert.equal(poster.id, 'task-1-poster');
+  assert.equal(instructions.type, 'instructions');
+  assert.equal(instructions.id, 'task-2-instructions');
+  assert.equal(form.type, 'form');
+  assert.equal(form.id, 'task-3-form');
 });
 
 test('reading parser rejects unknown daily-life subtypes instead of silently falling back', () => {

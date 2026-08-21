@@ -8,6 +8,7 @@ import {
   academicMode,
   fillTokens,
   insertionSentence,
+  instructionFor,
   parseDailyPassage,
   parseTextChain
 } from '../../src/vue/exam/sections/reading/helpers.js';
@@ -63,7 +64,7 @@ describe('reading section helpers', () => {
     ]);
   });
 
-  it('promotes the first content line to a title for label/receipt/advertisement', () => {
+  it('promotes the first content line to a card title for every daily-life subtype', () => {
     expect(
       parseDailyPassage('Organic Almond Butter 250g\nIngredients: Almonds, salt', 'label')
     ).toMatchObject({ title: 'Organic Almond Butter 250g', body: 'Ingredients: Almonds, salt' });
@@ -80,6 +81,27 @@ describe('reading section helpers', () => {
       title: 'Kept',
       body: 'Body text.'
     });
+    expect(
+      parseDailyPassage('Downtown School of Data Skills\nAll classes meet nightly.', 'notice')
+    ).toMatchObject({ title: 'Downtown School of Data Skills', body: 'All classes meet nightly.' });
+    expect(
+      parseDailyPassage('Join the Mechanicsburg Clean-Up Day!\nVolunteers welcome.', 'poster')
+    ).toMatchObject({ title: 'Join the Mechanicsburg Clean-Up Day!', body: 'Volunteers welcome.' });
+    expect(
+      parseDailyPassage('Build a Raised Garden Bed\nStep 1: Prepare boards.', 'instructions')
+    ).toMatchObject({ title: 'Build a Raised Garden Bed', body: 'Step 1: Prepare boards.' });
+    expect(
+      parseDailyPassage('UNIVERSITY IT HELP DESK\nSTUDENT REQUEST FORM\nName:', 'form')
+    ).toMatchObject({ title: 'UNIVERSITY IT HELP DESK', body: 'STUDENT REQUEST FORM\n\nName:' });
+    expect(parseDailyPassage('Campus News\nClosed today.', 'announcement')).toMatchObject({
+      title: 'Campus News',
+      body: 'Closed today.'
+    });
+  });
+
+  it('falls back to a type-derived instruction for unknown daily-life subtypes', () => {
+    expect(instructionFor('coupon')).toBe('Read the coupon');
+    expect(instructionFor('notice')).toBe('Read a notice');
   });
 
   it('detects academic point-sentence and insertion interactions', () => {
@@ -146,6 +168,7 @@ describe('ReadingPage', () => {
       role: 'region',
       tabindex: '0'
     });
+    expect(wrapper.find('.question-instruction').text()).toBe('Notice');
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
     expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
@@ -179,6 +202,118 @@ describe('ReadingPage', () => {
     expect(wrapper.findAll('.letter-box')).toHaveLength(3);
     await wrapper.findAll('.letter-box')[0].setValue('g');
     expect(wrapper.emitted('answer').at(-1)).toEqual(['q1', 'mig']);
+  });
+
+  it('renders poster, instructions and form daily-life cards', () => {
+    const poster = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'poster',
+          title: 'Poster',
+          passage: 'Join the Mechanicsburg Clean-Up Day!\nDate: October 5.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(poster.find('.question-instruction').text()).toBe('Poster');
+    expect(poster.find('.apple-noticeboard-container').classes()).toContain('poster');
+    expect(poster.find('.apple-noticeboard-container h2').text()).toBe(
+      'Join the Mechanicsburg Clean-Up Day!'
+    );
+    expect(poster.find('.apple-noticeboard-container').text()).toContain(
+      'Join the Mechanicsburg Clean-Up Day!'
+    );
+
+    const instructions = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'instructions',
+          title: 'Instructions',
+          passage: 'Build a Raised Garden Bed\nStep 1: Prepare boards.\nStep 2: Attach them.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(instructions.find('.question-instruction').text()).toBe('Instructions');
+    expect(instructions.find('.apple-instructions-container h2').text()).toBe(
+      'Build a Raised Garden Bed'
+    );
+    expect(instructions.find('.apple-instructions-container').text()).toContain(
+      'Build a Raised Garden Bed'
+    );
+    expect(instructions.find('.apple-instructions-container').text()).toContain(
+      'Step 1: Prepare boards.'
+    );
+
+    const form = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'form',
+          title: 'Form',
+          passage: 'UNIVERSITY IT HELP DESK\nSTUDENT REQUEST FORM\nName:'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(form.find('.question-instruction').text()).toBe('Form');
+    expect(form.find('.apple-form-container h2').text()).toBe('UNIVERSITY IT HELP DESK');
+    expect(form.find('.apple-form-container').text()).toContain('UNIVERSITY IT HELP DESK');
+    expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
+  });
+
+  it('renders notice and announcement cards with the first content line as the title', () => {
+    const notice = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'notice',
+          title: 'Read a Notice',
+          passage: 'Downtown School of Data Skills\nAll classes meet nightly.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(notice.find('.question-instruction').text()).toBe('Read a Notice');
+    expect(notice.find('.apple-noticeboard-container h2').text()).toBe(
+      'Downtown School of Data Skills'
+    );
+
+    const announcement = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'announcement',
+          title: 'Read an Announcement',
+          passage: 'Campus News\nClosed today.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(announcement.find('.question-instruction').text()).toBe('Read an Announcement');
+    expect(announcement.find('.apple-noticeboard-container h2').text()).toBe('Campus News');
   });
 
   it('supports academic point-sentence and insertion-marker answers', async () => {
