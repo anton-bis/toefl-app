@@ -31,6 +31,7 @@
 - Retaking a completed section now clears the in-memory session so it restarts from Question 1 instead of bouncing back to the results page.
 - Electron refuses a dist bundle with absolute `/assets/...` paths (a stale `npm run build` without `ELECTRON=true`), showing an error dialog instead of a blank window.
 - Closing the window no longer hangs when the renderer failed to load; flush is skipped until the renderer reports ready.
+- Manual macOS updates accept the proxied absolute asset URLs published in `latest-mac.yml` (extracting the plain `.dmg` file name) instead of failing with "does not contain a valid DMG".
 
 ### Removed
 

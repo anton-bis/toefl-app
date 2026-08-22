@@ -10,7 +10,7 @@ import {
   normalizeReleaseNotes
 } from '../../electron/services/app-updater.js';
 import { createBackgroundScheduler } from '../../electron/services/background-scheduler.js';
-import { downloadMacInstaller } from '../../electron/services/manual-mac-update.js';
+import { downloadMacInstaller, assetFileName } from '../../electron/services/manual-mac-update.js';
 
 class FakeUpdater extends EventEmitter {
   constructor() {
@@ -199,6 +199,57 @@ test('manual macOS installer download verifies integrity and reuses a valid file
   assert.equal(progress.at(-1), 100);
   assert.equal(await downloadMacInstaller(options), installer);
   assert.equal(fetches, 1);
+});
+
+test('manual macOS installer accepts proxied absolute asset urls and extracts the file name', async t => {
+  const directory = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'toefl-mac-update-'));
+  t.after(() => fs.promises.rm(directory, { recursive: true, force: true }));
+  const contents = Buffer.from('verified installer');
+  const asset = {
+    url: 'https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/v2.0.0/TOEFL-iBT-Practice-2.0.0-macos-universal.dmg',
+    sha512: crypto.createHash('sha512').update(contents).digest('base64'),
+    size: contents.length
+  };
+  const progress = [];
+  let fetches = 0;
+  const options = {
+    version: '2.0.0',
+    asset,
+    downloadsDirectory: directory,
+    fetchFile: async url => {
+      fetches += 1;
+      assert.match(url, /^https:\/\/v6\.gh-proxy\.org\/https:\/\/github\.com\//);
+      assert.match(url, /releases\/download\/v2\.0\.0\/TOEFL-iBT-Practice-2\.0\.0-macos-universal\.dmg$/);
+      return new Response(contents);
+    },
+    onProgress: value => progress.push(value)
+  };
+
+  const installer = await downloadMacInstaller(options);
+  assert.equal(path.basename(installer), 'TOEFL-iBT-Practice-2.0.0-macos-universal.dmg');
+  assert.equal(path.dirname(installer), directory);
+  assert.deepEqual(await fs.promises.readFile(installer), contents);
+  assert.equal(progress.at(-1), 100);
+  assert.equal(await downloadMacInstaller(options), installer);
+  assert.equal(fetches, 1);
+});
+
+test('assetFileName normalizes relative and proxied absolute urls and rejects non-dmg assets', () => {
+  assert.equal(
+    assetFileName({ url: 'TOEFL-iBT-Practice-2.0.0-macos-universal.dmg' }),
+    'TOEFL-iBT-Practice-2.0.0-macos-universal.dmg'
+  );
+  assert.equal(
+    assetFileName({
+      url: 'https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/v2.0.0/TOEFL-iBT-Practice-2.0.0-macos-arm64.dmg'
+    }),
+    'TOEFL-iBT-Practice-2.0.0-macos-arm64.dmg'
+  );
+  assert.throws(
+    () => assetFileName({ url: 'https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/v2.0.0/TOEFL-iBT-Practice-2.0.0-macos-arm64.zip' }),
+    /does not contain a valid DMG/
+  );
+  assert.throws(() => assetFileName({ url: '' }), /does not contain a valid DMG/);
 });
 
 function fakeTimers() {

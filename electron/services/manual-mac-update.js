@@ -5,12 +5,24 @@ import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { proxyGitHubDownloadUrl } from './github-download.js';
 
+// electron-updater reports asset urls exactly as published: when the release
+// metadata stores proxied absolute URLs (https://v6.gh-proxy.org/.../x.dmg)
+// the update-available info carries that full URL, not a bare file name.
+// Normalize both forms down to the plain .dmg file name before use.
+export function assetFileName(asset) {
+  const url = String(asset?.url || '');
+  const fileName = /^https?:\/\//i.test(url)
+    ? decodeURIComponent(new URL(url).pathname.split('/').filter(Boolean).pop() || '')
+    : url;
+  if (path.basename(fileName) !== fileName || !fileName.endsWith('.dmg')) {
+    throw new Error('The macOS update does not contain a valid DMG.');
+  }
+  return fileName;
+}
+
 function releaseAssetUrl(version, fileName) {
   if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) {
     throw new Error('The macOS update version is invalid.');
-  }
-  if (path.basename(fileName) !== fileName || !fileName.endsWith('.dmg')) {
-    throw new Error('The macOS update does not contain a valid DMG.');
   }
   return proxyGitHubDownloadUrl(
     `https://github.com/anton-bis/toefl-app/releases/download/v${version}/${encodeURIComponent(fileName)}`
@@ -35,7 +47,7 @@ export async function downloadMacInstaller({
   fetchFile,
   onProgress
 }) {
-  const fileName = String(asset?.url || '');
+  const fileName = assetFileName(asset);
   const expectedSha512 = String(asset?.sha512 || '');
   if (!/^[A-Za-z0-9+/]{86}==$/.test(expectedSha512)) {
     throw new Error('The macOS update has no valid integrity hash.');
