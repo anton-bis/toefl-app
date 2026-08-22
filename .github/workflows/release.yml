@@ -248,13 +248,13 @@ jobs:
         run: |
           release_tag="$GITHUB_REF_NAME"
           release_title="$GITHUB_REF_NAME"
-          release_flags=(--verify-tag --fail-on-no-commits)
+          release_flags=(--verify-tag)
           release_notes=(--notes-file release-notes.md)
           if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
             version=$(node -p "require('./package.json').version")
             release_tag="v${version}"
             release_title="$release_tag"
-            release_flags=(--target "$GITHUB_SHA" --prerelease)
+            release_flags=(--target "$GITHUB_SHA" --prerelease --fail-on-no-commits)
             release_notes=(--notes "")
           elif [[ "$GITHUB_REF_NAME" == *-* ]]; then
             release_flags+=(--prerelease)

@@ -68,11 +68,11 @@ test('develop pushes create isolated automatic prereleases', () => {
   assert.match(workflow, /cancel-in-progress:.*refs\/heads\/develop/);
   assert.match(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
   assert.match(workflow, /release_tag="v\$\{version\}"/);
-  assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease\)/);
+  assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease --fail-on-no-commits\)/);
   assert.match(workflow, /release_title="\$release_tag"/);
   assert.match(workflow, /release_notes=\(--notes ""\)/);
   assert.doesNotMatch(workflow, /Prepare develop prerelease notes/);
-  assert.match(workflow, /release_flags=\(--verify-tag --fail-on-no-commits\)/);
+  assert.match(workflow, /release_flags=\(--verify-tag\)/);
 });
 
 test('the packaged user interface does not expose repository navigation', () => {
