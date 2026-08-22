@@ -1,9 +1,11 @@
 <script setup>
-import { isAnswered } from '../shared/model.js';
+import { ref } from 'vue';
+import { isAnswered, isCorrectAnswer } from '../shared/model.js';
 import ChoiceList from '../shared/ChoiceList.vue';
 import AudioSegment from '../sections/listening/AudioSegment.vue';
 
-defineProps({
+const root = ref(null);
+const props = defineProps({
   document: { type: Object, required: true },
   section: { type: String, required: true },
   modules: { type: Array, required: true },
@@ -32,15 +34,59 @@ function hasTaskSource(section, task) {
   if (section === 'reading') return Boolean(task.passage);
   return task.type !== 'listen-response' && Boolean(task.transcript || task.media?.file);
 }
+
+function moduleQuestions(examModule) {
+  return (examModule.tasks || []).flatMap(task =>
+    (task.questions || []).map(question => ({ question, task }))
+  );
+}
+
+function questionState(question) {
+  const answer = props.answers[question.id];
+  if (!isAnswered(answer)) return 'unanswered';
+  return isCorrectAnswer(answer, question) ? 'correct' : 'incorrect';
+}
+
+function stateLabel(question) {
+  const state = questionState(question);
+  if (state === 'correct') return 'answered correctly';
+  if (state === 'incorrect') return 'answered incorrectly';
+  return 'not answered';
+}
+
+function cardId(question, task) {
+  return task.type === 'complete-words' ? `review-card-${task.id}` : `review-card-${question.id}`;
+}
+
+function revealCard(question, task) {
+  const element = root.value?.querySelector?.(`#${cardId(question, task)}`);
+  if (!element) return;
+  element.open = true;
+  element.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+}
 </script>
 
 <template>
-  <div class="results-module-list">
+  <div ref="root" class="results-module-list">
     <section v-for="examModule in modules" :key="examModule.id" class="results-module">
       <h2>
         <i :class="section === 'reading' ? 'fas fa-book' : 'fas fa-volume-up'" />
         {{ examModule.title }}
       </h2>
+
+      <div class="results-question-grid" role="list" :aria-label="`${examModule.title} question status`">
+        <button
+          v-for="{ question, task } in moduleQuestions(examModule)"
+          :key="question.id"
+          type="button"
+          class="results-question-grid__cell"
+          :class="`is-${questionState(question)}`"
+          :aria-label="`Question ${question.number}: ${stateLabel(question)}`"
+          @click="revealCard(question, task)"
+        >
+          {{ question.number }}
+        </button>
+      </div>
 
       <section v-for="task in examModule.tasks" :key="task.id" class="results-task">
         <header class="results-task__header">
@@ -65,7 +111,11 @@ function hasTaskSource(section, task) {
           </div>
         </details>
 
-        <details v-if="task.type === 'complete-words'" class="answer-review-card fill-review-card">
+        <details
+          v-if="task.type === 'complete-words'"
+          :id="cardId(task.questions[0], task)"
+          class="answer-review-card fill-review-card"
+        >
           <summary>
             <span class="answer-review-card__number"
               >Questions {{ task.questionRange?.join('–') }}</span
@@ -89,6 +139,7 @@ function hasTaskSource(section, task) {
 
         <details
           v-for="question in task.type === 'complete-words' ? [] : task.questions"
+          :id="cardId(question, task)"
           :key="question.id"
           class="answer-review-card"
         >

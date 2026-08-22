@@ -18,11 +18,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   resumeBackgroundChecks: () => ipcRenderer.invoke('background:resume-checks'),
 
   // Structured learning data. The renderer cannot issue SQL or access arbitrary paths.
-  data: {
-    bootstrap: () => dataRequest('bootstrap'),
-    settings: {
-      set: (key, value) => dataRequest('settings:set', { key, value })
-    },
+    data: {
+      bootstrap: () => dataRequest('bootstrap'),
+      ready: () => ipcRenderer.send('data:renderer-ready'),
+      settings: {
+        set: (key, value) => dataRequest('settings:set', { key, value })
+      },
     exam: {
       save: session => dataRequest('exam:save', session),
       delete: id => dataRequest('exam:delete', { id }),

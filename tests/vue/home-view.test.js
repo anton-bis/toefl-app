@@ -4,7 +4,7 @@ import { createMemoryHistory, createRouter } from 'vue-router';
 import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
-import { examStorageKey } from '../../src/vue/stores/exam.js';
+import { examStorageKey, useExamStore } from '../../src/vue/stores/exam.js';
 import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
 async function mountHome(session = null) {
@@ -29,7 +29,8 @@ async function mountHome(session = null) {
   await router.push('/');
   await router.isReady();
   const wrapper = mount(HomeView, { global: { plugins: [pinia, router] } });
-  return { wrapper, router };
+  const exam = useExamStore(pinia);
+  return { wrapper, router, exam };
 }
 
 async function clickReading(wrapper) {
@@ -94,6 +95,19 @@ describe('HomeView practice actions', () => {
     await wrapper.find('.practice-restart').trigger('click');
     await flushPromises();
     expect(localStorage.getItem(examStorageKey('09', 'reading'))).toBeNull();
+    expect(router.currentRoute.value.path).toBe('/exam/09/reading/start');
+  });
+
+  it('replaces the completed session with a fresh one on confirmed retake', async () => {
+    const { wrapper, router, exam } = await mountHome(session('completed', 'results'));
+    await clickReading(wrapper);
+    await wrapper.find('.practice-option-card.danger').trigger('click');
+    await wrapper.find('.practice-restart').trigger('click');
+    await flushPromises();
+    const fresh = exam.session('09', 'reading');
+    expect(fresh.status).toBe('not-started');
+    expect(fresh.pageId).toBe('start');
+    expect(fresh.answers).toEqual({});
     expect(router.currentRoute.value.path).toBe('/exam/09/reading/start');
   });
 });

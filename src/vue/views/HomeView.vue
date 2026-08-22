@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCatalogStore } from '../stores/catalog.js';
-import { readExamSession, removeExamSession } from '../stores/exam.js';
+import { readExamSession, useExamStore } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import AppModal from '../components/AppModal.vue';
 import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
@@ -10,6 +10,7 @@ import '../styles/home.css';
 
 const router = useRouter();
 const catalog = useCatalogStore();
+const exam = useExamStore();
 const panel = ref('mock');
 const modal = ref('');
 const pendingExam = ref(null);
@@ -93,7 +94,7 @@ function selectExamAction(action) {
 async function confirmRestart() {
   if (!pendingExam.value) return;
   const { tpoId, section } = pendingExam.value;
-  removeExamSession(tpoId, section);
+  exam.reset(tpoId, section, { pageId: 'start' });
   if (section === 'speaking') {
     await recordingRepository.removeAttempt(`tpo-${tpoId}-speaking`).catch(() => {});
   }

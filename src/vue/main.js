@@ -17,6 +17,7 @@ app.provide('storageReady', storageReady);
 app.mount('#vue-app');
 
 try {
+  window.electronAPI?.data?.ready?.();
   await initializeDataStorage();
   storageReady.value = true;
 } catch (error) {

@@ -125,7 +125,7 @@ function studentImage(student) {
 .writing-response {
   display: flex;
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: auto;
   padding: 18px 30px;
   min-height: calc(100vh - 210px);
@@ -133,7 +133,7 @@ function studentImage(student) {
   color: #333;
 }
 .prompt-card {
-  width: 35%;
+  width: 42%;
   border: 1px solid #d1d1d6;
   border-radius: 12px;
   padding: 18px 24px;
@@ -143,7 +143,7 @@ function studentImage(student) {
   box-sizing: border-box;
 }
 .discussion-left {
-  width: 35%;
+  width: 42%;
   border: 1px solid #d1d1d6;
   border-radius: 12px;
   padding: 18px 24px;

@@ -303,6 +303,71 @@ describe('objective answer review', () => {
     expect(wrapper.text().split(transcript)).toHaveLength(2);
     expect(wrapper.find('.audio-inline-player').exists()).toBe(true);
   });
+
+  it('renders a per-question status grid that reveals the matching card on click', async () => {
+    const first = { ...question, id: 'g1', number: 1, answer: 'A' };
+    const second = { ...question, id: 'g2', number: 2, answer: 'B' };
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [{ id: 'notices', title: 'Notices', type: 'notice', questions: [first, second] }]
+          }
+        ],
+        answers: { g1: 'A', g2: 'A' }
+      }
+    });
+    const cells = wrapper.findAll('.results-question-grid__cell');
+    expect(cells).toHaveLength(2);
+    expect(cells[0].classes()).toContain('is-correct');
+    expect(cells[1].classes()).toContain('is-incorrect');
+    const scrollIntoView = vi.fn();
+    window.HTMLElement.prototype.scrollIntoView = scrollIntoView;
+    await cells[1].trigger('click');
+    const card = wrapper.find('#review-card-g2');
+    expect(card.attributes('open')).toBeDefined();
+    expect(scrollIntoView).toHaveBeenCalled();
+  });
+
+  it('opens the shared fill-review card from any complete-words grid cell', async () => {
+    const fillQuestions = [
+      { id: 'f1', number: 1, type: 'complete-words', answer: 'might', options: [] },
+      { id: 'f2', number: 2, type: 'complete-words', answer: 'that', options: [] }
+    ];
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'We mi___ think th__ is true.',
+                questionRange: [1, 2],
+                questions: fillQuestions
+              }
+            ]
+          }
+        ],
+        answers: { f1: 'might' }
+      }
+    });
+    const cells = wrapper.findAll('.results-question-grid__cell');
+    expect(cells).toHaveLength(2);
+    expect(cells[0].classes()).toContain('is-correct');
+    expect(cells[1].classes()).toContain('is-unanswered');
+    await cells[1].trigger('click');
+    expect(wrapper.find('.fill-review-card').attributes('open')).toBeDefined();
+  });
 });
 
 describe('ReadingPage', () => {

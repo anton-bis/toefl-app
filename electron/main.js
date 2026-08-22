@@ -30,6 +30,7 @@ import {
   synchronizeContent
 } from './services/content-updater.js';
 import { registerDataStorageIpc } from './services/database.js';
+import { validateBundleFromMainPath } from './services/bundle-validation.js';
 import { createLocalFileResponse, registerContentProtocol } from './services/content-protocol.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
@@ -122,6 +123,7 @@ let appInstallBlocked = false;
 let backgroundScheduler;
 let updateInstallPrepared = false;
 let dataStorage;
+let rendererReady = false;
 const pendingRendererFlushes = new Map();
 let nextFlushId = 1;
 let quittingRequested = false;
@@ -224,6 +226,15 @@ function isTrustedAppUrl(value) {
 
 // Create the main window
 function createWindow() {
+  if (process.env.NODE_ENV !== 'development') {
+    // __dirname is the electron/ directory; the bundle lives one level up.
+    const validation = validateBundleFromMainPath(__dirname);
+    if (!validation.ok) {
+      dialog.showErrorBox('Cannot Launch the App', validation.message);
+      app.quit();
+      return;
+    }
+  }
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -290,6 +301,14 @@ function createWindow() {
   mainWindow.on('close', event => {
     if (closeAllowed || updateInstallPrepared) return;
     event.preventDefault();
+    // If the renderer never finished loading (blank screen / crashed page),
+    // there is no pending practice data to flush. Close immediately so the
+    // window never becomes unclosable.
+    if (!rendererReady) {
+      closeAllowed = true;
+      mainWindow?.close();
+      return;
+    }
     if (closePending) return;
     closePending = true;
     flushRendererData()
@@ -516,6 +535,11 @@ function setupIpcHandlers() {
     ipcMain,
     userDataPath: app.getPath('userData'),
     isTrustedRenderer
+  });
+
+  ipcMain.on('data:renderer-ready', event => {
+    if (!isTrustedRenderer(event)) return;
+    rendererReady = true;
   });
 
   ipcMain.on('data:flushed', (event, result) => {

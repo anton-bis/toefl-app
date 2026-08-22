@@ -1,29 +1,40 @@
 # Changelog
 
-## [Unreleased]
+## [1.7.1] - 2026-08-22
 
 ### Highlights
 
 - Rebuilt all four section results pages around concise, in-page answer review cards.
 - Extended question-status visibility across reading, listening, speaking, and writing without weakening sequential test rules.
+- Added the 2026-02-01 real-exam question bank (reading, listening, speaking, writing) with AI-narrated audio.
 
 ### Added
 
+- 2026-02-01 real exam four-section question bank (Official Tests panel).
 - Folded Module / Task answer cards showing the submitted answer and the correct answer where applicable.
 - Results-page playback and transcripts for listening and speaking prompts, plus on-demand playback of recorded speaking responses.
 - Status-only Questions panels for listening, speaking, Write Email, and Academic Discussion; these panels cannot navigate or mark questions.
+- Reading and Listening results restore a per-question status grid (grey unanswered / green correct / red incorrect); clicking a cell scrolls to and expands the matching answer card.
 
 ### Changed
 
 - Reading and Build a Sentence retain Questions-panel navigation within their valid Module / Task scope.
+- Daily-life cards generalize title and page headings for any subtype (label / receipt / advertisement / notice / poster / instructions / form).
 - Non-fill question prompts, answer choices, passages, and writing context use larger responsive type; Complete Words sizing remains unchanged.
 - Results review uses compact typography and answer rows, keeps prompts and transcripts in the expandable summary instead of repeating them in the body, and balances Module, Task, question, and option spacing.
 - Results expose only the 6-point display score while retaining question counts and accuracy.
 - Segment audio can be paused and replayed from its exact start without playing beyond its configured end.
+- Write an Email and Academic Discussion widen their prompt, context, and response containers (max-width 1600px, left column 42%) so lines hold more words and scroll less.
+
+### Fixed
+
+- Retaking a completed section now clears the in-memory session so it restarts from Question 1 instead of bouncing back to the results page.
+- Electron refuses a dist bundle with absolute `/assets/...` paths (a stale `npm run build` without `ELECTRON=true`), showing an error dialog instead of a blank window.
+- Closing the window no longer hangs when the renderer failed to load; flush is skipped until the renderer reports ready.
 
 ### Removed
 
-- Removed result-page question grids, the separate Review Answers / Detailed Review flow, and completed-attempt question-page navigation.
+- Removed the navigable result-page question grid that jumped back into the exam, the separate Review Answers / Detailed Review flow, and completed-attempt question-page navigation.
 - Removed obsolete completed-page compatibility branches, read-only question props, answer-reveal styling, and related header actions.
 
 ## [1.7.0] - 2026-08-18
