@@ -179,6 +179,9 @@ function hasReport(test) {
           <button class="sidebar-nav-item" @click="modal = 'about'">
             <span class="nav-icon"><i class="fas fa-handshake" /></span> Connect
           </button>
+          <RouterLink class="sidebar-nav-item" to="/settings">
+            <span class="nav-icon"><i class="fas fa-cog" /></span> Settings
+          </RouterLink>
         </div>
       </aside>
 

@@ -1,0 +1,139 @@
+.settings-page {
+  min-height: 100vh;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 28px 60px;
+}
+.settings-header h1 {
+  margin: 0 0 4px;
+  font-size: 30px;
+}
+.settings-header p {
+  margin: 0 0 26px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.settings-card {
+  padding: 24px 26px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.settings-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 18px;
+  font-size: 19px;
+}
+.settings-card h2 i {
+  color: var(--teal);
+}
+.settings-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f2;
+}
+.settings-label {
+  width: 120px;
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.settings-value {
+  color: var(--text);
+  font-size: 15px;
+}
+.settings-value--danger {
+  color: #bd342f;
+  font-weight: 600;
+}
+.device-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.device-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fafafa;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: #444;
+}
+.device-item__tag {
+  flex-shrink: 0;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(0, 128, 128, 0.12);
+  color: var(--teal);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+}
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.settings-btn {
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.settings-btn:hover {
+  border-color: var(--teal);
+}
+.settings-btn--primary {
+  border: 0;
+  background: var(--teal);
+  color: #fff;
+}
+.settings-btn--primary:hover {
+  background: var(--teal-dark);
+}
+.settings-btn--danger {
+  border-color: #e4b5b2;
+  color: #bd342f;
+}
+.settings-btn--danger:hover {
+  background: #fff0ef;
+  border-color: #bd342f;
+}
+.settings-hint {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.settings-notice {
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: rgba(0, 128, 128, 0.08);
+  color: #087a74;
+  font-size: 14px;
+}
+.settings-error {
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #fff0ef;
+  color: #bd342f;
+  font-size: 14px;
+}

@@ -26,6 +26,11 @@ const router = createRouter({
       name: 'vocabulary',
       component: () => import('../views/VocabularyView.vue')
     },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('../views/SettingsView.vue')
+    },
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ],
   scrollBehavior: () => ({ top: 0 })
