@@ -183,7 +183,41 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "activationToken": "<string>" }
 
 ---
 
-## 6. 待服务端确认 / 依赖
+## 7. 联调记录（E7）
+
+> Web 服务端就绪前的 mock 阶段联调结果。真实 Web API 就绪后，以同一套契约重新联调并更新本表。
+
+### 7.1 Mock 环境
+
+- `scripts/mock-license-server.js`：内存版契约实现，命令 `node scripts/mock-license-server.js`（默认 `PORT=3001`）。
+- 内置有效序列号：`TEST-0000-0000-0001`、`TEST-0000-0000-0004`。
+- 客户端指向 mock：`TOEFL_API_BASE_URL=http://localhost:3001`（或 `userData/web-config.json`）。
+
+### 7.2 手动冒烟（真实设备指纹，2026-08-24）
+
+| 步骤 | 输入 | 结果 |
+| ---- | ---- | ---- |
+| 激活 | 紧凑码 `test000000000001`（自动补全连字符） | `status:active`，`deviceCount:1`，返回 `deviceId + expiresAt` |
+| 周期校验 | 7 天内启动 | `status:active`，无 refresh 请求 |
+| 离线超期 | 距上次成功 >30 天 | `status:locked`，提示「许可证已过期，请联网重新激活」 |
+| 重新激活 | 同指纹同码 | 幂等恢复原绑定（同 `deviceId`），`status:active` |
+| 解绑 | 本机 token + code | `status:none`，本地状态清空 |
+
+### 7.3 自动化覆盖（`tests/electron/license-integration.test.js`，4 项）
+
+- 激活 → 第 2 台 → 第 3 台被拒（`409 LICENSE:DEVICE_LIMIT`）→ 同设备幂等 → 解绑释放名额 → 新设备补位。
+- 未知 / 作废码 → `404 LICENSE:INVALID`。
+- 离线 31 天 → refresh `401` → 客户端锁定 → 同指纹重新激活幂等恢复。
+- 解绑凭证不匹配 → `401 LICENSE:DEVICE_INVALID`。
+
+### 7.4 待真实 Web API 联调
+
+- [ ] 真实序列号：Web 兑换 → Electron 登录式激活（输入同一码）→ 绑 2 台 → 换机解绑 → 断网 30 天语义。
+- [ ] 确认服务端「离线 >30 天」为软过期（同指纹重新激活幂等返回原绑定，不误触 `DEVICE_LIMIT`）。
+
+---
+
+## 8. 待服务端确认 / 依赖
 
 - [ ] 生产环境服务器正式地址（当前默认常量占位，发布前替换）。
 - [ ] 服务端「离线 > 30 天」后是否物理删除设备：建议**软过期**，同指纹重新 activate 幂等返回原绑定，避免误触 `DEVICE_LIMIT`。

@@ -64,4 +64,13 @@ npm run electron:dev
 | POST | /v1/licenses/devices/refresh | 周期续期 |
 | POST | /v1/licenses/devices/:deviceId/unbind | 解绑本机 |
 
-服务端地址未就绪时，客户端以 mock server（`tests/` 内）走通激活 / 续期 / 解绑 / 过期 / 限额主流程。
+### 本地 mock server（Web 端未就绪时联调）
+
+```bash
+node scripts/mock-license-server.js   # 默认 http://localhost:3001，内置 TEST-0000-0000-0001 等测试码
+# 另开终端
+$env:TOEFL_API_BASE_URL = "http://localhost:3001"
+npm run electron:dev
+```
+
+联调记录见 `docs/license-protocol-v1.md` 第 7 节。
