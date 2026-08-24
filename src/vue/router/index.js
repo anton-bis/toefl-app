@@ -1,4 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { isOfficialTest } from '../platform/licenseRules.js';
+import { useLicenseStore } from '../stores/license.js';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -27,6 +29,23 @@ const router = createRouter({
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ],
   scrollBehavior: () => ({ top: 0 })
+});
+
+// Official real exams require an activated license. Practice tests and skills
+// stay free. Browser mode ('unavailable') never locks content.
+router.beforeEach(async to => {
+  const match = String(to.path).match(/^\/exam\/([^/]+)\//);
+  if (!match || !isOfficialTest(decodeURIComponent(match[1]))) return true;
+
+  let license;
+  try {
+    license = useLicenseStore();
+  } catch {
+    return true;
+  }
+  if (!license.ready) await license.refresh().catch(() => {});
+  if (license.contentLocked) return { name: 'home', query: { ...to.query, activate: '1' } };
+  return true;
 });
 
 export default router;

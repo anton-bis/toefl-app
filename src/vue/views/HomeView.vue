@@ -1,20 +1,25 @@
 <script setup>
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useCatalogStore } from '../stores/catalog.js';
+import { useLicenseStore } from '../stores/license.js';
 import { readExamSession, useExamStore } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import AppModal from '../components/AppModal.vue';
+import ActivationModal from '../components/ActivationModal.vue';
 import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
 import '../styles/home.css';
 
 const router = useRouter();
+const route = useRoute();
 const catalog = useCatalogStore();
 const exam = useExamStore();
+const license = useLicenseStore();
 const panel = ref('mock');
 const modal = ref('');
 const pendingExam = ref(null);
 const restartConfirm = ref(false);
+const showActivation = ref(false);
 const sections = [
   ['reading', 'Reading'],
   ['listening', 'Listening'],
@@ -73,6 +78,21 @@ function openExam(tpoId, section) {
   restartConfirm.value = false;
   pendingExam.value = { tpoId, section, status: session.status, pageId: session.pageId };
 }
+
+function openTest(tpoId, section) {
+  if (license.contentLocked) {
+    showActivation.value = true;
+    return;
+  }
+  openExam(tpoId, section);
+}
+
+watch(
+  () => route.query.activate,
+  value => {
+    if (value === '1' && license.contentLocked) showActivation.value = true;
+  }
+);
 
 function closePractice() {
   restartConfirm.value = false;
@@ -163,6 +183,13 @@ function hasReport(test) {
       </aside>
 
       <main class="main-content">
+        <section v-if="license.activated" class="referral-banner">
+          <span class="referral-banner__icon" aria-hidden="true"><i class="fas fa-sparkles" /></span>
+          <div class="referral-banner__body">
+            <strong>Web 端有 AI 批改</strong>
+            <p>用同一个序列号在 Web 端注册，即可领取 Web 真题权益，体验 AI 作文 / 口语批改。</p>
+          </div>
+        </section>
         <section v-if="panel === 'mock'" class="panel active">
           <div class="panel-header">
             <h2>Practice Tests</h2>
@@ -249,8 +276,13 @@ function hasReport(test) {
                     <button
                       v-if="test.sections[section]"
                       class="mod-btn available"
-                      @click="openExam(test.tpoId, section)"
+                      :class="{ locked: license.contentLocked }"
+                      :title="license.contentLocked ? '需要激活后才能使用' : ''"
+                      @click="openTest(test.tpoId, section)"
                     >
+                      <span v-if="license.contentLocked" class="lock-mark" aria-hidden="true"
+                        >🔒
+                      </span>
                       {{ label }}
                     </button>
                     <span v-else class="mod-na">—</span>
@@ -529,5 +561,11 @@ function hasReport(test) {
         </template>
       </section>
     </div>
+
+    <ActivationModal
+      v-if="showActivation"
+      @close="showActivation = false"
+      @activated="showActivation = false"
+    />
   </div>
 </template>

@@ -12,6 +12,7 @@ import {
 import ContentStartup from './components/ContentStartup.vue';
 import { flushDataStorage, suspendDataStorage } from './platform/storageLifecycle.js';
 import { useCatalogStore } from './stores/catalog.js';
+import { useLicenseStore } from './stores/license.js';
 import { useUpdatesStore } from './stores/updates.js';
 
 const fatalError = ref('');
@@ -20,6 +21,7 @@ const electronEnabled = Boolean(window.electronAPI);
 const UpdateNotice = defineAsyncComponent(() => import('./components/UpdateNotice.vue'));
 const updates = useUpdatesStore();
 const catalog = useCatalogStore();
+const license = useLicenseStore();
 const catalogError = ref('');
 const catalogLoading = ref(false);
 let disposed = false;
@@ -85,6 +87,7 @@ async function handleDataFlush(request) {
 }
 
 onMounted(async () => {
+  license.initialize().catch(() => {});
   if (electronEnabled) {
     stopDataFlush = window.electronAPI.data.onFlush(handleDataFlush);
     await updates.initialize();
@@ -95,6 +98,7 @@ watch(() => updates.contentActivation, refreshCatalog);
 onBeforeUnmount(() => {
   disposed = true;
   updates.dispose();
+  license.dispose();
   stopDataFlush?.();
 });
 
