@@ -279,6 +279,20 @@ toefl-web/                     ← 新仓库，与 toefl-app 分离
 | GET   | /v1/admin/metrics                      | admin                | 运营指标（对齐第 14 节）                  |
 | GET   | /v1/admin/audit-logs                   | admin                | 审计日志查询                              |
 
+### 7.8 licenses 模块（桌面端序列号激活，见 `docs/license-protocol-v1.md`）
+
+> 无账号模式：**不使用 JWT**，凭「序列号 + 设备激活凭证」鉴权。
+
+| 方法 | 路径                                         | 鉴权                     | 说明                                                       |
+| ---- | -------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
+| POST | /v1/licenses/devices/activate                | 序列号 code + 设备指纹   | 激活设备（≤2 台，同设备幂等）；404 INVALID / 409 LIMIT     |
+| POST | /v1/licenses/devices/refresh                 | deviceId+指纹+token      | 周期续期（expiresAt=now+30 天）；超期 401 DEVICE_INVALID   |
+| POST | /v1/licenses/devices/:deviceId/unbind        | code + activationToken   | 解绑本机，释放名额                                         |
+| POST | /v1/licenses/redeem                          | 用户（Web 端）           | 序列号兑换（Web 用，桌面端不调用）                          |
+| GET  | /v1/licenses/me                              | 用户（Web 端）           | 我的序列号 + 设备列表 + 内容权益（Web 用）                  |
+
+错误码：`LICENSE:INVALID`(404)、`LICENSE:DEVICE_LIMIT`(409)、`LICENSE:DEVICE_INVALID`(401)。
+
 ---
 
 ## 8. 认证与授权设计
