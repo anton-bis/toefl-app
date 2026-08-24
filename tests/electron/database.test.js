@@ -44,6 +44,19 @@ test('SQLite worker persists structured learning data and restarts after idle', 
   );
 });
 
+test('a request issued during a worker close transparently restarts the worker', async () => {
+  await withStorage(async storage => {
+    await storage.request('settings:set', { key: 'a', value: 1 });
+    // Issue the next request while close() is still in flight: it must wait
+    // for the close to finish and then start a fresh worker, not reject.
+    const closing = storage.close();
+    const result = await storage.request('settings:set', { key: 'b', value: 2 });
+    assert.equal(result, true);
+    await closing;
+    assert.deepEqual((await storage.request('bootstrap')).settings, { a: 1, b: 2 });
+  });
+});
+
 test('recordings stay outside SQLite and identifiers cannot become paths', async () => {
   await withStorage(async (storage, directory) => {
     const bytes = Uint8Array.from([1, 2, 3, 4]);

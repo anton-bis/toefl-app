@@ -150,6 +150,7 @@ export class DataStorage {
   #nextId = 1;
   #idleTimer;
   #closing = false;
+  #closingPromise;
   #drainResolvers = new Set();
 
   constructor(userDataPath, { idleTimeout = IDLE_TIMEOUT_MS } = {}) {
@@ -209,7 +210,14 @@ export class DataStorage {
     if (typeof operation !== 'string' || operation.length > 80) {
       return Promise.reject(new TypeError('Invalid data storage operation'));
     }
-    if (this.#closing) return Promise.reject(new Error('Data storage is closing'));
+    // A request that lands during an in-flight (idle or explicit) close must
+    // wait for it to finish and then restart the worker, instead of failing.
+    if (this.#closing) {
+      if (this.#closingPromise) {
+        return this.#closingPromise.then(() => this.request(operation, payload));
+      }
+      return Promise.reject(new Error('Data storage is closing'));
+    }
     return this.#send(operation, payload);
   }
 
@@ -367,16 +375,21 @@ export class DataStorage {
     clearTimeout(this.#idleTimer);
     const worker = this.#worker;
     if (!worker) return;
+    if (this.#closingPromise) return this.#closingPromise;
     this.#closing = true;
-    try {
-      if (this.#requests.size) {
-        await new Promise(resolve => this.#drainResolvers.add(resolve));
+    this.#closingPromise = (async () => {
+      try {
+        if (this.#requests.size) {
+          await new Promise(resolve => this.#drainResolvers.add(resolve));
+        }
+        if (this.#worker === worker) await this.#send('close', {});
+        this.#worker = undefined;
+      } finally {
+        this.#closing = false;
+        this.#closingPromise = undefined;
       }
-      if (this.#worker === worker) await this.#send('close', {});
-      this.#worker = undefined;
-    } finally {
-      this.#closing = false;
-    }
+    })();
+    return this.#closingPromise;
   }
 
   #assertExternalArchivePath(archivePath) {
