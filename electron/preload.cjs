@@ -58,6 +58,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
     flushed: result => ipcRenderer.send('data:flushed', result)
   },
 
+  // Device license (serial activation, license-protocol-v1)
+  license: {
+    getState: () => ipcRenderer.invoke('license:get-state'),
+    activate: code => ipcRenderer.invoke('license:activate', code),
+    refresh: () => ipcRenderer.invoke('license:refresh'),
+    unbind: () => ipcRenderer.invoke('license:unbind'),
+    onState: callback => subscribe('license:state', callback)
+  },
+
   // Runtime content updates
   initializeContent: () => ipcRenderer.invoke('content:initialize'),
   retryContent: () => ipcRenderer.invoke('content:retry'),

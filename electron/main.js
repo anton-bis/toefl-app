@@ -8,7 +8,8 @@ import {
   session,
   protocol,
   net,
-  powerMonitor
+  powerMonitor,
+  safeStorage
 } from 'electron';
 import path from 'path';
 import fs from 'fs';
@@ -32,6 +33,7 @@ import {
 import { registerDataStorageIpc } from './services/database.js';
 import { validateBundleFromMainPath } from './services/bundle-validation.js';
 import { createLocalFileResponse, registerContentProtocol } from './services/content-protocol.js';
+import { registerLicenseIpc } from './services/license.js';
 import { writePerformanceSnapshot } from './services/performance.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -123,6 +125,7 @@ let appInstallBlocked = false;
 let backgroundScheduler;
 let updateInstallPrepared = false;
 let dataStorage;
+let licenseService;
 let rendererReady = false;
 const pendingRendererFlushes = new Map();
 let nextFlushId = 1;
@@ -286,6 +289,8 @@ function createWindow() {
     }).catch(error => console.warn('Performance snapshot failed:', error.message));
 
     backgroundScheduler?.restart();
+
+    licenseService?.start();
   });
 
   // Release the window reference after closing.
@@ -294,7 +299,10 @@ function createWindow() {
     mainWindow = null;
   });
 
-  mainWindow.on('restore', () => backgroundScheduler?.restart(5000));
+  mainWindow.on('restore', () => {
+    backgroundScheduler?.restart(5000);
+    licenseService?.checkNow().catch(() => {});
+  });
 
   let closeAllowed = false;
   let closePending = false;
@@ -537,6 +545,14 @@ function setupIpcHandlers() {
     isTrustedRenderer
   });
 
+  licenseService = registerLicenseIpc({
+    ipcMain,
+    isTrustedRenderer,
+    userDataPath: app.getPath('userData'),
+    safeStorage,
+    emitState: state => sendToRenderer('license:state', state)
+  });
+
   ipcMain.on('data:renderer-ready', event => {
     if (!isTrustedRenderer(event)) return;
     rendererReady = true;
@@ -651,7 +667,10 @@ function initializeApp() {
     console.log('Main window created.');
 
     if (app.isPackaged) {
-      powerMonitor.on('resume', () => backgroundScheduler?.restart(60_000));
+      powerMonitor.on('resume', () => {
+        backgroundScheduler?.restart(60_000);
+        licenseService?.checkNow().catch(() => {});
+      });
     }
   } catch (error) {
     console.error('App initialization failed:', error);
@@ -674,6 +693,7 @@ app.on('window-all-closed', () => {
 app.on('before-quit', () => {
   quittingRequested = true;
   backgroundScheduler?.stop();
+  licenseService?.stop();
 });
 
 app.on('will-quit', () => dataStorage?.close().catch(() => {}));
