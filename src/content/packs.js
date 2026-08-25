@@ -69,7 +69,7 @@ export function discoverContentPacks(rootDir, questionManifest) {
   if (fs.existsSync(path.join(rootDir, typingPath))) packs.push(pack('typing', [typingPath]));
 
   for (const current of packs) {
-    if (!/^[a-z0-9-]+$/.test(current.id)) throw new Error(`Invalid content pack id: ${current.id}`);
+    if (!/^[a-z0-9() -]+$/.test(current.id)) throw new Error(`Invalid content pack id: ${current.id}`);
     if (!current.files.length) throw new Error(`Content pack is empty: ${current.id}`);
     current.files.forEach(file => assertRuntimeFile(rootDir, file));
   }

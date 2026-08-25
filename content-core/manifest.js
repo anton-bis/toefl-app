@@ -11,12 +11,12 @@ export function buildQuestionManifest(paths) {
   for (const input of paths) {
     const path = String(input).replace(/\\/g, '/');
     const match = path.match(
-      /(?:^|\/)assets\/questions\/(reading|listening|writing|speaking)\/((?:TPO-\d+)|(?:\d{4}-\d{2}-\d{2}))\/([^/]+\.md)$/i
+      /(?:^|\/)assets\/questions\/(reading|listening|writing|speaking)\/((?:TPO-\d+)|(?:\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?))\/([^/]+\.md)$/i
     );
     if (!match) continue;
     const section = match[1].toLowerCase();
     const folder = match[2];
-    const folderIsDate = /^\d{4}-\d{2}-\d{2}$/.test(folder);
+    const folderIsDate = /^\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?$/.test(folder);
     const tpoId = folderIsDate ? folder : folder.slice(4).padStart(2, '0');
     const expected = folderIsDate
       ? `${section}-${folder}.md`.toLowerCase()

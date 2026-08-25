@@ -18,7 +18,7 @@ export function listCatalog(catalog = { entries: [] }) {
   const tests = new Map();
   for (const entry of catalog.entries) {
     if (!tests.has(entry.tpoId)) {
-      const isDateId = /^\d{4}-\d{2}-\d{2}$/.test(entry.tpoId);
+      const isDateId = /^\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?$/.test(entry.tpoId);
       tests.set(entry.tpoId, {
         tpoId: entry.tpoId,
         description: isDateId ? '2026 TOEFL Official Exam' : '2026 TOEFL Sample Test',

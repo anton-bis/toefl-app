@@ -131,9 +131,11 @@ Writing 头像统一存放于 `assets/questions/writing/avatars/`（详见该目
 ### 6.1 真真题（日期文件夹）索引
 
 - 真真题（非 ETS 官方 TPO 样题）以日期文件夹命名：`assets/questions/<section>/2026-01-27/`。
-- `content-core/manifest.js` 同时支持 `TPO-\d+` 与 `YYYY-MM-DD` 两类文件夹，
+- 同一天有多场考试时，用 `YYYY-MM-DD (N)` 后缀区分场次（如 `2026-02-01 (2)` 表示当天第二场，
+  `tpoId` 取完整文件夹名，首页显示 `TPO 02-01 (2)`），仍归 Official Tests 面板。
+- `content-core/manifest.js` 同时支持 `TPO-\d+`、`YYYY-MM-DD` 与 `YYYY-MM-DD (N)` 三类文件夹，
   `tpoId` 对日期文件夹取文件夹名（如 `2026-01-27`）。
-- 文件名需与文件夹一致：`<section>-2026-01-27.md`。
+- 文件名需与文件夹一致：`<section>-2026-01-27.md`（含后缀时 `<section>-2026-02-01 (2).md`）。
 - 排序：TPO 数字在前，日期文件夹按字符串序在后（localeCompare）。
 - 标题 warning 校验只针对 TPO 数字文件夹，日期文件夹跳过。
 

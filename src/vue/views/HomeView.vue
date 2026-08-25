@@ -28,12 +28,16 @@ const sections = [
 ];
 
 const tests = computed(() => catalog.tests);
-const isDateId = tpoId => /^\d{4}-\d{2}-\d{2}$/.test(String(tpoId || ''));
+const DATE_ID_PATTERN = /^\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?$/;
+const DATE_ID_PARTS = /^(\d{4})-(\d{2})-(\d{2})(?:\s*\((\d+)\))?$/;
+const isDateId = tpoId => DATE_ID_PATTERN.test(String(tpoId || ''));
 const practiceTests = computed(() => tests.value.filter(test => !isDateId(test.tpoId)));
 const officialTests = computed(() => tests.value.filter(test => isDateId(test.tpoId)));
 function displayId(tpoId) {
-  const match = String(tpoId || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  return match ? `TPO ${match[2]}-${match[3]}` : `TPO ${tpoId}`;
+  const match = String(tpoId || '').match(DATE_ID_PARTS);
+  return match
+    ? `TPO ${match[2]}-${match[3]}${match[4] ? ` (${match[4]})` : ''}`
+    : `TPO ${tpoId}`;
 }
 const practiceState = computed(() => {
   const completed = pendingExam.value?.status === 'completed';
