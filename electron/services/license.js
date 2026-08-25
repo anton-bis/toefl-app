@@ -250,12 +250,12 @@ export function createLicenseService({
 export function registerLicenseIpc({ ipcMain, isTrustedRenderer, ...serviceOptions }) {
   const service = createLicenseService(serviceOptions);
 
-  const handle = operation => async event => {
+  const handle = operation => async (event, ...args) => {
     if (!isTrustedRenderer(event)) {
       return { ok: false, error: { code: 'LICENSE:UNTRUSTED', message: 'Unauthorized license request.' } };
     }
     try {
-      return { ok: true, state: await operation(event) };
+      return { ok: true, state: await operation(event, ...args) };
     } catch (error) {
       return {
         ok: false,

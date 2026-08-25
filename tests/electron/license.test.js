@@ -15,7 +15,8 @@ import {
   OFFLINE_GRACE_MS,
   REFRESH_INTERVAL_MS,
   createLicenseService,
-  normalizeSerialCode
+  normalizeSerialCode,
+  registerLicenseIpc
 } from '../../electron/services/license.js';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -428,4 +429,123 @@ test('background constants follow the contract cadence', () => {
   assert.equal(REFRESH_INTERVAL_MS, 7 * DAY);
   assert.equal(OFFLINE_GRACE_MS, 30 * DAY);
   assert.equal(BACKGROUND_CHECK_MS, 6 * 60 * 60 * 1000);
+});
+
+// ---------------------------------------------------------------- IPC layer
+
+function createIpcHarness(t, options = {}) {
+  const handlers = new Map();
+  const ipcMain = {
+    handle(channel, handler) {
+      handlers.set(channel, handler);
+    }
+  };
+  const fetchCalls = [];
+  const defaultFetch = createFetch((url, body) => {
+    fetchCalls.push({ url, body });
+    if (String(url).endsWith('/devices/activate')) {
+      return response(200, {
+        data: {
+          deviceId: 'device-1',
+          activationToken: 'token-1',
+          expiresAt: new Date(ACTIVATE_EXPIRES_AT).toISOString(),
+          devices: [{ deviceId: 'device-1', current: true }],
+          deviceCount: 1
+        }
+      });
+    }
+    return response(200, { data: { status: 'ok' } });
+  });
+  const service = registerLicenseIpc({
+    ipcMain,
+    isTrustedRenderer: () => true,
+    userDataPath: tempDir(t),
+    safeStorage: fakeSafeStorage,
+    fetchImplementation: options.fetchImplementation || defaultFetch,
+    emitState: () => {},
+    now: options.now || (() => 0),
+    fingerprintFactory: () => 'fingerprint-hex',
+    setTimer: () => {},
+    clearTimer: () => {},
+    baseUrl: 'https://api.example.com'
+  });
+  const invoke = (channel, ...args) =>
+    handlers.get(channel)({ sender: {}, senderFrame: {} }, ...args);
+  return { service, handlers, invoke, fetchCalls };
+}
+
+test('IPC activate forwards the serial code to the license service', async t => {
+  const { invoke, fetchCalls } = createIpcHarness(t);
+  const result = await invoke('license:activate', 'TEST-0000-0000-0001');
+  assert.equal(result.ok, true);
+  assert.equal(result.state.status, 'active');
+  assert.equal(result.state.deviceId, 'device-1');
+  assert.equal(fetchCalls[0].body.code, 'TEST-0000-0000-0001');
+});
+
+test('IPC activate returns a friendly format error for an invalid code', async t => {
+  const { invoke } = createIpcHarness(t);
+  const result = await invoke('license:activate', 'not-a-code');
+  assert.equal(result.ok, false);
+  assert.equal(result.error.code, 'LICENSE:FORMAT');
+});
+
+test('IPC activate surfaces server errors without throwing', async t => {
+  const { invoke } = createIpcHarness(t, {
+    fetchImplementation: async () =>
+      response(409, { error: { code: 'LICENSE:DEVICE_LIMIT', message: 'limit' } })
+  });
+  const result = await invoke('license:activate', 'TEST-0000-0000-0001');
+  assert.equal(result.ok, false);
+  assert.equal(result.error.code, 'LICENSE:DEVICE_LIMIT');
+  assert.equal(result.error.message, '该序列号已达到 2 台设备上限');
+});
+
+test('IPC refresh and get-state report the current state', async t => {
+  const { invoke } = createIpcHarness(t);
+  const activated = await invoke('license:activate', 'TEST-0000-0000-0001');
+  assert.equal(activated.ok, true);
+  const refreshed = await invoke('license:refresh');
+  assert.equal(refreshed.ok, true);
+  assert.equal(refreshed.state.status, 'active');
+  const current = await invoke('license:get-state');
+  assert.equal(current.state.deviceId, 'device-1');
+});
+
+test('IPC unbind clears the activated state', async t => {
+  const { invoke } = createIpcHarness(t);
+  await invoke('license:activate', 'TEST-0000-0000-0001');
+  const result = await invoke('license:unbind');
+  assert.equal(result.ok, true);
+  assert.equal(result.state.status, 'none');
+});
+
+test('IPC rejects requests from an untrusted renderer', async t => {
+  const handlers = new Map();
+  const ipcMain = {
+    handle(channel, handler) {
+      handlers.set(channel, handler);
+    }
+  };
+  registerLicenseIpc({
+    ipcMain,
+    isTrustedRenderer: () => false,
+    userDataPath: tempDir(t),
+    safeStorage: fakeSafeStorage,
+    fetchImplementation: async () => response(200, { data: {} }),
+    emitState: () => {},
+    now: () => 0,
+    fingerprintFactory: () => 'fingerprint-hex',
+    setTimer: () => {},
+    clearTimer: () => {},
+    baseUrl: 'https://api.example.com'
+  });
+  const result = await handlers.get('license:activate')(
+    { sender: {}, senderFrame: {} },
+    'TEST-0000-0000-0001'
+  );
+  assert.deepEqual(result, {
+    ok: false,
+    error: { code: 'LICENSE:UNTRUSTED', message: 'Unauthorized license request.' }
+  });
 });
