@@ -55,7 +55,7 @@ export function assertContentManifest(manifest) {
   requireString(manifest.minAppVersion, 'minimum app version');
   const ids = new Set();
   for (const pack of manifest.packs) {
-    if (!isRecord(pack) || !/^[a-z0-9-]+$/.test(pack.id || '') || ids.has(pack.id)) {
+    if (!isRecord(pack) || !/^[a-z0-9() -]+$/.test(pack.id || '') || ids.has(pack.id)) {
       throw new Error('Invalid or duplicate runtime content pack.');
     }
     ids.add(pack.id);

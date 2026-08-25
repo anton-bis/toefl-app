@@ -20,6 +20,8 @@ assets/questions/writing/2026-01-27/writing-2026-01-27.md
 ```
 
 - 文件与文件夹同名：`<section>-<YYYY-MM-DD>.md`
+- 同一天多场次：文件夹与文件名追加 ` (N)` 场次后缀，如 `2026-02-01 (2)` / `reading-2026-02-01 (2).md`；
+  `tpoId` 取完整文件夹名，首页显示 `TPO 02-01 (2)`
 - 首页显示：日期 ID 显示为 `TPO 01-27`，Description 为 `2026 TOEFL Official Exam`
 - 真题只在 **Official Tests** 面板（`panel === 'real'`），不进 Practice Tests
 

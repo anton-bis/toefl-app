@@ -28,7 +28,7 @@ function discoverQuestionManifest(rootDir) {
   const manifest = buildQuestionManifest(scanQuestionFiles(rootDir));
   for (const entry of manifest.entries) {
     const markdown = fs.readFileSync(path.join(rootDir, entry.sourcePath), 'utf8');
-    if (/^\d{4}-\d{2}-\d{2}$/.test(entry.tpoId)) continue;
+    if (/^\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?$/.test(entry.tpoId)) continue;
     const titleTpo = markdown.match(/^#.*?TPO-(\d+)/im)?.[1];
     if (titleTpo && titleTpo.padStart(2, '0') !== entry.tpoId) {
       manifest.warnings.push(
