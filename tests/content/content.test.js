@@ -58,7 +58,7 @@ test('manifest discovery is deterministic and complete', () => {
   const paths = scanQuestionFiles(root);
   assert.ok(paths.length > 0);
   const tpoPaths = paths.filter(path =>
-    /^assets[\\/]questions[\\/](reading|listening|writing|speaking)[\\/](TPO-\d+|\d{4}-\d{2}-\d{2})[\\/]/.test(path)
+    /^assets[\\/]questions[\\/](reading|listening|writing|speaking)[\\/](TPO-\d+|\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?)[\\/]/.test(path)
   );
   assert.equal(manifest.entries.length, tpoPaths.length);
   assert.equal(new Set(manifest.entries.map(entry => entry.id)).size, manifest.entries.length);
@@ -281,7 +281,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 28);
+  assert.equal(taskCount, 31);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
