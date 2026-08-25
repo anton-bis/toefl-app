@@ -31,6 +31,8 @@ function installLicenseApi(overrides = {}) {
 describe('license rules', () => {
   it('treats date-id tpoIds as official (paid)', () => {
     expect(isOfficialTest('2026-02-01')).toBe(true);
+    expect(isOfficialTest('2026-02-01 (2)')).toBe(true);
+    expect(isOfficialTest('2026-02-01 (3)')).toBe(true);
     expect(isOfficialTest('09')).toBe(false);
     expect(isOfficialTest('')).toBe(false);
   });
