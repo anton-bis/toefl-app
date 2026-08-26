@@ -208,7 +208,8 @@ function routeTo(pageId, replace = false) {
   return replace ? router.replace(target) : router.push(target);
 }
 
-const durationFor = currentPage => pageDuration(normalizedSection.value, currentPage, task.value);
+const durationFor = currentPage =>
+  pageDuration(normalizedSection.value, currentPage, task.value, moduleQuestions.value);
 
 const historyBlocked = (targetPage, active = session.value) =>
   blocksListeningHistory(normalizedSection.value, document.value?.pages || [], targetPage, active);
