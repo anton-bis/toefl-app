@@ -14,6 +14,7 @@ import {
   parseTextChain
 } from '../../src/vue/exam/sections/reading/helpers.js';
 import AcademicPassage from '../../src/vue/exam/sections/reading/AcademicPassage.vue';
+import DailyPassage from '../../src/vue/exam/sections/reading/DailyPassage.vue';
 import {
   listeningResponseSeconds,
   segmentDuration
@@ -617,6 +618,31 @@ describe('ReadingPage', () => {
       }
     });
     expect(wrapper.find('mark').text()).toBe('quantum mechanics');
+  });
+
+  it('highlights a quoted phrase inside a daily-life reading passage', async () => {
+    const wrapper = mount(DailyPassage, {
+      props: {
+        document,
+        page: { id: 'q28' },
+        task: {
+          type: 'social-media',
+          title: 'Read a Social Media Post',
+          passage:
+            'Fitness Boot Camp\nHey, everyone! I just wrapped up an incredible fitness boot camp.\nThroughout the camp we stayed active.'
+        },
+        question: {
+          id: 'q28',
+          prompt: 'The phrase "wrapped up" in the post is closest in meaning to',
+          options: [{ id: 'A', label: 'A', text: 'Option A' }]
+        },
+        answers: {},
+        locked: false
+      }
+    });
+    const mark = wrapper.find('mark');
+    expect(mark.exists()).toBe(true);
+    expect(mark.text()).toBe('wrapped up');
   });
 });
 
