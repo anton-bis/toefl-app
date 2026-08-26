@@ -174,10 +174,10 @@ test('runtime asset copy excludes development directories without leaving empty 
   assert.equal(fs.existsSync(path.join(desktopDestination, 'questions')), false);
 });
 
-test('application metadata identifies the English TOEFL product', () => {
+test('application metadata identifies the Tofu product', () => {
   const packageMetadata = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
-  assert.equal(packageMetadata.productName, 'TOEFL iBT Practice');
-  assert.equal(packageMetadata.build.productName, 'TOEFL iBT Practice');
+  assert.equal(packageMetadata.productName, 'Tofu Practice');
+  assert.equal(packageMetadata.build.productName, 'Tofu Practice');
   assert.deepEqual(packageMetadata.build.electronLanguages, ['en-US']);
   assert.match(fs.readFileSync(path.join(root, 'index.html'), 'utf8'), /<html lang="en">/);
 });
