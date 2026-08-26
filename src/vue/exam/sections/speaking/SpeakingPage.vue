@@ -4,7 +4,6 @@ import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 import { formatHoursMinutesSeconds, formatMinutesSeconds } from '../../../utils/time.js';
 import { normalizeVolume } from '../../../utils/volume.js';
 import { useRecorder } from '../../composables/useRecorder.js';
-import { examQuestions } from '../../shared/model.js';
 import { useExamStore } from '../../../stores/exam.js';
 
 const props = defineProps({
@@ -44,7 +43,6 @@ const duration = computed(() => responseDuration(props.question));
 const circumference = 2 * Math.PI * 34;
 const ringOffset = computed(() => circumference * (1 - ringProgress.value));
 const questionNumber = computed(() => props.question?.number || 0);
-const questionTotal = computed(() => examQuestions(props.document).length);
 const displayTime = computed(() => formatHoursMinutesSeconds(Math.ceil(remaining.value)));
 const statusText = computed(() => {
   if (recorder.error.value) return microphoneError(recorder.error.value);
@@ -242,7 +240,6 @@ onBeforeUnmount(() => {
     class="speaking-question exam-content-pane exam-scroll-region"
     data-testid="speaking-question"
   >
-    <div class="question-progress">Question {{ questionNumber }} of {{ questionTotal }}</div>
     <h2>
       {{
         question.type === 'listen-repeat'
@@ -359,10 +356,6 @@ onBeforeUnmount(() => {
   padding: 10px 30px 35px;
   box-sizing: border-box;
   color: #222;
-}
-.question-progress {
-  font-size: 14px;
-  color: #444;
 }
 .speaking-question > h2 {
   text-align: center;
