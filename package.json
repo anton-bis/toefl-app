@@ -4,7 +4,7 @@
   "description": "A focused TOEFL iBT practice and mock exam app.",
   "main": "electron/main.js",
   "type": "module",
-  "productName": "TOEFL iBT Practice",
+    "productName": "Tofu Practice",
   "desktopName": "toefl-practice",
   "author": "anton-bis",
   "license": "MIT",
@@ -80,7 +80,7 @@
   },
   "build": {
     "appId": "io.github.antonbis.toeflpractice",
-    "productName": "TOEFL iBT Practice",
+  "productName": "Tofu Practice",
     "executableName": "toefl-practice",
     "directories": {
       "output": "release"

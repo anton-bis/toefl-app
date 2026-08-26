@@ -22,7 +22,7 @@ const title = computed(() => {
 <template>
   <div class="exam-page">
     <header class="exam-header">
-      <div class="exam-header__brand"><strong>toefl ibt</strong></div>
+      <div class="exam-header__brand"><strong>Tofu</strong></div>
       <nav class="exam-header__actions" aria-label="Exam actions">
         <button
           class="exam-nav-button exam-nav-button--dark exam-nav-button--exit"
