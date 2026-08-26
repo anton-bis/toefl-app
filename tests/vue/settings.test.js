@@ -1,5 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
+import { createMemoryHistory, createRouter } from 'vue-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import SettingsView from '../../src/vue/views/SettingsView.vue';
 import { useLicenseStore } from '../../src/vue/stores/license.js';
@@ -20,10 +21,19 @@ function installLicenseApi(overrides = {}) {
 async function mountSettings() {
   const pinia = createPinia();
   setActivePinia(pinia);
-  const wrapper = mount(SettingsView, { global: { plugins: [pinia] } });
+  const router = createRouter({
+    history: createMemoryHistory(),
+    routes: [
+      { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
+      { path: '/settings', name: 'settings', component: SettingsView }
+    ]
+  });
+  await router.push('/settings');
+  await router.isReady();
+  const wrapper = mount(SettingsView, { global: { plugins: [pinia, router] } });
   const store = useLicenseStore(pinia);
   await flushPromises();
-  return { wrapper, store };
+  return { wrapper, store, router };
 }
 
 function findButton(wrapper, text) {
@@ -141,5 +151,14 @@ describe('SettingsView license management', () => {
     const { wrapper } = await mountSettings();
     expect(wrapper.text()).toContain('序列号激活仅适用于桌面版');
     expect(wrapper.find('.settings-btn--primary').exists()).toBe(false);
+  });
+
+  it('shows a gear icon and returns to home from the back button', async () => {
+    const { wrapper, router } = await mountSettings();
+    expect(wrapper.find('.settings-header h1 i.fa-cog').exists()).toBe(true);
+    expect(wrapper.find('.skill-back-button').text()).toContain('Home');
+    await wrapper.find('.skill-back-button').trigger('click');
+    await flushPromises();
+    expect(router.currentRoute.value.name).toBe('home');
   });
 });

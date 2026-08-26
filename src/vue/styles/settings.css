@@ -2,14 +2,27 @@
   min-height: 100vh;
   max-width: 720px;
   margin: 0 auto;
-  padding: 40px 28px 60px;
+  padding: 28px 28px 60px;
+}
+.settings-header {
+  margin-bottom: 26px;
+}
+.settings-header__heading {
+  margin-top: 26px;
 }
 .settings-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0 0 4px;
   font-size: 30px;
 }
+.settings-header h1 i {
+  color: var(--teal);
+  font-size: 26px;
+}
 .settings-header p {
-  margin: 0 0 26px;
+  margin: 0;
   color: var(--muted);
   font-size: 15px;
 }

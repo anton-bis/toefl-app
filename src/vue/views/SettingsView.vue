@@ -1,13 +1,17 @@
 <script setup>
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import ActivationModal from '../components/ActivationModal.vue';
 import { useLicenseStore } from '../stores/license.js';
 import '../styles/settings.css';
 
+const router = useRouter();
 const license = useLicenseStore();
 const showActivation = ref(false);
 const notice = ref('');
 const noticeError = ref('');
+
+const goHome = () => router.push({ name: 'home' });
 
 const isDesktop = computed(() => license.isDesktop);
 const activated = computed(() => license.activated);
@@ -60,8 +64,14 @@ async function unbind() {
 <template>
   <main class="settings-page">
     <header class="settings-header">
-      <h1>Settings</h1>
-      <p>许可证与设备管理</p>
+      <button class="skill-back-button" type="button" @click="goHome">
+        <span aria-hidden="true">←</span>
+        <span>Home</span>
+      </button>
+      <div class="settings-header__heading">
+        <h1><i class="fas fa-cog" aria-hidden="true" /> Settings</h1>
+        <p>许可证与设备管理</p>
+      </div>
     </header>
 
     <section class="settings-card">
