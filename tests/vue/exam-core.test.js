@@ -18,6 +18,8 @@ import {
   blocksListeningHistory,
   pageDuration,
   questionDisplay,
+  readingModuleSeconds,
+  readingSecondsPerType,
   reportSections,
   resolveExamEntry
 } from '../../src/vue/exam/shared/flow.js';
@@ -395,13 +397,48 @@ describe('exam flow policies', () => {
   });
 
   it('keeps section timing and report ordering in pure policy', () => {
-    expect(pageDuration('reading', { moduleId: 'module-1' })).toBe(690);
-    expect(pageDuration('reading', { moduleId: 'module-2' })).toBe(540);
+    const completeWords = count => Array.from({ length: count }, () => ({ type: 'complete-words' }));
+    const academic = count => Array.from({ length: count }, () => ({ type: 'academic-passage' }));
+    const dailyLife = count => Array.from({ length: count }, () => ({ type: 'social-media' }));
+    expect(
+      pageDuration('reading', { moduleId: 'module-2' }, null, [
+        ...completeWords(10),
+        ...academic(5)
+      ])
+    ).toBe(540);
+    expect(
+      pageDuration('reading', { moduleId: 'module-1' }, null, [
+        ...completeWords(20),
+        ...dailyLife(10),
+        ...academic(5)
+      ])
+    ).toBe(1080);
+    expect(pageDuration('reading', { moduleId: 'module-1' })).toBeNull();
     expect(pageDuration('writing', { taskId: 'write-email' })).toBe(420);
     expect(
       reportSections({ sections: { speaking: {}, reading: {}, listening: {} } }, section => ({
         status: section === 'listening' ? 'in-progress' : 'completed'
       }))
     ).toEqual(['reading', 'speaking']);
+  });
+
+  it('maps reading question types to per-question seconds', () => {
+    expect(readingSecondsPerType('complete-words')).toBe(24);
+    expect(readingSecondsPerType('academic-passage')).toBe(60);
+    expect(readingSecondsPerType('social-media')).toBe(30);
+    expect(readingSecondsPerType('poster')).toBe(30);
+    expect(readingSecondsPerType('instructions')).toBe(30);
+    expect(readingSecondsPerType('notice')).toBe(30);
+    expect(readingSecondsPerType('text-chain')).toBe(30);
+    expect(readingSecondsPerType('unknown-type')).toBe(30);
+  });
+
+  it('computes reading module seconds from question count and type', () => {
+    const completeWords = count => Array.from({ length: count }, () => ({ type: 'complete-words' }));
+    const academic = count => Array.from({ length: count }, () => ({ type: 'academic-passage' }));
+    const dailyLife = count => Array.from({ length: count }, () => ({ type: 'poster' }));
+    expect(readingModuleSeconds([])).toBe(0);
+    expect(readingModuleSeconds([...completeWords(10), ...academic(5)])).toBe(540);
+    expect(readingModuleSeconds([...completeWords(20), ...dailyLife(5), ...academic(10)])).toBe(1230);
   });
 });
