@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { parseDailyPassage, parseTextChain } from './helpers.js';
+import Highlighted from './Highlighted.vue';
 
 const props = defineProps({
   task: { type: Object, required: true },
@@ -19,6 +20,11 @@ const labelLines = computed(() =>
     .filter(Boolean)
 );
 const receiptLines = labelLines;
+const vocab = computed(() => {
+  const prompt = props.question?.prompt || '';
+  const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
+  return direct || prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+});
 </script>
 
 <template>
@@ -40,7 +46,7 @@ const receiptLines = labelLines;
               <span class="meta-label">Subject:</span> {{ content.subject }}
             </div>
           </header>
-          <div class="email-body-apple">{{ content.body }}</div>
+          <div class="email-body-apple"><Highlighted :text="content.body" :term="vocab" /></div>
           <footer v-if="content.signature" class="email-signature-apple">
             {{ content.signature }}
           </footer>
@@ -62,7 +68,7 @@ const receiptLines = labelLines;
                 <strong>{{ message.sender }}</strong
                 ><span>{{ message.time }}</span>
               </div>
-              <div class="message-text">{{ message.text }}</div>
+              <div class="message-text"><Highlighted :text="message.text" :term="vocab" /></div>
             </div>
           </div>
         </article>
@@ -76,7 +82,7 @@ const receiptLines = labelLines;
             <span class="profile-avatar">{{ (content.username || 'U')[0] }}</span
             ><strong>{{ content.username }}</strong>
           </header>
-          <div class="social-media-content">{{ content.body }}</div>
+          <div class="social-media-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
 
         <article v-else-if="task.type === 'label'" class="daily-passage-card apple-label-container">
@@ -86,7 +92,7 @@ const receiptLines = labelLines;
           </header>
           <div class="label-content">
             <p v-for="(line, index) in labelLines" :key="index" class="label-line">
-              {{ line }}
+              <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
         </article>
@@ -101,7 +107,7 @@ const receiptLines = labelLines;
           </header>
           <div class="receipt-content">
             <p v-for="(line, index) in receiptLines" :key="index" class="receipt-line">
-              {{ line }}
+              <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
         </article>
@@ -115,7 +121,7 @@ const receiptLines = labelLines;
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
           </header>
-          <div class="notice-content">{{ content.body }}</div>
+          <div class="notice-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
 
         <article
@@ -127,7 +133,7 @@ const receiptLines = labelLines;
           </header>
           <div class="instructions-content">
             <p v-for="(line, index) in labelLines" :key="index" class="instructions-line">
-              {{ line }}
+              <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
         </article>
@@ -138,7 +144,7 @@ const receiptLines = labelLines;
           </header>
           <div class="form-content">
             <p v-for="(line, index) in labelLines" :key="index" class="form-line">
-              {{ line }}
+              <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
         </article>
@@ -148,7 +154,7 @@ const receiptLines = labelLines;
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
           </header>
-          <div class="notice-content">{{ content.body }}</div>
+          <div class="notice-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
       </div>
       <div
