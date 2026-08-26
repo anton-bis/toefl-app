@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.3] - 2026-08-26
+
+### Fixed
+
+- Reading module timer durations are now computed dynamically from the actual question count
+  and types in each module (24s per complete-words, 60s per academic passage, 30s for other
+  reading task types and unknown types), instead of fixed 11:30 / 9:00 values. The timer stays
+  module-scoped and no longer resets between questions.
+
 ## [1.7.2] - 2026-08-26
 
 ### Highlights
