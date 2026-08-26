@@ -33,7 +33,7 @@ const { display: timeText, urgent } = useExamTimer(() => props.timer, {
 <template>
   <header class="exam-header">
     <div class="exam-header__brand">
-      <strong>toefl ibt</strong>
+      <strong>Tofu</strong>
     </div>
     <nav class="exam-header__actions" aria-label="Exam actions">
       <button

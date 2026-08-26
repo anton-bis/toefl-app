@@ -1,10 +1,11 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCatalogStore } from '../stores/catalog.js';
 import { useLicenseStore } from '../stores/license.js';
 import { readExamSession, useExamStore } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
+import { homeState } from '../platform/homeState.js';
 import AppModal from '../components/AppModal.vue';
 import ActivationModal from '../components/ActivationModal.vue';
 import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
@@ -15,11 +16,30 @@ const route = useRoute();
 const catalog = useCatalogStore();
 const exam = useExamStore();
 const license = useLicenseStore();
-const panel = ref('mock');
+const panel = ref(homeState.panel);
 const modal = ref('');
 const pendingExam = ref(null);
 const restartConfirm = ref(false);
 const showActivation = ref(false);
+
+function saveHomeState() {
+  homeState.panel = panel.value;
+  const scroller = document.querySelector('.home-page .main-content');
+  homeState.scrollTop = scroller?.scrollTop ?? 0;
+}
+
+let homeRestored = false;
+function restoreHomeState() {
+  if (homeRestored || !catalog.tests.length) return;
+  homeRestored = true;
+  nextTick(() => {
+    const scroller = document.querySelector('.home-page .main-content');
+    if (scroller) scroller.scrollTop = homeState.scrollTop;
+  });
+}
+onMounted(restoreHomeState);
+watch(() => catalog.tests.length, restoreHomeState);
+onBeforeUnmount(saveHomeState);
 const sections = [
   ['reading', 'Reading'],
   ['listening', 'Listening'],
@@ -145,7 +165,7 @@ function hasReport(test) {
 <template>
   <div class="home-page">
     <header class="app-header">
-      <span class="logo-text">TOEFL</span>
+      <span class="logo-text">Just Tofu</span>
     </header>
     <div class="app-layout">
       <aside class="sidebar">
