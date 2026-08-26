@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.7.2] - 2026-08-26
+
+### Highlights
+
+- Added the 2026-02-01 second-session real-exam question bank (reading, listening, speaking, writing) under the Official Tests panel.
+- Recognized same-day multi-session date folders (`YYYY-MM-DD (N)`) so the app can show exams taken in multiple sessions on one day.
+- Regenerated the Listen and Choose a Response prompts as per-question AI-narrated audio with consistent loudness.
+- Fixed recorded speaking responses not playing on the results page and hardened attempt lookup per answer.
+- Rebranded the product and visible exam chrome from "TOEFL iBT" to "Tofu Practice" / "Tofu".
+
+### Added
+
+- 2026-02-01 (2) real exam four-section question bank, with scene images, enhanced original audio, and per-question LCAR audio.
+- Quoted-phrase highlighting inside daily-life reading passages (e.g., "wrapped up" in a social media post).
+- Preserved the home page panel (Practice / Official) and scroll position when returning from an exam, results, or report.
+
+### Changed
+
+- Listening LCAR tasks reference per-question `audio:` clips instead of timestamps against the shared track.
+- Exam header branding on start, intro, module-transition, and results pages now reads "Tofu".
+- Home page logo reads "Just Tofu"; product name, window title, and startup splash read "Tofu Practice".
+- Speaking question page no longer repeats the "Question X of Y" progress line already shown in the header.
+
+### Fixed
+
+- Recorded speaking responses could not play because the renderer CSP did not allow the `toefl-recording:` media scheme; it is now permitted.
+- Results-page recording playback resolved the attempt id from the session, which could miss recordings saved under a different attempt; it now resolves per answer from the recording key.
+- Listen and Repeat clips sometimes cut the start or end of a sentence; the joined timestamp ranges now cover the full prompt.
+
 ## [1.7.1] - 2026-08-22
 
 ### Highlights
