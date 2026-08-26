@@ -512,4 +512,23 @@ describe('speaking results recordings', () => {
     await flushPromises();
     expect(createObjectURL).not.toHaveBeenCalled();
   });
+
+  it('resolves the recording attempt from the answer recording key, not the document id', async () => {
+    repository.load.mockReset().mockResolvedValue(new Blob(['answer'], { type: 'audio/webm' }));
+    const createObjectURL = vi.fn(() => 'blob:answer');
+    vi.stubGlobal('URL', { ...URL, createObjectURL, revokeObjectURL: vi.fn() });
+    const wrapper = mount(ResultsPage, {
+      props: {
+        document: speakingResultsDocument,
+        session: {
+          ...speakingResultsSession,
+          answers: { q1: { recordingKey: 'attempt-9xz7:q1' } }
+        }
+      }
+    });
+    await wrapper.get('.speaking-load-response').trigger('click');
+    await flushPromises();
+    expect(repository.load).toHaveBeenCalledWith('attempt-9xz7', 'q1');
+    wrapper.unmount();
+  });
 });

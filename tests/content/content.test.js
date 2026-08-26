@@ -37,6 +37,7 @@ test('packaged content protocol is allowed by the renderer security policy', () 
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   assert.match(html, /connect-src[^;]*\btoefl-content:/);
   assert.match(html, /media-src[^;]*\btoefl-content:/);
+  assert.match(html, /media-src[^;]*\btoefl-recording:/);
 });
 
 test('shared content builders normalize Markdown and page navigation', () => {
