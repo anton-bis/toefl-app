@@ -2,8 +2,23 @@ import { listeningResponseSeconds } from '../sections/listening/helpers.js';
 
 const REPORT_SECTION_ORDER = ['reading', 'listening', 'writing', 'speaking'];
 
-export function pageDuration(section, page, task) {
-  if (section === 'reading') return page.moduleId === 'module-2' ? 540 : 690;
+/**
+ * Reading seconds per question type. Academic passages and complete-words get
+ * their own allowances; every other reading task type (text-chain and all
+ * daily-life subtypes) plus unknown types fall back to 30 seconds.
+ */
+export function readingSecondsPerType(type) {
+  if (type === 'complete-words') return 24;
+  if (type === 'academic-passage') return 60;
+  return 30;
+}
+
+export function readingModuleSeconds(questions) {
+  return (questions || []).reduce((sum, question) => sum + readingSecondsPerType(question.type), 0);
+}
+
+export function pageDuration(section, page, task, moduleQuestions = []) {
+  if (section === 'reading') return readingModuleSeconds(moduleQuestions) || null;
   if (section === 'writing') {
     return (
       {
