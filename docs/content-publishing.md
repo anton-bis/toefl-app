@@ -54,6 +54,30 @@ manifest publication.
 
 Do not manually edit the generated `content` branch, Release tags, pack names, hashes, or URLs.
 
+## Lessons learned
+
+### Pack ids must be GitHub-safe (spaces/parentheses break downloads)
+
+Archive filenames are derived from the content pack id: `<pack-id>-<hash>.zip`. GitHub
+**normalizes** special characters in uploaded release-asset names, e.g. `tpo-2026-02-01 (2)`
+becomes `tpo-2026-02-01.2.`. If the manifest URL records the original (unsanitized) filename,
+the download returns `HTTP 404` even though the release exists.
+
+- Symptom: "Question bank unavailable — HTTP 404" on a `releases/download/content-<hash>/<pack>-<hash>.zip`
+  URL whose filename contains a space or parentheses (e.g. same-day multi-session folders
+  `2026-02-01 (2)`).
+- Root cause: the `(N)` same-day-session suffix introduced spaces and parentheses into the pack
+  id `tpo-2026-02-01 (2)`, which GitHub renamed to `.2.` on upload while the manifest kept the
+  original name.
+- Fix (already applied): `src/content/packs.js` sanitizes every pack id to `[a-z0-9-]`
+  (`tpo-2026-02-01 (2)` -> `tpo-2026-02-01-2`) via `sanitizePackId`. Keep all pack ids in this
+  safe charset; the app treats pack ids as opaque keys, so sanitizing them is safe.
+- The published content itself was always valid; only the distribution URL was wrong. Fixing the
+  pipeline and re-running `npm run content:publish` (pack id changed -> new manifest id -> forced
+  re-publish) repairs the manifest without needing a new application release.
+- After any content publish, verify the manifest URLs resolve (e.g. `curl -sI <pack.url>`
+  returns 200) before announcing the update.
+
 ## User update behavior
 
 Packaged applications initialize the question bank on first launch. Later launches use valid local

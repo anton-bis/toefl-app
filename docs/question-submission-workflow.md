@@ -188,6 +188,12 @@ npm run content:publish
 - 生成 content pack → GitHub release（`content-<hash>` tag）→ 更新 `content` 分支 manifest
 - `gh` 需登录（`anton-bis`，scope 含 `repo`）
 
+> ⚠️ **发布后必须验证 manifest URL 可下载**（`curl -sI <pack.url>` 应返回 200）。
+> 教训（2026-08-26）：pack id 曾含空格/括号（同一天多场次 `(2)`），GitHub 把上传资产名
+> `tpo-2026-02-01 (2)-<hash>.zip` 自动改成 `tpo-2026-02-01.2.-<hash>.zip`，manifest 里 URL 仍是旧名
+> → App 下载报 HTTP 404。`src/content/packs.js` 已通过 `sanitizePackId` 将 pack id 限定为
+> `[a-z0-9-]`（`tpo-2026-02-01-2`），发布管线自动规避。详见 `docs/content-publishing.md`。
+
 ### 5.1 改回真实路线（测自动更新）
 
 预览用隔离 userData 后，要测**真实用户自动拉取**：
