@@ -55,7 +55,7 @@ const copy = computed(() => {
         <i v-if="isError" class="fas fa-circle-exclamation" />
         <span v-else>T</span>
       </div>
-      <p class="content-startup__eyebrow">TOEFL iBT Practice</p>
+      <p class="content-startup__eyebrow">Tofu Practice</p>
       <h1>{{ copy.title }}</h1>
       <p class="content-startup__detail">{{ copy.detail }}</p>
 
