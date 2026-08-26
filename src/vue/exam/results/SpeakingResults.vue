@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { onBeforeUnmount, ref, watch } from 'vue';
 import { recordingRepository } from '../../platform/dataRepository.js';
 import { useExamStore } from '../../stores/exam.js';
 import AudioSegment from '../sections/listening/AudioSegment.vue';
@@ -12,13 +12,21 @@ const props = defineProps({
 });
 
 const exam = useExamStore();
-const attemptId = computed(() => exam.activeSession?.clientAttemptId || props.document.id);
 const urls = ref({});
 const states = ref({});
 let generation = 0;
 let disposed = false;
 
 const hasRecording = questionId => Boolean(props.answers[questionId]?.recordingKey);
+
+function recordingAttemptId(questionId) {
+  const key = props.answers[questionId]?.recordingKey;
+  if (typeof key === 'string') {
+    const attempt = key.split(':')[0];
+    if (attempt) return attempt;
+  }
+  return exam.activeSession?.clientAttemptId || props.document.id;
+}
 
 function releaseUrls() {
   Object.values(urls.value).forEach(url => {
@@ -35,8 +43,9 @@ function resetRecordings() {
 
 async function loadRecording(questionId) {
   const currentGeneration = generation;
+  const attemptId = recordingAttemptId(questionId);
   states.value = { ...states.value, [questionId]: 'loading' };
-  const playbackUrl = recordingRepository.playbackUrl?.(attemptId.value, questionId);
+  const playbackUrl = recordingRepository.playbackUrl?.(attemptId, questionId);
   if (playbackUrl) {
     urls.value = { ...urls.value, [questionId]: playbackUrl };
     states.value = { ...states.value, [questionId]: 'ready' };
@@ -44,7 +53,7 @@ async function loadRecording(questionId) {
   }
   let blob = null;
   try {
-    blob = await recordingRepository.load(attemptId.value, questionId);
+    blob = await recordingRepository.load(attemptId, questionId);
   } catch {
     // Missing and unreadable responses have the same result presentation.
   }
