@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import ActivationModal from '../../src/vue/components/ActivationModal.vue';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import { isOfficialTest } from '../../src/vue/platform/licenseRules.js';
+import { homeState } from '../../src/vue/platform/homeState.js';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
 import { useLicenseStore } from '../../src/vue/stores/license.js';
 
@@ -166,7 +167,11 @@ describe('ActivationModal', () => {
 });
 
 describe('HomeView content unlock', () => {
-  beforeEach(() => setActivePinia(createPinia()));
+  beforeEach(() => {
+    setActivePinia(createPinia());
+    homeState.panel = 'mock';
+    homeState.scrollTop = 0;
+  });
 
   async function mountHome() {
     const pinia = createPinia();
