@@ -4,6 +4,8 @@ import { createMemoryHistory, createRouter } from 'vue-router';
 import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import ExamHeader from '../../src/vue/exam/shared/ExamHeader.vue';
+import InstructionPage from '../../src/vue/exam/shared/InstructionPage.vue';
+import ResultsPage from '../../src/vue/exam/shared/ResultsPage.vue';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
 import { homeState } from '../../src/vue/platform/homeState.js';
 
@@ -43,6 +45,20 @@ describe('home branding and navigation state', () => {
 
   it('renders the Tofu exam header brand', () => {
     const wrapper = mount(ExamHeader, { props: { questionNumber: 1, totalQuestions: 5 } });
+    expect(wrapper.find('.exam-header__brand').text()).toContain('Tofu');
+  });
+
+  it('renders the Tofu brand on instruction (start and intro) pages', () => {
+    const wrapper = mount(InstructionPage, {
+      props: { document: { section: 'reading' }, page: { id: 'start', type: 'start' }, task: null }
+    });
+    expect(wrapper.find('.exam-header__brand').text()).toContain('Tofu');
+  });
+
+  it('renders the Tofu brand on the results page', () => {
+    const wrapper = mount(ResultsPage, {
+      props: { document: { section: 'reading', modules: [] }, session: { answers: {} } }
+    });
     expect(wrapper.find('.exam-header__brand').text()).toContain('Tofu');
   });
 
