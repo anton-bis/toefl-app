@@ -156,8 +156,8 @@ describe('SettingsView license management', () => {
   it('shows a gear icon and returns to home from the back button', async () => {
     const { wrapper, router } = await mountSettings();
     expect(wrapper.find('.settings-header h1 i.fa-cog').exists()).toBe(true);
-    expect(wrapper.find('.skill-back-button').text()).toContain('Home');
-    await wrapper.find('.skill-back-button').trigger('click');
+    expect(wrapper.find('.settings-back').text()).toContain('Home');
+    await wrapper.find('.settings-back').trigger('click');
     await flushPromises();
     expect(router.currentRoute.value.name).toBe('home');
   });

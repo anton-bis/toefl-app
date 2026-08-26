@@ -64,6 +64,9 @@
 .fa-inbox::before {
   content: '\f01c';
 }
+.fa-key::before {
+  content: '\f023';
+}
 .fa-keyboard::before {
   content: '\f11c';
 }
@@ -129,6 +132,9 @@
 }
 .fa-chart-bar::before {
   content: '\f080';
+}
+.fa-cog::before {
+  content: '\f013';
 }
 .fa-spin {
   animation: fa-spin 1.5s linear infinite;

@@ -62,70 +62,82 @@ async function unbind() {
 </script>
 
 <template>
-  <main class="settings-page">
+  <main class="settings-view skill-workspace">
     <header class="settings-header">
-      <button class="skill-back-button" type="button" @click="goHome">
-        <span aria-hidden="true">←</span>
-        <span>Home</span>
-      </button>
-      <div class="settings-header__heading">
-        <h1><i class="fas fa-cog" aria-hidden="true" /> Settings</h1>
-        <p>许可证与设备管理</p>
+      <div class="settings-header__inner">
+        <button class="settings-back" type="button" @click="goHome">
+          <span aria-hidden="true"><i class="fas fa-arrow-left" /></span>
+          <span>Home</span>
+        </button>
+        <div class="settings-header__heading">
+          <span class="settings-header__eyebrow">Desktop</span>
+          <h1><i class="fas fa-cog" aria-hidden="true" /> Settings</h1>
+          <p>许可证与设备管理</p>
+        </div>
       </div>
     </header>
 
-    <section class="settings-card">
-      <h2><i class="fas fa-key" aria-hidden="true" /> 激活与设备</h2>
-
+    <div class="settings-content">
       <p v-if="notice" class="settings-notice" role="status">{{ notice }}</p>
       <p v-if="noticeError" class="settings-error" role="alert">{{ noticeError }}</p>
 
-      <div class="settings-row">
-        <span class="settings-label">许可证状态</span>
-        <span class="settings-value" :class="{ 'settings-value--danger': license.status === 'locked' }">
-          {{ statusText }}
-        </span>
-      </div>
-      <div v-if="expiresAtText" class="settings-row">
-        <span class="settings-label">有效期至</span>
-        <span class="settings-value">{{ expiresAtText }}</span>
-      </div>
-      <div v-if="license.deviceCount" class="settings-row">
-        <span class="settings-label">已绑定设备</span>
-        <span class="settings-value">{{ license.deviceCount }} / 2</span>
-      </div>
+      <section class="settings-group">
+        <h2>许可证</h2>
+        <div class="settings-row">
+          <span class="settings-label">状态</span>
+          <span
+            class="settings-value"
+            :class="{ 'settings-value--danger': license.status === 'locked' }"
+          >
+            {{ statusText }}
+          </span>
+        </div>
+        <div v-if="expiresAtText" class="settings-row">
+          <span class="settings-label">有效期至</span>
+          <span class="settings-value">{{ expiresAtText }}</span>
+        </div>
+      </section>
 
-      <ul v-if="license.devices.length" class="device-list">
-        <li v-for="(device, index) in license.devices" :key="device.deviceId" class="device-item">
-          <span class="device-item__name">{{ deviceLabel(device, index) }}</span>
-          <span v-if="device.current" class="device-item__tag">当前设备</span>
-        </li>
-      </ul>
+      <section v-if="license.devices.length || license.deviceCount" class="settings-group">
+        <h2>设备</h2>
+        <div class="settings-row">
+          <span class="settings-label">已绑定</span>
+          <span class="settings-value">{{ license.deviceCount }} / 2</span>
+        </div>
+        <ul v-if="license.devices.length" class="device-list">
+          <li v-for="(device, index) in license.devices" :key="device.deviceId" class="device-item">
+            <span class="device-item__name">{{ deviceLabel(device, index) }}</span>
+            <span v-if="device.current" class="device-item__tag">当前设备</span>
+          </li>
+        </ul>
+      </section>
 
-      <div v-if="isDesktop" class="settings-actions">
-        <button
-          type="button"
-          class="settings-btn settings-btn--primary"
-          @click="showActivation = true"
-        >
-          {{ activated ? '更换序列号' : '激活' }}
-        </button>
-        <button type="button" class="settings-btn" @click="refreshNow">检查许可证</button>
-        <button
-          v-if="activated"
-          type="button"
-          class="settings-btn settings-btn--danger"
-          @click="unbind"
-        >
-          解绑本机
-        </button>
-      </div>
-      <p v-else class="settings-hint">序列号激活仅适用于桌面版。</p>
-
-      <p class="settings-hint">
-        一个序列号最多绑定 2 台设备。换机 / 丢机需要解绑其他设备时，请联系卖家在后台处理。
-      </p>
-    </section>
+      <section class="settings-group">
+        <h2>操作</h2>
+        <div v-if="isDesktop" class="settings-actions">
+          <button
+            type="button"
+            class="settings-btn settings-btn--primary"
+            @click="showActivation = true"
+          >
+            {{ activated ? '更换序列号' : '激活' }}
+          </button>
+          <button type="button" class="settings-btn" @click="refreshNow">检查许可证</button>
+          <button
+            v-if="activated"
+            type="button"
+            class="settings-btn settings-btn--danger"
+            @click="unbind"
+          >
+            解绑本机
+          </button>
+        </div>
+        <p v-else class="settings-hint">序列号激活仅适用于桌面版。</p>
+        <p class="settings-hint">
+          一个序列号最多绑定 2 台设备。换机 / 丢机需要解绑其他设备时，请联系卖家在后台处理。
+        </p>
+      </section>
+    </div>
 
     <ActivationModal
       v-if="showActivation"
