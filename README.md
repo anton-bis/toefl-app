@@ -66,11 +66,27 @@ npm run electron:dev
 
 ### 本地 mock server（Web 端未就绪时联调）
 
+> 一键方式（推荐）：自动起 mock(3002) + 隔离 userData + `electron .` 启动，退出自动停 server：
+> ```bash
+> .\scripts\dev-license.ps1
+> ```
+
+手动方式（mock 用 **3002**，避开可能被 toefl-web 占用的 3001）：
+
 ```bash
-node scripts/mock-license-server.js   # 默认 http://localhost:3001，内置 TEST-0000-0000-0001 等测试码
-# 另开终端
-$env:TOEFL_API_BASE_URL = "http://localhost:3001"
+# 终端 1：起 mock（内存态，重启即清空）
+$env:PORT = "3002"
+node scripts/mock-license-server.js        # 内置 TEST-0000-0000-0001 / TEST-0000-0000-0004
+
+# 终端 2：
+$env:ELECTRON = "true"
+$env:NODE_ENV = "production"
+$env:TOEFL_PERF_USER_DATA = "C:\Users\lj115\AppData\Local\Temp\opencode\toefl-preview-userdata"
+$env:TOEFL_API_BASE_URL = "http://localhost:3002"
 npm run electron:dev
 ```
 
-联调记录见 `docs/license-protocol-v1.md` 第 7 节。
+> ⚠️ `electron:dev` 已改为 `electron .`（`app.getAppPath()` 指向仓库根才能加载工作区真题）；
+> 必须带 `TOEFL_PERF_USER_DATA` 隔离目录，否则读到的是已安装的旧内容包。
+
+联调记录见 `docs/license-protocol-v1.md` 第 7 节、`docs/question-submission-workflow.md` §2.2。

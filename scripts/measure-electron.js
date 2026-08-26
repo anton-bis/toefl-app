@@ -38,7 +38,7 @@ async function capture(scenario, index) {
   await fs.rm(samplePath, { force: true });
   try {
     await new Promise((resolve, reject) => {
-      const child = spawn(electron, ['electron/main.js'], {
+      const child = spawn(electron, ['.'], {
         cwd: root,
         env: {
           ...process.env,

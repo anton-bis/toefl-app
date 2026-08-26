@@ -76,7 +76,37 @@ npx electron .
 > - 带 → 用全新隔离目录，回退到**工作区内容**（能看到新题）
 > - 重启后"真题消失"基本都是因为启动时漏了这个环境变量
 
-### 2.2 Electron 版本
+> ⚠️ **必须用 `electron .`，不要用 `electron electron/main.js`**：
+> - `electron .` 时 `app.getAppPath()` = 仓库根 → 内容协议候选命中 `assets/questions/compiled/manifest.json`
+> - `electron electron/main.js` 时 `app.getAppPath()` = `electron/` 目录 → 清单 404
+>   → 窗口显示 "Question bank unavailable / Could not read installed content (404)"
+>   （2026-08-26 已把 `electron:dev` 脚本改为 `electron .`，见 package.json）
+
+### 2.2 带 mock license server 的联调启动（序列号激活测试）
+
+> 前提：先起 mock server（内存态，模拟真实 Web license 服务）。
+
+```bash
+# 一键方式（推荐）：起 mock(3002) + 隔离 userData + electron
+.\scripts\dev-license.ps1
+
+# 手动方式：
+$env:PORT = "3002"
+node scripts/mock-license-server.js          # 终端 1，常驻
+# 终端 2：
+$env:ELECTRON = "true"
+$env:NODE_ENV = "production"
+$env:TOEFL_PERF_USER_DATA = "C:\Users\lj115\AppData\Local\Temp\opencode\toefl-preview-userdata"
+$env:TOEFL_API_BASE_URL = "http://localhost:3002"
+npm run electron:dev
+```
+
+- **端口用 3002**，不用 3001（3001 常被 toefl-web 开发服务器占用，会造成 mock 启动失败）。
+- mock server 内置测试序列号：`TEST-0000-0000-0001` / `TEST-0000-0000-0004`。
+- 应用内点被锁定的官方真题 → 输入序列号 → 解锁。
+- 检测完恢复未激活：设置页 →「解绑本机」。
+
+### 2.3 Electron 版本
 
 - 必须用 **Electron 43.x**（`package.json` 声明 `^43.1.0`）
 - `node_modules/electron/dist` 里必须是 43（内置 Node 24，支持 `node:sqlite`）

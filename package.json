@@ -21,7 +21,7 @@
     "format": "prettier --write \"{src,electron,scripts,tests}/**/*.{js,cjs,vue,css}\" \"{vite,vitest,obfuscator}.config.js\" .eslintrc.json .prettierrc.json package.json",
     "format:check": "prettier --check \"{src,electron,scripts,tests}/**/*.{js,cjs,vue,css}\" \"{vite,vitest,obfuscator}.config.js\" .eslintrc.json .prettierrc.json package.json",
     "clean": "rm -rf dist build node_modules",
-    "electron:dev": "cross-env ELECTRON=true npm run build && electron electron/main.js",
+    "electron:dev": "cross-env ELECTRON=true npm run build && electron .",
     "electron:prepare": "cross-env ELECTRON=true npm run build && node scripts/obfuscate.js",
     "electron:build": "npm run electron:prepare && electron-builder",
     "electron:pack": "npm run electron:prepare && electron-builder --dir",
