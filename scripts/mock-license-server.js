@@ -206,7 +206,7 @@ export async function startMockLicenseServer({ port = 0, ...options } = {}) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const port = Number(process.env.PORT || 3001);
+  const port = Number(process.env.PORT || 3002);
   const codes = ['TEST-0000-0000-0001', 'TEST-0000-0000-0004'];
   const instance = await startMockLicenseServer({ port, seedCodes: codes });
   console.log(`Mock license server listening on ${instance.baseUrl}`);

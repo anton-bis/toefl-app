@@ -15,9 +15,12 @@
 
 ### 1.1 序列号
 
-- 格式 `XXXX-XXXX-XXXX-XXXX`（大写字母 / 数字，末位为校验位）。
+- 格式 `XXXX-XXXX-XXXX-XXXX`（4×4 大写字母 / 数字，第 16 位为校验位）。
+- 字符集：A-Z **去掉 I/O** + 数字 **2-9**（共 32 字符，恒不含 `I/O/0/1`，避免手写混淆）。
 - 由管理员在服务端生成，一个序列号 = 一次内容权益 + 2 台设备激活配额。
-- **有效性判定以服务端为准**；客户端只做格式轻校验（不做校验位计算）。
+- **有效性判定以服务端为准**；客户端只做格式轻校验
+  （`/^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/`），**不做校验位计算**。
+- 格式样例：`HHVV-V5K8-A7C8-3NYB`、`JA9Y-LXZ9-ADRC-DZMR`（仅演示格式，非可用码）。
 
 ### 1.2 设备指纹
 
@@ -50,7 +53,14 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "deviceFingerprint": "<64 hex>" }
     "activationToken": "<string>",
     "expiresAt": "2026-09-23T00:00:00.000Z",
     "devices": [
-      { "deviceId": "<string>", "boundAt": "2026-08-24T00:00:00.000Z", "current": true }
+      {
+        "deviceId": "<string>",
+        "boundAt": "2026-08-24T00:00:00.000Z",
+        "current": true,
+        "expiresAt": "2026-09-23T00:00:00.000Z",
+        "lastRefreshAt": "2026-08-24T00:00:00.000Z",
+        "status": "active"
+      }
     ],
     "deviceCount": 1
   }
@@ -61,7 +71,10 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "deviceFingerprint": "<64 hex>" }
 
 - `expiresAt = now + 30 天`（离线宽限期）。
 - **同 code + 同 fingerprint 重复激活 → 幂等，返回原绑定**（不新增设备、不重新签发 token）。
-- `devices` + `deviceCount`：该序列号当前已绑定设备列表，供客户端设置页展示（≤ 2）。
+- `devices[]` 每项：`deviceId`（公共 ID，与顶层 `deviceId` 一致）、`boundAt`（绑定时间）、
+  `current`（**本次响应对应设备为 `true`，其余为 `false`**）；服务端可附带
+  `expiresAt` / `lastRefreshAt` / `status` 等额外字段，**客户端忽略多余字段**。
+- `deviceCount` = 当前有效设备数（≤ 2），供客户端设置页展示。
 
 错误：
 
@@ -85,7 +98,16 @@ body: { "deviceId": "<string>", "deviceFingerprint": "<64 hex>", "activationToke
   "data": {
     "deviceId": "<string>",
     "expiresAt": "2026-09-23T00:00:00.000Z",
-    "devices": [{ "deviceId": "<string>", "boundAt": "...", "current": true }],
+    "devices": [
+      {
+        "deviceId": "<string>",
+        "boundAt": "2026-08-24T00:00:00.000Z",
+        "current": true,
+        "expiresAt": "2026-09-23T00:00:00.000Z",
+        "lastRefreshAt": "2026-08-24T00:00:00.000Z",
+        "status": "active"
+      }
+    ],
     "deviceCount": 1
   }
 }
@@ -94,6 +116,7 @@ body: { "deviceId": "<string>", "deviceFingerprint": "<64 hex>", "activationToke
 语义：
 
 - 成功即把 `expiresAt` 续期为 `now + 30 天`。
+- `devices[]` 形状与 activate 一致（`deviceId` / `boundAt` / `current`，可含额外字段，客户端忽略）。
 - 客户端**距上次成功 ≥ 7 天**才调用。
 - `expiresAt ≤ now` 且 refresh 失败 → 客户端锁定，提示「许可证已过期，请联网重新激活」。
 
@@ -189,9 +212,9 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "activationToken": "<string>" }
 
 ### 7.1 Mock 环境
 
-- `scripts/mock-license-server.js`：内存版契约实现，命令 `node scripts/mock-license-server.js`（默认 `PORT=3001`）。
+- `scripts/mock-license-server.js`：内存版契约实现，命令 `node scripts/mock-license-server.js`（默认 `PORT=3002`，避开可能被 toefl-web 占用的 3001）。
 - 内置有效序列号：`TEST-0000-0000-0001`、`TEST-0000-0000-0004`。
-- 客户端指向 mock：`TOEFL_API_BASE_URL=http://localhost:3001`（或 `userData/web-config.json`）。
+- 客户端指向 mock：`TOEFL_API_BASE_URL=http://localhost:3002`（或 `userData/web-config.json`）。
 
 ### 7.2 手动冒烟（真实设备指纹，2026-08-24）
 
@@ -210,14 +233,29 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "activationToken": "<string>" }
 - 离线 31 天 → refresh `401` → 客户端锁定 → 同指纹重新激活幂等恢复。
 - 解绑凭证不匹配 → `401 LICENSE:DEVICE_INVALID`。
 
-### 7.4 待真实 Web API 联调
+### 7.4 服务端回传确认（2026-08-26）
 
-- [ ] 真实序列号：Web 兑换 → Electron 登录式激活（输入同一码）→ 绑 2 台 → 换机解绑 → 断网 30 天语义。
-- [ ] 确认服务端「离线 >30 天」为软过期（同指纹重新激活幂等返回原绑定，不误触 `DEVICE_LIMIT`）。
+toefl-web 服务端已实现接口并逐条回传确认，全部与本文契约一致：
+
+- [x] 三接口均**无鉴权（无 JWT）**。
+- [x] `expiresAt` 口径 = 最近成功（激活/续期）+ 30 天，activate / refresh 一致。
+- [x] 离线超 30 天 = **软过期**：同 fingerprint 重新 activate **幂等返回原 deviceId**（旋转新 activationToken + 重置 30 天宽限），不新建绑定、不误触 `LICENSE:DEVICE_LIMIT`。
+- [x] 字段名 / 错误码一致（`404 INVALID` / `409 DEVICE_LIMIT` / `401 DEVICE_INVALID`；信封 `{ error:{ code, message, requestId } }`）。
+- [x] `unbind` → `{ data: { status:'ok' } }`。
+- [x] activate / refresh 响应补齐 `devices[]`（`{ deviceId, boundAt, current, ... }`，`deviceId` 为公共 ID 与顶层一致、`current` 为本次响应设备）与 `deviceCount`（有效设备数 ≤ 2）。
+- [x] 修复边界：换机「先解绑、再同 fingerprint 重激活」不再撞唯一索引（解绑后可重新激活）。
+- 真实联调地址：`http://localhost:3001`（服务端全局前缀 `/v1`）；我方 `TOEFL_API_BASE_URL=http://localhost:3001`（**不带路径**，客户端自动拼 `/v1/licenses/...`）。
+- 真实序列号由 `gen:licenses` 生成；**`TEST-0000-0000-0001` 等 mock 码不满足真实格式，真实服务端会 404**，联调必须使用真实码。
+
+### 7.5 待真实 Web API 联调
+
+- [ ] 拿到 2 张真实序列号后执行：Web 兑换 → Electron 激活 → 绑 2 台 → 换机解绑 → 断网 30 天语义。
+- [ ] 断网 30 天端到端验证需与服务端协商测试手段（真实 30 天不可行，或服务端提供可调过期 / 测试码）。
 
 ---
 
-## 8. 待服务端确认 / 依赖
+## 8. 待办 / 依赖
 
-- [ ] 生产环境服务器正式地址（当前默认常量占位，发布前替换）。
-- [ ] 服务端「离线 > 30 天」后是否物理删除设备：建议**软过期**，同指纹重新 activate 幂等返回原绑定，避免误触 `DEVICE_LIMIT`。
+- [ ] 生产环境服务器正式地址（备案完成后替换 `DEFAULT_API_BASE_URL`，当前占位 `http://localhost:3001`）。
+- [x] 服务端软过期语义：已确认（同指纹重新 activate 幂等返回原绑定，不误触 `DEVICE_LIMIT`）。
+- [x] 联调基址语义：已确认（`TOEFL_API_BASE_URL` 为 API 根、不含 `/v1`，客户端自拼）。
