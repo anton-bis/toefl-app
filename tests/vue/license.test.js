@@ -244,7 +244,10 @@ describe('HomeView content unlock', () => {
 
     license.applyState({ status: 'active' });
     await flushPromises();
-    expect(wrapper.find('.referral-banner').text()).toContain('网页版同样可用');
+    const activeBanner = wrapper.find('.referral-banner');
+    expect(activeBanner.text()).toContain('网页版同样可用');
+    expect(activeBanner.find('.referral-banner__icon i.fa-gem').exists()).toBe(true);
+    expect(activeBanner.find('.referral-banner__icon i.fa-check-circle').exists()).toBe(false);
 
     await openOfficialPanel(wrapper);
     await wrapper.find('.mod-btn.available').trigger('click');

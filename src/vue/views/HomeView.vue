@@ -225,7 +225,7 @@ function hasReport(test) {
             :class="{ 'referral-banner__inner--disabled': !PROMO_JUMP_ENABLED }"
           >
             <span class="referral-banner__icon" aria-hidden="true">
-              <i :class="license.activated ? 'fas fa-check-circle' : 'fas fa-gem'" />
+              <i class="fas fa-gem" />
             </span>
             <div class="referral-banner__body">
               <template v-if="license.activated">

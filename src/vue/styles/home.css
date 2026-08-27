@@ -233,6 +233,13 @@
   color: var(--teal);
   font-size: 18px;
 }
+.referral-banner--active .referral-banner__icon {
+  background: rgba(212, 175, 55, 0.12);
+}
+.referral-banner--active .referral-banner__icon i {
+  color: #d4af37;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.55);
+}
 .referral-banner__body {
   min-width: 0;
   flex: 1;
