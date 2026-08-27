@@ -240,6 +240,7 @@ describe('HomeView content unlock', () => {
     expect(banner.text()).toContain('网页版有 AI 批改');
     expect(banner.text()).toContain('www.justtofu.com');
     expect(banner.text()).toContain('同一序列号通用');
+    expect(banner.find('.referral-banner__icon i.fa-gem').exists()).toBe(true);
 
     license.applyState({ status: 'active' });
     await flushPromises();

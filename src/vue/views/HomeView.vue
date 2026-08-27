@@ -225,7 +225,7 @@ function hasReport(test) {
             :class="{ 'referral-banner__inner--disabled': !PROMO_JUMP_ENABLED }"
           >
             <span class="referral-banner__icon" aria-hidden="true">
-              <i :class="license.activated ? 'fas fa-check-circle' : 'fas fa-sparkles'" />
+              <i :class="license.activated ? 'fas fa-check-circle' : 'fas fa-gem'" />
             </span>
             <div class="referral-banner__body">
               <template v-if="license.activated">
@@ -531,16 +531,6 @@ function hasReport(test) {
           <div class="img-block">
             <img src="/assets/images/wechat-qr.jpg" alt="WeChat QR code" />
             <div class="img-label">Add on WeChat</div>
-          </div>
-        </section>
-        <section class="about-platform">
-          <h4>
-            <span class="x-icon" aria-hidden="true">X</span>
-          </h4>
-          <p class="about-platform-description">Visit my profile</p>
-          <div class="img-block">
-            <img src="/assets/images/x-profile.jpg" alt="X profile preview" />
-            <div class="img-label">Open profile</div>
           </div>
         </section>
         <section class="about-platform">
