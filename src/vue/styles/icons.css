@@ -106,6 +106,9 @@
 .fa-scroll::before {
   content: '\f70e';
 }
+.fa-sparkles::before {
+  content: '\f898';
+}
 .fa-sign-out-alt::before {
   content: '\f2f5';
 }

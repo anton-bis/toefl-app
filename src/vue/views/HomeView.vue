@@ -6,6 +6,7 @@ import { useLicenseStore } from '../stores/license.js';
 import { readExamSession, useExamStore } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import { homeState } from '../platform/homeState.js';
+import { WEB_BASE_DISPLAY, WEB_BASE_URL, PROMO_JUMP_ENABLED } from '../platform/promoConfig.js';
 import AppModal from '../components/AppModal.vue';
 import ActivationModal from '../components/ActivationModal.vue';
 import { cefrRows, scoreConversionRows, taskTypes } from '../content/guideCopy.js';
@@ -210,12 +211,45 @@ function hasReport(test) {
       </aside>
 
       <main class="main-content">
-        <section v-if="license.activated" class="referral-banner">
-          <span class="referral-banner__icon" aria-hidden="true"><i class="fas fa-sparkles" /></span>
-          <div class="referral-banner__body">
-            <strong>Web 端有 AI 批改</strong>
-            <p>用同一个序列号在 Web 端注册，即可领取 Web 真题权益，体验 AI 作文 / 口语批改。</p>
-          </div>
+        <section
+          v-if="license.isDesktop"
+          class="referral-banner"
+          :class="{ 'referral-banner--active': license.activated }"
+        >
+          <a
+            :href="PROMO_JUMP_ENABLED ? WEB_BASE_URL : undefined"
+            :target="PROMO_JUMP_ENABLED ? '_blank' : undefined"
+            :rel="PROMO_JUMP_ENABLED ? 'noopener' : undefined"
+            :aria-disabled="!PROMO_JUMP_ENABLED"
+            class="referral-banner__inner"
+            :class="{ 'referral-banner__inner--disabled': !PROMO_JUMP_ENABLED }"
+          >
+            <span class="referral-banner__icon" aria-hidden="true">
+              <i :class="license.activated ? 'fas fa-check-circle' : 'fas fa-sparkles'" />
+            </span>
+            <div class="referral-banner__body">
+              <template v-if="license.activated">
+                <strong>网页版同样可用</strong>
+                <p>
+                  你的序列号在网页（{{ WEB_BASE_DISPLAY }}）注册后通用：解锁真题权益 + AI
+                  作文 / 口语批改，报告永久保存。
+                </p>
+              </template>
+              <template v-else>
+                <strong>网页版有 AI 批改</strong>
+                <p>
+                  本软件与网页版（{{ WEB_BASE_DISPLAY }}）同一序列号通用：写作 / 口语逐题评分、
+                  分项反馈、润色版，报告永久保存。兑换序列号解锁全部真题，Web 与桌面版均可使用。
+                </p>
+              </template>
+            </div>
+            <span
+              class="referral-banner__cta"
+              :class="{ 'referral-banner__cta--disabled': !PROMO_JUMP_ENABLED }"
+            >
+              前往网页版 <i class="fas fa-arrow-right" aria-hidden="true" />
+            </span>
+          </a>
         </section>
         <section v-if="panel === 'mock'" class="panel active">
           <div class="panel-header">

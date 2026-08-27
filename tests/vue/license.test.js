@@ -231,14 +231,33 @@ describe('HomeView content unlock', () => {
     expect(wrapper.find('.mod-btn.available').exists()).toBe(true);
   });
 
-  it('unlocks official tests when activated and shows the referral banner', async () => {
+  it('shows the web promo banner before activation and unlocks after', async () => {
     const { wrapper, router, license } = await mountHome();
+    license.applyState({ status: 'none' });
+    await flushPromises();
+    const banner = wrapper.find('.referral-banner');
+    expect(banner.exists()).toBe(true);
+    expect(banner.text()).toContain('网页版有 AI 批改');
+    expect(banner.text()).toContain('www.justtofu.com');
+    expect(banner.text()).toContain('同一序列号通用');
+
     license.applyState({ status: 'active' });
     await flushPromises();
-    expect(wrapper.find('.referral-banner').exists()).toBe(true);
+    expect(wrapper.find('.referral-banner').text()).toContain('网页版同样可用');
+
     await openOfficialPanel(wrapper);
     await wrapper.find('.mod-btn.available').trigger('click');
     await flushPromises();
     expect(router.currentRoute.value.path).toBe('/exam/2026-02-01/reading/start');
+  });
+
+  it('keeps the promo banner non-jumpable until the web domain goes live', async () => {
+    const { wrapper, license } = await mountHome();
+    license.applyState({ status: 'none' });
+    await flushPromises();
+    const link = wrapper.find('a.referral-banner__inner');
+    expect(link.attributes('href')).toBeUndefined();
+    expect(link.attributes('aria-disabled')).toBe('true');
+    expect(wrapper.find('.referral-banner__cta--disabled').exists()).toBe(true);
   });
 });

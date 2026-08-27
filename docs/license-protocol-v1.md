@@ -256,6 +256,8 @@ toefl-web 服务端已实现接口并逐条回传确认，全部与本文契约�
 
 ## 8. 待办 / 依赖
 
-- [ ] 生产环境服务器正式地址（备案完成后替换 `DEFAULT_API_BASE_URL`，当前占位 `http://localhost:3001`）。
+- [ ] **Web 端正式域名：`https://www.justtofu.com`**（备案中，上线后启用）。上线时替换：
+  - `electron/services/license-config.js` 的 `DEFAULT_API_BASE_URL`（license API）；
+  - `src/vue/platform/promoConfig.js` 的 `WEB_BASE_URL`，并把 `PROMO_JUMP_ENABLED` 改为 `true`（首页「前往网页版」横幅才可点击跳转）。
 - [x] 服务端软过期语义：已确认（同指纹重新 activate 幂等返回原绑定，不误触 `DEVICE_LIMIT`）。
 - [x] 联调基址语义：已确认（`TOEFL_API_BASE_URL` 为 API 根、不含 `/v1`，客户端自拼）。

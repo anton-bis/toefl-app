@@ -54,7 +54,12 @@ npm run electron:dev
 ### 生产发布
 
 发布前把 `electron/services/license-config.js` 中的 `DEFAULT_API_BASE_URL` 替换为正式域名
-（或使用 web-config.json / 环境变量指向），例如 `https://your-domain`。
+（或使用 web-config.json / 环境变量指向）。
+
+**Web 端正式域名：`https://www.justtofu.com`**（备案中，上线后启用）。
+- 桌面端 license 服务地址 → 见 `electron/services/license-config.js` 的 `DEFAULT_API_BASE_URL`。
+- 首页「前往网页版」横幅跳转 → 见 `src/vue/platform/promoConfig.js` 的
+  `WEB_BASE_URL` / `PROMO_JUMP_ENABLED`（**域名完成备案并上线后**，把 `PROMO_JUMP_ENABLED` 改为 `true`）。
 
 ### 接口清单（服务端实现）
 
