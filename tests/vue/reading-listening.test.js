@@ -440,7 +440,7 @@ describe('ReadingPage', () => {
       role: 'region',
       tabindex: '0'
     });
-    expect(wrapper.find('.question-instruction').text()).toBe('Notice');
+    expect(wrapper.find('.question-instruction').text()).toBe('Read a notice');
     expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
     expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
@@ -491,7 +491,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(poster.find('.question-instruction').text()).toBe('Poster');
+    expect(poster.find('.question-instruction').text()).toBe('Read a poster');
     expect(poster.find('.apple-noticeboard-container').classes()).toContain('poster');
     expect(poster.find('.apple-noticeboard-container h2').text()).toBe(
       'Join the Mechanicsburg Clean-Up Day!'
@@ -515,7 +515,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(instructions.find('.question-instruction').text()).toBe('Instructions');
+    expect(instructions.find('.question-instruction').text()).toBe('Read some instructions');
     expect(instructions.find('.apple-instructions-container h2').text()).toBe(
       'Build a Raised Garden Bed'
     );
@@ -541,7 +541,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(form.find('.question-instruction').text()).toBe('Form');
+    expect(form.find('.question-instruction').text()).toBe('Read a form');
     expect(form.find('.apple-form-container h2').text()).toBe('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
@@ -563,7 +563,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(notice.find('.question-instruction').text()).toBe('Read a Notice');
+    expect(notice.find('.question-instruction').text()).toBe('Read a notice');
     expect(notice.find('.apple-noticeboard-container h2').text()).toBe(
       'Downtown School of Data Skills'
     );
@@ -583,7 +583,7 @@ describe('ReadingPage', () => {
         volume: 0.8
       }
     });
-    expect(announcement.find('.question-instruction').text()).toBe('Read an Announcement');
+    expect(announcement.find('.question-instruction').text()).toBe('Read an announcement');
     expect(announcement.find('.apple-noticeboard-container h2').text()).toBe('Campus News');
   });
 

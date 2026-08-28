@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
-import { parseDailyPassage, parseTextChain } from './helpers.js';
+import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
 import Highlighted from './Highlighted.vue';
 
 const props = defineProps({
@@ -29,7 +29,7 @@ const vocab = computed(() => {
 
 <template>
   <section id="question-module" class="daily-reading-page">
-    <p class="question-instruction">{{ task.title }}</p>
+    <p class="question-instruction">{{ instructionFor(task.type) }}</p>
     <div class="two-column-layout">
       <div
         class="left-column exam-scroll-region"
