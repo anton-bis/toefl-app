@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.4] - 2026-08-28
+
+### Added
+
+- Writing results now show a Build a Sentence question grid (green correct / red incorrect /
+  grey unanswered); clicking a cell scrolls to and expands the matching answer card.
+
+### Fixed
+
+- Build a Sentence no longer capitalizes the first word when the blank follows preceding text
+  (e.g. "Unfortunately, ___ the tickets ..."), only when the sentence actually starts with a blank.
+
 ## [1.7.3] - 2026-08-26
 
 ### Fixed
