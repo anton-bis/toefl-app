@@ -85,6 +85,9 @@ function dropInBank() {
 }
 function capitalizeFirstSlot(value, index) {
   if (index !== 0 || !value) return value;
+  // 仅当句子以空槽开头（句首第一个 part 就是 blank）才首字母大写；
+  // 若空槽前有文字（如 "Unfortunately, ___"），保持候选原文。
+  if (parts.value[0]?.type !== 'blank') return value;
   const offset = value.startsWith('(') ? 1 : 0;
   return value.slice(0, offset) + value.charAt(offset).toUpperCase() + value.slice(offset + 1);
 }
