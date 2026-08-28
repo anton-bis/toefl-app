@@ -1,10 +1,14 @@
 <script setup>
+import { ref } from 'vue';
 import { renderSentence, solveAnswerOrder } from '../sections/writing/writingLogic.js';
+import { isAnswered, isCorrectAnswer } from '../shared/model.js';
 
-defineProps({
+const props = defineProps({
   tasks: { type: Array, required: true },
   answers: { type: Object, required: true }
 });
+
+const root = ref(null);
 
 function sentenceAnswer(question, answers) {
   const answer = answers[question.id];
@@ -21,10 +25,53 @@ function formatSentence(value) {
   const sentence = String(value || '').replace(/\s+([,.;:!?])/g, '$1');
   return sentence ? sentence.charAt(0).toUpperCase() + sentence.slice(1) : sentence;
 }
+
+function buildSentenceQuestions() {
+  return (props.tasks || []).flatMap(group =>
+    (group.questions || []).filter(question => question.type === 'build-sentence')
+  );
+}
+
+function questionState(question) {
+  const answer = props.answers[question.id];
+  if (!isAnswered(answer)) return 'unanswered';
+  return isCorrectAnswer(answer, question) ? 'correct' : 'incorrect';
+}
+
+function stateLabel(state) {
+  if (state === 'correct') return 'answered correctly';
+  if (state === 'incorrect') return 'answered incorrectly';
+  return 'not answered';
+}
+
+function revealCard(question) {
+  const element = root.value?.querySelector?.(`#review-card-${question.id}`);
+  if (!element) return;
+  element.open = true;
+  element.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+}
 </script>
 
 <template>
-  <div class="results-section-list">
+  <div ref="root" class="results-section-list">
+    <div
+      v-if="buildSentenceQuestions().length"
+      class="results-question-grid"
+      role="list"
+      aria-label="Build a Sentence question status"
+    >
+      <button
+        v-for="question in buildSentenceQuestions()"
+        :key="question.id"
+        type="button"
+        class="results-question-grid__cell"
+        :class="`is-${questionState(question)}`"
+        :aria-label="`Question ${question.number}: ${stateLabel(questionState(question))}`"
+        @click="revealCard(question)"
+      >
+        {{ question.number }}
+      </button>
+    </div>
     <section v-for="group in tasks" :key="group.id" class="results-detail-card results-task">
       <header>
         <strong>{{
@@ -32,7 +79,12 @@ function formatSentence(value) {
         }}</strong>
       </header>
 
-      <details v-for="question in group.questions" :key="question.id" class="answer-review-card">
+      <details
+        v-for="question in group.questions"
+        :id="`review-card-${question.id}`"
+        :key="question.id"
+        class="answer-review-card"
+      >
         <summary>
           <span class="answer-review-card__number">Question {{ question.number }}</span>
           <span class="answer-review-card__prompt">
