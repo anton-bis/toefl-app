@@ -369,6 +369,56 @@ describe('objective answer review', () => {
     await cells[1].trigger('click');
     expect(wrapper.find('.fill-review-card').attributes('open')).toBeDefined();
   });
+
+  it('scopes the complete-words card id by module so Module 2 opens its own review', async () => {
+    const fill = prefix => [
+      { id: `${prefix}-f1`, number: 1, type: 'complete-words', answer: 'might', options: [] },
+      { id: `${prefix}-f2`, number: 2, type: 'complete-words', answer: 'that', options: [] }
+    ];
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'A',
+                questionRange: [1, 2],
+                questions: fill('m1')
+              }
+            ]
+          },
+          {
+            id: 'module-2',
+            title: 'Module 2',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'B',
+                questionRange: [1, 2],
+                questions: fill('m2')
+              }
+            ]
+          }
+        ],
+        answers: { 'm1-f1': 'might', 'm2-f1': 'might' }
+      }
+    });
+    const cells = wrapper.findAll('.results-question-grid__cell');
+    expect(cells).toHaveLength(4);
+    // Module 2 的 cell 是第 3 个（index 2）：应展开它自己的卡片，而不是 Module 1 的。
+    await cells[2].trigger('click');
+    expect(wrapper.find('#review-card-module-1-fill').attributes('open')).toBeUndefined();
+    expect(wrapper.find('#review-card-module-2-fill').attributes('open')).toBeDefined();
+  });
 });
 
 describe('ReadingPage', () => {
