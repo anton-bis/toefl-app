@@ -37,7 +37,7 @@ function hasTaskSource(section, task) {
 
 function moduleQuestions(examModule) {
   return (examModule.tasks || []).flatMap(task =>
-    (task.questions || []).map(question => ({ question, task }))
+    (task.questions || []).map(question => ({ question, task, moduleId: examModule.id }))
   );
 }
 
@@ -54,12 +54,14 @@ function stateLabel(question) {
   return 'not answered';
 }
 
-function cardId(question, task) {
-  return task.type === 'complete-words' ? `review-card-${task.id}` : `review-card-${question.id}`;
+function cardId(question, task, moduleId) {
+  return task.type === 'complete-words'
+    ? `review-card-${moduleId}-${task.id}`
+    : `review-card-${question.id}`;
 }
 
-function revealCard(question, task) {
-  const element = root.value?.querySelector?.(`#${cardId(question, task)}`);
+function revealCard(question, task, moduleId) {
+  const element = root.value?.querySelector?.(`#${cardId(question, task, moduleId)}`);
   if (!element) return;
   element.open = true;
   element.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
@@ -76,13 +78,13 @@ function revealCard(question, task) {
 
       <div class="results-question-grid" role="list" :aria-label="`${examModule.title} question status`">
         <button
-          v-for="{ question, task } in moduleQuestions(examModule)"
+          v-for="{ question, task, moduleId } in moduleQuestions(examModule)"
           :key="question.id"
           type="button"
           class="results-question-grid__cell"
           :class="`is-${questionState(question)}`"
           :aria-label="`Question ${question.number}: ${stateLabel(question)}`"
-          @click="revealCard(question, task)"
+          @click="revealCard(question, task, moduleId)"
         >
           {{ question.number }}
         </button>
@@ -113,7 +115,7 @@ function revealCard(question, task) {
 
         <details
           v-if="task.type === 'complete-words'"
-          :id="cardId(task.questions[0], task)"
+          :id="cardId(task.questions[0], task, examModule.id)"
           class="answer-review-card fill-review-card"
         >
           <summary>
@@ -139,7 +141,7 @@ function revealCard(question, task) {
 
         <details
           v-for="question in task.type === 'complete-words' ? [] : task.questions"
-          :id="cardId(question, task)"
+          :id="cardId(question, task, examModule.id)"
           :key="question.id"
           class="answer-review-card"
         >
