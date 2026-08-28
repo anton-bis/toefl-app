@@ -40,6 +40,17 @@ const sentenceQuestion = {
   candidates: ['you', 'want', 'of it', 'me', 'you', 'to send', 'do', 'a copy'],
   answer: 'Do you want me to send you a copy?'
 };
+const trailingPromptQuestion = {
+  id: 'writing-build-q-trailing',
+  number: 2,
+  type: 'build-sentence',
+  speakerA: 'Tickets sold out quickly.',
+  prompt: 'Unfortunately, ____ ____ ____ ____ ____ ____ ____.',
+  candidates: ['the', 'tickets', 'were', 'no', 'longer', 'available', 'online'],
+  answer: 'Unfortunately, the tickets were no longer available online.'
+};
+const correctSlots = [6, 0, 1, 3, 5, 4, 7];
+const wrongSlots = [0, 1, 2, 3, 5, 4, 7];
 const speakingDocument = {
   id: 'tpo-03-speaking',
   sourcePath: 'assets/questions/speaking/TPO-03/speaking-TPO-03.md',
@@ -161,6 +172,44 @@ describe('writing components', () => {
     expect(wrapper.text()).toContain('Your answer');
     expect(wrapper.text()).toContain('Correct answer');
     expect(wrapper.text()).toContain(sentenceQuestion.answer);
+  });
+
+  it('capitalizes the first word only when the sentence starts with a blank', () => {
+    const leading = mount(BuildSentence, {
+      props: { question: sentenceQuestion, answer: { slots: correctSlots } }
+    });
+    expect(leading.findAll('.blank-slot')[0].text()).toBe('Do');
+
+    const trailing = mount(BuildSentence, {
+      props: {
+        question: trailingPromptQuestion,
+        answer: { slots: [0, 1, 2, 3, 4, 5, 6] }
+      }
+    });
+    expect(trailing.findAll('.blank-slot')[0].text()).toBe('the');
+  });
+
+  it('shows a build-sentence status grid with correct, incorrect and unanswered cells', async () => {
+    const questions = [
+      { ...sentenceQuestion, id: 'bs-correct', number: 1 },
+      { ...sentenceQuestion, id: 'bs-wrong', number: 2 },
+      { ...sentenceQuestion, id: 'bs-blank', number: 3 }
+    ];
+    const wrapper = mount(WritingResults, {
+      props: {
+        tasks: [{ id: 'build-sentence', title: 'Build a Sentence', type: 'build-sentence', questions }],
+        answers: { 'bs-correct': correctSlots, 'bs-wrong': wrongSlots }
+      }
+    });
+    const cells = wrapper.findAll('.results-question-grid__cell');
+    expect(cells).toHaveLength(3);
+    expect(cells[0].classes()).toContain('is-correct');
+    expect(cells[1].classes()).toContain('is-incorrect');
+    expect(cells[2].classes()).toContain('is-unanswered');
+
+    await cells[2].trigger('click');
+    const card = wrapper.find('#review-card-bs-blank');
+    expect(card.attributes('open')).toBeDefined();
   });
 
   it('filters CJK, reports words and supports toolbar undo/redo', async () => {
