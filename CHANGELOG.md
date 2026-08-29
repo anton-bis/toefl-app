@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.7.5] - 2026-08-29
+
+### Added
+
+- Writing results now show a Build a Sentence question grid (green correct / red incorrect /
+  grey unanswered); clicking a cell scrolls to and expands the matching answer card.
+
+### Fixed
+
+- Reading/Lisening complete-words review cards are now scoped by module, so clicking a Module 2
+  grid cell opens Module 2's own review instead of jumping back to Module 1.
+- All Read in Daily Life subtypes now show their canonical instruction (e.g. "Read an email",
+  "Read a text chain", "Read a social media post") instead of the raw "Read in Daily Life – ..."
+  task title.
+
 ## [1.7.4] - 2026-08-28
 
 ### Added
