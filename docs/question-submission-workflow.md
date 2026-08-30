@@ -106,7 +106,29 @@ npm run electron:dev
 - 应用内点被锁定的官方真题 → 输入序列号 → 解锁。
 - 检测完恢复未激活：设置页 →「解绑本机」。
 
-### 2.3 Electron 版本
+### 2.3 更新真题后拉起测试窗口 — 常见问题排查
+
+> 每次在别的窗口更新真题后，拉起测试窗口最容易踩的坑（均有实际发生记录）。
+
+| 症状 | 根因 | 解决 |
+| --- | --- | --- |
+| build 报 `Unsupported reading task type in title: "..."` | 工作区有**另一窗口未提交的新真题**含 parser 不支持的题型（如 `Read a Sign`），`content-core/parsers/reading.js` 的 `TYPES` 未加 | 临时把 `assets/questions/` 下未提交的 `2026-xx-xx` 目录移到备份（build 后放回），或先给 `TYPES` 加该题型 |
+| 窗口白屏 / JS/CSS 全 404 | 没用 `ELECTRON=true` 构建（`dist/index.html` 里是绝对路径） | 必须 `ELECTRON=true` + `npm run build` |
+| "Question bank unavailable — Could not read installed content (404)" | 用 `electron electron/main.js` 启动，`app.getAppPath()` 指向 `electron/` 目录 | **必须 `electron .`**（见 §2.1） |
+| 读到旧题库、新真题不显示 | 没设隔离 userData，读到已安装内容包 | 设 `TOEFL_PERF_USER_DATA` 隔离目录（见 §2.1） |
+| 激活报 `Cannot POST /v1/licenses/devices/...` | **端口被占用**（常被 toefl-web / 其他服务），Electron 连到错误服务 | 先查端口：`Get-NetTCPConnection -LocalPort <port> -State Listen`；被占则换端口（如 `PORT=3010`）+ `TOEFL_API_BASE_URL` 对应 |
+| 激活报「序列号无效或已作废」 | 用了 mock 码去打真实服务端，或连错地址 | 确认 `TOEFL_API_BASE_URL` 指向 mock（3002/3010），用 `TEST-0000-0000-0001` |
+| 激活报「该序列号已达到 2 台设备上限」 | 旧 mock 进程残留、已绑满 2 台 | 杀干净端口监听者，重启 mock（`node scripts/mock-license-server.js`） |
+
+**一键拉起（推荐）**：`.\scripts\dev-license.ps1`（自动：起 mock → 重置隔离 userData → ELECTRON=true build → `electron .`）。
+
+**排查端口是否被占**：
+```powershell
+Get-NetTCPConnection -LocalPort 3002 -State Listen
+Get-CimInstance Win32_Process -Filter "ProcessId=<上面拿到的 pid>" | Select-Object CommandLine
+```
+
+### 2.4 Electron 版本
 
 - 必须用 **Electron 43.x**（`package.json` 声明 `^43.1.0`）
 - `node_modules/electron/dist` 里必须是 43（内置 Node 24，支持 `node:sqlite`）
