@@ -370,6 +370,41 @@ describe('objective answer review', () => {
     expect(wrapper.find('.fill-review-card').attributes('open')).toBeDefined();
   });
 
+  it('renders missing letters in the source passage as read-only slot blocks', () => {
+    const fillQuestions = [
+      { id: 'f1', number: 1, type: 'complete-words', answer: 'might', options: [] },
+      { id: 'f2', number: 2, type: 'complete-words', answer: 'that', options: [] }
+    ];
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'We mi\\_\\_\\_ think th\\_\\_ is true.',
+                questionRange: [1, 2],
+                questions: fillQuestions
+              }
+            ]
+          }
+        ],
+        answers: { f1: 'might' }
+      }
+    });
+    const source = wrapper.find('.results-source-card__body .results-source-text');
+    expect(source.text()).not.toContain('\\');
+    expect(source.findAll('.fill-source-slot')).toHaveLength(5);
+    expect(source.text()).toContain('mi');
+    expect(source.text()).toContain('th');
+  });
+
   it('scopes the complete-words card id by module so Module 2 opens its own review', async () => {
     const fill = prefix => [
       { id: `${prefix}-f1`, number: 1, type: 'complete-words', answer: 'might', options: [] },

@@ -613,7 +613,14 @@ button:disabled {
 }
 .results-question-grid__cell.is-incorrect {
   border-color: #dc3545;
-  background: #f8d7da;
+  background-color: #f8d7da;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(220, 53, 69, 0.12) 0,
+    rgba(220, 53, 69, 0.12) 6px,
+    rgba(220, 53, 69, 0.3) 6px,
+    rgba(220, 53, 69, 0.3) 8px
+  );
   color: #721c24;
 }
 .results-question-grid__cell.is-unanswered {
@@ -629,6 +636,23 @@ button:disabled {
   font-size: 18px;
   line-height: 1.7;
   white-space: pre-wrap;
+}
+.fill-source-blank {
+  white-space: nowrap;
+}
+.fill-source-prefix {
+  font-weight: 600;
+}
+.fill-source-slot {
+  display: inline-block;
+  width: 0.85em;
+  height: 1em;
+  margin-left: 1px;
+  border: 1px solid #c9d0d4;
+  border-bottom-width: 2px;
+  border-radius: 2px;
+  background: #f2f4f5;
+  vertical-align: baseline;
 }
 .speaking-results-list {
   margin-top: 20px;
