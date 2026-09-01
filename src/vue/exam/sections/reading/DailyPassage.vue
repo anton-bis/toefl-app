@@ -21,7 +21,12 @@ const labelLines = computed(() =>
     .map(line => line.trim())
     .filter(Boolean)
 );
-const receiptLines = labelLines;
+const receiptRows = computed(() =>
+  labelLines.value.map(line => ({
+    text: line,
+    total: /^(total|amount due|balance|subtotal|grand total)[:：]?\s/i.test(line)
+  }))
+);
 const vocab = computed(() => {
   const prompt = props.question?.prompt || '';
   const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
@@ -115,6 +120,8 @@ const webChartUrl = computed(() => {
         </article>
 
         <article v-else-if="task.type === 'label'" class="daily-passage-card apple-label-container">
+          <span class="label-hole label-hole--left" aria-hidden="true" />
+          <span class="label-hole label-hole--right" aria-hidden="true" />
           <header class="label-header">
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle" class="label-subtitle">{{ content.subtitle }}</p>
@@ -135,8 +142,13 @@ const webChartUrl = computed(() => {
             <p v-if="content.subtitle" class="receipt-subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="receipt-content">
-            <p v-for="(line, index) in receiptLines" :key="index" class="receipt-line">
-              <Highlighted :text="line" :term="vocab" />
+            <p
+              v-for="(row, index) in receiptRows"
+              :key="index"
+              class="receipt-line"
+              :class="{ 'receipt-total': row.total }"
+            >
+              <Highlighted :text="row.text" :term="vocab" />
             </p>
           </div>
         </article>
@@ -275,6 +287,7 @@ const webChartUrl = computed(() => {
           </header>
           <div class="instructions-content">
             <p v-for="(line, index) in labelLines" :key="index" class="instructions-line">
+              <span class="step-number" aria-hidden="true">{{ index + 1 }}</span>
               <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
@@ -285,9 +298,12 @@ const webChartUrl = computed(() => {
             <h2>{{ content.title || task.title }}</h2>
           </header>
           <div class="form-content">
-            <p v-for="(line, index) in labelLines" :key="index" class="form-line">
-              <Highlighted :text="line" :term="vocab" />
-            </p>
+            <div class="form-fields">
+              <p v-for="(line, index) in labelLines" :key="index" class="form-line">
+                <Highlighted :text="line" :term="vocab" />
+              </p>
+            </div>
+            <span class="form-submit" aria-hidden="true">Submit</span>
           </div>
         </article>
 

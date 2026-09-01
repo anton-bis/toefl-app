@@ -561,6 +561,7 @@ describe('ReadingPage', () => {
     expect(instructions.find('.apple-instructions-container').text()).toContain(
       'Step 1: Prepare boards.'
     );
+    expect(instructions.findAll('.step-number')).toHaveLength(2);
 
     const form = mount(ReadingPage, {
       props: {
@@ -581,6 +582,7 @@ describe('ReadingPage', () => {
     expect(form.find('.apple-form-container h2').text()).toBe('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
+    expect(form.find('.form-submit').text()).toBe('Submit');
   });
 
   it('renders an announcement as a banner-style card', () => {
