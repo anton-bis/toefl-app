@@ -142,15 +142,84 @@ const webChartUrl = computed(() => {
         </article>
 
         <article
-          v-else-if="['advertisement', 'notice', 'announcement', 'poster', 'sign', 'review'].includes(task.type)"
-          class="daily-passage-card apple-noticeboard-container"
-          :class="task.type"
+          v-else-if="task.type === 'sign'"
+          class="daily-passage-card apple-sign-container"
         >
-          <header class="noticeboard-header">
-            <h2>{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle">{{ content.subtitle }}</p>
+          <span class="sign-icon" aria-hidden="true"><i class="fas fa-circle-exclamation" /></span>
+          <div class="sign-board">
+            <h2 class="sign-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="sign-subtitle">{{ content.subtitle }}</p>
+            <div class="sign-content"><Highlighted :text="content.body" :term="vocab" /></div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'announcement'"
+          class="daily-passage-card apple-announcement-container"
+        >
+          <div class="announcement-bar">
+            <i class="fas fa-volume-up" aria-hidden="true" />
+            <span>Announcement</span>
+          </div>
+          <div class="announcement-body">
+            <h2 class="announcement-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="announcement-subtitle">{{ content.subtitle }}</p>
+            <div class="announcement-content">
+              <Highlighted :text="content.body" :term="vocab" />
+            </div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'notice'"
+          class="daily-passage-card apple-notice-container"
+        >
+          <div class="notice-sidebar" aria-hidden="true">
+            <i class="fas fa-inbox" />
+          </div>
+          <div class="notice-panel">
+            <h2 class="notice-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="notice-subtitle">{{ content.subtitle }}</p>
+            <div class="notice-body"><Highlighted :text="content.body" :term="vocab" /></div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'advertisement'"
+          class="daily-passage-card apple-advertisement-container"
+        >
+          <header class="advertisement-header">
+            <h2 class="advertisement-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="advertisement-subtitle">{{ content.subtitle }}</p>
           </header>
-          <div class="notice-content"><Highlighted :text="content.body" :term="vocab" /></div>
+          <div class="advertisement-content">
+            <Highlighted :text="content.body" :term="vocab" />
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'poster'"
+          class="daily-passage-card apple-poster-container"
+        >
+          <header class="poster-header">
+            <span class="poster-badge" aria-hidden="true"><i class="fas fa-scroll" /></span>
+            <h2 class="poster-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="poster-subtitle">{{ content.subtitle }}</p>
+          </header>
+          <div class="poster-content"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'review'"
+          class="daily-passage-card apple-review-container"
+        >
+          <header class="review-header">
+            <span class="review-stars" aria-hidden="true">
+              <i v-for="n in 5" :key="n" class="fas fa-star" />
+            </span>
+            <h2 class="review-title">{{ content.title || task.title }}</h2>
+          </header>
+          <div class="review-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
 
         <article

@@ -476,8 +476,8 @@ describe('ReadingPage', () => {
       tabindex: '0'
     });
     expect(wrapper.find('.question-instruction').text()).toBe('Read a notice');
-    expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
-    expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
+    expect(wrapper.find('.apple-notice-container').text()).toContain('Campus News');
+    expect(wrapper.find('.apple-notice-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
   });
@@ -527,11 +527,12 @@ describe('ReadingPage', () => {
       }
     });
     expect(poster.find('.question-instruction').text()).toBe('Read a poster');
-    expect(poster.find('.apple-noticeboard-container').classes()).toContain('poster');
-    expect(poster.find('.apple-noticeboard-container h2').text()).toBe(
+    expect(poster.find('.apple-poster-container').classes()).toContain('daily-passage-card');
+    expect(poster.find('.apple-poster-container .poster-title').text()).toBe(
       'Join the Mechanicsburg Clean-Up Day!'
     );
-    expect(poster.find('.apple-noticeboard-container').text()).toContain(
+    expect(poster.find('.poster-badge i.fa-scroll').exists()).toBe(true);
+    expect(poster.find('.apple-poster-container').text()).toContain(
       'Join the Mechanicsburg Clean-Up Day!'
     );
 
@@ -582,6 +583,30 @@ describe('ReadingPage', () => {
     expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
   });
 
+  it('renders an announcement as a banner-style card', () => {
+    const announcement = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'announcement',
+          title: 'Read an Announcement',
+          passage: 'Campus News\nClosed today for maintenance.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(announcement.find('.question-instruction').text()).toBe('Read an announcement');
+    expect(announcement.find('.apple-announcement-container .announcement-title').text()).toBe(
+      'Campus News'
+    );
+    expect(announcement.find('.announcement-bar i.fa-volume-up').exists()).toBe(true);
+    expect(announcement.find('.apple-announcement-container').text()).toContain('maintenance');
+  });
+
   it('renders sign and review cards and a browser-styled web page card', () => {
     const sign = mount(ReadingPage, {
       props: {
@@ -599,8 +624,9 @@ describe('ReadingPage', () => {
       }
     });
     expect(sign.find('.question-instruction').text()).toBe('Read a sign');
-    expect(sign.find('.apple-noticeboard-container h2').text()).toBe('NO ENTRY');
-    expect(sign.find('.apple-noticeboard-container').text()).toContain('restricted');
+    expect(sign.find('.apple-sign-container .sign-title').text()).toBe('NO ENTRY');
+    expect(sign.find('.apple-sign-container').text()).toContain('restricted');
+    expect(sign.find('.sign-icon i.fa-circle-exclamation').exists()).toBe(true);
 
     const review = mount(ReadingPage, {
       props: {
@@ -618,7 +644,8 @@ describe('ReadingPage', () => {
       }
     });
     expect(review.find('.question-instruction').text()).toBe('Read a review');
-    expect(review.find('.apple-noticeboard-container h2').text()).toBe('A superb stay');
+    expect(review.find('.apple-review-container .review-title').text()).toBe('A superb stay');
+    expect(review.findAll('.review-stars i.fa-star')).toHaveLength(5);
 
     const webPage = mount(ReadingPage, {
       props: {
@@ -728,9 +755,10 @@ describe('ReadingPage', () => {
       }
     });
     expect(notice.find('.question-instruction').text()).toBe('Read a notice');
-    expect(notice.find('.apple-noticeboard-container h2').text()).toBe(
+    expect(notice.find('.apple-notice-container .notice-title').text()).toBe(
       'Downtown School of Data Skills'
     );
+    expect(notice.find('.notice-sidebar i.fa-inbox').exists()).toBe(true);
 
     const announcement = mount(ReadingPage, {
       props: {
@@ -748,7 +776,9 @@ describe('ReadingPage', () => {
       }
     });
     expect(announcement.find('.question-instruction').text()).toBe('Read an announcement');
-    expect(announcement.find('.apple-noticeboard-container h2').text()).toBe('Campus News');
+    expect(announcement.find('.apple-announcement-container .announcement-title').text()).toBe(
+      'Campus News'
+    );
   });
 
   it('supports academic point-sentence and insertion-marker answers', async () => {

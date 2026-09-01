@@ -112,6 +112,12 @@
 .fa-sparkles::before {
   content: '\f898';
 }
+.fa-star::before {
+  content: '\f005';
+}
+.fa-bullhorn::before {
+  content: '\f0a1';
+}
 .fa-sign-out-alt::before {
   content: '\f2f5';
 }
