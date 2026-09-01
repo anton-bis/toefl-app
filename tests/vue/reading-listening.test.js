@@ -582,6 +582,135 @@ describe('ReadingPage', () => {
     expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
   });
 
+  it('renders sign and review cards and a browser-styled web page card', () => {
+    const sign = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'sign',
+          title: 'Read a Sign',
+          passage: 'NO ENTRY\nBeyond this point access is restricted.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(sign.find('.question-instruction').text()).toBe('Read a sign');
+    expect(sign.find('.apple-noticeboard-container h2').text()).toBe('NO ENTRY');
+    expect(sign.find('.apple-noticeboard-container').text()).toContain('restricted');
+
+    const review = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'review',
+          title: 'Read a Review',
+          passage: 'A superb stay\nThe hotel was wonderful.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(review.find('.question-instruction').text()).toBe('Read a review');
+    expect(review.find('.apple-noticeboard-container h2').text()).toBe('A superb stay');
+
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage:
+            'https://www.japanesep.jp\nYOUR GLOBAL CLASSROOM AWAITS!\nTake your education further.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.question-instruction').text()).toBe('Read a web page');
+    expect(webPage.find('.webpage-url').text()).toBe('https://www.japanesep.jp');
+    expect(webPage.find('.webpage-title').text()).toBe('YOUR GLOBAL CLASSROOM AWAITS!');
+    expect(webPage.find('.apple-webpage-container').text()).toContain(
+      'Take your education further.'
+    );
+  });
+
+  it('renders a URL-less web page as a content card with chart and bold labels', () => {
+    window.electronAPI = {
+      getContentAssetUrl: path => `toefl-content://content/${path}`
+    };
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage:
+            'How Well Did You Sleep?\nIn addition, here is a sample.\nAt night, your body calculates your sleep pattern.\nchart_image: sleep-chart.png\nLight Sleep: The muscles relax.\nDeep Sleep: The body recovers.\nAwake: It is normal.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.apple-webpage-container').exists()).toBe(false);
+    const card = webPage.find('.apple-pagecard-container');
+    expect(card.exists()).toBe(true);
+    expect(card.find('.pagecard-title').text()).toBe('How Well Did You Sleep?');
+    expect(card.text()).toContain('here is a sample.');
+    expect(card.text()).toContain('calculates your sleep pattern');
+    // Chart is placed before the first bold label paragraph.
+    const labels = card.findAll('.pagecard-label');
+    expect(labels).toHaveLength(3);
+    expect(labels[0].find('strong').text()).toBe('Light Sleep');
+    expect(labels[0].text()).toContain('The muscles relax.');
+    // The chart figure appears in the DOM before the first label.
+    const chart = card.find('.pagecard-chart img');
+    expect(chart.exists()).toBe(true);
+    expect(chart.attributes('src')).toContain('sleep-chart.png');
+    const chartIndex = card.element.children.length
+      ? [...card.element.querySelectorAll('.pagecard-body > *')].findIndex(
+          node => node.classList.contains('pagecard-chart')
+        )
+      : -1;
+    const labelIndex = [...card.element.querySelectorAll('.pagecard-body > *')].findIndex(node =>
+      node.classList.contains('pagecard-label')
+    );
+    expect(chartIndex).toBeGreaterThan(-1);
+    expect(chartIndex).toBeLessThan(labelIndex);
+  });
+
+  it('omits the chart region when a URL-less web page has no chart image', () => {
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage: 'A plain page\nJust some text.\nNote: nothing special.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.pagecard-chart').exists()).toBe(false);
+    expect(webPage.find('.pagecard-label strong').text()).toBe('Note');
+  });
+
   it('renders notice and announcement cards with the first content line as the title', () => {
     const notice = mount(ReadingPage, {
       props: {

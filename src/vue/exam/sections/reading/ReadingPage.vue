@@ -7,6 +7,7 @@ defineProps({
   page: { type: Object, required: true },
   task: { type: Object, required: true },
   question: { type: Object, default: null },
+  document: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
   locked: { type: [Boolean, Object, Array], default: false }
 });
@@ -34,6 +35,7 @@ const emit = defineEmits(['answer']);
       v-else
       :task="task"
       :question="question"
+      :document="document"
       :answers="answers"
       :locked="locked"
       @answer="(id, value) => emit('answer', id, value)"

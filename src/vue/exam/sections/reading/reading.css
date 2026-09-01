@@ -130,6 +130,102 @@
   white-space: pre-wrap;
   line-height: 1.7;
 }
+.reading-page .apple-webpage-container {
+  max-width: 620px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #d1d1d6;
+  overflow: hidden;
+  box-shadow: 0 3px 14px #00000012;
+  display: flex;
+  flex-direction: column;
+}
+.reading-page .webpage-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #eef0f2;
+  border-bottom: 1px solid #d9dee1;
+}
+.reading-page .webpage-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e2e6e9;
+  color: #5a6066;
+  font-size: 12px;
+}
+.reading-page .webpage-url {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fff;
+  color: #6b7174;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reading-page .webpage-nav-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #5a6066;
+  font-size: 15px;
+}
+.reading-page .webpage-body {
+  padding: 22px;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+.reading-page .webpage-title {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.reading-page .apple-pagecard-container {
+  max-width: 620px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #d1d1d6;
+  overflow: hidden;
+  box-shadow: 0 3px 14px #00000012;
+}
+.reading-page .pagecard-body {
+  padding: 22px;
+  line-height: 1.7;
+}
+.reading-page .pagecard-title {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.reading-page .pagecard-chart {
+  margin: 16px 0;
+  text-align: center;
+}
+.reading-page .pagecard-chart img {
+  max-width: 100%;
+  border: 1px solid #e2e5e7;
+  border-radius: 8px;
+}
+.reading-page .pagecard-label {
+  margin: 10px 0;
+  font-weight: 400;
+}
+.reading-page .pagecard-paragraph {
+  margin: 10px 0;
+  white-space: pre-wrap;
+}
 .reading-page .email-signature-apple {
   padding-top: 0;
 }

@@ -3,10 +3,12 @@ import { computed } from 'vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
 import Highlighted from './Highlighted.vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 
 const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
+  document: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
   locked: { type: [Boolean, Object, Array], default: false }
 });
@@ -24,6 +26,33 @@ const vocab = computed(() => {
   const prompt = props.question?.prompt || '';
   const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
   return direct || prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+});
+
+// For a content-card web page (no URL), split body into labelled paragraphs.
+// A paragraph matching "Label: rest" renders the label in bold.
+const webPageSegments = computed(() => {
+  const raw = String(content.value.body || '');
+  if (!raw) return [];
+  return raw
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map(line => {
+      const label = line.match(/^(.+?):\s*(.*)$/);
+      return label && label[2] !== undefined
+        ? { label: label[1].trim(), text: label[2], isLabel: true }
+        : { text: line, isLabel: false };
+    });
+});
+// Insert the chart just before the first bold label paragraph (e.g. after the
+// introductory text and before "Light Sleep:"); otherwise show it at the end.
+const chartInsertIndex = computed(() => {
+  const index = webPageSegments.value.findIndex(segment => segment.isLabel);
+  return index >= 0 ? index : -1;
+});
+const webChartUrl = computed(() => {
+  const file = content.value.chartImage;
+  return file ? resolveQuestionAsset(props.document, file) : '';
 });
 </script>
 
@@ -113,7 +142,7 @@ const vocab = computed(() => {
         </article>
 
         <article
-          v-else-if="['advertisement', 'notice', 'announcement', 'poster'].includes(task.type)"
+          v-else-if="['advertisement', 'notice', 'announcement', 'poster', 'sign', 'review'].includes(task.type)"
           class="daily-passage-card apple-noticeboard-container"
           :class="task.type"
         >
@@ -122,6 +151,50 @@ const vocab = computed(() => {
             <p v-if="content.subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="notice-content"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'web-page' && content.url"
+          class="daily-passage-card apple-webpage-container"
+        >
+          <div class="webpage-toolbar" aria-hidden="true">
+            <span class="webpage-nav-btn"><i class="fas fa-arrow-left" /></span>
+            <span class="webpage-nav-btn"><i class="fas fa-rotate-right" /></span>
+            <span class="webpage-url">{{ content.url }}</span>
+            <span class="webpage-nav-icons">
+              <i class="fas fa-user-circle" /><i class="fas fa-ellipsis-h" />
+            </span>
+          </div>
+          <div class="webpage-body">
+            <h2 class="webpage-title">{{ content.title }}</h2>
+            <div class="webpage-content">
+              <Highlighted :text="content.body" :term="vocab" />
+            </div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'web-page'"
+          class="daily-passage-card apple-pagecard-container"
+        >
+          <div class="pagecard-body">
+            <h2 class="pagecard-title">{{ content.title }}</h2>
+            <template v-for="(segment, index) in webPageSegments" :key="index">
+              <figure v-if="webChartUrl && index === chartInsertIndex" class="pagecard-chart">
+                <img :src="webChartUrl" alt="Chart" />
+              </figure>
+              <p v-if="segment.isLabel" class="pagecard-label">
+                <strong>{{ segment.label }}</strong
+                >{{ segment.text ? `: ${segment.text}` : '' }}
+              </p>
+              <p v-else class="pagecard-paragraph">
+                <Highlighted :text="segment.text" :term="vocab" />
+              </p>
+            </template>
+            <figure v-if="webChartUrl && chartInsertIndex < 0" class="pagecard-chart">
+              <img :src="webChartUrl" alt="Chart" />
+            </figure>
+          </div>
         </article>
 
         <article
