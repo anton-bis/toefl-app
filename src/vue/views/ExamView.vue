@@ -137,7 +137,7 @@ const contentProps = computed(() => {
   if (normalizedSection.value === 'listening') {
     return { ...answerProps, document: document.value, volume: volume.value };
   }
-  return normalizedSection.value === 'writing'
+  return ['writing', 'reading'].includes(normalizedSection.value)
     ? { ...answerProps, document: document.value }
     : answerProps;
 });

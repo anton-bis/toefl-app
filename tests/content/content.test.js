@@ -282,7 +282,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 37);
+  assert.equal(taskCount, 58);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
@@ -437,6 +437,49 @@ test('reading recognizes Poster, Instructions and Form as daily-life subtypes', 
   assert.equal(instructions.id, 'task-2-instructions');
   assert.equal(form.type, 'form');
   assert.equal(form.id, 'task-3-form');
+});
+
+test('reading recognizes Read a Sign, Read a Web Page and Read a Review as daily-life subtypes', () => {
+  const document = parseReading(
+    [
+      '# reading-fixture',
+      '## Module 1: Reading',
+      '### Task 1 Read a Sign (Questions 1–2)',
+      'NO ENTRY',
+      '1. What does the sign say?',
+      'A. Entry allowed',
+      'B. No entry',
+      '[ANSWER]',
+      'B',
+      '[/ANSWER]',
+      '### Task 2 Read a Web Page (Questions 3–4)',
+      'https://www.example.org',
+      'WELCOME ABOARD!',
+      '3. What is the page about?',
+      'A. A travel guide',
+      'B. A job posting',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]',
+      '### Task 3 Read a Review (Questions 5–6)',
+      'A superb stay',
+      'The hotel was wonderful.',
+      '5. What is reviewed?',
+      'A. A hotel',
+      'B. A restaurant',
+      '[ANSWER]',
+      'A',
+      '[/ANSWER]'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/reading/fixture.md' }
+  );
+  const [sign, webPage, review] = document.modules[0].tasks;
+  assert.equal(sign.type, 'sign');
+  assert.equal(sign.id, 'task-1-sign');
+  assert.equal(webPage.type, 'web-page');
+  assert.equal(webPage.id, 'task-2-web-page');
+  assert.equal(review.type, 'review');
+  assert.equal(review.id, 'task-3-review');
 });
 
 test('reading parser rejects unknown daily-life subtypes instead of silently falling back', () => {

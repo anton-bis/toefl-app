@@ -25,9 +25,9 @@ const pointParagraph = computed(() =>
 );
 const vocab = computed(() => {
   const prompt = props.question.prompt || '';
-  const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
+  const direct = prompt.match(/The (?:word|phrase)\s+["“]([^"”]+?)["”]/i)?.[1] || '';
   if (direct) return direct;
-  return prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+  return /["“]([^"”]+?)["”]/.exec(prompt)?.[1] || '';
 });
 const isLocked = computed(() => checkedQuestion(props.locked, props.question.id));
 

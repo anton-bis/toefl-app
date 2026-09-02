@@ -29,8 +29,9 @@ const receiptRows = computed(() =>
 );
 const vocab = computed(() => {
   const prompt = props.question?.prompt || '';
-  const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
-  return direct || prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+  const quoted = /["“]([^"”]+?)["”]/.exec(prompt);
+  const direct = prompt.match(/The (?:word|phrase)\s+["“]([^"”]+?)["”]/i)?.[1] || '';
+  return direct || quoted?.[1] || '';
 });
 
 // For a content-card web page (no URL), split body into labelled paragraphs.
@@ -157,12 +158,11 @@ const webChartUrl = computed(() => {
           v-else-if="task.type === 'sign'"
           class="daily-passage-card apple-sign-container"
         >
-          <span class="sign-icon" aria-hidden="true"><i class="fas fa-circle-exclamation" /></span>
-          <div class="sign-board">
+          <header class="sign-header">
+            <i class="fas fa-info-circle" aria-hidden="true" />
             <h2 class="sign-title">{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle" class="sign-subtitle">{{ content.subtitle }}</p>
-            <div class="sign-content"><Highlighted :text="content.body" :term="vocab" /></div>
-          </div>
+          </header>
+          <div class="sign-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
 
         <article
@@ -186,14 +186,11 @@ const webChartUrl = computed(() => {
           v-else-if="task.type === 'notice'"
           class="daily-passage-card apple-notice-container"
         >
-          <div class="notice-sidebar" aria-hidden="true">
-            <i class="fas fa-inbox" />
-          </div>
-          <div class="notice-panel">
+          <header class="notice-header">
+            <span class="notice-icon" aria-hidden="true"><i class="fas fa-inbox" /></span>
             <h2 class="notice-title">{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle" class="notice-subtitle">{{ content.subtitle }}</p>
-            <div class="notice-body"><Highlighted :text="content.body" :term="vocab" /></div>
-          </div>
+          </header>
+          <div class="notice-body"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>
 
         <article
@@ -202,7 +199,6 @@ const webChartUrl = computed(() => {
         >
           <header class="advertisement-header">
             <h2 class="advertisement-title">{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle" class="advertisement-subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="advertisement-content">
             <Highlighted :text="content.body" :term="vocab" />
@@ -214,9 +210,7 @@ const webChartUrl = computed(() => {
           class="daily-passage-card apple-poster-container"
         >
           <header class="poster-header">
-            <span class="poster-badge" aria-hidden="true"><i class="fas fa-scroll" /></span>
             <h2 class="poster-title">{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle" class="poster-subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="poster-content"><Highlighted :text="content.body" :term="vocab" /></div>
         </article>

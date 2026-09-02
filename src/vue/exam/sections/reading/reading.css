@@ -112,44 +112,33 @@
   box-shadow: 0 3px 14px #00000012;
 }
 .reading-page .apple-sign-container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 26px;
-  text-align: center;
+  max-width: 620px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #d1d1d6;
+  overflow: hidden;
+  box-shadow: 0 3px 14px #00000012;
 }
-.reading-page .sign-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  margin-bottom: 12px;
-  border-radius: 50%;
-  background: #d97706;
+.reading-page .sign-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 22px;
+  background: #14532d;
   color: #fff;
-  font-size: 20px;
 }
-.reading-page .sign-board {
-  padding: 22px 26px;
-  border-radius: 16px;
-  background: #1f2937;
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(31, 41, 55, 0.25);
+.reading-page .sign-header i {
+  font-size: 18px;
 }
 .reading-page .sign-title {
-  margin: 0 0 8px;
-  font-size: 26px;
+  margin: 0;
+  font-size: 24px;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-.reading-page .sign-subtitle {
-  margin: 0 0 10px;
-  color: #e5e7eb;
-  font-weight: 600;
+  line-height: 1.35;
 }
 .reading-page .sign-content {
-  color: #f3f4f6;
-  line-height: 1.6;
+  padding: 22px;
+  line-height: 1.7;
   white-space: pre-wrap;
 }
 .reading-page .apple-announcement-container {
@@ -192,40 +181,37 @@
 }
 .reading-page .apple-notice-container {
   max-width: 620px;
-  display: flex;
   border-radius: 12px;
   background: #fff;
   border: 1px solid #d1d1d6;
   overflow: hidden;
   box-shadow: 0 3px 14px #00000012;
 }
-.reading-page .notice-sidebar {
+.reading-page .notice-header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 56px;
-  flex-shrink: 0;
+  gap: 10px;
+  padding: 16px 22px;
   background: #0e7490;
   color: #fff;
-  font-size: 20px;
 }
-.reading-page .notice-panel {
-  flex: 1;
-  min-width: 0;
-  padding: 18px 22px;
+.reading-page .notice-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
 }
 .reading-page .notice-title {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 24px;
   font-weight: 800;
   line-height: 1.35;
 }
-.reading-page .notice-subtitle {
-  margin: 0 0 10px;
-  color: #666;
-  font-weight: 600;
-}
 .reading-page .notice-body {
+  padding: 22px;
   line-height: 1.7;
   white-space: pre-wrap;
 }
@@ -239,19 +225,14 @@
 }
 .reading-page .advertisement-header {
   padding: 24px 22px 20px;
-  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  background: #d97706;
   color: #fff;
 }
 .reading-page .advertisement-title {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 27px;
   font-weight: 800;
   line-height: 1.25;
-}
-.reading-page .advertisement-subtitle {
-  margin: 0;
-  color: #e9d5ff;
-  font-weight: 600;
 }
 .reading-page .advertisement-content {
   padding: 22px;
@@ -267,31 +248,15 @@
   box-shadow: 0 3px 14px #00000012;
 }
 .reading-page .poster-header {
-  padding: 22px;
-  background: #111827;
+  padding: 24px 22px 20px;
+  background: #1d4ed8;
   color: #fff;
-}
-.reading-page .poster-badge {
-  display: inline-grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 10px;
-  border-radius: 9px;
-  background: #f59e0b;
-  color: #fff;
-  font-size: 16px;
 }
 .reading-page .poster-title {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 28px;
   font-weight: 800;
   line-height: 1.2;
-}
-.reading-page .poster-subtitle {
-  margin: 0;
-  color: #9ca3af;
-  font-weight: 600;
 }
 .reading-page .poster-content {
   padding: 22px;

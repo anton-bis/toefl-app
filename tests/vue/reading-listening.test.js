@@ -531,7 +531,7 @@ describe('ReadingPage', () => {
     expect(poster.find('.apple-poster-container .poster-title').text()).toBe(
       'Join the Mechanicsburg Clean-Up Day!'
     );
-    expect(poster.find('.poster-badge i.fa-scroll').exists()).toBe(true);
+    expect(poster.find('.poster-header').exists()).toBe(true);
     expect(poster.find('.apple-poster-container').text()).toContain(
       'Join the Mechanicsburg Clean-Up Day!'
     );
@@ -628,7 +628,7 @@ describe('ReadingPage', () => {
     expect(sign.find('.question-instruction').text()).toBe('Read a sign');
     expect(sign.find('.apple-sign-container .sign-title').text()).toBe('NO ENTRY');
     expect(sign.find('.apple-sign-container').text()).toContain('restricted');
-    expect(sign.find('.sign-icon i.fa-circle-exclamation').exists()).toBe(true);
+    expect(sign.find('.sign-header i.fa-info-circle').exists()).toBe(true);
 
     const review = mount(ReadingPage, {
       props: {
@@ -760,7 +760,7 @@ describe('ReadingPage', () => {
     expect(notice.find('.apple-notice-container .notice-title').text()).toBe(
       'Downtown School of Data Skills'
     );
-    expect(notice.find('.notice-sidebar i.fa-inbox').exists()).toBe(true);
+    expect(notice.find('.notice-icon i.fa-inbox').exists()).toBe(true);
 
     const announcement = mount(ReadingPage, {
       props: {
@@ -864,6 +864,32 @@ describe('ReadingPage', () => {
       }
     });
     expect(wrapper.find('mark').text()).toBe('quantum mechanics');
+  });
+
+  it('highlights a quoted phrase containing an apostrophe in full', async () => {
+    const passage = "Retailers adapt each season. What's in store next year remains uncertain.";
+    const wrapper = mount(AcademicPassage, {
+      props: {
+        document,
+        page: { id: 'q35' },
+        task: {
+          type: 'academic-passage',
+          title: 'Read an Academic Passage – Retail',
+          passage,
+          questions: [{ id: 'q35', prompt: 'The phrase "what\'s in store" is closest in meaning to' }]
+        },
+        question: {
+          id: 'q35',
+          prompt: 'The phrase "what\'s in store" is closest in meaning to',
+          options: [{ id: 'A', label: 'A', text: 'Option A' }]
+        },
+        answers: {},
+        locked: false
+      }
+    });
+    const mark = wrapper.find('mark');
+    expect(mark.exists()).toBe(true);
+    expect(mark.text()).toBe("What's in store");
   });
 
   it('highlights a quoted phrase inside a daily-life reading passage', async () => {
