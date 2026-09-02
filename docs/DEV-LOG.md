@@ -28,11 +28,11 @@
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，latest.yml 走 v6 代理，用户可自动更新）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端备案已通过**，Electron↔Web **license 激活互通即将启动**（首发范围=仅激活，不含 AI 批改/报告云存）。重心正转回 Web 联动。
+- **重要状态**：**Web 端备案已通过**，Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。重心正转回 Web 联动。
 - **未完成事项 / 待办**：
-  - [ ] Web 侧确认 license 三端点实现状态 + 回填生产 API 基址 / 序列号支付流程（见 `docs/license-protocol-v1.md` §7.5）
   - [ ] 上线时切 Electron：`license-config.js` 的 `DEFAULT_API_BASE_URL` → 生产；`promoConfig.js` 的 `PROMO_JUMP_ENABLED` → true
-  - [ ] 拿到真实序列号后做端到端联调（Web 兑换→Electron 激活→≤2 台→换机解绑→断网 30 天语义）
+  - [ ] 拿到真实序列号后做端到端联调（Web 兑换→Electron 激活→≤2 台→换机解绑→断网 30 天语义）；Web 已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）；生产 API 基址待 Web 部署后回填
 
 ---
 
@@ -145,6 +145,24 @@
 - 双线同改时 **`HomeView.vue` 等文件两线内容不同**（develop 有 referral banner/license），**不能整文件复制**，要针对性编辑。
 
 **其它**：新增单测 `tests/vue/home-pagination.test.js`（分页 4 项）、academic 撇号高亮用例等；lint + vitest + node:test 全绿后提交。
+
+### 3.2 2026-09-02 — Web 端 license 激活互通回填与契约对齐
+
+> 背景：Web 端备案已通过。我们发了一版「License 激活互通对齐 prompt」给 Web 窗口（见 §3.1 末尾的待办），Web 端回填了实现状态。本文记录回填结果与两端核对结论。
+
+**Web 端回填（2026-09-02）**，详见 `docs/license-protocol-v1.md` §7.5/§8：
+
+- **三端点均已实现**（activate / refresh / unbind），请求/响应形状与 Electron 客户端 `electron/services/license-client.js` **逐字一致**（已核对：activate body、refresh body、unbind path+body 全匹配）。
+- **C-1（契约差异，关键）**：Web 端 DB 只存 token 的 SHA-256，**无法原样回吐旧明文 token** → 同设备重复 activate 会**旋转新 activationToken**（deviceId 不变、不新增、不误触上限）。契约 §2.1 原写"不重新签发 token"与 §7.4 已写"旋转新 token"**前后矛盾**，已统一为：**「重复激活返回原 deviceId + 新 token，客户端以响应为准覆盖持久化」**。Electron `activate()` 本就按响应覆盖并 `store.save`（license.js 184-196），**无代码改动**。若未来要「同设备恒同 token」，需两端改确定性 token 方案（暂不做）。
+- **C-2（大小写）**：Electron `sha256(...).digest('hex')` 恒小写 → 服务端小写校验 `^[a-f0-9]{64}$` 兼容，无需改 Electron。
+- **C-3（生产基址）**：开发 `http://localhost:3001` 一致；生产域名/路径**待 Web 部署后回填** → Electron 的 `DEFAULT_API_BASE_URL` 届时切生产。
+- **序列号**：Web 脚本 `gen:licenses` 批发生成，DB 只存 sha256+tail，明文一次性输出；「支付成功自动发码」**未上线**（排下一轮），当前买 Web 权益不自动发 Electron 码。已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`（`TEST-0000-...` 无校验位会 404）。
+- **范围确认**：本次仅激活互通，AI 批改/报告云存不在范围 ✅（与 Electron 现状一致：Electron 纯本地刷题 + 本地 SQLite，`electron/services/ai.js` 只是未被产品引用的 AI 地基脚手架）。
+- **断网 30 天**：Web 将加可配置宽限期环境变量 `LICENSE_DEVICE_GRACE_DAYS`（默认 30）用于联调快速验证，暂不改契约。
+
+**本日文档动作**：更新 `docs/license-protocol-v1.md`（§2.1 幂等语义统一、§7.5 联调状态、§8 待办与备案状态）+ 本文 DEV-LOG 快照与本节。
+
+**下一步（等 Web 生产部署 + 真实联调）**：切 `DEFAULT_API_BASE_URL` 到生产、`PROMO_JUMP_ENABLED`→true → 用真实码做完整链路端到端。开发联调可用本地 mock（见 `question-submission-workflow.md` §2.2）。
 
 ---
 
