@@ -70,7 +70,10 @@ body: { "code": "XXXX-XXXX-XXXX-XXXX", "deviceFingerprint": "<64 hex>" }
 语义：
 
 - `expiresAt = now + 30 天`（离线宽限期）。
-- **同 code + 同 fingerprint 重复激活 → 幂等，返回原绑定**（不新增设备、不重新签发 token）。
+- **同 code + 同 fingerprint 重复激活 → 幂等**：不新增设备、不误触 `DEVICE_LIMIT`，返回**原
+  `deviceId`**；`activationToken` 以**本次响应为准覆盖**（服务端只存 token 哈希，无法原样回吐
+  旧明文 token，故重复激活可能返回**新 token** —— 客户端必须用响应值覆盖本地并持久化，见
+  §4.2）。Electron 客户端在每次 `activate` 成功后已按此覆盖，无副作用。
 - `devices[]` 每项：`deviceId`（公共 ID，与顶层 `deviceId` 一致）、`boundAt`（绑定时间）、
   `current`（**本次响应对应设备为 `true`，其余为 `false`**）；服务端可附带
   `expiresAt` / `lastRefreshAt` / `status` 等额外字段，**客户端忽略多余字段**。
@@ -249,15 +252,22 @@ toefl-web 服务端已实现接口并逐条回传确认，全部与本文契约�
 
 ### 7.5 待真实 Web API 联调
 
-- [ ] 拿到 2 张真实序列号后执行：Web 兑换 → Electron 激活 → 绑 2 台 → 换机解绑 → 断网 30 天语义。
-- [ ] 断网 30 天端到端验证需与服务端协商测试手段（真实 30 天不可行，或服务端提供可调过期 / 测试码）。
+- [x] Web 端三端点已实现（activate / refresh / unbind），语义与契约核对一致（2026-09-02 Web 回填）。
+- [x] 生产 API 基址：开发 `http://localhost:3001`（API 根、不带 `/v1`）与客户端约定一致；生产域名待 Web 部署后提供。
+- [x] 指纹大小写：客户端 `sha256(...).digest('hex')` 恒为小写 `[a-f0-9]{64}`；服务端当前按小写校验，兼容。
+- [x] 换机「先解绑、再同指纹重激活」不撞唯一索引：已由 Web 端按 (license_id, fingerprint) 匹配验证。
+- [x] refresh 不旋转 token；服务端不限最小续期间隔（客户端每 7 天调一次），另有 30 次/时/设备限频护栏。
+- [x] Web 端错误语义：`404 LICENSE:INVALID` / `409 LICENSE:DEVICE_LIMIT` / `401 LICENSE:DEVICE_INVALID`，信封 `{ error:{ code, message, requestId } }` 一致。
+- [ ] 断网 30 天端到端：Web 端将提供可配置宽限期环境变量（`LICENSE_DEVICE_GRACE_DAYS`，默认 30）用于联调快速验证；或测试改 DB `expires_at`。尚未实现，暂不改契约。
+- [ ] 拿到 2 张真实序列号后执行完整链路：Web 兑换 → Electron 激活 → 绑 2 台 → 换机解绑 → 断网语义。真实码示例（Web 已提供）：`V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`（`TEST-0000-0000-0001` 无校验位，真实服务端 404）。
 
 ---
 
 ## 8. 待办 / 依赖
 
-- [ ] **Web 端正式域名：`https://www.justtofu.com`**（备案中，上线后启用）。上线时替换：
+- [ ] **Web 端正式域名：`https://www.justtofu.com`**（备案已通过，2026-09-02 确认；正式地址待 Web 部署后回填）。上线时替换：
   - `electron/services/license-config.js` 的 `DEFAULT_API_BASE_URL`（license API）；
   - `src/vue/platform/promoConfig.js` 的 `WEB_BASE_URL`，并把 `PROMO_JUMP_ENABLED` 改为 `true`（首页「前往网页版」横幅才可点击跳转）。
-- [x] 服务端软过期语义：已确认（同指纹重新 activate 幂等返回原绑定，不误触 `DEVICE_LIMIT`）。
+- [x] 服务端软过期语义：已确认（同指纹重新 activate 幂等返回原 deviceId，不误触 `DEVICE_LIMIT`；token 以响应为准覆盖）。
 - [x] 联调基址语义：已确认（`TOEFL_API_BASE_URL` 为 API 根、不含 `/v1`，客户端自拼）。
+- [ ] 序列号签发/交付：Web 端脚本 `gen:licenses` 批发生成 → 卖家人工发码；DB 只存 `sha256(code)+code_tail`，明文一次性输出。「支付成功自动发码」排入 Web 下一轮，暂未上线。
