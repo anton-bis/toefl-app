@@ -15,7 +15,10 @@ const TYPES = [
   ['Email', 'email'],
   ['Poster', 'poster'],
   ['Instructions', 'instructions'],
-  ['Form', 'form']
+  ['Form', 'form'],
+  ['Read a Sign', 'sign'],
+  ['Read a Web Page', 'web-page'],
+  ['Read a Review', 'review']
 ];
 
 function questionType(title) {

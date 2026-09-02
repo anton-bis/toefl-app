@@ -3,10 +3,12 @@ import { computed } from 'vue';
 import ChoiceQuestion from '../../shared/ChoiceQuestion.vue';
 import { instructionFor, parseDailyPassage, parseTextChain } from './helpers.js';
 import Highlighted from './Highlighted.vue';
+import { resolveQuestionAsset } from '../../../platform/contentRepository.js';
 
 const props = defineProps({
   task: { type: Object, required: true },
   question: { type: Object, required: true },
+  document: { type: Object, default: null },
   answers: { type: Object, default: () => ({}) },
   locked: { type: [Boolean, Object, Array], default: false }
 });
@@ -19,11 +21,44 @@ const labelLines = computed(() =>
     .map(line => line.trim())
     .filter(Boolean)
 );
-const receiptLines = labelLines;
+const receiptRows = computed(() =>
+  labelLines.value.map(line => ({
+    text: line,
+    total: /^(total|amount due|balance|subtotal|grand total)[:：]?\s/i.test(line)
+  }))
+);
 const vocab = computed(() => {
   const prompt = props.question?.prompt || '';
-  const direct = prompt.match(/The (?:word|phrase)\s+["“']([^"”']+)/i)?.[1] || '';
-  return direct || prompt.match(/["“']([^"”']+)["”']/)?.[1] || '';
+  const quoted = /["“]([^"”]+?)["”]/.exec(prompt);
+  const direct = prompt.match(/The (?:word|phrase)\s+["“]([^"”]+?)["”]/i)?.[1] || '';
+  return direct || quoted?.[1] || '';
+});
+
+// For a content-card web page (no URL), split body into labelled paragraphs.
+// A paragraph matching "Label: rest" renders the label in bold.
+const webPageSegments = computed(() => {
+  const raw = String(content.value.body || '');
+  if (!raw) return [];
+  return raw
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map(line => {
+      const label = line.match(/^(.+?):\s*(.*)$/);
+      return label && label[2] !== undefined
+        ? { label: label[1].trim(), text: label[2], isLabel: true }
+        : { text: line, isLabel: false };
+    });
+});
+// Insert the chart just before the first bold label paragraph (e.g. after the
+// introductory text and before "Light Sleep:"); otherwise show it at the end.
+const chartInsertIndex = computed(() => {
+  const index = webPageSegments.value.findIndex(segment => segment.isLabel);
+  return index >= 0 ? index : -1;
+});
+const webChartUrl = computed(() => {
+  const file = content.value.chartImage;
+  return file ? resolveQuestionAsset(props.document, file) : '';
 });
 </script>
 
@@ -86,6 +121,8 @@ const vocab = computed(() => {
         </article>
 
         <article v-else-if="task.type === 'label'" class="daily-passage-card apple-label-container">
+          <span class="label-hole label-hole--left" aria-hidden="true" />
+          <span class="label-hole label-hole--right" aria-hidden="true" />
           <header class="label-header">
             <h2>{{ content.title || task.title }}</h2>
             <p v-if="content.subtitle" class="label-subtitle">{{ content.subtitle }}</p>
@@ -106,22 +143,133 @@ const vocab = computed(() => {
             <p v-if="content.subtitle" class="receipt-subtitle">{{ content.subtitle }}</p>
           </header>
           <div class="receipt-content">
-            <p v-for="(line, index) in receiptLines" :key="index" class="receipt-line">
-              <Highlighted :text="line" :term="vocab" />
+            <p
+              v-for="(row, index) in receiptRows"
+              :key="index"
+              class="receipt-line"
+              :class="{ 'receipt-total': row.total }"
+            >
+              <Highlighted :text="row.text" :term="vocab" />
             </p>
           </div>
         </article>
 
         <article
-          v-else-if="['advertisement', 'notice', 'announcement', 'poster'].includes(task.type)"
-          class="daily-passage-card apple-noticeboard-container"
-          :class="task.type"
+          v-else-if="task.type === 'sign'"
+          class="daily-passage-card apple-sign-container"
         >
-          <header class="noticeboard-header">
-            <h2>{{ content.title || task.title }}</h2>
-            <p v-if="content.subtitle">{{ content.subtitle }}</p>
+          <header class="sign-header">
+            <i class="fas fa-info-circle" aria-hidden="true" />
+            <h2 class="sign-title">{{ content.title || task.title }}</h2>
           </header>
-          <div class="notice-content"><Highlighted :text="content.body" :term="vocab" /></div>
+          <div class="sign-content"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'announcement'"
+          class="daily-passage-card apple-announcement-container"
+        >
+          <div class="announcement-bar">
+            <i class="fas fa-volume-up" aria-hidden="true" />
+            <span>Announcement</span>
+          </div>
+          <div class="announcement-body">
+            <h2 class="announcement-title">{{ content.title || task.title }}</h2>
+            <p v-if="content.subtitle" class="announcement-subtitle">{{ content.subtitle }}</p>
+            <div class="announcement-content">
+              <Highlighted :text="content.body" :term="vocab" />
+            </div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'notice'"
+          class="daily-passage-card apple-notice-container"
+        >
+          <header class="notice-header">
+            <span class="notice-icon" aria-hidden="true"><i class="fas fa-inbox" /></span>
+            <h2 class="notice-title">{{ content.title || task.title }}</h2>
+          </header>
+          <div class="notice-body"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'advertisement'"
+          class="daily-passage-card apple-advertisement-container"
+        >
+          <header class="advertisement-header">
+            <h2 class="advertisement-title">{{ content.title || task.title }}</h2>
+          </header>
+          <div class="advertisement-content">
+            <Highlighted :text="content.body" :term="vocab" />
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'poster'"
+          class="daily-passage-card apple-poster-container"
+        >
+          <header class="poster-header">
+            <h2 class="poster-title">{{ content.title || task.title }}</h2>
+          </header>
+          <div class="poster-content"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'review'"
+          class="daily-passage-card apple-review-container"
+        >
+          <header class="review-header">
+            <span class="review-stars" aria-hidden="true">
+              <i v-for="n in 5" :key="n" class="fas fa-star" />
+            </span>
+            <h2 class="review-title">{{ content.title || task.title }}</h2>
+          </header>
+          <div class="review-content"><Highlighted :text="content.body" :term="vocab" /></div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'web-page' && content.url"
+          class="daily-passage-card apple-webpage-container"
+        >
+          <div class="webpage-toolbar" aria-hidden="true">
+            <span class="webpage-nav-btn"><i class="fas fa-arrow-left" /></span>
+            <span class="webpage-nav-btn"><i class="fas fa-rotate-right" /></span>
+            <span class="webpage-url">{{ content.url }}</span>
+            <span class="webpage-nav-icons">
+              <i class="fas fa-user-circle" /><i class="fas fa-ellipsis-h" />
+            </span>
+          </div>
+          <div class="webpage-body">
+            <h2 class="webpage-title">{{ content.title }}</h2>
+            <div class="webpage-content">
+              <Highlighted :text="content.body" :term="vocab" />
+            </div>
+          </div>
+        </article>
+
+        <article
+          v-else-if="task.type === 'web-page'"
+          class="daily-passage-card apple-pagecard-container"
+        >
+          <div class="pagecard-body">
+            <h2 class="pagecard-title">{{ content.title }}</h2>
+            <template v-for="(segment, index) in webPageSegments" :key="index">
+              <figure v-if="webChartUrl && index === chartInsertIndex" class="pagecard-chart">
+                <img :src="webChartUrl" alt="Chart" />
+              </figure>
+              <p v-if="segment.isLabel" class="pagecard-label">
+                <strong>{{ segment.label }}</strong
+                >{{ segment.text ? `: ${segment.text}` : '' }}
+              </p>
+              <p v-else class="pagecard-paragraph">
+                <Highlighted :text="segment.text" :term="vocab" />
+              </p>
+            </template>
+            <figure v-if="webChartUrl && chartInsertIndex < 0" class="pagecard-chart">
+              <img :src="webChartUrl" alt="Chart" />
+            </figure>
+          </div>
         </article>
 
         <article
@@ -133,6 +281,7 @@ const vocab = computed(() => {
           </header>
           <div class="instructions-content">
             <p v-for="(line, index) in labelLines" :key="index" class="instructions-line">
+              <span class="step-number" aria-hidden="true">{{ index + 1 }}</span>
               <Highlighted :text="line" :term="vocab" />
             </p>
           </div>
@@ -143,9 +292,12 @@ const vocab = computed(() => {
             <h2>{{ content.title || task.title }}</h2>
           </header>
           <div class="form-content">
-            <p v-for="(line, index) in labelLines" :key="index" class="form-line">
-              <Highlighted :text="line" :term="vocab" />
-            </p>
+            <div class="form-fields">
+              <p v-for="(line, index) in labelLines" :key="index" class="form-line">
+                <Highlighted :text="line" :term="vocab" />
+              </p>
+            </div>
+            <span class="form-submit" aria-hidden="true">Submit</span>
           </div>
         </article>
 

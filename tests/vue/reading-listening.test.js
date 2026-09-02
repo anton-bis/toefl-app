@@ -370,6 +370,41 @@ describe('objective answer review', () => {
     expect(wrapper.find('.fill-review-card').attributes('open')).toBeDefined();
   });
 
+  it('renders missing letters in the source passage as read-only slot blocks', () => {
+    const fillQuestions = [
+      { id: 'f1', number: 1, type: 'complete-words', answer: 'might', options: [] },
+      { id: 'f2', number: 2, type: 'complete-words', answer: 'that', options: [] }
+    ];
+    const wrapper = mount(ObjectiveResults, {
+      props: {
+        document,
+        section: 'reading',
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Module 1',
+            tasks: [
+              {
+                id: 'fill',
+                title: 'Complete the Words',
+                type: 'complete-words',
+                passage: 'We mi\\_\\_\\_ think th\\_\\_ is true.',
+                questionRange: [1, 2],
+                questions: fillQuestions
+              }
+            ]
+          }
+        ],
+        answers: { f1: 'might' }
+      }
+    });
+    const source = wrapper.find('.results-source-card__body .results-source-text');
+    expect(source.text()).not.toContain('\\');
+    expect(source.findAll('.fill-source-slot')).toHaveLength(5);
+    expect(source.text()).toContain('mi');
+    expect(source.text()).toContain('th');
+  });
+
   it('scopes the complete-words card id by module so Module 2 opens its own review', async () => {
     const fill = prefix => [
       { id: `${prefix}-f1`, number: 1, type: 'complete-words', answer: 'might', options: [] },
@@ -441,8 +476,8 @@ describe('ReadingPage', () => {
       tabindex: '0'
     });
     expect(wrapper.find('.question-instruction').text()).toBe('Read a notice');
-    expect(wrapper.find('.apple-noticeboard-container').text()).toContain('Campus News');
-    expect(wrapper.find('.apple-noticeboard-container').classes()).toContain('daily-passage-card');
+    expect(wrapper.find('.apple-notice-container').text()).toContain('Campus News');
+    expect(wrapper.find('.apple-notice-container').classes()).toContain('daily-passage-card');
     await wrapper.find('[data-option="A"]').trigger('click');
     expect(wrapper.emitted('answer')).toEqual([['q11', 'A']]);
   });
@@ -492,11 +527,12 @@ describe('ReadingPage', () => {
       }
     });
     expect(poster.find('.question-instruction').text()).toBe('Read a poster');
-    expect(poster.find('.apple-noticeboard-container').classes()).toContain('poster');
-    expect(poster.find('.apple-noticeboard-container h2').text()).toBe(
+    expect(poster.find('.apple-poster-container').classes()).toContain('daily-passage-card');
+    expect(poster.find('.apple-poster-container .poster-title').text()).toBe(
       'Join the Mechanicsburg Clean-Up Day!'
     );
-    expect(poster.find('.apple-noticeboard-container').text()).toContain(
+    expect(poster.find('.poster-header').exists()).toBe(true);
+    expect(poster.find('.apple-poster-container').text()).toContain(
       'Join the Mechanicsburg Clean-Up Day!'
     );
 
@@ -525,6 +561,7 @@ describe('ReadingPage', () => {
     expect(instructions.find('.apple-instructions-container').text()).toContain(
       'Step 1: Prepare boards.'
     );
+    expect(instructions.findAll('.step-number')).toHaveLength(2);
 
     const form = mount(ReadingPage, {
       props: {
@@ -545,6 +582,162 @@ describe('ReadingPage', () => {
     expect(form.find('.apple-form-container h2').text()).toBe('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('UNIVERSITY IT HELP DESK');
     expect(form.find('.apple-form-container').text()).toContain('STUDENT REQUEST FORM');
+    expect(form.find('.form-submit').text()).toBe('Submit');
+  });
+
+  it('renders an announcement as a banner-style card', () => {
+    const announcement = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'announcement',
+          title: 'Read an Announcement',
+          passage: 'Campus News\nClosed today for maintenance.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(announcement.find('.question-instruction').text()).toBe('Read an announcement');
+    expect(announcement.find('.apple-announcement-container .announcement-title').text()).toBe(
+      'Campus News'
+    );
+    expect(announcement.find('.announcement-bar i.fa-volume-up').exists()).toBe(true);
+    expect(announcement.find('.apple-announcement-container').text()).toContain('maintenance');
+  });
+
+  it('renders sign and review cards and a browser-styled web page card', () => {
+    const sign = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'sign',
+          title: 'Read a Sign',
+          passage: 'NO ENTRY\nBeyond this point access is restricted.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(sign.find('.question-instruction').text()).toBe('Read a sign');
+    expect(sign.find('.apple-sign-container .sign-title').text()).toBe('NO ENTRY');
+    expect(sign.find('.apple-sign-container').text()).toContain('restricted');
+    expect(sign.find('.sign-header i.fa-info-circle').exists()).toBe(true);
+
+    const review = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'review',
+          title: 'Read a Review',
+          passage: 'A superb stay\nThe hotel was wonderful.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(review.find('.question-instruction').text()).toBe('Read a review');
+    expect(review.find('.apple-review-container .review-title').text()).toBe('A superb stay');
+    expect(review.findAll('.review-stars i.fa-star')).toHaveLength(5);
+
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage:
+            'https://www.japanesep.jp\nYOUR GLOBAL CLASSROOM AWAITS!\nTake your education further.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.question-instruction').text()).toBe('Read a web page');
+    expect(webPage.find('.webpage-url').text()).toBe('https://www.japanesep.jp');
+    expect(webPage.find('.webpage-title').text()).toBe('YOUR GLOBAL CLASSROOM AWAITS!');
+    expect(webPage.find('.apple-webpage-container').text()).toContain(
+      'Take your education further.'
+    );
+  });
+
+  it('renders a URL-less web page as a content card with chart and bold labels', () => {
+    window.electronAPI = {
+      getContentAssetUrl: path => `toefl-content://content/${path}`
+    };
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage:
+            'How Well Did You Sleep?\nIn addition, here is a sample.\nAt night, your body calculates your sleep pattern.\nchart_image: sleep-chart.png\nLight Sleep: The muscles relax.\nDeep Sleep: The body recovers.\nAwake: It is normal.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.apple-webpage-container').exists()).toBe(false);
+    const card = webPage.find('.apple-pagecard-container');
+    expect(card.exists()).toBe(true);
+    expect(card.find('.pagecard-title').text()).toBe('How Well Did You Sleep?');
+    expect(card.text()).toContain('here is a sample.');
+    expect(card.text()).toContain('calculates your sleep pattern');
+    // Chart is placed before the first bold label paragraph.
+    const labels = card.findAll('.pagecard-label');
+    expect(labels).toHaveLength(3);
+    expect(labels[0].find('strong').text()).toBe('Light Sleep');
+    expect(labels[0].text()).toContain('The muscles relax.');
+    // The chart figure appears in the DOM before the first label.
+    const chart = card.find('.pagecard-chart img');
+    expect(chart.exists()).toBe(true);
+    expect(chart.attributes('src')).toContain('sleep-chart.png');
+    const chartIndex = card.element.children.length
+      ? [...card.element.querySelectorAll('.pagecard-body > *')].findIndex(
+          node => node.classList.contains('pagecard-chart')
+        )
+      : -1;
+    const labelIndex = [...card.element.querySelectorAll('.pagecard-body > *')].findIndex(node =>
+      node.classList.contains('pagecard-label')
+    );
+    expect(chartIndex).toBeGreaterThan(-1);
+    expect(chartIndex).toBeLessThan(labelIndex);
+  });
+
+  it('omits the chart region when a URL-less web page has no chart image', () => {
+    const webPage = mount(ReadingPage, {
+      props: {
+        document,
+        page: { id: 'q11' },
+        task: {
+          type: 'web-page',
+          title: 'Read a Web Page',
+          passage: 'A plain page\nJust some text.\nNote: nothing special.'
+        },
+        question,
+        answers: {},
+        checked: false,
+        volume: 0.8
+      }
+    });
+    expect(webPage.find('.pagecard-chart').exists()).toBe(false);
+    expect(webPage.find('.pagecard-label strong').text()).toBe('Note');
   });
 
   it('renders notice and announcement cards with the first content line as the title', () => {
@@ -564,9 +757,10 @@ describe('ReadingPage', () => {
       }
     });
     expect(notice.find('.question-instruction').text()).toBe('Read a notice');
-    expect(notice.find('.apple-noticeboard-container h2').text()).toBe(
+    expect(notice.find('.apple-notice-container .notice-title').text()).toBe(
       'Downtown School of Data Skills'
     );
+    expect(notice.find('.notice-icon i.fa-inbox').exists()).toBe(true);
 
     const announcement = mount(ReadingPage, {
       props: {
@@ -584,7 +778,9 @@ describe('ReadingPage', () => {
       }
     });
     expect(announcement.find('.question-instruction').text()).toBe('Read an announcement');
-    expect(announcement.find('.apple-noticeboard-container h2').text()).toBe('Campus News');
+    expect(announcement.find('.apple-announcement-container .announcement-title').text()).toBe(
+      'Campus News'
+    );
   });
 
   it('supports academic point-sentence and insertion-marker answers', async () => {
@@ -668,6 +864,32 @@ describe('ReadingPage', () => {
       }
     });
     expect(wrapper.find('mark').text()).toBe('quantum mechanics');
+  });
+
+  it('highlights a quoted phrase containing an apostrophe in full', async () => {
+    const passage = "Retailers adapt each season. What's in store next year remains uncertain.";
+    const wrapper = mount(AcademicPassage, {
+      props: {
+        document,
+        page: { id: 'q35' },
+        task: {
+          type: 'academic-passage',
+          title: 'Read an Academic Passage – Retail',
+          passage,
+          questions: [{ id: 'q35', prompt: 'The phrase "what\'s in store" is closest in meaning to' }]
+        },
+        question: {
+          id: 'q35',
+          prompt: 'The phrase "what\'s in store" is closest in meaning to',
+          options: [{ id: 'A', label: 'A', text: 'Option A' }]
+        },
+        answers: {},
+        locked: false
+      }
+    });
+    const mark = wrapper.find('mark');
+    expect(mark.exists()).toBe(true);
+    expect(mark.text()).toBe("What's in store");
   });
 
   it('highlights a quoted phrase inside a daily-life reading passage', async () => {

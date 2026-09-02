@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { isAnswered, isCorrectAnswer } from '../shared/model.js';
+import { fillTokens } from '../sections/reading/helpers.js';
 import ChoiceList from '../shared/ChoiceList.vue';
 import AudioSegment from '../sections/listening/AudioSegment.vue';
 
@@ -39,6 +40,10 @@ function moduleQuestions(examModule) {
   return (examModule.tasks || []).flatMap(task =>
     (task.questions || []).map(question => ({ question, task, moduleId: examModule.id }))
   );
+}
+
+function passageTokens(task) {
+  return fillTokens(task.passage || '', task.questions || []);
 }
 
 function questionState(question) {
@@ -107,7 +112,21 @@ function revealCard(question, task, moduleId) {
               :volume="volume"
               :play-once="false"
             />
-            <p v-if="section === 'reading'" class="results-source-text">{{ task.passage }}</p>
+            <p v-if="section === 'reading' && task.type === 'complete-words'" class="results-source-text">
+              <template v-for="(token, index) in passageTokens(task)" :key="index">
+                <span v-if="token.type === 'text'">{{ token.text }}</span>
+                <span v-else-if="token.question" class="fill-source-blank">
+                  <span class="fill-source-prefix">{{ token.prefix }}</span
+                  ><span
+                    v-for="(_, slot) in token.length"
+                    :key="slot"
+                    class="fill-source-slot"
+                    aria-hidden="true"
+                  />
+                </span>
+              </template>
+            </p>
+            <p v-else-if="section === 'reading'" class="results-source-text">{{ task.passage }}</p>
             <p v-else-if="task.transcript" class="results-source-text">{{ task.transcript }}</p>
             <p v-else class="results-empty-copy">No transcript available.</p>
           </div>

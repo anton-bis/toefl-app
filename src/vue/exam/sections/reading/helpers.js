@@ -13,6 +13,9 @@ export function instructionFor(type) {
     poster: 'Read a poster',
     instructions: 'Read some instructions',
     form: 'Read a form',
+    sign: 'Read a sign',
+    'web-page': 'Read a web page',
+    review: 'Read a review',
     'academic-passage': 'Read an academic passage'
   }[type];
   if (label) return label;
@@ -44,6 +47,32 @@ export function parseDailyPassage(passage, type) {
         .slice(Math.max(0, greetingIndex), signoffIndex < 0 ? content.length : signoffIndex)
         .join('\n\n'),
       signature: signoffIndex < 0 ? '' : content.slice(signoffIndex).join('\n')
+    };
+  }
+
+  if (type === 'web-page') {
+    // Optional chart image referenced with `chart_image: <file>`; when present the
+    // content-card renderer shows the chart, otherwise that region is omitted.
+    const chartIndex = content.findIndex(line => /^chart_image:\s*(.+)$/i.test(line));
+    const chartImage =
+      chartIndex >= 0 ? content[chartIndex].match(/^chart_image:\s*(.+)$/i)[1].trim() : '';
+    const filtered = chartIndex >= 0 ? content.filter((_, index) => index !== chartIndex) : content;
+    // First line is the page URL for a real browser page; otherwise it is the
+    // bold page title of a content card (e.g. a chart-style page).
+    if (/^https?:\/\//i.test(filtered[0] || '')) {
+      return {
+        ...meta,
+        url: filtered[0],
+        title: filtered[1] || '',
+        body: filtered.slice(2).join('\n\n'),
+        chartImage
+      };
+    }
+    return {
+      ...meta,
+      title: filtered[0] || '',
+      body: filtered.slice(1).join('\n\n'),
+      chartImage
     };
   }
 
