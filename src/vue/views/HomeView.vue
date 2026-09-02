@@ -60,6 +60,50 @@ function displayId(tpoId) {
     ? `${match[2]}-${match[3]}${match[4] ? ` (${match[4]})` : ''}`
     : `TPO ${tpoId}`;
 }
+
+const PAGE_SIZE = 10;
+const practicePage = ref(1);
+const officialPage = ref(1);
+const practicePageCount = computed(() =>
+  Math.max(1, Math.ceil(practiceTests.value.length / PAGE_SIZE))
+);
+const officialPageCount = computed(() =>
+  Math.max(1, Math.ceil(officialTests.value.length / PAGE_SIZE))
+);
+const pagedPractice = computed(() =>
+  practiceTests.value.slice((practicePage.value - 1) * PAGE_SIZE, practicePage.value * PAGE_SIZE)
+);
+const pagedOfficial = computed(() =>
+  officialTests.value.slice((officialPage.value - 1) * PAGE_SIZE, officialPage.value * PAGE_SIZE)
+);
+function scrollListTop() {
+  nextTick(() => {
+    const scroller = document.querySelector('.home-page .main-content');
+    if (scroller) scroller.scrollTop = 0;
+  });
+}
+function setPracticePage(page) {
+  practicePage.value = Math.min(Math.max(1, page), practicePageCount.value);
+  scrollListTop();
+}
+function setOfficialPage(page) {
+  officialPage.value = Math.min(Math.max(1, page), officialPageCount.value);
+  scrollListTop();
+}
+function clampPage(pageRef, count) {
+  if (pageRef.value > count.value) {
+    pageRef.value = count.value;
+  }
+}
+watch(
+  () => practiceTests.value.length,
+  () => clampPage(practicePage, practicePageCount)
+);
+watch(
+  () => officialTests.value.length,
+  () => clampPage(officialPage, officialPageCount)
+);
+
 const practiceState = computed(() => {
   const completed = pendingExam.value?.status === 'completed';
   if (completed) {
@@ -270,7 +314,7 @@ function hasReport(test) {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="test in practiceTests" :key="test.tpoId">
+                <tr v-for="test in pagedPractice" :key="test.tpoId">
                   <td class="id-cell">
                     <span class="tpo-id">{{ displayId(test.tpoId) }}</span>
                   </td>
@@ -301,6 +345,27 @@ function hasReport(test) {
               </tbody>
             </table>
           </div>
+          <div v-if="practiceTests.length" class="pagination-bar">
+            <button
+              type="button"
+              class="pagination-btn"
+              :disabled="practicePage <= 1"
+              @click="setPracticePage(practicePage - 1)"
+            >
+              上一页
+            </button>
+            <span class="pagination-info"
+              >第 {{ practicePage }} / {{ practicePageCount }} 页 · 共 {{ practiceTests.length }} 套</span
+            >
+            <button
+              type="button"
+              class="pagination-btn"
+              :disabled="practicePage >= practicePageCount"
+              @click="setPracticePage(practicePage + 1)"
+            >
+              下一页
+            </button>
+          </div>
           <div v-else class="empty-panel">
             <div class="empty-icon"><i class="fas fa-inbox" /></div>
             <h3>More official practice is coming soon</h3>
@@ -326,7 +391,7 @@ function hasReport(test) {
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="test in officialTests" :key="test.tpoId">
+                <tr v-for="test in pagedOfficial" :key="test.tpoId">
                   <td class="id-cell">
                     <span class="tpo-id">{{ displayId(test.tpoId) }}</span>
                   </td>
@@ -361,6 +426,28 @@ function hasReport(test) {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div v-if="officialTests.length" class="pagination-bar">
+            <button
+              type="button"
+              class="pagination-btn"
+              :disabled="officialPage <= 1"
+              @click="setOfficialPage(officialPage - 1)"
+            >
+              上一页
+            </button>
+            <span class="pagination-info"
+              >第 {{ officialPage }} / {{ officialPageCount }} 页 · 共 {{ officialTests.length }}
+              套</span
+            >
+            <button
+              type="button"
+              class="pagination-btn"
+              :disabled="officialPage >= officialPageCount"
+              @click="setOfficialPage(officialPage + 1)"
+            >
+              下一页
+            </button>
           </div>
           <div v-else class="empty-panel">
             <div class="empty-icon"><i class="fas fa-inbox" /></div>
