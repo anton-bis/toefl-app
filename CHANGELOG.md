@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.8] - 2026-09-02
+
+### Added
+
+- Practice Tests and Official Tests lists on the home page are now paginated at 10 tests per
+  page, each with its own independent "previous / next" controls and a page summary
+  (e.g. "Page 1 / 2 · 11 tests total"). Boundary buttons disable on the first and last page.
+
 ## [1.7.7] - 2026-09-02
 
 ### Changed
