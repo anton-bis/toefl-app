@@ -43,6 +43,18 @@ function pack(id, files) {
   return { id, files: [...new Set(files)].sort() };
 }
 
+/**
+ * Content pack ids become archive filenames and GitHub release asset names.
+ * GitHub normalizes spaces and parentheses in asset names (e.g. " (2)" -> ".2."),
+ * so ids must stay within [a-z0-9-] or the manifest URL will not match the asset.
+ */
+function sanitizePackId(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export function discoverContentPacks(rootDir, questionManifest) {
   const packs = [pack('catalog', [CONTENT_MANIFEST_PATH])];
   const tpoFiles = new Map();
@@ -57,7 +69,7 @@ export function discoverContentPacks(rootDir, questionManifest) {
   }
 
   for (const [tpoId, files] of [...tpoFiles].sort(([a], [b]) => a.localeCompare(b))) {
-    packs.push(pack(`tpo-${tpoId}`, files));
+    packs.push(pack(sanitizePackId(`tpo-${tpoId}`), files));
   }
 
   const vocabularyFiles = listFiles(path.join(rootDir, 'assets/questions/vocabulary'), rootDir)
