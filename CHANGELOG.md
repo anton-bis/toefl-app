@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.7.6] - 2026-09-02
+
+### Added
+
+- Read in Daily Life containers (sign, notice, advertisement, poster) now use distinct,
+  colour-coordinated headers (dark green, teal-blue, warm orange, sky blue) coordinated with
+  the app's teal/white palette.
+- Incorrect answer grid cells in results pages now carry a subtle hatched texture in addition
+  to their red colour, so colour-blind users can tell wrong answers apart from correct/grey ones.
+- Complete the Words source passages in the results review now render each missing letter as an
+  equal-width slot block (one block per missing letter) instead of raw `\_` escape sequences.
+
+### Fixed
+
+- The vocabulary phrase in both daily-life and academic passages (e.g. "what's in store") is now
+  highlighted in full; the extraction regex no longer treats the apostrophe inside a quoted
+  phrase as the closing quote, which previously truncated the term to "what".
+- URL-less web pages now receive the exam document so their optional chart image renders inside
+  the content card.
+- Content tests count complete-word tasks against the release content base.
+
 ## [1.7.5] - 2026-08-29
 
 ### Added
