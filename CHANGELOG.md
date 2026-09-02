@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.7] - 2026-09-02
+
+### Changed
+
+- Official real-exam IDs on the home table (e.g. "TPO 01-27") no longer show the "TPO" prefix;
+  they now display just the date id such as "01-27" or "01-27 (2)". Practice test ids keep the
+  "TPO" prefix. The resume dialog title follows the same rule.
+
 ## [1.7.6] - 2026-09-02
 
 ### Added
