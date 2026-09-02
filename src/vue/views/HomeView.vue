@@ -51,7 +51,7 @@ const officialTests = computed(() => tests.value.filter(test => isDateId(test.tp
 function displayId(tpoId) {
   const match = String(tpoId || '').match(DATE_ID_PARTS);
   return match
-    ? `TPO ${match[2]}-${match[3]}${match[4] ? ` (${match[4]})` : ''}`
+    ? `${match[2]}-${match[3]}${match[4] ? ` (${match[4]})` : ''}`
     : `TPO ${tpoId}`;
 }
 const practiceState = computed(() => {
@@ -496,7 +496,7 @@ function hasReport(test) {
         class="practice-box"
         role="dialog"
         aria-modal="true"
-        :aria-label="`TPO ${pendingExam.tpoId} · ${sectionLabel(pendingExam.section)}`"
+        :aria-label="`${displayId(pendingExam.tpoId)} · ${sectionLabel(pendingExam.section)}`"
       >
         <button
           class="modal-close practice-close"
@@ -508,7 +508,7 @@ function hasReport(test) {
         </button>
         <template v-if="!restartConfirm">
           <h2>
-            TPO {{ pendingExam.tpoId }} ·
+            {{ displayId(pendingExam.tpoId) }} ·
             {{ sectionLabel(pendingExam.section) }}
           </h2>
           <p class="practice-sub">

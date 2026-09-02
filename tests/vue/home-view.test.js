@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import { createMemoryHistory, createRouter } from 'vue-router';
 import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
+import { homeState } from '../../src/vue/platform/homeState.js';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
 import { examStorageKey, useExamStore } from '../../src/vue/stores/exam.js';
 import { installMemoryStorage, storeJson } from './helpers/storage.js';
@@ -111,3 +112,60 @@ describe('HomeView practice actions', () => {
     expect(router.currentRoute.value.path).toBe('/exam/09/reading/start');
   });
 });
+
+describe('HomeView official test id display', () => {
+  beforeEach(() => {
+    installMemoryStorage();
+    homeState.panel = 'real';
+  });
+
+  async function mountOfficial() {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const catalog = useCatalogStore(pinia);
+    catalog.tests = [
+      { tpoId: '09', description: 'Practice', sections: {} },
+      {
+        tpoId: '2026-02-01',
+        description: 'Official Feb',
+        sections: { reading: { documentPath: 'r.md' } }
+      },
+      {
+        tpoId: '2026-02-01 (2)',
+        description: 'Official Feb second',
+        sections: { reading: { documentPath: 'r2.md' } }
+      }
+    ];
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', component: HomeView },
+        { path: '/exam/:tpoId/:section/:pageId', component: { template: '<div>Exam</div>' } }
+      ]
+    });
+    await router.push('/');
+    await router.isReady();
+    const wrapper = mount(HomeView, { global: { plugins: [pinia, router] } });
+    return wrapper;
+  }
+
+  it('shows official date ids without the TPO prefix', async () => {
+    const wrapper = await mountOfficial();
+    const ids = wrapper.findAll('tbody .tpo-id').map(node => node.text());
+    expect(ids).toContain('02-01');
+    expect(ids).toContain('02-01 (2)');
+    wrapper.findAll('tbody .tpo-id').forEach(node => {
+      expect(node.text()).not.toMatch(/^TPO/);
+    });
+    wrapper.unmount();
+  });
+
+  it('keeps the TPO prefix on practice test ids', async () => {
+    homeState.panel = 'mock';
+    const wrapper = await mountOfficial();
+    const practiceId = wrapper.find('.id-cell .tpo-id');
+    expect(practiceId.text()).toBe('TPO 09');
+    wrapper.unmount();
+  });
+});
+
