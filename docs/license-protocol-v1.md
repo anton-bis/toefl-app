@@ -258,7 +258,7 @@ toefl-web 服务端已实现接口并逐条回传确认，全部与本文契约�
 - [x] 换机「先解绑、再同指纹重激活」不撞唯一索引：已由 Web 端按 (license_id, fingerprint) 匹配验证。
 - [x] refresh 不旋转 token；服务端不限最小续期间隔（客户端每 7 天调一次），另有 30 次/时/设备限频护栏。
 - [x] Web 端错误语义：`404 LICENSE:INVALID` / `409 LICENSE:DEVICE_LIMIT` / `401 LICENSE:DEVICE_INVALID`，信封 `{ error:{ code, message, requestId } }` 一致。
-- [ ] 断网 30 天端到端：Web 端将提供可配置宽限期环境变量（`LICENSE_DEVICE_GRACE_DAYS`，默认 30）用于联调快速验证；或测试改 DB `expires_at`。尚未实现，暂不改契约。
+- [x] 断网 30 天端到端：Web 端已支持可配置宽限期环境变量 `LICENSE_DEVICE_GRACE_DAYS`（默认 30，支持小数，如 0.01 ≈ 14 分钟），临时调小即可快速验证「软过期 → 同指纹重新 activate 恢复」，验证后改回 30；测试已覆盖。客户端无需改动（服务端 commit 4342fb0）。
 - [ ] 拿到 2 张真实序列号后执行完整链路：Web 兑换 → Electron 激活 → 绑 2 台 → 换机解绑 → 断网语义。真实码示例（Web 已提供）：`V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`（`TEST-0000-0000-0001` 无校验位，真实服务端 404）。
 
 ---

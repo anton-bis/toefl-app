@@ -31,7 +31,7 @@
 - **重要状态**：**Web 端备案已通过**，Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。重心正转回 Web 联动。
 - **未完成事项 / 待办**：
   - [ ] 上线时切 Electron：`license-config.js` 的 `DEFAULT_API_BASE_URL` → 生产；`promoConfig.js` 的 `PROMO_JUMP_ENABLED` → true
-  - [ ] 拿到真实序列号后做端到端联调（Web 兑换→Electron 激活→≤2 台→换机解绑→断网 30 天语义）；Web 已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [ ] 拿到真实序列号后做端到端联调（Web 兑换→Electron 激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小快速验证）；Web 已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）；生产 API 基址待 Web 部署后回填
 
 ---
@@ -158,7 +158,7 @@
 - **C-3（生产基址）**：开发 `http://localhost:3001` 一致；生产域名/路径**待 Web 部署后回填** → Electron 的 `DEFAULT_API_BASE_URL` 届时切生产。
 - **序列号**：Web 脚本 `gen:licenses` 批发生成，DB 只存 sha256+tail，明文一次性输出；「支付成功自动发码」**未上线**（排下一轮），当前买 Web 权益不自动发 Electron 码。已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`（`TEST-0000-...` 无校验位会 404）。
 - **范围确认**：本次仅激活互通，AI 批改/报告云存不在范围 ✅（与 Electron 现状一致：Electron 纯本地刷题 + 本地 SQLite，`electron/services/ai.js` 只是未被产品引用的 AI 地基脚手架）。
-- **断网 30 天**：Web 将加可配置宽限期环境变量 `LICENSE_DEVICE_GRACE_DAYS`（默认 30）用于联调快速验证，暂不改契约。
+- **断网 30 天**：Web 已实现可配置宽限期环境变量 `LICENSE_DEVICE_GRACE_DAYS`（默认 30，支持小数如 0.01≈14 分钟，服务端 commit 4342fb0），客户端无需改动即可联调快速验证软过期+恢复。
 
 **本日文档动作**：更新 `docs/license-protocol-v1.md`（§2.1 幂等语义统一、§7.5 联调状态、§8 待办与备案状态）+ 本文 DEV-LOG 快照与本节。
 
