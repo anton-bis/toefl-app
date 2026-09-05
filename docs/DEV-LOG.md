@@ -33,8 +33,8 @@
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
   - [x] **v1.8.0 已发布**（develop commit `069198d`，tag v1.8.0）：CI 三平台 success + OSS 镜像跑通（OSS feed = 1.8.0，3 稳定副本刷新）
-  - [ ] **跟进：oss-mirror `release: published` 自动触发未生效**（v1.8.0 由 Release CI 的 `gh release create` 创建，未触发独立 oss-mirror workflow；本次为手动 workflow_dispatch）。后续把 oss-mirror 挂进 release.yml 末尾 job（publish 后）或改用 `workflow_run`，确保每版自动镜像
-  - [ ] 用**生产库**真实序列号端到端自测（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [x] **跟进已解决：oss-mirror `release: published` 自动触发失效** → 根因 = GitHub 限制：workflow 用 GITHUB_TOKEN 创建的 release **不级联**触发其它 workflow 的 `release: published`。修复 = 方案 A：把镜像步骤**并入 release.yml 的 publish job**（Create GitHub Release 之后，`if: startsWith(github.ref,'refs/tags/')` 仅正式 tag），同一 run 内 ossutil 上传 OSS + 重写清单 + 产 3 稳定副本。oss-mirror.yml **保留**作手动重跑工具。三支（develop/release/master）已同步（develop `0a48a5e`、release `2b9d60c`、master `752f5f4`）
+  - [ ] 用**生产库**真实序列号端到端自测（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`。注：Electron 端已成功激活过一次（用户 2026-09-05 反馈）
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
 ---
@@ -201,6 +201,24 @@
 - 待办：commit develop → tag v1.8.0 → push（CI 三平台 + oss-mirror 自动镜像）→ 生产序列号端到端 → 回传 ossutil ls 清单 + 稳定副本 + feed URL。
 
 **自测清单（license 端到端）**：生产库序列号激活（≤2 台）→ 同指纹幂等 → 换机先解绑再激活 → 断网 30 天语义（服务端 `LICENSE_DEVICE_GRACE_DAYS` 调小快速验证）。
+
+### 3.6 2026-09-05 — 修复 oss-mirror 自动触发（方案 A：并入 release.yml）
+
+**现象**：v1.8.0 发布后 oss-mirror 未自动触发（`release: published` 没等来）。
+
+**根因（GitHub 机制）**：release 由 Release workflow 用 **GITHUB_TOKEN**（`gh release create`）创建 → GitHub **不级联**触发其它 workflow 的 `release: published` 事件（防循环）。故任何"监听 release 事件"的独立 workflow 都等不到。
+
+**修复（方案 A）**：镜像逻辑**并入 release.yml 的 publish job**——在 `Create GitHub Release` 步骤后加 `Mirror release to Aliyun OSS` 步骤：
+- `if: startsWith(github.ref, 'refs/tags/')`：仅正式 tag 镜像，develop 的 `-dev.N` 预发布跳过
+- 复用 publish job 已下载的 `release-files/`（不必重新 `gh release download`）
+- 步骤内容：装 ossutil（官方 install.sh）→ `ossutil config` → `node scripts/rewrite-update-metadata.js` 改写 latest.yml/latest-mac.yml 为 OSS URL → `ossutil cp -r` 上传 `releases/latest/`（--acl public-read）→ 产 Bucket 根 3 稳定副本
+- 顺序关键：镜像在 Create GitHub Release **之后**（先上传 GitHub 用原始清单，再改写本地副本传 OSS，避免污染 GitHub release 清单）
+
+**oss-mirror.yml 去留**：**保留**，仅作手动重跑工具（workflow_dispatch 传 tag 补镜像历史/失败版本）；日常自动镜像由 release.yml 承担。文档注释已注明"仅手动"。
+
+**同步**：release.yml 改动三支 develop/release/master（develop `0a48a5e`、release/v1.7.5 `2b9d60c`、master `752f5f4`），均 push。
+
+**验证方式**：下次正式 release（如 v1.9.x 或补发）走 release.yml 时，若 publish job 的 Mirror 步骤 success 即证明自动镜像生效。
 
 ---
 
