@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.1] - 2026-09-05
+
+### Changed
+
+- Desktop update feed now points at the Aliyun OSS mirror for all installers; releases are
+  mirrored to OSS automatically by the release pipeline. This version validates the
+  mainland auto-update loop (electron-updater pulls from the OSS `releases/latest/` feed).
+
 ## [1.8.0] - 2026-09-05
 
 ### Added
