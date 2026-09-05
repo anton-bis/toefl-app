@@ -28,11 +28,12 @@
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，latest.yml 走 v6 代理，用户可自动更新）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端备案已通过**，Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。重心正转回 Web 联动。
+- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。桌面更新源正迁阿里云 OSS。重心在 Web 联动落地。
 - **未完成事项 / 待办**：
-  - [ ] 上线时切 Electron：`license-config.js` 的 `DEFAULT_API_BASE_URL` → 生产；`promoConfig.js` 的 `PROMO_JUMP_ENABLED` → true
-  - [ ] 拿到真实序列号后做端到端联调（Web 兑换→Electron 激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小快速验证）；Web 已提供真实码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
-  - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）；生产 API 基址待 Web 部署后回填
+  - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
+  - [ ] OSS 更新源迁移：workflow `oss-mirror.yml` + 脚本 `rewrite-update-metadata.js` 已建（占位）；待 OSS RAM AccessKey 进 secrets + 首次镜像跑通后，随下一版把 `build.publish.url` 切到 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`
+  - [ ] 拿到**生产库**真实序列号（dev 那 2 张仅本地有效）后做端到端联调（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
 ---
 
@@ -163,6 +164,27 @@
 **本日文档动作**：更新 `docs/license-protocol-v1.md`（§2.1 幂等语义统一、§7.5 联调状态、§8 待办与备案状态）+ 本文 DEV-LOG 快照与本节。
 
 **下一步（等 Web 生产部署 + 真实联调）**：切 `DEFAULT_API_BASE_URL` 到生产、`PROMO_JUMP_ENABLED`→true → 用真实码做完整链路端到端。开发联调可用本地 mock（见 `question-submission-workflow.md` §2.2）。
+
+### 3.4 2026-09（续）— Web 上线确认 + license 切生产 + OSS 更新源迁移基建
+
+**背景**：Web 端正式上线（`https://www.justtofu.com`，规范值带 www 已验证；裸域 301 待 DNS 后可选）。Web 回传三点定稿：license API/横幅域名规范值 = `https://www.justtofu.com`；OSS 稳定副本放 Bucket 根 3 个对象；electron-updater feed base 定稿 OSS。
+
+**本会话改动（均已执行）**：
+1. **license 切生产（仅 develop，release 无 license 文件）**：
+   - `electron/services/license-config.js`：`DEFAULT_API_BASE_URL` `localhost:3001` → `https://www.justtofu.com`（开发仍可 `TOEFL_API_BASE_URL` 覆盖）
+   - `src/vue/platform/promoConfig.js`：`PROMO_JUMP_ENABLED` `false` → `true`（横幅可跳转；`WEB_BASE_URL` 本已是规范值）
+   - 测试更新：`tests/vue/license.test.js`「横幅非跳转」用例改为断言跳转到 `https://www.justtofu.com`
+2. **OSS 更新源迁移基建（双线）**：
+   - `scripts/rewrite-update-metadata.js`：把 latest*.yml 的 `url/path` 改写为 OSS 绝对 URL（base 默认 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`，可用 `OSS_UPDATE_BASE_URL` 覆盖）；已验证对「v6 代理绝对 URL」与「相对文件名」两种形态都正确
+   - `.github/workflows/oss-mirror.yml`：`release: published` + `workflow_dispatch`（带 releaseTag 输入）→ 下载 assets → 改写清单 → ossutil 上传 `releases/latest/` → Bucket 根产出 3 个稳定副本（`justtofu-setup-win-x64-latest.exe` / `justtofu-mac-arm64-latest.dmg` / `justtofu-mac-x64-latest.dmg`）
+3. **契约/DEV-LOG**：`docs/license-protocol-v1.md` §8 更新（域名已切、Web 双端码通用/¥30 捆绑/OSS 下载卡等）；本文快照 + 本节。
+
+**OSS workflow 使用前置（未完成，等 Web）**：
+- OSS RAM AccessKey（仅写）进 repo secrets：`OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`
+- 把 `oss-mirror.yml` 里 `OSSUTIL_URL` 占位换成官方 ossutil 最新 URL
+- 首次跑通后：回传 OSS 文件清单 + feed URL + EXE/DMG 对象 URL（Web 下载页对齐）；再把 `package.json > build.publish.url` 切到 OSS（随下一版发布生效）
+
+**Web 端其它能力确认（记录）**：三端点语义一致；`LICENSE_DEVICE_GRACE_DAYS` 可调（commit 4342fb0）；序列号 Web/桌面双端通用；购买 Web 权益自动发桌面码（¥30 捆绑，退款连带作废）；Web 权益页含「下载桌面版」卡（指向 OSS 稳定 latest 直链）。macOS 仍为**未签名/未公证**包（本轮不做签名，OSS 镜像与 manual DMG 下载照常）。
 
 ---
 

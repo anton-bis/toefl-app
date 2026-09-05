@@ -255,13 +255,14 @@ describe('HomeView content unlock', () => {
     expect(router.currentRoute.value.path).toBe('/exam/2026-02-01/reading/start');
   });
 
-  it('keeps the promo banner non-jumpable until the web domain goes live', async () => {
+  it('makes the promo banner jump to the live web domain', async () => {
     const { wrapper, license } = await mountHome();
     license.applyState({ status: 'none' });
     await flushPromises();
     const link = wrapper.find('a.referral-banner__inner');
-    expect(link.attributes('href')).toBeUndefined();
-    expect(link.attributes('aria-disabled')).toBe('true');
-    expect(wrapper.find('.referral-banner__cta--disabled').exists()).toBe(true);
+    expect(link.attributes('href')).toBe('https://www.justtofu.com');
+    expect(link.attributes('target')).toBe('_blank');
+    expect(link.attributes('aria-disabled')).toBe('false');
+    expect(wrapper.find('.referral-banner__cta--disabled').exists()).toBe(false);
   });
 });

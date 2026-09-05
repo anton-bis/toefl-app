@@ -5,11 +5,11 @@ import path from 'node:path';
  * License API base URL resolution (license-protocol-v1).
  *
  * Priority: TOEFL_API_BASE_URL env var > userData/web-config.json > DEFAULT_API_BASE_URL.
- * The dev default points at a local license server; the production value is
- * replaced before release (see README.md).
+ * DEFAULT_API_BASE_URL is the production license API (Web server). A local/dev
+ * server can still be selected via TOEFL_API_BASE_URL or web-config.json.
  */
 
-export const DEFAULT_API_BASE_URL = 'http://localhost:3001';
+export const DEFAULT_API_BASE_URL = 'https://www.justtofu.com';
 
 export function normalizeApiBaseUrl(value) {
   const trimmed = String(value || '').trim().replace(/\/+$/, '');

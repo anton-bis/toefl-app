@@ -1,0 +1,100 @@
+name: Mirror desktop updates to Aliyun OSS
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: 'Release tag to mirror (e.g. v1.7.8)'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oss-mirror-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  OSS_ENDPOINT: oss-cn-hangzhou.aliyuncs.com
+  OSS_BUCKET: justtofu-downloads
+  # electron-updater feed base on OSS (latest.yml / latest-mac.yml live here).
+  OSS_UPDATE_BASE_URL: https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+
+      # NOTE: AccessKey secrets are placeholders until the RAM account is ready.
+      # Before first run, complete these two steps:
+      #   1) Add OSS_ACCESS_KEY_ID / OSS_ACCESS_KEY_SECRET to repo secrets.
+      #   2) Replace OSSUTIL_URL below with the current official ossutil binary
+      #      (https://help.aliyun.com/zh/oss/developer-reference/install-ossutil);
+      #      then the job is ready to run on demand.
+      - name: Install ossutil
+        env:
+          OSSUTIL_URL: https://gosspublic.alicdn.com/ossutil/REPLACE_WITH_OFFICIAL_LATEST_URL
+        run: |
+          curl -fL -o /tmp/ossutil.zip "$OSSUTIL_URL"
+          mkdir -p /opt/ossutil && unzip -o /tmp/ossutil.zip -d /opt/ossutil
+          echo "/opt/ossutil" >> "$GITHUB_PATH"
+          ossutil --version
+
+      - name: Configure ossutil (repo secrets)
+        run: |
+          ossutil config -e "$OSS_ENDPOINT" -i "${{ secrets.OSS_ACCESS_KEY_ID }}" \
+            -k "${{ secrets.OSS_ACCESS_KEY_SECRET }}"
+
+      - name: Download release assets
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.event.inputs.releaseTag }}
+        run: |
+          mkdir -p release-files
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir release-files \
+            --pattern 'TOEFL-iBT-Practice-*' \
+            --pattern 'latest.yml' \
+            --pattern 'latest-mac.yml' \
+            --clobber
+          ls -1 release-files
+
+      - name: Rewrite update metadata to OSS URLs
+        run: |
+          for f in release-files/latest.yml release-files/latest-mac.yml; do
+            if [ -f "$f" ]; then
+              node scripts/rewrite-update-metadata.js "$f"
+            fi
+          done
+
+      - name: Upload feed + installers (releases/latest)
+        run: |
+          ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update
+          ossutil ls "oss://$OSS_BUCKET/releases/latest/"
+
+      - name: Publish stable latest copies at bucket root (Web download page)
+        run: |
+          version="$(sed -n 's/^version: //p' release-files/latest.yml | tr -d "'\"")"
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-windows-x64-setup.exe" \
+            "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-arm64.dmg" \
+            "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-x64.dmg" \
+            "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f
+
+      - name: Print feed / download URLs
+        run: |
+          echo "Windows feed : $OSS_UPDATE_BASE_URL/latest.yml"
+          echo "macOS feed   : $OSS_UPDATE_BASE_URL/latest-mac.yml"
+          echo "Web EXE      : https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-setup-win-x64-latest.exe"
+          echo "Web DMG arm64: https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-mac-arm64-latest.dmg"
+          echo "Web DMG x64  : https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-mac-x64-latest.dmg"
