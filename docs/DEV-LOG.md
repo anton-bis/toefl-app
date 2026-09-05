@@ -26,9 +26,9 @@
 - **当前 checkout 分支**：`release/v1.7.5`（= 可发布线，无 license；package.json version = **1.7.8**）
 - **develop（完整线，含 license/branding）**：HEAD `62d501d`，package.json version 仍为 **1.7.1**（一直未 bump，属正常）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content`、master 均已 push（HEAD==远端）
-- **最新正式版**：**v1.8.0**（2026-09-05，从 develop 首发，三平台已发布；feed 切 OSS：`https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`，OSS 镜像已跑通）
+- **最新正式版**：**v1.8.1**（2026-09-05，从 develop 发布，三平台 + OSS 自动镜像均成功；OSS feed = 1.8.1）。**B4「国内自动更新闭环」验证通过**：release.yml 的 Mirror 步骤自动把 release 镜像到 OSS（无需手动 workflow_dispatch）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已正式发布**（v1.8.0，含序列号激活 + OSS 更新源）。重心在 Web 联动落地与端到端验证。
+- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已正式发布**（v1.8.0+，含序列号激活 + OSS 更新源）。重心在 Web 联动落地与端到端验证。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -218,7 +218,25 @@
 
 **同步**：release.yml 改动三支 develop/release/master（develop `0a48a5e`、release/v1.7.5 `2b9d60c`、master `752f5f4`），均 push。
 
-**验证方式**：下次正式 release（如 v1.9.x 或补发）走 release.yml 时，若 publish job 的 Mirror 步骤 success 即证明自动镜像生效。
+**验证方式**：下次正式 release（如 v1.9.x 或补发）走 release.yml 时，若 publish job 的 Mirror 步骤 success 即证明自动镜像生效。→ **已用 v1.8.1 验证通过（见 §3.7）**。
+
+### 3.7 2026-09-05 — B4「国内自动更新闭环」验证通过（v1.8.1）
+
+**动作**：bump develop → 1.8.1（commit `26f85df`）+ CHANGELOG [1.8.1]（无功能改动，纯验证发布）→ tag v1.8.1 + push。
+
+**结果（全部通过）**：
+- v1.8.1 Release CI（run 33974073613）**success**：verify + package-windows/linux/macos + publish 全绿
+- **publish job 内的 `Mirror release to Aliyun OSS` 步骤自动执行成功**（不再需要手动 workflow_dispatch）→ 证明方案 A 修复生效
+- OSS feed 更新到 **1.8.1**：`releases/latest/latest.yml` version=1.8.1、url 指向 OSS 1.8.1 安装包
+- OSS `releases/latest/` 12 个对象全部匿名可读（200）：latest.yml / latest-mac.yml / latest-linux.yml + Windows exe+blockmap + macOS arm64+x64 的 dmg/zip/blockmap + Linux AppImage
+- Bucket 根 3 稳定副本覆盖为 1.8.1（`justtofu-setup-win-x64-latest.exe` / `justtofu-mac-arm64-latest.dmg` / `justtofu-mac-x64-latest.dmg`，均 200）
+
+**待办**：
+- [ ] 在国内网络（无 VPN）桌面端实测「设置 → 检查更新 → 从 OSS 拉到 1.8.1 并下载/安装」（electron-updater 走 OSS feed）
+- [ ] 生产序列号完整端到端：激活已通 + 解绑重激活已通（用户已测）；待断网 30 天语义（GRACE_DAYS 调小，需 Web 配合）
+- [ ] 回传 Web：OSS 清单（见上）+ 检查更新结果
+
+**说明**：有效期显示"到下月今天"= 滚动 30 天离线宽限（每次 refresh 续 now+30d），非永久；联网使用自动续期，断网超 30 天才锁（契约 §4）。
 
 ---
 
