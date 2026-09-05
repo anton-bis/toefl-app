@@ -25,6 +25,13 @@ env:
 jobs:
   mirror:
     runs-on: ubuntu-latest
+    env:
+      # ossutil 2.0 reads credentials from these environment variables
+      # (keeps secrets out of command lines / logs).
+      OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+      OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+      OSS_ENDPOINT: oss-cn-hangzhou.aliyuncs.com
+      OSS_REGION: cn-hangzhou
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -34,25 +41,15 @@ jobs:
         with:
           node-version-file: package.json
 
-      # NOTE: AccessKey secrets are placeholders until the RAM account is ready.
-      # Before first run, complete these two steps:
-      #   1) Add OSS_ACCESS_KEY_ID / OSS_ACCESS_KEY_SECRET to repo secrets.
-      #   2) Replace OSSUTIL_URL below with the current official ossutil binary
-      #      (https://help.aliyun.com/zh/oss/developer-reference/install-ossutil);
-      #      then the job is ready to run on demand.
+      # Before running, the repository must define these secrets:
+      #   OSS_ACCESS_KEY_ID / OSS_ACCESS_KEY_SECRET (RAM key scoped to the
+      #   justtofu-downloads bucket). Configure them under repo Settings > Secrets.
       - name: Install ossutil
-        env:
-          OSSUTIL_URL: https://gosspublic.alicdn.com/ossutil/REPLACE_WITH_OFFICIAL_LATEST_URL
         run: |
-          curl -fL -o /tmp/ossutil.zip "$OSSUTIL_URL"
-          mkdir -p /opt/ossutil && unzip -o /tmp/ossutil.zip -d /opt/ossutil
-          echo "/opt/ossutil" >> "$GITHUB_PATH"
+          curl -fL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/ossutil-install.sh
+          sudo bash /tmp/ossutil-install.sh
+          echo "/usr/local/bin" >> "$GITHUB_PATH"
           ossutil --version
-
-      - name: Configure ossutil (repo secrets)
-        run: |
-          ossutil config -e "$OSS_ENDPOINT" -i "${{ secrets.OSS_ACCESS_KEY_ID }}" \
-            -k "${{ secrets.OSS_ACCESS_KEY_SECRET }}"
 
       - name: Download release assets
         env:
