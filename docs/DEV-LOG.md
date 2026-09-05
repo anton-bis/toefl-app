@@ -31,7 +31,7 @@
 - **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。桌面更新源正迁阿里云 OSS。重心在 Web 联动落地。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
-  - [ ] OSS 更新源迁移：workflow `oss-mirror.yml` + 脚本 `rewrite-update-metadata.js` 已建（占位）；待 OSS RAM AccessKey 进 secrets + 首次镜像跑通后，随下一版把 `build.publish.url` 切到 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`
+  - [ ] OSS 更新源迁移：workflow `oss-mirror.yml` + 脚本 `rewrite-update-metadata.js` 已建；AccessKey 已入 secrets，首次镜像（v1.7.8 → OSS）**已跑通**（releases/latest/ 11 文件 + Bucket 根 3 稳定副本全部上传成功）。**阻塞项：bucket `justtofu-downloads` 未设公共读 → 匿名访问 AccessDenied**，需 OSS 侧开公共读后即可对外；随后随下一版把 `build.publish.url` 切到 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`（注意 oss-mirror.yml 的 URL 打印有双斜杠显示瑕疵，实际清单内 URL 正确）
   - [ ] 拿到**生产库**真实序列号（dev 那 2 张仅本地有效）后做端到端联调（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
