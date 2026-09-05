@@ -51,6 +51,10 @@ jobs:
           echo "/usr/local/bin" >> "$GITHUB_PATH"
           ossutil --version
 
+      - name: Configure ossutil credentials
+        run: |
+          ossutil config -e "$OSS_ENDPOINT" -i "$OSS_ACCESS_KEY_ID" -k "$OSS_ACCESS_KEY_SECRET"
+
       - name: Download release assets
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name || github.event.inputs.releaseTag }}
