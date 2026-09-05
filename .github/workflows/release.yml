@@ -263,3 +263,29 @@ jobs:
             --title "$release_title" \
             "${release_notes[@]}" \
             "${release_flags[@]}"
+
+      # Mirror the just-published release to Aliyun OSS for mainland users.
+      # Runs only for formal tags (skips develop dev prereleases). A GitHub
+      # release created by GITHUB_TOKEN does NOT fire other workflows'
+      # `release: published` events, so this step lives here instead of a
+      # separate oss-mirror.yml (which is kept only as a manual re-run tool).
+      - name: Mirror release to Aliyun OSS
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          OSS_ENDPOINT: oss-cn-hangzhou.aliyuncs.com
+          OSS_BUCKET: justtofu-downloads
+          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+        run: |
+          curl -fL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/ossutil-install.sh
+          sudo bash /tmp/ossutil-install.sh
+          ossutil config -e "$OSS_ENDPOINT" -i "$OSS_ACCESS_KEY_ID" -k "$OSS_ACCESS_KEY_SECRET"
+          node scripts/rewrite-update-metadata.js release-files/latest.yml release-files/latest-mac.yml
+          ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update --acl public-read
+          version="$(sed -n 's/^version: //p' release-files/latest.yml | tr -d "'\"")"
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-windows-x64-setup.exe" \
+            "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f --acl public-read
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-arm64.dmg" \
+            "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f --acl public-read
+          ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-x64.dmg" \
+            "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f --acl public-read
