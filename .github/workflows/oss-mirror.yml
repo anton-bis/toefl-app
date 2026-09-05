@@ -94,8 +94,9 @@ jobs:
 
       - name: Print feed / download URLs
         run: |
-          echo "Windows feed : $OSS_UPDATE_BASE_URL/latest.yml"
-          echo "macOS feed   : $OSS_UPDATE_BASE_URL/latest-mac.yml"
+          base="${OSS_UPDATE_BASE_URL%/}"
+          echo "Windows feed : $base/latest.yml"
+          echo "macOS feed   : $base/latest-mac.yml"
           echo "Web EXE      : https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-setup-win-x64-latest.exe"
           echo "Web DMG arm64: https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-mac-arm64-latest.dmg"
           echo "Web DMG x64  : https://$OSS_BUCKET.$OSS_ENDPOINT/justtofu-mac-x64-latest.dmg"
