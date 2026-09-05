@@ -25,15 +25,16 @@
 
 - **当前 checkout 分支**：`release/v1.7.5`（= 可发布线，无 license；package.json version = **1.7.8**）
 - **develop（完整线，含 license/branding）**：HEAD `62d501d`，package.json version 仍为 **1.7.1**（一直未 bump，属正常）
-- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，feed 走 v6 代理）；**v1.8.0 准备中**（2026-09-05，从 develop 首发，含 license 激活 + OSS 更新源）
+- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content`、master 均已 push（HEAD==远端）
+- **最新正式版**：**v1.8.0**（2026-09-05，从 develop 首发，三平台已发布；feed 切 OSS：`https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`，OSS 镜像已跑通）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐并进入正式发布**（v1.8.0 从 develop 首发）。桌面更新源已切阿里云 OSS。重心在 Web 联动落地。
+- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已正式发布**（v1.8.0，含序列号激活 + OSS 更新源）。重心在 Web 联动落地与端到端验证。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
-  - [x] OSS 更新源：bucket `justtofu-downloads` 已开公共读（2026-09-05 Web 侧确认）→ **匿名可读验证 200**，阻塞解除；oss-mirror.yml 上传命令已加 `--acl public-read`
-  - [ ] **v1.8.0（从 develop）**：`build.publish.url` 已切 OSS feed；待 commit + tag v1.8.0 + push → CI 三平台 + oss-mirror 自动镜像；随后用生产序列号端到端自测
-  - [ ] 拿到**生产库**真实序列号（dev 那 2 张仅本地有效）后做端到端联调（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
+  - [x] **v1.8.0 已发布**（develop commit `069198d`，tag v1.8.0）：CI 三平台 success + OSS 镜像跑通（OSS feed = 1.8.0，3 稳定副本刷新）
+  - [ ] **跟进：oss-mirror `release: published` 自动触发未生效**（v1.8.0 由 Release CI 的 `gh release create` 创建，未触发独立 oss-mirror workflow；本次为手动 workflow_dispatch）。后续把 oss-mirror 挂进 release.yml 末尾 job（publish 后）或改用 `workflow_run`，确保每版自动镜像
+  - [ ] 用**生产库**真实序列号端到端自测（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
 ---
