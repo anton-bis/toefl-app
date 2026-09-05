@@ -79,18 +79,18 @@ jobs:
 
       - name: Upload feed + installers (releases/latest)
         run: |
-          ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update
+          ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update --acl public-read
           ossutil ls "oss://$OSS_BUCKET/releases/latest/"
 
       - name: Publish stable latest copies at bucket root (Web download page)
         run: |
           version="$(sed -n 's/^version: //p' release-files/latest.yml | tr -d "'\"")"
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-windows-x64-setup.exe" \
-            "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f
+            "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-arm64.dmg" \
-            "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f
+            "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-x64.dmg" \
-            "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f
+            "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f --acl public-read
 
       - name: Print feed / download URLs
         run: |

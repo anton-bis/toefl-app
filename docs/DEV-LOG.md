@@ -21,17 +21,18 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-02）
+## 1. 最新状态速览（最后更新：2026-09-05）
 
 - **当前 checkout 分支**：`release/v1.7.5`（= 可发布线，无 license；package.json version = **1.7.8**）
 - **develop（完整线，含 license/branding）**：HEAD `62d501d`，package.json version 仍为 **1.7.1**（一直未 bump，属正常）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，latest.yml 走 v6 代理，用户可自动更新）
+- **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，feed 走 v6 代理）；**v1.8.0 准备中**（2026-09-05，从 develop 首发，含 license 激活 + OSS 更新源）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。桌面更新源正迁阿里云 OSS。重心在 Web 联动落地。
+- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐并进入正式发布**（v1.8.0 从 develop 首发）。桌面更新源已切阿里云 OSS。重心在 Web 联动落地。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
-  - [ ] OSS 更新源迁移：workflow `oss-mirror.yml` + 脚本 `rewrite-update-metadata.js` 已建；AccessKey 已入 secrets，首次镜像（v1.7.8 → OSS）**已跑通**（releases/latest/ 11 文件 + Bucket 根 3 稳定副本全部上传成功）。**阻塞项：bucket `justtofu-downloads` 未设公共读 → 匿名访问 AccessDenied**，需 OSS 侧开公共读后即可对外；随后随下一版把 `build.publish.url` 切到 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`（注意 oss-mirror.yml 的 URL 打印有双斜杠显示瑕疵，实际清单内 URL 正确）
+  - [x] OSS 更新源：bucket `justtofu-downloads` 已开公共读（2026-09-05 Web 侧确认）→ **匿名可读验证 200**，阻塞解除；oss-mirror.yml 上传命令已加 `--acl public-read`
+  - [ ] **v1.8.0（从 develop）**：`build.publish.url` 已切 OSS feed；待 commit + tag v1.8.0 + push → CI 三平台 + oss-mirror 自动镜像；随后用生产序列号端到端自测
   - [ ] 拿到**生产库**真实序列号（dev 那 2 张仅本地有效）后做端到端联调（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
@@ -179,12 +180,26 @@
    - `.github/workflows/oss-mirror.yml`：`release: published` + `workflow_dispatch`（带 releaseTag 输入）→ 下载 assets → 改写清单 → ossutil 上传 `releases/latest/` → Bucket 根产出 3 个稳定副本（`justtofu-setup-win-x64-latest.exe` / `justtofu-mac-arm64-latest.dmg` / `justtofu-mac-x64-latest.dmg`）
 3. **契约/DEV-LOG**：`docs/license-protocol-v1.md` §8 更新（域名已切、Web 双端码通用/¥30 捆绑/OSS 下载卡等）；本文快照 + 本节。
 
-**OSS workflow 使用前置（未完成，等 Web）**：
-- OSS RAM AccessKey（仅写）进 repo secrets：`OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`
-- 把 `oss-mirror.yml` 里 `OSSUTIL_URL` 占位换成官方 ossutil 最新 URL
-- 首次跑通后：回传 OSS 文件清单 + feed URL + EXE/DMG 对象 URL（Web 下载页对齐）；再把 `package.json > build.publish.url` 切到 OSS（随下一版发布生效）
+**OSS workflow 进展（后续更新见 §3.5）**：AccessKey 已入 repo secrets；ossutil 改用官方 install.sh（v1.7.19）；首次镜像 v1.7.8 → OSS 已跑通。
 
 **Web 端其它能力确认（记录）**：三端点语义一致；`LICENSE_DEVICE_GRACE_DAYS` 可调（commit 4342fb0）；序列号 Web/桌面双端通用；购买 Web 权益自动发桌面码（¥30 捆绑，退款连带作废）；Web 权益页含「下载桌面版」卡（指向 OSS 稳定 latest 直链）。macOS 仍为**未签名/未公证**包（本轮不做签名，OSS 镜像与 manual DMG 下载照常）。
+
+### 3.5 2026-09-05 — OSS 镜像首次跑通 + bucket 公共读 + v1.8.0 首发准备
+
+**OSS 镜像首次跑通（v1.7.8 → OSS，成功）**：
+- repo secrets 已设 `OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`（RAM 仅写）。
+- oss-mirror.yml 修复：ossutil 官方 install.sh（装 v1.7.19，非交互需 `ossutil config -e/-i/-k`）、print URL 去双斜杠。
+- 上传结果：`releases/latest/` 11 文件（Win exe+blockmap+latest.yml、macOS dmg/zip/blockmap×x64/arm64+latest-mac.yml、Linux AppImage）+ Bucket 根 3 稳定副本（`justtofu-setup-win-x64-latest.exe`/`justtofu-mac-arm64-latest.dmg`/`justtofu-mac-x64-latest.dmg`）全部 Succeed。
+- **注意**：workflow_dispatch 需 workflow 在默认分支 master 上 → oss-mirror.yml + rewrite 脚本也放到了 master（develop/release/master 三支同步）。
+
+**bucket 公共读（关键时序教训）**：首次验证匿名访问 403（当时用户尚未开 ACL）；用户随后在 Web 侧开启**桶级公共读 + 关闭阻止公共访问**，重验全部 **200**。→ **切源前务必重验，勿信"已开"的历史结论**。
+
+**v1.8.0 首发（本次推进）**：
+- 决策：v1.8.0 从 **develop** 打 tag（license 完整线首次正式发布）；`build.publish.url` 切 OSS feed 也改 develop（release 老版本 v1.7.x feed 仍走 gh-proxy，旧用户升 1.8.0 后 app-update.yml 才指向 OSS）。
+- 已改（develop）：oss-mirror.yml 上传加 `--acl public-read`（防桶配置回退）；package.json `build.publish.url` → `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`；version → 1.8.0；CHANGELOG 加 [1.8.0]。
+- 待办：commit develop → tag v1.8.0 → push（CI 三平台 + oss-mirror 自动镜像）→ 生产序列号端到端 → 回传 ossutil ls 清单 + 稳定副本 + feed URL。
+
+**自测清单（license 端到端）**：生产库序列号激活（≤2 台）→ 同指纹幂等 → 换机先解绑再激活 → 断网 30 天语义（服务端 `LICENSE_DEVICE_GRACE_DAYS` 调小快速验证）。
 
 ---
 

@@ -192,7 +192,7 @@ test('Electron packaging excludes independently published runtime content', () =
   assert.deepEqual(packageMetadata.build.asarUnpack, ['**/*.node']);
   assert.deepEqual(packageMetadata.build.publish, {
     provider: 'generic',
-    url: 'https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/latest/download',
+    url: 'https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/',
     channel: 'latest'
   });
 });

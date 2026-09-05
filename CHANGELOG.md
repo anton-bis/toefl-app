@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.8.0] - 2026-09-05
+
+### Added
+
+- Serial number activation (License Protocol v1) now ships in this release: official real exams
+  unlock with a code purchased on the Web platform (justtofu.com). Practice tests and skills stay
+  free. Activation supports up to two devices, periodic refresh, unbind, and a 30-day offline grace.
+- Desktop update feed (electron-updater) now points at the Aliyun OSS mirror
+  (`releases/latest/`), giving mainland users direct downloads without a GitHub proxy. GitHub
+  releases remain the single publish source; a mirror workflow syncs every release to OSS and
+  publishes stable `*-latest.exe` / `*-latest.dmg` download links.
+- Home page banner now links to the live Web platform (www.justtofu.com).
+
+### Fixed
+
+- Content pack ids are sanitized to `[a-z0-9-]` so GitHub uploads of same-day second-session
+  question banks (e.g. `2026-02-08 (2)`) keep manifest URLs valid.
+
 ## [1.7.1] - 2026-08-22
 
 ### Highlights
