@@ -265,9 +265,11 @@ toefl-web 服务端已实现接口并逐条回传确认，全部与本文契约�
 
 ## 8. 待办 / 依赖
 
-- [ ] **Web 端正式域名：`https://www.justtofu.com`**（备案已通过，2026-09-02 确认；正式地址待 Web 部署后回填）。上线时替换：
-  - `electron/services/license-config.js` 的 `DEFAULT_API_BASE_URL`（license API）；
-  - `src/vue/platform/promoConfig.js` 的 `WEB_BASE_URL`，并把 `PROMO_JUMP_ENABLED` 改为 `true`（首页「前往网页版」横幅才可点击跳转）。
+- [x] **Web 端正式域名：`https://www.justtofu.com`**（已上线，2026-09 确认规范值；裸域 justtofu.com 待 DNS 后可选 301）。已切换：
+  - `electron/services/license-config.js` 的 `DEFAULT_API_BASE_URL` → `https://www.justtofu.com`（不带 /v1，客户端自拼；开发可用 `TOEFL_API_BASE_URL` 覆盖）。
+  - `src/vue/platform/promoConfig.js`：`WEB_BASE_URL` = `https://www.justtofu.com`、`PROMO_JUMP_ENABLED` = `true`（首页「前往网页版」横幅可点击跳转）。
 - [x] 服务端软过期语义：已确认（同指纹重新 activate 幂等返回原 deviceId，不误触 `DEVICE_LIMIT`；token 以响应为准覆盖）。
 - [x] 联调基址语义：已确认（`TOEFL_API_BASE_URL` 为 API 根、不含 `/v1`，客户端自拼）。
-- [ ] 序列号签发/交付：Web 端脚本 `gen:licenses` 批发生成 → 卖家人工发码；DB 只存 `sha256(code)+code_tail`，明文一次性输出。「支付成功自动发码」排入 Web 下一轮，暂未上线。
+- [x] 序列号签发/交付：Web 端脚本 `gen:licenses` 批发生成 → 卖家人工发码；DB 只存 `sha256(code)+code_tail`，明文一次性输出。「支付成功自动发码」排入 Web 下一轮，暂未上线。
+- [x] Web 能力补充（2026-09 上线确认）：序列号 Web/桌面**双端通用**；购买 Web 权益自动发桌面码（¥30 捆绑），退款连带作废；Web 权益页含「下载桌面版」卡（Win EXE / macOS DMG，指向阿里云 OSS 稳定 latest 直链）。
+- [ ] 桌面更新源迁阿里云 OSS：feed 目标 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`；镜像 workflow（`oss-mirror.yml`）+ 清单改写脚本（`scripts/rewrite-update-metadata.js`）已建；待 OSS RAM AccessKey 进 secrets + 首次镜像跑通后，随下一版把 `build.publish.url` 切到 OSS。
