@@ -1,0 +1,60 @@
+name: Mirror content packs to Aliyun OSS
+
+on:
+  workflow_dispatch:
+    inputs:
+      contentRepository:
+        description: 'Repository to read the content manifest from (owner/name)'
+        required: false
+        default: anton-bis/toefl-app
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-oss-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    env:
+      # ossutil reads credentials configured below or from these variables.
+      OSS_ENDPOINT: oss-cn-hangzhou.aliyuncs.com
+      TOEFL_CONTENT_REPOSITORY: ${{ github.event.inputs.contentRepository || 'anton-bis/toefl-app' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+
+      - name: Install ossutil
+        run: |
+          curl -fL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/ossutil-install.sh
+          sudo bash /tmp/ossutil-install.sh
+          ossutil --version
+
+      - name: Configure ossutil credentials
+        env:
+          OSS_ACCESS_KEY_ID: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          OSS_ACCESS_KEY_SECRET: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+        run: |
+          ossutil config -e "$OSS_ENDPOINT" -i "$OSS_ACCESS_KEY_ID" -k "$OSS_ACCESS_KEY_SECRET"
+
+      - name: Set git identity for the content-branch push
+        run: |
+          git config user.name "toefl-content-bot"
+          git config user.email "anton-bis@users.noreply.github.com"
+
+      - name: Mirror packs without an ossUrl to OSS
+        run: node scripts/content-oss-mirror.js
+
+      - name: Print mirrored URLs
+        env:
+          OSS_BUCKET: justtofu-downloads
+        run: |
+          echo "OSS pointer: https://$OSS_BUCKET.$OSS_ENDPOINT/releases/content/manifest.json"
+          echo "Re-run this workflow any time after npm run content:publish to mirror new packs."
