@@ -17,7 +17,10 @@ import {
 import {
   assertPublishedContentManifest,
   contentDownloadUrl,
+  contentManifestSources,
   contentManifestUrl,
+  contentOssManifestUrl,
+  contentOssPackUrl,
   validateContentUrl
 } from '../../electron/services/content-config.js';
 import {
@@ -158,6 +161,70 @@ test('GitHub-hosted content downloads use the configured HTTPS proxy', () => {
     ]
   });
   assert.equal(manifest.packs[0].url, proxied);
+});
+
+test('OSS content URLs pass through while arbitrary hosts stay rejected', () => {
+  const ossPack = contentOssPackUrl('abcdef012345', 'catalog-deadbeefcafe.zip');
+  assert.equal(contentDownloadUrl(ossPack), ossPack);
+  assert.equal(validateContentUrl(ossPack).toString(), ossPack);
+  assert.equal(
+    contentDownloadUrl('https://mirror.oss-cn-hangzhou.aliyuncs.com/releases/content/x.zip'),
+    'https://mirror.oss-cn-hangzhou.aliyuncs.com/releases/content/x.zip'
+  );
+  assert.throws(
+    () => contentDownloadUrl('https://evil.example.com/payload.zip'),
+    /Untrusted download host: evil\.example\.com/
+  );
+  assert.throws(
+    () => validateContentUrl('http://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/x.zip'),
+    /must use HTTPS/
+  );
+  assert.throws(
+    () => contentDownloadUrl('https://user:pass@justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/x'),
+    /must use HTTPS/
+  );
+});
+
+test('manifest sources prefer the OSS pointer and fall back to the content branch', () => {
+  assert.deepEqual(contentManifestSources(), [
+    contentOssManifestUrl(),
+    contentManifestUrl('anton-bis/toefl-app', 'content')
+  ]);
+  process.env.TOEFL_CONTENT_MANIFEST_URL = 'https://example.com/manifest.json';
+  try {
+    assert.deepEqual(contentManifestSources(), ['https://example.com/manifest.json']);
+  } finally {
+    delete process.env.TOEFL_CONTENT_MANIFEST_URL;
+  }
+});
+
+test('adding ossUrl does not change the manifest id and old manifests keep working', () => {
+  const base = {
+    schemaVersion: CONTENT_SCHEMA_VERSION,
+    manifestId: 'b75bd08014e4b982252327a2e57abb2de9f07cf27e841236737440fa549fee36',
+    publishedAt: '2026-07-26T00:00:00.000Z',
+    minAppVersion: '1.5.0'
+  };
+  const direct = 'https://github.com/example/content/releases/download/v1/catalog.zip';
+  const pack = {
+    id: 'catalog',
+    contentHash: 'a'.repeat(64),
+    archiveHash: 'b'.repeat(64),
+    size: 10,
+    url: direct
+  };
+  const ossUrl = contentOssPackUrl('b75bd08014e4', 'catalog-aaaaaaaaaaaa.zip');
+
+  const withoutOss = assertPublishedContentManifest({ ...base, packs: [{ ...pack }] });
+  const withOss = assertPublishedContentManifest({
+    ...base,
+    packs: [{ ...pack, ossUrl }]
+  });
+  assert.equal(withoutOss.manifestId, base.manifestId);
+  assert.equal(withOss.manifestId, base.manifestId);
+  assert.equal(withOss.packs[0].ossUrl, ossUrl);
+  assert.equal(withOss.packs[0].url, `${GITHUB_PROXY_PREFIX}${direct}`);
+  assert.equal(withoutOss.packs[0].ossUrl, undefined);
 });
 
 test('content candidates prefer active packs before development resources', () => {

@@ -101,20 +101,36 @@ mirror/acceleration layer.
 
 ### Publishing
 
-`npm run content:publish` keeps uploading every pack to the GitHub `content-<hash>` pre-release and
-pushing the manifest to the `content` branch (unchanged). It additionally mirrors the release to:
+`npm run content:publish` keeps uploading changed packs to the GitHub `content-<hash>` pre-release and
+pushing the manifest to the `content` branch (unchanged). It additionally mirrors content to OSS:
 
 ```
-oss://justtofu-downloads/releases/content/<manifest-id-short-hash>/
+oss://justtofu-downloads/releases/content/<manifest-id-short-hash>/   (changed archives + manifest.json)
+oss://justtofu-downloads/releases/content/manifest.json               (latest pointer, overwritten)
 ```
 
-- Directory layout: one directory per publish (`<manifestId>` first 12 chars), **never
-  overwritten**. Content is hash-addressed: a client manifest may reference any historical hash
-  (rollback / multi-version coexistence), so unlike the app's `releases/latest/` overwrite pattern,
-  content directories must persist.
-- Files mirrored: every pack archive (`.zip`) + `manifest.json`, uploaded with `--acl public-read`.
-- OSS mirror failure does not block the GitHub publish (content remains reachable via GitHub);
-  the mirror step is idempotent and can be re-run.
+- Stable pointer: a client must fetch the manifest before it can know any content hash, so every
+  publish also overwrites the single object `releases/content/manifest.json` with the current
+  manifest. It is the **only** object that is ever overwritten.
+- Hash-addressed directories stay immutable: one directory per publish that added archives
+  (`<manifestId>` first 12 chars), **never overwritten**. Content is hash-addressed: a client
+  manifest may reference any historical hash (rollback / multi-version coexistence), so unlike the
+  app's `releases/latest/` overwrite pattern, content directories must persist.
+- Granularity: a publish mirrors only the archives it actually changes (the same set uploaded to the
+  GitHub release). Unchanged packs **reuse their existing `ossUrl`** from the previous manifest,
+  exactly like `pack.url` reuse on GitHub. On the first OSS-enabled publish, or to heal a failed
+  mirror, packs without an `ossUrl` are downloaded from GitHub, verified by size + SHA-256, uploaded,
+  and the `content` branch manifest is re-pushed with the same `manifestId` now carrying `ossUrl`.
+- Files mirrored per directory: the `.zip` archives + `manifest.json`, all uploaded with
+  `--acl public-read`. The mirror step is idempotent and can be re-run.
+- Credentials: publishing talks to GitHub (existing `gh` auth) and to OSS through `ossutil`, using
+  the same environment contract as the app-update mirror (`OSS_ENDPOINT` / `OSS_BUCKET` /
+  `OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`, or a pre-configured ossutil profile). The object
+  storage endpoint host must be the production bucket hostname so that generated `ossUrl` values
+  match the objects that were uploaded.
+- OSS mirror failure never blocks the GitHub publish (content remains reachable via GitHub); any
+  archives whose upload failed are simply left without an `ossUrl` in that manifest. Rerunning
+  `npm run content:publish` heals the mirror as described above.
 
 ### Manifest shape
 
@@ -122,8 +138,10 @@ oss://justtofu-downloads/releases/content/<manifest-id-short-hash>/
 - Every pack gains an explicit `ossUrl` field:
   `ossUrl = <CONTENT_OSS_BASE>/<manifest-id-short-hash>/<fileName>`
   where `CONTENT_OSS_BASE = https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/`
-  and `fileName` matches the archive name produced by `writePackArchive`
-  (`sanitizePackId(id)-<contentHash first 12>.zip`).
+  (the desktop client reads it from `TOEFL_CONTENT_OSS_BASE`; trailing slash optional) and `fileName`
+  matches the archive name produced by `writePackArchive`
+  (`sanitizePackId(id)-<contentHash first 12>.zip`). An unchanged pack reuses the `ossUrl` from the
+  manifest that last changed it, so its hash-addressed directory always contains the referenced file.
 - `manifestId` is unchanged: `canonicalContentPacks` hashes only `[id, contentHash]`, so adding
   `ossUrl` does not alter the manifest id or break installed-content validation.
 - Old clients ignore the extra `ossUrl` field and keep using `pack.url` (GitHub proxy): behaviour
@@ -131,19 +149,25 @@ oss://justtofu-downloads/releases/content/<manifest-id-short-hash>/
 
 ### Client resolution order
 
-- Manifest: try the OSS copy first, fall back to the GitHub `content` branch URL on timeout /
-  non-200 / network error.
-- Pack archive: try `pack.ossUrl` first, fall back to `pack.url`.
-- Trusted download hosts are a hard-coded allow-list: GitHub hosts plus
-  `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com`. Arbitrary URLs remain rejected.
+- Manifest: try the OSS pointer copy first, fall back to the GitHub `content` branch URL. Any source
+  failure (timeout / network error / non-200 / truncated or invalid content) is retried up to twice
+  before moving to the next source, because transient OSS failures often succeed on a retry.
+- Pack archive: try `pack.ossUrl` first, fall back to `pack.url`; same retry-then-fallback policy.
+- Trusted download hosts are a hard-coded allow-list: GitHub hosts plus the Aliyun OSS family
+  (`*.aliyuncs.com`, which includes `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com` and any OSS
+  302 redirect target). Arbitrary URLs remain rejected. Pack bytes are always SHA-256-verified after
+  download, so the widened host set does not weaken content integrity.
 
 ### Scope notes
 
 - The desktop app update feed is OSS-only (no GitHub fallback): `electron-updater` uses a single
   generic feed URL. macOS manual DMG downloads (`electron/services/manual-mac-update.js`) move to
-  OSS-first with a GitHub fallback.
+  OSS-first with a GitHub fallback, reading the DMG from the OSS update base
+  (`OSS_UPDATE_BASE_URL`, default the production `releases/latest/` base).
 - Version plan: client OSS-fallback logic ships with `v1.9.0`; content OSS mirroring can ship
-  earlier because `ossUrl` is additive.
+  earlier because `ossUrl` is additive. The OSS pointer and a manifest with `ossUrl` must be
+  published before the first `v1.9.0` client rolls out (otherwise the OSS-first fetch 404s and
+  falls back to GitHub, which is graceful but slower).
 
 ## One-time 1.5 migration order
 

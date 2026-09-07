@@ -35,11 +35,17 @@ import {
   canonicalQuestionEntries,
   CONTENT_SCHEMA_VERSION
 } from '../../electron/services/runtime-content.js';
+import { contentOssBase, contentOssManifestUrl } from '../../electron/services/content-config.js';
+import { GITHUB_PROXY_PREFIX } from '../../electron/services/github-download.js';
 import { createPackManifest, sha256 } from '../../src/content/packs.js';
 import { writePackArchive } from '../../scripts/content-packages.js';
 
 function queueResponse(data, statusCode = 200) {
   electron.plans.push({ data: Buffer.from(data), statusCode });
+}
+
+function queueNetworkError() {
+  electron.plans.push({ networkError: true });
 }
 
 function installNetworkMock() {
@@ -49,6 +55,12 @@ function installNetworkMock() {
     request.end = () => {
       const plan = electron.plans.shift();
       if (!plan) throw new Error('Unexpected content request.');
+      if (plan.networkError) {
+        const error = new Error('Content request network error');
+        error.code = 'ENOTFOUND';
+        queueMicrotask(() => request.emit('error', error));
+        return;
+      }
       const response = Readable.from([plan.data]);
       response.statusCode = plan.statusCode;
       response.headers = {};
@@ -137,6 +149,19 @@ async function queueRelease(release) {
   for (const pack of release.packs) queueResponse(await fs.readFile(pack.outputPath));
 }
 
+function withOssUrls(release) {
+  const manifestShort = release.manifest.manifestId.slice(0, 12);
+  const packs = release.manifest.packs.map(pack => ({
+    ...pack,
+    ossUrl: `${contentOssBase()}${manifestShort}/${decodeURIComponent(pack.url.split('/').pop())}`
+  }));
+  return { ...release, manifest: { ...release.manifest, packs } };
+}
+
+function requestUrls() {
+  return electron.request.mock.calls.map(([options]) => options.url);
+}
+
 beforeEach(async () => {
   electron.userData = await fs.mkdtemp(path.join(os.tmpdir(), 'toefl-content-updater-'));
   electron.plans.length = 0;
@@ -159,9 +184,11 @@ describe('content-addressed runtime updates', () => {
     await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
     const current = await readInstalledManifest(path.join(electron.userData, 'tpo-content'));
     expect(current.manifestId).toBe(release.manifest.manifestId);
-    expect(electron.request).toHaveBeenCalledTimes(3);
-    for (const [options] of electron.request.mock.calls) {
-      expect(options.url).toMatch(/^https:\/\/v6\.gh-proxy\.org\/https:\/\//);
+    const urls = requestUrls();
+    expect(urls).toHaveLength(3);
+    expect(urls[0].startsWith(contentOssManifestUrl())).toBe(true);
+    for (const url of urls.slice(1)) {
+      expect(url.startsWith(GITHUB_PROXY_PREFIX)).toBe(true);
     }
   });
 
@@ -217,7 +244,7 @@ describe('content-addressed runtime updates', () => {
     const first = await createRelease(electron.userData, 'stable');
     await queueRelease(first);
     await initializeContent();
-    queueResponse('not json');
+    for (let index = 0; index < 4; index += 1) queueResponse('not json');
 
     await expect(synchronizeContent()).resolves.toMatchObject({
       status: 'ready',
@@ -275,7 +302,8 @@ describe('content-addressed runtime updates', () => {
 
   it('rejects a manifest whose content identity was tampered with', async () => {
     const release = await createRelease(electron.userData, 'tampered');
-    queueResponse(JSON.stringify({ ...release.manifest, manifestId: '0'.repeat(64) }));
+    const tampered = JSON.stringify({ ...release.manifest, manifestId: '0'.repeat(64) });
+    for (let index = 0; index < 4; index += 1) queueResponse(tampered);
 
     await expect(initializeContent()).resolves.toMatchObject({
       status: 'error',
@@ -298,5 +326,69 @@ describe('content-addressed runtime updates', () => {
       error: expect.stringContaining('integrity check')
     });
     expect(await readInstalledManifest(path.join(electron.userData, 'tpo-content'))).toBeNull();
+  });
+});
+
+describe('OSS-first content delivery', () => {
+  it('downloads the manifest and packs from OSS when ossUrl is present', async () => {
+    const release = withOssUrls(await createRelease(electron.userData, 'oss-first'));
+    queueResponse(JSON.stringify(release.manifest));
+    for (const pack of release.packs) queueResponse(await fs.readFile(pack.outputPath));
+
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    const urls = requestUrls();
+    expect(urls).toHaveLength(1 + release.packs.length);
+    for (const url of urls) expect(url.startsWith(contentOssBase())).toBe(true);
+  });
+
+  it('falls back to the GitHub manifest when the OSS pointer is unavailable', async () => {
+    const release = withOssUrls(await createRelease(electron.userData, 'oss-manifest-404'));
+    queueResponse('missing', 404);
+    queueResponse('missing', 404);
+    queueResponse(JSON.stringify(release.manifest));
+    for (const pack of release.packs) queueResponse(await fs.readFile(pack.outputPath));
+
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    const urls = requestUrls();
+    expect(urls).toHaveLength(1 + 2 + release.packs.length);
+    expect(urls[0].startsWith(contentOssBase())).toBe(true);
+    expect(urls[1].startsWith(contentOssBase())).toBe(true);
+    expect(urls[2].startsWith(GITHUB_PROXY_PREFIX)).toBe(true);
+    for (const url of urls.slice(3)) expect(url.startsWith(contentOssBase())).toBe(true);
+  });
+
+  it('falls back to GitHub when an OSS pack archive is unavailable', async () => {
+    const release = withOssUrls(await createRelease(electron.userData, 'oss-pack-404'));
+    queueResponse(JSON.stringify(release.manifest));
+    queueResponse('missing', 404);
+    queueResponse(await fs.readFile(release.packs[0].outputPath));
+    for (const pack of release.packs.slice(1)) {
+      queueResponse(await fs.readFile(pack.outputPath));
+    }
+
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    const urls = requestUrls();
+    expect(urls).toHaveLength(1 + 1 + release.packs.length);
+    expect(urls[1].startsWith(contentOssBase())).toBe(true);
+    expect(urls[2].startsWith(GITHUB_PROXY_PREFIX)).toBe(true);
+    for (const url of urls.slice(3)) expect(url.startsWith(contentOssBase())).toBe(true);
+  });
+
+  it('retries a transient OSS failure before falling back to GitHub', async () => {
+    const release = withOssUrls(await createRelease(electron.userData, 'oss-transient'));
+    queueResponse(JSON.stringify(release.manifest));
+    queueNetworkError();
+    queueNetworkError();
+    queueResponse(await fs.readFile(release.packs[0].outputPath));
+    for (const pack of release.packs.slice(1)) {
+      queueResponse(await fs.readFile(pack.outputPath));
+    }
+
+    await expect(initializeContent()).resolves.toMatchObject({ status: 'ready', ready: true });
+    const urls = requestUrls();
+    expect(urls).toHaveLength(1 + 2 + release.packs.length);
+    expect(urls[1].startsWith(contentOssBase())).toBe(true);
+    expect(urls[2].startsWith(contentOssBase())).toBe(true);
+    expect(urls[3].startsWith(GITHUB_PROXY_PREFIX)).toBe(true);
   });
 });
