@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.9.0] - 2026-09-07
+
+### Changed
+
+- Question-bank (content) updates now download from Aliyun OSS first and fall back to the GitHub
+  `content` branch automatically, so mainland users discover and install new real-exam packs
+  without a proxy. The content-branch manifest carries an additive `ossUrl` per pack; every pack
+  archive and the latest-manifest pointer are mirrored to
+  `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/`. `manifestId` is unchanged,
+  so older clients keep working and the installed-content hash validation is untouched. OSS
+  failures are retried once before falling back to GitHub; a broken OSS source never blocks content.
+- Manual macOS DMG downloads (used when the auto-updater cannot install in place) also prefer the
+  OSS mirror before the GitHub proxy fallback.
+- Publish-side: `npm run content:publish` now mirrors changed archives plus the manifest to OSS
+  (`--acl public-read`, never blocking the GitHub publish); a dispatchable `content-oss-mirror`
+  workflow mirrors packs that still lack an `ossUrl` after any publish.
+
 ## [1.8.1] - 2026-09-05
 
 ### Changed
