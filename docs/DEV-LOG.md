@@ -268,7 +268,16 @@
 
 **验收**：国内无 VPN 环境下，客户端能发现并下载新真题（全 OSS）；手动断 OSS（模拟）能回退 GitHub 成功；旧客户端（无 ossUrl 逻辑）读新 manifest 行为不变。
 
-**实现状态**：规格已定稿待实现（本会话只落档不写代码）。实现将另起窗口按 §3.8 + content-publishing.md「OSS 镜像」章执行。
+**实现落定（随 v1.9.0 客户端 + 内容镜像一起执行，2026-09 已实现）**：
+
+- **OSS manifest 指针**：client 拉 manifest 前不知道任何 hash，故 publish 额外覆盖上传指针对象 `releases/content/manifest.json`（唯一可覆盖对象）；hash 目录 `releases/content/<manifestId前12>/` 仍永不覆盖。`contentManifestSources()` 默认 = [OSS 指针, GitHub content 分支]，env `TOEFL_CONTENT_MANIFEST_URL` 设置时退化为单源不回退。
+- **镜像粒度 = 增量 + heal**：publish 只传「本次变更」的 zip 进新 hash 目录；未变更 pack 复用旧 manifest 的 `ossUrl`（与 GitHub `url` 复用同构）。首次 OSS 启用发布 / 镜像失败后重跑：无 `ossUrl` 的 pack 从 GitHub 拉取（校验 size+SHA-256）→ 上传 → 重推同 manifestId 的 manifest。OSS 失败不阻断 GitHub 发布；失败文件不写 `ossUrl`。
+- **OSS 失败先重试再回退（用户拍板）**：manifest / pack / mac DMG 下载统一「每源最多 2 次尝试 → 才切下一源」；回退触发含超时 / 网络错 / 非200 / 返回 200 但 JSON 损坏。换源下载前删半截文件从 0 重下（不跨源拼字节）。
+- **host 白名单放宽** = github 系 + `*.aliyuncs.com`（含默认 `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com` 及 OSS 302 目标）；仍拒任意 url；pack 下载后一律 SHA-256 校验。
+- **env**：内容 base `TOEFL_CONTENT_OSS_BASE`（默认生产 bucket `/releases/content/`）；mac 手动 DMG base 复用 `OSS_UPDATE_BASE_URL`（默认 `/releases/latest/`）。
+- **发布侧**：`npm run content:publish` 通过 `ossutil`（env/凭据同 app 镜像：`OSS_ENDPOINT`/`OSS_BUCKET`/`OSS_ACCESS_KEY_ID`/`OSS_ACCESS_KEY_SECRET`）上传目录 + 指针。真实 OSS 上传与匿名 `curl -I 200`、真实国内网络 / electron-updater 行为均在真实 app 与真实 content 更新中验证（不做本地臆断）。
+
+**实现状态**：已实现并双线提交（release/v1.7.5 + develop），lint + node:test + vitest 全绿；真实发布验证另做（见上）。
 
 ---
 

@@ -1,9 +1,15 @@
 import crypto from 'node:crypto';
 import { assertContentManifest, canonicalContentPacks } from './runtime-content.js';
-import { proxyGitHubDownloadUrl, validateGitHubDownloadUrl } from './github-download.js';
+import {
+  proxyGitHubDownloadUrl,
+  resolveContentDownloadUrl,
+  validateContentDownloadUrl
+} from './github-download.js';
 
 export const DEFAULT_CONTENT_REPOSITORY = 'anton-bis/toefl-app';
 export const DEFAULT_CONTENT_BRANCH = 'content';
+export const DEFAULT_CONTENT_OSS_BASE =
+  'https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/';
 
 export function contentManifestUrl(
   repository = DEFAULT_CONTENT_REPOSITORY,
@@ -14,12 +20,33 @@ export function contentManifestUrl(
   );
 }
 
+export function contentOssBase() {
+  const override = process.env.TOEFL_CONTENT_OSS_BASE;
+  return override && override.trim()
+    ? `${String(override).trim().replace(/\/+$/, '')}/`
+    : DEFAULT_CONTENT_OSS_BASE;
+}
+
+export function contentOssManifestUrl() {
+  return `${contentOssBase()}manifest.json`;
+}
+
+export function contentOssPackUrl(manifestShortId, fileName) {
+  return `${contentOssBase()}${manifestShortId}/${fileName}`;
+}
+
+export function contentManifestSources() {
+  const override = process.env.TOEFL_CONTENT_MANIFEST_URL;
+  if (override && override.trim()) return [override.trim()];
+  return [contentOssManifestUrl(), contentManifestUrl()];
+}
+
 export function validateContentUrl(value) {
-  return validateGitHubDownloadUrl(value);
+  return validateContentDownloadUrl(value);
 }
 
 export function contentDownloadUrl(value) {
-  return proxyGitHubDownloadUrl(value);
+  return resolveContentDownloadUrl(value);
 }
 
 export function assertPublishedContentManifest(value) {

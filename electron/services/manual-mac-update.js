@@ -5,6 +5,10 @@ import { Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { proxyGitHubDownloadUrl } from './github-download.js';
 
+export const DEFAULT_APP_UPDATE_OSS_BASE =
+  'https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/';
+const MAC_DOWNLOAD_ATTEMPTS = 2;
+
 // electron-updater reports asset urls exactly as published: when the release
 // metadata stores proxied absolute URLs (https://v6.gh-proxy.org/.../x.dmg)
 // the update-available info carries that full URL, not a bare file name.
@@ -20,13 +24,27 @@ export function assetFileName(asset) {
   return fileName;
 }
 
-function releaseAssetUrl(version, fileName) {
+export function appUpdateOssBase() {
+  const override = process.env.OSS_UPDATE_BASE_URL;
+  return override && override.trim()
+    ? `${String(override).trim().replace(/\/+$/, '')}/`
+    : DEFAULT_APP_UPDATE_OSS_BASE;
+}
+
+export function macOssAssetUrl(fileName) {
+  return `${appUpdateOssBase()}${encodeURIComponent(fileName)}`;
+}
+
+export function macInstallerSourceUrls(version, fileName) {
   if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) {
     throw new Error('The macOS update version is invalid.');
   }
-  return proxyGitHubDownloadUrl(
-    `https://github.com/anton-bis/toefl-app/releases/download/v${version}/${encodeURIComponent(fileName)}`
-  );
+  return [
+    macOssAssetUrl(fileName),
+    proxyGitHubDownloadUrl(
+      `https://github.com/anton-bis/toefl-app/releases/download/v${version}/${encodeURIComponent(fileName)}`
+    )
+  ];
 }
 
 async function fileMatches(filePath, expectedSha512) {
@@ -60,35 +78,43 @@ export async function downloadMacInstaller({
   }
 
   const temporary = `${target}.download`;
-  await fs.promises.rm(temporary, { force: true });
-  const response = await fetchFile(releaseAssetUrl(version, fileName));
-  if (!response.ok || !response.body) {
-    throw new Error(`Could not download the macOS update (HTTP ${response.status}).`);
-  }
+  const sources = macInstallerSourceUrls(version, fileName);
+  let lastError;
+  for (const sourceUrl of sources) {
+    for (let attempt = 0; attempt < MAC_DOWNLOAD_ATTEMPTS; attempt += 1) {
+      try {
+        await fs.promises.rm(temporary, { force: true });
+        const response = await fetchFile(sourceUrl);
+        if (!response.ok || !response.body) {
+          throw new Error(`Could not download the macOS update (HTTP ${response.status}).`);
+        }
 
-  const expectedSize = Number(asset?.size) || Number(response.headers.get('content-length')) || 0;
-  const hash = crypto.createHash('sha512');
-  let received = 0;
-  const progress = new Transform({
-    transform(chunk, _encoding, callback) {
-      received += chunk.length;
-      hash.update(chunk);
-      if (expectedSize > 0)
-        onProgress?.(Math.min(100, Math.round((received / expectedSize) * 100)));
-      callback(null, chunk);
-    }
-  });
+        const expectedSize =
+          Number(asset?.size) || Number(response.headers.get('content-length')) || 0;
+        const hash = crypto.createHash('sha512');
+        let received = 0;
+        const progress = new Transform({
+          transform(chunk, _encoding, callback) {
+            received += chunk.length;
+            hash.update(chunk);
+            if (expectedSize > 0)
+              onProgress?.(Math.min(100, Math.round((received / expectedSize) * 100)));
+            callback(null, chunk);
+          }
+        });
 
-  try {
-    await pipeline(Readable.fromWeb(response.body), progress, fs.createWriteStream(temporary));
-    if (hash.digest('base64') !== expectedSha512) {
-      throw new Error('The downloaded macOS update failed its integrity check.');
+        await pipeline(Readable.fromWeb(response.body), progress, fs.createWriteStream(temporary));
+        if (hash.digest('base64') !== expectedSha512) {
+          throw new Error('The downloaded macOS update failed its integrity check.');
+        }
+        await fs.promises.rename(temporary, target);
+        onProgress?.(100);
+        return target;
+      } catch (error) {
+        lastError = error;
+        await fs.promises.rm(temporary, { force: true });
+      }
     }
-    await fs.promises.rename(temporary, target);
-    onProgress?.(100);
-    return target;
-  } catch (error) {
-    await fs.promises.rm(temporary, { force: true });
-    throw error;
   }
+  throw lastError;
 }

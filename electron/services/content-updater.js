@@ -29,13 +29,14 @@ import { collectDocumentAssets } from './content-assets.js';
 import {
   assertPublishedContentManifest,
   contentDownloadUrl,
-  contentManifestUrl
+  contentManifestSources
 } from './content-config.js';
 
 const MAX_MANIFEST_BYTES = 2 * 1024 * 1024;
 const MAX_PACK_BYTES = 512 * 1024 * 1024;
 const RESPONSE_TIMEOUT_MS = 30_000;
 const DOWNLOAD_IDLE_TIMEOUT_MS = 60_000;
+const SOURCE_ATTEMPTS = 2;
 const { access, mkdir, readFile, rm } = fs.promises;
 
 let synchronization;
@@ -54,8 +55,30 @@ export function configureContentUpdater({ onState, onActivated } = {}) {
   activatedSink = typeof onActivated === 'function' ? onActivated : () => {};
 }
 
-function manifestUrl() {
-  return process.env.TOEFL_CONTENT_MANIFEST_URL || contentManifestUrl();
+const NETWORK_ERROR_CODES = new Set([
+  'ECONNABORTED',
+  'ECONNREFUSED',
+  'ECONNRESET',
+  'EHOSTUNREACH',
+  'ENETDOWN',
+  'ENETUNREACH',
+  'ENOTFOUND',
+  'EPIPE',
+  'ETIMEDOUT',
+  'EAI_AGAIN'
+]);
+
+function transientContentError(error) {
+  if (!error) return false;
+  if (error.transient || NETWORK_ERROR_CODES.has(error.code)) return true;
+  const message = String(error.message || '');
+  return /timed out|timeout|socket hang up|fetch failed/i.test(message);
+}
+
+function httpStatusError(statusCode, url) {
+  const error = new Error(`HTTP ${statusCode}: ${url}`);
+  error.transient = statusCode === 408 || statusCode === 429 || statusCode >= 500;
+  return error;
 }
 
 function requestResponse(value, { start = 0, redirectCount = 0 } = {}) {
@@ -64,8 +87,10 @@ function requestResponse(value, { start = 0, redirectCount = 0 } = {}) {
   return new Promise((resolve, reject) => {
     const request = net.request({ url, method: 'GET' });
     const timeout = setTimeout(() => {
+      const error = new Error(`Content request timed out: ${url}`);
+      error.transient = true;
       request.abort();
-      reject(new Error(`Content request timed out: ${url}`));
+      reject(error);
     }, RESPONSE_TIMEOUT_MS);
     if (start > 0) request.setHeader('Range', `bytes=${start}-`);
     request.on('response', response => {
@@ -93,16 +118,17 @@ function requestResponse(value, { start = 0, redirectCount = 0 } = {}) {
 
 async function fetchBuffer(value, maxBytes) {
   const { response, url } = await requestResponse(value);
-  if (response.statusCode !== 200) throw new Error(`HTTP ${response.statusCode}: ${url}`);
+  if (response.statusCode !== 200) throw httpStatusError(response.statusCode, url);
   const chunks = [];
   let total = 0;
   let idleTimeout;
   const resetTimeout = () => {
     clearTimeout(idleTimeout);
-    idleTimeout = setTimeout(
-      () => response.destroy(new Error('Content manifest download timed out.')),
-      DOWNLOAD_IDLE_TIMEOUT_MS
-    );
+    idleTimeout = setTimeout(() => {
+      const error = new Error('Content manifest download timed out.');
+      error.transient = true;
+      response.destroy(error);
+    }, DOWNLOAD_IDLE_TIMEOUT_MS);
   };
   try {
     resetTimeout();
@@ -119,8 +145,19 @@ async function fetchBuffer(value, maxBytes) {
 }
 
 export async function fetchContentManifest() {
-  const data = await fetchBuffer(`${manifestUrl()}?t=${Date.now()}`, MAX_MANIFEST_BYTES);
-  return assertPublishedContentManifest(JSON.parse(data.toString('utf8')));
+  const sources = contentManifestSources();
+  let lastError;
+  for (const source of sources) {
+    for (let attempt = 0; attempt < SOURCE_ATTEMPTS; attempt += 1) {
+      try {
+        const data = await fetchBuffer(`${source}?t=${Date.now()}`, MAX_MANIFEST_BYTES);
+        return assertPublishedContentManifest(JSON.parse(data.toString('utf8')));
+      } catch (error) {
+        lastError = error;
+      }
+    }
+  }
+  throw lastError;
 }
 
 async function hashExistingFile(filePath, bytes) {
@@ -135,8 +172,7 @@ async function hashExistingFile(filePath, bytes) {
   return hash;
 }
 
-async function downloadPack(pack, target, reportProgress) {
-  await mkdir(path.dirname(target), { recursive: true });
+async function downloadPackFromSource(pack, sourceUrl, target, reportProgress) {
   let existing = 0;
   try {
     existing = (await fs.promises.stat(target)).size;
@@ -156,11 +192,11 @@ async function downloadPack(pack, target, reportProgress) {
     if (error?.code !== 'ENOENT') throw error;
   }
 
-  const { response, url } = await requestResponse(pack.url, { start: existing });
+  const { response, url } = await requestResponse(sourceUrl, { start: existing });
   const append = existing > 0 && response.statusCode === 206;
   if (![200, 206].includes(response.statusCode) || (response.statusCode === 206 && !existing)) {
     response.resume();
-    throw new Error(`HTTP ${response.statusCode}: ${url}`);
+    throw httpStatusError(response.statusCode, url);
   }
   if (!append) existing = 0;
   const hash = await hashExistingFile(target, existing);
@@ -177,10 +213,11 @@ async function downloadPack(pack, target, reportProgress) {
       let idleTimeout;
       const resetTimeout = () => {
         clearTimeout(idleTimeout);
-        idleTimeout = setTimeout(
-          () => fail(new Error(`Content pack download timed out: ${pack.id}`)),
-          DOWNLOAD_IDLE_TIMEOUT_MS
-        );
+        idleTimeout = setTimeout(() => {
+          const error = new Error(`Content pack download timed out: ${pack.id}`);
+          error.transient = true;
+          fail(error);
+        }, DOWNLOAD_IDLE_TIMEOUT_MS);
       };
       const fail = error => {
         if (settled) return;
@@ -224,6 +261,25 @@ async function downloadPack(pack, target, reportProgress) {
     await rm(target, { force: true });
     throw new Error(`Content pack integrity check failed: ${pack.id}`);
   }
+}
+
+async function downloadPack(pack, target, reportProgress) {
+  await mkdir(path.dirname(target), { recursive: true });
+  const sources = pack.ossUrl ? [pack.ossUrl, pack.url] : [pack.url];
+  let lastError;
+  for (let sourceIndex = 0; sourceIndex < sources.length; sourceIndex += 1) {
+    for (let attempt = 0; attempt < SOURCE_ATTEMPTS; attempt += 1) {
+      try {
+        await downloadPackFromSource(pack, sources[sourceIndex], target, reportProgress);
+        return;
+      } catch (error) {
+        lastError = error;
+        if (!transientContentError(error)) break;
+      }
+    }
+    if (sourceIndex + 1 < sources.length) await rm(target, { force: true });
+  }
+  throw lastError;
 }
 
 function parseVersion(value) {

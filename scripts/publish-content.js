@@ -1,15 +1,20 @@
 #!/usr/bin/env node
 import { execFileSync, spawnSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { Readable, Transform } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
 import {
-  contentManifestUrl,
+  assertPublishedContentManifest,
   contentDownloadUrl,
+  contentManifestUrl,
+  contentOssBase,
+  contentOssPackUrl,
   DEFAULT_CONTENT_BRANCH,
-  DEFAULT_CONTENT_REPOSITORY,
-  assertPublishedContentManifest
+  DEFAULT_CONTENT_REPOSITORY
 } from '../electron/services/content-config.js';
 import {
   CONTENT_SCHEMA_MIN_APP_VERSION,
@@ -22,6 +27,12 @@ const rootDir = path.resolve(import.meta.dirname, '..');
 const repository = process.env.TOEFL_CONTENT_REPOSITORY || DEFAULT_CONTENT_REPOSITORY;
 const contentBranch = process.env.TOEFL_CONTENT_BRANCH || DEFAULT_CONTENT_BRANCH;
 const manifestUrl = contentManifestUrl(repository, contentBranch);
+const ossBucket = process.env.OSS_BUCKET || 'justtofu-downloads';
+const ossContentPrefix = new URL(contentOssBase()).pathname.replace(/^\/+|\/+$/g, '');
+
+export function contentPackFileName(packId, contentHash) {
+  return `${packId}-${contentHash.slice(0, 12)}.zip`;
+}
 
 function command(commandName, args, options = {}) {
   return execFileSync(commandName, args, {
@@ -126,6 +137,79 @@ function publishManifest(manifest, temporaryDirectory) {
   command('git', ['push', 'origin', `${commit}:refs/heads/${contentBranch}`]);
 }
 
+function ossutilAvailable() {
+  if (process.env.TOEFL_CONTENT_SKIP_OSS_MIRROR === '1') return false;
+  const result = spawnSync('ossutil', ['--version'], { cwd: rootDir, encoding: 'utf8' });
+  return !result.error && result.status === 0;
+}
+
+function ossutilCopy(args) {
+  const result = spawnSync('ossutil', ['cp', ...args], {
+    cwd: rootDir,
+    encoding: 'utf8',
+    env: process.env
+  });
+  if (result.error) return result.error.message;
+  if (result.status !== 0)
+    return (result.stderr || result.stdout || '').trim() || `ossutil exited with ${result.status}`;
+  return null;
+}
+
+function uploadDirectoryContents(directory, manifestShort) {
+  const error = ossutilCopy([
+    '-r',
+    '-f',
+    `${directory}${path.sep}`,
+    `oss://${ossBucket}/${ossContentPrefix}${manifestShort}/`,
+    '--update',
+    '--acl',
+    'public-read'
+  ]);
+  return error ? { ok: false, message: error } : { ok: true, message: '' };
+}
+
+function uploadManifestCopies(manifestPath, manifestShort) {
+  const directoryError = ossutilCopy([
+    '-f',
+    manifestPath,
+    `oss://${ossBucket}/${ossContentPrefix}${manifestShort}/manifest.json`,
+    '--acl',
+    'public-read'
+  ]);
+  if (directoryError) return { ok: false, message: directoryError };
+  const pointerError = ossutilCopy([
+    '-f',
+    manifestPath,
+    `oss://${ossBucket}/${ossContentPrefix}manifest.json`,
+    '--acl',
+    'public-read'
+  ]);
+  return { ok: !pointerError, message: pointerError || '' };
+}
+
+async function downloadPublishedArchive(pack, destination) {
+  const response = await fetch(pack.url, { headers: { 'user-agent': 'toefl-content-publisher' } });
+  if (!response.ok || !response.body)
+    throw new Error(`Could not download ${pack.id}: HTTP ${response.status}`);
+  const hash = crypto.createHash('sha256');
+  let total = 0;
+  const meter = new Transform({
+    transform(chunk, _encoding, callback) {
+      total += chunk.length;
+      if (total > pack.size) {
+        callback(new Error(`${pack.id} exceeds its declared archive size.`));
+        return;
+      }
+      hash.update(chunk);
+      callback(null, chunk);
+    }
+  });
+  await pipeline(Readable.fromWeb(response.body), meter, fs.createWriteStream(destination));
+  if (total !== pack.size || hash.digest('hex') !== pack.archiveHash.toLowerCase()) {
+    throw new Error(`${pack.id} failed its archive integrity check.`);
+  }
+}
+
 export async function publishContent() {
   assertGitHubCli();
   command('gh', ['auth', 'status']);
@@ -136,12 +220,25 @@ export async function publishContent() {
     throw new Error('Run npm run content:pull before publishing from this checkout.');
   }
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'toefl-content-publish-'));
+  const mirrorDirectory = path.join(temporaryDirectory, 'content-oss');
+  fs.mkdirSync(mirrorDirectory, { recursive: true });
+  const mirrorEnabled = ossutilAvailable();
   try {
     const prepared = prepareContentPacks(rootDir);
     const remoteById = new Map((remote?.packs || []).map(pack => [pack.id, pack]));
     const manifestId = contentSetId(prepared);
-    if (remote?.manifestId === manifestId) {
+    const manifestShort = manifestId.slice(0, 12);
+    const missingOssUrl = remote ? remote.packs.some(pack => !pack.ossUrl) : true;
+    if (remote?.manifestId === manifestId && !missingOssUrl) {
       console.log('Content is already up to date. Nothing to publish.');
+      if (mirrorEnabled) {
+        const manifestPath = path.join(mirrorDirectory, 'manifest.json');
+        fs.writeFileSync(manifestPath, `${JSON.stringify(remote, null, 2)}\n`);
+        const copies = uploadManifestCopies(manifestPath, manifestShort);
+        if (!copies.ok) {
+          console.warn(`OSS manifest pointer refresh failed: ${copies.message}`);
+        }
+      }
       return remote;
     }
 
@@ -152,21 +249,69 @@ export async function publishContent() {
     for (const item of changed) {
       archives.push(await writePackArchive(rootDir, temporaryDirectory, item));
     }
-    const tag = `content-${manifestId.slice(0, 12)}`;
-    publishRelease(tag, archives);
     const changedById = new Map(archives.map(item => [item.id, item]));
+    const tag = `content-${manifestShort}`;
+    if (changed.length) publishRelease(tag, archives);
+
+    const warnings = [];
+    const stagedFiles = [];
+    for (const item of prepared) {
+      const archive = changedById.get(item.manifest.id);
+      const remotePack = remoteById.get(item.manifest.id);
+      const fileName = contentPackFileName(item.manifest.id, item.manifest.contentHash);
+      if (archive) {
+        fs.copyFileSync(archive.outputPath, path.join(mirrorDirectory, fileName));
+        stagedFiles.push(fileName);
+      } else if (remotePack && !remotePack.ossUrl) {
+        try {
+          await downloadPublishedArchive(remotePack, path.join(mirrorDirectory, fileName));
+          stagedFiles.push(fileName);
+        } catch (error) {
+          warnings.push(`${item.manifest.id}: ${error.message}`);
+        }
+      }
+    }
+
+    let mirrorResult = { ok: false, message: '' };
+    if (stagedFiles.length) {
+      if (mirrorEnabled) {
+        mirrorResult = uploadDirectoryContents(mirrorDirectory, manifestShort);
+      } else {
+        mirrorResult = {
+          ok: false,
+          message: 'ossutil is unavailable or TOEFL_CONTENT_SKIP_OSS_MIRROR is set'
+        };
+      }
+    }
+    const mirroredFiles = mirrorResult.ok ? new Set(stagedFiles) : new Set();
+
     const packs = prepared.map(item => {
       const generated = changedById.get(item.manifest.id);
-      if (!generated) return remoteById.get(item.manifest.id);
-      return {
-        id: generated.id,
-        contentHash: generated.contentHash,
-        archiveHash: generated.archiveHash,
-        size: generated.size,
-        url: contentDownloadUrl(
-          `https://github.com/${repository}/releases/download/${tag}/${generated.fileName}`
-        )
-      };
+      const remotePack = remoteById.get(item.manifest.id);
+      const fileName = contentPackFileName(item.manifest.id, item.manifest.contentHash);
+      const pack = generated
+        ? {
+            id: generated.id,
+            contentHash: generated.contentHash,
+            archiveHash: generated.archiveHash,
+            size: generated.size,
+            url: contentDownloadUrl(
+              `https://github.com/${repository}/releases/download/${tag}/${generated.fileName}`
+            )
+          }
+        : {
+            id: remotePack.id,
+            contentHash: remotePack.contentHash,
+            archiveHash: remotePack.archiveHash,
+            size: remotePack.size,
+            url: remotePack.url
+          };
+      if (remotePack?.ossUrl) {
+        pack.ossUrl = remotePack.ossUrl;
+      } else if (mirroredFiles.has(fileName)) {
+        pack.ossUrl = contentOssPackUrl(manifestShort, fileName);
+      }
+      return pack;
     });
     const manifest = {
       schemaVersion: CONTENT_SCHEMA_VERSION,
@@ -176,8 +321,30 @@ export async function publishContent() {
       packs
     };
     assertPublishedContentManifest(manifest);
-    publishManifest(manifest, temporaryDirectory);
-    writeContentLocalState(rootDir, manifest);
+
+    const manifestChanged =
+      changed.length > 0 || JSON.stringify(packs) !== JSON.stringify(remote?.packs || []);
+    if (manifestChanged) {
+      publishManifest(manifest, temporaryDirectory);
+      writeContentLocalState(rootDir, manifest);
+    }
+
+    const manifestPath = path.join(mirrorDirectory, 'manifest.json');
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+    if (mirrorEnabled && (stagedFiles.length || manifestChanged)) {
+      const copies = uploadManifestCopies(manifestPath, manifestShort);
+      if (!copies.ok) warnings.push(`OSS manifest copy/pointer upload failed: ${copies.message}`);
+    }
+    if (stagedFiles.length && !mirrorResult.ok) {
+      warnings.push(
+        `OSS archive mirror failed (GitHub publish unaffected): ${mirrorResult.message}`
+      );
+    }
+
+    for (const warning of warnings) console.warn(warning);
+    if (!mirrorResult.ok && stagedFiles.length) {
+      console.warn('Rerun npm run content:publish after fixing the OSS setup to heal the mirror.');
+    }
     console.log(`Published ${changed.length} changed pack(s) as ${tag}.`);
     return manifest;
   } finally {
