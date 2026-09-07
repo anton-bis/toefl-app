@@ -92,6 +92,59 @@ download progress and a retry action inside the application.
 Application releases continue to use normal `v*` tags and `.github/workflows/release.yml`. Content
 publishing does not build or release an Electron installer.
 
+## Aliyun OSS mirror (content downloads for mainland users)
+
+GitHub and its `v6.gh-proxy.org` proxy are slow or unreachable for many mainland users. The app
+downloads content with **OSS first, GitHub fallback** so that mainland users fetch manifests and
+pack archives from Aliyun OSS directly. GitHub remains the single source of truth; OSS is a
+mirror/acceleration layer.
+
+### Publishing
+
+`npm run content:publish` keeps uploading every pack to the GitHub `content-<hash>` pre-release and
+pushing the manifest to the `content` branch (unchanged). It additionally mirrors the release to:
+
+```
+oss://justtofu-downloads/releases/content/<manifest-id-short-hash>/
+```
+
+- Directory layout: one directory per publish (`<manifestId>` first 12 chars), **never
+  overwritten**. Content is hash-addressed: a client manifest may reference any historical hash
+  (rollback / multi-version coexistence), so unlike the app's `releases/latest/` overwrite pattern,
+  content directories must persist.
+- Files mirrored: every pack archive (`.zip`) + `manifest.json`, uploaded with `--acl public-read`.
+- OSS mirror failure does not block the GitHub publish (content remains reachable via GitHub);
+  the mirror step is idempotent and can be re-run.
+
+### Manifest shape
+
+- `pack.url` stays the GitHub (proxied) URL -> fallback source + compatibility with old clients.
+- Every pack gains an explicit `ossUrl` field:
+  `ossUrl = <CONTENT_OSS_BASE>/<manifest-id-short-hash>/<fileName>`
+  where `CONTENT_OSS_BASE = https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/`
+  and `fileName` matches the archive name produced by `writePackArchive`
+  (`sanitizePackId(id)-<contentHash first 12>.zip`).
+- `manifestId` is unchanged: `canonicalContentPacks` hashes only `[id, contentHash]`, so adding
+  `ossUrl` does not alter the manifest id or break installed-content validation.
+- Old clients ignore the extra `ossUrl` field and keep using `pack.url` (GitHub proxy): behaviour
+  is unchanged until they upgrade to a build with OSS-first logic.
+
+### Client resolution order
+
+- Manifest: try the OSS copy first, fall back to the GitHub `content` branch URL on timeout /
+  non-200 / network error.
+- Pack archive: try `pack.ossUrl` first, fall back to `pack.url`.
+- Trusted download hosts are a hard-coded allow-list: GitHub hosts plus
+  `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com`. Arbitrary URLs remain rejected.
+
+### Scope notes
+
+- The desktop app update feed is OSS-only (no GitHub fallback): `electron-updater` uses a single
+  generic feed URL. macOS manual DMG downloads (`electron/services/manual-mac-update.js`) move to
+  OSS-first with a GitHub fallback.
+- Version plan: client OSS-fallback logic ships with `v1.9.0`; content OSS mirroring can ship
+  earlier because `ossUrl` is additive.
+
 ## One-time 1.5 migration order
 
 The media files removed from Git tracking remain in the maintainer's working tree. Preserve that

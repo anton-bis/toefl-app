@@ -238,18 +238,51 @@
 
 **说明**：有效期显示"到下月今天"= 滚动 30 天离线宽限（每次 refresh 续 now+30d），非永久；联网使用自动续期，断网超 30 天才锁（契约 §4）。
 
+### 3.8 2026-09-05 — 内容更新迁移 OSS（方案 B 规格落档，待实现）
+
+**背景/目标**：App 代码更新已切 OSS（v1.8.x 起），但 **content（真题/音频）更新仍走 GitHub content 分支 + v6.gh-proxy 代理**。目标：content 默认全走 OSS 国内直连，GitHub 仅作 OSS 失败时的兜底；"摒弃更新走外网/代理"（代理不稳定影响国内拉新题）。
+
+**决策（用户拍板）**：
+- 采用**方案 B**：GitHub 仍是唯一发布源；OSS 是镜像加速层；客户端 OSS 优先、失败回退 GitHub。
+- **manifest 也必须镜像**（理解统一）：content 更新流程 = "先拉 manifest 比对 → 有变化才拉 pack"，manifest 是触发下载的前置开关。只镜像 pack 不镜像 manifest → 代理挂时客户端连"有新题"都不知道，OSS pack 白镜像。故 manifest + pack 都镜像、都 OSS 优先回退。
+- 版本：客户端加 OSS-fallback 逻辑 → 并入 **v1.9.0**（与内容 OSS 一起上，甚至只更新内容 OSS 也可：manifest 加 `ossUrl` 不改变 manifestId，旧客户端忽略该字段，天然兼容）。
+- **mac 手动下载（manual-mac-update.js）一并改 OSS 优先**（现状仍硬编码 GitHub 代理，漏网，须跟上）。
+- **App 自动更新保持 OSS 单源**，不加 GitHub 回退（electron-updater generic 单 feed，不支持原生多源；OSS 挂时用户等下一版——可接受）。
+
+**规格**：
+
+发布侧（scripts/content-packages.js + publish-content.js）：
+- pack.url 保持 GitHub（proxy）不变 → 兜底源 + 旧客户端兼容。
+- 每 pack 新增 `ossUrl` 显式字段：`ossUrl = <CONTENT_OSS_BASE>/<manifestId短hash>/<fileName>`（fileName = sanitizePackId(pack.id)-<contentHash前12>.zip，与 writePackArchive 命名一致）。
+- 新增 OSS 镜像步骤：content:publish 后，把全部 zip + manifest.json 上传 `oss://justtofu-downloads/releases/content/<manifestId短hash>/`（`--acl public-read`，幂等可重跑）；OSS 镜像失败不阻断 GitHub 发布。
+- **manifestId 不变**（canonicalContentPacks 只取 [id, contentHash]，不含 url/ossUrl）→ 已核实。
+- 目录**每次一个 hash 目录、不覆盖历史**（内容 hash 寻址，客户端可能引用历史版本做回滚；不能学 App 的 latest 覆盖式）。
+
+客户端（electron/services/）：
+- `CONTENT_OSS_BASE = https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/`（env 可覆盖）。
+- `github-download.js`：可信下载域放宽 = github 系 + `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com`（**硬编码白名单**，不接受任意 url；保留安全拒绝）。
+- `content-updater.js`：`fetchContentManifest()` 先 OSS manifest → 失败回退 GitHub/content 分支；`downloadPack()` 优先 `pack.ossUrl` → 失败回退 `pack.url`。回退触发：OSS 超时 / 非 200 / 网络错误。
+- `manual-mac-update.js`：手动下载 DMG 改 OSS 优先 + GitHub 兜底（releaseAssetUrl 逻辑调整）。
+
+测试：URL 白名单（OSS 放行/任意拒）；OSS 优先下载成功；OSS 失败回退 GitHub；manifestId 不因 ossUrl 变化；mac 手动下载走 OSS。
+
+**验收**：国内无 VPN 环境下，客户端能发现并下载新真题（全 OSS）；手动断 OSS（模拟）能回退 GitHub 成功；旧客户端（无 ossUrl 逻辑）读新 manifest 行为不变。
+
+**实现状态**：规格已定稿待实现（本会话只落档不写代码）。实现将另起窗口按 §3.8 + content-publishing.md「OSS 镜像」章执行。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license，未发布） | 1.7.1（一直未 bump） | 62d501d |
-| `release/v1.7.5` | 可发布线（无 license） | 1.7.8 | 263a5bb |
+| `develop` | 完整开发线（含 license） | 1.8.1 | a4006c8 |
+| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 2b9d60c |
+| `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 752f5f4 |
 | `content` | 内容 manifest（自动生成，勿手改） | — | a3f17677d7bf manifestId |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
-| v1.7.6 | 2026-09-02 | 4 容器配色 + vocab 高亮 + 斜纹/方块 |
-| v1.7.7 | 2026-09-02 | Official ID 去 TPO 前缀 |
+| v1.8.0 | 2026-09-05 | license 激活首发 + OSS 更新源（从 develop）|
+| v1.8.1 | 2026-09-05 | B4 国内自动更新闭环验证（含自动 OSS 镜像）|
 | v1.7.8 | 2026-09-02 | 题库分页 10 套/页 |
