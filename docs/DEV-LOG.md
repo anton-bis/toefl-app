@@ -21,18 +21,20 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-02）
+## 1. 最新状态速览（最后更新：2026-09-05）
 
 - **当前 checkout 分支**：`release/v1.7.5`（= 可发布线，无 license；package.json version = **1.7.8**）
 - **develop（完整线，含 license/branding）**：HEAD `62d501d`，package.json version 仍为 **1.7.1**（一直未 bump，属正常）
-- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.7.8**（2026-09-02，三平台已发布，latest.yml 走 v6 代理，用户可自动更新）
+- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content`、master 均已 push（HEAD==远端）
+- **最新正式版**：**v1.8.1**（2026-09-05，从 develop 发布，三平台 + OSS 自动镜像均成功；OSS feed = 1.8.1）。**B4「国内自动更新闭环」验证通过**：release.yml 的 Mirror 步骤自动把 release 镜像到 OSS（无需手动 workflow_dispatch）
 - **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已对齐**（首发范围=仅激活，不含 AI 批改/报告云存；Web 三端点已实现并回填确认）。桌面更新源正迁阿里云 OSS。重心在 Web 联动落地。
+- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已正式发布**（v1.8.0+，含序列号激活 + OSS 更新源）。重心在 Web 联动落地与端到端验证。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
-  - [ ] OSS 更新源迁移：workflow `oss-mirror.yml` + 脚本 `rewrite-update-metadata.js` 已建；AccessKey 已入 secrets，首次镜像（v1.7.8 → OSS）**已跑通**（releases/latest/ 11 文件 + Bucket 根 3 稳定副本全部上传成功）。**阻塞项：bucket `justtofu-downloads` 未设公共读 → 匿名访问 AccessDenied**，需 OSS 侧开公共读后即可对外；随后随下一版把 `build.publish.url` 切到 `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`（注意 oss-mirror.yml 的 URL 打印有双斜杠显示瑕疵，实际清单内 URL 正确）
-  - [ ] 拿到**生产库**真实序列号（dev 那 2 张仅本地有效）后做端到端联调（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`
+  - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
+  - [x] **v1.8.0 已发布**（develop commit `069198d`，tag v1.8.0）：CI 三平台 success + OSS 镜像跑通（OSS feed = 1.8.0，3 稳定副本刷新）
+  - [x] **跟进已解决：oss-mirror `release: published` 自动触发失效** → 根因 = GitHub 限制：workflow 用 GITHUB_TOKEN 创建的 release **不级联**触发其它 workflow 的 `release: published`。修复 = 方案 A：把镜像步骤**并入 release.yml 的 publish job**（Create GitHub Release 之后，`if: startsWith(github.ref,'refs/tags/')` 仅正式 tag），同一 run 内 ossutil 上传 OSS + 重写清单 + 产 3 稳定副本。oss-mirror.yml **保留**作手动重跑工具。三支（develop/release/master）已同步（develop `0a48a5e`、release `2b9d60c`、master `752f5f4`）
+  - [ ] 用**生产库**真实序列号端到端自测（激活→≤2 台→换机解绑→断网 30 天语义，可用 `LICENSE_DEVICE_GRACE_DAYS` 调小验证）；Web 曾提供 dev 码 `V4Q8-4Q2V-KHNU-6GCS` / `UXSD-87NS-LXND-SF48`。注：Electron 端已成功激活过一次（用户 2026-09-05 反馈）
   - [ ] 契约待统一项已同步：重复激活 token 以响应为准覆盖（见 `docs/license-protocol-v1.md` §2.1）
 
 ---
@@ -179,12 +181,94 @@
    - `.github/workflows/oss-mirror.yml`：`release: published` + `workflow_dispatch`（带 releaseTag 输入）→ 下载 assets → 改写清单 → ossutil 上传 `releases/latest/` → Bucket 根产出 3 个稳定副本（`justtofu-setup-win-x64-latest.exe` / `justtofu-mac-arm64-latest.dmg` / `justtofu-mac-x64-latest.dmg`）
 3. **契约/DEV-LOG**：`docs/license-protocol-v1.md` §8 更新（域名已切、Web 双端码通用/¥30 捆绑/OSS 下载卡等）；本文快照 + 本节。
 
-**OSS workflow 使用前置（未完成，等 Web）**：
-- OSS RAM AccessKey（仅写）进 repo secrets：`OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`
-- 把 `oss-mirror.yml` 里 `OSSUTIL_URL` 占位换成官方 ossutil 最新 URL
-- 首次跑通后：回传 OSS 文件清单 + feed URL + EXE/DMG 对象 URL（Web 下载页对齐）；再把 `package.json > build.publish.url` 切到 OSS（随下一版发布生效）
+**OSS workflow 进展（后续更新见 §3.5）**：AccessKey 已入 repo secrets；ossutil 改用官方 install.sh（v1.7.19）；首次镜像 v1.7.8 → OSS 已跑通。
 
 **Web 端其它能力确认（记录）**：三端点语义一致；`LICENSE_DEVICE_GRACE_DAYS` 可调（commit 4342fb0）；序列号 Web/桌面双端通用；购买 Web 权益自动发桌面码（¥30 捆绑，退款连带作废）；Web 权益页含「下载桌面版」卡（指向 OSS 稳定 latest 直链）。macOS 仍为**未签名/未公证**包（本轮不做签名，OSS 镜像与 manual DMG 下载照常）。
+
+### 3.5 2026-09-05 — OSS 镜像首次跑通 + bucket 公共读 + v1.8.0 首发准备
+
+**OSS 镜像首次跑通（v1.7.8 → OSS，成功）**：
+- repo secrets 已设 `OSS_ACCESS_KEY_ID` / `OSS_ACCESS_KEY_SECRET`（RAM 仅写）。
+- oss-mirror.yml 修复：ossutil 官方 install.sh（装 v1.7.19，非交互需 `ossutil config -e/-i/-k`）、print URL 去双斜杠。
+- 上传结果：`releases/latest/` 11 文件（Win exe+blockmap+latest.yml、macOS dmg/zip/blockmap×x64/arm64+latest-mac.yml、Linux AppImage）+ Bucket 根 3 稳定副本（`justtofu-setup-win-x64-latest.exe`/`justtofu-mac-arm64-latest.dmg`/`justtofu-mac-x64-latest.dmg`）全部 Succeed。
+- **注意**：workflow_dispatch 需 workflow 在默认分支 master 上 → oss-mirror.yml + rewrite 脚本也放到了 master（develop/release/master 三支同步）。
+
+**bucket 公共读（关键时序教训）**：首次验证匿名访问 403（当时用户尚未开 ACL）；用户随后在 Web 侧开启**桶级公共读 + 关闭阻止公共访问**，重验全部 **200**。→ **切源前务必重验，勿信"已开"的历史结论**。
+
+**v1.8.0 首发（本次推进）**：
+- 决策：v1.8.0 从 **develop** 打 tag（license 完整线首次正式发布）；`build.publish.url` 切 OSS feed 也改 develop（release 老版本 v1.7.x feed 仍走 gh-proxy，旧用户升 1.8.0 后 app-update.yml 才指向 OSS）。
+- 已改（develop）：oss-mirror.yml 上传加 `--acl public-read`（防桶配置回退）；package.json `build.publish.url` → `https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/latest/`；version → 1.8.0；CHANGELOG 加 [1.8.0]。
+- 待办：commit develop → tag v1.8.0 → push（CI 三平台 + oss-mirror 自动镜像）→ 生产序列号端到端 → 回传 ossutil ls 清单 + 稳定副本 + feed URL。
+
+**自测清单（license 端到端）**：生产库序列号激活（≤2 台）→ 同指纹幂等 → 换机先解绑再激活 → 断网 30 天语义（服务端 `LICENSE_DEVICE_GRACE_DAYS` 调小快速验证）。
+
+### 3.6 2026-09-05 — 修复 oss-mirror 自动触发（方案 A：并入 release.yml）
+
+**现象**：v1.8.0 发布后 oss-mirror 未自动触发（`release: published` 没等来）。
+
+**根因（GitHub 机制）**：release 由 Release workflow 用 **GITHUB_TOKEN**（`gh release create`）创建 → GitHub **不级联**触发其它 workflow 的 `release: published` 事件（防循环）。故任何"监听 release 事件"的独立 workflow 都等不到。
+
+**修复（方案 A）**：镜像逻辑**并入 release.yml 的 publish job**——在 `Create GitHub Release` 步骤后加 `Mirror release to Aliyun OSS` 步骤：
+- `if: startsWith(github.ref, 'refs/tags/')`：仅正式 tag 镜像，develop 的 `-dev.N` 预发布跳过
+- 复用 publish job 已下载的 `release-files/`（不必重新 `gh release download`）
+- 步骤内容：装 ossutil（官方 install.sh）→ `ossutil config` → `node scripts/rewrite-update-metadata.js` 改写 latest.yml/latest-mac.yml 为 OSS URL → `ossutil cp -r` 上传 `releases/latest/`（--acl public-read）→ 产 Bucket 根 3 稳定副本
+- 顺序关键：镜像在 Create GitHub Release **之后**（先上传 GitHub 用原始清单，再改写本地副本传 OSS，避免污染 GitHub release 清单）
+
+**oss-mirror.yml 去留**：**保留**，仅作手动重跑工具（workflow_dispatch 传 tag 补镜像历史/失败版本）；日常自动镜像由 release.yml 承担。文档注释已注明"仅手动"。
+
+**同步**：release.yml 改动三支 develop/release/master（develop `0a48a5e`、release/v1.7.5 `2b9d60c`、master `752f5f4`），均 push。
+
+**验证方式**：下次正式 release（如 v1.9.x 或补发）走 release.yml 时，若 publish job 的 Mirror 步骤 success 即证明自动镜像生效。→ **已用 v1.8.1 验证通过（见 §3.7）**。
+
+### 3.7 2026-09-05 — B4「国内自动更新闭环」验证通过（v1.8.1）
+
+**动作**：bump develop → 1.8.1（commit `26f85df`）+ CHANGELOG [1.8.1]（无功能改动，纯验证发布）→ tag v1.8.1 + push。
+
+**结果（全部通过）**：
+- v1.8.1 Release CI（run 33974073613）**success**：verify + package-windows/linux/macos + publish 全绿
+- **publish job 内的 `Mirror release to Aliyun OSS` 步骤自动执行成功**（不再需要手动 workflow_dispatch）→ 证明方案 A 修复生效
+- OSS feed 更新到 **1.8.1**：`releases/latest/latest.yml` version=1.8.1、url 指向 OSS 1.8.1 安装包
+- OSS `releases/latest/` 12 个对象全部匿名可读（200）：latest.yml / latest-mac.yml / latest-linux.yml + Windows exe+blockmap + macOS arm64+x64 的 dmg/zip/blockmap + Linux AppImage
+- Bucket 根 3 稳定副本覆盖为 1.8.1（`justtofu-setup-win-x64-latest.exe` / `justtofu-mac-arm64-latest.dmg` / `justtofu-mac-x64-latest.dmg`，均 200）
+
+**待办**：
+- [ ] 在国内网络（无 VPN）桌面端实测「设置 → 检查更新 → 从 OSS 拉到 1.8.1 并下载/安装」（electron-updater 走 OSS feed）
+- [ ] 生产序列号完整端到端：激活已通 + 解绑重激活已通（用户已测）；待断网 30 天语义（GRACE_DAYS 调小，需 Web 配合）
+- [ ] 回传 Web：OSS 清单（见上）+ 检查更新结果
+
+**说明**：有效期显示"到下月今天"= 滚动 30 天离线宽限（每次 refresh 续 now+30d），非永久；联网使用自动续期，断网超 30 天才锁（契约 §4）。
+
+### 3.8 2026-09-05 — 内容更新迁移 OSS（方案 B 规格落档，待实现）
+
+**背景/目标**：App 代码更新已切 OSS（v1.8.x 起），但 **content（真题/音频）更新仍走 GitHub content 分支 + v6.gh-proxy 代理**。目标：content 默认全走 OSS 国内直连，GitHub 仅作 OSS 失败时的兜底；"摒弃更新走外网/代理"（代理不稳定影响国内拉新题）。
+
+**决策（用户拍板）**：
+- 采用**方案 B**：GitHub 仍是唯一发布源；OSS 是镜像加速层；客户端 OSS 优先、失败回退 GitHub。
+- **manifest 也必须镜像**（理解统一）：content 更新流程 = "先拉 manifest 比对 → 有变化才拉 pack"，manifest 是触发下载的前置开关。只镜像 pack 不镜像 manifest → 代理挂时客户端连"有新题"都不知道，OSS pack 白镜像。故 manifest + pack 都镜像、都 OSS 优先回退。
+- 版本：客户端加 OSS-fallback 逻辑 → 并入 **v1.9.0**（与内容 OSS 一起上，甚至只更新内容 OSS 也可：manifest 加 `ossUrl` 不改变 manifestId，旧客户端忽略该字段，天然兼容）。
+- **mac 手动下载（manual-mac-update.js）一并改 OSS 优先**（现状仍硬编码 GitHub 代理，漏网，须跟上）。
+- **App 自动更新保持 OSS 单源**，不加 GitHub 回退（electron-updater generic 单 feed，不支持原生多源；OSS 挂时用户等下一版——可接受）。
+
+**规格**：
+
+发布侧（scripts/content-packages.js + publish-content.js）：
+- pack.url 保持 GitHub（proxy）不变 → 兜底源 + 旧客户端兼容。
+- 每 pack 新增 `ossUrl` 显式字段：`ossUrl = <CONTENT_OSS_BASE>/<manifestId短hash>/<fileName>`（fileName = sanitizePackId(pack.id)-<contentHash前12>.zip，与 writePackArchive 命名一致）。
+- 新增 OSS 镜像步骤：content:publish 后，把全部 zip + manifest.json 上传 `oss://justtofu-downloads/releases/content/<manifestId短hash>/`（`--acl public-read`，幂等可重跑）；OSS 镜像失败不阻断 GitHub 发布。
+- **manifestId 不变**（canonicalContentPacks 只取 [id, contentHash]，不含 url/ossUrl）→ 已核实。
+- 目录**每次一个 hash 目录、不覆盖历史**（内容 hash 寻址，客户端可能引用历史版本做回滚；不能学 App 的 latest 覆盖式）。
+
+客户端（electron/services/）：
+- `CONTENT_OSS_BASE = https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/`（env 可覆盖）。
+- `github-download.js`：可信下载域放宽 = github 系 + `justtofu-downloads.oss-cn-hangzhou.aliyuncs.com`（**硬编码白名单**，不接受任意 url；保留安全拒绝）。
+- `content-updater.js`：`fetchContentManifest()` 先 OSS manifest → 失败回退 GitHub/content 分支；`downloadPack()` 优先 `pack.ossUrl` → 失败回退 `pack.url`。回退触发：OSS 超时 / 非 200 / 网络错误。
+- `manual-mac-update.js`：手动下载 DMG 改 OSS 优先 + GitHub 兜底（releaseAssetUrl 逻辑调整）。
+
+测试：URL 白名单（OSS 放行/任意拒）；OSS 优先下载成功；OSS 失败回退 GitHub；manifestId 不因 ossUrl 变化；mac 手动下载走 OSS。
+
+**验收**：国内无 VPN 环境下，客户端能发现并下载新真题（全 OSS）；手动断 OSS（模拟）能回退 GitHub 成功；旧客户端（无 ossUrl 逻辑）读新 manifest 行为不变。
+
+**实现状态**：规格已定稿待实现（本会话只落档不写代码）。实现将另起窗口按 §3.8 + content-publishing.md「OSS 镜像」章执行。
 
 ---
 
@@ -192,12 +276,13 @@
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license，未发布） | 1.7.1（一直未 bump） | 62d501d |
-| `release/v1.7.5` | 可发布线（无 license） | 1.7.8 | 263a5bb |
+| `develop` | 完整开发线（含 license） | 1.8.1 | a4006c8 |
+| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 2b9d60c |
+| `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 752f5f4 |
 | `content` | 内容 manifest（自动生成，勿手改） | — | a3f17677d7bf manifestId |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
-| v1.7.6 | 2026-09-02 | 4 容器配色 + vocab 高亮 + 斜纹/方块 |
-| v1.7.7 | 2026-09-02 | Official ID 去 TPO 前缀 |
+| v1.8.0 | 2026-09-05 | license 激活首发 + OSS 更新源（从 develop）|
+| v1.8.1 | 2026-09-05 | B4 国内自动更新闭环验证（含自动 OSS 镜像）|
 | v1.7.8 | 2026-09-02 | 题库分页 10 套/页 |
