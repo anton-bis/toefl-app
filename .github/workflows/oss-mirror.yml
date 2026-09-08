@@ -69,28 +69,33 @@ jobs:
             --clobber
           ls -1 release-files
 
-      - name: Rewrite update metadata to OSS URLs
+      - name: Upload installers (releases/latest)
         run: |
-          for f in release-files/latest.yml release-files/latest-mac.yml; do
-            if [ -f "$f" ]; then
-              node scripts/rewrite-update-metadata.js "$f"
-            fi
+          mkdir -p release-files/feed
+          for feed in release-files/latest*.yml; do
+            if [ -f "$feed" ]; then mv "$feed" release-files/feed/; fi
           done
-
-      - name: Upload feed + installers (releases/latest)
-        run: |
           ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update --acl public-read
-          ossutil ls "oss://$OSS_BUCKET/releases/latest/"
 
       - name: Publish stable latest copies at bucket root (Web download page)
         run: |
-          version="$(sed -n 's/^version: //p' release-files/latest.yml | tr -d "'\"")"
+          version="$(sed -n 's/^version: //p' release-files/feed/latest.yml | tr -d "'\"")"
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-windows-x64-setup.exe" \
             "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-arm64.dmg" \
             "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-x64.dmg" \
             "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f --acl public-read
+
+      - name: Rewrite and upload update metadata last
+        run: |
+          for feed in release-files/feed/latest*.yml; do
+            if [ -f "$feed" ]; then
+              node scripts/rewrite-update-metadata.js "$feed"
+              ossutil cp -f "$feed" "oss://$OSS_BUCKET/releases/latest/$(basename "$feed")" --acl public-read
+            fi
+          done
+          ossutil ls "oss://$OSS_BUCKET/releases/latest/"
 
       - name: Print feed / download URLs
         run: |
