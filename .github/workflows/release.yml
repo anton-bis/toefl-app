@@ -248,13 +248,13 @@ jobs:
         run: |
           release_tag="$GITHUB_REF_NAME"
           release_title="$GITHUB_REF_NAME"
-          release_flags=(--verify-tag --fail-on-no-commits)
+          release_flags=(--verify-tag)
           release_notes=(--notes-file release-notes.md)
           if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
             version=$(node -p "require('./package.json').version")
             release_tag="v${version}"
             release_title="$release_tag"
-            release_flags=(--target "$GITHUB_SHA" --prerelease)
+            release_flags=(--target "$GITHUB_SHA" --prerelease --fail-on-no-commits)
             release_notes=(--notes "")
           elif [[ "$GITHUB_REF_NAME" == *-* ]]; then
             release_flags+=(--prerelease)
@@ -280,12 +280,23 @@ jobs:
           curl -fL https://gosspublic.alicdn.com/ossutil/install.sh -o /tmp/ossutil-install.sh
           sudo bash /tmp/ossutil-install.sh
           ossutil config -e "$OSS_ENDPOINT" -i "$OSS_ACCESS_KEY_ID" -k "$OSS_ACCESS_KEY_SECRET"
-          node scripts/rewrite-update-metadata.js release-files/latest.yml release-files/latest-mac.yml
+          # Upload installers first and publish the update feeds last, so a feed
+          # can never point at a release object that has not been uploaded yet.
+          mkdir -p release-files/feed
+          for feed in release-files/latest*.yml; do
+            if [ -f "$feed" ]; then mv "$feed" release-files/feed/; fi
+          done
           ossutil cp -r -f release-files/ "oss://$OSS_BUCKET/releases/latest/" --update --acl public-read
-          version="$(sed -n 's/^version: //p' release-files/latest.yml | tr -d "'\"")"
+          version="$(sed -n 's/^version: //p' release-files/feed/latest.yml | tr -d "'\"")"
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-windows-x64-setup.exe" \
             "oss://$OSS_BUCKET/justtofu-setup-win-x64-latest.exe" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-arm64.dmg" \
             "oss://$OSS_BUCKET/justtofu-mac-arm64-latest.dmg" -f --acl public-read
           ossutil cp "release-files/TOEFL-iBT-Practice-${version}-macos-x64.dmg" \
             "oss://$OSS_BUCKET/justtofu-mac-x64-latest.dmg" -f --acl public-read
+          for feed in release-files/feed/latest*.yml; do
+            if [ -f "$feed" ]; then
+              node scripts/rewrite-update-metadata.js "$feed"
+              ossutil cp -f "$feed" "oss://$OSS_BUCKET/releases/latest/$(basename "$feed")" --acl public-read
+            fi
+          done
