@@ -131,6 +131,10 @@ oss://justtofu-downloads/releases/content/manifest.json               (latest po
 - OSS mirror failure never blocks the GitHub publish (content remains reachable via GitHub); any
   archives whose upload failed are simply left without an `ossUrl` in that manifest. Rerunning
   `npm run content:publish` heals the mirror as described above.
+- When a publish cannot reach OSS (for example no local ossutil credentials), run the dispatchable
+  `content-oss-mirror` GitHub Actions workflow after the publish: it mirrors every pack that still
+  lacks an `ossUrl` (downloading the archives from GitHub, verifying size + SHA-256) and updates the
+  directory + pointer manifests. It is idempotent and safe to re-run at any time.
 
 ### Manifest shape
 
