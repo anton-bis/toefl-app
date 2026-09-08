@@ -21,14 +21,13 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-05）
+## 1. 最新状态速览（最后更新：2026-09-07）
 
-- **当前 checkout 分支**：`release/v1.7.5`（= 可发布线，无 license；package.json version = **1.7.8**）
-- **develop（完整线，含 license/branding）**：HEAD `62d501d`，package.json version 仍为 **1.7.1**（一直未 bump，属正常）
-- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`content`、master 均已 push（HEAD==远端）
-- **最新正式版**：**v1.8.1**（2026-09-05，从 develop 发布，三平台 + OSS 自动镜像均成功；OSS feed = 1.8.1）。**B4「国内自动更新闭环」验证通过**：release.yml 的 Mirror 步骤自动把 release 镜像到 OSS（无需手动 workflow_dispatch）
-- **内容包 manifest**：`content-a3f17677d7bf`（含 7 套 2026-02 真题，minAppVersion 1.5.0）
-- **重要状态**：**Web 端已上线**（`https://www.justtofu.com`，2026-09 确认规范值）。Electron↔Web **license 激活互通已正式发布**（v1.8.0+，含序列号激活 + OSS 更新源）。重心在 Web 联动落地与端到端验证。
+- **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
+- **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
+- **最新正式版**：**v1.9.0**（2026-09-07，从 develop 发布，含 license）：内容更新 OSS 优先 + mac 手动下载 OSS 优先；三平台打包 + OSS 自动镜像均成功（OSS feed = 1.9.0）。Windows 实机已验证从 OSS 拉到 1.9.0 并更新成功
+- **内容 OSS 镜像已上线（方案 B 落地）**：manifest `a3f17677d7bf…` 的 23 个 pack 全部带 `ossUrl`，manifestId 不变；OSS `releases/content/manifest.json` 指针 + `releases/content/a3f17677d7bf/` 目录对象匿名可读（curl -I 200）。上传由新增 `content-oss-mirror.yml`（workflow_dispatch，用 repo secrets）执行
+- **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -279,19 +278,39 @@
 
 **实现状态**：已实现并双线提交（release/v1.7.5 + develop），lint + node:test + vitest 全绿；真实发布验证另做（见上）。
 
+### 3.9 2026-09-07 — 内容 OSS 镜像上线（Route A）+ v1.9.0 发布 + feed 顺序 404 修复
+
+**内容 OSS 镜像上线（Route A：CI workflow 用 repo secrets，密钥不出 GitHub）**：
+- 本机无 ossutil、无 OSS 凭据（密钥只在 repo Secrets）→ 采用 Route A：新增 `scripts/content-oss-mirror.js`（读 content 分支 manifest → 过滤缺 `ossUrl` 的 pack → 从 GitHub release 直连下载并校验 size+SHA-256 → ossutil 上传 `releases/content/<manifestId前12>/` + 目录 manifest + 指针 `releases/content/manifest.json` → 重推同 manifestId、带 `ossUrl` 的 content-branch manifest）+ `.github/workflows/content-oss-mirror.yml`（`workflow_dispatch`，幂等）。
+- 该 workflow 文件同步 develop / release / master（master 仅放 workflow 便于 Actions UI 触发；执行用 `--ref develop`）。
+- 触发 run `34135358798` **success**：23 个 pack 全部镜像；验证 = OSS 指针/目录/单 pack 匿名 `curl -I` 200、content 分支 manifest `ossUrl` 全覆盖且 `manifestId` 仍 `a3f17677d7bf…`（旧客户端忽略新字段，行为不变）。**注意**：raw.githubusercontent 有 CDN 缓存，验证加时间戳参数再读。
+- **日后流程**：本地 `npm run content:publish`（无 ossutil 时镜像失败但不阻断）→ 补跑一次 content-oss-mirror workflow 即可 heal；两端幂等。
+
+**v1.9.0 发布（从 develop，含 license）**：
+- bump package.json → 1.9.0 + CHANGELOG `[1.9.0]`（OSS-first content 更新 + mac 手动 DMG OSS 优先 + 发布侧镜像），commit `d78c604`，push；annotated tag `v1.9.0` + push → release.yml 自动 verify + 三平台 + publish（GitHub Release + OSS 自动镜像）**全绿**。
+- 实机（Windows）从 OSS feed 拉到 1.9.0 并更新成功，B4 闭环在 v1.9.0 复验通过。
+
+**踩坑：镜像顺序 404 窗口（已修复）**：
+- 现象：App 提示 1.9.0 可更新，但点下载报 `Cannot download ...TOEFL-iBT-Practice-1.9.0-windows-x64-setup.exe, status 404`，反复 Try again 失败一段时间后成功。
+- 根因：release.yml 的 Mirror 步骤 `ossutil cp -r -f release-files/ …` 整目录并发上传，**latest.yml（feed）先落 OSS**，而对应 setup.exe 还在传 → electron-updater 读 feed 即去下载还不存在的对象 → 404。
+- 修复（三线同步 develop/release/master）：镜像改为**安装包先传 → 稳定副本 → 最后重写并上传 latest*.yml（feed-last）**，feed 永远只指向已存在对象。`oss-mirror.yml` 手动工具同改；顺带把 `latest-linux.yml` 也纳入重写（此前只重写 win/mac 两个 feed）。
+
+**下一步（真实 E2E，用户执行）**：国内无 VPN 桌面端 content 从 OSS 拉 manifest+新包；断 OSS 回退 GitHub；mac 手动下载 DMG OSS 优先；下一批新题库 `content:publish` 后补跑 content-oss-mirror workflow。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license） | 1.8.1 | a4006c8 |
-| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 2b9d60c |
-| `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 752f5f4 |
-| `content` | 内容 manifest（自动生成，勿手改） | — | a3f17677d7bf manifestId |
+| `develop` | 完整开发线（含 license，正式发布线） | 1.9.0 | 9832f53（+ 文档提交） |
+| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 27aff71（+ 文档提交） |
+| `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 4b3e956 |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | a3f17677d7bf manifestId |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
+| v1.9.0 | 2026-09-07 | 内容更新 OSS 优先 + mac 手动下载 OSS 优先（从 develop，含 license）|
 | v1.8.0 | 2026-09-05 | license 激活首发 + OSS 更新源（从 develop）|
 | v1.8.1 | 2026-09-05 | B4 国内自动更新闭环验证（含自动 OSS 镜像）|
 | v1.7.8 | 2026-09-02 | 题库分页 10 套/页 |
