@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.1] - 2026-09-10
+
+### Added
+
+- Reading daily-life tasks now support the "Read a Course Description" type introduced by the
+  2026-02-28 real exam: the question instruction ("Read a course description") and the in-app
+  question help copy are displayed. The task renders through the existing generic daily-life
+  card, so no new layout was added.
+
 ## [1.9.0] - 2026-09-07
 
 ### Changed
