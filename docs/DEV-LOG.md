@@ -25,7 +25,7 @@
 
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.9.0**（2026-09-07，从 develop 发布，含 license）：内容更新 OSS 优先 + mac 手动下载 OSS 优先；三平台打包 + OSS 自动镜像均成功（OSS feed = 1.9.0）。Windows 实机已验证从 OSS 拉到 1.9.0 并更新成功
+- **最新正式版**：**v1.9.1**（2026-09-10，从 develop 发布，含 license）：补齐阅读新题型 `course-description` 的专属帮助文案/指令（渲染仍复用通用 daily-life 卡片，无新模板）；三平台打包 + OSS 自动镜像成功（OSS feed = 1.9.1）。本次是 feed-last 顺序修复后首个正式发布，发布后 feed 指向的安装包均已存在（200、size/sha512 与 feed 一致）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `ef9be5fe32ce…`（25 packs，含 2026-02 阅读/听力/写作新内容）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
@@ -340,6 +340,7 @@
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
+| v1.9.1 | 2026-09-10 | Read a Course Description 帮助文案/指令（从 develop，含 license）|
 | v1.9.0 | 2026-09-07 | 内容更新 OSS 优先 + mac 手动下载 OSS 优先（从 develop，含 license）|
 | v1.8.0 | 2026-09-05 | license 激活首发 + OSS 更新源（从 develop）|
 | v1.8.1 | 2026-09-05 | B4 国内自动更新闭环验证（含自动 OSS 镜像）|
