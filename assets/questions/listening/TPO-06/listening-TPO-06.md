@@ -5,6 +5,7 @@
 ### Listen and Choose a Response – Questions 1-8
 
 1. Man: Is the library open now?
+image: 1.png
 audio: Listening1_Listen_Response_Question1.ogg
 A. Yes, until nine p.m.
 B. Maybe last week.
@@ -12,6 +13,7 @@ C. Every book.
 D. No, dinner is at eight p.m.
 
 2. Woman: Could you help me organize these files?
+image: 2.png
 audio: Listening1_Listen_Response_Question2.ogg
 A. Sure, I can.
 B. The calendar is current.
@@ -19,6 +21,7 @@ C. Yes, on the left.
 D. The kitchen is large.
 
 3. Man: It looks like you didn't finish the slides for the presentation.
+image: 3.png
 audio: Listening1_Listen_Response_Question3.ogg
 A. Yes, I agree with the manager.
 B. The concert was fantastic.
@@ -26,6 +29,7 @@ C. Sorry — I forgot.
 D. Yes, I'll leave tomorrow evening.
 
 4. Woman: It's quite warm, isn't it?
+image: 4.png
 audio: Listening1_Listen_Response_Question4.ogg
 A. I haven't had a chance to check the schedule.
 B. It's not in the budget for this year.
@@ -33,6 +37,7 @@ C. The hallway lights are out again.
 D. Especially for this time of year.
 
 5. Man: Will you be able to meet the deadline for your research paper?
+image: 5.png
 audio: Listening1_Listen_Response_Question5.ogg
 A. Sure, I'll call them tomorrow.
 B. Sorry to hear that.
@@ -40,6 +45,7 @@ C. I'm on track to finish on time.
 D. Not such a good idea.
 
 6. Woman: When is your job interview?
+image: 6.png
 audio: Listening1_Listen_Response_Question6.ogg
 A. It will be in the conference room.
 B. It's been rescheduled to Monday morning.
@@ -47,6 +53,7 @@ C. I'll do that next time.
 D. We went out for lunch afterward.
 
 7. Man: I'm having trouble resetting my password.
+image: 7.png
 audio: Listening1_Listen_Response_Question7.ogg
 A. Let me find the instructions for you.
 B. I can't attend tonight.
@@ -54,6 +61,7 @@ C. I don't know how many.
 D. Set the documents on the table.
 
 8. Woman: I can't find the invoice for last month's catering order.
+image: 8.png
 audio: Listening1_Listen_Response_Question8.ogg
 A. Did you check the file folder?
 B. Two copies of the billing statement.
@@ -76,6 +84,7 @@ A
 ### Listen to a Conversation – Car Trouble
 
 audio: Listening1_Conversation_Questions_9-10.ogg
+image: 9.png
 
 Man: I've been having trouble with my car lately. It makes a weird sound every time I start it.
 Woman: That's annoying. Have you taken it to get checked out?
@@ -106,6 +115,7 @@ D
 ### Listen to a Conversation – Ski Trip
 
 audio: Listening1_Conversation_Questions_11-12.ogg
+image: 10.png
 
 Woman: I heard you're planning a trip to Sky-High Ski Resort this winter. Have you booked everything yet?
 Man: Well, I've booked the cabin to stay, but I still need to reserve skis and ski boots.
@@ -137,6 +147,7 @@ B
 ### Listen to an Announcement – Office Hours Change
 
 audio: Listening1_Announcement_Questions_13-14.ogg
+image: 11.png
 
 Woman: I want to let everyone know that my office hours will be changing. Starting next week, I will be available on Mondays and Wednesdays from 2 to 4 p.m., instead of the current 1 to 3 p.m. If you have an urgent need to meet with me and these times don't work for you, please email me and I can schedule an appointment. Keep in mind that office hours are a great opportunity to discuss any questions or concerns you have about the course material.
 
@@ -162,6 +173,7 @@ C
 ### Listen to a Talk in a Linguistics Class – Language Acquisition
 
 audio: Listening1_Academic_Talk_Questions_15-18.ogg
+image: 12.png
 
 Man: Let's talk a little about language acquisition, which is the process by which humans learn to understand and use language. There are two main types of language acquisition: first language acquisition and second language acquisition.
 
@@ -209,6 +221,7 @@ B
 ### Listen and Choose a Response – Questions 1-8
 
 1. Man: Would you mind closing the window?
+image: 13.png
 audio: Listening2_Listen_Response_Question1.ogg
 A. Sure, I'll call tomorrow.
 B. Check under the table.
@@ -216,6 +229,7 @@ C. No problem.
 D. Closed on Mondays.
 
 2. Woman: The seminar meets at eight thirty a.m. on Wednesdays.
+image: 14.png
 audio: Listening2_Listen_Response_Question2.ogg
 A. Nearly 90 minutes.
 B. Thank you for reminding me.
@@ -223,6 +237,7 @@ C. The bookstore opens at noon on Sundays.
 D. About 200 faculty members.
 
 3. Man: Have you created the syllabus for the art history course?
+image: 15.png
 audio: Listening2_Listen_Response_Question3.ogg
 A. Sure, I'll check them.
 B. No, the artwork is being shipped.
@@ -230,6 +245,7 @@ C. I'll have time tomorrow morning.
 D. The professor called me back.
 
 4. Woman: Where can I find the cafeteria?
+image: 16.png
 audio: Listening2_Listen_Response_Question4.ogg
 A. On the ground floor.
 B. A bigger lobby.
@@ -237,6 +253,7 @@ C. Usually at eleven thirty a.m.
 D. Good meal selections.
 
 5. Man: Who will summarize our team's research findings?
+image: 17.png
 audio: Listening2_Listen_Response_Question5.ogg
 A. Jacob already found his.
 B. No more than 1,000 words.
@@ -244,6 +261,7 @@ C. Emily would do a great job.
 D. Different lab equipment.
 
 6. Woman: How do you use this software?
+image: 18.png
 audio: Listening2_Listen_Response_Question6.ogg
 A. Follow the tutorial.
 B. Purchase a computer.
@@ -251,6 +269,7 @@ C. A soft touch is needed.
 D. Thursday afternoons.
 
 7. Man: Is the café open now?
+image: 19.png
 audio: Listening2_Listen_Response_Question7.ogg
 A. Around back.
 B. Coffee and tea.
@@ -258,6 +277,7 @@ C. It's closed.
 D. She is available.
 
 8. Man: Let's schedule an extra study-group meeting.
+image: 20.png
 audio: Listening2_Listen_Response_Question8.ogg
 A. Doesn't the librarian know?
 B. Longer than expected.
@@ -280,6 +300,7 @@ D
 ### Listen to a Conversation – New Gym
 
 audio: Listening2_Conversation_Questions_9-10.ogg
+image: 21.png
 
 Man: I've been eyeing the new gym downtown …
 Woman: Have you checked their facilities?
@@ -311,6 +332,7 @@ C
 ### Listen to an Announcement – Update Contact Information
 
 audio: Listening2_Announcement_Questions_11-12.ogg
+image: 22.png
 
 Man: Due to some recent changes in university policy, we need everyone to update their contact information in the student portal. Doing so will ensure that you receive important notifications, including about class cancellations and emergency alerts. Please complete the update by the end of this week. Don't take a chance on missing out on critical information.
 
@@ -336,6 +358,7 @@ A
 ### Listen to a Talk in an Environmental Science Class – Ecological Footprint
 
 audio: Listening2_Academic_Talk_Questions_13-16.ogg
+image: 23.png
 
 Woman: Today we're discussing the notion of the ecological footprint, something that measures the impact of human activities on the environment, in terms of the amount of natural resources we consume and the waste we generate.
 

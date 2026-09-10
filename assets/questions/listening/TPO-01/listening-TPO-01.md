@@ -7,6 +7,7 @@
 audio: Pack-1_Listening.MP3
 
 1. Woman: How can I access my account?
+image: 1.png
 >> play: 00:43-00:48
 A. You should try taking the bus.
 B. I usually call Support.
@@ -14,6 +15,7 @@ C. It's easy for them.
 D. You can read it to me now.
 
 2. Man: When will you have time to finish the report?
+image: 2.png
 >> play: 00:52-00:55
 A. No need to cancel it.
 B. No, it's the beginning.
@@ -21,6 +23,7 @@ C. I have nothing scheduled for Thursday.
 D. You cannot tell the difference.
 
 3. Woman: Why was the history class canceled?
+image: 3.png
 >> play: 00:59-01:02
 A. The teacher is not feeling well.
 B. I have other classes.
@@ -28,6 +31,7 @@ C. It's sometime in the afternoon.
 D. The students have already arrived.
 
 4. Man: Would you like to try the appetizer special?
+image: 4.png
 >> play: 01:06-01:12
 A. I brought a warm coat.
 B. No, that bus already left.
@@ -35,6 +39,7 @@ C. What is it?
 D. I might call him later.
 
 5. Woman: Have you made progress on the report?
+image: 5.png
 >> play: 01:20-01:26
 A. They ended yesterday.
 B. No, not yet.
@@ -42,6 +47,7 @@ C. I don't remember why.
 D. Yes, I have some for you here.
 
 6. Man: When is the deadline for the project?
+image: 6.png
 >> play: 01:32-01:38
 A. Your plans were delayed.
 B. I can't miss my train.
@@ -49,6 +55,7 @@ C. Two weeks isn't much time.
 D. I'll have to get back to you on that.
 
 7. Woman: How do I extend my hotel reservation?
+image: 7.png
 >> play: 01:47-01:53
 A. Maybe one more day.
 B. I think that's right.
@@ -56,6 +63,7 @@ C. Call the front desk.
 D. It's a nice room.
 
 8. Man: How can I update my user profile?
+image: 8.png
 >> play: 01:58-02:04
 A. First, go to Settings.
 B. You can submit it tomorrow.
@@ -77,6 +85,7 @@ A
 ### Listen to a Conversation – Questions 9-10
 
 audio: Pack-1_Listening.MP3
+image: 9.png
 >> play: 02:20-02:52
 Woman: Hey, did you end up making it to Janet's concert last night?
 Man: I was planning to go, but I got completely sidetracked helping my cousin move into her new apartment. It took way longer than expected.
@@ -103,6 +112,7 @@ D
 ### Listen to a Conversation – Questions 11-12
 
 audio: Pack-1_Listening.MP3
+image: 10.png
 >> play: 03:10-03:40
 Woman: Are you still planning to go to the exercise class this evening?
 Man: Yes, I am, but I realized my old mat is completely worn out. I'll need to pick up a new one before I go.
@@ -130,6 +140,7 @@ A
 ### Listen to an Announcement at a university event – Questions 13-14
 
 audio: Pack-1_Listening.MP3
+image: 11.png
 >> play: 04:05-04:26
 Man: Attention everyone! We are thrilled to announce that the university's annual charity auction will be held next Saturday at six PM in the main hall. All proceeds will go to local charities. We hope to see you there and appreciate your support!
 13. What is the main topic of the announcement?
@@ -152,6 +163,7 @@ B
 ### Listen to an Announcement at a university club meeting – Questions 15-16
 
 audio: Pack-1_Listening.MP3
+image: 12.png
 >> play: 04:39-04:58
 Man: Welcome everyone! Just a reminder that our club's annual hiking trip will be this Saturday. We will meet at eight AM at the student center and head out to the trails together. Make sure to bring water, snacks and comfortable shoes.
 15. What is the main topic of the announcement?
@@ -174,6 +186,7 @@ C
 ### Listen to a Talk in a sociology class – Questions 17-20
 
 audio: Pack-1_Listening.MP3
+image: 13.png
 >> play: 05:13-06:37
 Professor: Cultural relativism is the idea that a person's beliefs and activities should be understood based on that person's own culture, rather than be judged against the criteria of another culture. This concept contrasts with ethnocentrism, which is the practice of evaluating other cultures according to the standards of one's own culture.
 
@@ -216,6 +229,7 @@ A
 audio: Pack-1_Listening.MP3
 
 1. Woman: Can you help me with this assignment?
+image: 14.png
 >> play: 07:41-07:46
 A. Sure, I can.
 B. Yes, I did.
@@ -223,6 +237,7 @@ C. No, I don't need any help.
 D. I'll ask later.
 
 2. Man: Who is coming to the meeting?
+image: 15.png
 >> play: 08:06-08:10
 A. Anyone who wishes to.
 B. Ms. Smith changed the meeting room.
@@ -230,6 +245,7 @@ C. It's not every day.
 D. The manager would like a word with you.
 
 3. Woman: Where is the nearest subway station?
+image: 16.png
 >> play: 08:32-08:36
 A. It's across from the park.
 B. It opens at five a.m.
@@ -246,6 +262,7 @@ A
 ### Listen to a Conversation – Questions 4-5
 
 audio: Pack-1_Listening.MP3
+image: 17.png
 >> play: 09:09-09:38
 Man: Are you interested in going to the book fair this Saturday?
 Woman: Absolutely! I love discovering new authors. What time does it start?
@@ -272,6 +289,7 @@ B
 ### Listen to a Conversation – Questions 6-7
 
 audio: Pack-1_Listening.MP3
+image: 18.png
 >> play: 10:11-10:34
 Woman: Are you going to the craft fair this weekend?
 Man: Yes, I love looking at handmade items and unique crafts.
@@ -298,6 +316,7 @@ B
 ### Listen to a Talk on a science podcast – Questions 8-11
 
 audio: Pack-1_Listening.MP3
+image: 19.png
 >> play: 11:18-12:49
 Podcast Host: Today's topic is the intriguing behavior of honeybees and their communication methods within the hive. Honeybees are known for their complex social structure and efficiency in gathering resources. One of the most fascinating aspects of their behavior is the waggle dance. This dance is used by worker bees to convey information about the location of food sources to other members of the hive.
 
@@ -338,6 +357,7 @@ B
 ### Listen to a Talk in a music class – Questions 12-15
 
 audio: Pack-1_Listening.MP3
+image: 20.png
 >> play: 14:58-16:20
 Professor: You are probably all familiar with jazz music. Its history begins in the southern United States. It originated in the early 20th century in the city of New Orleans, blending elements of different kinds of music like African rhythms, blues and ragtime.
 

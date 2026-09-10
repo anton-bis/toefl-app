@@ -5,6 +5,7 @@
 ### Listen and Choose a Response – Questions 1-8
 
 1. Man: Who can fix the printer?
+image: 1.png
 audio: Listening1_Listen_Response_Question1.ogg
 A. Mike can.
 B. Sarah said so.
@@ -12,6 +13,7 @@ C. At the library.
 D. Each weekend.
 
 2. Woman: Please update the expense report.
+image: 2.png
 audio: Listening1_Listen_Response_Question2.ogg
 A. I hope so.
 B. Yesterday, I think.
@@ -19,6 +21,7 @@ C. Straight ahead, then left.
 D. I'll get to it.
 
 3. Man: Would you mind turning down the music?
+image: 3.png
 audio: Listening1_Listen_Response_Question3.ogg
 A. Sure, I'll do it.
 B. I just found mine.
@@ -26,6 +29,7 @@ C. I put it on the shelf.
 D. The concert is on Friday.
 
 4. Woman: It's quite hot, isn't it?
+image: 4.png
 audio: Listening1_Listen_Response_Question4.ogg
 A. Over the weekend, I think.
 B. It should cool down tomorrow.
@@ -33,6 +37,7 @@ C. The movie is at 5 p.m.
 D. Sure, it's at the bakery.
 
 5. Woman: Why did you leave early?
+image: 5.png
 audio: Listening1_Listen_Response_Question5.ogg
 A. I think that it could be nice.
 B. Yes, the trees are beautiful.
@@ -40,6 +45,7 @@ C. I was feeling unwell.
 D. At some point in the evening.
 
 6. Man: When is the next train to Paris?
+image: 6.png
 audio: Listening1_Listen_Response_Question6.ogg
 A. At the main station downtown.
 B. Probably with breakfast.
@@ -47,6 +53,7 @@ C. In the evening.
 D. Yesterday morning.
 
 7. Man: Would you prefer to fly to the conference or take the train?
+image: 7.png
 audio: Listening1_Listen_Response_Question7.ogg
 A. Both locations have closed.
 B. The new one should be better.
@@ -54,6 +61,7 @@ C. Which is less expensive?
 D. How many are there?
 
 8. Man: Are you planning to attend the dance performance?
+image: 8.png
 audio: Listening1_Listen_Response_Question8.ogg
 A. They had two rehearsals.
 B. Maybe once in a while.
@@ -76,6 +84,7 @@ C
 ### Listen to a Conversation – Company Picnic
 
 audio: Listening1_Conversation_Questions_9-10.ogg
+image: 9.png
 
 Man: I just got an email saying that the company picnic at Emerald Park has been rescheduled.
 Woman: Oh, really? How come?
@@ -106,6 +115,7 @@ B
 ### Listen to a Conversation – Choosing a Laptop
 
 audio: Listening1_Conversation_Questions_11-12.ogg
+image: 10.png
 
 Man: I'm having trouble deciding which laptop to buy. There are so many options out there.
 Woman: Have you narrowed it down at all?
@@ -135,6 +145,7 @@ A
 ### Listen to an Announcement – Research Paper
 
 audio: Listening1_Announcement_Questions_13-14.ogg
+image: 11.png
 
 Man: Before we get started, don't forget that the first draft of your research paper is due on Monday. This draft should include your thesis statement, main arguments, and a preliminary list of sources. It's only a draft, so it's okay if it's not perfect. The goal is to get feedback and refine your ideas. Please submit your draft electronically via the course portal by midnight on Monday.
 
@@ -160,6 +171,7 @@ D
 ### Listen to a Talk in a Neuroscience Class – Neuroplasticity
 
 audio: Listening1_Academic_Talk_Questions_15-18.ogg
+image: 12.png
 
 Man: Today we're exploring neuroplasticity, which means the brain's ability to reorganize itself by forming new neural connections throughout life. Neuroplasticity allows the brain to adapt in response to learning, experience, and other stimulation. This remarkable capacity for change is crucial for cognitive development and skill acquisition. There are two main types of neuroplasticity: structural and functional.
 
@@ -207,6 +219,7 @@ C
 ### Listen and Choose a Response – Questions 1-8
 
 1. Woman: Which bus goes to the airport?
+image: 13.png
 audio: Listening2_Listen_Response_Question1.ogg
 A. Bus number 30.
 B. Jake might do it.
@@ -214,6 +227,7 @@ C. The flight is quite long.
 D. A 25-minute drive.
 
 2. Woman: Why is the gym closed?
+image: 14.png
 audio: Listening2_Listen_Response_Question2.ogg
 A. Yesterday's storm caused damage.
 B. Be sure to shut down the equipment.
@@ -221,6 +235,7 @@ C. A new workout routine.
 D. Because he has two already.
 
 3. Man: Could you proofread this document?
+image: 15.png
 audio: Listening2_Listen_Response_Question3.ogg
 A. I should have time tomorrow.
 B. Every weekend over the past few months.
@@ -228,6 +243,7 @@ C. Yes, last week at the library.
 D. It's downtown, I think.
 
 4. Man: Do you mind if I take the aisle seat?
+image: 16.png
 audio: Listening2_Listen_Response_Question4.ogg
 A. Everyone is seated.
 B. Not for me, thank you.
@@ -235,6 +251,7 @@ C. Only single seats.
 D. Not at all.
 
 5. Woman: Did you repair your bicycle yourself?
+image: 17.png
 audio: Listening2_Listen_Response_Question5.ogg
 A. That brand has a good reputation.
 B. I took it to a professional.
@@ -242,6 +259,7 @@ C. No, it's not far from here.
 D. Sure, I'll take a look at it.
 
 6. Woman: This café just opened for business, didn't it?
+image: 18.png
 audio: Listening2_Listen_Response_Question6.ogg
 A. Sure, right away.
 B. On the right.
@@ -249,6 +267,7 @@ C. Every evening.
 D. Only last week.
 
 7. Man: How do you feel about the new marketing strategy?
+image: 19.png
 audio: Listening2_Listen_Response_Question7.ogg
 A. I remember it well.
 B. I'm still thinking about it.
@@ -256,6 +275,7 @@ C. I don't know if I can attend.
 D. I'd like to visit them.
 
 8. Woman: Do we need to postpone the software training session?
+image: 20.png
 audio: Listening2_Listen_Response_Question8.ogg
 A. A compatibility issue.
 B. It's already been rescheduled.
@@ -278,6 +298,7 @@ B
 ### Listen to a Conversation – Presentation Preparation
 
 audio: Listening2_Conversation_Questions_9-10.ogg
+image: 21.png
 
 Woman: Are you all set for your presentation tomorrow?
 Man: Almost. I still need to finalize my slides and add a couple more visuals to make it engaging.
@@ -308,6 +329,7 @@ A
 ### Listen to an Announcement – Campus Composting
 
 audio: Listening2_Announcement_Questions_11-12.ogg
+image: 22.png
 
 Man: Environmentally minded students will be happy to know that compost collection bins have been placed next to every paper and plastic recycling receptacle in the student center food court. Now, any uneaten food can be placed into a compost bin. The contents of the bins are collected daily by agriculture students who are transforming our food waste into plant food through the process of composting. Please do your part to keep our campus sustainable through recycling and composting.
 
@@ -333,6 +355,7 @@ C
 ### Listen to a Talk in a Chemistry Class – Catalysts
 
 audio: Listening2_Academic_Talk_Questions_13-16.ogg
+image: 23.png
 
 Woman: Today, I want to talk about a fascinating topic in chemistry: catalysts — substances that speed up chemical reactions without being used up. Think of them as helpful assistants that make reactions happen faster and more efficiently, while staying unchanged. This means they don't become part of the final product, so they can be reused again and again in multiple reactions.
 
