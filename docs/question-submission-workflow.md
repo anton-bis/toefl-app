@@ -265,6 +265,69 @@ git tag -d vX.Y.Z   # 仅本地有时
 
 ---
 
+## 5.6 内容投递通道与分支对齐（防坑）
+
+> **⚠️ 核心教训（2026-08-31，2026-02-02 "失踪"事件）：** "提交到 git 分支" ≠ "发布内容"。
+> App 题库只认 `content` 分支的 `manifest.json`，与 git 的 develop / release 分支无关；
+> content 清单是每次 `content:publish` **全量重建覆盖的快照**，只反映跑 publish 那个工作区的内容，不是各分支的并集。
+
+### 5.6.1 认清两条投递通道（同一仓库，不同分支 + 两种通道）
+
+| 通道 | 流程 | 消费端 |
+| --- | --- | --- |
+| App 更新 | develop / release → tag（v1.7.x）→ GitHub release 安装包 | electron-updater → App 二进制 |
+| 内容更新 | `content:publish` → 编译当前工作区 markdown 成内容包 → 推 `manifest.json` 到 `content` 分支 | App 的 content-updater 拉清单 → 下载题库 |
+
+> **让某套题上线 = 在该套题所属的那个分支上跑一次 `content:publish`。**
+> 反例（2026-02-02）：题目只提交在 `develop`（commit 9c2bf3a，两套四科），但最后一次 publish 是在不含该 commit 的发布线上跑的（那条线只有 02-04+），`02-02` 便从清单里"消失"——表现为"这次整理丢了"。
+
+### 5.6.2 判断"丢了"还是"在别的分支"（仓库根目录，只读）
+
+```bash
+# 历史上是否存在过（区分"丢失"与"在别的分支"）
+git log --all --name-only | Select-String "<日期>"
+
+# 现在在哪个分支
+git ls-tree -r --name-only <分支> | Select-String "<日期>"
+
+# 确认某 commit 是否属于当前分支（0=包含，1=不包含）
+git merge-base --is-ancestor <commit> HEAD; echo $LASTEXITCODE
+
+# 对比同一日期两场次是否一致（用 blob 哈希，最可靠）
+git rev-parse "<分支>:<路径>"
+```
+
+**正确做法（不要重复整理，避免重复劳动与偏差）：**
+从有内容的正确分支恢复文件进工作区，然后新建一次提交（题库 `.md` 是 git 跟踪的源文件，`content:publish` 强制要求先提交）：
+
+```bash
+git restore --source=<正确分支> --staged --worktree <路径>
+# 恢复文件 → 更新 tests/content/content.test.js 的计数 → 重新生成 manifest
+npm run content:manifest
+npm test                 # 全绿
+git add -A && git commit # 提交
+npm run content:publish
+```
+
+### 5.6.3 多场次文件夹（`(N)`）与分支对齐要点
+
+- **两场共享科目**：阅读 / 听力 / 口语同内容，**写作分套一 / 套二**。
+  `2026-02-02` 与 `2026-02-02 (2)` 两个文件夹各放对应 md，content 按文件夹分组各自成包。
+- **发布代码基线必须含 `sanitizePackId`**（`src/content/packs.js` 已实现）：pack id 自动变 `tpo-2026-02-02-2`（无空格无括号），否则 GitHub 资产名会 404（见 §5 教训）。
+- **谁整理、谁发布要对齐分支**：题目 commit 到哪个分支，后续就在那个分支跑 `content:publish`；换分支跑会"漏"，甚至把已发布的内容从清单里剔除。
+
+### 5.6.4 发布前预检 / 发布后验证
+
+- 发布前：`npm run content:manifest` + pack 发现（`scripts/content-packages.js`），提前暴露"媒体缺失 / 解析失败"，避免发布中途失败。
+- 发布后：`curl -sI <pack.url>` 应返回 200；确认远端 content 清单出现对应 `tpo-YYYY-MM-DD` 包，且包可完整下载。
+
+### 5.6.5 自检判定（Writing 专项）
+
+- **空格数 = 需填入的答案块数**（如 7 空格 → 答案用 7 块）。
+- **Candidates 允许多于答案**：因存在**干扰项**（候选 ⊇ 答案），候选多于答案是正常、非错误；勿把"候选数 > 空格数"误判为问题。
+
+---
+
 ## 6. 回滚预案
 
 | 场景 | 回滚方式 |
