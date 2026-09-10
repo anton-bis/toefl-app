@@ -26,7 +26,7 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.9.1**（2026-09-10，从 develop 发布，含 license）：补齐阅读新题型 `course-description` 的专属帮助文案/指令（渲染仍复用通用 daily-life 卡片，无新模板）；三平台打包 + OSS 自动镜像成功（OSS feed = 1.9.1）。本次是 feed-last 顺序修复后首个正式发布，发布后 feed 指向的安装包均已存在（200、size/sha512 与 feed 一致）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `ef9be5fe32ce…`（25 packs，含 2026-02 阅读/听力/写作新内容）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `02e6c2eaf030…`（25 packs）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）；2026-09-10 另修复 2026-02-28 完形裸空转义 bug（见 §3.11）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
@@ -327,6 +327,14 @@
 
 **待办**：v1.9.1 App（补 course-description 帮助文案，可选带其它渲染改动）；mac 手动下载 OSS 优先实机验证；下一批题库 publish 后照例跑 content-oss-mirror。
 
+### 3.11 2026-09-10 — 修复 2026-02-28 完形填空裸空转义 bug
+
+- **现象（用户实测）**：2026-02-28 阅读 Task 1（Fill in the missing letters）渲染出 `\_\_\_\_` 反斜杠，且 10 个空错位。
+- **根因**：md 第 7 行把 "only" 写成**前面带空格的裸空** `concentrated on \_\_\_\_`；`fillTokens` 正则 `([a-zA-Z]+)((?:\\?_)+)` 只识别「字母前缀 + 下划线」，裸空不被匹配 → 只解析出 9 个空，答案按 index 顺序整体错位，并原样显示转义符。
+- **修复**：改为 `concentrated onl\_ on t\_\_`（"only" 作为带前缀空），恢复语法与 10 空顺序（`onl` 用前缀，避免与介词 on 混淆）。全局扫描确认仅此一处（` \_` 模式）。
+- **动作**：`84c6bff`（develop）修 md；新 manifestId **`02e6c2eaf030…`**（`content-02e6c2eaf030`）；`content-oss-mirror` run `34503041599` success；复核 25/25 ossUrl 200 且 size 一致、指针已更新。同时把 develop 全量题库快照同步到 release 线（`917571e`，此前 release 落后于 develop）。
+- **顺带加固**：`publish-content.js` 读取远端 manifest 改为**优先 git**（`git show FETCH_HEAD:manifest.json`），避免 v6 代理/CDN 缓存导致「变更集」基线过期（本次曾出现 17 changed 的虚高即源于此），网络读保留兜底。develop `a5612aa` / release `ae156be`。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
@@ -336,7 +344,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.9.0 | 9832f53（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 27aff71（+ 文档提交） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 4b3e956 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | ef9be5fe32ce manifestId（25 packs） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 02e6c2eaf030 manifestId（25 packs） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
