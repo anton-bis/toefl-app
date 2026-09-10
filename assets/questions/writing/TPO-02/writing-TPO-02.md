@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-14.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: What were you talking about after the meeting ended?
 Speaker B: Some colleagues ____ ____ ____ ____ ____ ____ .
 Candidates: a conference / they / wanted to / can register for / make / find out / where
@@ -13,6 +15,8 @@ Some colleagues wanted to find out where they can register for a conference\.
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-7.png
 Speaker A: Did you finish reading the book I lent you?
 Speaker B: ____ ____ ____ ____ ____ ____ ____ yet .
 Candidates: time / had / have / not / having / it / to read / I
@@ -22,6 +26,8 @@ I have not had time to read it yet\.
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-10.png
 Speaker A: Did you get tickets for the concert?
 Speaker B: Unfortunately, ____ ____ ____ longer ____ ____ .
 Candidates: available / the tickets / were / no / did / online
@@ -31,6 +37,8 @@ Unfortunately, the tickets were no longer available online\.
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-10.png
+speaker_b_image: avatar-bs-5.png
 Speaker A: Where do you want to go for dinner?
 Speaker B: ____ that opened ____ ____ ____ ____ ____ ____ .
 Candidates: serves / many / week / the diner / delicious / entrees / last
@@ -40,6 +48,8 @@ The diner that opened last week serves many delicious entrees\.
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: When will the new office furniture arrive?
 Speaker B: The desk ____ ____ ____ ____ ____ ____ ____ .
 Candidates: scheduled / Friday / is / ordered / on / to arrive / you
@@ -49,6 +59,8 @@ The desk you ordered is scheduled to arrive on Friday\.
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-12.png
+speaker_b_image: avatar-bs-4.png
 Speaker A: Where did you find that book?
 Speaker B: The bookstore ____ ____ ____ ____ ____ ____ ____ .
 Candidates: by / stock / the novel / in / had / stopped / I / on
@@ -58,6 +70,8 @@ The bookstore I stopped by had the novel in stock\.
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-4.png
 Speaker A: Why do you prefer that brand of coffee?
 Speaker B: This coffee ____ ____ ____ ____ ____ ____ ____ .
 Candidates: better / the other brands / than / good / tried / I've / all of / tastes
@@ -67,6 +81,8 @@ This coffee tastes better than all of the other brands I've tried\.
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: Where did you get that scarf?
 Speaker B: ____ ____ the post office ____ ____ ____ ____ ____ .
 Candidates: the store / to / next / of / winter apparel / sells / all types
@@ -76,6 +92,8 @@ The store next to the post office sells all types of winter apparel\.
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-16.png
 Speaker A: Why didn't you go to the library today?
 Speaker B: ____ ____ in town ____ ____ ____ ____ ____ .
 Candidates: library / temporarily closed / for / is / renovations / the / only
@@ -85,6 +103,8 @@ The only library in town is temporarily closed for renovations\.
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-4.png
 Speaker A: Can you recommend a good book to read?
 Speaker B: ____ ____ ____ ____ ____ ____ ____ .
 Candidates: my sister / you / that / suggest / one / might interest / can / be
@@ -110,6 +130,9 @@ Requirements:
 
 Subject: economics
 Instructor: Dr. Diaz
+professor_image: avatar-d-5.png
 Professor: We've been discussing the concept of a universal basic income (UBI) in our class as a solution to economic inequality. Some argue that UBI with everyone getting a similar income can provide financial security and reduce poverty, while others believe it can discourage people from working and can negatively impact the economy. Do you think implementing UBI is a good idea? Why or why not?
+student_a_image: avatar-d-4.png
 Claire: I think UBI is a good idea because it can provide a safety net for people who are struggling financially. It would help reduce poverty and give everyone a basic level of security, allowing them to focus on improving their lives without the constant fear of financial instability.
+student_b_image: avatar-d-6.png
 Andrew: I don't think UBI is a good idea because it might discourage people from working. If people receive money without having to work for it, they might lose motivation to find jobs, which could lead to lower productivity and negatively impact the economy as a whole.

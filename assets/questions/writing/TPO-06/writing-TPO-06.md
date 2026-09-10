@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-14.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: Where did you get your shoes?
 Speaker B: ____ ____ ____ ____ ____ ____ .
 Candidates: visited / had / it / last month / the shop / a sale / I
@@ -13,6 +15,8 @@ The shop I visited last month had a sale.
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-7.png
+speaker_b_image: avatar-bs-5.png
 Speaker A: The workshop yesterday was very informative.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ soon?
 Candidates: another one / do / there / if / be / you know / will
@@ -22,6 +26,8 @@ Do you know if there will be another one soon?
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-12.png
 Speaker A: The new restaurant downtown has amazing reviews.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
 Candidates: know / do / if / has / vegetarian options / have / you / they
@@ -31,6 +37,8 @@ Do you know if they have vegetarian options?
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-10.png
+speaker_b_image: avatar-bs-2.png
 Speaker A: That was a great movie we watched last night.
 Speaker B: ____ you ____ ____ ____ ____ ____ ____ ?
 Candidates: that / by / director / would / like / another film / to see
@@ -40,6 +48,8 @@ Would you like to see another film by that director?
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: I'm planning to visit my grandparents next weekend.
 Speaker B: ____ you ____ ____ ____ ____ ____ ____ ?
 Candidates: to the airport / tell me / you / can / need / a lift / whether
@@ -49,6 +59,8 @@ Can you tell me whether you need a lift to the airport?
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-10.png
+speaker_b_image: avatar-bs-2.png
 Speaker A: The book you lent me was fascinating.
 Speaker B: ____ ____ ____ ____ ____ written ____ ?
 Candidates: has / you know / have / the author / if / other books / do
@@ -58,6 +70,8 @@ Do you know if the author has written other books?
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-7.png
 Speaker A: The new software update looks promising.
 Speaker B: On ____ ____ ____ ____ ____ ____ ?
 Candidates: able / which / the download / website / to find / were you
@@ -67,6 +81,8 @@ On which website were you able to find the download?
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-15.png
+speaker_b_image: avatar-bs-12.png
 Speaker A: The new coffee shop downtown is very popular.
 Speaker B: Is ____ ____ ____ ____ ____ ____ ____ ?
 Candidates: that / football matches / you can / on screen / watch / where / the one
@@ -76,6 +92,8 @@ Is that the one where you can watch football matches on screen?
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-11.png
 Speaker A: We had a great time at the concert last night.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
 Candidates: that band / is performing / when / how / find out / again / can we
@@ -85,6 +103,8 @@ How can we find out when that band is performing again?
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-9.png
 Speaker A: I really enjoyed the hiking trip last weekend.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ for this month?
 Candidates: if / more trips / planned / there are / you / tell me / can
@@ -110,8 +130,11 @@ Requirements:
 
 Subject: digital media
 Instructor: Dr. Achebe
+professor_image: avatar-d-3.png
 Professor: Next week we'll be discussing the impact of digital media on traditional forms of communication. Some argue that digital media has had a beneficial effect overall, as it has greatly improved global communication and connectivity. Others believe it has had a largely negative effect, leading to the decline of face-to-face interactions and reduced quality of relationships. What is your opinion on this?
+student_a_image: avatar-d-4.png
 Sarah: I believe digital media has primarily had a positive effect. It allows people to stay in touch over long distances with friends and family with whom they may not have had much contact otherwise. The convenience and speed of digital media allow people to communicate with ease.
+student_b_image: avatar-d-2.png
 James: Although it seems like a good thing on the surface, I think digital media has led to some serious problems. People often spend more time online than engaging in real-life conversations, which can erode social bonds and reduce the quality of communication with others. We need to find a balance between digital and traditional communication.
 Requirements:
 - Express and support your opinion.
