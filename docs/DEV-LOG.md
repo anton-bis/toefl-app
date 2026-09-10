@@ -21,12 +21,12 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-07）
+## 1. 最新状态速览（最后更新：2026-09-10）
 
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.9.0**（2026-09-07，从 develop 发布，含 license）：内容更新 OSS 优先 + mac 手动下载 OSS 优先；三平台打包 + OSS 自动镜像均成功（OSS feed = 1.9.0）。Windows 实机已验证从 OSS 拉到 1.9.0 并更新成功
-- **内容 OSS 镜像已上线（方案 B 落地）**：manifest `a3f17677d7bf…` 的 23 个 pack 全部带 `ossUrl`，manifestId 不变；OSS `releases/content/manifest.json` 指针 + `releases/content/a3f17677d7bf/` 目录对象匿名可读（curl -I 200）。上传由新增 `content-oss-mirror.yml`（workflow_dispatch，用 repo secrets）执行
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `ef9be5fe32ce…`（25 packs，含 2026-02 阅读/听力/写作新内容）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
@@ -297,6 +297,36 @@
 
 **下一步（真实 E2E，用户执行）**：国内无 VPN 桌面端 content 从 OSS 拉 manifest+新包；断 OSS 回退 GitHub；mac 手动下载 DMG OSS 优先；下一批新题库 `content:publish` 后补跑 content-oss-mirror workflow。
 
+### 3.10 2026-09-10 — 全量内容快照发布（阅读/听力/写作）+ OSS 镜像 + S1/S2/S3 真实 E2E
+
+**背景**：其它窗口完成阅读（完形修正 + 2026-02-28 重建 + 新题型 Read a Course Description）、听力（7 场 2026-02 真题 + TPO-01~07 配图）、写作（4 套 Build a Sentence 修正 + TPO-01~09 头像）。工作区全部内容视为终稿，一次性快照发布。
+
+**提交（develop，分 section 5 笔，已 push）**：
+- `54a00ba` feat(reading): support Read a Course Description（`content-core/parsers/reading.js` + `src/vue/.../reading/helpers.js` + `directions.js`）
+- `5a58ecb` feat(reading): 完形修正 + 2026-02-28 重建（6 md）
+- `caa7f9d` feat(listening): 2026-02 真题 + TPO 配图（14 md）
+- `3cba76c` feat(writing): Build a Sentence 修正 + TPO 头像（13 md）
+- `16f26d8` docs: 内容投递通道
+
+**发布前自检**：`content:manifest` 77 documents；`npm run lint` 全绿；`npm test` node 207 pass/1 skip + vitest 194 pass。媒体引用 1663 处、**0 缺失**（png/m4a/mp3 被 .gitignore 忽略但磁盘齐全）。
+
+**发布**：`npm run content:publish` → 新 manifestId **`ef9be5fe32ce…`（25 packs）**，GitHub release `content-ef9be5fe32ce`。本机无 ossutil → 内联镜像跳过（不阻断）。
+**镜像**：`gh workflow run content-oss-mirror.yml --ref develop` run `34491523152` **success**：25 个 pack 全部上传至 `releases/content/ef9be5fe32ce/`（vocabulary/typing 内容未变，复用旧目录 `a3f17677d7bf/` 的 ossUrl——符合增量语义）；指针覆盖为新清单。复核：**25/25 ossUrl 匿名 200 且 size 与清单一致**。
+
+**发布中发现并修复的 bug（重要）**：
+- 现象：第一版 publish 后，23 个「变更」pack 复用了旧 manifest 的 `ossUrl`（指向旧目录的旧归档），客户端会下到旧字节 → SHA-256 校验失败 → 只能回退 GitHub。
+- 根因：`publish-content.js` 对 changed pack 也走 `remotePack.ossUrl` 复用分支，未校验 ossUrl 的归档名是否等于当前 `contentHash`。
+- 修复：引入 `ossUrlMatchesPack`（归档名必须 = `<id>-<contentHash前12>.zip`）；publish 与 mirror 都据此判定「是否已镜像」；mirror 改从 `git show FETCH_HEAD:manifest.json` 读清单（避开 raw.githubusercontent CDN 缓存）。develop `4757eac`/`f686f5b`，release `9ff1012`。
+
+**真实客户端 E2E（Electron 无头 harness，隔离 userData，patch `net.request` 记录 URL / 模拟 OSS 故障；临时文件测完删除，释放 ~1.56GB）**：
+- **S1（OSS 路线证明）**：空 userData → manifest 来自 OSS 指针、25 packs 全带 ossUrl；真下 catalog 包 → size 与 SHA-256 均匹配。**PASS**
+- **S2（真实增量升级）**：以本机 `Tofu Practice` 已装旧内容为种子 → 更新后 `current.json` = `ef9be5fe32ce`、state ready；新内容落地抽查通过（reading 2026-02-28 含 `course-description`、writing TPO-01 含 `avatar-bs`、listening 2026-02-04 编译文档在）；包流量走 OSS。**PASS**
+- **S3（断 OSS 回退）**：内存屏蔽 `*.aliyuncs.com` + 故意损坏 catalog → 仍经 **GitHub/v6 代理**修复并 ready（故障文件恢复）。**PASS**
+
+**客户端版本说明**：`course-description` 的专属帮助文案（`directions.js`）随 **v1.9.1** 补；v1.9.0 对该题型走通用兜底（题头 label + 空帮助），不影响阅读/作答，故内容先发。`content-core/parsers/reading.js` 仅在 publish 编译期生效，不必随 App 下发。
+
+**待办**：v1.9.1 App（补 course-description 帮助文案，可选带其它渲染改动）；mac 手动下载 OSS 优先实机验证；下一批题库 publish 后照例跑 content-oss-mirror。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
@@ -306,7 +336,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.9.0 | 9832f53（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 27aff71（+ 文档提交） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 4b3e956 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | a3f17677d7bf manifestId |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | ef9be5fe32ce manifestId（25 packs） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
