@@ -272,7 +272,7 @@ export async function publishContent() {
       if (archive) {
         fs.copyFileSync(archive.outputPath, path.join(mirrorDirectory, fileName));
         stagedFiles.push(fileName);
-      } else if (remotePack && !ossUrlMatchesPack(remotePack)) {
+      } else if (mirrorEnabled && remotePack && !ossUrlMatchesPack(remotePack)) {
         try {
           await downloadPublishedArchive(remotePack, path.join(mirrorDirectory, fileName));
           stagedFiles.push(fileName);
