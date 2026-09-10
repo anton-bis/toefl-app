@@ -131,6 +131,8 @@ const QUESTION_HELP = {
     '1. Read the form on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   email:
     '1. Read the email carefully\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
+  'course-description':
+    '1. Read the course description on the left\n2. Answer the question on the right by clicking one of the options\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'academic-passage':
     '1. Read the academic passage carefully\n2. Select the best answer\n3. Use Questions to revisit or mark questions\n4. Click Next to continue',
   'build-sentence':

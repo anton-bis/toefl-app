@@ -18,7 +18,8 @@ const TYPES = [
   ['Form', 'form'],
   ['Read a Sign', 'sign'],
   ['Read a Web Page', 'web-page'],
-  ['Read a Review', 'review']
+  ['Read a Review', 'review'],
+  ['Read a Course Description', 'course-description']
 ];
 
 function questionType(title) {

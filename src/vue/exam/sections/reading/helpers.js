@@ -16,6 +16,7 @@ export function instructionFor(type) {
     sign: 'Read a sign',
     'web-page': 'Read a web page',
     review: 'Read a review',
+    'course-description': 'Read a course description',
     'academic-passage': 'Read an academic passage'
   }[type];
   if (label) return label;
