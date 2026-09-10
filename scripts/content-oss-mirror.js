@@ -10,7 +10,6 @@ import { fileURLToPath } from 'node:url';
 import { contentOssBase, contentOssPackUrl } from '../electron/services/content-config.js';
 
 const rootDir = path.resolve('.');
-const repository = process.env.TOEFL_CONTENT_REPOSITORY || 'anton-bis/toefl-app';
 const contentBranch = process.env.TOEFL_CONTENT_BRANCH || 'content';
 const GITHUB_HOSTS = new Set([
   'github.com',
@@ -22,6 +21,16 @@ const PROXY_HOSTS = new Set(['v6.gh-proxy.org', 'gh-proxy.org']);
 
 export function contentPackFileName(packId, contentHash) {
   return `${packId}-${contentHash.slice(0, 12)}.zip`;
+}
+
+export function ossUrlMatchesPack(pack) {
+  if (!pack?.ossUrl) return false;
+  try {
+    const name = decodeURIComponent(new URL(pack.ossUrl).pathname.split('/').pop() || '');
+    return name === contentPackFileName(pack.id, pack.contentHash);
+  } catch {
+    return false;
+  }
 }
 
 export function ossBucket() {
@@ -117,18 +126,13 @@ function publishBranchManifest(manifestPath, manifestId) {
 }
 
 export async function contentOssMirror() {
-  const manifestResponse = await fetch(
-    `https://raw.githubusercontent.com/${repository}/${contentBranch}/manifest.json?t=${Date.now()}`,
-    { headers: { 'user-agent': 'toefl-content-oss-mirror' } }
-  );
-  if (!manifestResponse.ok)
-    throw new Error(`Could not read the content manifest: HTTP ${manifestResponse.status}`);
-  const manifest = await manifestResponse.json();
+  command('git', ['fetch', '--no-tags', 'origin', `refs/heads/${contentBranch}`]);
+  const manifest = JSON.parse(command('git', ['show', 'FETCH_HEAD:manifest.json']));
   if (!Array.isArray(manifest?.packs) || !manifest.packs.length) {
     throw new Error('The published content manifest is invalid.');
   }
   const manifestShort = manifest.manifestId.slice(0, 12);
-  const missing = manifest.packs.filter(pack => !pack.ossUrl);
+  const missing = manifest.packs.filter(pack => !ossUrlMatchesPack(pack));
 
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'toefl-content-oss-'));
   try {
@@ -145,7 +149,7 @@ export async function contentOssMirror() {
       ? {
           ...manifest,
           packs: manifest.packs.map(pack =>
-            pack.ossUrl
+            ossUrlMatchesPack(pack)
               ? pack
               : {
                   ...pack,

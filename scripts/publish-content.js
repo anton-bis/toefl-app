@@ -34,6 +34,16 @@ export function contentPackFileName(packId, contentHash) {
   return `${packId}-${contentHash.slice(0, 12)}.zip`;
 }
 
+function ossUrlMatchesPack(pack) {
+  if (!pack?.ossUrl) return false;
+  try {
+    const name = decodeURIComponent(new URL(pack.ossUrl).pathname.split('/').pop() || '');
+    return name === contentPackFileName(pack.id, pack.contentHash);
+  } catch {
+    return false;
+  }
+}
+
 function command(commandName, args, options = {}) {
   return execFileSync(commandName, args, {
     cwd: rootDir,
@@ -228,7 +238,7 @@ export async function publishContent() {
     const remoteById = new Map((remote?.packs || []).map(pack => [pack.id, pack]));
     const manifestId = contentSetId(prepared);
     const manifestShort = manifestId.slice(0, 12);
-    const missingOssUrl = remote ? remote.packs.some(pack => !pack.ossUrl) : true;
+    const missingOssUrl = remote ? remote.packs.some(pack => !ossUrlMatchesPack(pack)) : true;
     if (remote?.manifestId === manifestId && !missingOssUrl) {
       console.log('Content is already up to date. Nothing to publish.');
       if (mirrorEnabled) {
@@ -262,7 +272,7 @@ export async function publishContent() {
       if (archive) {
         fs.copyFileSync(archive.outputPath, path.join(mirrorDirectory, fileName));
         stagedFiles.push(fileName);
-      } else if (remotePack && !remotePack.ossUrl) {
+      } else if (remotePack && !ossUrlMatchesPack(remotePack)) {
         try {
           await downloadPublishedArchive(remotePack, path.join(mirrorDirectory, fileName));
           stagedFiles.push(fileName);
@@ -306,7 +316,7 @@ export async function publishContent() {
             size: remotePack.size,
             url: remotePack.url
           };
-      if (remotePack?.ossUrl) {
+      if (!generated && ossUrlMatchesPack(remotePack)) {
         pack.ossUrl = remotePack.ossUrl;
       } else if (mirroredFiles.has(fileName)) {
         pack.ossUrl = contentOssPackUrl(manifestShort, fileName);
