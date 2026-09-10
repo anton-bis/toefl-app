@@ -70,6 +70,21 @@ function assertPublishableCheckout() {
 }
 
 async function readRemoteManifest() {
+  try {
+    const remote = command('git', [
+      'ls-remote',
+      '--heads',
+      'origin',
+      `refs/heads/${contentBranch}`
+    ]);
+    if (remote) {
+      command('git', ['fetch', '--no-tags', 'origin', `refs/heads/${contentBranch}`]);
+      const source = command('git', ['show', 'FETCH_HEAD:manifest.json']);
+      if (source) return assertPublishedContentManifest(JSON.parse(source));
+    }
+  } catch {
+    // Fall through to the network read when git has no content branch yet.
+  }
   const response = await fetch(`${manifestUrl}?t=${Date.now()}`, {
     headers: { 'user-agent': 'toefl-content-publisher' }
   });
