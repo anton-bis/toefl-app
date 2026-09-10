@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-15.png
 Speaker A: I need to buy a new laptop.
 Speaker B: ____ ____ ____ ____ ____ ?
 Candidates: has / the best / which / store / deals
@@ -13,6 +15,8 @@ Which store has the best deals?
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-7.png
 Speaker A: I'm thinking about starting a blog.
 Speaker B: ____ ____ ____ ____ ____ yet?
 Candidates: decided / you / a topic / have / on
@@ -22,6 +26,8 @@ Have you decided on a topic yet?
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: I'm going to study at the library this afternoon.
 Speaker B: ____ ____ ____ ____ ____ ____ ?
 Candidates: to / do / borrow / any books / you / need
@@ -31,6 +37,8 @@ Do you need to borrow any books?
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-15.png
+speaker_b_image: avatar-bs-16.png
 Speaker A: I'm thinking about getting a pet.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
 Candidates: are / you / considering / kind / of / what / animal
@@ -40,6 +48,8 @@ What kind of animal are you considering?
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-10.png
 Speaker A: I'm excited to see the new science fiction movie tonight.
 Speaker B: ____ ____ ____ ____ ?
 Candidates: it / showing / is / where
@@ -49,6 +59,8 @@ Where is it showing?
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-10.png
 Speaker A: I have an interview for a new job next week.
 Speaker B: ____ ____ ____ ____ ____ ____ ?
 Candidates: ready / resume / have / you / do / your
@@ -58,6 +70,8 @@ Do you have your resume ready?
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: I need to submit my assignment by tomorrow.
 Speaker B: ____ ____ ____ ____ ____ ?
 Candidates: writing / finished / you / it / have
@@ -67,6 +81,8 @@ Have you finished writing it?
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-2.png
 Speaker A: I'm planning a trip to Europe this summer.
 Speaker B: ____ ____ book your ____ ____ ?
 Candidates: did / flight / you / yet
@@ -76,6 +92,8 @@ Did you book your flight yet?
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-15.png
 Speaker A: I just started learning French.
 Speaker B: ____ ____ ____ ____ ____ ?
 Candidates: you / taking / are / where / classes
@@ -85,6 +103,8 @@ Where are you taking classes?
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-12.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: Why are you asking about the project deadline?
 Speaker B: I'm ____ ____ ____ ____ ____ ____ .
 Candidates: checking / to see / if / has been / extended / it
@@ -110,6 +130,9 @@ Requirements:
 
 Subject: psychology
 Instructor: Dr. Chen
+professor_image: avatar-d-3.png
 Professor: Today we'll discuss the effects of exercise on mental health. Clearly, regular physical activity can improve mood and reduce stress. On the other hand, some people believe that mental health is primarily influenced by other factors such as genetics and the environment. Which do you believe plays a larger role in mental health? Why?
+student_a_image: avatar-d-6.png
 Kelly: I think regular exercise has a significant positive impact on mental health. It can reduce stress, improve mood, and increase overall well-being by releasing endorphins and promoting a healthy lifestyle.
+student_b_image: avatar-d-4.png
 Andrew: I believe that while exercise is important, other factors like genetics and environment play a larger role in mental health. A supportive environment and good mental health practices are crucial for overall well-being.

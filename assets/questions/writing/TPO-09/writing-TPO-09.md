@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-6.png
+speaker_b_image: avatar-bs-2.png
 Speaker A: Are you going to the concert tonight?
 Speaker B: ____ ____ ____ ____ ____ ____ ____ music.
 Candidates: do / kind / of / that / not / like / I
@@ -13,6 +15,8 @@ I do not like that kind of music.
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: Did you enjoy the book I lent you?
 Speaker B: I did not ____ ____ ____ ____.
 Candidates: find / to be / was / very engaging / the story
@@ -22,6 +26,8 @@ I did not find the story to be very engaging.
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: The latest marketing campaign was a tremendous success!
 Speaker B: ____ ____ ____ ____ ____ ____ can be.
 Candidates: realized / I / never / too / social media / how / effective
@@ -31,6 +37,8 @@ I never realized how effective social media can be.
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-15.png
+speaker_b_image: avatar-bs-8.png
 Speaker A: Why was Martha talking to the owner of the garden shop?
 Speaker B: She wanted ____ ____ ____ ____ ____ ____.
 Candidates: planting / some flowers / start / when / to know / to / so
@@ -40,6 +48,8 @@ She wanted to know when to start planting some flowers.
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: Evan said you have a question for me.
 Speaker B: I'd like ____ ____ ____ ____ ____ ____.
 Candidates: to know / where / because / the programming job / you / about / found out
@@ -49,6 +59,8 @@ I'd like to know where you found out about the programming job.
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-4.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: What did you think of the movie?
 Speaker B: In ____ ____ ____ ____ ____ ____.
 Candidates: was / very / my opinion / it / not / entertaining
@@ -58,6 +70,8 @@ In my opinion it was not very entertaining.
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-6.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: Do you want to try the new recipe I found?
 Speaker B: No, I ____ ____ ____ ____ ____.
 Candidates: at cooking / am / good / not / complex dishes
@@ -67,6 +81,8 @@ No, I am not good at cooking complex dishes.
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-7.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: Have you finished reading the novel?
 Speaker B: ____ ____ ____ ____ yet.
 Candidates: reached / I / the last chapter / already / haven't
@@ -76,6 +92,8 @@ I haven't reached the last chapter yet.
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-3.png
 Speaker A: Will you attend the seminar tomorrow?
 Speaker B: I ____ ____ ____ ____ ____.
 Candidates: have / topic / interest / in / that / no / not
@@ -85,6 +103,8 @@ I have no interest in that.
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: Did you buy the groceries I asked for?
 Speaker B: The store ____ ____ ____ ____ ____ ____.
 Candidates: not / did / have / everything / on / none / the list
@@ -110,8 +130,11 @@ Requirements:
 
 Subject: environmental science
 Instructor: Dr. Williams
+professor_image: avatar-d-3.png
 Professor: Art and media have the power to influence public opinion and behavior on environmental issues. For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories. However, some worry that art and media may oversimplify complex environmental issues or focus too much on negative aspects for dramatic effect. Do you think art and media are an appropriate way to increase public awareness of complex environmental issues? Why or why not?
+student_a_image: avatar-d-5.png
 Claire: I worry that media coverage of environmental issues often comes with commercial bias. News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.
+student_b_image: avatar-d-7.png
 Marcus: I believe creative media can connect with people on an emotional level in ways that facts alone cannot. A powerful documentary or social media campaign can inspire real action and make complex issues feel personal and urgent.
 Requirements:
 - Express and support your opinion.

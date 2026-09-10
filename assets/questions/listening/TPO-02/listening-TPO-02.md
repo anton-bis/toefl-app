@@ -7,6 +7,7 @@
 audio: Pack-2_Listening.MP3
 
 1. What time does the play start?
+image: 1.png
 >> play: 00:17-00:21
 A. Yes, always.
 B. In the main theater.
@@ -14,6 +15,7 @@ C. I don't remember.
 D. I certainly hope so.
 
 2. If you need more information, ask Mr Garcia
+image: 2.png
 >> play: 00:50-00:55
 A. Where can I find him?
 B. I don't need more time.
@@ -21,6 +23,7 @@ C. I have an extensive collection.
 D. You can find it in the garage.
 
 3. Do you prefer coffee or tea?
+image: 3.png
 >> play: 01:16-01:20
 A. I prefer coffee.
 B. Yes, thank you.
@@ -28,6 +31,7 @@ C. I think I do.
 D. I'll look it up now.
 
 4. Did you submit the form?
+image: 4.png
 >> play: 01:41-01:45
 A. Yes, please.
 B. No, you may not.
@@ -35,6 +39,7 @@ C. Why not?
 D. I forgot to.
 
 5. Do you prefer swimming to running?
+image: 5.png
 >> play: 02:07-02:11
 A. No, I really shouldn't.
 B. Not until you're ready.
@@ -42,6 +47,7 @@ C. Yes, and I always have.
 D. Running.
 
 6. When will they want to take a break?
+image: 6.png
 >> play: 02:33-02:37
 A. I'd like your opinion now, please.
 B. They'll wait for us at the entrance.
@@ -49,6 +55,7 @@ C. I'll ask when they can begin working.
 D. They say they're ready now.
 
 7. Who's leading the banking webinar?
+image: 7.png
 >> play: 02:58-03:02
 A. The autumn classes are all full.
 B. Mr. Lee bought the house.
@@ -56,6 +63,7 @@ C. The head of the department.
 D. I'll show you where it is.
 
 8. What time does the dance performance start?
+image: 8.png
 >> play: 03:23-03:27
 A. It was changed to 7 p.m.
 B. In the Wilson Auditorium.
@@ -78,6 +86,7 @@ A
 ### Listen to a Conversation – Questions 9-10
 
 audio: Pack-2_Listening.MP3
+image: 9.png
 >> play: 03:56-04:29
 
 Are we still meeting at the museum this afternoon for the exhibit? Yes, definitely, but I'm running a bit behind. I had to finish up a paper for my history seminar and it took longer than I expected. No worries, I'll head over and wait for you in the lobby. The exhibit doesn't close until six, right? That's right. I should be there in about 20 minutes. Thanks for being flexible. Of course, I've been looking forward to this exhibit all week.
@@ -104,6 +113,7 @@ B
 ### Listen to a Conversation – Questions 11-12
 
 audio: Pack-2_Listening.MP3
+image: 10.png
 >> play: 05:12-05:41
 
 I forgot to pack my lunch today. Any recommendations for a good place nearby? There's a new cafe around the corner from the office that has great sandwiches and salads. Sounds perfect. Do they have vegetarian options? Yes, plenty. They also have a daily special which is usually vegetarian. Great. I'll head there during my lunch break.
@@ -130,6 +140,7 @@ C
 ### Listen to an Announcement – Questions 13-14
 
 audio: Pack-2_Listening.MP3
+image: 11.png
 >> play: 06:22-06:43
 
 Attention everyone! We are pleased to announce that the university's annual drama festival will be held next Friday at six PM in the auditorium. There will be performances by various student groups. We hope to see you there!
@@ -156,6 +167,7 @@ D
 ### Listen to an Announcement – Questions 15-16
 
 audio: Pack-2_Listening.MP3
+image: 12.png
 >> play: 07:27-07:49
 
 Welcome everyone! Just a reminder that our annual hiking trip will be this Saturday. We will meet at eight AM at the student center and head out to the trails together. Make sure to bring water, snacks and comfortable shoes.
@@ -182,6 +194,7 @@ D
 ### Listen to a Talk in a Business Class – Questions 17-20
 
 audio: Pack-2_Listening.MP3
+image: 13.png
 >> play: 08:31-10:12
 
 Today we will discuss the concept of corporate social responsibility, often abbreviated as CSR. CSR is a business model in which companies integrate social and environmental concerns into how they operate. It's more than just compliance with legal requirements; it's about voluntary actions that benefit society. Companies that embrace CSR often focus on things like sustainable practices, ethical labor standards and community engagement. By doing so, they aim to enhance their reputation, build consumer trust and potentially increase profits. One example of CSR in action is a company that reduces its carbon emissions by adopting renewable energy sources such as solar or wind power. Another example is a corporation that ensures fair wages and safe working conditions for its employees. CSR can also involve charitable giving, such as donating a portion of profits to social causes or supporting local organizations. While CSR brings many benefits, it is not without challenges. Companies may face higher operational costs when implementing sustainable practices, and measuring the impact of CSR initiatives can be complex. Despite these challenges, many businesses believe that the long-term benefits of CSR outweigh the short-term costs. Next, we will explore some case studies of companies that have successfully implemented CSR strategies.
@@ -224,6 +237,7 @@ C
 audio: Pack-2_Listening.MP3
 
 1. Will I see you at the opening ceremony?
+image: 14.png
 >> play: 12:28-12:32
 A. Yes, I'll be there.
 B. I'm not sure yet.
@@ -231,6 +245,7 @@ C. It starts at 7.
 D. I have another event.
 
 2. I'm not free this evening after all.
+image: 15.png
 >> play: 12:53-12:57
 A. That's too bad.
 B. Let's reschedule for tomorrow.
@@ -238,6 +253,7 @@ C. I'll go alone then.
 D. What time is it?
 
 3. Just tell me if you don't understand.
+image: 16.png
 >> play: 13:19-13:23
 A. I understand everything.
 B. Thanks, I will.
@@ -255,6 +271,7 @@ C
 ### Listen to a Conversation – Questions 4-5
 
 audio: Pack-2_Listening.MP3
+image: 17.png
 >> play: 13:43-14:10
 
 Are you planning to go to the local art gallery this weekend? Yes, I am. I heard they have a new exhibition by six contemporary artists. That sounds interesting. Do you know when the doors open? They open at four PM on Saturday. Maybe we could go together. Sure, I'd love to. I can drive. I'll pick you up at five.
@@ -281,6 +298,7 @@ A
 ### Listen to a Conversation – Questions 6-7
 
 audio: Pack-2_Listening.MP3
+image: 18.png
 >> play: 14:54-15:19
 
 Are you going to the farmer's market this weekend? Yes, I am. I love buying fresh produce and homemade goods there. Me too. I heard they have a new vendor selling organic honey. That sounds interesting. I'll make sure to check it out. Maybe we can go together and explore all the stalls.
@@ -307,6 +325,7 @@ A
 ### Listen to a Talk in a Psychology Class – Questions 8-11
 
 audio: Pack-2_Listening.MP3
+image: 19.png
 >> play: 16:02-17:19
 
 Resilience refers to the ability to adapt and recover from adversity or stress. It's a dynamic process that varies significantly from person to person, influenced by a combination of genetic, psychological and social factors. Research has shown that certain traits and behaviors can enhance resilience. These include optimism, the ability to regulate emotions, and having a strong support network. For instance, people who maintain a positive outlook are better equipped to handle setbacks because they tend to see challenges as temporary and surmountable. Emotional regulation involves managing one's feelings in a healthy way, which can prevent stress from becoming overwhelming. Moreover, social connections play a crucial role in resilience. Support from family and friends can provide emotional comfort and practical assistance during difficult times. Communities with strong social bonds typically exhibit higher levels of collective resilience, which is the ability of a group to recover from crises. Next, we will discuss various strategies that individuals can use to build and strengthen their resilience over time.
@@ -347,6 +366,7 @@ B
 ### Listen to a Talk in an Anthropology Class – Questions 12-15
 
 audio: Pack-2_Listening.MP3
+image: 20.png
 >> play: 19:28-21:35
 
 Today we're examining the intriguing practice of tattooing in different cultures around the world. Tattoos have been a form of self-expression and identity for thousands of years, varying significantly in meaning and style across different societies. In Polynesian cultures, tattoos known as tatau are deeply rooted in tradition and signify social status, family heritage and personal achievements. These intricate designs often cover large parts of the body and are applied using traditional methods that have been handed down through generations. Meanwhile in Japan, Irezumi tattoos are recognized for their bold and vivid designs, and while they were once banned by the Japanese government, they are now increasingly popular, especially among young people. Japanese tattoos often depict mythological creatures, flowers and scenes from folklore, executed with remarkable precision and detail. In contrast, Native American tribes used tattoos for spiritual purposes and as rites of passage. Their designs, mostly geometric and symbolic, were believed to provide protection and convey tribal affiliations. In contemporary Western society, tattoos have evolved into diverse forms of personal expression, ranging from minimalist designs to elaborate sleeves. They often represent individuality, memories or ideologies, reflecting the wearer's unique personality. Anthropologists are fascinated by how these varying practices of tattooing illustrate the broader themes of cultural identity, societal norms and individual expression. The ongoing study of tattooing practices offers deep insights into human history and the ways in which we convey meaning through our bodies.

@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-7.png
 Speaker A: I'm planning to study abroad next year.
 Speaker B: ____ ____ ____ ____ ____ ____ to visit.
 Candidates: you / which / planning / countries / in Europe / are / plan
@@ -13,6 +15,8 @@ Which countries in Europe are you planning to visit?
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-9.png
 Speaker A: I'm excited to go camping this weekend.
 Speaker B: ____ ____ ____ ____ ____ ____ near the campground?
 Candidates: that / you / have / black bears / live / heard
@@ -22,6 +26,8 @@ Have you heard that black bears live near the campground?
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-8.png
 Speaker A: I'm planning to take a photography class.
 Speaker B: ____ type ____ ____ ____ ____ ____ ?
 Candidates: the / interests / what / more / you / photography / most / of
@@ -31,6 +37,8 @@ What type of photography interests you most?
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-12.png
 Speaker A: I'm thinking of adopting a dog this summer.
 Speaker B: ____ breed ____ ____ ____ ____ ____ ?
 Candidates: which / plan / of dog / you / do / to adopt / planning
@@ -40,6 +48,8 @@ Which breed of dog do you plan to adopt?
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-16.png
 Speaker A: I'm going to start writing a biography.
 Speaker B: ____ historical figure ____ ____ ____ ____ ____?
 Candidates: have / about / to write / which / chosen / you / choose
@@ -49,6 +59,8 @@ Which historical figure have you chosen to write about?
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-14.png
 Speaker A: I'm moving to a new city next month.
 Speaker B: ____ ____ you ____ ____ ____ ____?
 Candidates: to move / from here / away / why / have / chosen
@@ -58,6 +70,8 @@ Why have you chosen to move away from here?
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: I'm planning to start a new project at work.
 Speaker B: ____ ____ ____ ____ ____ ____?
 Candidates: to complete / the new assignment / when / expect / you / do
@@ -67,6 +81,8 @@ When do you expect to complete the new assignment?
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-4.png
+speaker_b_image: avatar-bs-16.png
 Speaker A: I'm going to submit my application today.
 Speaker B: Have ____ ____ ____ ____ ____ ____?
 Candidates: the position / applied / your coworkers / any / has / of / for
@@ -76,6 +92,8 @@ Have any of your coworkers applied for the position?
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-2.png
 Speaker A: I'm attending a friend's wedding next week.
 Speaker B: ____ ____ ____ ____ afterward?
 Candidates: plan to attend / the wedding reception / you / do
@@ -85,6 +103,8 @@ Do you plan to attend the wedding reception afterward?
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-11.png
 Speaker A: I had a great time at the dinner party last night.
 Speaker B: Did ____ ____ ____ ____ ____?
 Candidates: serve / they / the main course / before / any appetizers
@@ -110,8 +130,11 @@ Requirements:
 
 Subject: sociology
 Instructor: Dr. Diaz
+professor_image: avatar-d-2.png
 Professor: Next week we'll be discussing the impact of urbanization on community life. Urbanization has led to the development of large cities with diverse populations. Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages. What are your thoughts on this and why?
+student_a_image: avatar-d-4.png
 Sarah: I believe urbanization fosters a sense of community and cultural exchange. Large cities bring together people from different backgrounds, creating opportunities for cultural interaction and mutual understanding. Urban areas often have vibrant social scenes that encourage community building.
+student_b_image: avatar-d-3.png
 James: In my opinion, urbanization leads to social isolation and the breakdown of close-knit communities. The fast-paced city life can make it difficult for people to form meaningful connections. Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.
 Requirements:
 - Express and support your opinion.

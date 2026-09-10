@@ -7,6 +7,7 @@
 audio: 托福样题02-听力-Module 01-01-Listen and Choose a Response.mp3
 
 1. Man: How can I get this light to work?
+image: 1.png
 >> play: 00:00-00:04
 A. The lighter one is over there.
 B. There's a switch on the back wall.
@@ -14,6 +15,7 @@ C. The side door is open.
 D. I prefer to work at home.
 
 2. Woman: I'm not available tomorrow.
+image: 2.png
 >> play: 00:06-00:10
 A. Let's try to get there early.
 B. What's a better day for you?
@@ -21,6 +23,7 @@ C. It's not on my schedule either.
 D. I was in a meeting last night.
 
 3. Man: The campus talent contest will be held next Saturday evening.
+image: 3.png
 >> play: 00:12-00:18
 A. I can hold that for you.
 B. Stage lighting is usually very hot.
@@ -28,6 +31,7 @@ C. My roommate is a talented basketball player.
 D. Do you know who the judges will be?
 
 4. Man: What time do I need to pick up Michael from the train station?
+image: 4.png
 >> play: 00:20-00:26
 A. Don't worry about it—I'll get him.
 B. He said he prefers the window seat.
@@ -35,6 +39,7 @@ C. The station now has a snack shop.
 D. There's road construction near the entrance.
 
 5. Woman: Isn't the grocery store open late tonight?
+image: 5.png
 >> play: 00:27-00:33
 A. Yes, it is.
 B. No, shopping takes time.
@@ -42,6 +47,7 @@ C. It's next to the store.
 D. I'd rather not.
 
 6. Woman: Did you bring the identification documents?
+image: 6.png
 >> play: 00:35-00:41
 A. They are in the blue folder.
 B. Who can identify them?
@@ -49,6 +55,7 @@ C. Both can be done.
 D. Yes, I would.
 
 7. Man: Wait, isn't the concert tomorrow night?
+image: 7.png
 >> play: 00:43-00:48
 A. No, it's tonight.
 B. No, I can't wait.
@@ -56,6 +63,7 @@ C. Yes, I would.
 D. Yes, that's fine.
 
 8. Woman: I'm not available this afternoon.
+image: 8.png
 >> play: 00:50-00:54
 A. So am I.
 B. It takes a while.
@@ -78,6 +86,7 @@ D
 ### Listen to a Conversation – Laptop Problem
 
 audio: 托福样题02-听力-Module 01-02-Conversation 01.mp3
+image: 9.png
 
 Man: I think my laptop is acting up again. It keeps freezing and shutting down randomly.
 Woman: That's frustrating. Have you tried restarting it or running a virus scan?
@@ -107,6 +116,7 @@ C
 ### Listen to a Conversation – Supermarket Drinks
 
 audio: 托福样题02-听力-Module 01-02-Conversation 02.mp3
+image: 10.png
 
 Man: Are you going to the supermarket today by any chance?
 Woman: I was just there yesterday. Why?
@@ -135,6 +145,7 @@ B
 ### Listen to an Announcement at a university club meeting
 
 audio: 托福样题02-听力-Module 01-03-Announcement.mp3
+image: 11.png
 
 Man: Welcome to the creative writing club's monthly meeting! Before we get started, I wanted to remind you of the guidelines for our upcoming short-story contest. We're looking for stories on the theme of family, and all stories must be submitted by the end of November to be considered. Good luck to everyone participating!
 
@@ -160,6 +171,7 @@ A
 ### Listen to a Talk in a physics class
 
 audio: 托福样题02-听力-Module 01-04-Academic Talk.mp3
+image: 12.png
 
 Professor: Dark matter is a type of matter that doesn't emit, absorb, or reflect light, making it invisible to current instruments. Despite being unobservable directly, it's believed to make up about 27 percent of the universe's mass-energy content. How do scientists know dark matter exists? Well, all the stars in a galaxy rotate around the center of their galaxy. According to basic physics, the farther a star is from the center of a galaxy, the slower it should rotate. However, observations show that stars in the outer regions of galaxies rotate at unexpectedly high speeds. This anomaly suggests that a massive, unseen matter is exerting gravitational force, keeping the stars moving faster than expected.
 
@@ -205,6 +217,7 @@ B
 audio: 托福样题02-听力-Module 02-01-Listen and Choose a Response.mp3
 
 1. Woman: Who is responsible for the project timeline?
+image: 13.png
 >> play: 00:00-00:04
 A. I do.
 B. I'm not sure.
@@ -212,6 +225,7 @@ C. A few unexpected delays.
 D. It stays on track.
 
 2. Woman: Why did the team meeting get canceled?
+image: 14.png
 >> play: 00:06-00:11
 A. Two days ago.
 B. Meeting attendees.
@@ -219,6 +233,7 @@ C. Actually, it was rescheduled.
 D. How about another time?
 
 3. Man: Can you assist me with my science report?
+image: 15.png
 >> play: 00:13-00:18
 A. Let me know what you think.
 B. You're very kind.
@@ -226,6 +241,7 @@ C. What exactly do you need help with?
 D. It doesn't matter.
 
 4. Man: I'm not sure about the current plan.
+image: 16.png
 >> play: 00:21-00:26
 A. That's unfortunate.
 B. Sure, I can.
@@ -233,6 +249,7 @@ C. I think you have it.
 D. No, it's planned.
 
 5. Man: If you need help, ask Ms. Johnson.
+image: 17.png
 >> play: 00:28-00:34
 A. Either is fine by me.
 B. Happy to help.
@@ -240,6 +257,7 @@ C. That's what I'll do.
 D. I'm available.
 
 6. Woman: What time does the event start?
+image: 18.png
 >> play: 00:36-00:41
 A. In the party room.
 B. At 1 p.m.
@@ -247,6 +265,7 @@ C. It's crowded.
 D. Event coordinators.
 
 7. Man: Who is hosting the party tonight?
+image: 19.png
 >> play: 00:42-00:48
 A. The marketing team is.
 B. It's tonight.
@@ -254,6 +273,7 @@ C. I can't help it.
 D. It's good for two days.
 
 8. Man: Let's go hiking this weekend.
+image: 20.png
 >> play: 00:50-00:54
 A. Maybe it is.
 B. Why not this weekend instead?
@@ -276,6 +296,7 @@ C
 ### Listen to a Conversation – Library Books 
 
 audio: 托福样题02-听力-Module 02-02-Conversation 01.mp3
+image: 21.png
 
 Man: Have you returned the books we borrowed from the library?
 Woman: Why? I thought we could keep them for six weeks.
@@ -306,6 +327,7 @@ A
 ### Listen to an Announcement – Charity Auction 
 
 audio: 托福样题02-听力-Module 02-03-Announcement.mp3
+image: 22.png
 
 Man: Good evening everyone. Just a friendly reminder that the university's annual charity auction will take place tomorrow at 7 P.M. in the Main Hall. All proceeds will go to local charities. We hope to see you there and appreciate your support!
 
@@ -331,6 +353,7 @@ A
 ### Listen to a Talk in an environmental science class
 
 audio: 托福样题02-听力-Module 02-04-Academic Talk.mp3
+image: 23.png
 
 Professor: Biomimicry is the human practice of learning from and imitating things found in nature in order to create new inventions. This way, scientists and engineers can create innovative solutions that are both efficient and sustainable.
 

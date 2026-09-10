@@ -5,6 +5,7 @@
 ### Listen and Choose a Response – Questions 1-8
 
 1. Woman: Is the gym open right now?
+image: 1.png
 audio: Listening1_Listen_Response_Question1.ogg
 A. I think so.
 B. He is tired.
@@ -12,6 +13,7 @@ C. Yesterday evening.
 D. Last time.
 
 2. Woman: Could you help me review this report?
+image: 2.png
 audio: Listening1_Listen_Response_Question2.ogg
 A. It's on the table.
 B. Not right now.
@@ -19,6 +21,7 @@ C. Yes, last Monday.
 D. Sure, let's have some.
 
 3. Man: Could you please forward me the email?
+image: 3.png
 audio: Listening1_Listen_Response_Question3.ogg
 A. Yes, in the computer.
 B. I had the same complaint.
@@ -26,6 +29,7 @@ C. It's facing forward.
 D. I'll send it immediately.
 
 4. Man: It's quite chilly outside, isn't it?
+image: 4.png
 audio: Listening1_Listen_Response_Question4.ogg
 A. Last night, I think.
 B. Perhaps soon.
@@ -33,6 +37,7 @@ C. The soup is great.
 D. Not really.
 
 5. Woman: Did you finalize the proposal?
+image: 5.png
 audio: Listening1_Listen_Response_Question5.ogg
 A. Sure, I'm free.
 B. That's a good choice.
@@ -40,6 +45,7 @@ C. Sorry — I forgot.
 D. We saved you a seat.
 
 6. Man: Is the meeting at ten a.m.?
+image: 6.png
 audio: Listening1_Listen_Response_Question6.ogg
 A. This evening is fine.
 B. Sure, let's talk soon.
@@ -47,6 +53,7 @@ C. No, in the conference room.
 D. I believe it was cancelled.
 
 7. Man: Where is the nearest pharmacy?
+image: 7.png
 audio: Listening1_Listen_Response_Question7.ogg
 A. They are open late.
 B. The shipment arrived this morning.
@@ -54,6 +61,7 @@ C. There's one inside the supermarket.
 D. I had a good experience there.
 
 8. Man: Which room is the meeting in?
+image: 8.png
 audio: Listening1_Listen_Response_Question8.ogg
 A. The same one as last week.
 B. A lot of people can't make it.
@@ -76,6 +84,7 @@ A
 ### Listen to a Conversation – Apartment Search
 
 audio: Listening1_Conversation_Questions_9-10.ogg
+image: 9.png
 
 Woman: My lease is up at the end of the month.
 Man: Have you started looking for a new apartment to rent yet?
@@ -105,6 +114,7 @@ D
 ### Listen to a Conversation – Computer Issue
 
 audio: Listening1_Conversation_Questions_11-12.ogg
+image: 10.png
 
 Man: Did you manage to fix the issue with your computer?
 Woman: I did. It turned out to be a software problem.
@@ -135,6 +145,7 @@ B
 ### Listen to an Announcement – Conference Schedule Change
 
 audio: Listening1_Announcement_Questions_13-14.ogg
+image: 11.png
 
 Woman: Please note that we will not be meeting on Friday. I just received a last-minute invitation to present at a conference this weekend, and I'll be flying on Friday. I know that you were going to start your presentations then. Julie and Max, we'll just move you to Monday, and those scheduled for Monday will move to Wednesday, and so on. This will actually give everyone a few extra days to work on your presentations.
 
@@ -160,6 +171,7 @@ D
 ### Listen to a Talk on a Psychology Podcast – Placebo Effect
 
 audio: Listening1_Academic_Talk_Questions_15-18.ogg
+image: 12.png
 
 Woman: The placebo effect occurs when people experience real health improvements after receiving a treatment with no medical value — like a sugar pill — simply because they believe it's real. Clinical trials use various placebos, including creams, gels, or even fake devices. It's important that these are designed to closely resemble actual treatments. This ensures that participants can't tell whether they're receiving the real treatment or the placebo, which in turn keeps the study fair and the results scientifically reliable.
 
@@ -205,6 +217,7 @@ B
 ### Listen and Choose a Response – Questions 1-8
 
 1. Woman: How do you turn on the projector?
+image: 13.png
 audio: Listening2_Listen_Response_Question1.ogg
 A. The images are a little fuzzy.
 B. I think it might be broken.
@@ -212,6 +225,7 @@ C. It printed ten copies by mistake.
 D. I've needed a new monitor for a while.
 
 2. Woman: Should we meet today or tomorrow?
+image: 14.png
 audio: Listening2_Listen_Response_Question2.ogg
 A. I'm available either day.
 B. I will forward it to the team.
@@ -219,6 +233,7 @@ C. We were short-staffed yesterday.
 D. It was printed this morning.
 
 3. Man: When is the next train to London?
+image: 15.png
 audio: Listening2_Listen_Response_Question3.ogg
 A. Later this evening.
 B. Not too far from here.
@@ -226,6 +241,7 @@ C. It stops in Oxford.
 D. It's often crowded.
 
 4. Woman: Why did you leave early?
+image: 16.png
 audio: Listening2_Listen_Response_Question4.ogg
 A. I'll add it to the agenda.
 B. I wasn't interested in the second half.
@@ -233,6 +249,7 @@ C. As soon as possible.
 D. I'll need to check the schedule.
 
 5. Woman: Do you prefer tea or coffee?
+image: 17.png
 audio: Listening2_Listen_Response_Question5.ogg
 A. With milk, please.
 B. On Thursday.
@@ -240,6 +257,7 @@ C. Try some sugar.
 D. Coffee would be great.
 
 6. Man: Could you assist with the presentation?
+image: 18.png
 audio: Listening2_Listen_Response_Question6.ogg
 A. Here's your receipt.
 B. At the library.
@@ -247,6 +265,7 @@ C. On the right.
 D. Maybe later.
 
 7. Man: Where did you leave the keys?
+image: 19.png
 audio: Listening2_Listen_Response_Question7.ogg
 A. At five p.m.
 B. In the drawer.
@@ -254,6 +273,7 @@ C. Every Sunday.
 D. Under the weather.
 
 8. Woman: It's really noisy in the lobby, isn't it?
+image: 20.png
 audio: Listening2_Listen_Response_Question8.ogg
 A. Yes, I turned mine down.
 B. I haven't been able to work with them yet.
@@ -276,6 +296,7 @@ D
 ### Listen to a Conversation – Dinner Party
 
 audio: Listening2_Conversation_Questions_9-10.ogg
+image: 21.png
 
 Man: What main dish should we prepare for our dinner party this weekend?
 Woman: The steak we ate at your parents' place last week was fabulous. We could do something similar.
@@ -305,6 +326,7 @@ A
 ### Listen to an Announcement – Spring Music Extravaganza
 
 audio: Listening2_Announcement_Questions_11-12.ogg
+image: 22.png
 
 Man: Tickets for this year's spring music extravaganza at Gladstone Auditorium are now available for purchase online and at the student union box office. As always, the event will feature a lineup of your fellow students performing music from various genres, including rock, jazz, and country. This year features a special guest performer, internationally renowned cellist Ben Bernal, who graduated from our university twenty years ago. Tickets are expected to sell out quickly, so make sure to get yours today.
 
@@ -330,6 +352,7 @@ B
 ### Listen to a Talk in an Environmental Science Class – Carbon Footprint
 
 audio: Listening2_Academic_Talk_Questions_13-16.ogg
+image: 23.png
 
 Man: Today, we're discussing the concept of the carbon footprint and its implications for environmental sustainability. A carbon footprint measures the total amount of greenhouse gases produced directly and indirectly by human activities, usually expressed in equivalent tons of carbon dioxide. This includes emissions from activities such as driving a car, using electricity, and manufacturing goods.
 

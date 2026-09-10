@@ -4,6 +4,8 @@
 
 ### Build a Sentence – 1
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-10.png
 Speaker A: What did Andre ask you at the party?
 Speaker B: ____ ____ ____ ____ ____ ____.
 Candidates: wanted / thus / he / ended / when / to know / it
@@ -13,6 +15,8 @@ He wanted to know when it ended.
 
 ### Build a Sentence – 2
 
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-9.png
 Speaker A: Why was the meeting rescheduled?
 Speaker B: ____ ____ ____ ____ ____ ____ ____.
 Candidates: was moved / to / it / a time / when / everyone / could attend
@@ -22,6 +26,8 @@ It was moved to a time when everyone could attend.
 
 ### Build a Sentence – 3
 
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-4.png
 Speaker A: I just spoke with the boss about applying for the open position.
 Speaker B: I am ____ ____ ____ ____ ____.
 Candidates: curious / if / mentioned / any specific requirements / because / he
@@ -31,6 +37,8 @@ I am curious if he mentioned any specific requirements.
 
 ### Build a Sentence – 4
 
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: Why are you asking about the new restaurant?
 Speaker B: My ____ ____ ____ ____ ____ ____ ____.
 Candidates: is wondering / it / when / is going / to open / she / friend / Jenna
@@ -40,6 +48,8 @@ My friend Jenna is wondering when it is going to open.
 
 ### Build a Sentence – 5
 
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-1.png
 Speaker A: Do you know anyone who can give me directions to the Big Tree Bistro?
 Speaker B: ____ ____ Sally ____ ____ ____ ____.
 Candidates: there / to get / how / think / I / where / knows
@@ -49,6 +59,8 @@ I think Sally knows how to get there.
 
 ### Build a Sentence – 6
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-15.png
 Speaker A: What are your plans for the summer?
 Speaker B: ____ ____ ____ ____ ____ ____ ____ yet.
 Candidates: I / don't / I'm / where / to do / going / know / what
@@ -58,6 +70,8 @@ I don't know what I'm going to do yet.
 
 ### Build a Sentence – 7
 
+speaker_a_image: avatar-bs-7.png
+speaker_b_image: avatar-bs-6.png
 Speaker A: What did Ruby ask about the new software?
 Speaker B: She wanted ____ ____ ____ ____ ____ ____ ____.
 Candidates: help / however / if / it / to know / with / need / you
@@ -67,6 +81,8 @@ She wanted to know if you need help with it.
 
 ### Build a Sentence – 8
 
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-13.png
 Speaker A: Why did Gustavo call you this morning?
 Speaker B: He wanted ____ ____ ____ ____ ____ ____ ____.
 Candidates: where / a leak / could find / he / to know / a plumber / to fix / is
@@ -76,6 +92,8 @@ He wanted to know where he could find a plumber to fix a leak.
 
 ### Build a Sentence – 9
 
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-5.png
 Speaker A: I heard that the supervisor was looking for you.
 Speaker B: She ____ ____ ____ ____ ____ ____ ____.
 Candidates: we / wanted / to finish / finished / to know / when / the project / expect
@@ -85,6 +103,8 @@ She wanted to know when we expect the project to finish.
 
 ### Build a Sentence – 10
 
+speaker_a_image: avatar-bs-10.png
+speaker_b_image: avatar-bs-7.png
 Speaker A: Julio said you had a question about the research paper.
 Speaker B: I'm hoping ____ ____ ____ ____ ____ I might ____ ____.
 Candidates: me / you / can / tell / where / find / some reliable sources
@@ -110,8 +130,11 @@ Requirements:
 
 Subject: labor studies
 Instructor: Dr. Williams
+professor_image: avatar-d-4.png
 Professor: More and more people can work remotely on portable electronic devices rather than in a dedicated office. These workers often have more flexibility regarding when and where they work, allowing them to become what are known as "digital nomads"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries. Do you think digital nomadism is likely to continue increasing? Why or why not?
+student_a_image: avatar-d-6.png
 Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions. This digital divide could limit who can truly participate in this lifestyle.
+student_b_image: avatar-d-7.png
 Marcus: While Claire makes a good point, Internet technologies and speed are always improving, even in remote areas. The flexibility and cost-saving benefits of digital nomadism will likely continue attracting workers.
 Requirements:
 - Express and support your opinion.
