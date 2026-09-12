@@ -26,7 +26,7 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.9.1**（2026-09-10，从 develop 发布，含 license）：补齐阅读新题型 `course-description` 的专属帮助文案/指令（渲染仍复用通用 daily-life 卡片，无新模板）；三平台打包 + OSS 自动镜像成功（OSS feed = 1.9.1）。本次是 feed-last 顺序修复后首个正式发布，发布后 feed 指向的安装包均已存在（200、size/sha512 与 feed 一致）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `02e6c2eaf030…`（25 packs）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）；2026-09-10 另修复 2026-02-28 完形裸空转义 bug（见 §3.11）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `f1571c989d97…`（29 packs）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）；2026-09-10 另修复 2026-02-28 完形裸空转义 bug（见 §3.11）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
@@ -342,6 +342,8 @@
 - **根治**：`publish-content.js` 在发布后若仍有包缺有效 `ossUrl`，**自动执行** `gh workflow run content-oss-mirror.yml --ref ${TOEFL_CONTENT_MIRROR_REF||develop}`（gh 失败仅告警、不阻断）；warning 文案改为明确“GitHub 发布成功 + 已派发/手动命令”。develop `scripts/publish-content.js`。
 - **文档**：`content-publishing.md` 与 `question-submission-workflow.md §5.6.6` 写明：本地 publish 不直传 OSS；该告警≠失败；镜像由 workflow 完成（现已自动派发）；发布前先 `git pull`。
 - **中间版处理**：`15428`（29 包）**不单独镜像**，由本轮最终完整快照覆盖。
+- **最终快照（2026-09-12）**：develop 跑 `content:publish` → manifest **`f1571c989d97…`（29 包）**（本次含 TPO-03~06 的 build-sentence 修正，20 个包变更）；自动派发首次因 gh 不识别 SSH remote 失败（已修：`dispatchOssMirror` 加 `--repo`，develop `b3bebf3` / release `c0f2e0d`），手动补派 `content-oss-mirror` run `34708362025` **success**；复核 **29/29 `ossUrl` 匿名 200 且 size 一致**、OSS 指针 = `f1571c989d97…`。
+- **今后流程**：任意窗口 `git pull` → `npm run content:publish` → 脚本未本机镜像时会**自动派发** mirror；看到 `Dispatched content-oss-mirror workflow` 即成功。该告警不再是“发布失败”。
 
 ---
 
@@ -352,7 +354,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.9.0 | 9832f53（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 27aff71（+ 文档提交） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 4b3e956 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 02e6c2eaf030 manifestId（25 packs） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | f1571c989d97 manifestId（29 packs） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
