@@ -32,8 +32,8 @@ She wanted to know if I did plan to make any revisions.
 speaker_a_image: avatar-bs-5.png
 speaker_b_image: avatar-bs-6.png
 Speaker A: I'm glad I got that part of the project finished!
-Speaker B: ____ you tell me ____ your ____ ____ ____.
-Candidates: tomorrow / plans / what / can / are for / do
+Speaker B: ____ you tell me ____  ____ ____ ____ ____.
+Candidates: tomorrow / plans / what / can / are for / do / your
 \[ANSWER\]
 Can you tell me what your plans are for tomorrow?
 \[/ANSWER\]
@@ -55,8 +55,8 @@ They wanted to know why you decided to adopt a pet.
 speaker_a_image: avatar-bs-9.png
 speaker_b_image: avatar-bs-10.png
 Speaker A: No matter how much James practices, he's not getting any better at piano.
-Speaker B: I don't ____ ____ doesn't ____ ____.
-Candidates: he / take / understand why / lessons / taking
+Speaker B:  ____ ____ ____ ____ ____ ____ ____.
+Candidates: he / take / understand why / lessons / taking / I / don't / doesn't
 \[ANSWER\]
 I don't understand why he doesn't take lessons.
 \[/ANSWER\]

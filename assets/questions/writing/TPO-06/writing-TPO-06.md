@@ -32,8 +32,8 @@ Did he ask why you chose this particular career?
 speaker_a_image: avatar-bs-5.png
 speaker_b_image: avatar-bs-6.png
 Speaker A: What did the team leader ask you at the start of the meeting?
-Speaker B: ____ ____ ____ ____ ____ had ____.
-Candidates: going / where / wanted / gone / to know / he / all the accountants
+Speaker B: ____ ____ ____ ____ ____ ____ ____.
+Candidates: going / where / wanted / gone / to know / he / all the accountants / had
 \[ANSWER\]
 He wanted to know where all the accountants had gone.
 \[/ANSWER\]
@@ -66,8 +66,8 @@ She was wondering if I found the exhibit inspiring.
 speaker_a_image: avatar-bs-11.png
 speaker_b_image: avatar-bs-12.png
 Speaker A: Did you enjoy the dinner at the new restaurant?
-Speaker B: I ____ not ____ ____ ____.
-Candidates: food / spicy / accustomed to / am / did
+Speaker B: ____ ____ ____ ____ ____ ____ like that.
+Candidates: food / spicy / accustomed to / am / did / not / I
 \[ANSWER\]
 I am not accustomed to spicy food.
 \[/ANSWER\]

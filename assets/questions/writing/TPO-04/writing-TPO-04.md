@@ -32,8 +32,8 @@ I have not heard who is going to be in charge.
 speaker_a_image: avatar-bs-5.png
 speaker_b_image: avatar-bs-6.png
 Speaker A: Why did the client call this morning?
-Speaker B: ____ an update ____ when ____ ____ ____ ____.
-Candidates: they want / on / the project / to finish / do / expect / we
+Speaker B: ____ ____ ____ when ____ ____ ____ ____.
+Candidates: they want / on / the project / to finish / do / expect / we / an update
 \[ANSWER\]
 They want an update on when we expect to finish the project.
 \[/ANSWER\]

@@ -65,8 +65,8 @@ We just found out where the materials are stored.
 speaker_a_image: avatar-bs-11.png
 speaker_b_image: avatar-bs-12.png
 Speaker A: What did Emma ask about the new project?
-Speaker B: She ____ ____ ____ I ____ ____ ____ to.
-Candidates: whom / that / wanted / give / will / feedback / to know
+Speaker B: She ____ ____ ____ ____ ____ ____ ____ to.
+Candidates: whom / that / wanted / give / will / feedback / to know / I
 \[ANSWER\]
 She wanted to know whom I will give feedback to.
 \[/ANSWER\]
@@ -77,8 +77,8 @@ She wanted to know whom I will give feedback to.
 speaker_a_image: avatar-bs-13.png
 speaker_b_image: avatar-bs-14.png
 Speaker A: What do you think we should talk about first in our presentation?
-Speaker B: I can't ____ ____ topic ____ ____ ____ ____.
-Candidates: a / important / the / is / which / decide / most
+Speaker B:  ____ ____ ____ topic ____ ____ ____ ____.
+Candidates: a / important / the / is / which / decide / most / I can't
 \[ANSWER\]
 I can't decide which topic is the most important.
 \[/ANSWER\]
@@ -111,8 +111,8 @@ They wanted to know when you were going to Spain.
 speaker_a_image: avatar-bs-2.png
 speaker_b_image: avatar-bs-4.png
 Speaker A: What did the manager ask you after the employee meeting?
-Speaker B: She was ____ ____ I ____ ____ ____.
-Candidates: to speak / curious about / learned / Korean / where / did
+Speaker B: She ____ ____ ____ ____ ____ ____ ____.
+Candidates: to speak / curious about / learned / Korean / where / did / was / I
 \[ANSWER\]
 She was curious about where I learned to speak Korean.
 \[/ANSWER\]
