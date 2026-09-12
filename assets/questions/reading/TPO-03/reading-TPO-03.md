@@ -4,140 +4,147 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-We know from drawings that have been preserved in caves for over 10,000 years that early humans performed dances as a group activity. We mi\_\_\_ think th\_\__ prehistoric peo\_\_\_ concentrated on\_\_ on ba\_\_\_ survival. How\_\_\_\_ it i\_ clear fr\_\_ the rec\_\_\_ that dan\_\_\_ was important to them. They recorded more drawings of dances than of any other group activity. Dances served various purposes, including ritualistic communication with the divine, storytelling, and social cohesion.
+Fossils provide valuable information about the history of life on Earth. Th\_\_\_ preserved remains o\_ ancient orga\_\_\_\_ are typi\_\_\_\_\_ found i\_ sedimentary ro\_\_\_. By stud\_\_\_\_ them, scien\_\_\_\_\_ can lea\_\_ about t\_\_ physical characteristics, behavior, and environments of extinct species. Fossil evidence has been crucial in understanding the process of evolution, showing how species have changed and adapted over millions of years. The discovery of transitional fossils helps to fill gaps in the evolutionary record.
 
 [ANSWER]
-might:might
-that:that
-people:people
-only:only
-basic:basic
-However:However
-is:is
-from:from
-record:record
-dancing:dancing
+their:their
+of:of
+organism:organism
+typically:typically
+in:in
+rocks:rocks
+studying:studying
+scientists:scientists
+learn:learn
+the:the
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Notice (Questions 11–12)
+### Task 2 Read in Daily Life – Email 1 (Questions 11–12)
 
-Title：Municipal Charter
-Subtitle：Sign up for paperless billing statements today.
+From: Sarah Reynolds
+Subject: Magazine Subscription
 
-Safe, convenient, easy. Enroll in paperless billing to receive monthly savings account statements in an electronic PDF document. Access your Municipal Charter account through the mobile app and select account preferences in the upper right-hand corner to enroll.
+Dear Ms. Wilson,
 
-11. What type of business issued the notice?
-A. An Internet provider
-B. A computer company
-C. A paper company
-D. A bank
-[ANSWER]
-D
-[/ANSWER]
+We are pleased to confirm your subscription to our monthly magazine. Your first issue will arrive on June 1. As a subscriber, you'll also receive exclusive access to digital content at no additional cost. Thank you for your continued support.
 
-12. How can customers enroll in paperless billing?
-A. By visiting a Municipal Charter office
-B. By accessing the Municipal Charter website
-C. By using the Municipal Charter app
-D. By calling a Municipal Charter customer service representative
-[ANSWER]
-C
-[/ANSWER]
+Best regards,
+Sarah Reynolds
 
----
-
-### Task 3 Read in Daily Life – Social Media Post (Questions 13–15)
-
-username：Sofia Baker
-
-Every Saturday, our local farmer's market is the place to be! Fresh fruits, veggies, homemade goodies, and unique crafts await you. The Thompson family's organic produce is a must-try, known for its quality and cordial service. Their stall is always bustling with customers eager to buy fresh, pesticide-free vegetables from the welcoming staff.
-
-Don't miss the bakery stall—get there early for the best bread and pastries, including gluten-free and vegan options. The smell of freshly baked goods fills the air, and these treats sell out fast!
-
-In addition to food, the market sells handmade crafts like jewelry, pottery, and textiles. These unique items make perfect gifts and support local artisans. Plus, enjoy live music while you shop. Talented local musicians help create a vibrant atmosphere, and the community spirit makes it a delightful experience for all. See you there!
-
-13. What is the main purpose of the post?
-A. To explain the benefits of organic farming
-B. To describe the variety of products available at the farmer's market
-C. To compare different farmer's markets in the area
-D. To offer advice on starting a stall at the farmer's market
-[ANSWER]
-B
-[/ANSWER]
-
-14. What reason is given for the popularity of the Thompson family's stall?
-A. They offer cooking tips and recipes.
-B. They offer the lowest prices at the market.
-C. They provide friendly service and excellent products.
-D. They have a beautiful and well-decorated stall.
-[ANSWER]
-C
-[/ANSWER]
-
-15. Why do customers go to the bakery stall early?
-A. To get the free samples given in mornings
-B. To get freshly baked bread and pastries before they are gone
-C. To meet the famous baker
-D. To take advantage of early morning discounts
-[ANSWER]
-B
-[/ANSWER]
-
----
-
-### Task 4 Read an Academic Passage – The Mirror Test (Questions 16–20)
-
-Very young children cannot recognize themselves in a mirror; they usually achieve this milestone around 18 months of age. The ability to recognize oneself in the mirror is considered to be a key component of self-awareness and consciousness for humans. But what about animals?
-
-For many years, scientists have known that members of the great ape family could recognize themselves in mirrors. They measured this by the “mirror test,” which involved putting a colored mark on an ape’s body, and then showing the ape its reflection in a mirror. If the ape tried to remove the mark on its own body, the scientists knew that the ape was recognizing its reflection.
-
-Apes are close relatives of humans, but in recent years, scientists have discovered that other animals also pass the “mirror test.” Elephants and dolphins have shown signs of self-recognition. These, like apes, are highly intelligent animals. But in a more recent experiment, a type of fish called the cleaner fish tried to scrape a mark off its body when it saw itself in the mirror. This suggests that even less intelligent animals may possess more self-awareness than previously suspected.
-
-16. What is the passage mainly about?
-A. Stages of early childhood development
-B. Research on animal cognition
-C. Differences between apes, elephants, and dolphins
-D. Recent experiments on fish
-[ANSWER]
-B
-[/ANSWER]
-
-17. The word “milestone” in the first sentence is closest in meaning to
-A. accomplishment
-B. distance
-C. weight
-D. discovery
+11. What is the main purpose of the email?
+A. To confirm a subscription
+B. To cancel a subscription
+C. To request a payment
+D. To apologize for a delivery error
 [ANSWER]
 A
 [/ANSWER]
 
-18. Why did scientists put colored marks on animals' bodies?
-A. It made it possible to track the animals' movements.
-B. It helped them determine whether the animals recognized themselves.
-C. It made it easier to tell the animals apart.
-D. It showed whether some animals can detect color differences.
+12. What does the e-mail indicate about digital content?
+A. It requires a code to access.
+B. It is free of charge.
+C. It is available for a limited time.
+D. It excludes advertisements.
 [ANSWER]
 B
 [/ANSWER]
 
-19. According to the passage, all of the following are true about elephants EXCEPT:
-A. They can recognize themselves in mirrors.
-B. They are highly intelligent animals.
-C. They possess qualities in common with apes.
-D. They understand certain signs from other animals.
+---
+
+### Task 3 Read in Daily Life – Email 2 (Questions 13–15)
+
+Subject: University Server Maintenance
+
+Dear Members of the University Community,
+
+The next university server maintenance is scheduled on May 22 from 2 A.M. to 6 A.M. This is part of a scheduled maintenance that we conduct with our external provider. During this window, access to network drives and cloud storage services will be temporarily unavailable. Please save any important documents and plan your work accordingly. You may also experience disruptions accessing your university email accounts. Online library databases will not be affected.
+
+A reminder: Routine maintenance windows take place on a semi-monthly basis. In the event that maintenance needs arise outside of the scheduled maintenance windows, we will do our best to give the university community advanced notice.
+
+If you experience issues, contact the IT team. We will send out another notification when maintenance is complete. We appreciate your understanding as we strive to ensure the security and reliability of our IT infrastructure.
+
+13. The email is most likely sent to
+A. IT support team members
+B. university students, faculty, and staff
+C. the external provider of the university server
+D. people who have encountered issues with the university server
+[ANSWER]
+B
+[/ANSWER]
+
+14. What can be inferred about the university's server?
+A. It is currently offline.
+B. It is managed only by the university IT team.
+C. It sometimes requires emergency maintenance.
+D. It is the subject of many complaints from the university community.
+[ANSWER]
+C
+[/ANSWER]
+
+15. The receiver of the email will be notified of
+A. issues that arise from the May 22 maintenance
+B. the completion of the May 22 maintenance
+C. the level of security and reliability of the university's IT structure
+D. ways to contact the IT team
+[ANSWER]
+B
+[/ANSWER]
+
+---
+
+### Task 4 Read an Academic Passage – Prehistoric Cave Art (Questions 16–20)
+
+Prehistoric cave art is a form of art that was created thousands of years ago. Prehistoric cave art offers a glimpse into the lives of early humans and the way they lived. Found in caves across Europe, Asia, and Africa, these artworks depict animals, human figures, and abstract symbols. The Lascaux Cave in France and the Altamira Cave in Spain are among the most famous sites.
+
+Researchers believe cave art served various purposes. Some theories suggest the paintings were part of hunting rituals. Others propose the art taught younger generations about animals. Additionally, some argue the artworks had religious significance.
+
+The techniques used to create cave art were advanced for the time. Early humans employed tools made from bone, stone, and wood to carve images into the rock. They used natural pigments like ochre and charcoal to paint scenes. The placement of the art in hard-to-reach areas suggests creating these images was a deliberate act. Despite the mystery surrounding their exact purpose, cave art remains a vital link to understanding human history and cultural development.
+
+16. The word "depict" in the first paragraph is closest in meaning to
+A. hide
+B. show
+C. combine
+D. move
+[ANSWER]
+B
+[/ANSWER]
+
+17. What is suggested about the Lascaux and Altamira caves?
+A. They are the only sites where cave art is found.
+B. They contain some of the most famous cave art.
+C. Their paintings were created for educational purposes.
+D. Their artworks represent deities or ancestral spirits.
+[ANSWER]
+B
+[/ANSWER]
+
+18. All of the following are true about prehistoric cave art EXCEPT:
+A. It depicts animals, human figures, and abstract symbols.
+B. It served various purposes, including hunting rituals.
+C. It was created using natural pigments.
+D. It is found mostly in Europe.
 [ANSWER]
 D
 [/ANSWER]
 
-20. Why does the author mention cleaner fish?
-A. To suggest that a wide range of animals may possess self-awareness
-B. To imply that ocean animals are highly intelligent
-C. To demonstrate a flaw in a recent experiment
-D. To provide an example of an animal that does not recognize itself
+19. What is the relationship between paragraphs 2 and 3?
+A. Paragraph 3 provides examples of animals mentioned in paragraph 2.
+B. Paragraph 3 challenges the theories mentioned in paragraph 2.
+C. Paragraph 3 discusses what was used to create cave art while paragraph 2 discusses the purposes for its creation.
+D. Paragraph 3 discusses a different kind of prehistoric art very similar to prehistoric cave art discussed in paragraph 2.
 [ANSWER]
-A
+C
+[/ANSWER]
+
+20. Why does the author mention hard-to-reach areas in the caves?
+A. To suggest that the cave art was created by highly skilled individuals
+B. To indicate that cave art was an intentional and meaningful act
+C. To propose that the artwork represented deities
+D. To explain the difficulty in finding these artworks
+[ANSWER]
+B
 [/ANSWER]
 
 ---
@@ -146,158 +153,74 @@ A
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-The human brain is a complex organ responsible for controlling all bodily functions and enabling thought, emotion, and memory. It i\_ divided   in\_\_ several reg\_\_\_\_, each wi\_\_ specific ro\_\_\_. The cerebrum, i\_\_ largest pa\_\_, is invo\_\_\_\_ in cogn\_\_\_\_\_ functions su\_\_ as reasoning, planning, and language. The cerebellum coordinates movement and balance, while the brainstem controls vital bodily functions like breathing and heart rate. Together, they enable the brain to perform its various tasks.
+The Industrial Revolution was a defining era in human history, sparking lasting changes in economies and daily life. It resh\_\_\_\_ economies world\_\_\_\_, shifting produ\_\_\_\_\_ from man\_\_\_ labor to mecha\_\_\_\_\_ systems, which boo\_\_\_\_ efficiency a\_\_ output. Cit\_\_\_ expanded rap\_\_\_\_ as rur\_\_ populations moved to industrial centers seeking work. Advancements in transportation and communication accelerated progress, laying the foundation for modern society. These innovations improved access to goods, increased productivity, and connected people across long distances, driving global development in ways that shaped the future.
 
 [ANSWER]
-is:is
-into:into
-regions:regions
-with:with
-roles:roles
-its:its
-part:part
-involved:involved
-cognitive:cognitive
-such:such
+reshapes:reshapes
+worldwide:worldwide
+production:production
+manual:manual
+mechanical:mechanical
+boosted:boosted
+and:and
+cities:cities
+rapidly:rapidly
+rural:rural
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Email 1 (Questions 11–12)
+### Task 2 Read an Academic Passage – Cultural Adaptation (Questions 11–15)
 
-Read an email.
+Social anthropology examines how cultures adapt to changing environments. Indigenous communities in the Amazon have changed agricultural practices over time. Historically, these communities practiced slash-and-burn agriculture, cutting down vegetation and burning it to clear fields for crops. This method suited the nutrient-poor soils but required constant movement as plots became infertile after a few years.
 
-To: edward56L@dmail.com
-From: artforeveryone@dmail.com
-Date: 10/09/2025
-Subject: Art Workshop Reservation Confirmation
+Recently, there has been a shift towards agroforestry—a system that integrates trees and shrubs into agricultural lands. Agroforestry helps maintain soil fertility and supports biodiversity, providing habitats for various species. This approach allows communities to stay in one place longer, preserving traditional knowledge tied to specific locations.
 
-Dear Ms. Edwards,
+Economic factors play a role in these adaptations. As global demand for sustainable products grows, these communities find new markets for their agroforestry goods. Modern tools improve yields and reduce labor, making agroforestry a viable alternative.
 
-The reservation for the art workshop that you made on September 10th has been confirmed. The workshop will take place on September 20th at 3:00 PM. All necessary arts supplies will be provided, but please bring your own apron or smock.
+However, these changes are not without challenges. The transition requires education and resources, which can be difficult to access in remote areas. Balancing traditional practices with new methods can lead to cultural shifts, affecting community dynamics and identity. Despite these challenges, the benefits of sustainable agriculture and economic opportunities are leading more communities to embrace agroforestry, showcasing the resilience of indigenous cultures.
 
-Best regards,
-Laura Bennett
+11. What is suggested in the passage about agroforestry?
+A. It requires constant movement like slash-and-burn agriculture.
+B. It helps maintain soil fertility and supports biodiversity.
+C. It reduces the need for modern tools and techniques.
+D. It is less beneficial than traditional slash-and-burn methods.
+[ANSWER]
+B
+[/ANSWER]
 
-11. When is the date of the art workshop?
-A. September 10th
-B. September 12th
-C. September 20th
-D. September 30th
+12. What does the passage suggest is a benefit of the shift to agroforestry?
+A. Increased need for relocation.
+B. Preservation of traditional knowledge.
+C. Decreased use of synthetic fertilizers.
+D. Decreased economic opportunities.
+[ANSWER]
+B
+[/ANSWER]
+
+13. The word "resilience" at the end of the passage is closest in meaning to
+A. growth
+B. confidence
+C. toughness
+D. diversity
 [ANSWER]
 C
 [/ANSWER]
 
-12. What should Ms. Edwards bring to the workshop?
-A. A payment method
-B. Extra paint
-C. A protective garment
-D. Proof of reservation
+14. Why does the author mention modern tools?
+A. To illustrate how they can complicate traditional practices.
+B. To suggest they are unnecessary in agroforestry.
+C. To emphasize their role in slash-and-burn agriculture.
+D. To provide reasons for improved yields and reduced labor.
 [ANSWER]
-C
+D
 [/ANSWER]
 
----
-
-### Task 3 Read in Daily Life – Email 2 (Questions 13–15)
-
-Read an email.
-
-To: nguyenbooklover@dmail.com
-From: part.gymworkers@dmail.com
-Subject: You're Invited – Bring Friends & Family to Our Grand Opening!
-
-Dear Ms. Nguyen,
-
-We're excited to invite you—and your friends and family—to the grand opening of our new branch at 25 Orchid Street, happening next Monday. This event is a great opportunity to explore our state-of-the-art facility, featuring top-tier equipment, energizing group classes, and expert personal training.
-
-This celebration, exclusively for our valued members and their guests, will include guided tours, live fitness demonstrations, and complimentary refreshments. It's the perfect chance to experience our community-focused approach to wellness and introduce others to a space designed for all fitness levels.
-
-Bring your friends and family! We're offering a special one-day-only discount on memberships for all attendees.
-
-For questions or to RSVP, contact our customer service team at 555-1234.
-
-Warm regards,
-John Parker
-
-13. What is the main purpose of the email?
-A. To attract customers to a new fitness center
-B. To provide Ms. Nguyen with an opportunity to provide expert personal training
-C. To celebrate Ms. Nguyen's achievements in wellness
-D. To announce a discount available to fitness-center members
+15. What is the relationship between paragraphs 3 and 4?
+A. Paragraph 4 introduces challenges to the ideas presented in paragraph 3.
+B. Paragraph 4 explains a concept introduced in paragraph 3.
+C. Paragraph 4 provides evidence for a theory presented in paragraph 2.
+D. Paragraph 4 provides an example of a problem discussed in paragraph 3.
 [ANSWER]
 A
-[/ANSWER]
-
-14. What can be inferred about Ms. Nguyen's relationship with the fitness center?
-A. She helps the fitness center to organize activities.
-B. She has already explored the new facility.
-C. She is a member at one of the fitness center's other locations.
-D. She is new to using fitness centers and exercise equipment.
-[ANSWER]
-C
-[/ANSWER]
-
-15. The new fitness center is intended for use by which of the following groups of people?
-A. Expert personal trainers
-B. Top-tier athletes
-C. Existing fitness-center members
-D. Community members of all fitness levels
-[ANSWER]
-D
-[/ANSWER]
-
----
-
-### Task 4 Read an Academic Passage – The paradox Of Choice (Questions 16–20)
-
-The paradox of choice, a concept popularized by psychologist Barry Schwartz, suggests that more options can lead to less satisfaction. While the freedom to choose is fundamental to consumer culture, an overabundance of choices—from groceries to electronics—can overwhelm individuals, causing anxiety and decision fatigue. This paradox implies that the vast array of possibilities available today might actually diminish consumer contentment, as the fear of making the wrong choice looms large.
-
-Research supports this notion. In an experiment, psychologist Sheena Iyengar found that shoppers were more likely to purchase jam when offered 6 varieties instead of 24. The limited selection eased the decision process, reducing the pressure to find the 'perfect' option and making the experience more enjoyable. This phenomenon reveals that fewer choices can sometimes make consumers happier, which is a valuable insight for marketers and retailers aiming to boost satisfaction by curating their offerings.
-
-The paradox also has broader implications. In individualistic cultures, where personal choice is highly valued, the burden of decision-making can be significant. Conversely, collectivist cultures, which often provide fewer choices, report higher levels of contentment. This dynamic suggests that understanding cultural differences in consumer psychology can help businesses optimize their product strategies and enhance overall well-being.
-
-16. Which of the following best states a main idea of the passage?
-A. Effective marketing strategies focus on increasing product options.
-B. Modern consumer culture is driven by a demand for fewer products.
-C. Individualism enhances consumer contentment.
-D. Limiting consumer choices can lead to higher satisfaction.
-[ANSWER]
-D
-[/ANSWER]
-
-17. What is one effect of decision fatigue as mentioned in the passage?
-A. Desire to make the same choices as other consumers
-B. Anxiety about making the wrong choice
-C. Preference for consumer cultures
-D. Enhanced freedom to choose
-[ANSWER]
-B
-[/ANSWER]
-
-18. Why does the author mention Sheena Iyengar's experiment?
-A. To highlight the effectiveness of marketing strategies
-B. To explain the methodology used in consumer psychology
-C. To provide evidence supporting the paradox of choice
-D. To criticize the abundance of products in modern markets
-[ANSWER]
-C
-[/ANSWER]
-
-19. The word "curating" in the passage is closest in meaning to
-A. eliminating
-B. organizing
-C. increasing
-D. changing
-[ANSWER]
-B
-[/ANSWER]
-
-20. What can be inferred about consumers in collectivist cultures?
-A. They tend to report lower levels of satisfaction.
-B. They are more affected by the paradox of choice.
-C. They generally have fewer choices available.
-D. They prefer individual decision-making.
-[ANSWER]
-C
 [/ANSWER]

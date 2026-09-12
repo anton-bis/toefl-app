@@ -4,140 +4,135 @@
 
 ### Build a Sentence – 1
 
-speaker_a_image: avatar-bs-4.png
-speaker_b_image: avatar-bs-12.png
-Speaker A: Your presentation yesterday was impressive.
-Speaker B: Thanks. ____ ____ ____ ____ ____ ____ ____ ?
-Candidates: you / want / of it / me / you / to send / do / a copy
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-16.png
+Speaker A: What was the highlight of your trip?
+Speaker B: The ____ ____ ____ ____ ____ ____ fantastic.
+Candidates: were / the / was / old city / showed us around / who / tour guides
 \[ANSWER\]
-Do you want me to send you a copy?
+The tour guides who showed us around the old city were fantastic\.
 \[/ANSWER\]
 
 ### Build a Sentence – 2
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: I wish I hadn't missed the conference last week.
-Speaker B: ____ you ____ ____ ____ ____ ____ ____ ?
-Candidates: the recordings / where / don't / know / the sessions / of / to get
+speaker_a_image: avatar-bs-6.png
+speaker_b_image: avatar-bs-3.png
+Speaker A: I heard Anna got a promotion.
+Speaker B: ____ ____ ____ ____ she will be ____ ____ ?
+Candidates: a different department / if / moving to / know / do / you
 \[ANSWER\]
-Don't you know where to get the recordings of the sessions?
+Do you know if she will be moving to a different department?
 \[/ANSWER\]
 
 ### Build a Sentence – 3
 
-speaker_a_image: avatar-bs-2.png
-speaker_b_image: avatar-bs-3.png
-Speaker A: The new yoga class was very relaxing.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ on Saturdays.
-Candidates: are / a few / classes / wonder / I / held / if
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-5.png
+Speaker A: We're planning a trip to the mountains next weekend.
+Speaker B: ____ ____ tell me ____ ____ ____ ____ ?
+Candidates: the cabins / available / whether / can / will be / you
 \[ANSWER\]
-I wonder if a few classes are held on Saturdays.
+Can you tell me whether the cabins will be available?
 \[/ANSWER\]
 
 ### Build a Sentence – 4
 
-speaker_a_image: avatar-bs-12.png
-speaker_b_image: avatar-bs-8.png
-Speaker A: We had a blast at the national park yesterday.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ all year long?
-Candidates: does / it / anybody / know / whether / is / open
+speaker_a_image: avatar-bs-10.png
+speaker_b_image: avatar-bs-11.png
+Speaker A: I'm looking forward to the concert this weekend.
+Speaker B: ____ ____ ____ ____ ____ ?
+Candidates: does / what / time / it / start
 \[ANSWER\]
-Does anybody know whether it is open all year long?
+What time does it start?
 \[/ANSWER\]
 
 ### Build a Sentence – 5
 
-speaker_a_image: avatar-bs-14.png
-speaker_b_image: avatar-bs-15.png
-Speaker A: The film festival this weekend was amazing.
-Speaker B: ____ we ____ ____ ____ ____ ____ ____ ?
-Candidates: they / if / are / can / find out / planning / another one
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-11.png
+Speaker A: The museum exhibition opens next month.
+Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
+Candidates: do / you / how / know / tickets / will cost / much
 \[ANSWER\]
-Can we find out if they are planning another one?
+Do you know how much the tickets will cost?
 \[/ANSWER\]
 
 ### Build a Sentence – 6
 
-speaker_a_image: avatar-bs-14.png
-speaker_b_image: avatar-bs-12.png
-Speaker A: The workshop on graphic design was very helpful.
-Speaker B: ____ you ____ ____ ____ ____ ____ ?
-Candidates: why / each / tell me / how long / was / workshop session / could
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-8.png
+Speaker A: I'm planning to go to the beach tomorrow.
+Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
+Candidates: is / time of year / what / the water / this / like / temperature
 \[ANSWER\]
-Could you tell me how long each workshop session was?
+What is the water temperature like this time of year?
 \[/ANSWER\]
 
 ### Build a Sentence – 7
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-12.png
-Speaker A: The new art exhibit at the museum is stunning.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ exhibit information?
-Candidates: would / to know / how / I / you / happen / can get
+speaker_a_image: avatar-bs-4.png
+speaker_b_image: avatar-bs-6.png
+Speaker A: I need to buy groceries today.
+Speaker B: ____ ____ ____ ____ ____ ____ ?
+Candidates: list / do / a / I / have / shopping / you
 \[ANSWER\]
-Would you happen to know how I can get exhibit information?
+Do you have a shopping list?
 \[/ANSWER\]
 
 ### Build a Sentence – 8
 
-speaker_a_image: avatar-bs-1.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: Let's go to that new gym this afternoon.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ at this time?
-Candidates: know / you / do / is / usually crowded / if / it
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-15.png
+Speaker A: I'll be taking a cooking class this weekend.
+Speaker B: ____ ____ ____ ____ ____ ?
+Candidates: learn / what / will / I / you / recipes
 \[ANSWER\]
-Do you know if it is usually crowded at this time?
+What recipes will you learn?
 \[/ANSWER\]
 
 ### Build a Sentence – 9
 
-speaker_a_image: avatar-bs-3.png
-speaker_b_image: avatar-bs-4.png
-Speaker A: I really enjoyed the documentary we watched yesterday.
-Speaker B: ____ ____ ____ ____ about ____ ____ ____ ?
-Candidates: you / how / heard / they / filmed / any details / have
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-13.png
+Speaker A: What did Maria ask you about the book you're reading?
+Speaker B: She ____ ____ ____ ____ ____ ____ ____ .
+Candidates: she / wanted / to know / where / she / could / buy / a copy
 \[ANSWER\]
-Have you heard any details about how they filmed it?
+She wanted to know where she could buy a copy\.
 \[/ANSWER\]
 
 ### Build a Sentence – 10
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-4.png
-Speaker A: I'm applying for a position at that new technology hub.
-Speaker B: ____ ____ know ____ ____ ____ ____ ?
-Candidates: do / they / have / how many / you / open positions
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-5.png
+Speaker A: How did you prepare for the exam?
+Speaker B: I used ____ ____ ____ ____ ____ .
+Candidates: by / the professor / that / the study guide / was provided / it
 \[ANSWER\]
-Do you know how many open positions they have?
+I used the study guide that was provided by the professor\.
 \[/ANSWER\]
 
 ## Write an Email
 
 ### Write an Email – 1
 
-Identity: You recently attended a workshop on digital marketing and found it to be very informative. You want to thank the presenter, Ms. Clark, and ask for additional resources to further your understanding of the topic.
-To: Ms. Clark
-Subject: Appreciation and request for additional resources
+Identity: A new poetry magazine has asked its readers for submissions, and you decided to submit two of your poems. However, you had a problem using the online submission form, and you are not certain that your submissions were received.
+To: editor@sunshinepoetrymagazine.com
+Subject: Problem using submission form
 Requirements:
-- Thank her for the workshop.
-- Provide a detailed explanation of why you found the workshop to be informative.
-- Ask for additional resources or recommendations for further study.
+- Tell the editor what you like about the new magazine.
+- Describe the problem you experienced.
+- Ask about the status of your submissions.
 
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
 
-Subject: environmental science
-Instructor: Dr. Gupta
-professor_image: avatar-d-5.png
-Professor: Human activities like pollution and deforestation harm the environment. Some argue we must reduce or eliminate these actions to mitigate their impact. Others support technologies and initiatives that lessen the damage without stopping the activities — such as pollution cleanup or forest restoration. This alternative approach focuses on managing consequences rather than prevention. What do you think is the most effective way to address environmental issues — eliminating harmful activities or minimizing their impact? Why?
-student_a_image: avatar-d-2.png
-Sarah: The best way to protect the environment is to stop harmful activities like pollution and deforestation. If we don't end them, the damage will continue and get worse. Prevention is more effective than trying to fix problems after they happen. Reducing future damage only delays the inevitable destruction these activities cause.
-student_b_image: avatar-d-1.png
-James: Human development has increased to the extent that stopping all harmful activities in time for it to make a difference would be nearly impossible. Instead, we should focus on smarter solutions that reduce harm. Innovations like carbon capture to reduce climate change help limit damage while allowing progress. This approach supports environmental protection without demanding drastic lifestyle changes.
-Requirements:
-- Express and support your opinion.
-- Make a contribution to the discussion in your own words.
-- An effective response will contain at least 100 words.
-Hint: You will have 10 minutes to write.
+Subject: social studies
+Instructor: Dr. Chen
+professor_image: avatar-d-1.png
+Professor: Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause. While many people volunteer mainly to help others, some institutions have mandatory volunteer programs. High schools are one example, where students may be required to complete a certain number of volunteer hours to graduate. What do you think? Should high school students be required to do volunteer work? Why or why not?
+student_a_image: avatar-d-4.png
+Emma: Yes, I think high schools should require volunteer hours because it helps students build a sense of civic responsibility. Many teenagers don't naturally think about helping others, and this requirement can introduce them to the idea that their time and effort can make a real difference in the lives of others.
+student_b_image: avatar-d-5.png
+Liam: I don't think volunteer hours should be required because many students already have limited free time. Some have part-time jobs or take care of younger siblings after school. Adding a mandatory volunteer requirement could create extra stress and make it harder for those students to balance their existing responsibilities.

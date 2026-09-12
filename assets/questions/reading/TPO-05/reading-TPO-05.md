@@ -4,163 +4,156 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Conservation is the effort to protect plants and animals that are endangered because of human activities. Conservationists sa\_\_ endangered spe\_\_\_\_ by crea\_\_\_\_ areas wh\_\_\_ they c\_\_ live saf\_\_\_. Conservationists al\_\_ educate t\_\_\_ public ab\_\_\_ the impor\_\_\_\_\_ of preserving the natural world. Conservation is based on research about wildlife and ecosystems that aims to understand their needs and the threats they face. By taking care of the environment, conservationists help ensure a healthy planet for future generations.
+Climate varies significantly across different regions of the world because it is affected by many factors. These inc\_\_\_\_ the amo\_\_\_ of sun\_\_\_\_\_ and dist\_\_\_\_ from t\_\_ ocean. Some pla\_\_\_ are ve\_\_ warm wi\_\_ very lit\_\_\_ rain, li\_\_ deserts. Others may have a cold climate with lots of snow, like the Arctic. Yet others experience mild climates and four distinct seasons. Understanding climate can help us prepare for different weather conditions.
 
 [ANSWER]
-save:save
-species:species
-creating:creating
-where:where
-can:can
-safely:safely
-also:also
+include:include
+amount:amount
+sunlight:sunlight
+distance:distance
 the:the
-about:about
-importance:importance
+places:places
+very:very
+with:with
+little:little
+like:like
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Email (Questions 11–12)
+### Task 2 Read in Daily Life – Email 1 (Questions 11–12)
 
-To: mr.brown@dmail.com
-From: maintenance@dmail.com
-Date: 03/01/2026
-Subject: Maintenance Notice
+From: Jennifer
+Subject: Project Meeting Room Change
 
-Dear Mr. Brown,
+Hi, Team,
 
-Our maintenance team is scheduled to paint your apartment's living room on March 11 starting at 9:00 a.m. We ask that you leave the apartment and not return until one hour after the painters have finished at 12:00 p.m.
+Tomorrow's 2 P.M. project meeting has been moved to Conference Room B. Room A's projector is broken and won't be fixed until Friday. Please bring your laptops for the presentation.
 
-Best regards,
-Anna Davis
+Thanks,
+Jennifer
 
-11. What room in the apartment will be painted?
-A. The kitchen
-B. The dining room
-C. The living room
-D. The bedroom
-
-[ANSWER]
-C
-[/ANSWER]
-
-12. When can Mr. Brown return to the apartment?
-A. At 9:00 AM
-B. At 11:00 AM
-C. At 12:00 PM
-D. At 1:00 PM
-
-[ANSWER]
-D
-[/ANSWER]
-
----
-
-### Task 3 Read in Daily Life – Notice (Questions 13–15)
-
-Title: Welcome to the Library Quiet Zone!
-
-This area is specifically designated for quiet reading and study to ensure a peaceful environment for all patrons. Please adhere to the following guidelines:
-
-Noise Levels: Please keep noise to a minimum. This includes refraining from loud conversations and phone calls.
-
-Electronic Devices: Ensure that all electronic devices, such as phones and laptops, are set to silent mode. The volume on headphones must be kept low.
-
-Conversations: If you need to have a conversation, please conduct it quietly or proceed to another area of the library.
-
-Music and Media: Listening to music or watching videos without headphones is not allowed. Please keep the volume of headphones at a level that only you can hear.
-
-Respect for Others: Be mindful of those around you who are studying or reading. Your cooperation helps maintain a serene environment for everyone.
-
-13. What can be concluded about the library?
-A. It has areas that are not specifically designated as quiet zones.
-B. It has received numerous complaints about noise levels.
-C. It is located on the campus of a university.
-D. It holds a large collection of film and music recordings.
-
-[ANSWER]
-A
-[/ANSWER]
-
-14. The phrase "adhere to" in the opening paragraph is closest in meaning to
-A. notice
-B. read
-C. follow
-D. admire
-
-[ANSWER]
-C
-[/ANSWER]
-
-15. What is indicated about headphones?
-A. They are not permitted in the library's quiet zone.
-B. They are only allowed for use with smartphones and laptop computers.
-C. They may not be shared between two users.
-D. They should be kept at a low volume.
-
-[ANSWER]
-D
-[/ANSWER]
-
----
-
-### Task 4 Read an Academic Passage – Jet Stream Dynamics (Questions 16–20)
-
-The jet stream is a fast-moving ribbon of air high in the atmosphere that affects global weather. Flowing west to east at speeds of up to 200 miles per hour, it forms due to the temperature contrast between cold polar air and warm tropical air, which creates pressure differences that generate strong winds. In the northern hemisphere, when the jet stream dips southward, it brings cold air and storms to lower latitudes.
-
-The jet stream also influences cyclones and anticyclones, affecting precipitation and wind patterns. The jet stream's dynamics are influenced by factors like the Earth's rotation and uneven heating of its surface. Seasonal changes play a role; it's stronger in winter due to the greater temperature contrast between the poles and the equator. Understanding the jet stream's behavior helps meteorologists predict weather and plan for climate events.
-
-Recent research shows that climate change is impacting the jet stream. The warming Arctic reduces the temperature difference between polar and tropical air masses, which may weaken the jet stream. A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.
-
-16. What causes the formation of the jet stream?
-A. The behavior of cyclones
-B. The uneven heating of the Earth's surface
-C. The difference in temperature between air masses
-D. The temperature changes that occur seasonally
-
-[ANSWER]
-C
-[/ANSWER]
-
-17. How does the jet stream affect weather systems in the northern hemisphere when it dips southward?
-A. It brings warmer air to lower latitudes.
-B. It leads to more stable conditions.
-C. It brings storms to places further south.
-D. It brings cyclones to higher latitudes.
-
-[ANSWER]
-C
-[/ANSWER]
-
-18. What is one of the main factors influencing the jet stream's behavior?
-A. The Earth's rotation
-B. The presence of cyclones
-C. The amount of precipitation
-D. The direction of wind patterns
-
-[ANSWER]
-A
-[/ANSWER]
-
-19. What does the author suggest about the impact of climate change on the jet stream?
-A. It will have no significant effect on the jet stream.
-B. It is reducing the temperature difference between polar and tropical air masses.
-C. It is causing the jet stream to move faster.
-D. It is increasing the temperature contrast between the poles and the equator.
-
+11. What is the main purpose of the email?
+A. To cancel tomorrow's project meeting
+B. To inform the team about a change of location
+C. To request that team members bring equipment
+D. To explain problems with conference room technology
 [ANSWER]
 B
 [/ANSWER]
 
-20. The word "prolonged" in the passage is closest in meaning to
-A. extended
-B. seasonal
-C. rapid
-D. short-term
-
+12. What can be inferred about the original meeting plan?
+A. The team was going to use the room's projector for presentations
+B. Conference Room A is larger than Conference Room B
+C. The meeting was originally scheduled for a different time
+D. Laptops were not originally required for the meeting.
 [ANSWER]
 A
+[/ANSWER]
+
+---
+
+### Task 3 Read in Daily Life – Email 2 (Questions 13–15)
+
+From: Kevin Moore
+Subject: Elevator Maintenance
+
+Dear residents of Alexandar Hall,
+
+The elevator is scheduled for annual maintenance on June 13 from 8:00 a.m. to 6:00 p.m. Please use the stairs during this period. We will provide updates on the progress of the maintenance work throughout the day.
+
+Last year, we conducted several upgrades, including the installation of new control systems and enhanced safety features. This year's maintenance will focus on testing of emergency systems.
+
+In the event of an emergency during the maintenance period, please follow the building's evacuation procedures. Emergency exits are clearly marked on each floor, and stairwells are equipped with emergency lighting. We will conduct evacuation drills next month; more details are forthcoming.
+
+We understand that the elevator's unavailability may pose challenges for some residents. If you require assistance, please do not hesitate to reach out to me.
+
+Regards,
+Kevin Moore
+Building Manager
+
+13. What is the purpose of this year's maintenance?
+A. To fix an issue caused by last year's maintenance
+B. To ensure that the elevator functions in urgent situations
+C. To do urgently needed repairs
+D. To install new upgrades
+[ANSWER]
+B
+[/ANSWER]
+
+14. What will the residents do next month?
+A. Suggest building upgrades
+B. Look for new emergency exit signs
+C. Send feedback about the elevator to the building manager
+D. Practice evacuation procedures
+[ANSWER]
+D
+[/ANSWER]
+
+15. On June 13, residents can expect emails about
+A. the status of maintenance work
+B. the enhanced safety features of the elevator
+C. the building's evacuation procedures
+D. emergency exits and emergency lighting
+[ANSWER]
+A
+[/ANSWER]
+
+---
+
+### Task 4 Read an Academic Passage – Ocean Acidification (Questions 16–20)
+
+Ocean acidification is a significant environmental issue resulting from increased carbon dioxide (CO2) levels in the atmosphere. When CO2 dissolves in seawater, it forms carbonic acid, which lowers the ocean's pH. This change in acidity affects marine life, particularly organisms with calcium carbonate shells, such as corals, mollusks, and some plankton species.
+
+Coral reefs are among the most affected by ocean acidification. The acidic water makes it difficult for corals to maintain their calcium carbonate skeletons, leading to weakened structures and increased vulnerability to erosion and breakage. This process also disrupts the symbiotic relationships between corals and algae, further harming reef ecosystems.
+
+Mollusks, including oysters and clams, struggle to develop their shells in acidic conditions, which can lead to reduced survival rates and impact the aquaculture industry. Plankton, at the base of the marine food web, also faces challenges, as their shells become more fragile, affecting their ability to reproduce and survive.
+
+Efforts to mitigate ocean acidification include reducing CO2 emissions, protecting marine areas, and researching adaptive strategies for marine life. Addressing this issue is crucial for preserving biodiversity and maintaining the health of marine ecosystems.
+
+16. The word "mitigate" in the passage is closest in meaning to
+A. alleviate
+B. increase
+C. predict
+D. analyze
+[ANSWER]
+A
+[/ANSWER]
+
+17. How does ocean acidification affect corals?
+A. It enhances their growth.
+B. It strengthens their calcium carbonate skeletons.
+C. It causes their structures to break more easily.
+D. It improves their symbiotic relationships with algae.
+[ANSWER]
+C
+[/ANSWER]
+
+18. Mollusks are impacted by ocean acidification because
+A. they rely on plankton for food
+B. they struggle to develop their shells in acidic conditions
+C. they need carbon dioxide for their survival
+D. they depend on coral reefs for habitat
+[ANSWER]
+B
+[/ANSWER]
+
+19. What is the relationship between paragraphs 2 and 3?
+A. Paragraph 3 introduces a new problem not discussed in paragraph 2.
+B. Paragraph 3 adds to the list of the effects of ocean acidification begun in paragraph 2.
+C. Paragraph 3 proposes solutions to the problems discussed in paragraph 2.
+D. Paragraph 3 provides examples that contradict the information in paragraph 2.
+[ANSWER]
+B
+[/ANSWER]
+
+20. Why does the author mention "adaptive strategies for marine life" in the last paragraph?
+A. To emphasize the importance of reducing CO2 emissions
+B. To suggest that current mitigation efforts are ineffective
+C. To argue that protecting marine areas is unnecessary
+D. To highlight potential solutions to help marine organisms cope with ocean acidification
+[ANSWER]
+D
 [/ANSWER]
 
 ---
@@ -169,159 +162,74 @@ A
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Economics is the study of how societies allocate resources and make decisions about production, distribution, and consumption. It exam\_\_\_\_ the behavior o\_ governments, busin\_\_\_\_\_, and indiv\_\_\_\_\_\_ in t\_\_ marketplace. Stud\_\_\_\_ economics is not just for th\_\_\_ who asp\_\_\_\_ to become economi\_\_\_ or bankers. Gaining a basic understanding of economic concept\_ benefits everyone. It enables us to make informed decisions and understand the broader economic forces that shape our daily lives.
+European medieval history encompasses the period from the fall of the Roman Empire in the fifth century C.E. to the beginning of the Renaissance in the fifteenth century. This e\_\_ saw signi\_\_\_\_\_\_ developments, incl\_\_\_\_\_ the ri\_\_ of feudalism a\_ a soc\_\_\_ system, the establ\_\_\_\_\_\_\_ of powe\_\_\_\_ kingdoms, a\_\_ the spread o\_ Christianity throughout Europe. The medieval period also witnessed numerous conflicts, such as the Crusades and the Hundred Years' War, which profoundly influenced the political boundaries, religious dynamics, and power structures of Europe.
 
 [ANSWER]
-examines:examines
+era:era
+significant:significant
+including:including
+rise:rise
+as:as
+social:social
+establishment:establishment
+powerful:powerful
+and:and
 of:of
-business:business
-individuals:individuals
-the:the
-Studying:Studying
-those:those
-aspire:aspire
-economists:economists
-concepts:concepts
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Email (Questions 11–12)
+### Task 2 Read an Academic Passage – Stealth Technology (Questions 11–15)
 
-To: ms.patel@dmail.com
-From: lakeside@medical.com
-Date: 05/01/2026
-Subject: Medical appointment
+Stealth technology is designed to make military assets, like aircraft, ships, and missiles, harder to detect by radar. This goal is achieved by reducing the reflection and emission of radar waves. One method involves using materials that absorb radar waves. Another method shapes the surfaces of these assets to deflect radar waves away from the radar receiver.
 
-Dear Ms. Patel,
+The F-117 Nighthawk, developed during the 1970s, was the first operational stealth aircraft. Its angular design made it difficult for radar to detect, though it had limitations. Subsequent advancements led to aircraft like the B-2 Spirit bomber, which features smoother surfaces and radar-absorbing paint. These improvements not only enhanced stealth but also influenced designs of other military vehicles.
 
-Your appointment at Lakeside Medical Center is scheduled for May 10 at 3:00 P.M. Please arrive 15 minutes early for paperwork. You will be seen by Dr. Liu. Click the link below to confirm. To reschedule or cancel, call us at 756-8793.
+Stealth technology extends beyond aircraft. Modern naval vessels employ angled surfaces and radar-absorbent coatings to minimize their radar signature. Submarines utilize stealth through hulls that are designed to reduce sonar detection.
 
-Regards,
-Brittany Jones
+Despite its advantages, the complexity and cost of stealth technology limit its availability to only a few countries. Ongoing research aims to improve effectiveness and affordability, potentially expanding its usage in future military applications. However, these advancements also raise concerns about an escalating arms race and the ethical implications of increasingly undetectable weaponry.
 
-11. What time should Ms. Patel arrive for her appointment?
-A. 10:00 AM
-B. 2:45 PM
-C. 3:00 PM
-D. 3:15 PM
-
-[ANSWER]
-B
-[/ANSWER]
-
-12. How can Ms. Patel cancel her appointment?
-A. By replying to the e-mail
-B. By clicking a link
-C. By calling a phone number
-D. By sending a text message
-
+11. All of the following are true about stealth technology EXCEPT:
+A. It reduces radar reflection and emission.
+B. It is used in aircraft, ships, and missiles.
+C. It is affordable for many countries.
+D. It frequently involves the use of radar-absorbing materials.
 [ANSWER]
 C
 [/ANSWER]
 
----
-
-### Task 3 Read in Daily Life – Advertisement (Questions 13–15)
-
-**Riverdale Parks Department seeks dedicated volunteers to assist with weekend nature programs for families.**
-
-• The programs will begin on May 1.
-• Volunteers must be available Saturdays or Sundays, 9 A.M. to 4 P.M., and complete a four-hour training session before starting.
-• Training sessions are scheduled for the week of April 15.
-• Previous experience with children preferred but not required.
-• Responsibilities include leading nature walks, supervising craft activities, and helping with educational demonstrations.
-• Application deadline: March 15.
-
-Background check required for all accepted volunteers.
-Contact Sarah Mitchell at 555-0199 for more information.
-
-13. What is this poster mainly advertising?
-A. Career opportunities at the Riverdale Parks Department
-B. Educational programs for children
-C. Volunteer opportunities for community members
-D. Training courses for nature guides
-
+12. What does the passage indicate about the F-117 Nighthawk?
+A. It was developed after the B-2 Spirit bomber.
+B. It used radar-absorbing paint like the B-2 Spirit did.
+C. It was the first stealth aircraft to be operational.
+D. It featured advanced materials for stealth.
 [ANSWER]
 C
 [/ANSWER]
 
-14. What must volunteers do before they can start working?
-A. Submit references from previous employers
-B. Complete training and pass a background check
-C. Demonstrate experience working with children
-D. Commit to working both Saturday and Sunday
-
-[ANSWER]
-B
-[/ANSWER]
-
-15. When is the latest someone can apply for this program?
-A. March 15th
-B. April 15th
-C. May 1st
-D. May 9th
-
+13. Why does the author mention submarines in the passage?
+A. To help demonstrate that stealth technology is being used in ways that do not involve aircraft
+B. To argue that stealth technology from submarines has been used in other types of naval vessels
+C. To describe the differences between modern naval vessels and older naval vessels
+D. To discuss ongoing research in sonar detection
 [ANSWER]
 A
 [/ANSWER]
 
----
-
-### Task 4 Read an Academic Passage – The Golden Age of Television (Questions 16–20)
-
-The Golden Age of Television is often considered to have occurred during the 1950s and 1960s, when TV became a dominant cultural force. This era was marked by groundbreaking shows that experimented with new formats and storytelling techniques.
-
-During this time period, TV saw the rise of anthology series, which presented different stories and characters in each episode, in contrast to traditional ongoing narratives. One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways. Sitcoms reflecting everyday life, like I Love Lucy, became a cultural phenomenon. Despite its simple format, the show tackled complex social issues including gender roles and family dynamics. There was also a new focus on live broadcasts, providing viewers with real-time coverage of events and entertainers.
-
-However, the Golden Age was not without challenges. TV networks navigated the balance between artistic innovation and commercial pressures. Advertisers sought to influence content to appeal to mass audiences, which sometimes clashed with creative visions. Nonetheless, the period left an indelible mark on the television industry, setting standards for future programming and contributing to the medium's evolution.
-
-16. The word "dominant" in the passage is closest in meaning to
-A. relevant
-B. favorite
-C. leading
-D. entertaining
-
+14. The word "potentially" in the passage is closest in meaning to
+A. quickly
+B. greatly
+C. easily
+D. possibly
 [ANSWER]
-C
+D
 [/ANSWER]
 
-17. Why does the author mention The Twilight Zone?
-A. To illustrate the popularity of science fiction during the Golden Age
-B. To highlight the innovative nature of anthology series
-C. To discuss the impact of horror on television
-D. To compare different types of TV formats
-
-[ANSWER]
-B
-[/ANSWER]
-
-18. What does the author suggest about sitcoms like I Love Lucy?
-A. They made TV less popular during the Golden Age
-B. They focused on people's daily lives.
-C. They reduced the influence of advertisers
-D. They were more popular than anthology series
-
-[ANSWER]
-B
-[/ANSWER]
-
-19. What is the relationship between paragraphs 2 and 3?
-A. Paragraph 3 expands on the challenges mentioned in paragraph 2.
-B. Paragraph 3 provides examples of the formats discussed in paragraph 2.
-C. Paragraph 3 introduces a new issue that was not covered in paragraph 2.
-D. Paragraph 3 contradicts the success of TV shows mentioned in paragraph 2.
-
-[ANSWER]
-C
-[/ANSWER]
-
-20. Why does the author mention advertisers in the passage?
-A. To explain a challenge faced by TV networks
-B. To point out how TV shows were funded at the time
-C. To illustrate the role of commercials during live broadcasts
-D. To criticize the quality of programming during the Golden Age
-
+15. Which of the following best describes the purpose of the third paragraph?
+A. Paragraph 3 provides examples of stealth technology beyond aircraft.
+B. Paragraph 3 discusses some drawbacks of advancing technology.
+C. Paragraph 3 explains the reasons for the high cost of stealth technology.
+D. Paragraph 3 explains why recent advancements in stealth technology were successful.
 [ANSWER]
 A
 [/ANSWER]

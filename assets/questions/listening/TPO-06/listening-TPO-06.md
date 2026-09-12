@@ -2,403 +2,458 @@
 
 ## Module 1
 
-### Listen and Choose a Response – Questions 1-8
+### Listen and Choose a Response – Questions 1-10
 
-1. Man: Is the library open now?
+audio: Pack-6_Listening.MP3
+
+1. How did the presentation go?
 image: 1.png
-audio: Listening1_Listen_Response_Question1.ogg
-A. Yes, until nine p.m.
-B. Maybe last week.
-C. Every book.
-D. No, dinner is at eight p.m.
+>> play: 0:25-0:28
+A. Despite the rain I got in a quick walk at lunch.
+B. Thanks for asking but I'm not interested.
+C. I think I should stay behind the scenes this time.
+D. It ran longer than expected.
 
-2. Woman: Could you help me organize these files?
+2. How long will it take to drive there?
 image: 2.png
-audio: Listening1_Listen_Response_Question2.ogg
-A. Sure, I can.
-B. The calendar is current.
-C. Yes, on the left.
-D. The kitchen is large.
+>> play: 0:50-0:54
+A. If we leave right away.
+B. Probably a few hours.
+C. Yes I think so.
+D. 80 kilometers per hour.
 
-3. Man: It looks like you didn't finish the slides for the presentation.
+3. Did you complete the supply order?
 image: 3.png
-audio: Listening1_Listen_Response_Question3.ogg
-A. Yes, I agree with the manager.
-B. The concert was fantastic.
-C. Sorry — I forgot.
-D. Yes, I'll leave tomorrow evening.
+>> play: 1:15-1:18
+A. No they're ordered alphabetically.
+B. Yes I submitted it online.
+C. I prefer green tea.
+D. I waited two hours for tickets.
 
-4. Woman: It's quite warm, isn't it?
+4. Can I get you anything while I'm there?
 image: 4.png
-audio: Listening1_Listen_Response_Question4.ogg
-A. I haven't had a chance to check the schedule.
-B. It's not in the budget for this year.
-C. The hallway lights are out again.
-D. Especially for this time of year.
+>> play: 1:40-1:43
+A. Now that you mention it I'm out of milk and eggs.
+B. I believe it's in the office.
+C. Yes we can definitely use a new one.
+D. You can pay me back next time.
 
-5. Man: Will you be able to meet the deadline for your research paper?
+5. We might need to delay the shipment.
 image: 5.png
-audio: Listening1_Listen_Response_Question5.ogg
-A. Sure, I'll call them tomorrow.
-B. Sorry to hear that.
-C. I'm on track to finish on time.
-D. Not such a good idea.
+>> play: 2:06-2:09
+A. In ever enjoyed traveling by sea.
+B. I'm not convinced that's the best move.
+C. Thankyou for the timely shipment.
+D. I'm glad it's finally speeding up.
 
-6. Woman: When is your job interview?
+6. The meeting room projector is not working.
 image: 6.png
-audio: Listening1_Listen_Response_Question6.ogg
-A. It will be in the conference room.
-B. It's been rescheduled to Monday morning.
-C. I'll do that next time.
-D. We went out for lunch afterward.
+>> play: 2:31-2:34
+A. It's in the meeting room.
+B. Ill call a technician.
+C. Projectors work effectively.
+D. Please reserve the room in advance.
 
-7. Man: I'm having trouble resetting my password.
+7. Did you get a chance to finish the report?
 image: 7.png
-audio: Listening1_Listen_Response_Question7.ogg
-A. Let me find the instructions for you.
-B. I can't attend tonight.
-C. I don't know how many.
-D. Set the documents on the table.
+>> play: 2:56-3:00
+A. The client gave us detailed feedback.
+B. I wasn't at the last meeting.
+C. I've been tied up with another task.
+D. We're scheduled to meet tomorrow.
 
-8. Woman: I can't find the invoice for last month's catering order.
+8. Is the gym open now?
 image: 8.png
-audio: Listening1_Listen_Response_Question8.ogg
-A. Did you check the file folder?
-B. Two copies of the billing statement.
-C. Didn't they offer to write a review?
-D. A month from now.
+>> play: 3:21-3:24
+A. forgot my membership card.
+B. go there every morning.
+C. It's usually busy in the evenings.
+D. It closed an hour ago.
 
-[ANSWER]
-A
-A
-C
-D
-C
-B
-A
-A
-[/ANSWER]
-
----
-
-### Listen to a Conversation – Car Trouble
-
-audio: Listening1_Conversation_Questions_9-10.ogg
+9. Why are you late?
 image: 9.png
+>> play: 3:48-3:50
+A. My watch must be fast.
+B. Your door was open.
+C. The bus was delayed.
+D. I usually take the subway.
 
-Man: I've been having trouble with my car lately. It makes a weird sound every time I start it.
-Woman: That's annoying. Have you taken it to get checked out?
-Man: Not yet. I'm planning to go tomorrow.
-Woman: That's a good idea. It might be something minor, but it's better to be safe.
-Man: Exactly. I just pray it doesn't cost me an arm and a leg. And I hope to get my car back by Sunday. I need to pick up my mother at the airport then.
-Woman: Fingers crossed!
-
-9. What problem is the man having with his car?
-A. It cannot start.
-B. It makes a strange noise.
-C. It is unable to move fast.
-D. It is unsafe to drive.
-
-10. What does the man imply at the end of the conversation?
-A. He wants to buy a new car.
-B. He needs his car for an important errand he must do.
-C. He needs advice about a mechanic to use.
-D. He hopes an issue is minor.
-
-[ANSWER]
-B
-D
-[/ANSWER]
-
----
-
-### Listen to a Conversation – Ski Trip
-
-audio: Listening1_Conversation_Questions_11-12.ogg
+10. Please send me the details about next month's awards banquet.
 image: 10.png
-
-Woman: I heard you're planning a trip to Sky-High Ski Resort this winter. Have you booked everything yet?
-Man: Well, I've booked the cabin to stay, but I still need to reserve skis and ski boots.
-Woman: You don't have your own?
-Man: No, this will actually be my first time skiing. I'm a bit nervous.
-Woman: You'll do fine. By the way, there's a great Thai restaurant next to the resort, and I don't think it requires reservations.
-Man: Great! What's the name?
-Woman: Can't remember off the top of my head. Lemme look it up on my phone.
-
-11. What does the man still need to book?
-A. Transportation
-B. A restaurant table
-C. A cabin
-D. Skiing equipment
-
-12. What will the woman do next?
-A. Look up a recipe
-B. Check the name of a restaurant
-C. Offer the man some skiing advice
-D. Make a phone call
+>> play: 4:12-4:16
+A. A new catering company in town.
+B. John made reservations for tonight.
+C. The restaurant from last year.
+D. Jenna is the organizer this year.
 
 [ANSWER]
 D
 B
+B
+A
+A
+B
+C
+D
+C
+A
 [/ANSWER]
-
 ---
 
-### Listen to an Announcement – Office Hours Change
+### Listen to a Conversation – Questions 11-12
 
-audio: Listening1_Announcement_Questions_13-14.ogg
+audio: Pack-6_Listening.MP3
+>> play: 4:35-5:01
 image: 11.png
+Woman: I'm so excited for a trip to Italy next month. Have you decided which cities you want to visit?
+Man: Yes, definitely Rome and Florence. I'd love to see the historic sites and museums.
+Woman: Good choices. I've heard the food in Florence is amazing. We should try some local restaurants.
+Man: Absolutely! I'll let you choose the places.
 
-Woman: I want to let everyone know that my office hours will be changing. Starting next week, I will be available on Mondays and Wednesdays from 2 to 4 p.m., instead of the current 1 to 3 p.m. If you have an urgent need to meet with me and these times don't work for you, please email me and I can schedule an appointment. Keep in mind that office hours are a great opportunity to discuss any questions or concerns you have about the course material.
-
-13. What is the main topic of the announcement?
-A. A revision to a schedule
-B. The process for making an appointment
-C. Updates to course material
-D. An upcoming exam
-
-14. What does the professor encourage students to do?
-A. Form study groups with classmates
-B. Begin planning their schedule for next semester
-C. Meet with her if they have questions
-D. Email her a list of their concerns
-
+11. Next What are the speakers mainly discussing?
+A. Their favorite Italian foods
+B. Their upcoming travel plans
+C. A recent trip to Italy
+D. A museum exhibit in Rome
+12. Next What does the woman want to do on the trip?
+A. Go shopping
+B. Visit museums
+C. Attend a concert
+D. Relax at the beach
 [ANSWER]
+B
+B
+[/ANSWER]
+---
+
+### Listen to a Conversation – Questions 13-14
+
+audio: Pack-6_Listening.MP3
+>> play: 5:44-6:16
+image: 12.png
+Woman: Are you still going to the concert on Friday afternoon?
+Man: I wish I could, but I'll be sitting in the dentist's chair. I made the appointment ages ago.
+Woman: That's a shame. I heard it's going to be an amazing show.
+Man: I know. I've been looking forward to it for months.
+Woman: Maybe you can catch them next time they're in town. There's always another concert.
+Man: True. I'll keep an eye out for their next tour.
+
+13. Next Why can't the man attend the concert?
+A. He forgot to buy tickets.
+B. He has to travel for work.
+C. He has a dentist's appointment.
+D. He will be sitting a this desk.
+14. Next What does the woman suggest the man do?
+A. Attend a future concert
+B. Reschedule his appointment
+C. Watch the concert online
+D. Ask for are fund
+[ANSWER]
+C
 A
+[/ANSWER]
+---
+
+### Listen to a Conversation – Questions 15-16
+
+audio: Pack-6_Listening.MP3
+>> play: 7:00-7:22
+image: 13.png
+Woman: Are you going to the book club meeting tonight?
+Man: Yes, I am. I just finished reading the book we're discussing.
+Woman: Great! What did you think of it?
+Man: I loved it! The characters were so well developed, I felt I knew them.
+Woman: I agree. I'm looking forward to hearing everyone's thoughts.
+
+15. What event are the speakers discussing?
+A. A bookstore's opening
+B. A book club meeting
+C. An author's presentation
+D. A book made into a film
+16. Next What did the woman think about the book?
+A. It was expensive but good.
+B. It had well developed characters.
+C. It was too short.
+D. It had a confusing plot.
+[ANSWER]
+B
+B
+[/ANSWER]
+---
+
+### Listen to an Announcement on the school radio – Questions 17-18
+
+audio: Pack-6_Listening.MP3
+>> play: 8:05-8:41
+image: 14.png
+Man: attention all students! The main campus bookstore is back and better than ever after a major renovation, and to celebrate, we're holding a special one day sale tomorrow from eight AM to six PM. All textbooks, supplies and school merchandise will be discounted by 20%. A perfect chance to stock up for the new semester. And when you're done shopping, don't forget to slow down and check out our newly added basement cafe and enjoy a complimentary cup of coffee
+
+17. Next What is the main topic of the announcement?
+A. A change in campus bookstore hours
+B. The opening of a new bookstore
+C. Promotional events at the campus bookstore
+D. The arrival of this semester's textbooks
+18. Next What are students encouraged to do?
+A. Return their textbooks from the last semester
+B. Take a relaxing break at the cafe downstairs
+C. Look online for available discount codes
+D. Browse the selection of interesting new books
+[ANSWER]
+C
+B
+[/ANSWER]
+---
+
+### Listen to an Announcement at a university club meeting – Questions 19-20
+
+audio: Pack-6_Listening.MP3
+>> play: 9:25-9:43
+image: 15.png
+Man: welcome everyone! Today we'll be discussing our plans for earth day, will be organizing a campus cleanup event, and planting trees next Friday. Please sign up if you're interested in participating
+
+19. Next What is the main topic of the announcement?
+A. A tree planting workshop
+B. A club meeting schedule
+C. A decision about club membership
+D. An Earth Day initiative
+20. Next What are students encouraged to do?
+A. Donate to the tree planting fund
+B. Attend a workshop
+C. Sign up for the cleanup event
+D. Join the Environmental Club
+[ANSWER]
+D
 C
 [/ANSWER]
-
 ---
 
-### Listen to a Talk in a Linguistics Class – Language Acquisition
+### Listen to a Talk in a business class – Questions 21-24
 
-audio: Listening1_Academic_Talk_Questions_15-18.ogg
-image: 12.png
+audio: Pack-6_Listening.MP3
+>> play: 10:27-12:10
+image: 16.png
+Professor: Disruptive innovation refers to a process by which a smaller company with fewer resources successfully challenges established businesses. This typically happens by targeting overlooked segments of the market, offering simpler, cheaper, or more convenient products that eventually appeal to a broader audience. One classic example is the rise of digital photography. Traditional film based companies dominated the market for decades. However, digital cameras initially targeted amateur photographers and offered a new, convenient way to take pictures. Over time, as technology improved, digital photography appealed to professional photographers and everyday consumers, drastically changing the industry and leading to the decline of film companies. Another example is streaming movie services, some of which started as DVD rental services that mailed movies to customers. They disrupted the video rental industry by focusing on consumer convenience. Then, as broadband internet became more widespread, they adapted by introducing streaming services, further disrupting established brick and mortar businesses that rented DV, DS and videotapes. Disruptive innovation often requires companies to rethink their business models and adapt to changing market conditions. Established businesses might fail to recognize the threat from new entrants until it's too late. Understanding disruptive innovation is crucial for businesses that want to avoid complacency and stay competitive in a rapidly evolving marketplace
 
-Man: Let's talk a little about language acquisition, which is the process by which humans learn to understand and use language. There are two main types of language acquisition: first language acquisition and second language acquisition.
-
-First language acquisition occurs naturally and with relative ease during early childhood, through interaction with family and the surrounding environment. Children are able to pick up their native language quickly due to their innate linguistic capabilities, a concept supported by the linguist Noam Chomsky's theory of Universal Grammar. Universal Grammar suggests that the ability to acquire language is innate to humans and that all human languages share a common underlying structure.
-
-Second language acquisition, on the other hand, often requires more conscious effort and formal education and typically happens later in life. Several factors influence the ease and success of second language acquisition, including exposure to the language, age, and motivation. Motivation, in particular, plays a crucial role — highly motivated individuals are more likely to engage actively with the language and persist in their learning efforts. Age is also significant; according to the critical period hypothesis, there is an optimal window in early childhood during which language acquisition occurs most easily. After this period, acquiring a new language can be more challenging.
-
-Understanding these processes helps educators and linguists develop effective teaching methods and language learning tools.
-
-15. How is the talk mainly organized?
-A. It contrasts children's innate linguistic capabilities with those of adults.
-B. It lists the principles of Noam Chomsky's theory of Universal Grammar.
-C. It describes the differences between two methods of teaching language.
-D. It discusses the two main types of language acquisition.
-
-16. Why does the speaker mention Noam Chomsky's theory of Universal Grammar?
-A. To highlight the importance of formal education in language learning
-B. To explain why children are able to pick up their native language quickly
-C. To describe how some languages are more complex than others
-D. To provide background on the critical period hypothesis
-
-17. What does the speaker say about motivation and language acquisition?
-A. Higher motivation makes it easier for a person to acquire a second language.
-B. Motivation becomes less important to language acquisition as a person ages.
-C. Children with increased exposure to a second language are more motivated to learn it.
-D. Formal education does not motivate people to acquire a second language.
-
-18. According to the speaker, what is suggested by the critical period hypothesis?
-A. People with innate linguistic capabilities acquire language easily.
-B. There is an optimal window in early childhood for language acquisition.
-C. A longer period of language exposure supports better learning.
-D. Second language acquisition occurs most easily in early adulthood.
-
+21. What is the main topic of the talk?
+A. The history of streaming services
+B. The concept of disruptive innovation
+C. The importance of customer service
+D. The evolution of digital photography
+22. According to the talk what is one characteristic of disruptive innovation?
+A. It targets established market leaders directly.
+B. It requires significant resources and capital.
+C. It often begins by serving overlooked market segments.
+D. It primarily focuses on high end consumers.
+23. Why does the speaker mention digital photography To highlight the technological advancements in cameras
+A. To illustrate how an industry can be transformed by
+B. innovation
+C. To discuss the success of traditional film companies
+D. To show its limitations in a competitive market
+24. Next What can be inferred about established businesses?
+A. They are generally quick to adapt to new technologies.
+B. They may fail to recognize a threat until it is too late.
+C. They usually benefit from changes in market conditions.
+D. They typically focus on consumer convenience.
 [ANSWER]
-D
 B
-A
+C
+B
 B
 [/ANSWER]
-
 ---
+
+### Listen to a Talk in a psychology class – Questions 25-28
+
+audio: Pack-6_Listening.MP3
+>> play: 14:16-15:44
+image: 17.png
+Professor: Cognitive dissonance refers to the mental discomfort experienced when a person holds two or more contradictory beliefs, values, or attitudes simultaneously. This theory, developed by psychologist Leon Festing in the 1950s, suggests that people are motivated to reduce this discomfort by changing their attitudes, beliefs, or behaviors. For example, imagine someone who values health but smoke cigarettes. The conflict between their behavior, smoking, and their belief valuing health creates cognitive dissonance. To reduce this discomfort, they might decide to quit smoking or rationalize their behavior by downplaying the health risks associated with smoking. Cognitive dissonance can also play a significant role in decision making. When faced with a difficult choice, people often experience dissonance after making a decision, particularly if the chosen option has downsides. To alleviate this discomfort, they may seek out information that supports their choice and ignore information that contradicts it. Understanding cognitive dissonance is crucial for psychologists because it explains various aspects ofhuman behavior, including why people sometimes act in ways that contradict their stated beliefs and values. Next, we will discuss some experiments conducted to study cognitive dissonance and their implications for psychological research.
+
+25. What is the main topic of the talk?
+A. How people make difficult choices
+B. How people react when they experience a contradiction
+C. How people should resolve conflicts with other people
+D. How a psychological theory has been developed
+26. Next Why does the speaker mention someone who smokes cigarettes To explain the health risks of smoking
+A. To illustrate a case of cognitive dissonance
+B. To point out away of improving a decision making process
+C. To identify a result of a psychological experiment in the
+D. 1950 s
+27. Next According to the speaker what do people sometimes do after making a decision?
+A. Focus on the downsides of the decision
+B. Change their decision making strategy for future decisions
+C. Seek the advice of a psychologist
+D. Search only for information that only supports the decision
+28. What will the speaker most likely discuss next?
+A. Common beliefs about cognitive dissonance
+B. Experiments related to cognitive dissonance
+C. Possible problems with the theory of cognitive dissonance
+D. Methods of reducing cognitive dissonance
+[ANSWER]
+B
+B
+D
+B
+[/ANSWER]
+---
+
 
 ## Module 2
 
-### Listen and Choose a Response – Questions 1-8
+### Listen and Choose a Response – Questions 1-3
 
-1. Man: Would you mind closing the window?
-image: 13.png
-audio: Listening2_Listen_Response_Question1.ogg
-A. Sure, I'll call tomorrow.
-B. Check under the table.
-C. No problem.
-D. Closed on Mondays.
+audio: Pack-6_Listening.MP3
 
-2. Woman: The seminar meets at eight thirty a.m. on Wednesdays.
-image: 14.png
-audio: Listening2_Listen_Response_Question2.ogg
-A. Nearly 90 minutes.
-B. Thank you for reminding me.
-C. The bookstore opens at noon on Sundays.
-D. About 200 faculty members.
-
-3. Man: Have you created the syllabus for the art history course?
-image: 15.png
-audio: Listening2_Listen_Response_Question3.ogg
-A. Sure, I'll check them.
-B. No, the artwork is being shipped.
-C. I'll have time tomorrow morning.
-D. The professor called me back.
-
-4. Woman: Where can I find the cafeteria?
-image: 16.png
-audio: Listening2_Listen_Response_Question4.ogg
-A. On the ground floor.
-B. A bigger lobby.
-C. Usually at eleven thirty a.m.
-D. Good meal selections.
-
-5. Man: Who will summarize our team's research findings?
-image: 17.png
-audio: Listening2_Listen_Response_Question5.ogg
-A. Jacob already found his.
-B. No more than 1,000 words.
-C. Emily would do a great job.
-D. Different lab equipment.
-
-6. Woman: How do you use this software?
+1. Did you take back those books?
 image: 18.png
-audio: Listening2_Listen_Response_Question6.ogg
-A. Follow the tutorial.
-B. Purchase a computer.
-C. A soft touch is needed.
-D. Thursday afternoons.
+>> play: 18:00-18:02
+A. Just this morning.
+B. The new shop in town.
+C. I wasn't aware of that author.
+D. Every weekday at noon.
 
-7. Man: Is the café open now?
+2. Do you prefer taking the bus or the train?
 image: 19.png
-audio: Listening2_Listen_Response_Question7.ogg
-A. Around back.
-B. Coffee and tea.
-C. It's closed.
-D. She is available.
+>> play: 18:24-18:27
+A. It's easier to get work done on the train.
+B. It's getting expensive to park on campus.
+C. The train wasn't running yesterday.
+D. My roommate has a monthly bus pass.
 
-8. Man: Let's schedule an extra study-group meeting.
+3. Do you agree with the new workplace safety policy?
 image: 20.png
-audio: Listening2_Listen_Response_Question8.ogg
-A. Doesn't the librarian know?
-B. Longer than expected.
-C. I ordered a subscription yesterday.
-D. For Thursday evening?
+>> play: 18:50-18:54
+A. I have some reservations.
+B. Keep in mind the deadline is tomorrow.
+C. No it's safer.
+D. The policy change is now in effect.
 
 [ANSWER]
-C
-B
-C
 A
-C
 A
-C
-D
+A
 [/ANSWER]
-
 ---
 
-### Listen to a Conversation – New Gym
+### Listen to a Conversation – Questions 4-5
 
-audio: Listening2_Conversation_Questions_9-10.ogg
+audio: Pack-6_Listening.MP3
+>> play: 19:14-19:47
 image: 21.png
+Man: I'm considering taking up running to get in better shape. Do you run regularly?
+Woman: Yes, I do. It's a great way to stay fit. You should start with shorter distances and gradually increase.
+Man: That makes sense. Any tips for beginners?
+Woman: Yeah, make sure to mix up your running routine to keep it interesting.
+Man: Thanks! That's excellent advice. The weather is supposed to be great this weekend. I can't wait to get started.
 
-Man: I've been eyeing the new gym downtown …
-Woman: Have you checked their facilities?
-Man: Yes, they have modern equipment and offer various classes.
-Woman: Are the prices reasonable?
-Man: The daily use fees are higher than I expected. So maybe I'll get a long-term membership instead.
-Woman: Well, if you think you'll go regularly …
-Man: Yeah, the fitness book I'm reading says that's the way to get in shape anyway.
+4. Next Why does the man say he wants to take up running?
+A. To meet new people
+B. To improve his fitness level
+C. To train for a marathon
+D. To explore new nature trails
+5. Next What does the woman suggest that the man do?
+A. Buy appropriate running shoes
+B. Vary his workout plan
+C. Join a running club
+D. Drink plenty of water
+[ANSWER]
+B
+B
+[/ANSWER]
+---
 
-9. What did the man dislike about the new gym?
-A. The location
-B. The facilities
-C. The equipment
-D. The prices for one-time use
+### Listen to a Conversation – Questions 6-7
 
-10. Why does the man mention a book?
-A. To offer a reading suggestion for the woman
-B. To explain how he found out about the new gym
-C. To give an extra reason for getting a long-term membership
-D. To point out that there are many different ways to get in shape
+audio: Pack-6_Listening.MP3
+>> play: 20:30-21:07
+image: 22.png
+Man: Hey Lisa, have you had a chance to visit that new cafe that just opened on 10th Street?
+Woman: Not yet. I've heard mixed reviews. Some say it's fantastic, others not so much. Have you been?
+Man: Yes, and I was pleasantly surprised. The ambiance is cozy, and their espresso is probably the best I've had in town. The most disappointing part was their pastries, though. Maybe it was too late in the day.
+Woman: Even so, it does sound worth trying. I'll swing by this weekend after my basketball game.
 
+6. Next What does the woman imply about a cafe?
+A. It should feature live music.
+B. It's not very big.
+C. Employees there need more training.
+D. Visitors have mixed opinions about it.
+7. Next What disappointed the man about a cafe?
+A. It was too busy.
+B. Some baked items were not fresh.
+C. Its coffee was expensive.
+D. Its location is inconvenient.
 [ANSWER]
 D
-C
-[/ANSWER]
-
----
-
-### Listen to an Announcement – Update Contact Information
-
-audio: Listening2_Announcement_Questions_11-12.ogg
-image: 22.png
-
-Man: Due to some recent changes in university policy, we need everyone to update their contact information in the student portal. Doing so will ensure that you receive important notifications, including about class cancellations and emergency alerts. Please complete the update by the end of this week. Don't take a chance on missing out on critical information.
-
-11. Why does the speaker mention class cancellations and emergency alerts?
-A. To inform students about recent policy changes
-B. To emphasize the importance of updating contact information
-C. To promote a new program on personal health
-D. To point out that classes are often canceled because of bad weather
-
-12. What does the speaker imply when he says, "Don't take a chance on missing out on critical information"?
-A. Students should make updates quickly.
-B. Class attendance is mandatory.
-C. The portal can be difficult to navigate.
-D. Important information has just been posted.
-
-[ANSWER]
 B
-A
 [/ANSWER]
-
 ---
 
-### Listen to a Talk in an Environmental Science Class – Ecological Footprint
+### Listen to a Talk in a history class – Questions 8-11
 
-audio: Listening2_Academic_Talk_Questions_13-16.ogg
+audio: Pack-6_Listening.MP3
+>> play: 21:50-23:22
 image: 23.png
+Professor: today we'll examine the silk road, an ancient network of trade routes that connected the east and west. The silk road was not a single road, but a series of interconnected paths that facilitated the exchange of goods, ideas and cultures from China to the Mediterranean sea. Originating in the Han dynasty around the second century BCE, the silk road was named after the lucrative trade in silk, which was one of the most sought after commodities in the western world. However, it wasn't just silk that was traded. Merchants carried spices, precious metals, textiles, and other valuable items across vast distances, the silk road also played a critical role in the transmission of knowledge and culture. It enabled the spread of technologies such as paper making and gunpowder, as well as artistic and religious influences. For instance, Buddhism spread from India to China and other parts of Asia via the silk road. The decline of the silk road began in the 15th century with the rise of maritime trade routes and the fall of the mongol empire, which had provided stability and security for the merchants. Although it no longer exists, the legacy of the silk road endures, highlighting the importance of cultural andeconomic exchanges in shaping human history
 
-Woman: Today we're discussing the notion of the ecological footprint, something that measures the impact of human activities on the environment, in terms of the amount of natural resources we consume and the waste we generate.
-
-The ecological footprint is often expressed in terms of number of global hectares. This number represents the total area of biologically productive land or water needed in order to support human activity. It considers various factors, including carbon emissions, food consumption, water usage, and land development.
-
-One primary component of the ecological footprint is the carbon footprint, which measures the amount of greenhouse gases emitted due to consumption of fossil fuels like petroleum and coal. High carbon footprints contribute significantly to global warming.
-
-Another important aspect is our consumption of natural resources like water and food, which can lead to resource depletion and environmental degradation.
-
-The concept of ecological footprint is crucial for understanding and addressing the sustainability of human activities. By measuring our ecological footprint, individuals, companies, and even whole countries can identify areas where they can reduce their impact on the environment. This could include adopting practices like recycling, conserving water, using renewable energy, and reducing waste.
-
-13. What is the main topic of the talk?
-A. Replacing fossil fuels with more sustainable energy sources
-B. A way of measuring the effects of human activities on the environment
-C. How fossil fuel use leads to global warming
-D. The importance of water conservation to a sustainable future
-
-14. According to the speaker, the ecological footprint is expressed in terms of
-A. area of land and water needed
-B. amount of greenhouse gas produced
-C. global temperature increase
-D. number of natural resources consumed
-
-15. What does the speaker say about the carbon footprint?
-A. It primarily applies to industrial activities.
-B. It includes tracking the biodiversity of an ecosystem.
-C. It is a component of the ecological footprint.
-D. It considers the number of vehicles in a given area.
-
-16. What is one cause of resource depletion that the speaker mentions?
-A. Environmental policies
-B. Food consumption
-C. Generation of waste
-D. Carbon emissions
-
+8. Next What is the main topic of the talk?
+A. The rise and fall of the Han Dynasty
+B. The history of an ancient trade network
+C. The spread of Buddhism in Asia
+D. The development of maritime trade routes
+9. Next According to the talk what was one of the main commodities traded from Asia to the west?
+A. Tea
+B. Silk
+C. Gunpowder
+D. Pottery
+10. Why does the speaker mention the spread of Buddhism To illustrate the exchange of religious ideas via the Silk
+A. Road
+B. To highlight the importance of India in ancient trade
+C. To explain the rise of the Han Dynasty
+D. To discuss the fall of the Mongol Empire
+11. Next What can be inferred about the impact of the Silk Road on history It was limited to the trade of goods.
+A. It only influenced Eastern cultures.
+B. It facilitated significant cultural and technological
+C. exchanges.
+D. It primarily served military purposes.
 [ANSWER]
+B
 B
 A
 C
+[/ANSWER]
+---
+
+### Listen to a Talk in a literature class – Questions 12-15
+
+audio: Pack-6_Listening.MP3
+>> play: 25:26-26:42
+image: 24.png
+Professor: Magical realism is a style of fiction that combines realistic narrative with surreal elements of magic and fantasy. Unlike pure fantasy, magical realism is set in a realistic world, but extraordinary events occur without explanation, blending the ordinary with the extraordinary. One of the most famous examples of magical realism is Gabriel Garcia Marquez's novel 100 years of solitude. In this book, everyday life in the fictional town of Macondo is interwoven with fantastic occurrences, such as a character ascending to the heavens while hanging out laundry. These magical events are presented in a matter of fact manner, like this is the way things should be and this is a hallmark of the genre magical realism often serves to highlight complex social and cultural issues, offering a unique way to explore themes like identity, history, and politics. The blending of reality and magic allows authors to delve into deeper truths and challenge readers perceptions of the world. Next, we will examine how magical realism has influenced other literary traditions and its role in contemporary literature
+
+12. Next What is the talk mainly about?
+A. A famous author
+B. A literary genre
+C. A social influence on fiction
+D. An extraordinary event
+13. Next Why does the speaker discuss what happened to a character in a novel To illustrate how ordinary and magical events are combined in the novel To identify the most famous event in the novel
+A. To highlight the complex social issues discussed in the
+B. novel
+C. To remind listeners that Macon do is a fictional town in the
+D. novel
+14. Next According to the speaker what is a hallmark of magical realism?
+A. Explaining why it is possible for a magical event to occur
+B. Describing fantastic al events as if they were normal
+C. Presenting events in an extremely complex way
+D. Changing the order of historical events
+15. Next What does the speaker imply is a goal of authors like Gabriel Garcia Ma rquez?
+A. Examining how realism has influenced other literary styles
+B. Challenging readers ' understanding of the world
+C. Presenting diverse political opinions
+D. Making contemporary literature more traditional
+[ANSWER]
+B
+A
+B
 B
 [/ANSWER]
-
 ---

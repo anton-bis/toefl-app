@@ -4,146 +4,153 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Modern biochemistry focuses on the chemical processes within and related to living organisms. It i\_ a laboratory-based sci\_\_\_\_ that comb\_\_\_\_ biology a\_\_ chemistry. Biochemists inves\_\_\_\_\_\_ how cells func\_\_\_\_ and commu\_\_\_\_\_\_, exploring t\_\_ fundamental mecha\_\_\_\_\_\_ that sus\_\_\_\_ life. The field has advanced our understanding of how diseases occur and how they can be treated or prevented. Techniques such as molecular cloning and protein analysis are central to biochemistry, leading to innovations in medicine and biotechnology.
+Rain is a crucial part of Earth's ecosystem, supporting both plant growth and animal survival. As precip\_\_\_\_\_\_\_ falls fr\_\_ the s\_\_, it reple\_\_\_\_\_\_ water sou\_\_\_\_, nourishes veget\_\_\_\_\_, and sust\_\_\_\_ wildlife. Some reg\_\_\_\_ receive abun\_\_\_\_ rainfall, wh\_\_\_ others experience prolonged dry periods, affecting local environments. Excessive rain can lead to floods, creating hazards for communities and natural habitats. Despite occasional dangers, rainfall is essential for maintaining ecological balance, ensuring that plants and animals thrive in diverse climates around the world.
 
 [ANSWER]
-is:is
-science:science
-combines:combines
-and:and
-investigate:investigate
-function:function
-communicate:communicate
-the:the
-mechanisms:mechanisms
-sustain:sustain
+precipitation:precipitation
+from:from
+sky:sky
+replenishes:replenishes
+sources:sources
+vegetation:vegetation
+sustains:sustains
+regions:regions
+abundant:abundant
+while:while
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Email (Questions 11–12)
+### Task 2 Read in Daily Life – Email 1 (Questions 11–12)
 
-To: Ms. Green
-From: Anthony Russos
-Date: December 5
-Subject: Bella Italia reservation
+From: Maria
+Subject: Research Paper Extension Request
 
-Dear Ms. Green,
+Dear Professor Kim,
 
-This concerns your table reservation for 4 at Bella Italia Restaurant for December 5 at 7:00 PM. Since you made your reservation more than two weeks ago, the $10.00 charge at the door for the night's live musical entertainment is waived.
+I'm writing to request a two-day extension for the research paper. My laptop crashed and I lost three days of work. I have already started rewriting and can submit by Friday. Thank you for considering my request.
 
-Thank you,
-Anthony Russos
+Best regards,
+Maria
 
-11. How many people will dine with Ms. Green?
-A. 2
-B. 3
-C. 4
-D. 5
-
-12. What will Ms. Green not be charged for?
-A. Canceling the reservation
-B. Rescheduling the reservation
-C. Listening to live music
-D. Inviting additional guests
-
+11. What does Maria's mention of having "already started rewriting" suggest about her attitude?
+A. Maria expects the professor to automatically approve her request.
+B. Maria is trying to make the professor feel sorry for her situation.
+C. Maria believes technical problems excuse students from meeting deadlines.
+D. Maria is taking responsibility and showing effort to complete the work.
 [ANSWER]
-B
-C
-[/ANSWER]
-
----
-
-### Task 3 Read in Daily Life – Notice (Questions 13–15)
-
-Title: Library Computer Reservation System
-
-Name: ________
-
-Library Card Number: ________
-
-Computer Station Preference:
-□ Basic (Internet only)
-□ Premium (Full software access)
-
-Requested Date: ________
-
-Time Slot: □ 9-11 A.M. □ 11 A.M.-1 P.M. □ 1-3 P.M. □ 3-5 P.M.
-
-Maximum reservation time: 2 hours per day. Premium stations require advance booking and may be reserved up to one week in advance. Basic stations are available on a first-come first-served basis same day only. Late arrival (more than 15 minutes) results in automatic cancellation. Photo ID required at check-in.
-
-13. What is this form used for?
-A. Applying for a new library card
-B. Reporting problems with library computers
-C. Booking time to use library computers
-D. Requesting software installation on computers
-
-14. How far in advance can someone reserve a Premium station?
-A. The same day only
-B. Up to one week ahead
-C. Up to one month ahead
-D. Up to two weeks in advance
-
-15. What happens if someone arrives 20 minutes late for their reservation?
-A. They can still use the computer for the remaining time.
-B. They must pay an additional fee.
-C. Their reservation is automatically canceled.
-D. They are moved to a Basic station instead.
-
-[ANSWER]
-C
-B
-C
-[/ANSWER]
-
----
-
-### Task 4 Read an Academic Passage – Ancient Egyptian Medicine (Questions 16–20)
-
-Ancient Egyptian medicine was advanced for its time and laid the foundation for many modern practices. Egyptians believed the body was a system of channels similar to the Nile River. Illness was thought to be caused by blockages in these channels, like a blocked canal causing flooding. Treatments focused on unblocking channels using herbal remedies and physical interventions.
-
-One significant contribution of Egyptian medicine was surgical techniques. Ancient texts describe procedures like the removal of tumors and the setting of broken bones. They also record practices like cleaning wounds and disinfecting medical instruments. This suggests that Egyptian doctors understood the connection between cleanliness and preventing infections, a concept widely accepted only much later in history.
-
-In addition to surgery, Egyptians were skilled in pharmacology. They used substances like honey and willow bark to treat ailments. Modern science has validated some ancient remedies; for example, willow bark contains salicin, a precursor to aspirin, with pain-relieving properties.
-
-While Egyptians demonstrated an impressive body of knowledge, Egyptian medicine was also intertwined with religion. Many treatments involved prayers and rituals to invoke the favor of the gods. This blend of empirical practice and spiritual belief shows the complexity of ancient Egyptian medicine.
-
-16. The author mentions "a blocked canal causing flooding" to explain
-A. the importance of the Nile River for Egyptian culture
-B. the ancient Egyptians' idea of why humans became sick
-C. the wide variety of illnesses common in ancient Egypt
-D. the connection between agriculture and medicine
-
-17. The passage suggests that which of the following was a surprising achievement of ancient Egyptian medicine?
-A. Its procedures improved greatly over time.
-B. It understood the importance of cleanliness in preventing infections.
-C. Its use of Nile River water was often successful.
-D. Its understanding of the cause of illnesses was largely accurate.
-
-18. Why does the author discuss the use of willow bark?
-A. To suggest that some ancient remedies could be harmful
-B. To explain the invention of aspirin
-C. To highlight the variety of natural remedies available in Egypt
-D. To show that some ancient Egyptian remedies were effective
-
-19. The word "invoke" in the passage is closest in meaning to
-A. request
-B. understand
-C. increase
-D. express
-
-20. What role did religion play in ancient Egyptian medicine?
-A. Doctors were trained by religious authorities.
-B. Religious beliefs limited the kinds of medicine that could be used.
-C. Prayers and rituals were often a part of medical treatment.
-D. Doctors were thought to have special connections to the gods.
-
-[ANSWER]
-B
-B
 D
+[/ANSWER]
+
+12. What is Maria asking for?
+A. Help recovering her lost computer files
+B. Additional time to complete an assignment
+C. Permission to submit a shorter research paper
+D. Technical support for her laptop problems
+[ANSWER]
+B
+[/ANSWER]
+
+---
+
+### Task 3 Read in Daily Life – Email 2 (Questions 13–15)
+
+From: Robert Thompson
+Subject: Upcoming Heating System Maintenance — Tuesday, May 27
+
+Dear Ms. Gardner,
+
+I hope you're doing well. I'm writing to inform you of a scheduled maintenance procedure on the office heating system, set to take place on Tuesday, May 27, from 8:00 A.M. to 5:00 P.M. This essential work is part of our seasonal inspection and efficiency upgrade initiative to ensure optimal performance during the colder months.
+
+Please note that the heating system will be offline throughout the day, and indoor temperatures will drop noticeably. We recommend dressing in warm layers and advising your team to do the same. If any team members are particularly sensitive to cooler environments, remote work arrangements may be considered.
+
+Additionally, as external technicians will be on-site, please ensure all confidential materials are secured appropriately.
+
+Should you have any questions, contact the maintenance team at 555-7264.
+
+Warm regards,
+Robert Thompson
+
+13. What is indicated about the office heating system?
+A. It failed an inspection.
+B. It will not be functioning during maintenance.
+C. It is not working properly.
+D. It performs optimally.
+[ANSWER]
+B
+[/ANSWER]
+
+14. What can be inferred about the weather on May 27?
+A. It will be cooler than the temperature at which the office is normally kept.
+B. It will be unusual for the season.
+C. It will require office workers to stay home rather than going to the office.
+D. It will change throughout the day.
+[ANSWER]
 A
+[/ANSWER]
+
+15. Who will be performing maintenance?
+A. Ms. Gardner
+B. Ms. Gardner's team members
+C. Professionals from another company
+D. Robert Thompson
+[ANSWER]
 C
+[/ANSWER]
+
+---
+
+### Task 4 Read an Academic Passage – The Role of Fungi in Ecosystems (Questions 16–20)
+
+Fungi play a crucial role in ecosystems, often working behind the scenes to decompose organic matter and recycle nutrients. Unlike plants, fungi do not photosynthesize; instead, they obtain energy by breaking down dead plants and animals. This decomposition process is essential for nutrient cycling, as it releases vital elements like nitrogen and phosphorus back into the soil, supporting new plant growth. Their role in nutrient cycling is indispensable for healthy ecosystems.
+
+One fascinating group of fungi is mycorrhizal fungi, which form symbiotic relationships with plant roots. These fungi extend the root system of plants, allowing them to access water and nutrients more efficiently. In return, the plants provide the fungi with carbohydrates produced through photosynthesis. This mutually beneficial relationship enhances plant growth and resilience, particularly in nutrient-poor soils.
+
+Not all fungi are beneficial. Some pathogenic fungi cause diseases in plants and animals, leading to significant agricultural and ecological impacts. For example, the chytrid fungus has devastated amphibian populations worldwide. Understanding the diverse roles of fungi in ecosystems can help scientists develop strategies to mitigate their negative effects while leveraging their benefits for environmental sustainability.
+
+16. According to the passage, fungi are beneficial to plants in terms of
+A. helping plants to decompose organic matter
+B. making it possible for plants to photosynthesize
+C. reducing the amount of nitrogen and phosphorus inside plants
+D. helping plants to obtain nutrients
+[ANSWER]
+D
+[/ANSWER]
+
+17. The word "indispensable" in the passage is closest in meaning to
+A. similar
+B. well-known
+C. essential
+D. useful
+[ANSWER]
+C
+[/ANSWER]
+
+18. Which of the following is NOT mentioned in the passage as a process performed by fungi?
+A. Decomposing organic matter
+B. Releasing nitrogen and phosphorus into the soil
+C. Forming important relationships with plant roots
+D. Producing their own food
+[ANSWER]
+D
+[/ANSWER]
+
+19. What can be inferred about the diverse roles of fungi?
+A. This diversity makes fungi especially difficult for scientists to understand.
+B. This diversity is considered to be important for the ongoing health of the environment.
+C. This diversity will decrease within the coming years.
+D. This diversity has been linked to the sustainability of amphibian populations.
+[ANSWER]
+B
+[/ANSWER]
+
+20. What can be inferred about mycorrhizal fungi?
+A. They compete with plants for carbohydrates.
+B. They help plants absorb nutrients.
+C. They decompose dead plants and animals.
+D. They can cause diseases in plants.
+[ANSWER]
+B
 [/ANSWER]
 
 ---
@@ -152,139 +159,72 @@ C
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Cognitive science and the study of consciousness delve into how humans and animals perceive the world, process information, and experience awareness. Cognition encom\_\_\_\_\_\_ mental activ\_\_\_\_\_ like mem\_\_\_, learning, a\_\_ decision-making, whe\_\_\_\_ consciousness invo\_\_\_\_ the subje\_\_\_\_\_ experience o\_\_ being aw\_\_\_\_. Researchers u\_\_ tools such as brain imaging to explore these complex processes. Findings in this field have far-reaching implications, from improving mental health care to advancing artificial intelligence and educational practices.
+Volcanoes are openings in Earth's crust through which molten rock, ash, and gases are ejected. Volcanic erup\_\_\_\_\_ can cre\_\_\_ islands, moun\_\_\_\_\_, and ot\_\_\_ landforms, but th\_\_ can al\_\_ be destr\_\_\_\_\_\_, causing dam\_\_\_ to near\_\_ areas. Stud\_\_\_\_ volcanoes helps scientists understand Earth's internal processes: for example, how volcanoes form at tectonic plate boundaries or over hotspots in the mantle and how magma rises up from the mantle and erupts as lava on the surface.
 
 [ANSWER]
-encompasses:encompasses
-activities:activities
-memory:memory
-and:and
-whereas:whereas
-involves:involves
-subjective:subjective
-of:of
-aware:aware
-use:use
+eruptions:eruptions
+create:create
+mountains:mountains
+other:other
+they:they
+also:also
+destructive:destructive
+damage:damage
+nearby:nearby
+studying:studying
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Email (Questions 11–12)
+### Task 2 Read an Academic Passage – Renewable Energy Sources (Questions 11–15)
 
-To: Mr. Clark
-From: Emily Rodriguez
-Date: October 20
-Subject: Photography class
+Renewable energy sources, such as solar, wind, and hydroelectric power, are increasingly gaining attention as alternatives to fossil fuels. Solar panels convert sunlight into electricity, providing a clean and abundant energy source. Wind turbines harness the power of wind, while hydroelectric plants use flowing water to generate electricity. These technologies offer significant environmental benefits, including reduced greenhouse gas emissions and decreased reliance on non-renewable resources.
 
-Dear Mr. Clark,
+However, renewable energy is not without its challenges. Solar and wind energy are intermittent, meaning they can be inconsistent depending on weather conditions. This intermittency requires the development of advanced storage solutions to ensure a steady supply of electricity. Additionally, the initial cost of installing renewable energy infrastructure can be high, although long-term savings and environmental benefits often outweigh this investment.
 
-Unfortunately, the photography class you registered for on October 20 has been rescheduled. It will now meet on October 28 at 6:00 PM instead of October 26 at 5:00 PM. Your registration fee will be refunded if you have a scheduling conflict.
+Recent innovations are addressing these issues. For instance, researchers are developing more efficient solar panels and energy storage systems that can store excess power generated during peak times. Wind turbines are being designed to operate in lower wind speeds, increasing their efficiency. Governments and private companies are also investing in renewable energy projects, recognizing the importance of transitioning to sustainable energy sources.
 
-Regards,
-Emily Rodriguez
-
-11. When did Mr. Clark register for the class?
-A. On October 20
-B. On October 25
-C. On October 26
-D. On October 29
-
-12. Why may Mr. Clark receive a refund?
-A. If he registered for the wrong class
-B. If he could not attend the class
-C. If he was dissatisfied with the class
-D. If he rescheduled the class
-
+11. Which of the following is mentioned in the passage as one environmental benefit of renewable energy sources?
+A. They lower the amount of greenhouse gas produced.
+B. They provide a steady supply of electricity.
+C. They are easy to install.
+D. They can operate in all weather conditions.
 [ANSWER]
 A
+[/ANSWER]
+
+12. What challenge is associated with solar and wind energy?
+A. High greenhouse gas emissions
+B. Inconsistent energy production
+C. Excessive reliance on fossil fuels
+D. Limited technological development
+[ANSWER]
 B
 [/ANSWER]
 
----
-
-### Task 3 Read in Daily Life – Advertisement (Questions 13–15)
-
-Title: Effective Communication in the Modern Workplace
-
-A one-day intensive workshop for managers and team leaders. Learn practical strategies for conducting productive meetings, providing constructive feedback, and resolving workplace conflicts. Experienced facilitators will guide participants through interactive exercises and real-world scenarios. Workshop includes comprehensive workbook and light refreshments.
-
-Early bird registration (before April 1): $195. Regular price: $245.
-
-Limited to 25 participants to ensure personalized attention.
-
-Certificate of completion provided for continuing education requirements.
-
-13. What is this advertisement promoting?
-A. A job training program for new employees
-B. A professional workshop on workplace communication
-C. A management certification course
-D. A conflict-resolution consulting service
-
-14. What does someone gain by registering early?
-A. A reduction in cost
-B. A special certificate
-C. Guaranteed seating in the front row
-D. A one-on-one session with a facilitator
-
-15. Why is participation limited to 25 people?
-A. To keep costs affordable for participants
-B. To meet continuing education requirements
-C. To provide personalized attention to participants
-D. To ensure everyone receives a workbook
-
+13. How are researchers addressing the issue of energy intermittency?
+A. By developing more efficient solar panels
+B. By decreasing the cost of installation
+C. By using fossil fuels as a backup
+D. By limiting the use of renewable energy
 [ANSWER]
-B
 A
-C
 [/ANSWER]
 
----
-
-### Task 4 Read an Academic Passage – The Origins of Theater (Questions 16–20)
-
-European theater has ancient roots, evolving from the rituals and storytelling of early societies. (A) The earliest performances took place in ancient Greece, where festivals honoring the god Dionysus included dramatic contests. These performances were essential to communal life and aimed to convey moral lessons. The Greeks developed distinct genres: tragedy and comedy. Tragedies by Aeschylus and others explored themes of fate, justice, and suffering. Comedies, like those by Aristophanes, satirized society and politics. The structure of Greek theater, with its chorus and masks, had a lasting impact on later cultures. (B)
-
-The tradition of theater continued in the ancient Roman Empire, where it became popular entertainment. Roman theater borrowed from Greek precedents but introduced new elements like elaborate stage designs including, for example, statues of heroes or portraits of the imperial family. These added layers of meaning and context to the plays and helped to convey the themes and narratives more effectively. (C)
-
-Despite its rich history, theater faced decline during the Middle Ages in Europe (the period between 500 and 1500 C.E.). (D) However, it saw a resurgence during the following Renaissance period, leading to the flourishing of theater that laid the groundwork for modern theater.
-
-16. A goal of the earliest theater performances in ancient Greece was to
-A. tell stories about the ancient societies that Greece evolved from
-B. honor important people in the community
-C. bring people from different groups together
-D. provide guidance on good and bad behavior
-
-17. How did the plays of Aristophanes compare to those of Aeschylus?
-A. They were in a different genre.
-B. They were more focused on fate, justice, and suffering.
-C. They were more popular among politicians and other important members of society.
-D. They had a greater impact on later cultures.
-
-18. What was one effect of the elaborate stage designs of Roman theater?
-A. They added Greek elements to plays.
-B. They directed attention to the plays' creators.
-C. They increased the popularity of plays among members of the imperial family.
-D. They improved the communication of the plays' themes and narratives to viewers.
-
-19. The word "resurgence" in the passage is closest in meaning to
-A. change
-B. debate
-C. history
-D. comeback
-
-20. There are four locations in the passage that indicate where the following sentence could be added: Few performances occurred around this time.
-Where would the sentence best fit?
-A. Option A
-B. Option B
-C. Option C
-D. Option D
-
+14. The word "reliance" in the passage is closest in meaning to
+A. dependence
+B. trust
+C. use
+D. production
 [ANSWER]
-D
 A
-D
-D
-C
 [/ANSWER]
 
----
+15. What is the author's purpose in mentioning "recent innovations"?
+A. To highlight the drawbacks of renewable energy
+B. To suggest that fossil fuels are still necessary
+C. To describe solutions to the challenges of renewable energy
+D. To argue that the cost of renewable energy is too high
+[ANSWER]
+C
+[/ANSWER]

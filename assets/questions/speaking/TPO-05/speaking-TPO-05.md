@@ -1,64 +1,66 @@
 # Speaking Section
 
 ### Listen and Repeat
-scenario_title: You are being trained to assist customers at a hotel front desk. Listen to your manager and repeat what he says. Repeat only once.
-scenario_image: avatar.svg
+scenario_title: You are being trained to help students use the university's library resources. Listen to your trainer and repeat what he says. Repeat only once.
+scenario_image: 0.png
+audio: Pack-5_Speaking.MP3
 
 1.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_1.ogg
-transcript: Welcome, let's get started and check you in.
+image: 1.png
+>> play: 0:24 - 0:27
+transcript: Search for items you need on the computer.
 
 2.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_2.ogg
-transcript: There is a reception desk over here for you.
+image: 2.png
+>> play: 0:45 - 0:47
+transcript: The bookshelves are located over here.
 
 3.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_3.ogg
-transcript: The elevators are located just off the main lobby.
+image: 3.png
+>> play: 1:22 - 1:27
+transcript: Our quiet study area has strict rules about noise.
 
 4.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_4.ogg
-transcript: Our hotel lounge is available for relaxation.
+image: 4.png
+>> play: 1:45 - 1:49
+transcript: The help desk is available to assist with research questions.
 
 5.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_5.ogg
-transcript: If needed, we can store your bags in the luggage storage room.
+image: 5.png
+>> play: 2:08 - 2:13
+transcript: Printers are available to patrons for document printing.
 
 6.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_6.ogg
-transcript: Our amenities and services are listed on the notice boards throughout the building.
+image: 6.png
+>> play: 2:32 - 2:38
+transcript: Our workstations can also be used during library hours for online research.
 
 7.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_7.ogg
-transcript: To avoid being charged a late-departure fee, be sure to check out of your room on time.
+image: 7.png
+>> play: 2:59 - 3:05
+transcript: When you're finished using them, please return checked out materials promptly and on time.
 
 ### Take an Interview
-scenario_title: You have volunteered for a research study about social media use. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_title: You have agreed to participate in a research study about exercise habits. You will have a short online interview with a researcher. The researcher will ask you some questions.
+scenario_image: 8.png
+audio: Pack-5_Speaking.MP3
 
 8.
-image: avatar.svg
-audio: Speaking_Interview_1.mp4
-transcript: Thank you for participating in this study. Today, I'd like to ask you some questions about how you use social media. First, if you were to choose a social media platform to use most regularly, which one would you choose, and why?
+image: 8.png
+>> play: 3:40 - 3:56
+transcript: Thank you for taking the time to speak with me. I'd like to ask you some questions about your exercise habits. What kind of exercise do you or your friends like? For example, do you like running, swimming, yoga, or other types?
 
 9.
-image: avatar.svg
-audio: Speaking_Interview_2.mp4
-transcript: Interesting. Do you think social media is more beneficial for younger people or older people? Why?
+image: 8.png
+>> play: 4:48 - 4:56
+transcript: I see. When you exercise, do you prefer to do it alone, or do you like to exercise with other people? Why?
 
 10.
-image: avatar.svg
-audio: Speaking_Interview_3.mp4
-transcript: Alright. Some people believe that social media can help people stay connected, while others think it can lead to feelings of isolation. What are your thoughts on this? Do you agree or disagree? Why?
+image: 8.png
+>> play: 5:51 - 6:11
+transcript: Interesting. Next, I'd like to get your opinion. In the past, most people exercised outdoors, but now many people prefer indoor gyms and fitness centers. Do you think that in the future, indoor gyms will become even more popular? Why or why not?
 
 11.
-image: avatar.svg
-audio: Speaking_Interview_4.mp4
-transcript: Good points. Finally, do you think social media use will continue to grow in the future, or will people start to limit their usage? What factors do you think will most affect future usage of social media? Explain your thoughts.
+image: 8.png
+>> play: 7:03 - 7:20
+transcript: Good points. I just have one more question. Some people believe that exercising regularly is essential for developing self-discipline. Do you agree with this idea? Or do you think there are other activities that can also help build discipline? Explain your answer.

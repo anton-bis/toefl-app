@@ -1,141 +1,146 @@
 # writing-TPO-05
 
+<!-- 推测项：本文件 Build a Sentence 的「固定词/空格」划分由 PDF OCR 重建，尚未与源图视觉核对；如与截图不符请修正。 -->
+
 ## Build a Sentence
 
 ### Build a Sentence – 1
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-7.png
-Speaker A: I'm planning to study abroad next year.
-Speaker B: ____ ____ ____ ____ ____ ____ to visit.
-Candidates: you / which / planning / countries / in Europe / are / plan
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-2.png
+Speaker A: What did Evan ask you?
+Speaker B: He wants ____ ____ ____ ____ ____ ____.
+Candidates: need / if / do / a ride / to know / to Saturday's game / you
 \[ANSWER\]
-Which countries in Europe are you planning to visit?
+He wants to know if you need a ride to Saturday's game.
 \[/ANSWER\]
 
 ### Build a Sentence – 2
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-9.png
-Speaker A: I'm excited to go camping this weekend.
-Speaker B: ____ ____ ____ ____ ____ ____ near the campground?
-Candidates: that / you / have / black bears / live / heard
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-4.png
+Speaker A: What did the professor ask about your research paper?
+Speaker B: She wanted ____ ____ I ____ ____ ____ ____.
+Candidates: to make / did / plan / any revisions / if / to know
 \[ANSWER\]
-Have you heard that black bears live near the campground?
+She wanted to know if I did plan to make any revisions.
 \[/ANSWER\]
 
 ### Build a Sentence – 3
 
-speaker_a_image: avatar-bs-13.png
-speaker_b_image: avatar-bs-8.png
-Speaker A: I'm planning to take a photography class.
-Speaker B: ____ type ____ ____ ____ ____ ____ ?
-Candidates: the / interests / what / more / you / photography / most / of
+<!-- 推测项 -->
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-6.png
+Speaker A: I'm glad I got that part of the project finished!
+Speaker B: ____ you tell me ____  ____ ____ ____ ____.
+Candidates: tomorrow / plans / what / can / are for / do / your
 \[ANSWER\]
-What type of photography interests you most?
+Can you tell me what your plans are for tomorrow?
 \[/ANSWER\]
 
 ### Build a Sentence – 4
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-12.png
-Speaker A: I'm thinking of adopting a dog this summer.
-Speaker B: ____ breed ____ ____ ____ ____ ____ ?
-Candidates: which / plan / of dog / you / do / to adopt / planning
+speaker_a_image: avatar-bs-7.png
+speaker_b_image: avatar-bs-8.png
+Speaker A: What did the Millers ask you at the community meeting?
+Speaker B: ____ wanted to know ____ ____ ____ ____ ____.
+Candidates: you / to adopt / did / why / a pet / decided / they
 \[ANSWER\]
-Which breed of dog do you plan to adopt?
+They wanted to know why you decided to adopt a pet.
 \[/ANSWER\]
 
 ### Build a Sentence – 5
 
-speaker_a_image: avatar-bs-8.png
-speaker_b_image: avatar-bs-16.png
-Speaker A: I'm going to start writing a biography.
-Speaker B: ____ historical figure ____ ____ ____ ____ ____?
-Candidates: have / about / to write / which / chosen / you / choose
+<!-- 推测项 -->
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-10.png
+Speaker A: No matter how much James practices, he's not getting any better at piano.
+Speaker B:  ____ ____ ____ ____ ____ ____ ____.
+Candidates: he / take / understand why / lessons / taking / I / don't / doesn't
 \[ANSWER\]
-Which historical figure have you chosen to write about?
+I don't understand why he doesn't take lessons.
 \[/ANSWER\]
 
 ### Build a Sentence – 6
 
-speaker_a_image: avatar-bs-3.png
-speaker_b_image: avatar-bs-14.png
-Speaker A: I'm moving to a new city next month.
-Speaker B: ____ ____ you ____ ____ ____ ____?
-Candidates: to move / from here / away / why / have / chosen
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-12.png
+Speaker A: This was one of the best meals I've ever had!
+Speaker B: ____ ____ to know ____ ____ ____ ____ most.
+Candidates: would love / enjoyed / dish / the chef / which / you / did
 \[ANSWER\]
-Why have you chosen to move away from here?
+The chef would love to know which dish you enjoyed most.
 \[/ANSWER\]
 
 ### Build a Sentence – 7
 
-speaker_a_image: avatar-bs-1.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: I'm planning to start a new project at work.
-Speaker B: ____ ____ ____ ____ ____ ____?
-Candidates: to complete / the new assignment / when / expect / you / do
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-14.png
+Speaker A: What did you think of my presentation?
+Speaker B: I would ____ ____ ____ ____ ____ ____.
+Candidates: love / did / learned / such interesting facts / you / to know / where
 \[ANSWER\]
-When do you expect to complete the new assignment?
+I would love to know where you learned such interesting facts.
 \[/ANSWER\]
 
 ### Build a Sentence – 8
 
-speaker_a_image: avatar-bs-4.png
+speaker_a_image: avatar-bs-15.png
 speaker_b_image: avatar-bs-16.png
-Speaker A: I'm going to submit my application today.
-Speaker B: Have ____ ____ ____ ____ ____ ____?
-Candidates: the position / applied / your coworkers / any / has / of / for
+Speaker A: What did the trainer ask you when you walked into the gym?
+Speaker B: ____ ____ ____ I ____ ____ ____.
+Candidates: that / to our sessions / why / always late / am / to know / he wanted
 \[ANSWER\]
-Have any of your coworkers applied for the position?
+He wanted to know why I am always late to our sessions.
 \[/ANSWER\]
 
 ### Build a Sentence – 9
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-2.png
-Speaker A: I'm attending a friend's wedding next week.
-Speaker B: ____ ____ ____ ____ afterward?
-Candidates: plan to attend / the wedding reception / you / do
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-3.png
+Speaker A: Today's lesson wasn't very interesting--you didn't miss much.
+Speaker B: ____ ____ ____ ____ ____ ____ ____.
+Candidates: the professor / any new material / if / tell me / covered / you / did / can
 \[ANSWER\]
-Do you plan to attend the wedding reception afterward?
+Can you tell me if the professor covered any new material?
 \[/ANSWER\]
 
 ### Build a Sentence – 10
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-11.png
-Speaker A: I had a great time at the dinner party last night.
-Speaker B: Did ____ ____ ____ ____ ____?
-Candidates: serve / they / the main course / before / any appetizers
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-4.png
+Speaker A: What did James ask you after the planning meeting?
+Speaker B: He ____ ____ ____ I ____ ____ ____.
+Candidates: meeting / do / wanted / if / had / another / to know
 \[ANSWER\]
-Did they serve any appetizers before the main course?
+He wanted to know if I had another meeting.
 \[/ANSWER\]
 
 ## Write an Email
 
 ### Write an Email – 1
 
-Identity: You are a member of the neighborhood association, and you have noticed that the local park needs some maintenance. You decide to contact the association president, Mr. Williams, to discuss the issues and offer a suggestion.
-To: Mr. Williams
-Subject: Concern about park maintenance
+Identity: You have recently moved into a new apartment and are experiencing issues with the heating system. You need to contact the property manager, Ms. Green, to report the problem and request a repair.
+To: Ms. Green
+Subject: Heating system repair request
 Requirements:
-- Describe the maintenance issue you have observed in the park.
-- Explain why it is important to address the issue.
-- Make a suggestion for how to deal with the issue.
+- Describe the issues you are experiencing with the heating system.
+- Explain how these issues are affecting your daily life.
+- Request a repair and ask for a timeline for when it will be fixed.
+- Write as much as you can and in complete sentences.
 
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
 
-Subject: sociology
-Instructor: Dr. Diaz
-professor_image: avatar-d-2.png
-Professor: Next week we'll be discussing the impact of urbanization on community life. Urbanization has led to the development of large cities with diverse populations. Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages. What are your thoughts on this and why?
-student_a_image: avatar-d-4.png
-Sarah: I believe urbanization fosters a sense of community and cultural exchange. Large cities bring together people from different backgrounds, creating opportunities for cultural interaction and mutual understanding. Urban areas often have vibrant social scenes that encourage community building.
+Subject: urban planning
+Instructor: Dr. Gupta
+professor_image: avatar-d-1.png
+Professor: We've recently been discussing the concept of smart cities, which use technology to improve urban living. Some believe that investing in smart city technology, such as smart traffic lights and energy-efficient buildings, is essential for the future. Others think that these investments should be directed to immediate social issues. What is your opinion on this?
+student_a_image: avatar-d-2.png
+Paul: I believe that investing in smart city technology is essential for the future. Smart technologies can improve the efficiency of city services, reduce energy consumption, and enhance the quality of life for residents. This long-term investment will ultimately benefit the city.
 student_b_image: avatar-d-3.png
-James: In my opinion, urbanization leads to social isolation and the breakdown of close-knit communities. The fast-paced city life can make it difficult for people to form meaningful connections. Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.
+Kelly: I think funds should be directed to immediate social issues including housing and education. While smart city technology might have its benefits in the long run, addressing urgent social needs will have a more immediate and significant impact on improving people's lives. We should prioritize solving these pressing issues first.
 Requirements:
 - Express and support your opinion.
 - Make a contribution to the discussion in your own words.

@@ -4,395 +4,347 @@
 
 ### Listen and Choose a Response – Questions 1-8
 
-1. Woman: Is the gym open right now?
+audio: 托福样题01-听力-Module 01-01-Listen and Choose a Response.mp3
+
+1. Woman: Didn't I just see you in the library an hour ago?
 image: 1.png
-audio: Listening1_Listen_Response_Question1.ogg
-A. I think so.
-B. He is tired.
-C. Yesterday evening.
-D. Last time.
+>> play: 00:00-00:06
+A. As a matter of fact, I was returning a book.
+B. Yes, you can find it in the reference section.
+C. I don't think I'll have enough time to do that.
+D. Actually, I think I can get there a little earlier.
 
-2. Woman: Could you help me review this report?
+2. Man: Where is the nearest bus stop?
 image: 2.png
-audio: Listening1_Listen_Response_Question2.ogg
-A. It's on the table.
-B. Not right now.
-C. Yes, last Monday.
-D. Sure, let's have some.
+>> play: 00:06-00:12
+A. I nearly missed the bus.
+B. Every 30 minutes.
+C. I can help you find it.
+D. I'll take the subway instead.
 
-3. Man: Could you please forward me the email?
+3. Woman: How do I contact customer service?
 image: 3.png
-audio: Listening1_Listen_Response_Question3.ogg
-A. Yes, in the computer.
-B. I had the same complaint.
-C. It's facing forward.
-D. I'll send it immediately.
+>> play: 00:12-00:20
+A. Yes, you're allowed to do that.
+B. Use the convenient chat feature.
+C. No, I don't mind.
+D. They provide good service.
 
-4. Man: It's quite chilly outside, isn't it?
+4. Woman: I'm afraid I'm not available this evening.
 image: 4.png
-audio: Listening1_Listen_Response_Question4.ogg
-A. Last night, I think.
-B. Perhaps soon.
-C. The soup is great.
-D. Not really.
+>> play: 00:20-00:28
+A. Oh, that's too early.
+B. How about tomorrow night then?
+C. She arrived this afternoon.
+D. No, that's not necessary.
 
-5. Woman: Did you finalize the proposal?
+5. Man: Isn't the post office open today?
 image: 5.png
-audio: Listening1_Listen_Response_Question5.ogg
-A. Sure, I'm free.
-B. That's a good choice.
-C. Sorry — I forgot.
-D. We saved you a seat.
+>> play: 00:28-00:34
+A. No, it's my package.
+B. It's just around the corner!
+C. I think he's come home already.
+D. Let's check the schedule online.
 
-6. Man: Is the meeting at ten a.m.?
+6. Woman: If you need me, just text.
 image: 6.png
-audio: Listening1_Listen_Response_Question6.ogg
-A. This evening is fine.
-B. Sure, let's talk soon.
-C. No, in the conference room.
-D. I believe it was cancelled.
+>> play: 00:34-00:42
+A. I can help you with that.
+B. You don't need any more information.
+C. You have a lot of questions, don't you?
+D. You haven't given me your number yet.
 
-7. Man: Where is the nearest pharmacy?
+7. Woman: So the store is open for business all weekend?
 image: 7.png
-audio: Listening1_Listen_Response_Question7.ogg
-A. They are open late.
-B. The shipment arrived this morning.
-C. There's one inside the supermarket.
-D. I had a good experience there.
+>> play: 00:42-00:50
+A. Yes, there is a major power outage.
+B. Yes, it's under renovation.
+C. Yes, it's closed all day on Sunday.
+D. Yes, they're having a huge sale.
 
-8. Man: Which room is the meeting in?
+8. Man: Did you attend the seminar?
 image: 8.png
-audio: Listening1_Listen_Response_Question8.ogg
-A. The same one as last week.
-B. A lot of people can't make it.
-C. Right after lunch.
-D. There wasn't enough room for everyone last time.
+>> play: 00:50-00:56
+A. I overslept.
+B. No, not very well.
+C. Have you asked your professor?
+D. I forgot to look.
 
 [ANSWER]
 A
+C
+B
 B
 D
 D
-C
 D
-C
 A
 [/ANSWER]
 
 ---
+### Listen to a Conversation – Questions 9-10
 
-### Listen to a Conversation – Apartment Search
-
-audio: Listening1_Conversation_Questions_9-10.ogg
+audio: 托福样题01-听力-Module 01-02-Conversation 01.mp3
 image: 9.png
 
-Woman: My lease is up at the end of the month.
-Man: Have you started looking for a new apartment to rent yet?
-Woman: Yes, but I haven't found anything that I like.
-Man: Have you tried looking downtown? Now that they've finally finished building the giant new hotel there, it's a much cleaner and quieter area.
-Woman: That's a good idea. I'll check online tonight.
-
-9. What is the woman trying to do?
-A. Find a new job
-B. Rent a new apartment
-C. Renew a lease
-D. Book a hotel room
-
-10. What does the man imply when he mentions a new hotel?
-A. The woman should book a room in the new hotel.
-B. The woman should check information about the new hotel online.
-C. Downtown apartments are very expensive.
-D. The downtown area was not a nice place to live until recently.
-
+Woman: Need anything from the supermarket?
+Man: Huh? Aren't we getting ready to go see that play in a few minutes?
+Woman: That's tomorrow.
+Man: Oh. Wow, I'd forget my head if it wasn't screwed on. Guess I don't need to change my clothes after all.
+Woman: So, you weren't planning to prepare dinner?
+Man: No, but I can. What do you want?
+Woman: Just something light and healthy. So, can you go shopping instead?
+Man: Yeah, sure. How about salmon and salad? Want anything else?
+Woman: No, that's good. Thanks!
+9. What does the woman imply that she was about to do?
+A. See a play
+B. Change her clothes
+C. Go shopping
+D. Eat dinner
+10. Why does the man say "I'd forget my head if it wasn't screwed on"?
+A. He forgot what the woman wanted him to buy.
+B. He forgot about the timing of their plans.
+C. He forgot what they were going to eat for dinner.
+D. He forgot to buy salmon and salad at the supermarket.
 [ANSWER]
+C
 B
-D
 [/ANSWER]
 
 ---
+### Listen to a Conversation – Questions 11-12
 
-### Listen to a Conversation – Computer Issue
-
-audio: Listening1_Conversation_Questions_11-12.ogg
+audio: 托福样题01-听力-Module 01-02-Conversation 02.mp3
 image: 10.png
 
-Man: Did you manage to fix the issue with your computer?
-Woman: I did. It turned out to be a software problem.
-Man: Great. What did you do to resolve it?
-Woman: I updated the operating system, and now everything is working fine.
-Man: It's always a relief when it's something simple and not hardware-related.
-Woman: Absolutely. My manager told me his computer suddenly powered off last month; it turned out to be a hardware issue, and he had to buy a new computer.
-
-11. What problem did the woman have with her computer?
-A. A hardware issue
-B. A software issue
-C. A network issue
-D. A power issue
-
-12. Why does the woman mention her manager?
-A. To explain why she needed her computer urgently
-B. To indicate that hardware issues can be particularly problematic
-C. To provide details about how she solved a problem
-D. To describe the benefits of a new operating system
-
+Man: Did you see the maintenance request about the air-conditioning?
+Woman: Yes, I called the technician this morning. They said someone should be here shortly.
+Man: That's a relief. It's getting uncomfortably warm in here.
+Woman: I know—I called as soon as I noticed. Hopefully, it's just a minor issue and they can get it working again without too much delay. In the meantime, why don't you go out to lunch early? Maybe it'll be better when you get back.
+11. Why did the woman call a technician?
+A. An air-conditioner is leaking.
+B. A room is too hot.
+C. An elevator needs maintenance.
+D. A window will not open.
+12. What does the woman suggest the man do?
+A. Finish an assignment early
+B. Wait for a service agent
+C. Open a door
+D. Take a break early
 [ANSWER]
 B
-B
+D
 [/ANSWER]
 
 ---
+### Listen to an Announcement in a classroom – Questions 13-14
 
-### Listen to an Announcement – Conference Schedule Change
-
-audio: Listening1_Announcement_Questions_13-14.ogg
+audio: 托福样题01-听力-Module 01-03-Announcement.mp3
 image: 11.png
 
-Woman: Please note that we will not be meeting on Friday. I just received a last-minute invitation to present at a conference this weekend, and I'll be flying on Friday. I know that you were going to start your presentations then. Julie and Max, we'll just move you to Monday, and those scheduled for Monday will move to Wednesday, and so on. This will actually give everyone a few extra days to work on your presentations.
-
-13. What will the speaker be doing on Friday?
-A. Traveling to a conference
-B. Listening to student presentations
-C. Grading student projects
-D. Giving a presentation to her colleagues
-
-14. What can be concluded about Julie and Max?
-A. They asked for extra time to work on a project.
-B. They recently attended a conference.
-C. They will have to miss class on Monday.
-D. They are the first students who will give presentations.
-
+Man: Good afternoon, everyone. I am excited to inform you that Dr. Cynthia Palmer, a renowned expert in environmental science, will be giving a guest lecture next Monday at 2 p.m. in Waldman Auditorium. Dr. Palmer will discuss the latest advancements in sustainable energy solutions and their impact on global climate change. Due to her popularity and the high interest in her work, I highly recommend arriving early to secure a seat.
+13. What is the announcement about?
+A. A guest lecture
+B. A different location for a class
+C. Requirements for a class
+D. A new university science course
+14. Why does the professor mention Dr. Palmer's popularity?
+A. To encourage students to read her work
+B. To indicate why she was invited to the university
+C. To compare her to other invited experts
+D. To explain why students should arrive early
 [ANSWER]
 A
 D
 [/ANSWER]
 
 ---
+### Listen to a Talk on a podcast about psychology – Questions 15-18
 
-### Listen to a Talk on a Psychology Podcast – Placebo Effect
-
-audio: Listening1_Academic_Talk_Questions_15-18.ogg
+audio: 托福样题01-听力-Module 01-04-Academic Talk.mp3
 image: 12.png
 
-Woman: The placebo effect occurs when people experience real health improvements after receiving a treatment with no medical value — like a sugar pill — simply because they believe it's real. Clinical trials use various placebos, including creams, gels, or even fake devices. It's important that these are designed to closely resemble actual treatments. This ensures that participants can't tell whether they're receiving the real treatment or the placebo, which in turn keeps the study fair and the results scientifically reliable.
-
-The placebo effect highlights the powerful connection between mind and body. It's influenced by factors such as patient expectations, how the treatment is delivered, and the provider's credibility. In fact, a recent study found that when people expect relief, their brains respond as if real medicine has been given. This expectation alone can trigger specific brain activity, activating a pathway that links regions involved in thought, emotion, and movement. When these areas work together, they create a kind of bridge, connecting mind and body — mental belief and physical response.
-
-While placebos don't actually cure diseases, the belief that a treatment will work can lead to real improvements in how a patient feels. So, when combined with actual medicine, I believe this psychological boost can enhance overall care.
-
-15. What does the speaker mainly discuss?
-A. How scientists first discovered the placebo effect
-B. How the brain drives the placebo effect
-C. What types of medications are used in clinical trials
-D. What role pharmaceutical companies play in placebo research
-
-16. What point does the speaker make about the various types of placebos?
-A. They should be cheaper than the actual treatment.
-B. They should be colorful and eye-catching.
-C. They must undergo testing before clinical use.
-D. They must resemble real treatments.
-
-17. Why does the speaker discuss "creating a kind of bridge"?
-A. To illustrate how expectation can lead to physical response
-B. To describe how medicine travels through the body
-C. To clarify how emotions can block medical progress
-D. To discuss the chemical composition of placebos
-
-18. What is the speaker's opinion about the use of placebos in health care?
-A. Placebos are not very relevant to patient care.
-B. Placebos can complement traditional therapies.
-C. Placebos are only beneficial in psychological experiments.
-D. Placebos should be studied more before being used in clinical settings.
-
+Podcast Host: Did you see that new thriller movie that came out last week? I did and loved it. The action, the plot twists...I was totally captivated. Time just flew by. Not a single thought occurred to me that was unrelated to the movie. What I experienced is what psychologists call hard fascination. Hard fascination means intense focus and concentration. Whether it's TV programs, video games... hard fascination is all too easy to come by in this modern world.
+There's another type of fascination—soft fascination. There's still effortless attention, meaning that no special effort is required for you to stay focused, but there's still room for other thoughts. When I take a walk in the park and look at the flowers and trees, for example, I might be thinking in the back of my mind about my dinner plans.
+Now, one thing to know is hard fascination causes mental fatigue. The mind is so intensely focused that it gets tired fast. What follows mental fatigue? You might find yourself easily distracted, irritable, and stressed. Soft fascination, in contrast, engages a different part of the brain—the DMN, or Default Mode Network, which soothes the mind and helps combat mental fatigue. So next time you feel like your mind is on overload, turn off the TV, put down the phone. Take a walk, or simply sit and stare at clouds.
+15. What is the topic of the talk?
+A. How psychologists study attention
+B. How to keep the mind focused
+C. Two types of fascination
+D. The benefits of hard fascination
+16. Why does the speaker mention a movie?
+A. To compare different types of movies
+B. To introduce a concept in psychology
+C. To explain how movies affect emotions
+D. To encourage listeners to watch more movies
+17. What does the speaker say about her walk in the park?
+A. It is similar to her experience watching a good movie.
+B. Her mind has space for thoughts unrelated to nature.
+C. She needs to put in special effort to stay focused on flowers and trees.
+D. She gets mental fatigue from her mind engaging in hard fascination.
+18. What does the speaker say about Default Mode Network?
+A. It is involved in soft fascination.
+B. It leads to irritability and stress.
+C. It is easily tired from overuse.
+D. Its effect is unknown to psychologists.
 [ANSWER]
+C
 B
-D
+B
 A
-B
 [/ANSWER]
 
 ---
-
-## Module 2
-
+Module 2
 ### Listen and Choose a Response – Questions 1-8
 
-1. Woman: How do you turn on the projector?
+audio: 托福样题01-听力-Module 02-01-Listen and Choose a Response.mp3
+
+1. Woman: Who is the new manager?
 image: 13.png
-audio: Listening2_Listen_Response_Question1.ogg
-A. The images are a little fuzzy.
-B. I think it might be broken.
-C. It printed ten copies by mistake.
-D. I've needed a new monitor for a while.
-
-2. Woman: Should we meet today or tomorrow?
+>> play: 00:00-00:04
+A. She started last week.
+B. I'm unsure, but I can find out.
+C. Let's welcome the new manager.
+D. The position has been filled.
+2. Man: When is the due date for the report?
 image: 14.png
-audio: Listening2_Listen_Response_Question2.ogg
-A. I'm available either day.
-B. I will forward it to the team.
-C. We were short-staffed yesterday.
-D. It was printed this morning.
-
-3. Man: When is the next train to London?
+>> play: 00:04-00:10
+A. Please wait while I look that up.
+B. Give me some dates.
+C. No, I have another due date.
+D. Yes, that's correct.
+3. Man: I'm going to get some groceries.
 image: 15.png
-audio: Listening2_Listen_Response_Question3.ogg
-A. Later this evening.
-B. Not too far from here.
-C. It stops in Oxford.
-D. It's often crowded.
-
-4. Woman: Why did you leave early?
+>> play: 00:10-00:17
+A. Every Wednesday.
+B. In aisle 4.
+C. The cinema is not open today.
+D. Let's go together.
+4. Woman: Would you like a copy of my notes?
 image: 16.png
-audio: Listening2_Listen_Response_Question4.ogg
-A. I'll add it to the agenda.
-B. I wasn't interested in the second half.
-C. As soon as possible.
-D. I'll need to check the schedule.
-
-5. Woman: Do you prefer tea or coffee?
+>> play: 00:17-00:24
+A. The research facility.
+B. That would be great.
+C. The break is in an hour.
+D. Two bullet points.
+5. Man: Sami and Layla are on their way to the cafe.
 image: 17.png
-audio: Listening2_Listen_Response_Question5.ogg
-A. With milk, please.
-B. On Thursday.
-C. Try some sugar.
-D. Coffee would be great.
-
-6. Man: Could you assist with the presentation?
+>> play: 00:24-00:32
+A. Should we join them?
+B. Did you like the concert?
+C. Yesterday evening.
+D. The best coffee.
+6. Woman: I'd like to hear your thoughts on the job candidates.
 image: 18.png
-audio: Listening2_Listen_Response_Question6.ogg
-A. Here's your receipt.
-B. At the library.
-C. On the right.
-D. Maybe later.
-
-7. Man: Where did you leave the keys?
+>> play: 00:32-00:39
+A. I'm revising my résumé.
+B. I'll set up a meeting for us to talk.
+C. She just got a promotion.
+D. Yes, the training is complete.
+7. Woman: How much does expedited shipping cost?
 image: 19.png
-audio: Listening2_Listen_Response_Question7.ogg
-A. At five p.m.
-B. In the drawer.
-C. Every Sunday.
-D. Under the weather.
-
-8. Woman: It's really noisy in the lobby, isn't it?
+>> play: 00:39-00:47
+A. It's one of many.
+B. Twice last week.
+C. We don't offer that.
+D. I'd like the bill, please.
+8. Man: If you need more information, contact Ms. Lee.
 image: 20.png
-audio: Listening2_Listen_Response_Question8.ogg
-A. Yes, I turned mine down.
-B. I haven't been able to work with them yet.
-C. They don't know how to do it.
-D. It's the first day of the big medical conference.
-
+>> play: 00:47-00:54
+A. I can help with that.
+B. What is her role in the company?
+C. You ask a lot of questions.
+D. And whom should I contact?
 [ANSWER]
 B
 A
+D
+B
 A
 B
-D
-D
+C
 B
-D
 [/ANSWER]
 
 ---
+### Listen to a Conversation – Questions 9-10
 
-### Listen to a Conversation – Dinner Party
-
-audio: Listening2_Conversation_Questions_9-10.ogg
+audio: 托福样题01-听力-Module 02-02-Conversation 01.mp3
 image: 21.png
 
-Man: What main dish should we prepare for our dinner party this weekend?
-Woman: The steak we ate at your parents' place last week was fabulous. We could do something similar.
-Man: Hmm, I don't think the Johnsons eat meat. I was thinking more along the lines of veggie lasagna.
-Woman: Oh, I do have a great recipe for that actually.
-Man: We have a winner then. I'll need the list of ingredients for my trip to the supermarket tonight.
-
-9. Why does the woman mention the man's parents?
-A. To identify people that should be invited
-B. To request an item from the supermarket
-C. To explain the source of a lasagna recipe
-D. To propose a dish for a party
-
-10. What will the man most likely do in the evening?
-A. Buy some food
-B. Speak with the Johnsons
-C. Cook steak
-D. Visit his parents
-
+Man: I'm trying to decide whether to get a smartphone or a tablet. What do you think?
+Woman: It depends on what you need it for. If you want something portable and easy to use on the go a smartphone is better.
+Man: That's true. But I like the larger screen on a tablet for watching videos and reading.
+Woman: In that case...
+Man: I better think about it some more.
+9. What is the man trying to decide between?
+A. A laptop and a smartphone
+B. A smartphone and a tablet
+C. A tablet and a desktop computer
+D. A smartphone and a smartwatch
+10. What reason does the woman give for her suggestion?
+A. The device is cheaper.
+B. The device is easier to use on the go.
+C. The device has a larger screen.
+D. The device has better battery life.
 [ANSWER]
-D
-A
+B
+B
 [/ANSWER]
 
 ---
+### Listen to an Announcement in a student lounge – Questions 11-12
 
-### Listen to an Announcement – Spring Music Extravaganza
-
-audio: Listening2_Announcement_Questions_11-12.ogg
+audio: 托福样题01-听力-Module 02-03-Announcement.mp3
 image: 22.png
 
-Man: Tickets for this year's spring music extravaganza at Gladstone Auditorium are now available for purchase online and at the student union box office. As always, the event will feature a lineup of your fellow students performing music from various genres, including rock, jazz, and country. This year features a special guest performer, internationally renowned cellist Ben Bernal, who graduated from our university twenty years ago. Tickets are expected to sell out quickly, so make sure to get yours today.
-
-11. What is the main topic of the announcement?
-A. A new process for ordering tickets
-B. A survey of student music preferences
-C. A change of venue for a concert
-D. An upcoming musical performance
-
-12. What is different about this year's event?
-A. It will be held outdoors.
-B. It will include a performance by a former student.
-C. It will focus on music from various countries.
-D. It will feature dance performances.
-
+Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus cafe during this time.
+11. What is the main purpose of the announcement?
+A. To inform students about a schedule change
+B. To announce new lounge amenities
+C. To notify students of a new facility
+D. To encourage students to use the lounge more
+12. What should students do during the closure?
+A. Wait in the lounge
+B. Assist with the maintenance
+C. Use alternate spaces
+D. Visit the library website
 [ANSWER]
-D
-B
-[/ANSWER]
-
----
-
-### Listen to a Talk in an Environmental Science Class – Carbon Footprint
-
-audio: Listening2_Academic_Talk_Questions_13-16.ogg
-image: 23.png
-
-Man: Today, we're discussing the concept of the carbon footprint and its implications for environmental sustainability. A carbon footprint measures the total amount of greenhouse gases produced directly and indirectly by human activities, usually expressed in equivalent tons of carbon dioxide. This includes emissions from activities such as driving a car, using electricity, and manufacturing goods.
-
-The importance of understanding our carbon footprint lies in its impact on global warming and climate change. Greenhouse gases trap heat in the atmosphere, leading to rising global temperatures, melting ice caps, and more extreme weather events. By measuring our carbon footprint, we can identify the main sources of emissions and take steps to reduce them.
-
-For instance, individuals can lower their carbon footprint by opting for public transportation, using energy-efficient appliances, and reducing meat consumption, since livestock farming is a significant source of methane emissions, a potent greenhouse gas.
-
-Businesses can also play a crucial role by adopting sustainable practices like using renewable energy sources, improving energy efficiency, and minimizing waste. Moreover, governments can implement policies that promote carbon reduction, such as setting emissions targets, providing incentives for green technologies, and investing in sustainable infrastructure.
-
-Reducing our carbon footprint is essential for mitigating climate change and promoting a healthier planet for future generations. It requires collective effort and awareness to make meaningful progress.
-
-13. What is the main topic of the talk?
-A. The effects of global warming
-B. The concept of the carbon footprint
-C. The benefits of renewable energy
-D. The role of governments in sustainability
-
-14. According to the talk, what can individuals do to lower their carbon footprint?
-A. Increase meat consumption
-B. Use public transportation
-C. Manufacture more goods
-D. Trap heat in the atmosphere
-
-15. Why does the speaker mention livestock farming?
-A. To explain a source of methane emissions
-B. To discuss public transportation options
-C. To highlight energy-efficient practices
-D. To illustrate the impact of manufacturing goods
-
-16. What can be inferred about the role of governments in reducing carbon footprints?
-A. They can only set emissions targets.
-B. They are the primary source of greenhouse gases.
-C. They can implement policies to promote carbon reduction.
-D. They have a minimal impact on sustainability.
-
-[ANSWER]
-B
-B
 A
 C
 [/ANSWER]
 
 ---
+### Listen to a Talk in an environmental science class – Questions 13-16
+
+audio: 托福样题01-听力-Module 02-04-Academic Talk.mp3
+image: 23.png
+
+Professor: An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.
+13. What is the main topic of the talk?
+A. Changes in consumption in societies over time
+B. A measure of environmental impact
+C. Environmentally damaging activities
+D. The role of governments in sustainability
+14. Why does the speaker mention developed and developing countries?
+A. To contradict a theory related to the ecological footprint
+B. To show that resource depletion can be similar regardless of lifestyle
+C. To illustrate the usefulness of comparing ecological footprints
+D. To point out that production efficiency reduces the ecological footprint
+15. What does the speaker mention as a way that people can reduce their ecological footprint?
+A. By disposing of waste appropriately
+B. By joining an environmental organization
+C. By using environmentally friendly forms of transportation
+D. By eating locally produced food
+16. What will the speaker most likely discuss next?
+A. How information about ecological footprints has been used in creating policies
+B. How data about ecological footprints has been collected
+C. Why the idea of ecological footprint is often misunderstood
+D. Why sustainable development can be difficult to achieve
+[ANSWER]
+B
+C
+D
+A
+[/ANSWER]

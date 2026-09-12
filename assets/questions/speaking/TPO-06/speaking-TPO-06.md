@@ -1,66 +1,66 @@
 # Speaking Section
 
 ### Listen and Repeat
-
-scenario_title: You are being trained to assist visitors at a nature reserve. Listen to your trainer and repeat what he says. Repeat only once.
-scenario_image: avatar.svg
+scenario_title: You are being trained to assist students during the university orientation. Listen to your trainer and repeat what he says. Repeat only once.
+scenario_image: 0.png
+audio: Pack-6_Speaking.MP3
 
 1.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_1.ogg
-transcript: Welcome to our local nature reserve.
+image: 1.png
+>> play: 0:22 - 0:25
+transcript: Welcome to the student information booth.
 
 2.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_2.ogg
-transcript: Take a nature walk on our hiking trails.
+image: 2.png
+>> play: 0:42 - 0:46
+transcript: Campus orientation is in the gym.
 
 3.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_3.ogg
-transcript: The picnic area's a perfect place to enjoy your lunch.
+image: 3.png
+>> play: 1:03 - 1:07
+transcript: Our cafeteria is known for its tasty meal options.
 
 4.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_4.ogg
-transcript: The visitor center has helpful information for guests.
+image: 4.png
+>> play: 1:26 - 1:30
+transcript: Let us direct you to your assigned dormitory hall.
 
 5.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_5.ogg
-transcript: The observation tower offers a great view of the forest.
+image: 5.png
+>> play: 1:48 - 1:54
+transcript: Use the library for research and to focus on your studies.
 
 6.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_6.ogg
-transcript: Our restroom facilities are located just beside the entrance.
+image: 6.png
+>> play: 2:12 - 2:17
+transcript: We recommend visiting the student center to learn about clubs and activities.
 
 7.
-image: avatar.svg
-audio: Speaking_Listen_Repeat_7.ogg
-transcript: While you're exploring the grounds, please respect all wildlife and follow the posted rules at all times.
+image: 7.png
+>> play: 2:39 - 2:44
+transcript: Before your courses begin, take time to explore and get to know the facilities.
 
 ### Take an Interview
-
-scenario_title: You have volunteered for a research study about food preferences. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_title: You have agreed to participate in a research study about hobbies and leisure activities. You will have a short online interview with a researcher. The researcher will ask you some questions.
+scenario_image: 8.png
+audio: Pack-6_Speaking.MP3
 
 8.
-image: avatar.svg
-audio: Speaking_Interview_1.mp4
-transcript: I see. And what kind of meals do you usually have on busy days — do you cook, eat out, or pick up something ready-made?
+image: 8.png
+>> play: 3:17 - 3:32
+transcript: Thank you for taking the time to speak with me about your hobbies and leisure activities. First, when you engage in your favorite hobby, do you prefer to do it alone or do you like to do it with your family or friends? Why?
 
 9.
-image: avatar.svg
-audio: Speaking_Interview_2.mp4
-transcript: Interesting. Many people say that modern life has changed how we eat. Do you think people today have healthier eating habits than in the past? Why or why not?
+image: 8.png
+>> play: 4:25 - 4:33
+transcript: Thank you. And do you think it is better to spend free time indoors like in a movie theater or outdoors like in a park? Why?
 
 10.
-image: avatar.svg
-audio: Speaking_Interview_3.mp4
-transcript: Alright. Some people believe that social media can help people stay connected, while others think it can lead to feelings of isolation. What are your thoughts on this? Do you agree or disagree? Why?
+image: 8.png
+>> play: 5:26 - 5:38
+transcript: Interesting. Next, I'd like to get your opinion. Many people have the same hobbies as their friends. Do you think it is necessary for good friends to share hobbies? Why or why not?
 
 11.
-image: avatar.svg
-audio: Speaking_Interview_4.mp4
-transcript: Good points. I just have one more question. Some people believe that preparing traditional meals at home is an important way to stay connected to one's culture. Do you agree, or do you think it's possible to connect with culture in other ways? Why?
+image: 8.png
+>> play: 6:30 - 6:44
+transcript: Good points. I just have one more question. Some people believe that having hobbies is essential for being happy. Do you agree with this idea or do you think you can live a happy life without having hobbies? Explain your answer.
