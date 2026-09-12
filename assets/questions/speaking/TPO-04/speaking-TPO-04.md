@@ -1,66 +1,66 @@
 # Speaking Section
 
 ### Listen and Repeat
-scenario_title: You are learning how to guide new students through the campus gym. Listen to the speaker and repeat what she says. Repeat only once.
-scenario_image: avatar.svg
-audio: 托福样题02-口语-01-Listen and Repeat.mp3
+scenario_title: You are being trained to help visitors at a community centre. Listen to your trainer and repeat what he says. Repeat only once.
+scenario_image: 0.png
+audio: Pack-4_Speaking.MP3
 
 1.
-image: avatar.svg
->> play: 0:12-0:16
-transcript: Welcome to our campus gym.
+image: 1.png
+>> play: 0:21 - 0:23
+transcript: Welcome to the community center.
 
 2.
-image: avatar.svg
->> play: 0:17-0:21
-transcript: Cardio machines are near the entrance.
+image: 2.png
+>> play: 0:42 - 0:44
+transcript: Go to the information desk for help.
 
 3.
-image: avatar.svg
->> play: 0:22-0:26
-transcript: Free weights are in the back.
+image: 3.png
+>> play: 1:03 - 1:06
+transcript: The activity rooms hold various classes daily.
 
 4.
-image: avatar.svg
->> play: 0:26-0:31
-transcript: All of our locker rooms are equipped with showers and towels.
+image: 4.png
+>> play: 1:42 - 1:45
+transcript: The gym is where our popular fitness programs are held.
 
 5.
-image: avatar.svg
->> play: 0:32-0:38
-transcript: Our fitness instructors hold exercise classes over here.
+image: 5.png
+>> play: 2:18 - 2:22
+transcript: We recommend a visit to the cafe for a snack or drink.
 
 6.
-image: avatar.svg
->> play: 0:39-0:44
-transcript: You can check the schedule for available classes and timings.
+image: 6.png
+>> play: 2:42 - 2:46
+transcript: We have a notice board for updates on community events and important announcements.
 
 7.
-image: avatar.svg
->> play: 0:45-0:51
-transcript: If you have any questions, please seek assistance from the attendants at the help desk.
+image: 7.png
+>> play: 3:09 - 3:14
+transcript: If you're interested in learning more about our new courses, pick up a free flyer.
 
 ### Take an Interview
-scenario_title: You have volunteered for a research study about commuting habits. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
-audio: 托福样题02-口语-02-Interview.mp3
+scenario_title: You have volunteered for a research study about dietary habits. You will have a short online interview with a researcher. The researcher will ask you some questions.
+scenario_image: 8.png
+audio: Pack-4_Speaking.MP3
 
 8.
-image: avatar.svg
->> play: 0:30-0:43
-transcript: Thank you for joining the study. Today, I'd like to ask you some questions about your commuting habits. First, is it important to live close to your school or work? Why?
+image: 8.png
+>> play: 3:52 - 4:06
+transcript: Thank you for your participation. Today, I'd like to ask you some questions about your dietary habits. When you have a meal at school or work, do you prefer to eat alone, or do you like to eat with friends or co-workers? Why?
 
 9.
-image: avatar.svg
->> play: 0:47-1:04
-transcript: I see. Imagine that you could choose to commute by car, which is faster but more expensive, or by public transportation, which is slower but less expensive. Which would you choose, and why?
+image: 8.png
+>> play: 5:01 - 5:12
+transcript: Thank you, and what kind of meals do your family or friends generally like to eat? For example, do they prefer traditional home-cooked dishes, fast food, or other types?
 
 10.
-image: avatar.svg
->> play: 1:08-1:24
-transcript: Interesting. Some people believe that commuting can be stressful and tiring. What do you think are one or two different ways to make commuting more enjoyable? Give reasons for your answer.
+image: 8.png
+>> play: 6:06 - 6:23
+transcript: Interesting. Next, I'd like to get your opinion. In recent years, many people have argued that plant-based diets are better for individual health and for the planet. Do you think that in the future more people will adopt plant-based diets? Why or why not?
 
 11.
-image: avatar.svg
->> play: 1:28-1:49
-transcript: Good points. Lastly, considering advances in technology, some people believe that commuting might disappear entirely. How do you think a severe decline in commuting might affect businesses in positive ways and negative ways? Please give one example of each.
+image: 8.png
+>> play: 7:19 - 7:33
+transcript: Good points. I just have one more question. Some people believe that having regular meal times contributes to better health and financial well-being. Do you agree or disagree with this idea? Explain your answer.

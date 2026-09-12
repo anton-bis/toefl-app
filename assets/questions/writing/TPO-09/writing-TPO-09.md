@@ -4,138 +4,138 @@
 
 ### Build a Sentence – 1
 
-speaker_a_image: avatar-bs-6.png
-speaker_b_image: avatar-bs-2.png
-Speaker A: Are you going to the concert tonight?
-Speaker B: ____ ____ ____ ____ ____ ____ ____ music.
-Candidates: do / kind / of / that / not / like / I
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-7.png
+Speaker A: I'm planning to study abroad next year.
+Speaker B: ____ ____ ____ ____ ____ ____ to visit.
+Candidates: you / which / planning / countries / in Europe / are / plan
 \[ANSWER\]
-I do not like that kind of music.
+Which countries in Europe are you planning to visit?
 \[/ANSWER\]
 
 ### Build a Sentence – 2
 
-speaker_a_image: avatar-bs-11.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: Did you enjoy the book I lent you?
-Speaker B: I did not ____ ____ ____ ____.
-Candidates: find / to be / was / very engaging / the story
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-9.png
+Speaker A: I'm excited to go camping this weekend.
+Speaker B: ____ ____ ____ ____ ____ ____ near the campground?
+Candidates: that / you / have / black bears / live / heard
 \[ANSWER\]
-I did not find the story to be very engaging.
+Have you heard that black bears live near the campground?
 \[/ANSWER\]
 
 ### Build a Sentence – 3
 
-speaker_a_image: avatar-bs-5.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: The latest marketing campaign was a tremendous success!
-Speaker B: ____ ____ ____ ____ ____ ____ can be.
-Candidates: realized / I / never / too / social media / how / effective
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-8.png
+Speaker A: I'm planning to take a photography class.
+Speaker B: ____ type ____ ____ ____ ____ ____ ?
+Candidates: the / interests / what / more / you / photography / most / of
 \[ANSWER\]
-I never realized how effective social media can be.
+What type of photography interests you most?
 \[/ANSWER\]
 
 ### Build a Sentence – 4
 
-speaker_a_image: avatar-bs-15.png
-speaker_b_image: avatar-bs-8.png
-Speaker A: Why was Martha talking to the owner of the garden shop?
-Speaker B: She wanted ____ ____ ____ ____ ____ ____.
-Candidates: planting / some flowers / start / when / to know / to / so
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-12.png
+Speaker A: I'm thinking of adopting a dog this summer.
+Speaker B: ____ breed ____ ____ ____ ____ ____ ?
+Candidates: which / plan / of dog / you / do / to adopt / planning
 \[ANSWER\]
-She wanted to know when to start planting some flowers.
+Which breed of dog do you plan to adopt?
 \[/ANSWER\]
 
 ### Build a Sentence – 5
 
-speaker_a_image: avatar-bs-3.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: Evan said you have a question for me.
-Speaker B: I'd like ____ ____ ____ ____ ____ ____.
-Candidates: to know / where / because / the programming job / you / about / found out
+speaker_a_image: avatar-bs-8.png
+speaker_b_image: avatar-bs-16.png
+Speaker A: I'm going to start writing a biography.
+Speaker B: ____ historical figure ____ ____ ____ ____ ____?
+Candidates: have / about / to write / which / chosen / you / choose
 \[ANSWER\]
-I'd like to know where you found out about the programming job.
+Which historical figure have you chosen to write about?
 \[/ANSWER\]
 
 ### Build a Sentence – 6
 
-speaker_a_image: avatar-bs-4.png
-speaker_b_image: avatar-bs-13.png
-Speaker A: What did you think of the movie?
-Speaker B: In ____ ____ ____ ____ ____ ____.
-Candidates: was / very / my opinion / it / not / entertaining
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-14.png
+Speaker A: I'm moving to a new city next month.
+Speaker B: ____ ____ you ____ ____ ____ ____?
+Candidates: to move / from here / away / why / have / chosen
 \[ANSWER\]
-In my opinion it was not very entertaining.
+Why have you chosen to move away from here?
 \[/ANSWER\]
 
 ### Build a Sentence – 7
 
-speaker_a_image: avatar-bs-6.png
-speaker_b_image: avatar-bs-14.png
-Speaker A: Do you want to try the new recipe I found?
-Speaker B: No, I ____ ____ ____ ____ ____.
-Candidates: at cooking / am / good / not / complex dishes
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-6.png
+Speaker A: I'm planning to start a new project at work.
+Speaker B: ____ ____ ____ ____ ____ ____?
+Candidates: to complete / the new assignment / when / expect / you / do
 \[ANSWER\]
-No, I am not good at cooking complex dishes.
+When do you expect to complete the new assignment?
 \[/ANSWER\]
 
 ### Build a Sentence – 8
 
-speaker_a_image: avatar-bs-7.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: Have you finished reading the novel?
-Speaker B: ____ ____ ____ ____ yet.
-Candidates: reached / I / the last chapter / already / haven't
+speaker_a_image: avatar-bs-4.png
+speaker_b_image: avatar-bs-16.png
+Speaker A: I'm going to submit my application today.
+Speaker B: Have ____ ____ ____ ____ ____ ____?
+Candidates: the position / applied / your coworkers / any / has / of / for
 \[ANSWER\]
-I haven't reached the last chapter yet.
+Have any of your coworkers applied for the position?
 \[/ANSWER\]
 
 ### Build a Sentence – 9
 
-speaker_a_image: avatar-bs-8.png
-speaker_b_image: avatar-bs-3.png
-Speaker A: Will you attend the seminar tomorrow?
-Speaker B: I ____ ____ ____ ____ ____.
-Candidates: have / topic / interest / in / that / no / not
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-2.png
+Speaker A: I'm attending a friend's wedding next week.
+Speaker B: ____ ____ ____ ____ afterward?
+Candidates: plan to attend / the wedding reception / you / do
 \[ANSWER\]
-I have no interest in that.
+Do you plan to attend the wedding reception afterward?
 \[/ANSWER\]
 
 ### Build a Sentence – 10
 
-speaker_a_image: avatar-bs-1.png
-speaker_b_image: avatar-bs-14.png
-Speaker A: Did you buy the groceries I asked for?
-Speaker B: The store ____ ____ ____ ____ ____ ____.
-Candidates: not / did / have / everything / on / none / the list
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-11.png
+Speaker A: I had a great time at the dinner party last night.
+Speaker B: Did ____ ____ ____ ____ ____?
+Candidates: serve / they / the main course / before / any appetizers
 \[ANSWER\]
-The store did not have everything on the list.
+Did they serve any appetizers before the main course?
 \[/ANSWER\]
 
 ## Write an Email
 
 ### Write an Email – 1
 
-Identity: You have been working on a group project with several classmates for a course. One of your group members, Alex, has not been participating actively and has missed several assignments. You want to address this issue and find a solution.
-To: Alex
-Subject: Group Project Participation
+Identity: You are a member of the neighborhood association, and you have noticed that the local park needs some maintenance. You decide to contact the association president, Mr. Williams, to discuss the issues and offer a suggestion.
+To: Mr. Williams
+Subject: Concern about park maintenance
 Requirements:
-- Describe the current progress of the group project.
-- Explain how his lack of participation is affecting the group.
-- Suggest ways he can contribute to the project moving forward.
+- Describe the maintenance issue you have observed in the park.
+- Explain why it is important to address the issue.
+- Make a suggestion for how to deal with the issue.
 
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
 
-Subject: environmental science
-Instructor: Dr. Williams
-professor_image: avatar-d-3.png
-Professor: Art and media have the power to influence public opinion and behavior on environmental issues. For example, movies and social media can bring attention to climate change and inspire action with powerful words, images, and stories. However, some worry that art and media may oversimplify complex environmental issues or focus too much on negative aspects for dramatic effect. Do you think art and media are an appropriate way to increase public awareness of complex environmental issues? Why or why not?
-student_a_image: avatar-d-5.png
-Claire: I worry that media coverage of environmental issues often comes with commercial bias. News outlets and production companies may oversimplify problems to fit a narrative that attracts viewers, which can lead to misunderstanding rather than genuine awareness.
-student_b_image: avatar-d-7.png
-Marcus: I believe creative media can connect with people on an emotional level in ways that facts alone cannot. A powerful documentary or social media campaign can inspire real action and make complex issues feel personal and urgent.
+Subject: sociology
+Instructor: Dr. Diaz
+professor_image: avatar-d-2.png
+Professor: Next week we'll be discussing the impact of urbanization on community life. Urbanization has led to the development of large cities with diverse populations. Some people believe that urbanization fosters a sense of community and cultural exchange, while others think it leads to social isolation and the breakdown of close-knit communities usually found in small towns and villages. What are your thoughts on this and why?
+student_a_image: avatar-d-4.png
+Sarah: I believe urbanization fosters a sense of community and cultural exchange. Large cities bring together people from different backgrounds, creating opportunities for cultural interaction and mutual understanding. Urban areas often have vibrant social scenes that encourage community building.
+student_b_image: avatar-d-3.png
+James: In my opinion, urbanization leads to social isolation and the breakdown of close-knit communities. The fast-paced city life can make it difficult for people to form meaningful connections. Traditional community bonds, often found in smaller towns, tend to weaken in urban settings.
 Requirements:
 - Express and support your opinion.
 - Make a contribution to the discussion in your own words.

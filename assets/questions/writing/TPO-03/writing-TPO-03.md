@@ -1,138 +1,149 @@
 # writing-TPO-03
 
+<!-- 推测项：本文件 Build a Sentence 的「固定词/空格」划分由 PDF OCR 重建，尚未与源图视觉核对；如与截图不符请修正。 -->
+
 ## Build a Sentence
 
 ### Build a Sentence – 1
 
 speaker_a_image: avatar-bs-1.png
-speaker_b_image: avatar-bs-16.png
-Speaker A: What was the highlight of your trip?
-Speaker B: The ____ ____ ____ ____ ____ ____ fantastic.
-Candidates: were / the / was / old city / showed us around / who / tour guides
+speaker_b_image: avatar-bs-2.png
+Speaker A: What did Julian ask about your trip to the mountains?
+Speaker B: ____ ____ ____ I ____ ____ about ____.
+Candidates: best / liked / to know / it / did / he wanted / what
 \[ANSWER\]
-The tour guides who showed us around the old city were fantastic\.
+He wanted to know what I liked best about it.
 \[/ANSWER\]
 
 ### Build a Sentence – 2
 
-speaker_a_image: avatar-bs-6.png
-speaker_b_image: avatar-bs-3.png
-Speaker A: I heard Anna got a promotion.
-Speaker B: ____ ____ ____ ____ she will be ____ ____ ?
-Candidates: a different department / if / moving to / know / do / you
+speaker_a_image: avatar-bs-3.png
+speaker_b_image: avatar-bs-4.png
+Speaker A: Didn't I see you talking with Alison?
+Speaker B: Yes, she wanted ____ ____ ____ ____ ____ ____ ____.
+Candidates: tried / not / we / which / why / have / to know / the new café
 \[ANSWER\]
-Do you know if she will be moving to a different department?
+Yes, she wanted to know why we have not tried the new café.
 \[/ANSWER\]
 
 ### Build a Sentence – 3
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-5.png
-Speaker A: We're planning a trip to the mountains next weekend.
-Speaker B: ____ ____ tell me ____ ____ ____ ____ ?
-Candidates: the cabins / available / whether / can / will be / you
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-6.png
+Speaker A: What did the development team want to know?
+Speaker B: They ____ ____ ____ ____ ____ ____.
+Candidates: me / what / asked / our / which / are / specific requirements
 \[ANSWER\]
-Can you tell me whether the cabins will be available?
+They asked me what our specific requirements are.
 \[/ANSWER\]
 
 ### Build a Sentence – 4
 
-speaker_a_image: avatar-bs-10.png
-speaker_b_image: avatar-bs-11.png
-Speaker A: I'm looking forward to the concert this weekend.
-Speaker B: ____ ____ ____ ____ ____ ?
-Candidates: does / what / time / it / start
+speaker_a_image: avatar-bs-7.png
+speaker_b_image: avatar-bs-8.png
+Speaker A: What was discussed at the meeting?
+Speaker B: The managers wanted ____ ____ ____ ____ ____ ____ the sale.
+Candidates: to be / how / to know / were / able / we / to make
 \[ANSWER\]
-What time does it start?
+The managers wanted to know how we were able to make the sale.
 \[/ANSWER\]
 
 ### Build a Sentence – 5
 
-speaker_a_image: avatar-bs-2.png
-speaker_b_image: avatar-bs-11.png
-Speaker A: The museum exhibition opens next month.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
-Candidates: do / you / how / know / tickets / will cost / much
+<!-- 推测项 -->
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-10.png
+Speaker A: What's taking you and Harold so long to get started on the project?
+Speaker B: ____ ____ found out ____ ____ ____ ____.
+Candidates: the materials / who / just / where / being / we / are / stored
 \[ANSWER\]
-Do you know how much the tickets will cost?
+We just found out where the materials are stored.
 \[/ANSWER\]
 
 ### Build a Sentence – 6
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-8.png
-Speaker A: I'm planning to go to the beach tomorrow.
-Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
-Candidates: is / time of year / what / the water / this / like / temperature
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-12.png
+Speaker A: What did Emma ask about the new project?
+Speaker B: She ____ ____ ____ I ____ ____ ____ to.
+Candidates: whom / that / wanted / give / will / feedback / to know
 \[ANSWER\]
-What is the water temperature like this time of year?
+She wanted to know whom I will give feedback to.
 \[/ANSWER\]
 
 ### Build a Sentence – 7
 
-speaker_a_image: avatar-bs-4.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: I need to buy groceries today.
-Speaker B: ____ ____ ____ ____ ____ ____ ?
-Candidates: list / do / a / I / have / shopping / you
+<!-- 推测项 -->
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-14.png
+Speaker A: What do you think we should talk about first in our presentation?
+Speaker B: I can't ____ ____ topic ____ ____ ____ ____.
+Candidates: a / important / the / is / which / decide / most
 \[ANSWER\]
-Do you have a shopping list?
+I can't decide which topic is the most important.
 \[/ANSWER\]
 
 ### Build a Sentence – 8
 
-speaker_a_image: avatar-bs-8.png
-speaker_b_image: avatar-bs-15.png
-Speaker A: I'll be taking a cooking class this weekend.
-Speaker B: ____ ____ ____ ____ ____ ?
-Candidates: learn / what / will / I / you / recipes
+speaker_a_image: avatar-bs-15.png
+speaker_b_image: avatar-bs-16.png
+Speaker A: What did Professor Cho ask you after the session?
+Speaker B: ____ ____ ____ I ____ ____ ____.
+Candidates: thought / what / his presentation / about / he asked / make / me
 \[ANSWER\]
-What recipes will you learn?
+He asked me what I thought about his presentation.
 \[/ANSWER\]
 
 ### Build a Sentence – 9
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-13.png
-Speaker A: What did Maria ask you about the book you're reading?
-Speaker B: She ____ ____ ____ ____ ____ ____ ____ .
-Candidates: she / wanted / to know / where / she / could / buy / a copy
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-3.png
+Speaker A: What did Juan and Hector ask you this morning?
+Speaker B: They ____ ____ ____ ____ ____ ____ ____.
+Candidates: when / to Spain / were / to know / where / going / you / wanted
 \[ANSWER\]
-She wanted to know where she could buy a copy\.
+They wanted to know when you were going to Spain.
 \[/ANSWER\]
 
 ### Build a Sentence – 10
 
-speaker_a_image: avatar-bs-3.png
-speaker_b_image: avatar-bs-5.png
-Speaker A: How did you prepare for the exam?
-Speaker B: I used ____ ____ ____ ____ ____ .
-Candidates: by / the professor / that / the study guide / was provided / it
+<!-- 推测项 -->
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-4.png
+Speaker A: What did the manager ask you after the employee meeting?
+Speaker B: She was ____ ____ I ____ ____ ____.
+Candidates: to speak / curious about / learned / Korean / where / did
 \[ANSWER\]
-I used the study guide that was provided by the professor\.
+She was curious about where I learned to speak Korean.
 \[/ANSWER\]
 
 ## Write an Email
 
 ### Write an Email – 1
 
-Identity: A new poetry magazine has asked its readers for submissions, and you decided to submit two of your poems. However, you had a problem using the online submission form, and you are not certain that your submissions were received.
-To: editor@sunshinepoetrymagazine.com
-Subject: Problem using submission form
+Identity: You recently attended a concert by your favorite band at a local venue. You want to thank the event organizer, Mr. Harris, for arranging the event and provide feedback on what you enjoyed most.
+To: Mr. Harris
+Subject: Feedback on recent concert
 Requirements:
-- Tell the editor what you like about the new magazine.
-- Describe the problem you experienced.
-- Ask about the status of your submissions.
+- Thank him for organizing the concert.
+- Describe what you enjoyed most about the event.
+- Suggest any improvements for future events.
+- Write as much as you can and in complete sentences.
 
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
 
-Subject: social studies
-Instructor: Dr. Chen
+Subject: philosophy
+Instructor: Dr. Diaz
 professor_image: avatar-d-1.png
-Professor: Volunteerism refers to the act of offering your time and service without financial compensation to benefit a community, organization, or cause. While many people volunteer mainly to help others, some institutions have mandatory volunteer programs. High schools are one example, where students may be required to complete a certain number of volunteer hours to graduate. What do you think? Should high school students be required to do volunteer work? Why or why not?
-student_a_image: avatar-d-4.png
-Emma: Yes, I think high schools should require volunteer hours because it helps students build a sense of civic responsibility. Many teenagers don't naturally think about helping others, and this requirement can introduce them to the idea that their time and effort can make a real difference in the lives of others.
-student_b_image: avatar-d-5.png
-Liam: I don't think volunteer hours should be required because many students already have limited free time. Some have part-time jobs or take care of younger siblings after school. Adding a mandatory volunteer requirement could create extra stress and make it harder for those students to balance their existing responsibilities.
+Professor: We've been discussing the concept of free will in philosophy. Some argue that free will is an illusion and that our choices are determined by factors beyond our control, such as genetics and environment. Others believe that individuals have the ability to make free choices regardless of external influences. What are your thoughts on the existence of free will?
+student_a_image: avatar-d-2.png
+Andrew: I believe that free will is an illusion. Our decisions are heavily influenced by factors such as our upbringing, social environment, and biological predispositions. These factors shape our choices, leaving little room for true free will.
+student_b_image: avatar-d-3.png
+Claire: I think individuals have the ability to make free choices. While external influences play a role, people can still exercise their own judgment and take actions that are not predetermined by their circumstances. Free will enables personal responsibility and autonomy.
+Requirements:
+- Express and support your opinion.
+- Make a contribution to the discussion in your own words.
+- An effective response will contain at least 100 words.
+Hint: You will have 10 minutes to write.

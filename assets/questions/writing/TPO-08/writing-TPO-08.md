@@ -4,140 +4,135 @@
 
 ### Build a Sentence – 1
 
-speaker_a_image: avatar-bs-8.png
-speaker_b_image: avatar-bs-10.png
-Speaker A: What did Andre ask you at the party?
-Speaker B: ____ ____ ____ ____ ____ ____.
-Candidates: wanted / thus / he / ended / when / to know / it
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-15.png
+Speaker A: I need to buy a new laptop.
+Speaker B: ____ ____ ____ ____ ____ ?
+Candidates: has / the best / which / store / deals
 \[ANSWER\]
-He wanted to know when it ended.
+Which store has the best deals?
 \[/ANSWER\]
 
 ### Build a Sentence – 2
 
-speaker_a_image: avatar-bs-1.png
-speaker_b_image: avatar-bs-9.png
-Speaker A: Why was the meeting rescheduled?
-Speaker B: ____ ____ ____ ____ ____ ____ ____.
-Candidates: was moved / to / it / a time / when / everyone / could attend
+speaker_a_image: avatar-bs-9.png
+speaker_b_image: avatar-bs-7.png
+Speaker A: I'm thinking about starting a blog.
+Speaker B: ____ ____ ____ ____ ____ yet?
+Candidates: decided / you / a topic / have / on
 \[ANSWER\]
-It was moved to a time when everyone could attend.
+Have you decided on a topic yet?
 \[/ANSWER\]
 
 ### Build a Sentence – 3
 
-speaker_a_image: avatar-bs-11.png
-speaker_b_image: avatar-bs-4.png
-Speaker A: I just spoke with the boss about applying for the open position.
-Speaker B: I am ____ ____ ____ ____ ____.
-Candidates: curious / if / mentioned / any specific requirements / because / he
+speaker_a_image: avatar-bs-16.png
+speaker_b_image: avatar-bs-14.png
+Speaker A: I'm going to study at the library this afternoon.
+Speaker B: ____ ____ ____ ____ ____ ____ ?
+Candidates: to / do / borrow / any books / you / need
 \[ANSWER\]
-I am curious if he mentioned any specific requirements.
+Do you need to borrow any books?
 \[/ANSWER\]
 
 ### Build a Sentence – 4
 
-speaker_a_image: avatar-bs-8.png
-speaker_b_image: avatar-bs-13.png
-Speaker A: Why are you asking about the new restaurant?
-Speaker B: My ____ ____ ____ ____ ____ ____ ____.
-Candidates: is wondering / it / when / is going / to open / she / friend / Jenna
+speaker_a_image: avatar-bs-15.png
+speaker_b_image: avatar-bs-16.png
+Speaker A: I'm thinking about getting a pet.
+Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
+Candidates: are / you / considering / kind / of / what / animal
 \[ANSWER\]
-My friend Jenna is wondering when it is going to open.
+What kind of animal are you considering?
 \[/ANSWER\]
 
 ### Build a Sentence – 5
 
-speaker_a_image: avatar-bs-2.png
-speaker_b_image: avatar-bs-1.png
-Speaker A: Do you know anyone who can give me directions to the Big Tree Bistro?
-Speaker B: ____ ____ Sally ____ ____ ____ ____.
-Candidates: there / to get / how / think / I / where / knows
+speaker_a_image: avatar-bs-13.png
+speaker_b_image: avatar-bs-10.png
+Speaker A: I'm excited to see the new science fiction movie tonight.
+Speaker B: ____ ____ ____ ____ ?
+Candidates: it / showing / is / where
 \[ANSWER\]
-I think Sally knows how to get there.
+Where is it showing?
 \[/ANSWER\]
 
 ### Build a Sentence – 6
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-15.png
-Speaker A: What are your plans for the summer?
-Speaker B: ____ ____ ____ ____ ____ ____ ____ yet.
-Candidates: I / don't / I'm / where / to do / going / know / what
+speaker_a_image: avatar-bs-2.png
+speaker_b_image: avatar-bs-10.png
+Speaker A: I have an interview for a new job next week.
+Speaker B: ____ ____ ____ ____ ____ ____ ?
+Candidates: ready / resume / have / you / do / your
 \[ANSWER\]
-I don't know what I'm going to do yet.
+Do you have your resume ready?
 \[/ANSWER\]
 
 ### Build a Sentence – 7
 
-speaker_a_image: avatar-bs-7.png
-speaker_b_image: avatar-bs-6.png
-Speaker A: What did Ruby ask about the new software?
-Speaker B: She wanted ____ ____ ____ ____ ____ ____ ____.
-Candidates: help / however / if / it / to know / with / need / you
+speaker_a_image: avatar-bs-5.png
+speaker_b_image: avatar-bs-14.png
+Speaker A: I need to submit my assignment by tomorrow.
+Speaker B: ____ ____ ____ ____ ____ ?
+Candidates: writing / finished / you / it / have
 \[ANSWER\]
-She wanted to know if you need help with it.
+Have you finished writing it?
 \[/ANSWER\]
 
 ### Build a Sentence – 8
 
-speaker_a_image: avatar-bs-9.png
-speaker_b_image: avatar-bs-13.png
-Speaker A: Why did Gustavo call you this morning?
-Speaker B: He wanted ____ ____ ____ ____ ____ ____ ____.
-Candidates: where / a leak / could find / he / to know / a plumber / to fix / is
+speaker_a_image: avatar-bs-1.png
+speaker_b_image: avatar-bs-2.png
+Speaker A: I'm planning a trip to Europe this summer.
+Speaker B: ____ ____ book your ____ ____ ?
+Candidates: did / flight / you / yet
 \[ANSWER\]
-He wanted to know where he could find a plumber to fix a leak.
+Did you book your flight yet?
 \[/ANSWER\]
 
 ### Build a Sentence – 9
 
-speaker_a_image: avatar-bs-16.png
-speaker_b_image: avatar-bs-5.png
-Speaker A: I heard that the supervisor was looking for you.
-Speaker B: She ____ ____ ____ ____ ____ ____ ____.
-Candidates: we / wanted / to finish / finished / to know / when / the project / expect
+speaker_a_image: avatar-bs-11.png
+speaker_b_image: avatar-bs-15.png
+Speaker A: I just started learning French.
+Speaker B: ____ ____ ____ ____ ____ ?
+Candidates: you / taking / are / where / classes
 \[ANSWER\]
-She wanted to know when we expect the project to finish.
+Where are you taking classes?
 \[/ANSWER\]
 
 ### Build a Sentence – 10
 
-speaker_a_image: avatar-bs-10.png
-speaker_b_image: avatar-bs-7.png
-Speaker A: Julio said you had a question about the research paper.
-Speaker B: I'm hoping ____ ____ ____ ____ ____ I might ____ ____.
-Candidates: me / you / can / tell / where / find / some reliable sources
+speaker_a_image: avatar-bs-12.png
+speaker_b_image: avatar-bs-13.png
+Speaker A: Why are you asking about the project deadline?
+Speaker B: I'm ____ ____ ____ ____ ____ ____ .
+Candidates: checking / to see / if / has been / extended / it
 \[ANSWER\]
-I'm hoping you can tell me where I might find some reliable sources.
+I'm checking to see if it has been extended\.
 \[/ANSWER\]
 
 ## Write an Email
 
 ### Write an Email – 1
 
-Identity: You are planning a business trip to another city. Your colleague, Maria, recently traveled to the same city for work. You want to ask her recommendations for places to eat and things to do during your free time.
-To: Maria
-Subject: Recommendations for Upcoming Business Trip
+Identity: Your coworker, Kevin, recently recommended a new restaurant for your team to visit. You took the team there, but everyone was disappointed. The food was not as good as expected, and the service was slow. You need to inform Kevin about the situation and discuss future lunch options.
+To: Kevin
+Subject: Team Lunch Experience
 Requirements:
-- Explain why you are traveling to the city.
-- Ask for her recommendations about restaurants and activities.
-- Mention what you'd most like to do and what you'd like to avoid.
+- Explain what was wrong with the restaurant.
+- Describe the team's reaction to the visit.
+- Suggest alternative lunch arrangements.
 
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
 
-Subject: labor studies
-Instructor: Dr. Williams
-professor_image: avatar-d-4.png
-Professor: More and more people can work remotely on portable electronic devices rather than in a dedicated office. These workers often have more flexibility regarding when and where they work, allowing them to become what are known as "digital nomads"—that is, workers who travel regularly and work from different locations, both inside and outside their own countries. Do you think digital nomadism is likely to continue increasing? Why or why not?
+Subject: psychology
+Instructor: Dr. Chen
+professor_image: avatar-d-3.png
+Professor: Today we'll discuss the effects of exercise on mental health. Clearly, regular physical activity can improve mood and reduce stress. On the other hand, some people believe that mental health is primarily influenced by other factors such as genetics and the environment. Which do you believe plays a larger role in mental health? Why?
 student_a_image: avatar-d-6.png
-Claire: While digital nomadism does offer unparalleled freedom, it's important to note that it heavily relies on strong Internet connectivity, which may not be equally accessible in all regions. This digital divide could limit who can truly participate in this lifestyle.
-student_b_image: avatar-d-7.png
-Marcus: While Claire makes a good point, Internet technologies and speed are always improving, even in remote areas. The flexibility and cost-saving benefits of digital nomadism will likely continue attracting workers.
-Requirements:
-- Express and support your opinion.
-- Make a contribution to the discussion in your own words.
-- An effective response will contain at least 100 words.
-Hint: You will have 10 minutes to write.
+Kelly: I think regular exercise has a significant positive impact on mental health. It can reduce stress, improve mood, and increase overall well-being by releasing endorphins and promoting a healthy lifestyle.
+student_b_image: avatar-d-4.png
+Andrew: I believe that while exercise is important, other factors like genetics and environment play a larger role in mental health. A supportive environment and good mental health practices are crucial for overall well-being.

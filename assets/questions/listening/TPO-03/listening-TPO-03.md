@@ -2,349 +2,516 @@
 
 ## Module 1
 
-### Listen and Choose a Response – Questions 1-8
+### Listen and Choose a Response – Questions 1-12
 
-audio: 托福样题01-听力-Module 01-01-Listen and Choose a Response.mp3
+audio: Pack-3_Listening.MP3
 
-1. Woman: Didn't I just see you in the library an hour ago?
+1. Would you mind opening the window?
 image: 1.png
->> play: 00:00-00:06
-A. As a matter of fact, I was returning a book.
-B. Yes, you can find it in the reference section.
-C. I don't think I'll have enough time to do that.
-D. Actually, I think I can get there a little earlier.
+>> play: 0:26-0:28
+A. Not at all.
+B. I was there yesterday.
+C. I didn't see it.
+D. Until last week.
 
-2. Man: Where is the nearest bus stop?
+2. Who can help me lead the focus group?
 image: 2.png
->> play: 00:06-00:12
-A. I nearly missed the bus.
-B. Every 30 minutes.
-C. I can help you find it.
-D. I'll take the subway instead.
+>> play: 0:52-0:54
+A. Either the first or the second.
+B. The next day.
+C. Donna's great with people.
+D. Josh's camera is out of focus.
 
-3. Woman: How do I contact customer service?
+3. How do you turn off the alarm?
 image: 3.png
->> play: 00:12-00:20
-A. Yes, you're allowed to do that.
-B. Use the convenient chat feature.
-C. No, I don't mind.
-D. They provide good service.
+>> play: 1:17-1:19
+A. It's cold in here.
+B. It's automatic.
+C. Let's try the fish.
+D. Let's put some music on.
 
-4. Woman: I'm afraid I'm not available this evening.
+4. Mr brown has agreed to host the webinar again.
 image: 4.png
->> play: 00:20-00:28
-A. Oh, that's too early.
-B. How about tomorrow night then?
-C. She arrived this afternoon.
-D. No, that's not necessary.
+>> play: 1:43-1:45
+A. The deadline was moved to Friday.
+B. Well I guess we know what to expect.
+C. No I haven't received any feedback yet.
+D. The file is too large to send by email.
 
-5. Man: Isn't the post office open today?
+5. How about joining us for dinner tonight?
 image: 5.png
->> play: 00:28-00:34
-A. No, it's my package.
-B. It's just around the corner!
-C. I think he's come home already.
-D. Let's check the schedule online.
+>> play: 2:09-2:11
+A. It's at six thirty p m.
+B. It was a great meal.
+C. Do you take reservations?
+D. I've got prior commitments.
 
-6. Woman: If you need me, just text.
+6. We'd love it if you brought your guitar tomorrow.
 image: 6.png
->> play: 00:34-00:42
-A. I can help you with that.
-B. You don't need any more information.
-C. You have a lot of questions, don't you?
-D. You haven't given me your number yet.
+>> play: 2:34-2:37
+A. I was worried about that too.
+B. I do enjoy listening to the radio.
+C. I'll take it off the calendar.
+D. I would but it's still in the shop.
 
-7. Woman: So the store is open for business all weekend?
+7. Isn't the movie theater open today?
 image: 7.png
->> play: 00:42-00:50
-A. Yes, there is a major power outage.
-B. Yes, it's under renovation.
-C. Yes, it's closed all day on Sunday.
-D. Yes, they're having a huge sale.
+>> play: 2:59-3:01
+A. There are many good actors in that play.
+B. I'm renovating my kitchen.
+C. Let's call them and find out.
+D. The chairs are very comfortable here.
 
-8. Man: Did you attend the seminar?
+8. Would you prefer the printed or digital version?
 image: 8.png
->> play: 00:50-00:56
-A. I overslept.
-B. No, not very well.
-C. Have you asked your professor?
-D. I forgot to look.
+>> play: 3:25-3:27
+A. Whatever's more convenient.
+B. I believe it was in black and white.
+C. Yes I certainly would.
+D. I maybe a little late.
 
-[ANSWER]
-A
-C
-B
-B
-D
-D
-D
-A
-[/ANSWER]
-
----
-### Listen to a Conversation – Questions 9-10
-
-audio: 托福样题01-听力-Module 01-02-Conversation 01.mp3
+9. Did you really skip the conference?
 image: 9.png
+>> play: 3:51-3:53
+A. There's nowhere else I have to be next week.
+B. I just had too manythings I needed to do at home.
+C. Let's review the plan.
+D. There were a lot of terrific papers this year.
 
-Woman: Need anything from the supermarket?
-Man: Huh? Aren't we getting ready to go see that play in a few minutes?
-Woman: That's tomorrow.
-Man: Oh. Wow, I'd forget my head if it wasn't screwed on. Guess I don't need to change my clothes after all.
-Woman: So, you weren't planning to prepare dinner?
-Man: No, but I can. What do you want?
-Woman: Just something light and healthy. So, can you go shopping instead?
-Man: Yeah, sure. How about salmon and salad? Want anything else?
-Woman: No, that's good. Thanks!
-9. What does the woman imply that she was about to do?
-A. See a play
-B. Change her clothes
-C. Go shopping
-D. Eat dinner
-10. Why does the man say "I'd forget my head if it wasn't screwed on"?
-A. He forgot what the woman wanted him to buy.
-B. He forgot about the timing of their plans.
-C. He forgot what they were going to eat for dinner.
-D. He forgot to buy salmon and salad at the supermarket.
-[ANSWER]
-C
-B
-[/ANSWER]
-
----
-### Listen to a Conversation – Questions 11-12
-
-audio: 托福样题01-听力-Module 01-02-Conversation 02.mp3
+10. Isn't the pool open today?
 image: 10.png
+>> play: 4:16-4:18
+A. It was even farther yesterday.
+B. We have a replacement.
+C. I don't think they have it yet.
+D. Did you want to go for a swim?
 
-Man: Did you see the maintenance request about the air-conditioning?
-Woman: Yes, I called the technician this morning. They said someone should be here shortly.
-Man: That's a relief. It's getting uncomfortably warm in here.
-Woman: I know—I called as soon as I noticed. Hopefully, it's just a minor issue and they can get it working again without too much delay. In the meantime, why don't you go out to lunch early? Maybe it'll be better when you get back.
-11. Why did the woman call a technician?
-A. An air-conditioner is leaking.
-B. A room is too hot.
-C. An elevator needs maintenance.
-D. A window will not open.
-12. What does the woman suggest the man do?
-A. Finish an assignment early
-B. Wait for a service agent
-C. Open a door
-D. Take a break early
-[ANSWER]
-B
-D
-[/ANSWER]
-
----
-### Listen to an Announcement in a classroom – Questions 13-14
-
-audio: 托福样题01-听力-Module 01-03-Announcement.mp3
+11. Do you know where Tom parked his car?
 image: 11.png
+>> play: 4:42-4:44
+A. Yes he placed the order.
+B. He usually takes the bus.
+C. I don't have a car.
+D. Let's go to the park.
 
-Man: Good afternoon, everyone. I am excited to inform you that Dr. Cynthia Palmer, a renowned expert in environmental science, will be giving a guest lecture next Monday at 2 p.m. in Waldman Auditorium. Dr. Palmer will discuss the latest advancements in sustainable energy solutions and their impact on global climate change. Due to her popularity and the high interest in her work, I highly recommend arriving early to secure a seat.
-13. What is the announcement about?
-A. A guest lecture
-B. A different location for a class
-C. Requirements for a class
-D. A new university science course
-14. Why does the professor mention Dr. Palmer's popularity?
-A. To encourage students to read her work
-B. To indicate why she was invited to the university
-C. To compare her to other invited experts
-D. To explain why students should arrive early
-[ANSWER]
-A
-D
-[/ANSWER]
-
----
-### Listen to a Talk on a podcast about psychology – Questions 15-18
-
-audio: 托福样题01-听力-Module 01-04-Academic Talk.mp3
+12. Can you email me the report?
 image: 12.png
+>> play: 5:06-5:08
+A. It was due yesterday.
+B. The Finance team is co writing it.
+C. I'll do it after the meeting.
+D. I'll pay you back later if that's OK.
 
-Podcast Host: Did you see that new thriller movie that came out last week? I did and loved it. The action, the plot twists...I was totally captivated. Time just flew by. Not a single thought occurred to me that was unrelated to the movie. What I experienced is what psychologists call hard fascination. Hard fascination means intense focus and concentration. Whether it's TV programs, video games... hard fascination is all too easy to come by in this modern world.
-There's another type of fascination—soft fascination. There's still effortless attention, meaning that no special effort is required for you to stay focused, but there's still room for other thoughts. When I take a walk in the park and look at the flowers and trees, for example, I might be thinking in the back of my mind about my dinner plans.
-Now, one thing to know is hard fascination causes mental fatigue. The mind is so intensely focused that it gets tired fast. What follows mental fatigue? You might find yourself easily distracted, irritable, and stressed. Soft fascination, in contrast, engages a different part of the brain—the DMN, or Default Mode Network, which soothes the mind and helps combat mental fatigue. So next time you feel like your mind is on overload, turn off the TV, put down the phone. Take a walk, or simply sit and stare at clouds.
-15. What is the topic of the talk?
-A. How psychologists study attention
-B. How to keep the mind focused
-C. Two types of fascination
-D. The benefits of hard fascination
-16. Why does the speaker mention a movie?
-A. To compare different types of movies
-B. To introduce a concept in psychology
-C. To explain how movies affect emotions
-D. To encourage listeners to watch more movies
-17. What does the speaker say about her walk in the park?
-A. It is similar to her experience watching a good movie.
-B. Her mind has space for thoughts unrelated to nature.
-C. She needs to put in special effort to stay focused on flowers and trees.
-D. She gets mental fatigue from her mind engaging in hard fascination.
-18. What does the speaker say about Default Mode Network?
-A. It is involved in soft fascination.
-B. It leads to irritability and stress.
-C. It is easily tired from overuse.
-D. Its effect is unknown to psychologists.
 [ANSWER]
+A
 C
 B
 B
+D
+D
+C
 A
+B
+C
+B
+C
 [/ANSWER]
-
 ---
-Module 2
-### Listen and Choose a Response – Questions 1-8
 
-audio: 托福样题01-听力-Module 02-01-Listen and Choose a Response.mp3
+### Listen to a Conversation – Questions 13-14
 
-1. Woman: Who is the new manager?
+audio: Pack-3_Listening.MP3
+>> play: 5:34-6:47
 image: 13.png
->> play: 00:00-00:04
-A. She started last week.
-B. I'm unsure, but I can find out.
-C. Let's welcome the new manager.
-D. The position has been filled.
-2. Man: When is the due date for the report?
+Man: I see that the leaves in the backyard still haven't been raked.
+Woman: Weren't you planning to do that?
+Man: I've been working on a lecture for my English class all morning.
+Woman: Maybe tomorrow.
+Man: Well, it's supposed to rain tomorrow.
+Woman: It might be your last chance before everything gets soggy.
+Man: Good point.
+Woman: I'll head out after lunch.
+Man: I just hope I can find the rake.
+Woman: I'm pretty sure I lent it to Sarah, our neighbor, last month.
+Man: I'll give her a call about it
+
+13. Why does the woman encourage the man to complete a task today?
+A. His students requested it.
+B. The weather will be bad tomorrow.
+C. The book he's using is overdue.
+D. They have an important meeting tomorrow.
+14. What does the man say about a neighbor?
+A. She will help him with some work.
+B. She called a maintenance crew.
+C. She is out of town for several days.
+D. She borrowed something from him.
+[ANSWER]
+B
+D
+[/ANSWER]
+---
+
+### Listen to a Conversation – Questions 15-16
+
+audio: Pack-3_Listening.MP3
+>> play: 6:47-8:00
 image: 14.png
->> play: 00:04-00:10
-A. Please wait while I look that up.
-B. Give me some dates.
-C. No, I have another due date.
-D. Yes, that's correct.
-3. Man: I'm going to get some groceries.
+Man: she loves reading, but I'm not sure which book to get her.
+Woman: why don't you get her the latest mystery novel?
+Man: She's really into that genre.
+Woman: that's a great idea.
+Man: do you know of any popular titles right now?
+Woman: Yes the silent witness is getting rave reviews.
+Man: she might enjoy that.
+Woman: perfect.
+Man: I'll get that one
+
+15. What is the man looking for?
+A. A birthday card
+B. A book
+C. A movie
+D. A game
+16. What genre does the woman suggest?
+A. Romance
+B. Science fiction
+C. Mystery
+D. Historical fiction
+[ANSWER]
+B
+C
+[/ANSWER]
+---
+
+### Listen to a Conversation – Questions 17-18
+
+audio: Pack-3_Listening.MP3
+>> play: 8:00-9:19
 image: 15.png
->> play: 00:10-00:17
-A. Every Wednesday.
-B. In aisle 4.
-C. The cinema is not open today.
-D. Let's go together.
-4. Woman: Would you like a copy of my notes?
+Man: Did you hear about the new fitness class at the gym?
+Woman: It's an intense cardio class called cardio blast.
+Man: Yes I did.
+Woman: I'm thinking of joining.
+Man: Have you tried it yet?
+Woman: I went yesterday.
+Man: It's intense but really fun.
+Woman: The instructors are great and keep everyone motivated.
+Man: That sounds perfect!
+Woman: I've been looking for a challenging workout.
+Man: I'll sign up for the next session
+
+17. What kind of fitness class does the man mention?
+A. Gentle yoga
+B. Strength Training
+C. Cardio
+D. Pilates
+18. What does the man say about the instructors?
+A. They are boring.
+B. They are inexperienced.
+C. They are motivating.
+D. They are strict.
+[ANSWER]
+C
+C
+[/ANSWER]
+---
+
+### Listen to an Announcement at a university club meeting – Questions 19-20
+
+audio: Pack-3_Listening.MP3
+>> play: 9:19-10:33
 image: 16.png
->> play: 00:17-00:24
-A. The research facility.
-B. That would be great.
-C. The break is in an hour.
-D. Two bullet points.
-5. Man: Sami and Layla are on their way to the cafe.
+Man: welcome everyone! Today we'll be discussing the details for our annual fundraising event. This year we'll be hosting a charity bake sale next Friday in the student center. All proceeds will go to local food banks. We hope you all can participate and make a difference!
+
+19. What is the main topic of the announcement?
+A. A new club member
+B. A sporting event
+C. An upcoming charity event
+D. A change in the club's meeting schedule
+20. What are students encouraged to do?
+A. Donate food items
+B. Join a club
+C. Visit the Student Center
+D. Participate in a bake sale
+[ANSWER]
+C
+D
+[/ANSWER]
+---
+
+### Listen to an Announcement at a university club meeting – Questions 21-22
+
+audio: Pack-3_Listening.MP3
+>> play: 10:33-11:43
 image: 17.png
->> play: 00:24-00:32
-A. Should we join them?
-B. Did you like the concert?
-C. Yesterday evening.
-D. The best coffee.
-6. Woman: I'd like to hear your thoughts on the job candidates.
+Man: welcome everyone, today I'm pleased to announce that our club has arranged a guest speaker for next week's meeting. Dr Rivera will be discussing the impacts of climate change on ocean ecosystems. The lecture will be held in room 105 at five PM on Tuesday. Please mark your calendars
+
+21. What is the main topic of the announcement?
+A. A participation fee
+B. A change in a meeting schedule
+C. A volunteering opportunity
+D. An upcoming guest lecture
+22. What are students encouraged to do?
+A. Sign up for the lecture
+B. Visit room 105
+C. Prepare questions for Dr Rivera
+D. Mark their calendars
+[ANSWER]
+D
+D
+[/ANSWER]
+---
+
+### Listen to an Announcement at a campus event – Questions 23-24
+
+audio: Pack-3_Listening.MP3
+>> play: 11:44-12:53
 image: 18.png
->> play: 00:32-00:39
-A. I'm revising my résumé.
-B. I'll set up a meeting for us to talk.
-C. She just got a promotion.
-D. Yes, the training is complete.
-7. Woman: How much does expedited shipping cost?
+Man: good afternoon everyone! We are excited to announce that the university's annual technology expo will be held next Thursday from nine AM to three PM in the convention center. Come and see the latest innovations from our engineering and computer science students
+
+23. What is the main topic of the announcement?
+A. An upcoming technology expo
+B. A student meeting
+C. A computer science lecture
+D. A new technology course
+24. What does the speaker hope the listeners will do?
+A. Submit their projects
+B. Prepare for a lecture
+C. Attend the expo
+D. Join the engineering club
+[ANSWER]
+A
+C
+[/ANSWER]
+---
+
+### Listen to an Announcement at a university event – Questions 25-26
+
+audio: Pack-3_Listening.MP3
+>> play: 12:53-13:58
 image: 19.png
->> play: 00:39-00:47
-A. It's one of many.
-B. Twice last week.
-C. We don't offer that.
-D. I'd like the bill, please.
-8. Man: If you need more information, contact Ms. Lee.
+Man: attention everyone! We are excited to announce that the university's annual book fair will be held next Friday from 10 am to four PM in the student center. There will be author signings, book sales, and workshops. We look forward to seeing you there!
+
+25. What is the main topic of the announcement?
+A. A new bookstore opening
+B. A change in an event's location
+C. A writing workshop
+D. An upcoming book fair
+26. What does the speaker hope the listeners will do?
+A. Visit the bookstore
+B. Attend the book fair
+C. Submit their manuscripts
+D. Join the workshops
+[ANSWER]
+D
+B
+[/ANSWER]
+---
+
+### Listen to a Talk in a history class – Questions 27-30
+
+audio: Pack-3_Listening.MP3
+>> play: 13:58-17:25
 image: 20.png
->> play: 00:47-00:54
-A. I can help with that.
-B. What is her role in the company?
-C. You ask a lot of questions.
-D. And whom should I contact?
+Professor: the magna carta, also known as the great charter, was signed in 1215 by king John of England. It was a pivotal document that limited the power of the monarchy and laid the groundwork for constitutional law. The magna carta introduced several fundamental legal principles, including the idea that the king must govern according to the law and that all free men have the right to a fair trial. One of its most famous clauses states that no person shall be deprived of life, liberty or property without due process of law. This principle has become a cornerstone of legal systems around the world. While the magna carta was initially intended to address the grievances of rebellious barons, its influence has extended far since then. Over the centuries, it has inspired numerous legal documents, including the United States constitution and the universal declaration of human rights. Its legacy continues to be felt in discussions about individual rights and the rule of law. Let's now talk about some of the specifics of this historic document
+
+27. What is the main topic of the talk?
+A. The reign of King John of England
+B. The importance of a specific document
+C. The grievances of English barons
+D. The history of England since 1215
+28. According to the speaker what was an immediate effect of the Magna Carta?
+A. The king's power was no longer unlimited.
+B. Access to private property increased.
+C. Some important people had to face atrial.
+D. Some men were freed from prison.
+29. Why does the speaker mention the United States Constitution and the Universal Declaration of Human Rights To highlight the Magna Carta's far reaching influence
+A. To explain the legal principle of due process
+B. To compare the importance of two legal documents
+C. To identify two legal documents that may seem to
+D. contradict each other
+30. What will the speaker discuss next?
+A. The history of the idea of human rights
+B. Details about the Magna Carta's contents
+C. The preservation of an old document
+D. Additional examples of human rights
 [ANSWER]
 B
 A
-D
-B
 A
-B
-C
-B
+D
 [/ANSWER]
-
 ---
-### Listen to a Conversation – Questions 9-10
 
-audio: 托福样题01-听力-Module 02-02-Conversation 01.mp3
+
+## Module 2
+
+### Listen and Choose a Response – Questions 1-3
+
+audio: Pack-3_Listening.MP3
+
+1. Are you going to the lecture tomorrow?
 image: 21.png
+>> play: 17:25-17:28
+A. I have a project I need to finish.
+B. Yes two times a week.
+C. Sure I took lots of notes.
+D. The front door of the auditorium.
 
-Man: I'm trying to decide whether to get a smartphone or a tablet. What do you think?
-Woman: It depends on what you need it for. If you want something portable and easy to use on the go a smartphone is better.
-Man: That's true. But I like the larger screen on a tablet for watching videos and reading.
-Woman: In that case...
-Man: I better think about it some more.
-9. What is the man trying to decide between?
-A. A laptop and a smartphone
-B. A smartphone and a tablet
-C. A tablet and a desktop computer
-D. A smartphone and a smartwatch
-10. What reason does the woman give for her suggestion?
-A. The device is cheaper.
-B. The device is easier to use on the go.
-C. The device has a larger screen.
-D. The device has better battery life.
-[ANSWER]
-B
-B
-[/ANSWER]
-
----
-### Listen to an Announcement in a student lounge – Questions 11-12
-
-audio: 托福样题01-听力-Module 02-03-Announcement.mp3
+2. Would you rather have your coffee inside or outside?
 image: 22.png
+>> play: 17:52-17:52
+A. It looks a bit windy out there don't you think?
+B. Yes coffee sounds nice.
+C. Cream but no sugar please.
+D. I'd rather have coffee first.
 
-Man: Attention everyone! The student lounge will be closed tomorrow from one P.M. to three P.M. for maintenance. We will be repairing a broken pipe in the ceiling. We apologize for any inconvenience this may cause. Please plan accordingly and consider using the library or the campus cafe during this time.
-11. What is the main purpose of the announcement?
-A. To inform students about a schedule change
-B. To announce new lounge amenities
-C. To notify students of a new facility
-D. To encourage students to use the lounge more
-12. What should students do during the closure?
-A. Wait in the lounge
-B. Assist with the maintenance
-C. Use alternate spaces
-D. Visit the library website
+3. Who will present the quarterly report?
+image: 23.png
+>> play: 17:52-18:21
+A. Ms Zhou has always done it in the past.
+B. The last quarter ended in March.
+C. Rick says it's been a rough quarter.
+D. The report is on this week's agenda.
+
+[ANSWER]
+C
+A
+A
+[/ANSWER]
+---
+
+### Listen to a Conversation – Questions 4-5
+
+audio: Pack-3_Listening.MP3
+>> play: 18:46-20:06
+image: 24.png
+Man: hey Susan, are you planning to hit the gym later today.
+Woman: I am,but only after I wrap up the quarterly report.
+Man: It's taking longer than expected, so I'll probably head over in the evening.
+Woman: I usually go earlier.
+Man: I've been thinking about getting back into a routine myself.
+Woman: It's been weeks since I last worked out.
+Man: I could use a bit of motivation.
+Woman: Well, if you're up for it, we could do a session together.
+Man: I was planning to focus on strength training today.
+Woman: That sounds like a good idea
+
+4. Why is the woman going to the gym in the evening?
+A. She needs to finish some work first.
+B. She made plans with some friends.
+C. The gym was closed for an afternoon event.
+D. The gym is too crowded during the day.
+5. What is the man's attitude toward exercising?
+A. He is uninterested in it.
+B. He prefers to workout alone.
+C. He wants to but he needs encouragement.
+D. He is very motivated and exercises frequently.
 [ANSWER]
 A
 C
 [/ANSWER]
-
 ---
-### Listen to a Talk in an environmental science class – Questions 13-16
 
-audio: 托福样题01-听力-Module 02-04-Academic Talk.mp3
-image: 23.png
+### Listen to a Conversation – Questions 6-7
 
-Professor: An ecological footprint is a measure of the environmental impact of an individual, community, or country. It calculates the amount of natural resources consumed and the waste generated by human activities, usually expressed in global hectares. By comparing ecological footprints, we can understand how different lifestyles and practices contribute to resource depletion and environmental degradation. For instance, the ecological footprint of someone living in a developed country is typically larger than that of someone living in a developing country, mainly due to higher consumption levels and waste production. Factors such as energy use, transportation, food consumption, and housing play significant roles in determining the size of an ecological footprint. Understanding ecological footprints is crucial for promoting sustainability. It helps identify areas where changes can be made to reduce environmental impact. For example, if you consume locally produced foods, you'll likely reduce your ecological footprint because less energy will be used for transporting that food. Governments and organizations can use ecological footprint data to develop policies aimed at achieving sustainable development. I'll discuss some examples of that next.
-13. What is the main topic of the talk?
-A. Changes in consumption in societies over time
-B. A measure of environmental impact
-C. Environmentally damaging activities
-D. The role of governments in sustainability
-14. Why does the speaker mention developed and developing countries?
-A. To contradict a theory related to the ecological footprint
-B. To show that resource depletion can be similar regardless of lifestyle
-C. To illustrate the usefulness of comparing ecological footprints
-D. To point out that production efficiency reduces the ecological footprint
-15. What does the speaker mention as a way that people can reduce their ecological footprint?
-A. By disposing of waste appropriately
-B. By joining an environmental organization
-C. By using environmentally friendly forms of transportation
-D. By eating locally produced food
-16. What will the speaker most likely discuss next?
-A. How information about ecological footprints has been used in creating policies
-B. How data about ecological footprints has been collected
-C. Why the idea of ecological footprint is often misunderstood
-D. Why sustainable development can be difficult to achieve
+audio: Pack-3_Listening.MP3
+>> play: 20:06-21:33
+image: 25.png
+Man: So they updated the meeting agenda for tomorrow.
+Woman: Yes, I saw the email.
+Man: Apparently the guest speaker from the product strategy team had to cancel last minute.
+Woman: Really?
+Man: That's too bad.
+Woman: She was going to present the new timeline for the fourth quarter software release.
+Man: That's important information, definitely.
+Woman: But they've replaced her with someone from the marketing team.
+Man: He's going to walk us through the upcoming social media campaign for the mobile APP launch.
+Woman: That's useful, too.
+Man: I hope it covers our television ADS, too.
+Woman: That concerns me more directly
+
+6. What are the speakers mainly discussing?
+A. A software update
+B. An email promotion
+C. Some changes to a presentation
+D. Some new members of a work team
+7. What department of the company does the man most likely work in?
+A. Advertising
+B. Software Development
+C. Human Resources
+D. Project Planning
 [ANSWER]
+C
+A
+[/ANSWER]
+---
+
+### Listen to a Talk in a history class – Questions 8-11
+
+audio: Pack-3_Listening.MP3
+>> play: 21:33-25:07
+image: 26.png
+Professor: the silk road is an ancient trade route that connected the east and west. The silk road was not a single path, but a network of trade routes that spanned thousands of miles going through the modern day countries of China and India and further into Europe. It played a crucial role in the development of the civilizations it connected. It facilitated not only trade but also cultural exchange and the spread of ideas. Merchants on the silk road traded a wide variety of goods from silken spices to precious metals and artwork. The route was named after the lucrative trade in silk fabric, which was one of the most sought after commodities from China. However, it's important to note that the exchange was not limited to physical goods. It also included knowledge, technology and religion. For example, Buddhism spread from India to China partly through interactions along the silk road. The cities along the route, such as Samarkand and Baghdad, became prosperous centers of commerce and learning. They were melting pots of different cultures, languages and traditions. Next, we'll explore the impact of the silk road on the economic development of Europe
+
+8. What is an important feature of the Silk Road It consisted of multiple routes rather than one single road.
+A. It had different names in the different countries it
+B. connected.
+C. It was primarily used to trade spices and other foods.
+D. It ended in India.
+9. According to the speaker the Silk Road contributed to all of the following EXCEPT
+A. the spread of knowledge
+B. more interactions between countries
+C. the exchange of religious ideas
+D. the introduction of new transportation technology
+10. Why does the speaker mention Samarkand and Baghdad To illustrate the variety of items traded along the Silk Road
+A. To describe the beneficial effect of the Silk Road on cities
+B. along its route
+C. To explain how goods were transported on the Silk Road
+D. To highlight the length of the Silk Road
+11. What will the speaker most likely discuss next These a trade routes that existed at the time of the Silk
+A. Road
+B. The role of merchants in cultural exchange
+C. The impact of the Silk Road on European economies
+D. The history of Buddhism in China
+[ANSWER]
+A
+D
 B
 C
-D
-A
 [/ANSWER]
+---
+
+### Listen to a Talk in a history class – Questions 12-15
+
+audio: Pack-3_Listening.MP3
+>> play: 25:08-26:31
+image: 27.png
+Professor: Petra is an ancient city located in present day Jordan. It was established as early as 312 BC as the capital city of Nabataean kingdom. Nabataean were skilled traders and Petra became a major trading hub because of its strategic location along caravan routes that linked the east and west. Petra architecture is unique because much of it was carved directly into the rose red cliffs of the region. The most famous structure in the city is known as the Treasury, but it is actually a tomb. The city also featured a complex system to manage water, including dams, cisterns and water channels that allowed it to thrive in the arid region. These advanced water engineering structures were crucial for the survival of its inhabitants, given the low amount of moisture that was available naturally. In addition to its architectural and engineering feats, Petra is significant for its cultural exchanges. As atrading center, it facilitated the exchange of goods, ideas and customs between diverse peoples. This blend of cultures is evident in the various architectural styles seen in the city, which include influences from Greek, Roman and indigenous Nabataean designs. Next, we will explore how archaeologists rediscovered Petra in the 19th century.
+
+12. What is the main topic of the talk The rediscovery of Petra's rock cut architecture
+A. The significance of the ancient city of Petra
+B. Caravan routes used by Nabataeann traders
+C. New engineering techniques employed by Nabataeann
+D. builders
+13. What does the speaker imply about the structure known as the Treasury?
+A. It was similar to buildings in other kingdoms.
+B. Its name does not reflect its purpose.
+C. It is a lesser known building.
+D. It was part of Petra's water management system.
+14. What does the speaker point out about the city's water system?
+A. It allowed Petra to survive in a dry location.
+B. It consisted mostly of channels carved into cliffs.
+C. It depended on water channels flowing east to west.
+D. It was built by Greek and Roman engineers.
+15. What does the speaker say about Petra's culture?
+A. It was the main factor in Petra's economic success.
+B. It was a mixture of several cultures.
+C. It is still a mystery for archaeologists.
+D. It continues to influence Petra's inhabitants today.
+[ANSWER]
+B
+B
+A
+B
+[/ANSWER]
+---
