@@ -111,6 +111,25 @@ function assertGitHubCli() {
   if (result.status !== 0) throw new Error(result.stderr?.trim() || 'GitHub CLI is unavailable.');
 }
 
+function mirrorRef() {
+  return process.env.TOEFL_CONTENT_MIRROR_REF || 'develop';
+}
+
+function dispatchOssMirror() {
+  const result = spawnSync(
+    'gh',
+    ['workflow', 'run', 'content-oss-mirror.yml', '--ref', mirrorRef()],
+    {
+      cwd: rootDir,
+      encoding: 'utf8'
+    }
+  );
+  if (result.error) return result.error.message;
+  if (result.status !== 0)
+    return (result.stderr || result.stdout || '').trim() || `gh exited with ${result.status}`;
+  return null;
+}
+
 function publishRelease(tag, archives) {
   if (!releaseExists(tag)) {
     command('gh', [
@@ -361,14 +380,23 @@ export async function publishContent() {
       if (!copies.ok) warnings.push(`OSS manifest copy/pointer upload failed: ${copies.message}`);
     }
     if (stagedFiles.length && !mirrorResult.ok) {
-      warnings.push(
-        `OSS archive mirror failed (GitHub publish unaffected): ${mirrorResult.message}`
-      );
+      warnings.push(`OSS archive mirror skipped or failed locally: ${mirrorResult.message}`);
     }
 
     for (const warning of warnings) console.warn(warning);
-    if (!mirrorResult.ok && stagedFiles.length) {
-      console.warn('Rerun npm run content:publish after fixing the OSS setup to heal the mirror.');
+    const unmirrored = packs.filter(pack => !pack.ossUrl);
+    if (unmirrored.length) {
+      console.warn(
+        `GitHub publish OK, but ${unmirrored.length} pack(s) still need an OSS mirror. ` +
+          'Dispatching the content-oss-mirror workflow (OSS credentials live in repo secrets).'
+      );
+      const dispatchError = dispatchOssMirror();
+      if (dispatchError) {
+        console.warn(
+          `Automatic OSS mirror dispatch failed: ${dispatchError}.\n` +
+            `Run manually: gh workflow run content-oss-mirror.yml --ref ${mirrorRef()}`
+        );
+      }
     }
     console.log(`Published ${changed.length} changed pack(s) as ${tag}.`);
     return manifest;

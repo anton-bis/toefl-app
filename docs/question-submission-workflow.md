@@ -76,7 +76,59 @@ npx electron .
 > - 带 → 用全新隔离目录，回退到**工作区内容**（能看到新题）
 > - 重启后"真题消失"基本都是因为启动时漏了这个环境变量
 
-### 2.2 Electron 版本
+> ⚠️ **必须用 `electron .`，不要用 `electron electron/main.js`**：
+> - `electron .` 时 `app.getAppPath()` = 仓库根 → 内容协议候选命中 `assets/questions/compiled/manifest.json`
+> - `electron electron/main.js` 时 `app.getAppPath()` = `electron/` 目录 → 清单 404
+>   → 窗口显示 "Question bank unavailable / Could not read installed content (404)"
+>   （2026-08-26 已把 `electron:dev` 脚本改为 `electron .`，见 package.json）
+
+### 2.2 带 mock license server 的联调启动（序列号激活测试）
+
+> 前提：先起 mock server（内存态，模拟真实 Web license 服务）。
+
+```bash
+# 一键方式（推荐）：起 mock(3002) + 隔离 userData + electron
+.\scripts\dev-license.ps1
+
+# 手动方式：
+$env:PORT = "3002"
+node scripts/mock-license-server.js          # 终端 1，常驻
+# 终端 2：
+$env:ELECTRON = "true"
+$env:NODE_ENV = "production"
+$env:TOEFL_PERF_USER_DATA = "C:\Users\lj115\AppData\Local\Temp\opencode\toefl-preview-userdata"
+$env:TOEFL_API_BASE_URL = "http://localhost:3002"
+npm run electron:dev
+```
+
+- **端口用 3002**，不用 3001（3001 常被 toefl-web 开发服务器占用，会造成 mock 启动失败）。
+- mock server 内置测试序列号：`TEST-0000-0000-0001` / `TEST-0000-0000-0004`。
+- 应用内点被锁定的官方真题 → 输入序列号 → 解锁。
+- 检测完恢复未激活：设置页 →「解绑本机」。
+
+### 2.3 更新真题后拉起测试窗口 — 常见问题排查
+
+> 每次在别的窗口更新真题后，拉起测试窗口最容易踩的坑（均有实际发生记录）。
+
+| 症状 | 根因 | 解决 |
+| --- | --- | --- |
+| build 报 `Unsupported reading task type in title: "..."` | 工作区有**另一窗口未提交的新真题**含 parser 不支持的题型（如 `Read a Sign`），`content-core/parsers/reading.js` 的 `TYPES` 未加 | 临时把 `assets/questions/` 下未提交的 `2026-xx-xx` 目录移到备份（build 后放回），或先给 `TYPES` 加该题型 |
+| 窗口白屏 / JS/CSS 全 404 | 没用 `ELECTRON=true` 构建（`dist/index.html` 里是绝对路径） | 必须 `ELECTRON=true` + `npm run build` |
+| "Question bank unavailable — Could not read installed content (404)" | 用 `electron electron/main.js` 启动，`app.getAppPath()` 指向 `electron/` 目录 | **必须 `electron .`**（见 §2.1） |
+| 读到旧题库、新真题不显示 | 没设隔离 userData，读到已安装内容包 | 设 `TOEFL_PERF_USER_DATA` 隔离目录（见 §2.1） |
+| 激活报 `Cannot POST /v1/licenses/devices/...` | **端口被占用**（常被 toefl-web / 其他服务），Electron 连到错误服务 | 先查端口：`Get-NetTCPConnection -LocalPort <port> -State Listen`；被占则换端口（如 `PORT=3010`）+ `TOEFL_API_BASE_URL` 对应 |
+| 激活报「序列号无效或已作废」 | 用了 mock 码去打真实服务端，或连错地址 | 确认 `TOEFL_API_BASE_URL` 指向 mock（3002/3010），用 `TEST-0000-0000-0001` |
+| 激活报「该序列号已达到 2 台设备上限」 | 旧 mock 进程残留、已绑满 2 台 | 杀干净端口监听者，重启 mock（`node scripts/mock-license-server.js`） |
+
+**一键拉起（推荐）**：`.\scripts\dev-license.ps1`（自动：起 mock → 重置隔离 userData → ELECTRON=true build → `electron .`）。
+
+**排查端口是否被占**：
+```powershell
+Get-NetTCPConnection -LocalPort 3002 -State Listen
+Get-CimInstance Win32_Process -Filter "ProcessId=<上面拿到的 pid>" | Select-Object CommandLine
+```
+
+### 2.4 Electron 版本
 
 - 必须用 **Electron 43.x**（`package.json` 声明 `^43.1.0`）
 - `node_modules/electron/dist` 里必须是 43（内置 Node 24，支持 `node:sqlite`）
@@ -158,6 +210,12 @@ npm run content:publish
 - 生成 content pack → GitHub release（`content-<hash>` tag）→ 更新 `content` 分支 manifest
 - `gh` 需登录（`anton-bis`，scope 含 `repo`）
 
+> ⚠️ **发布后必须验证 manifest URL 可下载**（`curl -sI <pack.url>` 应返回 200）。
+> 教训（2026-08-26）：pack id 曾含空格/括号（同一天多场次 `(2)`），GitHub 把上传资产名
+> `tpo-2026-02-01 (2)-<hash>.zip` 自动改成 `tpo-2026-02-01.2.-<hash>.zip`，manifest 里 URL 仍是旧名
+> → App 下载报 HTTP 404。`src/content/packs.js` 已通过 `sanitizePackId` 将 pack id 限定为
+> `[a-z0-9-]`（`tpo-2026-02-01-2`），发布管线自动规避。详见 `docs/content-publishing.md`。
+
 ### 5.1 改回真实路线（测自动更新）
 
 预览用隔离 userData 后，要测**真实用户自动拉取**：
@@ -204,6 +262,76 @@ gh release delete vX.Y.Z --repo anton-bis/toefl-app --yes
 git push origin --delete refs/tags/vX.Y.Z
 git tag -d vX.Y.Z   # 仅本地有时
 ```
+
+---
+
+## 5.6 内容投递通道与分支对齐（防坑）
+
+> **⚠️ 核心教训（2026-08-31，2026-02-02 "失踪"事件）：** "提交到 git 分支" ≠ "发布内容"。
+> App 题库只认 `content` 分支的 `manifest.json`，与 git 的 develop / release 分支无关；
+> content 清单是每次 `content:publish` **全量重建覆盖的快照**，只反映跑 publish 那个工作区的内容，不是各分支的并集。
+
+### 5.6.1 认清两条投递通道（同一仓库，不同分支 + 两种通道）
+
+| 通道 | 流程 | 消费端 |
+| --- | --- | --- |
+| App 更新 | develop / release → tag（v1.7.x）→ GitHub release 安装包 | electron-updater → App 二进制 |
+| 内容更新 | `content:publish` → 编译当前工作区 markdown 成内容包 → 推 `manifest.json` 到 `content` 分支 | App 的 content-updater 拉清单 → 下载题库 |
+
+> **让某套题上线 = 在该套题所属的那个分支上跑一次 `content:publish`。**
+> 反例（2026-02-02）：题目只提交在 `develop`（commit 9c2bf3a，两套四科），但最后一次 publish 是在不含该 commit 的发布线上跑的（那条线只有 02-04+），`02-02` 便从清单里"消失"——表现为"这次整理丢了"。
+
+### 5.6.2 判断"丢了"还是"在别的分支"（仓库根目录，只读）
+
+```bash
+# 历史上是否存在过（区分"丢失"与"在别的分支"）
+git log --all --name-only | Select-String "<日期>"
+
+# 现在在哪个分支
+git ls-tree -r --name-only <分支> | Select-String "<日期>"
+
+# 确认某 commit 是否属于当前分支（0=包含，1=不包含）
+git merge-base --is-ancestor <commit> HEAD; echo $LASTEXITCODE
+
+# 对比同一日期两场次是否一致（用 blob 哈希，最可靠）
+git rev-parse "<分支>:<路径>"
+```
+
+**正确做法（不要重复整理，避免重复劳动与偏差）：**
+从有内容的正确分支恢复文件进工作区，然后新建一次提交（题库 `.md` 是 git 跟踪的源文件，`content:publish` 强制要求先提交）：
+
+```bash
+git restore --source=<正确分支> --staged --worktree <路径>
+# 恢复文件 → 更新 tests/content/content.test.js 的计数 → 重新生成 manifest
+npm run content:manifest
+npm test                 # 全绿
+git add -A && git commit # 提交
+npm run content:publish
+```
+
+### 5.6.3 多场次文件夹（`(N)`）与分支对齐要点
+
+- **两场共享科目**：阅读 / 听力 / 口语同内容，**写作分套一 / 套二**。
+  `2026-02-02` 与 `2026-02-02 (2)` 两个文件夹各放对应 md，content 按文件夹分组各自成包。
+- **发布代码基线必须含 `sanitizePackId`**（`src/content/packs.js` 已实现）：pack id 自动变 `tpo-2026-02-02-2`（无空格无括号），否则 GitHub 资产名会 404（见 §5 教训）。
+- **谁整理、谁发布要对齐分支**：题目 commit 到哪个分支，后续就在那个分支跑 `content:publish`；换分支跑会"漏"，甚至把已发布的内容从清单里剔除。
+
+### 5.6.4 发布前预检 / 发布后验证
+
+- 发布前：`npm run content:manifest` + pack 发现（`scripts/content-packages.js`），提前暴露"媒体缺失 / 解析失败"，避免发布中途失败。
+- 发布后：`curl -sI <pack.url>` 应返回 200；确认远端 content 清单出现对应 `tpo-YYYY-MM-DD` 包，且包可完整下载。
+
+### 5.6.5 自检判定（Writing 专项）
+
+- **空格数 = 需填入的答案块数**（如 7 空格 → 答案用 7 块）。
+- **Candidates 允许多于答案**：因存在**干扰项**（候选 ⊇ 答案），候选多于答案是正常、非错误；勿把"候选数 > 空格数"误判为问题。
+
+### 5.6.6 发布后 OSS 镜像（自动；告警 ≠ 失败）
+
+- 本地 `npm run content:publish` **不直接上传 OSS**：只有本机装了 `ossutil` 且配置了 OSS 密钥时才会内联镜像。否则它会正常完成 GitHub 通道（content 分支 manifest + GitHub Release），并打印 `OSS ... mirror skipped` 的**非阻断告警**——**这不是发布失败**。
+- 脚本检测到仍有包没有有效 `ossUrl` 时，会**自动派发** `content-oss-mirror` GitHub Actions 工作流（OSS 密钥在仓库 Secrets，无需本机配置）；输出出现 `Dispatched content-oss-mirror workflow` 即已触发。
+- 自动派发失败时手动执行：`gh workflow run content-oss-mirror.yml --ref develop`，并用 `gh run list --workflow content-oss-mirror.yml` 确认 success。
+- 发布前先 `git pull`，确保脚本包含自动派发逻辑。
 
 ---
 

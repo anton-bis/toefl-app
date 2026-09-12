@@ -335,6 +335,14 @@
 - **动作**：`84c6bff`（develop）修 md；新 manifestId **`02e6c2eaf030…`**（`content-02e6c2eaf030`）；`content-oss-mirror` run `34503041599` success；复核 25/25 ossUrl 200 且 size 一致、指针已更新。同时把 develop 全量题库快照同步到 release 线（`917571e`，此前 release 落后于 develop）。
 - **顺带加固**：`publish-content.js` 读取远端 manifest 改为**优先 git**（`git show FETCH_HEAD:manifest.json`），避免 v6 代理/CDN 缓存导致「变更集」基线过期（本次曾出现 17 changed 的虚高即源于此），网络读保留兜底。develop `a5612aa` / release `ae156be`。
 
+### 3.12 2026-09-12 — “OSS 镜像失败”事故澄清 + publish 自动派发 mirror（根治）
+
+- **现象**：整理窗口跑 `content:publish`，看到 `OSS archive mirror failed … GitHub publish unaffected`，误判为发布失败；其发布（`15428…`，29 包）只有 GitHub 通道成功，13 个包无有效 `ossUrl`，OSS 指针停在旧的 `1f8be…`（25 包）。中途还有一次 `15428` 发布后未触发 mirror。
+- **真因（关键）**：本地 publish 只在**本机装有并配置 `ossutil` + OSS 密钥**时才内联镜像；本机与整理窗口都没有 → 该步必被跳过（非阻断设计）。真正做 OSS 上传的是 CI 工作流 `content-oss-mirror`（用 repo Secrets），它需要**单独触发**。我此前每次都是发布后手动派发它，所以“能镜像”；并非本机能力差异。
+- **根治**：`publish-content.js` 在发布后若仍有包缺有效 `ossUrl`，**自动执行** `gh workflow run content-oss-mirror.yml --ref ${TOEFL_CONTENT_MIRROR_REF||develop}`（gh 失败仅告警、不阻断）；warning 文案改为明确“GitHub 发布成功 + 已派发/手动命令”。develop `scripts/publish-content.js`。
+- **文档**：`content-publishing.md` 与 `question-submission-workflow.md §5.6.6` 写明：本地 publish 不直传 OSS；该告警≠失败；镜像由 workflow 完成（现已自动派发）；发布前先 `git pull`。
+- **中间版处理**：`15428`（29 包）**不单独镜像**，由本轮最终完整快照覆盖。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
