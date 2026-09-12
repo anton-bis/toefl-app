@@ -1,158 +1,166 @@
-# reading-TPO-09
+# reading-TPO-05
 
 ## Module 1: Reading
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Early films were quite different from what we are used to today—they were silent and black-and-white. Technological develop\_\_ introduced so\_\_, color, a\_\_ special eff\_\_. Filmmaking requ\_\_ the collab\_\_ of ma\_\_ different peo\_\_: actors, dire\_\_, writers. Films ha\_\_ the power to entertain, educate, and inspire audiences, shaping popular culture and influencing social trends. The film industry has grown from its early beginnings to become a major cultural and economic force worldwide.
+Conservation is the effort to protect plants and animals that are endangered because of human activities. Conservationists sa\_\_ endangered spe\_\_\_\_ by crea\_\_\_\_ areas wh\_\_\_ they c\_\_ live saf\_\_\_. Conservationists al\_\_ educate t\_\_\_ public ab\_\_\_ the impor\_\_\_\_\_ of preserving the natural world. Conservation is based on research about wildlife and ecosystems that aims to understand their needs and the threats they face. By taking care of the environment, conservationists help ensure a healthy planet for future generations.
 
 [ANSWER]
-development:development
-sound:sound
-and:and
-effects:effects
-requires:requires
-collaboration:collaboration
-many:many
-people:people
-directors:directors
-have:have
+save:save
+species:species
+creating:creating
+where:where
+can:can
+safely:safely
+also:also
+the:the
+about:about
+importance:importance
 [/ANSWER]
 
 ---
 
-### Task 2 Read in Daily Life – Notice (Questions 11–12)
+### Task 2 Read in Daily Life – Email (Questions 11–12)
 
-Title: Language Exchange Event
-Subtitle: Free community event
+To: mr.brown@dmail.com
+From: maintenance@dmail.com
+Date: 03/01/2026
+Subject: Maintenance Notice
 
-The Community Center will host a free language exchange event on Saturday at 3:00 PM. Learn a new language, meet people from different cultural backgrounds, and swap languages in a fun, flexible, and relaxed way. We will pair you with a fluent speaker of a language of your choice.
+Dear Mr. Brown,
 
-11. What is the notice about?
-A. A foreign language book drive
-B. A community organization meeting
-C. A language exchange event
-D. A student exchange program
+Our maintenance team is scheduled to paint your apartment's living room on March 11 starting at 9:00 a.m. We ask that you leave the apartment and not return until one hour after the painters have finished at 12:00 p.m.
+
+Best regards,
+Anna Davis
+
+11. What room in the apartment will be painted?
+A. The kitchen
+B. The dining room
+C. The living room
+D. The bedroom
 
 [ANSWER]
 C
 [/ANSWER]
 
-12. What will participants NOT experience?
-A. Learn new languages
-B. Practice relaxation techniques
-C. Pair up with speakers of different languages
-D. Meet people from different cultures
-
-[ANSWER]
-B
-[/ANSWER]
-
----
-
-### Task 3 Read in Daily Life – Email (Questions 13–15)
-
-To: university-community@dmail.com
-From: it.support@dmail.com
-Date: 05/15/2026
-Subject: Server Maintenance
-
-The next university server maintenance is scheduled on May 22 from 2 AM to 6 AM. This is part of a scheduled maintenance that we conduct with our external provider.
-
-During this window, access to network drives and cloud storage services will be temporarily unavailable. Please save any important documents and plan your work accordingly. You may also experience disruptions accessing your university email accounts. Online library databases will not be affected.
-
-A reminder: Routine maintenance windows take place on a semi-monthly basis. In the event that maintenance needs arise outside of the scheduled maintenance windows, we will do our best to give the university community advanced notice.
-
-If you experience issues, contact the IT team. We will send out another notification when maintenance is complete. We appreciate your understanding as we strive to ensure the security and reliability of our IT infrastructure.
-
-13. The email is most likely sent to
-A. IT support team members
-B. university students, faculty, and staff
-C. the external provider of the university server
-D. people who have encountered issues with the university server
-
-[ANSWER]
-B
-[/ANSWER]
-
-14. From 2 AM to 6 AM on May 22, what activity can be done without interruption?
-A. Logging onto university network drives
-B. Saving documents onto the university cloud storage service
-C. Sending and receiving emails using university email accounts
-D. Searching for an article in the university library
+12. When can Mr. Brown return to the apartment?
+A. At 9:00 AM
+B. At 11:00 AM
+C. At 12:00 PM
+D. At 1:00 PM
 
 [ANSWER]
 D
 [/ANSWER]
 
-15. What can be inferred about the university's server?
-A. It is currently offline.
-B. It is managed only by the university IT team.
-C. It sometimes requires emergency maintenance.
-D. It is the subject of many complaints from the university community.
+---
+
+### Task 3 Read in Daily Life – Notice (Questions 13–15)
+
+Title: Welcome to the Library Quiet Zone!
+
+This area is specifically designated for quiet reading and study to ensure a peaceful environment for all patrons. Please adhere to the following guidelines:
+
+Noise Levels: Please keep noise to a minimum. This includes refraining from loud conversations and phone calls.
+
+Electronic Devices: Ensure that all electronic devices, such as phones and laptops, are set to silent mode. The volume on headphones must be kept low.
+
+Conversations: If you need to have a conversation, please conduct it quietly or proceed to another area of the library.
+
+Music and Media: Listening to music or watching videos without headphones is not allowed. Please keep the volume of headphones at a level that only you can hear.
+
+Respect for Others: Be mindful of those around you who are studying or reading. Your cooperation helps maintain a serene environment for everyone.
+
+13. What can be concluded about the library?
+A. It has areas that are not specifically designated as quiet zones.
+B. It has received numerous complaints about noise levels.
+C. It is located on the campus of a university.
+D. It holds a large collection of film and music recordings.
+
+[ANSWER]
+A
+[/ANSWER]
+
+14. The phrase "adhere to" in the opening paragraph is closest in meaning to
+A. notice
+B. read
+C. follow
+D. admire
 
 [ANSWER]
 C
+[/ANSWER]
+
+15. What is indicated about headphones?
+A. They are not permitted in the library's quiet zone.
+B. They are only allowed for use with smartphones and laptop computers.
+C. They may not be shared between two users.
+D. They should be kept at a low volume.
+
+[ANSWER]
+D
 [/ANSWER]
 
 ---
 
-### Task 4 Read an Academic Passage – Aqueducts (Questions 16–20)
+### Task 4 Read an Academic Passage – Jet Stream Dynamics (Questions 16–20)
 
-Aqueducts were designed to transport water from distant sources into cities and agricultural areas, and they were crucial engineering feats in ancient civilizations. This engineering marvel allowed civilizations to thrive in otherwise inhospitable environments.
+The jet stream is a fast-moving ribbon of air high in the atmosphere that affects global weather. Flowing west to east at speeds of up to 200 miles per hour, it forms due to the temperature contrast between cold polar air and warm tropical air, which creates pressure differences that generate strong winds. In the northern hemisphere, when the jet stream dips southward, it brings cold air and storms to lower latitudes.
 
-The Romans, in particular, mastered the construction of aqueducts, building extensive networks that supplied water to urban centers. These structures used a combination of gravity and meticulously calculated gradients to ensure a steady flow of water. Some Roman aqueducts, like the Pont du Gard in France, are still standing today, showcasing the Romans' remarkable engineering skills. In addition to providing water for drinking and irrigation, aqueducts were integral to public health and sanitation. They supplied water to public baths, helping to maintain hygiene in densely populated urban areas. The availability of fresh water also supported the growth of cities and the expansion of the Roman Empire.
+The jet stream also influences cyclones and anticyclones, affecting precipitation and wind patterns. The jet stream's dynamics are influenced by factors like the Earth's rotation and uneven heating of its surface. Seasonal changes play a role; it's stronger in winter due to the greater temperature contrast between the poles and the equator. Understanding the jet stream's behavior helps meteorologists predict weather and plan for climate events.
 
-Building aqueducts was a complex and labor-intensive process. Workers had to carve channels through mountains and construct bridges over valleys. Despite these challenges, the benefits of aqueducts far outweighed the difficulties. The legacy of Roman aqueducts continues to influence modern water management systems, highlighting the importance of sustainable engineering practices.
+Recent research shows that climate change is impacting the jet stream. The warming Arctic reduces the temperature difference between polar and tropical air masses, which may weaken the jet stream. A weaker jet stream can lead to slower-moving weather systems, resulting in prolonged periods of extreme weather, such as heatwaves or heavy rainfall.
 
-16. The word "meticulously" in the passage is closest in meaning to
-A. inaccurately
-B. precisely
-C. vaguely
-D. carelessly
-
-[ANSWER]
-B
-[/ANSWER]
-
-17. What can be inferred about the workers who built the aqueducts?
-A. They were not very skilled.
-B. They faced significant physical challenges.
-C. They primarily worked on bridges.
-D. They were not aware of the aqueducts' importance.
-
-[ANSWER]
-B
-[/ANSWER]
-
-18. Why does the author mention the Pont du Gard in France?
-A. To illustrate how aqueducts were constructed
-B. To give an example of a well-preserved aqueduct
-C. To explain the importance of aqueducts in France
-D. To describe the engineering techniques used by the Romans
-
-[ANSWER]
-B
-[/ANSWER]
-
-19. What role did aqueducts play in the expansion of the Roman Empire?
-A. They facilitated the transportation of goods.
-B. They provided water for drinking and sanitation.
-C. They helped in building bridges over valleys.
-D. They enabled the construction of public baths.
-
-[ANSWER]
-B
-[/ANSWER]
-
-20. What can be inferred about modern water management systems?
-A. They no longer use principles from Roman engineering.
-B. They are less efficient than Roman aqueducts.
-C. They are influenced by Roman engineering practices.
-D. They are not as labor-intensive as Roman aqueducts.
+16. What causes the formation of the jet stream?
+A. The behavior of cyclones
+B. The uneven heating of the Earth's surface
+C. The difference in temperature between air masses
+D. The temperature changes that occur seasonally
 
 [ANSWER]
 C
+[/ANSWER]
+
+17. How does the jet stream affect weather systems in the northern hemisphere when it dips southward?
+A. It brings warmer air to lower latitudes.
+B. It leads to more stable conditions.
+C. It brings storms to places further south.
+D. It brings cyclones to higher latitudes.
+
+[ANSWER]
+C
+[/ANSWER]
+
+18. What is one of the main factors influencing the jet stream's behavior?
+A. The Earth's rotation
+B. The presence of cyclones
+C. The amount of precipitation
+D. The direction of wind patterns
+
+[ANSWER]
+A
+[/ANSWER]
+
+19. What does the author suggest about the impact of climate change on the jet stream?
+A. It will have no significant effect on the jet stream.
+B. It is reducing the temperature difference between polar and tropical air masses.
+C. It is causing the jet stream to move faster.
+D. It is increasing the temperature contrast between the poles and the equator.
+
+[ANSWER]
+B
+[/ANSWER]
+
+20. The word "prolonged" in the passage is closest in meaning to
+A. extended
+B. seasonal
+C. rapid
+D. short-term
+
+[ANSWER]
+A
 [/ANSWER]
 
 ---
@@ -161,171 +169,159 @@ C
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Water is essential for life as we know it, so finding water on other planets and moons is a crucial part of the quest to find life beyond Earth. Mars' riverbeds sh\_\_ evidence o\_\_ water i\_\_ ancient ti\_\_. The moons Europa a\_\_ Enceladus ha\_\_ ice-covered surf\_\_ that m\_\_ hide oce\_\_ beneath. Discov\_\_ new extraterrestrial water, whether past or present, liquid or solid, could significantly impact our understanding of life in the universe. Such findings could guide future missions in the search for habitable environments outside of Earth.
+Economics is the study of how societies allocate resources and make decisions about production, distribution, and consumption. It exam\_\_\_\_ the behavior o\_ governments, busin\_\_\_\_\_, and indiv\_\_\_\_\_\_ in t\_\_ marketplace. Stud\_\_\_\_ economics is not just for th\_\_\_ who asp\_\_\_\_ to become economi\_\_\_ or bankers. Gaining a basic understanding of economic concept\_ benefits everyone. It enables us to make informed decisions and understand the broader economic forces that shape our daily lives.
 
 [ANSWER]
-show:show
+examines:examines
 of:of
-in:in
-times:times
-and:and
-have:have
-surfaces:surfaces
-may:may
-oceans:oceans
-discovering:Discovering
+business:business
+individuals:individuals
+the:the
+Studying:Studying
+those:those
+aspire:aspire
+economists:economists
+concepts:concepts
 [/ANSWER]
 
 ---
 
 ### Task 2 Read in Daily Life – Email (Questions 11–12)
 
-Read the email and answer the questions.
+To: ms.patel@dmail.com
+From: lakeside@medical.com
+Date: 05/01/2026
+Subject: Medical appointment
 
-To: mr.clark@dmail.com
-From: reservations@labella-restaurant.com
-Date: 11/10/2026
-Subject: Reservation Confirmation
+Dear Ms. Patel,
 
-Dear Mr. Clark,
+Your appointment at Lakeside Medical Center is scheduled for May 10 at 3:00 P.M. Please arrive 15 minutes early for paperwork. You will be seen by Dr. Liu. Click the link below to confirm. To reschedule or cancel, call us at 756-8793.
 
-Your table reservation for 2 at La Bella Restaurant is confirmed for November 15th at 5 PM. Please arrive 10 minutes early for seating. We have noted your preference for seating close to a window and will accommodate that as availability permits.
+Regards,
+Brittany Jones
 
-Best regards,
-Maria Lopez
-
-11. How early should Mr. Clark arrive for seating?
-A. 5 minutes early
-B. 10 minutes early
-C. 15 minutes early
-D. 20 minutes early
+11. What time should Ms. Patel arrive for her appointment?
+A. 10:00 AM
+B. 2:45 PM
+C. 3:00 PM
+D. 3:15 PM
 
 [ANSWER]
 B
 [/ANSWER]
 
-12. What will the restaurant try to provide?
-A. A private dining room
-B. Seating near a window
-C. Personalized service
-D. A customized menu
-
-[ANSWER]
-B
-[/ANSWER]
-
----
-
-### Task 3 Read in Daily Life – Read a Text Chain (Questions 13–15)
-
-Larissa Velez (10:00 A.M.)
-Hey team, just a reminder that the marketing materials for our client's new-product launch need to be finalized by tomorrow.
-
-Miko Tanaka (10:05 A.M.)
-Got it. I'll finish the brochure design today.
-
-Pedro Alvarez (10:10 A.M.)
-I'm working on the social media posts. They'll be ready by the end of the day. I think we should generate some real excitement for Grenstar's new smart-tracking water bottle.
-
-Sophia Nguyen (10:15 A.M.)
-I'll review the content when Miko and Pedro have finished and make any adjustments.
-
-Larissa Velez (10:20 A.M.)
-Perfect. Make sure to double-check the dates and contact information. We know what happened last time.
-
-Sophia Nguyen (10:21 A.M.)
-Oh, yes, the client was not pleased. I am glad we started this double-checking process. I will be sure to check the dates extra carefully.
-
-Larissa Velez (10:22 A.M.)
-Great, team! Here's to a smoother launch of the water bottle than of the smart sportswear line!
-
-13. At 10:20 A.M., what does Ms. Velez imply when she writes, "We know what happened last time"?
-A. A client was especially pleased with a marketing campaign.
-B. Some errors were made regarding a previous product launch.
-C. A brochure was never sent out.
-D. A marketing team did not complete a project in time.
-
-[ANSWER]
-B
-[/ANSWER]
-
-14. What product is being launched?
-A. A type of water bottle
-B. A line of sportswear
-C. A type of smartphone
-D. A type of software
-
-[ANSWER]
-A
-[/ANSWER]
-
-15. What does Mr. Alvarez indicate?
-A. He will double-check the content of a brochure.
-B. He is the main point of contact for a client.
-C. He helped design a new product.
-D. He will complete some postings by the end of the day.
-
-[ANSWER]
-D
-[/ANSWER]
-
----
-
-### Task 4 Read an Academic Passage – Sleep Patterns (Questions 16–20)
-
-Sleep patterns vary considerably among different animal species. Some animals, like dolphins, have unique sleep methods. Dolphins practice unihemispheric slow-wave sleep, meaning one half of their brain sleeps while the other remains awake. This adaptation allows them to surface for air and stay alert for predators even while resting.
-
-Birds also display interesting sleep behaviors. Many bird species can sleep while flying. (A) During long migratory flights, some birds may engage in unihemispheric sleep, similar to dolphins, enabling them to navigate and avoid threats. (B) Additionally, certain birds can sleep with both hemispheres of their brain but in short bursts, allowing them to maintain continuous flight for extended periods.
-
-(C) Sleep patterns have evolved based on environmental needs. For example, grazing animals like cows and horses sleep minimally, often standing up, which helps them stay vigilant against predators. (D) In contrast, predators such as lions and tigers can afford longer, deeper sleep because they face fewer threats. Understanding these varied sleep patterns provides insight into how animals have adapted to their habitats and survival challenges. The balance between rest and vigilance is crucial for survival, revealing the intricate adaptations across the animal kingdom.
-
-16. The word "considerably" in the first paragraph is closest in meaning to
-A. actively
-B. significantly
-C. predictably
-D. consistently
-
-[ANSWER]
-B
-[/ANSWER]
-
-17. According to the second paragraph, how do some birds sleep during migratory flights?
-A. By flying in short bursts
-B. By practicing unihemispheric sleep
-C. By stopping regularly during flights
-D. By sleeping deeply for long periods
-
-[ANSWER]
-B
-[/ANSWER]
-
-18. Why do grazing animals like cows and horses sleep minimally?
-A. To conserve energy
-B. To maintain continuous flight
-C. To stay alert against predators
-D. To surface for air
+12. How can Ms. Patel cancel her appointment?
+A. By replying to the e-mail
+B. By clicking a link
+C. By calling a phone number
+D. By sending a text message
 
 [ANSWER]
 C
 [/ANSWER]
 
-19. Why does the author mention "predators such as lions and tigers"?
-A. To illustrate how predators can afford longer sleep due to fewer threats
-B. To highlight the sleep patterns of grazing animals
-C. To emphasize the time it takes for certain animals to adapt their sleep patterns
-D. To show that sleep patterns of predators can vary over time
+---
+
+### Task 3 Read in Daily Life – Advertisement (Questions 13–15)
+
+**Riverdale Parks Department seeks dedicated volunteers to assist with weekend nature programs for families.**
+
+• The programs will begin on May 1.
+• Volunteers must be available Saturdays or Sundays, 9 A.M. to 4 P.M., and complete a four-hour training session before starting.
+• Training sessions are scheduled for the week of April 15.
+• Previous experience with children preferred but not required.
+• Responsibilities include leading nature walks, supervising craft activities, and helping with educational demonstrations.
+• Application deadline: March 15.
+
+Background check required for all accepted volunteers.
+Contact Sarah Mitchell at 555-0199 for more information.
+
+13. What is this poster mainly advertising?
+A. Career opportunities at the Riverdale Parks Department
+B. Educational programs for children
+C. Volunteer opportunities for community members
+D. Training courses for nature guides
+
+[ANSWER]
+C
+[/ANSWER]
+
+14. What must volunteers do before they can start working?
+A. Submit references from previous employers
+B. Complete training and pass a background check
+C. Demonstrate experience working with children
+D. Commit to working both Saturday and Sunday
+
+[ANSWER]
+B
+[/ANSWER]
+
+15. When is the latest someone can apply for this program?
+A. March 15th
+B. April 15th
+C. May 1st
+D. May 9th
 
 [ANSWER]
 A
 [/ANSWER]
 
-20. Insert the sentence into the passage.
-Insert this sentence: "But what affects birds' sleep norms?"
-A. Option A
-B. Option B
-C. Option C
-D. Option D
+---
+
+### Task 4 Read an Academic Passage – The Golden Age of Television (Questions 16–20)
+
+The Golden Age of Television is often considered to have occurred during the 1950s and 1960s, when TV became a dominant cultural force. This era was marked by groundbreaking shows that experimented with new formats and storytelling techniques.
+
+During this time period, TV saw the rise of anthology series, which presented different stories and characters in each episode, in contrast to traditional ongoing narratives. One influential anthology series was The Twilight Zone, which blended science fiction, horror, and drama in thought-provoking ways. Sitcoms reflecting everyday life, like I Love Lucy, became a cultural phenomenon. Despite its simple format, the show tackled complex social issues including gender roles and family dynamics. There was also a new focus on live broadcasts, providing viewers with real-time coverage of events and entertainers.
+
+However, the Golden Age was not without challenges. TV networks navigated the balance between artistic innovation and commercial pressures. Advertisers sought to influence content to appeal to mass audiences, which sometimes clashed with creative visions. Nonetheless, the period left an indelible mark on the television industry, setting standards for future programming and contributing to the medium's evolution.
+
+16. The word "dominant" in the passage is closest in meaning to
+A. relevant
+B. favorite
+C. leading
+D. entertaining
 
 [ANSWER]
 C
+[/ANSWER]
+
+17. Why does the author mention The Twilight Zone?
+A. To illustrate the popularity of science fiction during the Golden Age
+B. To highlight the innovative nature of anthology series
+C. To discuss the impact of horror on television
+D. To compare different types of TV formats
+
+[ANSWER]
+B
+[/ANSWER]
+
+18. What does the author suggest about sitcoms like I Love Lucy?
+A. They made TV less popular during the Golden Age
+B. They focused on people's daily lives.
+C. They reduced the influence of advertisers
+D. They were more popular than anthology series
+
+[ANSWER]
+B
+[/ANSWER]
+
+19. What is the relationship between paragraphs 2 and 3?
+A. Paragraph 3 expands on the challenges mentioned in paragraph 2.
+B. Paragraph 3 provides examples of the formats discussed in paragraph 2.
+C. Paragraph 3 introduces a new issue that was not covered in paragraph 2.
+D. Paragraph 3 contradicts the success of TV shows mentioned in paragraph 2.
+
+[ANSWER]
+C
+[/ANSWER]
+
+20. Why does the author mention advertisers in the passage?
+A. To explain a challenge faced by TV networks
+B. To point out how TV shows were funded at the time
+C. To illustrate the role of commercials during live broadcasts
+D. To criticize the quality of programming during the Golden Age
+
+[ANSWER]
+A
 [/ANSWER]
