@@ -326,6 +326,13 @@ npm run content:publish
 - **空格数 = 需填入的答案块数**（如 7 空格 → 答案用 7 块）。
 - **Candidates 允许多于答案**：因存在**干扰项**（候选 ⊇ 答案），候选多于答案是正常、非错误；勿把"候选数 > 空格数"误判为问题。
 
+### 5.6.6 发布后 OSS 镜像（自动；告警 ≠ 失败）
+
+- 本地 `npm run content:publish` **不直接上传 OSS**：只有本机装了 `ossutil` 且配置了 OSS 密钥时才会内联镜像。否则它会正常完成 GitHub 通道（content 分支 manifest + GitHub Release），并打印 `OSS ... mirror skipped` 的**非阻断告警**——**这不是发布失败**。
+- 脚本检测到仍有包没有有效 `ossUrl` 时，会**自动派发** `content-oss-mirror` GitHub Actions 工作流（OSS 密钥在仓库 Secrets，无需本机配置）；输出出现 `Dispatched content-oss-mirror workflow` 即已触发。
+- 自动派发失败时手动执行：`gh workflow run content-oss-mirror.yml --ref develop`，并用 `gh run list --workflow content-oss-mirror.yml` 确认 success。
+- 发布前先 `git pull`，确保脚本包含自动派发逻辑。
+
 ---
 
 ## 6. 回滚预案

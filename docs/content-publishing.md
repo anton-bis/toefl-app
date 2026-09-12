@@ -131,10 +131,18 @@ oss://justtofu-downloads/releases/content/manifest.json               (latest po
 - OSS mirror failure never blocks the GitHub publish (content remains reachable via GitHub); any
   archives whose upload failed are simply left without an `ossUrl` in that manifest. Rerunning
   `npm run content:publish` heals the mirror as described above.
-- When a publish cannot reach OSS (for example no local ossutil credentials), run the dispatchable
-  `content-oss-mirror` GitHub Actions workflow after the publish: it mirrors every pack that still
-  lacks an `ossUrl` (downloading the archives from GitHub, verifying size + SHA-256) and updates the
-  directory + pointer manifests. It is idempotent and safe to re-run at any time.
+- The local publisher **only** uploads to OSS when `ossutil` and OSS credentials are configured on
+  the machine that runs it. Otherwise the GitHub publish still succeeds and the publisher
+  automatically dispatches the dispatchable `content-oss-mirror` GitHub Actions workflow (which uses
+  the repository's OSS secrets) to mirror every pack that still lacks an `ossUrl`: it downloads the
+  archives from GitHub, verifies size + SHA-256, uploads them, and updates the directory + pointer
+  manifests. It is idempotent and safe to re-run at any time.
+- **A local `OSS ... mirror skipped` line is a notice, not a failed publish.** Watch for
+  `Dispatched content-oss-mirror workflow` in the output. If automatic dispatch is unavailable, run
+  it manually: `gh workflow run content-oss-mirror.yml --ref develop`, then confirm success with
+  `gh run list --workflow content-oss-mirror.yml`.
+- Always `git pull` before publishing so the checkout has the current publisher (the automatic
+  dispatch lives in the script).
 
 ### Manifest shape
 
