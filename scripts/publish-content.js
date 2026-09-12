@@ -118,7 +118,7 @@ function mirrorRef() {
 function dispatchOssMirror() {
   const result = spawnSync(
     'gh',
-    ['workflow', 'run', 'content-oss-mirror.yml', '--ref', mirrorRef()],
+    ['workflow', 'run', 'content-oss-mirror.yml', '--repo', repository, '--ref', mirrorRef()],
     {
       cwd: rootDir,
       encoding: 'utf8'
@@ -394,7 +394,7 @@ export async function publishContent() {
       if (dispatchError) {
         console.warn(
           `Automatic OSS mirror dispatch failed: ${dispatchError}.\n` +
-            `Run manually: gh workflow run content-oss-mirror.yml --ref ${mirrorRef()}`
+            `Run manually: gh workflow run content-oss-mirror.yml --repo ${repository} --ref ${mirrorRef()}`
         );
       }
     }
