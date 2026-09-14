@@ -34,11 +34,6 @@ jobs:
           test "$(git cat-file -t "$GITHUB_REF_NAME")" = "tag"
           npm run release:notes -- "$GITHUB_REF_NAME" /tmp/release-notes.md
 
-      - name: Set automatic develop version
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
-
       - name: Install dependencies
         run: npm ci
         env:
@@ -48,6 +43,7 @@ jobs:
         run: npm run lint -- --quiet && npm test
 
   package-windows:
+    if: startsWith(github.ref, 'refs/tags/')
     needs: verify
     runs-on: windows-latest
     steps:
@@ -59,11 +55,6 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
-
-      - name: Set automatic develop version
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Install dependencies
         run: npm ci
@@ -87,6 +78,7 @@ jobs:
           if-no-files-found: error
 
   package-linux:
+    if: startsWith(github.ref, 'refs/tags/')
     needs: verify
     runs-on: ubuntu-latest
     steps:
@@ -98,11 +90,6 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
-
-      - name: Set automatic develop version
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Install dependencies
         run: npm ci
@@ -125,6 +112,7 @@ jobs:
           if-no-files-found: error
 
   package-macos:
+    if: startsWith(github.ref, 'refs/tags/')
     needs: verify
     runs-on: macos-latest
     steps:
@@ -136,11 +124,6 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
-
-      - name: Set automatic develop version
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Install dependencies
         run: npm ci
@@ -205,6 +188,7 @@ jobs:
           if-no-files-found: error
 
   publish:
+    if: startsWith(github.ref, 'refs/tags/')
     needs: [package-windows, package-linux, package-macos]
     runs-on: ubuntu-latest
     permissions:
@@ -218,11 +202,6 @@ jobs:
         with:
           node-version-file: package.json
           cache: npm
-
-      - name: Set automatic develop version
-        if: github.ref == 'refs/heads/develop'
-        shell: bash
-        run: npm version --no-git-tag-version "$(node -p "require('./package.json').version.split('-')[0]")-dev.${GITHUB_RUN_NUMBER}"
 
       - name: Download release files
         uses: actions/download-artifact@v8
@@ -250,13 +229,7 @@ jobs:
           release_title="$GITHUB_REF_NAME"
           release_flags=(--verify-tag)
           release_notes=(--notes-file release-notes.md)
-          if [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
-            version=$(node -p "require('./package.json').version")
-            release_tag="v${version}"
-            release_title="$release_tag"
-            release_flags=(--target "$GITHUB_SHA" --prerelease --fail-on-no-commits)
-            release_notes=(--notes "")
-          elif [[ "$GITHUB_REF_NAME" == *-* ]]; then
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then
             release_flags+=(--prerelease)
           fi
           gh release create "$release_tag" release-files/* \
@@ -265,8 +238,7 @@ jobs:
             "${release_flags[@]}"
 
       # Mirror the just-published release to Aliyun OSS for mainland users.
-      # Runs only for formal tags (skips develop dev prereleases). A GitHub
-      # release created by GITHUB_TOKEN does NOT fire other workflows'
+      # A GitHub release created by GITHUB_TOKEN does NOT fire other workflows'
       # `release: published` events, so this step lives here instead of a
       # separate oss-mirror.yml (which is kept only as a manual re-run tool).
       - name: Mirror release to Aliyun OSS

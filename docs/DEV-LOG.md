@@ -346,6 +346,14 @@
 - **今后流程**：任意窗口 `git pull` → `npm run content:publish` → 脚本未本机镜像时会**自动派发** mirror；看到 `Dispatched content-oss-mirror workflow` 即成功。该告警不再是“发布失败”。
 - **2026-09-12 追加**：补齐 TPO-12/13 Listening+Speaking（`f21b29b`/`f506f80`）→ `content:publish` 变更 3 包（catalog、tpo-12、tpo-13）→ manifest **`5324e329c6dd…`（29 包）**；本次**自动派发成功**（`--repo` 修复生效），`content-oss-mirror` run `34710999509` success；29/29 `ossUrl` 200、指针已更新。
 
+### 3.13 2026-09-13 — 修复「每次 push develop 的 Release run 必失败」（方案二）
+
+- **现象**：每次发布内容（伴随 `git push origin develop`）都会收到 GitHub “Run failed” 邮件；打开 Release run：`verify`/三平台打包均 success，唯 `publish` 在 `Create GitHub Release` 失败，报 `no new commits since the last release`。
+- **根因**：`release.yml` 对 develop push 会尝试产出 `-dev.N` 预发布，用了 `gh release create … --fail-on-no-commits`。该判断拿“**仓库最近一个 release**”比较，而频繁的内容发布会生成 `content-<hash>` 预发布（content 分支，`commit-tree` 独立历史）→ 每次都被判定“无新提交”而失败。dev 预发布 tag 早停在 `v1.7.1-dev.27`，此后长期未成功。
+- **修复（方案二）**：`release.yml` 给 `package-windows/linux/macos` 与 `publish` 加 `if: startsWith(github.ref, 'refs/tags/')`；`verify` 保持无条件。删除各 job 的 `Set automatic develop version` 死代码，`Create GitHub Release` 仅保留 tag 路径。这样 **develop push 只跑 verify；三平台打包与发布只在 `v*` tag 时执行**。
+- **同步**：`release.yml` 三线 develop/release/v1.7.5/master；`app-release-workflow.md` §1.1 写明该 CI 行为；本节。
+- **影响**：不再有 develop 失败邮件，也不再为内容/文档提交白跑三平台打包；不再产出 `-dev.N` 预发布（如需可后续加 `workflow_dispatch` 手动入口；当前无此需求）。历史失败邮件无法追回。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查

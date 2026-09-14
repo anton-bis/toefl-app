@@ -19,6 +19,13 @@
 
 **教训**：改了前端代码（如 HomeView 归类、图片渲染）只发内容包，安装版不会变——必须**发布新版安装包**。
 
+### 1.1 CI 行为（`.github/workflows/release.yml`）
+
+- **push `develop`**：只跑 `verify`（lint + 全量测试）。**不打包、不发版、不创建 Release**。
+- **push `v*` 标签**：跑完整流程 `verify → package-windows / package-linux / package-macos → publish`（建 GitHub Release + 自动 OSS 镜像）。发版靠 tag，见 §3。
+
+> 背景（2026-09-13 修复）：旧版对 develop push 会额外尝试产出 `-dev.N` 预发布，且用 `gh release create --fail-on-no-commits` 判断“有无新提交”。该判断比较的是仓库**最近一个 release**，而频繁的内容发布会产生 `content-<hash>` 预发布（content 分支、历史独立）→ 每次都误报 `no new commits since the last release`，导致 develop push 的 Release run **publish 失败**、并白白跑完三平台打包。现改为 job 级 `if: startsWith(github.ref,'refs/tags/')` 门禁：develop push 只 verify。
+
 ---
 
 ## 2. 发布前准备
