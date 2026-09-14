@@ -59,19 +59,19 @@ test('macOS releases support manual unsigned installation without partial creden
   assert.doesNotMatch(workflow, /--generate-notes/);
 });
 
-test('develop pushes create isolated automatic prereleases', () => {
+test('develop pushes only verify while packaging and publishing run on v* tags', () => {
   const workflow = fs.readFileSync(
     new URL('../../.github/workflows/release.yml', import.meta.url),
     'utf8'
   );
   assert.match(workflow, /branches: \[develop\]/);
+  assert.match(workflow, /tags: \['v\*'\]/);
   assert.match(workflow, /cancel-in-progress:.*refs\/heads\/develop/);
-  assert.match(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
-  assert.match(workflow, /release_tag="v\$\{version\}"/);
-  assert.match(workflow, /release_flags=\(--target "\$GITHUB_SHA" --prerelease --fail-on-no-commits\)/);
-  assert.match(workflow, /release_title="\$release_tag"/);
-  assert.match(workflow, /release_notes=\(--notes ""\)/);
-  assert.doesNotMatch(workflow, /Prepare develop prerelease notes/);
+  assert.match(workflow, /verify:\s+runs-on: ubuntu-latest/);
+  const tagGuards = workflow.match(/if: startsWith\(github\.ref, 'refs\/tags\/'\)/g) || [];
+  assert.ok(tagGuards.length >= 4, 'packaging and publish jobs must be tag-gated');
+  assert.doesNotMatch(workflow, /-dev\.\$\{GITHUB_RUN_NUMBER\}/);
+  assert.doesNotMatch(workflow, /fail-on-no-commits/);
   assert.match(workflow, /release_flags=\(--verify-tag\)/);
 });
 
