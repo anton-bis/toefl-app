@@ -84,6 +84,14 @@ export function reportSections(test, completedSession) {
 
 export function questionDisplay({ section, page, task, moduleQuestions, questions }) {
   const pageQuestionId = page?.questionIds?.[0];
+  if (section === 'writing' && task?.type !== 'build-sentence') {
+    const response = (questions || []).filter(question => question.type !== 'build-sentence');
+    const index = response.findIndex(item => item.id === pageQuestionId);
+    const number = index < 0 ? 0 : index + 1;
+    const total = response.length;
+    const label = page?.type === 'question' && number ? `Question ${number} of ${total}` : '';
+    return { number, total, label };
+  }
   const collection = ['reading', 'listening'].includes(section) ? moduleQuestions : questions;
   const index = collection.findIndex(item => item.id === pageQuestionId);
   const number = index < 0 ? 0 : index + 1;
@@ -95,7 +103,7 @@ export function questionDisplay({ section, page, task, moduleQuestions, question
 function questionTotal(section, task, moduleQuestions, questions) {
   if (['reading', 'listening'].includes(section)) return moduleQuestions.length;
   if (section !== 'writing') return questions.length;
-  return task?.type === 'build-sentence' ? task.questions.length : 2;
+  return task?.questions?.length ?? questions.length;
 }
 
 function questionLabel(section, page, task, moduleQuestions, number, total) {
@@ -108,9 +116,6 @@ function questionLabel(section, page, task, moduleQuestions, number, total) {
       ? `Question ${Math.min(...indexes)}–${Math.max(...indexes)} of ${moduleQuestions.length}`
       : '';
     return label;
-  }
-  if (section === 'writing' && task?.type !== 'build-sentence') {
-    return `Question ${task?.type === 'write-email' ? 1 : 2} of 2`;
   }
   return number ? `Question ${number} of ${total}` : '';
 }

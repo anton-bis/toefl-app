@@ -280,6 +280,19 @@ function enterPage(currentPage, previousSessionPage) {
       scopeId: currentPage.id
     });
   }
+  if (
+    normalizedSection.value === 'writing' &&
+    currentPage.type === 'question' &&
+    ['write-email', 'academic-discussion'].includes(task.value?.type) &&
+    session.value.timer.scopeId !== currentPage.id
+  ) {
+    exam.start({
+      durationSeconds: durationFor(currentPage),
+      pageId: currentPage.id,
+      scopeType: 'question',
+      scopeId: currentPage.id
+    });
+  }
 }
 
 function begin() {
@@ -357,6 +370,10 @@ function handleExpired() {
 
 function finishExpired() {
   expiredOpen.value = false;
+  if (normalizedSection.value === 'writing' && task.value?.type !== 'build-sentence') {
+    navigate('next');
+    return;
+  }
   if (normalizedSection.value === 'writing') {
     const nextIntro = document.value.pages.find(
       item => item.index > page.value.index && item.type === 'intro'

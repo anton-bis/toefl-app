@@ -45,48 +45,48 @@ function buildSentenceQuestions(body) {
   return result;
 }
 
-function metadataQuestion(body, kind) {
-  const questionMatch = body?.match(
-    new RegExp(
-      `^### ${kind.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}\\s*[–-]\\s*(\\d+)\\s*\\n([\\s\\S]*?)(?=^### |(?![\\s\\S]))`,
-      'm'
-    )
+function metadataQuestions(body, kind) {
+  const result = [];
+  const pattern = new RegExp(
+    `^### ${kind.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}\\s*[–-]\\s*(\\d+)\\s*\\n([\\s\\S]*?)(?=^### |(?![\\s\\S]))`,
+    'gm'
   );
-  if (!questionMatch) return [];
-  const lines = linesOf(questionMatch[2]);
-  const data = {};
-  const requirements = [];
-  const students = [];
-  const studentImages = [];
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (!line || line === 'Requirements:') continue;
-    if (line.startsWith('- ')) {
-      requirements.push(line.slice(2).trim());
-      continue;
+  for (const questionMatch of (body || '').matchAll(pattern)) {
+    const lines = linesOf(questionMatch[2]);
+    const data = {};
+    const requirements = [];
+    const students = [];
+    const studentImages = [];
+    for (const raw of lines) {
+      const line = raw.trim();
+      if (!line || line === 'Requirements:') continue;
+      if (line.startsWith('- ')) {
+        requirements.push(line.slice(2).trim());
+        continue;
+      }
+      const match = line.match(/^([A-Za-z_ ]+):\s*(.*)$/);
+      if (!match) continue;
+      const key = match[1].toLowerCase();
+      if (key === 'student_a_image' || key === 'student_b_image') {
+        studentImages.push(match[2].trim());
+        continue;
+      }
+      if (key === 'professor_image') {
+        data.professorImage = match[2].trim();
+        continue;
+      }
+      if (
+        ['identity', 'to', 'subject', 'instructor', 'professor', 'hint', 'subtitle'].includes(key)
+      ) {
+        data[key] = match[2];
+      } else students.push({ name: match[1], text: match[2] });
     }
-    const match = line.match(/^([A-Za-z_ ]+):\s*(.*)$/);
-    if (!match) continue;
-    const key = match[1].toLowerCase();
-    if (key === 'student_a_image' || key === 'student_b_image') {
-      studentImages.push(match[2].trim());
-      continue;
-    }
-    if (key === 'professor_image') {
-      data.professorImage = match[2].trim();
-      continue;
-    }
-    if (['identity', 'to', 'subject', 'instructor', 'professor', 'hint'].includes(key)) {
-      data[key] = match[2];
-    } else students.push({ name: match[1], text: match[2] });
-  }
-  students.forEach((student, index) => {
-    if (studentImages[index]) student.image = studentImages[index];
-  });
-  const number = Number(questionMatch[1]);
-  const type = kind === 'Write an Email' ? 'write-email' : 'academic-discussion';
-  return [
-    {
+    students.forEach((student, index) => {
+      if (studentImages[index]) student.image = studentImages[index];
+    });
+    const number = Number(questionMatch[1]);
+    const type = kind === 'Write an Email' ? 'write-email' : 'academic-discussion';
+    result.push({
       id: `writing-${type}-q${number}`,
       number,
       type,
@@ -96,8 +96,9 @@ function metadataQuestion(body, kind) {
       requirements,
       answer: null,
       options: []
-    }
-  ];
+    });
+  }
+  return result;
 }
 
 export function parseWriting(markdown, options = {}) {
@@ -116,18 +117,18 @@ export function parseWriting(markdown, options = {}) {
       number: 2,
       title: 'Write an Email',
       type: 'write-email',
-      questions: metadataQuestion(bodies.get('Write an Email'), 'Write an Email')
+      questions: metadataQuestions(bodies.get('Write an Email'), 'Write an Email')
     },
     {
       id: 'academic-discussion',
       number: 3,
       title: 'Write for an Academic Discussion',
       type: 'academic-discussion',
-      questions: metadataQuestion(
+      questions: metadataQuestions(
         bodies.get('Write for an Academic Discussion'),
         'Write for an Academic Discussion'
       )
     }
-  ];
+  ].filter(task => task.questions.length > 0);
   return createExamDocument(meta, [{ id: 'module-1', number: 1, title: 'Writing', tasks }]);
 }
