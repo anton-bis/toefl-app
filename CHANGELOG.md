@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.10.0] - 2026-09-16
+
+### Added
+
+- Reading: new "Read an Article" daily-life subtype with its instruction and question help, used by
+  the 2026-08 real exams. Numbered prompts that carry an answer block (click-the-sentence tasks) are
+  now detected as questions.
+- Speaking: a single exam file may now contain several "Listen and Repeat" and "Take an Interview"
+  sections; each becomes its own task.
+- Listening: lectures are recognized as academic talks, and task `subtitle:` lines are parsed as
+  metadata (not rendered).
+- Skills: the typing and vocabulary workspaces remember the page, scroll position and (for
+  vocabulary) the selected subject, and the home page keeps its selected practice/official pages.
+
+### Changed
+
+- Writing: an exam may now contain several Write an Email and Academic Discussion questions. Each
+  response question gets its own timer (Email 420s / Discussion 600s) and expires into the next
+  question; response numbering is global across the exam (`Question N of total`) while Build a
+  Sentence keeps its task-level timer and N-of-10 numbering. Old-format exams keep their previous
+  labels and timing.
+- Content schema minimum app version raised to 1.10.0 so clients older than this release do not
+  install the incompatible August writing/reading formats.
+
+### Content
+
+- Adds the 2026-08-12 / 2026-08-19 / 2026-08-22 real exams (reading, listening, speaking, writing)
+  and refreshes the 2026-01-27 / 2026-01-28 / 2026-02-10 speaking banks.
+
 ## [1.9.1] - 2026-09-10
 
 ### Added

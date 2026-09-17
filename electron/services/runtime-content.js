@@ -1,5 +1,5 @@
 export const CONTENT_SCHEMA_VERSION = 1;
-export const CONTENT_SCHEMA_MIN_APP_VERSION = '1.5.0';
+export const CONTENT_SCHEMA_MIN_APP_VERSION = '1.10.0';
 
 export const RUNTIME_MEDIA_EXTENSIONS = new Set([
   '.gif',
