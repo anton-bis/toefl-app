@@ -1,11 +1,12 @@
 <script setup>
-import { defineAsyncComponent, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
+import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import SkillPageHeader from '../components/SkillPageHeader.vue';
 import SetList from '../skills/vocabulary/SetList.vue';
 import SubjectSelect from '../skills/vocabulary/SubjectSelect.vue';
 import { stopWordAudio } from '../skills/vocabulary/speech.js';
 import { useVocabularyStore } from '../skills/vocabulary/store.js';
+import { currentWindowScroll, restoreWindowScroll, skillState } from '../platform/skillState.js';
 import '../skills/vocabulary/vocabulary.css';
 
 const store = useVocabularyStore();
@@ -14,8 +15,21 @@ const DailyReminder = defineAsyncComponent(() => import('../skills/vocabulary/Da
 const LearningCard = defineAsyncComponent(() => import('../skills/vocabulary/LearningCard.vue'));
 const NineGrid = defineAsyncComponent(() => import('../skills/vocabulary/NineGrid.vue'));
 const WordDetail = defineAsyncComponent(() => import('../skills/vocabulary/WordDetail.vue'));
-onMounted(() => store.initialize());
-onBeforeUnmount(stopWordAudio);
+onMounted(async () => {
+  await store.initialize();
+  const saved = skillState.vocabulary;
+  if (store.page === 'subject-select' && saved.page === 'set-list' && saved.subject) {
+    await store.selectSubject(saved.subject);
+  }
+  await nextTick();
+  restoreWindowScroll(saved.scrollTop);
+});
+onBeforeUnmount(() => {
+  skillState.vocabulary.page = store.page;
+  skillState.vocabulary.subject = store.subject || '';
+  skillState.vocabulary.scrollTop = currentWindowScroll();
+  stopWordAudio();
+});
 onUnmounted(() => store.releaseWorkset());
 const goHome = () => router.push({ name: 'home' });
 </script>

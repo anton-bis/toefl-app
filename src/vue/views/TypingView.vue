@@ -1,9 +1,10 @@
 <script setup>
-import { defineAsyncComponent, onMounted, onUnmounted } from 'vue';
+import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import SkillPageHeader from '../components/SkillPageHeader.vue';
 import ArticleList from '../skills/typing/ArticleList.vue';
 import { useTypingStore } from '../skills/typing/store.js';
+import { currentWindowScroll, restoreWindowScroll, skillState } from '../platform/skillState.js';
 import '../skills/typing/typing.css';
 
 const store = useTypingStore();
@@ -11,7 +12,17 @@ const router = useRouter();
 const TypingHistory = defineAsyncComponent(() => import('../skills/typing/TypingHistory.vue'));
 const TypingPractice = defineAsyncComponent(() => import('../skills/typing/TypingPractice.vue'));
 const TypingResult = defineAsyncComponent(() => import('../skills/typing/TypingResult.vue'));
-onMounted(() => store.initialize());
+onMounted(async () => {
+  await store.initialize();
+  const saved = skillState.typing;
+  if (store.page === 'list' && saved.page === 'progress') store.page = 'progress';
+  await nextTick();
+  restoreWindowScroll(saved.scrollTop);
+});
+onBeforeUnmount(() => {
+  skillState.typing.page = store.page;
+  skillState.typing.scrollTop = currentWindowScroll();
+});
 onUnmounted(() => store.releaseWorkset());
 const goHome = () => router.push({ name: 'home' });
 </script>

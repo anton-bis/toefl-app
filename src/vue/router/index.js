@@ -33,7 +33,13 @@ const router = createRouter({
     },
     { path: '/:pathMatch(.*)*', redirect: '/' }
   ],
-  scrollBehavior: () => ({ top: 0 })
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) return savedPosition;
+    // Skills workspaces restore their own page + scroll after async content
+    // loads, so the router must not force them to the top.
+    if (to.name === 'typing' || to.name === 'vocabulary') return false;
+    return { top: 0 };
+  }
 });
 
 // Official real exams require an activated license. Practice tests and skills

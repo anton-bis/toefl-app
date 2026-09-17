@@ -25,6 +25,8 @@ const showActivation = ref(false);
 
 function saveHomeState() {
   homeState.panel = panel.value;
+  homeState.practicePage = practicePage.value;
+  homeState.officialPage = officialPage.value;
   const scroller = document.querySelector('.home-page .main-content');
   homeState.scrollTop = scroller?.scrollTop ?? 0;
 }
@@ -62,8 +64,8 @@ function displayId(tpoId) {
 }
 
 const PAGE_SIZE = 10;
-const practicePage = ref(1);
-const officialPage = ref(1);
+const practicePage = ref(homeState.practicePage);
+const officialPage = ref(homeState.officialPage);
 const practicePageCount = computed(() =>
   Math.max(1, Math.ceil(practiceTests.value.length / PAGE_SIZE))
 );
