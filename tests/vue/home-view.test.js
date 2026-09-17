@@ -44,7 +44,11 @@ function session(status, pageId) {
 }
 
 describe('HomeView practice actions', () => {
-  beforeEach(() => installMemoryStorage());
+  beforeEach(() => {
+  installMemoryStorage();
+  homeState.practicePage = 1;
+  homeState.officialPage = 1;
+});
 
   it('shows the TOEFL guide without a release history entry', async () => {
     const { wrapper } = await mountHome();
@@ -117,6 +121,8 @@ describe('HomeView official test id display', () => {
   beforeEach(() => {
     installMemoryStorage();
     homeState.panel = 'real';
+    homeState.practicePage = 1;
+    homeState.officialPage = 1;
   });
 
   async function mountOfficial() {

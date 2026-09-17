@@ -188,6 +188,121 @@ const readingNavigationDocument = {
   ]
 };
 
+const writingDocument = {
+  id: 'tpo-2026-08-12-writing',
+  tpoId: '2026-08-12',
+  section: 'writing',
+  sourcePath: 'assets/questions/writing/2026-08-12/writing-2026-08-12.md',
+  pages: [
+    { id: 'start', type: 'start', section: 'writing', next: 'write-email-intro', questionIds: [] },
+    {
+      id: 'write-email-intro',
+      type: 'intro',
+      moduleId: 'module-1',
+      taskId: 'write-email',
+      previous: 'start',
+      next: 'we1',
+      questionIds: []
+    },
+    {
+      id: 'we1',
+      type: 'question',
+      moduleId: 'module-1',
+      taskId: 'write-email',
+      questionType: 'write-email',
+      previous: 'write-email-intro',
+      next: 'we2',
+      questionIds: ['we1']
+    },
+    {
+      id: 'we2',
+      type: 'question',
+      moduleId: 'module-1',
+      taskId: 'write-email',
+      questionType: 'write-email',
+      previous: 'we1',
+      next: 'academic-discussion-intro',
+      questionIds: ['we2']
+    },
+    {
+      id: 'academic-discussion-intro',
+      type: 'intro',
+      moduleId: 'module-1',
+      taskId: 'academic-discussion',
+      previous: 'we2',
+      next: 'ad1',
+      questionIds: []
+    },
+    {
+      id: 'ad1',
+      type: 'question',
+      moduleId: 'module-1',
+      taskId: 'academic-discussion',
+      questionType: 'academic-discussion',
+      previous: 'academic-discussion-intro',
+      next: 'results',
+      questionIds: ['ad1']
+    },
+    { id: 'results', type: 'results', section: 'writing', previous: 'ad1', next: null, questionIds: [] }
+  ],
+  modules: [
+    {
+      id: 'module-1',
+      title: 'Writing',
+      tasks: [
+        {
+          id: 'write-email',
+          number: 2,
+          title: 'Write an Email',
+          type: 'write-email',
+          questions: [
+            {
+              id: 'we1',
+              number: 1,
+              type: 'write-email',
+              identity: 'First scenario.',
+              to: 'Ann',
+              subject: '',
+              requirements: [],
+              answer: null,
+              options: []
+            },
+            {
+              id: 'we2',
+              number: 2,
+              type: 'write-email',
+              identity: 'Second scenario.',
+              to: 'Bob',
+              subject: '',
+              requirements: [],
+              answer: null,
+              options: []
+            }
+          ]
+        },
+        {
+          id: 'academic-discussion',
+          number: 3,
+          title: 'Write for an Academic Discussion',
+          type: 'academic-discussion',
+          questions: [
+            {
+              id: 'ad1',
+              number: 1,
+              type: 'academic-discussion',
+              professor: 'Question?',
+              students: [{ name: 'Kelly', text: 'View A.' }],
+              requirements: [],
+              answer: null,
+              options: []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
 async function mountRoute(path, loadedDocument = document) {
   const pinia = createPinia();
   setActivePinia(pinia);
@@ -251,6 +366,38 @@ describe('ExamView route guard and flow', () => {
     const header = wrapper.findComponent(ExamHeader);
     expect(header.find('.exam-header__brand button').exists()).toBe(false);
     expect(header.find('.exam-header__actions button').text()).toContain('Exit');
+  });
+
+  it('gives each writing email/discussion its own 7/10-minute timer and global numbering', async () => {
+    const { wrapper, router, exam } = await mountRoute('/exam/2026-08-12/writing/start', writingDocument);
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(globalThis.document, 'Begin');
+    expect(router.currentRoute.value.params.pageId).toBe('we1');
+    expect(exam.activeSession.timer).toMatchObject({
+      scopeType: 'question',
+      scopeId: 'we1',
+      durationSeconds: 420
+    });
+    expect(wrapper.findComponent(ExamHeader).props('questionLabel')).toBe('Question 1 of 3');
+    await clickButton(wrapper.element, 'Next');
+    expect(router.currentRoute.value.params.pageId).toBe('we2');
+    expect(exam.activeSession.timer).toMatchObject({
+      scopeType: 'question',
+      scopeId: 'we2',
+      durationSeconds: 420
+    });
+    expect(wrapper.findComponent(ExamHeader).props('questionLabel')).toBe('Question 2 of 3');
+    await clickButton(wrapper.element, 'Next');
+    await clickButton(wrapper.element, 'Begin');
+    await clickButton(globalThis.document, 'Begin');
+    expect(router.currentRoute.value.params.pageId).toBe('ad1');
+    expect(exam.activeSession.timer).toMatchObject({
+      scopeType: 'question',
+      scopeId: 'ad1',
+      durationSeconds: 600
+    });
+    expect(wrapper.findComponent(ExamHeader).props('questionLabel')).toBe('Question 3 of 3');
   });
 
   it('exits directly before a section starts', async () => {

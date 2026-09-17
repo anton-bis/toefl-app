@@ -171,6 +171,8 @@ describe('HomeView content unlock', () => {
     setActivePinia(createPinia());
     homeState.panel = 'mock';
     homeState.scrollTop = 0;
+    homeState.practicePage = 1;
+    homeState.officialPage = 1;
   });
 
   async function mountHome() {

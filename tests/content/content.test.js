@@ -282,7 +282,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 66);
+  assert.equal(taskCount, 86);
 });
 
 test('reading question numbers follow their declared module ranges', () => {
@@ -566,6 +566,79 @@ test('speaking parses a task-level image inherited by interview questions', () =
   assert.equal(interview.questions[0].image, '8.png');
 });
 
+test('speaking keeps single-task ids and adds indexed ids for repeated task types', () => {
+  const single = parseSpeaking(
+    [
+      '### Listen and Repeat',
+      'scenario_title: A.',
+      'scenario_image: 0.png',
+      '1.',
+      'image: 1.png',
+      'transcript: One.',
+      'audio: r1.mp3',
+      '### Take an Interview',
+      'scenario_title: B.',
+      'scenario_image: 8.png',
+      '1.',
+      'image: 8.png',
+      'transcript: Two.',
+      'audio: i1.mp3'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/speaking/fixture.md' }
+  ).modules[0].tasks;
+  assert.deepEqual(
+    single.map(task => task.id),
+    ['listen-repeat', 'interview']
+  );
+  assert.deepEqual(
+    single.map(task => task.questions[0].id),
+    ['module-1-listen-repeat-q1', 'module-1-interview-q1']
+  );
+
+  const document = parseSpeaking(
+    [
+      '### Listen and Repeat – 1',
+      'scenario_title: A.',
+      'scenario_image: a.png',
+      '1.',
+      'image: a.png',
+      'transcript: One.',
+      'audio: r1.mp3',
+      '### Listen and Repeat – 2',
+      'scenario_title: B.',
+      'scenario_image: b.png',
+      '1.',
+      'image: b.png',
+      'transcript: Two.',
+      'audio: r2.mp3',
+      '### Take an Interview – 1',
+      'scenario_title: C.',
+      'scenario_image: c.png',
+      '1.',
+      'image: c.png',
+      'transcript: Three.',
+      'audio: i1.mp3'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/speaking/fixture-multi.md' }
+  );
+  const tasks = document.modules[0].tasks;
+  assert.deepEqual(
+    tasks.map(task => task.id),
+    ['listen-repeat-1', 'listen-repeat-2', 'interview']
+  );
+  assert.deepEqual(
+    tasks.map(task => task.title),
+    ['Listen and Repeat 1', 'Listen and Repeat 2', 'Take an Interview']
+  );
+  assert.deepEqual(
+    tasks.map(task => task.questions[0].id),
+    ['module-1-listen-repeat-1-q1', 'module-1-listen-repeat-2-q1', 'module-1-interview-q1']
+  );
+  assert.equal(tasks[0].scenario.image, 'a.png');
+  assert.equal(tasks[0].questions[0].media.file, 'r1.mp3');
+  assert.deepEqual(validateExamDocument(document).errors, []);
+});
+
 test('writing parses build-sentence speaker avatars', () => {
   const document = parseWriting(
     [
@@ -619,4 +692,62 @@ test('writing parses discussion professor and student avatars', () => {
     ]
   );
   assert.deepEqual(question.requirements, ['Express your opinion.']);
+});
+
+test('writing supports multiple email/discussion questions and skips empty sections', () => {
+  const document = parseWriting(
+    [
+      '# writing-fixture',
+      '## Write an Email',
+      '### Write an Email – 1',
+      'subtitle: First topic',
+      'Identity: First scenario.',
+      'To: Ann',
+      'Subject: ',
+      'Requirements:',
+      '- One.',
+      '### Write an Email – 2',
+      'subtitle: Second topic',
+      'Identity: Second scenario.',
+      'To: Bob',
+      'Subject: Greetings',
+      'Requirements:',
+      '- Two.',
+      '## Write for an Academic Discussion',
+      '### Write for an Academic Discussion – 1',
+      'subtitle: Discuss topic',
+      'Subject: ',
+      'Instructor: Dr. X',
+      'professor_image: avatar-d-1.png',
+      'Professor: Question?',
+      'student_a_image: avatar-d-2.png',
+      'Kelly: View A.',
+      'student_b_image: avatar-d-3.png',
+      'Andrew: View B.',
+      'Requirements:',
+      '- Express your opinion.',
+      'Hint: You will have 10 minutes to write.'
+    ].join('\n'),
+    { tpoId: '01', sourcePath: 'assets/questions/writing/fixture.md' }
+  );
+  const tasks = document.modules[0].tasks;
+  assert.deepEqual(
+    tasks.map(task => [task.type, task.questions.length]),
+    [
+      ['write-email', 2],
+      ['academic-discussion', 1]
+    ]
+  );
+  const emails = tasks.find(task => task.type === 'write-email').questions;
+  assert.deepEqual(
+    emails.map(question => question.subtitle),
+    ['First topic', 'Second topic']
+  );
+  const discussion = tasks.find(task => task.type === 'academic-discussion').questions[0];
+  assert.equal(discussion.subtitle, 'Discuss topic');
+  assert.deepEqual(
+    discussion.students.map(student => student.name),
+    ['Kelly', 'Andrew']
+  );
+  assert.deepEqual(validateExamDocument(document).errors, []);
 });

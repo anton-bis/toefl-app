@@ -391,9 +391,58 @@ describe('exam flow policies', () => {
         page: { type: 'question', questionIds: ['email'] },
         task: { type: 'write-email', questions: [{ id: 'email' }] },
         moduleQuestions: [],
-        questions: [{ id: 'email' }]
+        questions: [
+          { id: 'build-1', type: 'build-sentence' },
+          { id: 'email', type: 'write-email' },
+          { id: 'disc', type: 'academic-discussion' }
+        ]
+      })
+    ).toMatchObject({ number: 1, total: 2, label: 'Question 1 of 2' });
+    expect(
+      questionDisplay({
+        section: 'writing',
+        page: { type: 'question', questionIds: ['disc'] },
+        task: { type: 'academic-discussion', questions: [{ id: 'disc' }] },
+        moduleQuestions: [],
+        questions: [
+          { id: 'build-1', type: 'build-sentence' },
+          { id: 'email', type: 'write-email' },
+          { id: 'disc', type: 'academic-discussion' }
+        ]
       }).label
-    ).toBe('Question 1 of 2');
+    ).toBe('Question 2 of 2');
+  });
+
+  it('numbers writing responses globally across multiple emails and discussions', () => {
+    const questions = [
+      { id: 'e1', type: 'write-email' },
+      { id: 'e2', type: 'write-email' },
+      { id: 'e3', type: 'write-email' },
+      { id: 'e4', type: 'write-email' },
+      { id: 'd1', type: 'academic-discussion' },
+      { id: 'd2', type: 'academic-discussion' },
+      { id: 'd3', type: 'academic-discussion' },
+      { id: 'd4', type: 'academic-discussion' },
+      { id: 'd5', type: 'academic-discussion' }
+    ];
+    expect(
+      questionDisplay({
+        section: 'writing',
+        page: { type: 'question', questionIds: ['e1'] },
+        task: { type: 'write-email', questions: [{ id: 'e1' }] },
+        moduleQuestions: [],
+        questions
+      })
+    ).toMatchObject({ number: 1, total: 9, label: 'Question 1 of 9' });
+    expect(
+      questionDisplay({
+        section: 'writing',
+        page: { type: 'question', questionIds: ['d5'] },
+        task: { type: 'academic-discussion', questions: [{ id: 'd5' }] },
+        moduleQuestions: [],
+        questions
+      }).label
+    ).toBe('Question 9 of 9');
   });
 
   it('keeps section timing and report ordering in pure policy', () => {

@@ -39,7 +39,11 @@ async function mountHome(tests) {
 }
 
 describe('HomeView list pagination', () => {
-  beforeEach(() => installMemoryStorage());
+  beforeEach(() => {
+    installMemoryStorage();
+    homeState.practicePage = 1;
+    homeState.officialPage = 1;
+  });
 
   it('pages practice tests at 10 per page with correct total', async () => {
     homeState.panel = 'mock';
@@ -96,5 +100,34 @@ describe('HomeView list pagination', () => {
     expect(prev.attributes('disabled')).toBeDefined();
     expect(next.attributes('disabled')).toBeDefined();
     wrapper.unmount();
+  });
+
+  it('restores the practice page the user was on after leaving and returning', async () => {
+    homeState.panel = 'mock';
+    const first = await mountHome(testsFor('TPO', 11));
+    await first.findAll('.pagination-btn')[1].trigger('click');
+    expect(first.find('.pagination-info').text()).toContain('第 2 / 2 页');
+    first.unmount();
+
+    const second = await mountHome(testsFor('TPO', 11));
+    expect(second.find('.pagination-info').text()).toContain('第 2 / 2 页 · 共 11 套');
+    expect(second.findAll('tbody tr')).toHaveLength(1);
+    second.unmount();
+  });
+
+  it('restores the official page the user was on after leaving and returning', async () => {
+    homeState.panel = 'real';
+    const tests = [
+      ...testsFor('TPO', 12),
+      ...testsFor('2026-02', 11, true)
+    ];
+    const first = await mountHome(tests);
+    await first.findAll('.pagination-btn')[1].trigger('click');
+    expect(first.find('.pagination-info').text()).toContain('第 2 / 2 页');
+    first.unmount();
+
+    const second = await mountHome(tests);
+    expect(second.find('.pagination-info').text()).toContain('第 2 / 2 页 · 共 11 套');
+    second.unmount();
   });
 });

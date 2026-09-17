@@ -26,6 +26,7 @@ import {
 } from '../../src/vue/skills/vocabulary/logic.js';
 import { VOCAB_SESSION_KEY } from '../../src/vue/skills/vocabulary/storage.js';
 import { useVocabularyStore } from '../../src/vue/skills/vocabulary/store.js';
+import { skillState } from '../../src/vue/platform/skillState.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 const article = {
@@ -382,5 +383,72 @@ describe('Vue vocabulary skill', () => {
     expect(store.page).toBe('set-list');
     expect(store.rootCategory).toBe('root');
     expect(store.rootGroups).toStrictEqual(groups);
+  });
+});
+
+describe('Skill workspace return state', () => {
+  beforeEach(async () => {
+    installMemoryStorage();
+    await clearSkillData();
+    setActivePinia(createPinia());
+    skillState.typing.page = '';
+    skillState.typing.scrollTop = 0;
+    skillState.vocabulary.page = '';
+    skillState.vocabulary.scrollTop = 0;
+    skillState.vocabulary.subject = '';
+    vi.spyOn(globalThis, 'fetch').mockImplementation(async url => ({
+      ok: true,
+      json: async () => (String(url).includes('corpus.json') ? [] : {}),
+      text: async () => (String(url).includes('corpus.json') ? '[]' : '{}')
+    }));
+  });
+
+  it('restores the typing page the user was on after leaving and returning', async () => {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
+        { path: '/skills/typing', name: 'typing', component: TypingView }
+      ]
+    });
+    await router.push('/skills/typing');
+    await router.isReady();
+
+    const first = mount(TypingView, { global: { plugins: [pinia, router] } });
+    const store = useTypingStore(pinia);
+    await vi.waitFor(() => expect(store.initialized).toBe(true));
+    store.page = 'progress';
+    first.unmount();
+    expect(skillState.typing.page).toBe('progress');
+
+    const second = mount(TypingView, { global: { plugins: [pinia, router] } });
+    await vi.waitFor(() => expect(useTypingStore(pinia).initialized).toBe(true));
+    expect(useTypingStore(pinia).page).toBe('progress');
+    second.unmount();
+  });
+
+  it('remembers the vocabulary page and subject on leave', async () => {
+    const pinia = createPinia();
+    setActivePinia(pinia);
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', name: 'home', component: { template: '<div>Home</div>' } },
+        { path: '/skills/vocabulary', name: 'vocabulary', component: VocabularyView }
+      ]
+    });
+    await router.push('/skills/vocabulary');
+    await router.isReady();
+
+    const wrapper = mount(VocabularyView, { global: { plugins: [pinia, router] } });
+    const store = useVocabularyStore(pinia);
+    await vi.waitFor(() => expect(store.loading).toBe(false));
+    store.subject = 'reading';
+    store.page = 'set-list';
+    wrapper.unmount();
+    expect(skillState.vocabulary.page).toBe('set-list');
+    expect(skillState.vocabulary.subject).toBe('reading');
   });
 });
