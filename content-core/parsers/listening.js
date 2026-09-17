@@ -15,6 +15,7 @@ function typeFor(title) {
   if (value.includes('conversation')) return 'conversation';
   if (value.includes('announcement')) return 'announcement';
   if (value.includes('talk')) return 'academic-talk';
+  if (value.includes('lecture')) return 'academic-talk';
   return 'listening';
 }
 
@@ -26,6 +27,7 @@ function parseTask(title, body, moduleId, taskNumber) {
   let taskStart = null;
   let taskEnd = null;
   let taskImage = null;
+  let taskSubtitle = null;
   let current = null;
   const answers = [];
   let inAnswers = false;
@@ -60,6 +62,10 @@ function parseTask(title, body, moduleId, taskNumber) {
     if (line.startsWith('image:')) {
       if (current) current.image = line.slice(6).trim();
       else taskImage = line.slice(6).trim();
+      continue;
+    }
+    if (line.startsWith('subtitle:')) {
+      taskSubtitle = line.slice(9).trim();
       continue;
     }
 
@@ -114,6 +120,7 @@ function parseTask(title, body, moduleId, taskNumber) {
         ? [questions[0].number, questions.at(-1).number]
         : null,
     image: taskImage,
+    subtitle: taskSubtitle,
     transcript: transcript.join('\n'),
     media: media(audio, taskStart, taskEnd),
     questions
