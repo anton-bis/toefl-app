@@ -21,7 +21,7 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-10）
+## 1. 最新状态速览（最后更新：2026-09-16）
 
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.9.0**）；`release/v1.7.5`（无 license 历史线）已同步到同等代码，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
@@ -353,6 +353,17 @@
 - **修复（方案二）**：`release.yml` 给 `package-windows/linux/macos` 与 `publish` 加 `if: startsWith(github.ref, 'refs/tags/')`；`verify` 保持无条件。删除各 job 的 `Set automatic develop version` 死代码，`Create GitHub Release` 仅保留 tag 路径。这样 **develop push 只跑 verify；三平台打包与发布只在 `v*` tag 时执行**。
 - **同步**：`release.yml` 三线 develop/release/v1.7.5/master；`app-release-workflow.md` §1.1 写明该 CI 行为；本节。
 - **影响**：不再有 develop 失败邮件，也不再为内容/文档提交白跑三平台打包；不再产出 `-dev.N` 预发布（如需可后续加 `workflow_dispatch` 手动入口；当前无此需求）。历史失败邮件无法追回。
+
+### 3.14 2026-09-16 — 写作：8 月新格式（按日汇总）入库 + 每篇独立计时 + 全局题号
+
+- **背景（形式变更）**：8 月购入的真题改为「按天汇总、题目一字排开」，不再有 Module 1/2；**写作当天只有 N 篇 Write an Email + M 篇 Academic Discussion，没有 Build a Sentence**。素材：`D:\托福真题word版\8.12-国内线下 / 8.19 / 8.22-国内线下`（`Writing.docx` 为文本型，含题干与师生发言；内嵌头像 4 张跨篇复用）。
+- **呈现方案（复用旧结构、最小改动）**：仍用「日期文件夹 + 单 md + `##` 题型 + `### … – N`」，**题型内支持多题**；新增一行 `subtitle:` 承载话题标题（**仅 Markdown 记录、App 不渲染**）。**旧格式（日期真题 + TPO 01–13）原样保留，新旧并存**（数字编号 TPO 一律 ETS 官方样题，见 `question-organization-notes.md`）。
+- **入库内容**：`assets/questions/writing/2026-08-12|08-19|08-22/writing-<date>.md`（分别 4+5、3+5、4+6 篇）。8.22 源无标题 → `subtitle` 由 AI 归纳（≤5 词，属**推测项**）；讨论头像用现有 `avatar-d-*`（随机、题内不重复）；邮件 `To` 从题干推断、`Subject` 源为空则留空；忽略源里的范文。
+- **改动 1（parser）** `content-core/parsers/writing.js`：`metadataQuestion` → `metadataQuestions`（**迭代解析多道** Email/Discussion）；`subtitle` 列为**已知字段**（否则会落入"学生行"）；`parseWriting` 末尾 `.filter(task => task.questions.length > 0)` **跳过空 task**（规避 validate 的 `task has no questions`）。
+- **改动 2（计时）** `src/vue/views/ExamView.vue`：`enterPage` 新增 writing 分支 —— 进入 `write-email`/`academic-discussion` 题目页时以**题目作用域**启动该题计时（Email 420s / Discussion 600s，`scopeId !== page.id` 守卫防重置）；`finishExpired` 中 Email/Discussion 到期 → **进入下一题**（末题→results），**Build 仍为 task 级**（10 题共享 347s，到期跳下一 intro/结束）。旧格式每 task 仅 1 题 → 每题独立计时与旧的 task 级**等价**，行为不变。
+- **改动 3（题号）** `src/vue/exam/shared/flow.js` `questionDisplay`：writing 非 build 改为**全局编号**（`total = 该套所有 Email+Discussion 题数`，`number = 该题序号`，显示 `Question N of total`）；**不含 Build**（Build 仍 `N of 10` 恒不变）。旧格式：email `1 of 2`、discussion `2 of 2`（与改前**逐字一致**）；新格式 8.12 → `1..9`。
+- **测试**：`tests/content/content.test.js` 新增「多 Email/Discussion + 无 Build + subtitle」用例；`tests/vue/exam-core.test.js` 更新旧 label 用例 + 新增全局编号用例；`tests/vue/exam-view.test.js` 新增写作多题 fixture（断言每篇独立计时 420/600、label `1..3 / 3`）。`npm run lint` 干净，`npm test` **196 pass**。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口；写作 md 已入库、`ELECTRON=true` 重建 dist、本地 Electron 预览通过）。**给其他窗口的通用结论**：① 题型内支持多题；② 无题目的 task 要跳过；③ 新增 `subtitle:` 视为已知字段、不渲染。
 
 ---
 
