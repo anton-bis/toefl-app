@@ -19,7 +19,8 @@ const TYPES = [
   ['Read a Sign', 'sign'],
   ['Read a Web Page', 'web-page'],
   ['Read a Review', 'review'],
-  ['Read a Course Description', 'course-description']
+  ['Read a Course Description', 'course-description'],
+  ['Read an Article', 'article']
 ];
 
 function questionType(title) {
@@ -30,9 +31,10 @@ function questionType(title) {
 
 /**
  * Find the character index where real questions begin.
- * A numbered line only counts as a question when it is followed by an
- * option block starting with "A."; this avoids mistaking numbered lists in
- * passage bodies (e.g. "1. Book Returns: ...") for questions.
+ * A numbered line counts as a question when it is followed by an option block
+ * starting with "A.", or by an [ANSWER] block (e.g. a "click on the sentence"
+ * question with no options). This avoids mistaking numbered lists in passage
+ * bodies (e.g. "1. Book Returns: ...") for questions.
  */
 function findQuestionStart(content) {
   const lines = content.split('\n');
@@ -46,6 +48,7 @@ function findQuestionStart(content) {
     for (let lookahead = lineIndex + 1; lookahead < lines.length; lookahead += 1) {
       const candidate = lines[lookahead].trim();
       if (/^[A-E]\.\s/.test(candidate)) return index;
+      if (/^\\?\[ANSWER\\?\]/.test(candidate)) return index;
       if (/^\d+\.\s/.test(candidate) || !candidate) break;
     }
     index += line.length + 1;
