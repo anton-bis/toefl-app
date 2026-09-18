@@ -261,9 +261,9 @@ C. It's very clear.
 D. Can you explain again?
 
 [ANSWER]
+A
 B
 B
-C
 [/ANSWER]
 
 ---
@@ -289,8 +289,8 @@ C. Meet her at the entrance.
 D. Find information about the artists.
 
 [ANSWER]
-C
-A
+B
+B
 [/ANSWER]
 
 ---
@@ -316,8 +316,8 @@ C. They offer free samples.
 D. They are from another city.
 
 [ANSWER]
-C
-A
+B
+B
 [/ANSWER]
 
 ---
@@ -355,10 +355,10 @@ C. The negative effects of stress.
 D. Genetic testing for resilience.
 
 [ANSWER]
-A
-C
-A
 B
+B
+B
+A
 [/ANSWER]
 
 ---
@@ -397,7 +397,7 @@ D. Economic value of body art.
 
 [ANSWER]
 B
-C
-A
+B
+B
 B
 [/ANSWER]
