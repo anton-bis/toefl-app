@@ -26,7 +26,7 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.0**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.0**（2026-09-16，从 develop 发布，含 license）：8 月真题（Read an Article 新题型、写作多篇+每题独立计时+全局题号、口语多段）、技能页状态恢复；内容 schema `minAppVersion` 提升到 **1.10.0**（阻止旧客户端拉取不兼容的 8 月写作内容）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.0）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `35f3735f7ce7…`（32 packs，含 2026-08-12/19/22 四科 + 2026-01-27/28、02-10 口语修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `e8d0ebfd33c8…`（32 packs，含 2026-08-12/19/22 四科 + 2026-01-27/28、02-10 口语修正、TPO-02 答案键修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
@@ -373,6 +373,7 @@
 - **Content 后发**：`content:publish` → manifest **`35f3735f7ce7…`（32 包）**，30 个包变更（parser 改动重编译了多数 pack）；自动派发 `content-oss-mirror` run `35186534415` **success**；复核 **32/32 `ossUrl` 匿名 200 且 size 一致**、指针已更新、`minAppVersion=1.10.0`。
 - **顺序理由**：8 月写作新格式（多篇、无 Build、每题独立计时、全局题号）需要新版渲染器；`minAppVersion` 提升后 <1.10.0 客户端不会拉到该内容，避免显示错乱。旧格式（TPO 01–13、既有日期卷）行为不变。
 - **release 线**：同步 `assets/questions` + `docs/DEV-LOG.md`（`7e8ee80`）；渲染器代码仍只在 develop（release 为无 license 历史线，views 与 develop 有 license 差异，不整文件覆盖）。
+- **2026-09-17 追补**：修正 `listening/TPO-02` 答案键（`a616d1b`）→ `content:publish` 变更 2 包（catalog、tpo-02）→ manifest **`e8d0ebfd33c8…`（32 包）**；自动派发 `content-oss-mirror` run `35337227002` success；32/32 `ossUrl` 200、指针已更新。
 
 ---
 
@@ -383,7 +384,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.10.0 | 423270d（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 7e8ee80（内容/文档同步） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 35f3735f7ce7 manifestId（32 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | e8d0ebfd33c8 manifestId（32 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
