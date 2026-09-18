@@ -1,16 +1,15 @@
 {
   "schemaVersion": 1,
-  "manifestId": "35f3735f7ce735d3d24f82e2f88d37afc1de861035f4f4ebab817584c94ac488",
-  "publishedAt": "2026-09-17T05:38:15.689Z",
+  "manifestId": "e8d0ebfd33c8cacb491bd778e79b037968cf13ddb8c5202263b801cee5a3f143",
+  "publishedAt": "2026-09-18T10:57:01.229Z",
   "minAppVersion": "1.10.0",
   "packs": [
     {
       "id": "catalog",
-      "contentHash": "a981f41cdc6c21f70daf9670a938e7feaccb1b3ed0dcb74722d936e916eb2c83",
-      "archiveHash": "54f23c3e5d32645de4c8628abc938678bed3a35de9642985c3413a50a65d4f09",
-      "size": 12149,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-35f3735f7ce7/catalog-a981f41cdc6c.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/35f3735f7ce7/catalog-a981f41cdc6c.zip"
+      "contentHash": "544024de264defa38bc68e3ce6dfa1d90dc4495a68dfe63a34c44c1e6648d359",
+      "archiveHash": "b0f3a2b3f16a3dc832a36342b6cf15e47ab04bd6a9e96a97be634bf4dfbe9a41",
+      "size": 12152,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-e8d0ebfd33c8/catalog-544024de264d.zip"
     },
     {
       "id": "tpo-01",
@@ -22,11 +21,10 @@
     },
     {
       "id": "tpo-02",
-      "contentHash": "872d680a22a3c8e4be0f95caab18d05075c87f6a18f9ef6cff53c321181e21db",
-      "archiveHash": "8dc6ab1a4dfd4a2d8e175378568ad2c4d4299d21e875fe86eef191073ccaa1b4",
-      "size": 18675330,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-35f3735f7ce7/tpo-02-872d680a22a3.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/35f3735f7ce7/tpo-02-872d680a22a3.zip"
+      "contentHash": "18515b4a7d5681916ef19a57a99f25711a2fc292061939e792e04e5d2fbcf7a0",
+      "archiveHash": "9538018c9d998c7aa647cf14d3d812197c373abcb2f327960f6476e7255f84fc",
+      "size": 18675314,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-e8d0ebfd33c8/tpo-02-18515b4a7d56.zip"
     },
     {
       "id": "tpo-03",
