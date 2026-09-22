@@ -398,6 +398,14 @@
 - **验证**：**36/36 `ossUrl` 匿名 200 且 size 一致**；OSS 指针已更新为 `a3d9598dfccb…`；`minAppVersion` 仍为 1.10.0。
 - **备注**：工作区遗留一个未跟踪的临时脚本 `_verify_listening.mjs`（其他窗口的校验工具），**未提交**。
 
+### 3.18 2026-09-21 — 修复 "Mirror Desktop updates to Aliyun OSS 全失败" 邮件
+
+- **现象**：每次内容发布后收到 `Mirror Desktop updates to Aliyun OSS` 的失败邮件（"all job has failed"），与桌面发布无关。
+- **根因**：`oss-mirror.yml` 仍带 `on: release: types:[published]` 触发器。桌面 release 由 `GITHUB_TOKEN` 创建不会级联；但**内容 release 由本地 `gh`（用户 token）创建**，会正常触发它 → 它去 `content-<hash>` release 下 `TOEFL-iBT-Practice-*`/`latest*.yml` 桌面资产 → `no assets match the file pattern` → 失败。桌面镜像其实由 release.yml 在正式 tag 时完成（已验证 v1.10.0 feed/副本 200）。
+- **修复**：`oss-mirror.yml` 改为**仅 `workflow_dispatch` 手动触发**；`RELEASE_TAG` 只取 input；并新增守卫拒绝 `content-*` 标签。三线同步（develop/release/v1.7.5/master）。
+- **文档**：`app-release-workflow.md §1.1` 补充说明。
+- **效果**：内容发布不再触发该工作流，失败邮件消除；手动补镜像仍可用 `gh workflow run oss-mirror.yml -f releaseTag=vX.Y.Z`。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查

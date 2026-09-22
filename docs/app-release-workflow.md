@@ -26,6 +26,8 @@
 
 > 背景（2026-09-13 修复）：旧版对 develop push 会额外尝试产出 `-dev.N` 预发布，且用 `gh release create --fail-on-no-commits` 判断“有无新提交”。该判断比较的是仓库**最近一个 release**，而频繁的内容发布会产生 `content-<hash>` 预发布（content 分支、历史独立）→ 每次都误报 `no new commits since the last release`，导致 develop push 的 Release run **publish 失败**、并白白跑完三平台打包。现改为 job 级 `if: startsWith(github.ref,'refs/tags/')` 门禁：develop push 只 verify。
 
+> 补充（2026-09-21）：`oss-mirror.yml`（"Mirror desktop updates to Aliyun OSS"）**仅保留 `workflow_dispatch` 手动触发**。它曾被 `release: published` 触发，而内容发布会创建 `content-<hash>` 预发布 → 每次都跑去下桌面资产、报 `no assets match the file pattern` 失败并发失败邮件。桌面镜像由 release.yml 在正式 tag 时自动完成；只有需要手动补镜像某个 tag 时才跑 `oss-mirror.yml`（并会拒绝 `content-*` 标签）。
+
 ---
 
 ## 2. 发布前准备
