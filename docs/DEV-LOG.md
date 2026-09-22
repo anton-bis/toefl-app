@@ -26,9 +26,9 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.0**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.0**（2026-09-16，从 develop 发布，含 license）：8 月真题（Read an Article 新题型、写作多篇+每题独立计时+全局题号、口语多段）、技能页状态恢复；内容 schema `minAppVersion` 提升到 **1.10.0**（阻止旧客户端拉取不兼容的 8 月写作内容）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.0）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `e8d0ebfd33c8…`（32 packs，含 2026-08-12/19/22 四科 + 2026-01-27/28、02-10 口语修正、TPO-02 答案键修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `a3d9598dfccb…`（36 packs，总计约 695MB，含 2026-07 四套 + 2026-08 三套四科、TPO-02 答案键与口语修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **进行中（未发布）**：7 月写作真题已入库（`2026-07-04/05/08/11`，混合新旧格式，含视觉识别录入的 7.8），manifest 124 documents、测试 200 pass、lint 干净；**尚未 `content:publish`**（详见 §3.16）。
+- **7 月真题已发布**：`2026-07-04/05/08/11` 四科全量快照（manifest `a3d9598dfccb…`，36 包）；7.8/7.11/7.4 的 `<!-- 推测项 -->` 待人工核对（见 §3.16/§3.17）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -389,6 +389,15 @@
 - **校验**：`content:manifest` → **124 documents**、`warnings` 为空；`npm test` **200 pass**、`npm run lint` 干净。
 - **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）；7.8 / 7.11 / 7.4 的 `<!-- 推测项 -->` 待用户核对。
 
+### 3.17 2026-09-21 — 发布 7 月四套真题（四科全量快照）
+
+- **提交（develop）**：reading `7c1b610`、listening `d0e499b`、speaking `c785ce2`（含 8.12/8.22 LAR 音频与 transcript 修正）、writing `d67082f`、测试/文档 `b082202`；release 线内容/文档同步 `b34e8be`。
+- **内容**：`assets/questions/{reading,listening,speaking,writing}/2026-07-04|07-05|07-08|07-11`（7.4/7.8/7.11 旧格式 10×Build+1 Email+1 Discussion；7.05 新格式 4 Email+4 Discussion，无 Build）。**新旧并存**，parser/前端无需改动（沿用 8 月已支持的多题/多段能力）。
+- **发布前自检**：`content:manifest` **132 documents**；媒体引用 3050 处、**0 缺失**；lint 干净；`npm test` node 264 pass/1 skip + vitest 200 pass（首跑 exam-view 一条偶发失败，复跑全绿）。
+- **发布**：`content:publish` → 变更 **7 包**（catalog + 07-04/05/08/11 四个日期包 + speaking 08-12/08-22）→ manifest **`a3d9598dfccb…`（36 包，总计 695.3 MB）**；自动派发 `content-oss-mirror` run `35704686527` **success**（大音频包耗时约 18 分钟）。
+- **验证**：**36/36 `ossUrl` 匿名 200 且 size 一致**；OSS 指针已更新为 `a3d9598dfccb…`；`minAppVersion` 仍为 1.10.0。
+- **备注**：工作区遗留一个未跟踪的临时脚本 `_verify_listening.mjs`（其他窗口的校验工具），**未提交**。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
@@ -398,7 +407,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.10.0 | 423270d（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 7e8ee80（内容/文档同步） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | e8d0ebfd33c8 manifestId（32 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | a3d9598dfccb manifestId（36 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
