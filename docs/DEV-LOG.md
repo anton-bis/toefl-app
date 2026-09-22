@@ -26,7 +26,7 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.0**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.0**（2026-09-16，从 develop 发布，含 license）：8 月真题（Read an Article 新题型、写作多篇+每题独立计时+全局题号、口语多段）、技能页状态恢复；内容 schema `minAppVersion` 提升到 **1.10.0**（阻止旧客户端拉取不兼容的 8 月写作内容）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.0）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `a3d9598dfccb…`（36 packs，总计约 695MB，含 2026-07 四套 + 2026-08 三套四科、TPO-02 答案键与口语修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `da04091837cd…`（36 packs，含 2026-07 四套 + 2026-08 三套四科、TPO-02 答案键、2026-07-11 听力拆分修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **7 月真题已发布**：`2026-07-04/05/08/11` 四科全量快照（manifest `a3d9598dfccb…`，36 包）；7.8/7.11/7.4 的 `<!-- 推测项 -->` 待人工核对（见 §3.16/§3.17）。
 - **未完成事项 / 待办**：
@@ -397,6 +397,7 @@
 - **发布**：`content:publish` → 变更 **7 包**（catalog + 07-04/05/08/11 四个日期包 + speaking 08-12/08-22）→ manifest **`a3d9598dfccb…`（36 包，总计 695.3 MB）**；自动派发 `content-oss-mirror` run `35704686527` **success**（大音频包耗时约 18 分钟）。
 - **验证**：**36/36 `ossUrl` 匿名 200 且 size 一致**；OSS 指针已更新为 `a3d9598dfccb…`；`minAppVersion` 仍为 1.10.0。
 - **备注**：工作区遗留一个未跟踪的临时脚本 `_verify_listening.mjs`（其他窗口的校验工具），**未提交**。
+- **2026-09-22 追补**：`listening/2026-07-11` 公告题由 19–22 拆分为 19–20 与 21–22（新音频、答案归位、后续图片统一 +1 重编号）（`8fc3172`）→ `content:publish` 变更 2 包（catalog、tpo-2026-07-11）→ manifest **`da04091837cd…`（36 包）**；自动派发 `content-oss-mirror` run `35718066458` success；36/36 `ossUrl` 200、指针已更新。**同时验证 `oss-mirror.yml` 修复生效**：本次内容不再触发桌面镜像工作流（无新 run）。
 
 ### 3.18 2026-09-21 — 修复 "Mirror Desktop updates to Aliyun OSS 全失败" 邮件
 
@@ -415,7 +416,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.10.0 | 423270d（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 7e8ee80（内容/文档同步） |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | a3d9598dfccb manifestId（36 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | da04091837cd manifestId（36 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
