@@ -8,10 +8,10 @@
 
 ## 1. 题库现状（已完成的覆盖）
 
-- Reading：TPO 01-09
-- Listening：TPO 01-07
-- Speaking：TPO 01-07
-- Writing：TPO 01-09
+- Reading：TPO 01-13（重编号中，各科同步）
+- Listening：TPO 01-13（重编号中，各科同步）
+- Speaking：TPO 01-13（重编号中，各科同步）
+- Writing：TPO 01-13
 
 路径结构：
   assets/questions/reading/TPO-XX/reading-TPO-XX.md
@@ -19,12 +19,14 @@
   assets/questions/speaking/TPO-XX/speaking-TPO-XX.md
   assets/questions/writing/TPO-XX/writing-TPO-XX.md
 
-## 2. ⚠️ 最重要的事项：TPO 7/8/9 是样题不是真 TPO
+## 2. ⚠️ TPO 编号已顺延至 01–13；数字编号均为 ETS 官方样题
 
-- TPO 01-06：真 TPO 真题
-- TPO 07/08/09：用的是 ETS 官方样题（不是真 TPO）
-- 这是曾经被用户指出的硬伤。整理或宣传时**必须区分标注**，
-  不能把样题写成"真 TPO"。
+> 2026-09 调整：新增 4 套（来自 `D:\托福真题word版\TPO-03..06` 的 PDF），
+> 原 TPO 03–06 → 07–10，原 TPO 07–09 → 11–13。**四科同步重编号**，保证同一 `TPO-0X` 四科内容一致。
+
+- **凡采用数字编号（`TPO-01`…`TPO-13`）的，一律标注为「ETS 官方样题」**，不是真 TPO。
+- 真真题只使用**日期编号**（如 `2026-02-04`）。
+- 整理或宣传时**必须区分标注**，不能把样题写成"真 TPO"。
 
 ## 3. 12 种题型（type 取值固定）
 
@@ -89,6 +91,7 @@
 | `speaker_a_image:` / `speaker_b_image:` | writing build-sentence | `question.speakerAImage` / `speakerBImage` | 造句两位发言人头像，无图时渲染图标兜底 |
 | `professor_image:` | writing academic-discussion | `question.professorImage` | 教授头像，居中于左侧发言区 |
 | `student_a_image:` / `student_b_image:` | writing academic-discussion | `students[0].image` / `students[1].image` | 按出现顺序绑定到对应学生发言 |
+| `subtitle:` | writing write-email / academic-discussion | `question.subtitle` | 话题标题（≤5 词，AI 归纳）；**仅 Markdown 记录、App 不渲染**，为标准流程 |
 | `image:`（speaking 每题） | speaking 题目 | `question.image` | speaking 每题图片（已有） |
 
 命名约定：Markdown 用 snake_case（`speaker_a_image`），编译产物用 camelCase（`speakerAImage`）。
