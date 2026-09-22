@@ -209,14 +209,13 @@ B
 
 ---
 
-### Listen to an Announcement – Questions 19-22
+### Listen to an Announcement – Questions 19-20
 
-subtitle: Announcement: Shuttle Updates / Announcement: Online Platform
-audio: listening_m1_q19_q22_announcement_shuttle.mp3
+subtitle: Announcement: Shuttle Updates
+audio: listening_m1_q19_q20_announcement_shuttle.mp3
 image: 16.png
 
 Speaker: Good morning, students. We wanted to remind you about some recent updates to our campus shuttle schedule. Beginning next Monday, the shuttle service will operate on a new extended schedule in the mornings, starting at 7 a.m. It will also add two additional stops to its route, the Campus Art Museum and the Zimmerman Theater. These changes are in response to student feedback. Please check the updated schedule on the Transportation Office website and plan your travel accordingly.
-Professor: Let me tell you about something exciting. Starting next week, all our course readings, assignments, and lecture slides will be available through our new online platform. This should make it easier for you to stay organized and access everything in one place. Please create your account by Friday and take some time to explore the layout and features. There is also a tutorial video on the homepage to help you get started.
 
 19. What can be inferred about the shuttle's previous start time?
 A. It was at seven a.m.
@@ -228,6 +227,21 @@ A. To provide a reason for the changes to the shuttle service.
 B. To invite students to submit their thoughts about the new schedule.
 C. To explain why the shuttle service is being discontinued.
 D. To describe the process for hiring shuttle drivers.
+[ANSWER]
+B
+A
+[/ANSWER]
+
+---
+
+### Listen to an Announcement – Questions 21-22
+
+subtitle: Announcement: Online Platform
+audio: listening_m1_q21_q22_announcement_online_platform.mp3
+image: 17.png
+
+Professor: Let me tell you about something exciting. Starting next week, all our course readings, assignments, and lecture slides will be available through our new online platform. This should make it easier for you to stay organized and access everything in one place. Please create your account by Friday and take some time to explore the layout and features. There is also a tutorial video on the homepage to help you get started.
+
 21. What is the speaker's opinion of the change he describes?
 A. He believes it will make things more convenient for students.
 B. He thinks it will be exciting to take more field trips.
@@ -239,8 +253,6 @@ B. Create a new account.
 C. Sign up for a group project.
 D. Complete a system survey.
 [ANSWER]
-B
-A
 A
 B
 [/ANSWER]
@@ -251,7 +263,7 @@ B
 
 subtitle: Announcement: Debate Championship
 audio: listening_m1_q23_q24_announcement_debate.mp3
-image: 17.png
+image: 18.png
 
 Speaker: Before we begin our film screening, I want to invite you all to the Regional University Debate Championship on Thursday at 7 p.m. in the Student Center Auditorium. We are excited to be hosting this special event for the second year in a row. Come see Nordgren University Debate Team take on the South Melville University team. Registration is free. Remember to sign up on the Debate Team website soon.
 
@@ -276,7 +288,7 @@ D
 
 subtitle: Talk: Pottery Technology
 audio: listening_m1_q25_q28_lecture_pottery.mp3
-image: 18.png
+image: 19.png
 
 Professor: Previously, we discussed the significance of pottery to ancient cultures, including pottery as an art form and pottery's crucial role in trade. Today, we will focus on the development of pottery over time. One breakthrough was the invention of the potter's wheel around 3500 BCE in Mesopotamia. The potter's wheel allowed artisans to spin and shape clay more quickly and evenly. Updraft kilns helped potters control oxygen during firing, which affected the final color of the pottery. Later, very high-temperature kilns allowed potters to create stoneware and eventually porcelain, a smooth white ceramic fired above 1,200 degrees Celsius.
 
@@ -313,7 +325,7 @@ B
 
 subtitle: Talk: Physics of Ice Skating
 audio: listening_m1_q29_q32_lecture_ice_skating.mp3
-image: 19.png
+image: 20.png
 
 Speaker: Welcome to Science in Motion. Today we are investigating why ice skating feels so smooth and fluid. When a skate blade moves across the ice, the pressure from the blade creates a thin layer of water between the skate and the ice. This slippery film allows skaters to move gracefully. Elite skaters develop techniques to control friction. Similar principles also appear in glaciers, where pressure and melting help massive ice sheets move across landscapes.
 
@@ -351,7 +363,7 @@ A
 ### Listen and Choose a Response – Questions 1-3
 
 1. The school assembly was very engaging.
-image: 20.png
+image: 21.png
 audio: listening-m2q1.m4a
 A. Assemble the group and we will discuss the work project.
 B. All of the students enjoyed it.
@@ -359,7 +371,7 @@ C. I was so engaged with the book that I finished it in one night.
 D. The school year begins earlier in some areas.
 
 2. Any idea where the new science library is?
-image: 21.png
+image: 22.png
 audio: listening-m2q2.m4a
 A. Actually, it is right in front of us!
 B. We are looking for a more convenient location.
@@ -367,7 +379,7 @@ C. It is in the second chapter of the textbook.
 D. No, I already returned that book.
 
 3. I was sure the professor mentioned an optional assignment.
-image: 22.png
+image: 23.png
 audio: listening-m2q3.m4a
 A. I had to read the book several times.
 B. I have emailed him to ask about it.
@@ -386,7 +398,7 @@ B
 
 subtitle: Conversation: Medical Checkup
 audio: listening_m2_q04_q05_conversation_health.mp3
-image: 23.png
+image: 24.png
 
 Man: Hey, how was your checkup?
 Woman: Get a load of this, Tom. The doctor said I need to exercise more.
@@ -418,7 +430,7 @@ B
 
 subtitle: Conversation: Bicycle Rental
 audio: listening_m2_q06_q07_conversation_bike_route.mp3
-image: 24.png
+image: 25.png
 
 Woman: My parents are visiting a few days before graduation weekend, and I am thinking about renting bikes for us to explore the city. They are both in good shape, but they are a little older. Do you think they could handle it?
 Man: It is pretty flat here, so it is easy riding. The thing is, some intersections get pretty busy, so they will need to be careful at the traffic lights.
@@ -447,7 +459,7 @@ C
 
 subtitle: Talk: Permafrost Microbes
 audio: listening_m2_q08_q11_podcast_permafrost.mp3
-image: 25.png
+image: 26.png
 
 Speaker: In the Arctic tundra, permafrost is a soil layer that has remained frozen for thousands of years. As global temperatures rise, permafrost thaws and dormant microbes become active. These microbes decompose organic material and release greenhouse gases such as carbon dioxide and methane. Permafrost stores roughly twice as much carbon as the atmosphere, so researchers use sophisticated models and data about microbial species to understand the feedback loops and the possible rise in atmospheric greenhouse gases.
 
@@ -484,7 +496,7 @@ B
 
 subtitle: Talk: Over-Justification Effect
 audio: listening_m2_q12_q15_lecture_overjustification.mp3
-image: 26.png
+image: 27.png
 
 Professor: The over-justification effect occurs when external rewards reduce intrinsic motivation. In a 1970s experiment, children who expected rewards for drawing later spent less time drawing during free time. The decrease is connected to a perceived shift away from autonomy. The idea has implications for education and business because rewarding people for activities they already enjoy can reduce their natural enthusiasm over time.
 
