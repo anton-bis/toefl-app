@@ -21,13 +21,14 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-16）
+## 1. 最新状态速览（最后更新：2026-09-21）
 
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.0**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.0**（2026-09-16，从 develop 发布，含 license）：8 月真题（Read an Article 新题型、写作多篇+每题独立计时+全局题号、口语多段）、技能页状态恢复；内容 schema `minAppVersion` 提升到 **1.10.0**（阻止旧客户端拉取不兼容的 8 月写作内容）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.0）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `e8d0ebfd33c8…`（32 packs，含 2026-08-12/19/22 四科 + 2026-01-27/28、02-10 口语修正、TPO-02 答案键修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
+- **进行中（未发布）**：7 月写作真题已入库（`2026-07-04/05/08/11`，混合新旧格式，含视觉识别录入的 7.8），manifest 124 documents、测试 200 pass、lint 干净；**尚未 `content:publish`**（详见 §3.16）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -374,6 +375,19 @@
 - **顺序理由**：8 月写作新格式（多篇、无 Build、每题独立计时、全局题号）需要新版渲染器；`minAppVersion` 提升后 <1.10.0 客户端不会拉到该内容，避免显示错乱。旧格式（TPO 01–13、既有日期卷）行为不变。
 - **release 线**：同步 `assets/questions` + `docs/DEV-LOG.md`（`7e8ee80`）；渲染器代码仍只在 develop（release 为无 license 历史线，views 与 develop 有 license 差异，不整文件覆盖）。
 - **2026-09-17 追补**：修正 `listening/TPO-02` 答案键（`a616d1b`）→ `content:publish` 变更 2 包（catalog、tpo-02）→ manifest **`e8d0ebfd33c8…`（32 包）**；自动派发 `content-oss-mirror` run `35337227002` success；32/32 `ossUrl` 200、指针已更新。
+
+### 3.16 2026-09-21 — 写作：7 月真题入库（7.4 / 7.8 / 7.11 旧格式 + 7.05 新格式）
+
+- **源**：`D:\托福真题word版\` 下 `7.4新版真题 / 7.8新版真题 / 7.11新版真题`（写作 `写作.pdf` + `答案.pdf`）与 `7.05 国内线下\7.05 Writing.docx`。
+- **入库**：`assets/questions/writing/2026-07-04 | 2026-07-08 | 2026-07-11`（**旧格式**：10 × Build a Sentence + 1 Write an Email + 1 Academic Discussion）；`assets/questions/writing/2026-07-05`（**新格式**：4 Email + 4 Discussion，无 Build）。旧文件未动，新旧并存。
+- **字段映射（不新增字段）**：源 `Sentence Construction` → `## Build a Sentence`；`Context:` → `Speaker A:`；`Response:` → `Speaker B:`；`Word Bank:`（源内 ` | ` 分隔）→ `Candidates:`（改为 ` / ` 分隔）。因此 **parser / 前端均无需改动**。
+- **Build 答案**：7.4 `答案.pdf` 给 Q4–Q10、7.11 给 Q7–Q10；缺口（7.4 Q1–3、7.11 Q1–6）按 `Word Bank` 瓦片 + `Response` 空位**推导还原**成完整句，文件内以 `<!-- 推测项 -->` 标注待人工核对。
+- **7.8 的特殊处理**：`写作.pdf` 为**屏幕照片截图**（内嵌 1250×946），Tesseract（多 psm）与原生图 OCR 全部失败 → 改用**多模态视觉识别**逐图读取（10 Build + Email + Discussion）；个别长句/固定词仍标 `<!-- 推测项 -->`。
+- **7.05 的特殊处理**：`7.05 Writing.docx` 为**图片型且题目与 参考答案/参考范文/参考思路 混排**（其内部标题为「2026年6月13 学术讨论写作 / 6.13 上午+下午 4 套」，但用户确认按**文件夹日期**归入 `2026-07-05`）→ 仅取「题目」，忽略全部范文；收录 4 Email + 4 Discussion。
+- **subtitle**：按 8 月新规范，7 月这批**一律加** `subtitle:`（AI 归纳，≤5 词），确立为**标准流程**（仅 Markdown 记录、App 不渲染）。
+- **头像**：Build 配 `avatar-bs-1..16`（随机、题内不重复）、Discussion 配 `avatar-d-*`；**仅把被引用**的头像复制进各日期文件夹。
+- **校验**：`content:manifest` → **124 documents**、`warnings` 为空；`npm test` **200 pass**、`npm run lint` 干净。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）；7.8 / 7.11 / 7.4 的 `<!-- 推测项 -->` 待用户核对。
 
 ---
 

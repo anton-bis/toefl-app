@@ -91,6 +91,7 @@
 | `speaker_a_image:` / `speaker_b_image:` | writing build-sentence | `question.speakerAImage` / `speakerBImage` | 造句两位发言人头像，无图时渲染图标兜底 |
 | `professor_image:` | writing academic-discussion | `question.professorImage` | 教授头像，居中于左侧发言区 |
 | `student_a_image:` / `student_b_image:` | writing academic-discussion | `students[0].image` / `students[1].image` | 按出现顺序绑定到对应学生发言 |
+| `subtitle:` | writing write-email / academic-discussion | `question.subtitle` | 话题标题（≤5 词，AI 归纳）；**仅 Markdown 记录、App 不渲染**，为标准流程 |
 | `image:`（speaking 每题） | speaking 题目 | `question.image` | speaking 每题图片（已有） |
 
 命名约定：Markdown 用 snake_case（`speaker_a_image`），编译产物用 camelCase（`speakerAImage`）。
