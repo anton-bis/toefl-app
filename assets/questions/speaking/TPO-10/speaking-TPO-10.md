@@ -43,24 +43,24 @@ transcript: While you're exploring the grounds, please respect all wildlife and 
 ### Take an Interview
 
 scenario_title: You have volunteered for a research study about food preferences. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_image: interview.png
 
 8.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_1.mp4
 transcript: I see. And what kind of meals do you usually have on busy days — do you cook, eat out, or pick up something ready-made?
 
 9.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_2.mp4
 transcript: Interesting. Many people say that modern life has changed how we eat. Do you think people today have healthier eating habits than in the past? Why or why not?
 
 10.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_3.mp4
 transcript: Alright. Some people believe that social media can help people stay connected, while others think it can lead to feelings of isolation. What are your thoughts on this? Do you agree or disagree? Why?
 
 11.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_4.mp4
 transcript: Good points. I just have one more question. Some people believe that preparing traditional meals at home is an important way to stay connected to one's culture. Do you agree, or do you think it's possible to connect with culture in other ways? Why?

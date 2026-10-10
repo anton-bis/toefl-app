@@ -41,25 +41,25 @@ audio: speaking-repeat-7.m4a
 
 ### Take an Interview
 scenario_title: You have volunteered for a research study about exercise habits. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
-image: avatar.svg
+scenario_image: interview.png
+image: interview.png
 
 8.
-image: avatar.svg
+image: interview.png
 transcript: Thank you for taking part in this study. Today, I'd like to ask you some questions about your exercise habits. First, can you describe the type of exercise you or someone you know typically does regularly, such as running, yoga, or weightlifting? Why?
 audio: speaking-interview-8.m4a
 
 9.
-image: avatar.svg
+image: interview.png
 transcript: I see. Some exercise programs are done alone, and some are designed to be done with others. Would you prefer to exercise alone, or would you prefer to exercise with others? Why?
 audio: speaking-interview-9.m4a
 
 10.
-image: avatar.svg
+image: interview.png
 transcript: Interesting. Some people believe that exercising outdoors is both more beneficial and more enjoyable than exercising indoors. Do you agree or disagree and why?
 audio: speaking-interview-10.m4a
 
 11.
-image: avatar.svg
+image: interview.png
 transcript: Good points. Lastly, I would like to ask you about using fitness apps. Some people like to use fitness apps on smart phones to organize their fitness schedules. Do you agree this is a good way to keep track of your exercising goals? Why or why not?
 audio: speaking-interview-11.m4a

@@ -42,25 +42,25 @@ transcript: If you have any questions, please seek assistance from the attendant
 
 ### Take an Interview
 scenario_title: You have volunteered for a research study about commuting habits. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_image: interview.png
 audio: 托福样题02-口语-02-Interview.mp3
 
 8.
-image: avatar.svg
+image: interview.png
 >> play: 0:30-0:43
 transcript: Thank you for joining the study. Today, I'd like to ask you some questions about your commuting habits. First, is it important to live close to your school or work? Why?
 
 9.
-image: avatar.svg
+image: interview.png
 >> play: 0:47-1:04
 transcript: I see. Imagine that you could choose to commute by car, which is faster but more expensive, or by public transportation, which is slower but less expensive. Which would you choose, and why?
 
 10.
-image: avatar.svg
+image: interview.png
 >> play: 1:08-1:24
 transcript: Interesting. Some people believe that commuting can be stressful and tiring. What do you think are one or two different ways to make commuting more enjoyable? Give reasons for your answer.
 
 11.
-image: avatar.svg
+image: interview.png
 >> play: 1:28-1:49
 transcript: Good points. Lastly, considering advances in technology, some people believe that commuting might disappear entirely. How do you think a severe decline in commuting might affect businesses in positive ways and negative ways? Please give one example of each.
