@@ -7,7 +7,7 @@
 speaker_a_image: avatar-bs-9.png
 speaker_b_image: avatar-bs-7.png
 Speaker A: I'm planning to study abroad next year.
-Speaker B: ____ ____ ____ ____ ____ ____ to visit.
+Speaker B: ____ ____ ____ ____ ____ ____ to visit?
 Candidates: you / which / planning / countries / in Europe / are / plan
 \[ANSWER\]
 Which countries in Europe are you planning to visit?

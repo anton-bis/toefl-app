@@ -115,7 +115,7 @@ Speaker A: I didn't enjoy the story we had to read for homework.
 Speaker B: Can you tell me ____ ____ ____ ____ ____ ____?
 Candidates: liked / like / you / not / about it / did / what
 \[ANSWER\]
-Can you tell me what you did not like about it.
+Can you tell me what you did not like about it?
 \[/ANSWER\]
 
 ## Write an Email

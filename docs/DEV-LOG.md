@@ -29,6 +29,7 @@
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `da04091837cd…`（36 packs，含 2026-07 四套 + 2026-08 三套四科、TPO-02 答案键、2026-07-11 听力拆分修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **7 月真题已发布**：`2026-07-04/05/08/11` 四科全量快照（manifest `a3d9598dfccb…`，36 包）；7.8/7.11/7.4 的 `<!-- 推测项 -->` 待人工核对（见 §3.16/§3.17）。
+- **进行中（未发布）**：写作 `2026-07-13/16/18/19/25/29` 六套已入库（旧格式 10 Build + Email + Discussion；含图片型/混合型视觉录入；候选词已打乱；答案已逐题核对）→ manifest 144 documents、测试 200 pass、lint 干净，**尚未 `content:publish`**（见 §3.19）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -406,6 +407,33 @@
 - **修复**：`oss-mirror.yml` 改为**仅 `workflow_dispatch` 手动触发**；`RELEASE_TAG` 只取 input；并新增守卫拒绝 `content-*` 标签。三线同步（develop/release/v1.7.5/master）。
 - **文档**：`app-release-workflow.md §1.1` 补充说明。
 - **效果**：内容发布不再触发该工作流，失败邮件消除；手动补镜像仍可用 `gh workflow run oss-mirror.yml -f releaseTag=vX.Y.Z`。
+
+### 3.19 2026-10-08 — 写作：7 月中下旬真题入库（7.13/16/18/19/25/29，含图片型 / 混合型）
+
+- **源**：`D:\托福真题word版\7.13新版真题 / 7.16新托福真题 / 7.18新托福真题 / 7.19新托福真题 / 7.25新版真题 / 7.29新版真题`。
+- **六套均为「旧格式」**：10 × Build a Sentence + 1 Write an Email + 1 Academic Discussion，全部完整。
+- **巡场结论（用户要求先报后做）**：
+  - **标准形态（纯文本 docx）**：`7.13`（`写作.docx`）、`7.25`（`Writing.docx`）——`Context:/Response:/Word Bank:` 齐全、顺序正常。
+  - **非标准形态**：`7.16`（图片 PDF，12 张干净截图、顺序正常）、`7.19`（图片 PDF、顺序正常）、`7.18`（图片 docx、**文件顺序被打乱**，按每张页眉 `Question N of 10` 归位）、`7.29`（**混合**：Q1–3 为文本且布局无标签 + Q4–10/Email/Disc 为图片）。
+- **入库**：`assets/questions/writing/2026-07-13 | 16 | 18 | 19 | 25 | 29/writing-<date>.md`（各 10 Build + 1 Email + 1 Discussion）。
+- **处理要点**：图片型**弃用 OCR、改用多模态视觉逐图录入**；`7.29` 文本部分归一为 `Speaker A / Speaker B / Candidates`；候选词全部**打乱**；Build 配 `avatar-bs-*`、Email/Discussion 加 `subtitle` + `avatar-d-*`；忽略所有范文。
+- **答案核对（用户重点关切）**：以各套 `答案`（均含 Build 10 条）**逐题比对，全部一致**；`7.19` Q1/Q2 的 `prevented`/`destroyed` 系官方**干扰项**（非错配，保留）。**唯一缺料**：`7.18` Q1 截图候选词行被裁，按答案反推并标 `<!-- 推测项 -->`；`7.29` Q1–3 源为全小写，已规范大小写并标 `<!-- 推测项 -->`。
+- **校验**：`content:manifest` **144 documents**、`warnings` 空（同名 reading 目录由其他窗口负责）；`npm test` **200 pass**、`npm run lint` 干净。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）。
+
+### 3.20 2026-10-08 — 修复 Build a Sentence「答案与候选池匹配不上」（移植网页端 content-core）
+
+- **现象/根因**：`content-core` 的 `solveAnswerOrder` 用的是**严格字符串匹配**（`renderSentence == answer`，且区分标点/缩写）。只要题干末标点与答案不一致（如题干 `____.`、答案是问句 `?`）、空格数 ≠ 所需瓦片数、或答案里含题干固定词/缩写差异 → 判为"无解" → 结果页**推导不出正确答案（空白）**，也无法判对。
+- **网页端已修**（`D:\toefl-web\packages\content-core`，用户说的"他帮你修复过了"）：`scoring.js` 新增 `normalizeWords`（NFKC+小写+**缩写展开**+**剔除标点**）、`buildSentenceMatches`（**容忍标点/缩写/题干固定词**），`solveAnswerOrder` 改用它并**返回候选下标**，新增 `canonicalBuildSentence`；`parsers/writing.js` 新增**无解预警**（`console.warn`，打包门禁）。
+- **本次移植回桌面仓库**（外科式，避免覆盖其他窗口对 `content-core` 的改动）：
+  - `content-core/scoring.js`：新增 `escapeRegExp` / `CONTRACTIONS` / `normalizeWords` / `promptLiteralParts` / `answerCandidateWords` / `buildSentenceMatches` / `canonicalBuildSentence`；`solveAnswerOrder` 改为**返回下标** + 容错匹配；`isCorrectAnswer` 的 build-sentence 分支改用 `buildSentenceMatches`。
+  - `content-core/parsers/writing.js`：加 `solveAnswerOrder` 引入 + 无解预警。
+  - `content-core/index.js`：导出 `normalizeWords` / `canonicalBuildSentence`。
+  - **消费者同步**：`src/vue/exam/results/WritingResults.vue` 的 `expectedSentence` 由"把 `solveAnswerOrder` 当字符串"改为**按返回下标取候选**；`src/vue/exam/sections/writing/writingLogic.js` 增补再导出。
+  - **测试**：`tests/vue/writing-speaking.test.js` 更新旧断言（字符串→下标）+ 新增「容忍末标点/缩写」用例。
+- **验证**：全库 `solveAnswerOrder` 扫描 **350/350 通过（0 无解）**（移植前旧核心有 **18 道**失败，含我上一批已发布的 `2026-07-04 Q3/Q6/Q7`、`2026-07-08 Q9`）；`content:manifest` **150 documents**、`warnings` 空、解析器无无解预警；`npm test` **201 pass**；`npm run lint` 干净。
+- **方案 B（数据订正，用户要求）**：订正 **18 道**题干/候选/答案不自洽的 Build 题（`2026-02-01(2) Q3/Q7`、`2026-02-02(2) Q10`、`2026-02-08 Q5`、`2026-02-08(2) Q5`、`2026-02-23 Q9`、`2026-07-04 Q3/Q6/Q7`、`2026-07-08 Q9`、`TPO-02 Q8/Q9`、`TPO-04 Q10`、`TPO-05 Q3/Q9`、`TPO-06 Q2`、`TPO-09 Q1`、`TPO-11 Q1`）——修正句末标点、瓦片内标点/大小写（`no`→`no,`、`no,I`→`no, I`、`for beginners?`→`for beginners`）、固定词位置（`7.08 Q9`、`TPO-02 Q8/Q9`）。订正后全库 Build **严格自洽（0 DIFF）**。**规范固化**：`docs/question-organization-notes.md` 新增 **§5.3「Build a Sentence 数据一致性要求（防复发规则）」**。
+- **待办**：本次**未 `content:publish`**（属判分/展示逻辑修复 + 数据订正，不改内容 schema，`minAppVersion` 不变）。
 
 ---
 

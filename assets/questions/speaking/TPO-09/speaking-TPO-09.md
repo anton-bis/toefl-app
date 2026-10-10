@@ -41,24 +41,24 @@ transcript: To avoid being charged a late-departure fee, be sure to check out of
 
 ### Take an Interview
 scenario_title: You have volunteered for a research study about social media use. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_image: interview.png
 
 8.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_1.mp4
 transcript: Thank you for participating in this study. Today, I'd like to ask you some questions about how you use social media. First, if you were to choose a social media platform to use most regularly, which one would you choose, and why?
 
 9.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_2.mp4
 transcript: Interesting. Do you think social media is more beneficial for younger people or older people? Why?
 
 10.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_3.mp4
 transcript: Alright. Some people believe that social media can help people stay connected, while others think it can lead to feelings of isolation. What are your thoughts on this? Do you agree or disagree? Why?
 
 11.
-image: avatar.svg
+image: interview.png
 audio: Speaking_Interview_4.mp4
 transcript: Good points. Finally, do you think social media use will continue to grow in the future, or will people start to limit their usage? What factors do you think will most affect future usage of social media? Explain your thoughts.

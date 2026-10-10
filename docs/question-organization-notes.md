@@ -122,7 +122,31 @@ Writing 头像统一存放于 `assets/questions/writing/avatars/`（详见该目
   1. 早期用 `FIRST_LINE_TITLE` 手写枚举，漏了 notice/announcement → 卡片标题退化成题型名；
   2. 改完代码未用 `ELECTRON=true` 重建 dist → 页面主标题显示旧的 fallback 文案。
 
+### 5.3 Build a Sentence 数据一致性要求（防复发规则）
 
+> 背景：曾发生「答案空白与候选池匹配不上」——匹配器无法由「`Speaker B` + `Candidates`」拼出 `[ANSWER]`，
+> 结果页推导不出正确答案。根治 = **匹配器容错**（标点/缩写/固定词，已完成）+ **数据自洽**，两者都要做。
+
+**每题必须满足的不变量（写入 md 前逐题自检）**：
+
+1. **空格数 == 候选瓦片数**（无干扰项时）；官方给干扰项时则 **空格数 == 用到的瓦片数**，多余瓦片保留作干扰项。
+2. `Speaker B` = 该句**逐字**，只把**候选瓦片**换成 `____`；**其余一律保留为固定文字**（含 `.` `?` `,`）。
+   - 答案是问句 → `Speaker B` **必须以 `?` 结尾**，不能写成 `.`。
+   - 固定词位置要对齐答案（如 `gave`、`the post office` 出现在哪，`____` 就排在哪）。
+3. `Candidates` 用 ` / ` 分隔，**与 `[ANSWER]` 完全对应**；**瓦片内部标点/大小写照抄**
+   （如 `10 a.m.`、`no, i`、`I've`）。句首瓦片把标点写进瓦片即可（前端会自动首字母大写）。
+4. `[ANSWER]` = 「`Speaker B` 固定词 + 按正确顺序填入的瓦片」拼出的**完整句**，标点/大小写正确。
+5. **自检（必跑）**：编译时 `content-core` 会对每题运行 `solveAnswerOrder`，无解会 `console.warn`：
+   `[content-core] build-sentence 无解（答案与题干/候选词不一致…）`
+   —— **出现该 warning 即视为数据错误**，必须修正后再提交。
+
+**常见踩坑**：题干末标点与答案不一致（`____.` vs 问句 `?`）；固定词位置写错导致空格/瓦片错位；
+瓦片漏标点（`no` 应为 `no,`、`no,i` 应为 `no, i`）；瓦片已含句末标点却再补（`10 a.m.` + `.` → `a.m..`）。
+
+**判分/展示容错（2026-10 同步自网页端 `content-core`）**：`solveAnswerOrder` / `isCorrectAnswer` 使用
+`buildSentenceMatches`，**容忍句末标点、缩写（`I'm` vs `I am`）、题干固定词**，且 `solveAnswerOrder`
+**返回候选下标**；消费者（`WritingResults.vue` 等）须按**下标**取 `candidates[index]`，
+另提供 `canonicalBuildSentence(question)` 推导完整正确句。
 
 ## 6. 日常工作流程
 

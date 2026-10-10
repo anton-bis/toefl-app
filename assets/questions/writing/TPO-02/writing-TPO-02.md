@@ -84,7 +84,7 @@ This coffee tastes better than all of the other brands I've tried\.
 speaker_a_image: avatar-bs-9.png
 speaker_b_image: avatar-bs-13.png
 Speaker A: Where did you get that scarf?
-Speaker B: ____ ____ the post office ____ ____ ____ ____ ____ .
+Speaker B: ____ ____ ____ the post office ____ ____ ____ ____.
 Candidates: the store / to / next / of / winter apparel / sells / all types
 \[ANSWER\]
 The store next to the post office sells all types of winter apparel\.
@@ -95,7 +95,7 @@ The store next to the post office sells all types of winter apparel\.
 speaker_a_image: avatar-bs-5.png
 speaker_b_image: avatar-bs-16.png
 Speaker A: Why didn't you go to the library today?
-Speaker B: ____ ____ in town ____ ____ ____ ____ ____ .
+Speaker B: ____ ____ ____ in town ____ ____ ____ ____.
 Candidates: library / temporarily closed / for / is / renovations / the / only
 \[ANSWER\]
 The only library in town is temporarily closed for renovations\.

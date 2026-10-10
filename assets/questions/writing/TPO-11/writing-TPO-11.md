@@ -10,7 +10,7 @@ Speaker A: Your presentation yesterday was impressive.
 Speaker B: Thanks. ____ ____ ____ ____ ____ ____ ____ ?
 Candidates: you / want / of it / me / you / to send / do / a copy
 \[ANSWER\]
-Do you want me to send you a copy?
+Thanks. Do you want me to send you a copy?
 \[/ANSWER\]
 
 ### Build a Sentence – 2
@@ -95,8 +95,8 @@ Do you know if it is usually crowded at this time?
 speaker_a_image: avatar-bs-3.png
 speaker_b_image: avatar-bs-4.png
 Speaker A: I really enjoyed the documentary we watched yesterday.
-Speaker B: ____ ____ ____ ____ about ____ ____ ____ ?
-Candidates: you / how / heard / they / filmed / any details / have
+Speaker B: ____ ____ ____ ____ about ____ ____ ____ ____ ?
+Candidates: you / how / heard / they / filmed / any details / have / it
 \[ANSWER\]
 Have you heard any details about how they filmed it?
 \[/ANSWER\]
@@ -116,6 +116,7 @@ Do you know how many open positions they have?
 
 ### Write an Email – 1
 
+subtitle: Thanking and Requesting Resources
 Identity: You recently attended a workshop on digital marketing and found it to be very informative. You want to thank the presenter, Ms. Clark, and ask for additional resources to further your understanding of the topic.
 To: Ms. Clark
 Subject: Appreciation and request for additional resources
@@ -128,6 +129,7 @@ Requirements:
 
 ### Write for an Academic Discussion – 1
 
+subtitle: Prevention Versus Mitigation
 Subject: environmental science
 Instructor: Dr. Gupta
 professor_image: avatar-d-5.png

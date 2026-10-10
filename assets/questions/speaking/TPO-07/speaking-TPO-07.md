@@ -43,25 +43,25 @@ image: avatar.svg
 
 ### Take an Interview
 scenario_title: You have agreed to take part in a research study about urban life. You will have a short online interview with a researcher. The researcher will ask you some questions.
-scenario_image: avatar.svg
+scenario_image: interview.png
 audio: 托福样题01-口语-02-Interview.mp3
 
 8.
-image: avatar.svg
+image: interview.png
 >> play: 0:10-0:31
 transcript: Thank you for speaking with me today. I'm conducting a study about people's experiences and perceptions of living in a city. I'd like to ask you some questions. Now, do you currently live in a big city, a small town, or a village?
 
 9.
-image: avatar.svg
+image: interview.png
 >> play: 0:32-0:55
 transcript: Great. Cities affect people in different ways. Some people find cities dynamic and exciting. Others find that cities are overwhelming and drain them of energy. What kind of reaction do you have to cities? Why do you think you react in this way?
 
 10.
-image: avatar.svg
+image: interview.png
 >> play: 0:59-1:25
 transcript: OK. Next, I'd like to ask your opinion. Some people believe that those who live in cities lead more interesting lives. They would argue, for example, that people who live in cities have more access to professional opportunities and interesting leisure activities. Do you agree that people who live in cities lead more interesting lives? Why or why not?
 
 11.
-image: avatar.svg
+image: interview.png
 >> play: 1:26-1:52
 transcript: Good points. Let me ask you one final question. For some time now, researchers have been interested in whether green spaces, such as parks, make people who live in cities happier. Do you think that city governments should create more parks in urban areas to promote a general sense of happiness and life satisfaction? Why or why not?

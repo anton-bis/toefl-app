@@ -32,7 +32,7 @@ She wanted to know if I did plan to make any revisions.
 speaker_a_image: avatar-bs-5.png
 speaker_b_image: avatar-bs-6.png
 Speaker A: I'm glad I got that part of the project finished!
-Speaker B: ____ you tell me ____  ____ ____ ____ ____.
+Speaker B: ____ you tell me ____ ____ ____ ____ ____?
 Candidates: tomorrow / plans / what / can / are for / do / your
 \[ANSWER\]
 Can you tell me what your plans are for tomorrow?
@@ -99,7 +99,7 @@ He wanted to know why I am always late to our sessions.
 speaker_a_image: avatar-bs-1.png
 speaker_b_image: avatar-bs-3.png
 Speaker A: Today's lesson wasn't very interesting--you didn't miss much.
-Speaker B: ____ ____ ____ ____ ____ ____ ____.
+Speaker B: ____ ____ ____ ____ ____ ____ ____?
 Candidates: the professor / any new material / if / tell me / covered / you / did / can
 \[ANSWER\]
 Can you tell me if the professor covered any new material?
