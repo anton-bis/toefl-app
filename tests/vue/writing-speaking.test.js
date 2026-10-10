@@ -21,6 +21,7 @@ import ResultsPage from '../../src/vue/exam/shared/ResultsPage.vue';
 import WritingResults from '../../src/vue/exam/results/WritingResults.vue';
 import {
   countWords,
+  isCorrectAnswer,
   renderSentence,
   sentenceParts,
   solveAnswerOrder,
@@ -111,10 +112,30 @@ describe('writing logic', () => {
       'text'
     ]);
     const order = solveAnswerOrder(sentenceQuestion);
-    expect(
-      renderSentence(sentenceQuestion.prompt, order).replace(/\s+\?/g, '?').toLowerCase()
-    ).toBe(sentenceQuestion.answer.toLowerCase());
-    expect(order.filter(word => word === 'you')).toHaveLength(2);
+    const words = order.map(index => sentenceQuestion.candidates?.[index] ?? '');
+    expect(renderSentence(sentenceQuestion.prompt, words).replace(/\s+\?/g, '?').toLowerCase()).toBe(
+      sentenceQuestion.answer.toLowerCase()
+    );
+    expect(words.filter(word => word === 'you')).toHaveLength(2);
+  });
+
+  it('tolerates sentence-final punctuation and contraction differences for build-sentence', () => {
+    const question = {
+      id: 'writing-build-q9',
+      type: 'build-sentence',
+      prompt: 'Can ____ ____ ____ ____ ____.',
+      candidates: [
+        'you',
+        'tell me',
+        'whether',
+        'your scholarship application',
+        'was successful as well'
+      ],
+      answer: 'Can you tell me whether your scholarship application was successful as well?'
+    };
+    const order = solveAnswerOrder(question);
+    expect(order.some(value => value != null)).toBe(true);
+    expect(isCorrectAnswer({ slots: order }, question)).toBe(true);
   });
 
   it('counts English words and strips CJK input', () => {

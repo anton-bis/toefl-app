@@ -1,5 +1,6 @@
 import { createExamDocument } from '../pages.js';
 import { linesOf, normalizeMarkdown, sourceMeta } from '../shared.js';
+import { solveAnswerOrder } from '../scoring.js';
 
 function sectionBodies(markdown) {
   const result = new Map();
@@ -26,7 +27,7 @@ function buildSentenceQuestions(body) {
         .replace(/\\\./g, '.')
         .trim() || null;
     const number = Number(match[1]);
-    result.push({
+    const question = {
       id: `writing-build-q${number}`,
       number,
       type: 'build-sentence',
@@ -40,7 +41,19 @@ function buildSentenceQuestions(body) {
         .filter(Boolean),
       answer,
       options: []
-    });
+    };
+    // 校验：答案必须能由「题干 + 候选词」拼出，否则该题永远判错（打包门禁预警）。
+    if (
+      question.answer &&
+      question.candidates.length > 0 &&
+      !solveAnswerOrder(question).some(value => value != null)
+    ) {
+      console.warn(
+        `[content-core] build-sentence 无解（答案与题干/候选词不一致，将无法判对）：${question.id}` +
+          ` | prompt=${JSON.stringify(question.prompt)} | answer=${JSON.stringify(question.answer)}`
+      );
+    }
+    result.push(question);
   }
   return result;
 }

@@ -19,7 +19,13 @@ function sentenceAnswer(question, answers) {
 }
 
 const expectedSentence = question =>
-  question.answer || formatSentence(renderSentence(question.prompt, solveAnswerOrder(question)));
+  question.answer ||
+  formatSentence(
+    renderSentence(
+      question.prompt,
+      solveAnswerOrder(question).map(index => question.candidates?.[index] ?? '')
+    )
+  );
 
 function formatSentence(value) {
   const sentence = String(value || '').replace(/\s+([,.;:!?])/g, '$1');
