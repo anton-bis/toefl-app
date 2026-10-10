@@ -121,6 +121,7 @@ Can you tell me what you did not like about it?
 ## Write an Email
 
 ### Write an Email – 1
+subtitle: Requesting a Project Extension
 
 Identity: You are a student who has been working on a research project and need to request an extension on the deadline from your professor, Dr. Jones. You have encountered some unexpected challenges that have delayed your progress.
 To: Dr. Jones
@@ -134,6 +135,7 @@ Requirements:
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
+subtitle: Anthropologists: Participate Or Observe
 
 Subject: anthropology
 Instructor: Dr. Achebe

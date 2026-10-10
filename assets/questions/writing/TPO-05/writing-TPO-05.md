@@ -119,6 +119,7 @@ He wanted to know if I had another meeting.
 ## Write an Email
 
 ### Write an Email – 1
+subtitle: Reporting Heating System Issues
 
 Identity: You have recently moved into a new apartment and are experiencing issues with the heating system. You need to contact the property manager, Ms. Green, to report the problem and request a repair.
 To: Ms. Green
@@ -132,6 +133,7 @@ Requirements:
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
+subtitle: Smart Cities Versus Social Needs
 
 Subject: urban planning
 Instructor: Dr. Gupta

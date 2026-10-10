@@ -21,15 +21,14 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-09-21）
+## 1. 最新状态速览（最后更新：2026-10-10）
 
-- **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.0**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
+- **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.1**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.10.0**（2026-09-16，从 develop 发布，含 license）：8 月真题（Read an Article 新题型、写作多篇+每题独立计时+全局题号、口语多段）、技能页状态恢复；内容 schema `minAppVersion` 提升到 **1.10.0**（阻止旧客户端拉取不兼容的 8 月写作内容）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.0）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `da04091837cd…`（36 packs，含 2026-07 四套 + 2026-08 三套四科、TPO-02 答案键、2026-07-11 听力拆分修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **最新正式版**：**v1.10.1**（2026-10-10，从 develop 发布，含 license）：Build a Sentence 判分容错（标点/缩写/题干固定词；`solveAnswerOrder` 返回下标；无解预警）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.1）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `db05fe24269a…`（**42 packs，约 830MB**，含 2026-07 全部（04/05/08/11/13/16/18/19/25/29）+ 2026-08 三套四科、订正与 subtitle；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **7 月真题已发布**：`2026-07-04/05/08/11` 四科全量快照（manifest `a3d9598dfccb…`，36 包）；7.8/7.11/7.4 的 `<!-- 推测项 -->` 待人工核对（见 §3.16/§3.17）。
-- **进行中（未发布）**：写作 `2026-07-13/16/18/19/25/29` 六套已入库（旧格式 10 Build + Email + Discussion；含图片型/混合型视觉录入；候选词已打乱；答案已逐题核对）→ manifest 144 documents、测试 200 pass、lint 干净，**尚未 `content:publish`**（见 §3.19）。
+- **7 月真题已全部发布**：`2026-07-04/05/08/11/13/16/18/19/25/29` 十套四科，见 §3.17/§3.21；部分 `<!-- 推测项 -->` 待人工核对。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -435,19 +434,28 @@
 - **方案 B（数据订正，用户要求）**：订正 **18 道**题干/候选/答案不自洽的 Build 题（`2026-02-01(2) Q3/Q7`、`2026-02-02(2) Q10`、`2026-02-08 Q5`、`2026-02-08(2) Q5`、`2026-02-23 Q9`、`2026-07-04 Q3/Q6/Q7`、`2026-07-08 Q9`、`TPO-02 Q8/Q9`、`TPO-04 Q10`、`TPO-05 Q3/Q9`、`TPO-06 Q2`、`TPO-09 Q1`、`TPO-11 Q1`）——修正句末标点、瓦片内标点/大小写（`no`→`no,`、`no,I`→`no, I`、`for beginners?`→`for beginners`）、固定词位置（`7.08 Q9`、`TPO-02 Q8/Q9`）。订正后全库 Build **严格自洽（0 DIFF）**。**规范固化**：`docs/question-organization-notes.md` 新增 **§5.3「Build a Sentence 数据一致性要求（防复发规则）」**。
 - **待办**：本次**未 `content:publish`**（属判分/展示逻辑修复 + 数据订正，不改内容 schema，`minAppVersion` 不变）。
 
+### 3.21 2026-10-10 — 恢复缺失音频 + 发布 v1.10.1（App）+ 7 月 13–29 内容（Content）
+
+- **背景**：7 月 13/16/18/19/25/29 六套（四科）已入库并提交；本次同时含 **Build a Sentence 判分容错**（软件更新）与**题库更新**，按约定**先发 App 再发 Content**。
+- **修复媒体缺失（发布硬阻断）**：`listening/2026-02-04|02-08|02-25` 的 **M1** 引用 `listening-talk1.m4a`/`talk2.m4a`，磁盘只有 M2 的 `m2talk*` → 另从**已发布内容包**恢复（`tpo-2026-02-02`、`tpo-2026-02-04`、`tpo-2026-02-08`、`tpo-2026-02-25`）；恢复后媒体扫描 **0 缺失**。同类问题已发回网页端核查（M1 talk 音频遗漏/改名），源头需保持一致。
+- **提交（develop）**：subtitle 编辑 `82f6100`、版本 `61e225b`；代码/内容/订正在前序提交（`478aea0`…`0c134ca`）。预检：156 docs、lint 干净、node 288 pass/1 skip + vitest 201 pass。
+- **App 先发**：`package.json` → **1.10.1** + CHANGELOG；annotated tag `v1.10.1` → Release run `38038392290` **全绿**；OSS feed = 1.10.1，exe/dmg/稳定副本 200。
+- **Content 后发**：`content:publish` → manifest **`db05fe24269a…`（42 包，约 830MB）**（29 个包变更）；期间遭遇 github DNS 瞬时失败、大上传超时，删 Draft 后**后台重跑成功**；自动派发 `content-oss-mirror` run `38044595471` **success**；复核 **42/42 `ossUrl` 匿名 200 且 size 一致**、指针已更新、`minAppVersion=1.10.0`（兼容 1.10.0 客户端）。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license，正式发布线） | 1.10.0 | 423270d（+ 文档提交） |
-| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 7e8ee80（内容/文档同步） |
+| `develop` | 完整开发线（含 license，正式发布线） | 1.10.1 | 61e225b（+ 文档提交） |
+| `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 内容/文档同步 |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | da04091837cd manifestId（36 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | db05fe24269a manifestId（42 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
+| v1.10.1 | 2026-10-10 | Build a Sentence 判分容错（标点/缩写/题干固定词）（从 develop，含 license）|
 | v1.10.0 | 2026-09-16 | 8 月真题（Read an Article、写作多篇+独立计时、口语多段）+ 技能页状态恢复（从 develop，含 license）|
 | v1.9.1 | 2026-09-10 | Read a Course Description 帮助文案/指令（从 develop，含 license）|
 | v1.9.0 | 2026-09-07 | 内容更新 OSS 优先 + mac 手动下载 OSS 优先（从 develop，含 license）|

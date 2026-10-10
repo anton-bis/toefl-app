@@ -115,6 +115,7 @@ My sister can suggest one that might interest you\.
 ## Write an Email
 
 ### Write an Email – 1
+subtitle: Advice for Settling In
 
 Identity: Your friend Emma has recently moved to a new city and is feeling a bit overwhelmed. She has reached out to you for advice on how to adjust to her new environment and make new friends. You have lived in several cities before, and you have experience with finding ways to settle into new places.
 To: Emma
@@ -127,6 +128,7 @@ Requirements:
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
+subtitle: Debating Universal Basic Income
 
 Subject: economics
 Instructor: Dr. Diaz
