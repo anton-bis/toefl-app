@@ -52,7 +52,7 @@ speaker_a_image: avatar-bs-2.png
 speaker_b_image: avatar-bs-11.png
 Speaker A: The museum exhibition opens next month.
 Speaker B: ____ ____ ____ ____ ____ ____ ____ ?
-Candidates: do / you / how / know / tickets / will cost / much
+Candidates: do / you / how / know / the tickets / will cost / much
 \[ANSWER\]
 Do you know how much the tickets will cost?
 \[/ANSWER\]
@@ -116,6 +116,7 @@ I used the study guide that was provided by the professor\.
 
 ### Write an Email – 1
 
+subtitle: Report Submission Form Issue
 Identity: A new poetry magazine has asked its readers for submissions, and you decided to submit two of your poems. However, you had a problem using the online submission form, and you are not certain that your submissions were received.
 To: editor@sunshinepoetrymagazine.com
 Subject: Problem using submission form
@@ -128,6 +129,7 @@ Requirements:
 
 ### Write for an Academic Discussion – 1
 
+subtitle: Mandatory Volunteering In High School
 Subject: social studies
 Instructor: Dr. Chen
 professor_image: avatar-d-1.png

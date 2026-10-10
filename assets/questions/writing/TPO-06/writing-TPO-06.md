@@ -20,7 +20,7 @@ He wants to know what our biggest concerns are.
 speaker_a_image: avatar-bs-3.png
 speaker_b_image: avatar-bs-4.png
 Speaker A: The hiring manager asked a lot of good questions.
-Speaker B: ____ ____ ____ why ____ ____ ____.
+Speaker B: ____ ____ ____ why ____ ____ ____?
 Candidates: he / choose / did / you / chose / ask / this particular career
 \[ANSWER\]
 Did he ask why you chose this particular career?
@@ -69,7 +69,7 @@ Speaker A: Did you enjoy the dinner at the new restaurant?
 Speaker B: ____ ____ ____ ____ ____ ____ like that.
 Candidates: food / spicy / accustomed to / am / did / not / I
 \[ANSWER\]
-I am not accustomed to spicy food.
+I am not accustomed to spicy food like that.
 \[/ANSWER\]
 
 ### Build a Sentence – 7
@@ -120,6 +120,7 @@ I do not have tickets for the event yet.
 
 ### Write an Email – 1
 
+subtitle: Requesting Course Information
 Identity: You are a student starting a new semester, and you would like some additional information about a course you are interested in that is taught by Dr. Adams. You want to ensure that the course is suitable for you.
 To: Dr. Adams
 Subject: Request for additional course information
@@ -133,6 +134,7 @@ Requirements:
 
 ### Write for an Academic Discussion – 1
 
+subtitle: Influencers Versus Traditional Advertising
 Subject: marketing
 Instructor: Dr. Diaz
 professor_image: avatar-d-4.png
