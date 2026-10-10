@@ -115,6 +115,7 @@ Did they serve any appetizers before the main course?
 ## Write an Email
 
 ### Write an Email – 1
+subtitle: Addressing Park Maintenance Issues
 
 Identity: You are a member of the neighborhood association, and you have noticed that the local park needs some maintenance. You decide to contact the association president, Mr. Williams, to discuss the issues and offer a suggestion.
 To: Mr. Williams
@@ -127,6 +128,7 @@ Requirements:
 ## Write for an Academic Discussion
 
 ### Write for an Academic Discussion – 1
+subtitle: Urbanization And Community Life
 
 Subject: sociology
 Instructor: Dr. Diaz
