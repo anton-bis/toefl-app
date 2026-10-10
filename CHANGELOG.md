@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.10.1] - 2026-10-10
+
+### Fixed
+
+- Build a Sentence grading now tolerates sentence-final punctuation, contractions (`I'm` vs `I am`)
+  and prompt literal words, so the correct order can be derived (and answers judged) even when the
+  prompt's fixed words or punctuation differ from the stored answer. The writing parser now warns
+  when a Build a Sentence item has no valid solution (content guard). Answer order resolution
+  returns candidate indices, and the results view maps them back to the word bank.
+
 ## [1.10.0] - 2026-09-16
 
 ### Added
