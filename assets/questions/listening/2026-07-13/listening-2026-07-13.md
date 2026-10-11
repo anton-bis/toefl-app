@@ -119,7 +119,7 @@ A
 
 ### Listen to a Conversation - Questions 13-14
 
-subtitle: Conversation: Audition
+subtitle: Audition
 audio: listening_m1_q13_q14_conversation_audition.mp3
 image: 13.png
 
@@ -149,7 +149,7 @@ A
 
 ### Listen to a Conversation - Questions 15-16
 
-subtitle: Conversation: Charity Event
+subtitle: Charity Event
 audio: listening_m1_q15_q16_conversation_charity_event.mp3
 image: 14.png
 
@@ -179,7 +179,7 @@ D
 
 ### Listen to a Conversation - Questions 17-18
 
-subtitle: Conversation: New Store
+subtitle: New Store
 audio: listening_m1_q17_q18_conversation_new_store.mp3
 image: 15.png
 
@@ -210,7 +210,7 @@ C
 
 ### Listen to an Announcement - Questions 19-20
 
-subtitle: Announcement: Community Service Awards
+subtitle: Community Service Awards
 audio: listening_m1_q19_q20_announcement_awards.mp3
 image: 16.png
 
@@ -235,7 +235,7 @@ C
 
 ### Listen to an Announcement - Questions 21-22
 
-subtitle: Announcement: Lab Training
+subtitle: Lab Training
 audio: listening_m1_q21_q22_announcement_lab_training.mp3
 image: 17.png
 
@@ -260,7 +260,7 @@ A
 
 ### Listen to an Announcement - Questions 23-24
 
-subtitle: Announcement: Classroom
+subtitle: Classroom
 audio: listening_m1_q23_q24_announcement_classroom.mp3
 image: 18.png
 
@@ -285,7 +285,7 @@ B
 
 ### Listen to a Talk in a Physics Class - Questions 25-28
 
-subtitle: Lecture: Physics LED
+subtitle: Physics LED
 audio: listening_m1_q25_q28_lecture_physics_led.mp3
 image: 19.png
 
@@ -322,7 +322,7 @@ D
 
 ### Listen to a Talk in a Psychology Class - Questions 29-32
 
-subtitle: Lecture: Psychology Reinforcement
+subtitle: Psychology Reinforcement
 audio: listening_m1_q29_q32_lecture_psychology_reinforcement.mp3
 image: 20.png
 
@@ -395,7 +395,7 @@ A
 
 ### Listen to a Conversation - Questions 4-5
 
-subtitle: Conversation: Airport
+subtitle: Airport
 audio: listening_m2_q04_q05_conversation_airport.mp3
 image: 24.png
 
@@ -424,7 +424,7 @@ C
 
 ### Listen to a Conversation - Questions 6-7
 
-subtitle: Conversation: Career Fair
+subtitle: Career Fair
 audio: listening_m2_q06_q07_conversation_career_fair.mp3
 image: 25.png
 
@@ -453,7 +453,7 @@ B
 
 ### Listen to a Talk in a Marketing Class - Questions 8-11
 
-subtitle: Lecture: Viral Marketing
+subtitle: Viral Marketing
 audio: listening_m2_q08_q11_lecture_marketing_viral.mp3
 image: 26.png
 
@@ -490,7 +490,7 @@ A
 
 ### Listen to a Talk on a Business Podcast - Questions 12-15
 
-subtitle: Talk: Social Entrepreneurship
+subtitle: Social Entrepreneurship
 audio: listening_m2_q12_q15_podcast_social_entrepreneurship.mp3
 image: 27.png
 

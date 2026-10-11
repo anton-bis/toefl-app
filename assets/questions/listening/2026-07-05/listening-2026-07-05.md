@@ -47,7 +47,6 @@ C
 
 ### Listen to an Announcement – Questions 5-6
 
-subtitle: Classroom Announcement
 audio: Audio_02_Classroom_Announcement.mp3
 image: 2.png
 

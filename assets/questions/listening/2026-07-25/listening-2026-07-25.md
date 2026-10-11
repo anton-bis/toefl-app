@@ -65,7 +65,7 @@ B
 
 ### Listen to a Conversation - Questions 7-8
 
-subtitle: Sweater Exchange Conversation
+subtitle: Sweater Exchange
 audio: listening_m1_q07_q08_conversation_sweater_exchange.mp3
 image: 7.png
 
@@ -96,7 +96,7 @@ C
 
 ### Listen to a Conversation - Questions 9-12
 
-subtitle: Biology Tutoring and Egypt Program Conversation
+subtitle: Biology Tutoring and Egypt Program
 audio: listening_m1_q09_q12_conversation_biology_tutoring_egypt_program.mp3
 image: 8.png
 
@@ -137,7 +137,7 @@ B
 
 ### Listen to a Conversation - Questions 13-16
 
-subtitle: Secondhand Clothing Business Conversation
+subtitle: Secondhand Clothing Business
 audio: listening_m1_q13_q16_conversation_secondhand_clothing_business.mp3
 image: 9.png
 
@@ -179,7 +179,7 @@ A
 
 ### Listen to an Announcement - Questions 17-18
 
-subtitle: System Update Assignment Announcement
+subtitle: System Update Assignment
 audio: listening_m1_q17_q18_announcement_system_update_assignment.mp3
 image: 10.png
 
@@ -204,7 +204,7 @@ A
 
 ### Listen to an Announcement - Questions 19-20
 
-subtitle: Library Closure Announcement
+subtitle: Library Closure
 audio: listening_m1_q19_q20_announcement_library_closure.mp3
 image: 11.png
 
@@ -229,7 +229,7 @@ B
 
 ### Listen to an Announcement - Questions 21-24
 
-subtitle: Campus Film Festival Announcement
+subtitle: Campus Film Festival
 audio: listening_m1_q21_q24_announcement_campus_film_festival.mp3
 image: 12.png
 
@@ -266,7 +266,7 @@ C
 
 ### Listen to a Talk in an Art History Class - Questions 25-28
 
-subtitle: Stained Glass Art History Talk
+subtitle: Stained Glass Art History
 audio: listening_m1_q25_q28_lecture_stained_glass_art.mp3
 image: 13.png
 
@@ -306,7 +306,7 @@ D
 
 ### Listen to a Talk in a Creative Writing Class - Questions 29-32
 
-subtitle: Storytelling Dice Creative Writing Talk
+subtitle: Storytelling Dice Creative Writing
 audio: listening_m1_q29_q32_lecture_storytelling_dice.mp3
 image: 14.png
 
@@ -381,7 +381,7 @@ C
 
 ### Listen to a Conversation - Questions 4-5
 
-subtitle: Campus Bookstore and Admissions Office Job Conversation
+subtitle: Campus Bookstore and Admissions Office Job
 audio: listening_m2_q04_q05_conversation_bookstore_job.mp3
 image: 18.png
 
@@ -410,7 +410,7 @@ B
 
 ### Listen to a Conversation - Questions 6-7
 
-subtitle: Campus Job Search and Tutoring Center Conversation
+subtitle: Campus Job Search and Tutoring Center
 audio: listening_m2_q06_q07_conversation_job_search_tutoring.mp3
 image: 19.png
 
@@ -439,7 +439,7 @@ B
 
 ### Listen to a Talk in a Biology Class - Questions 8-11
 
-subtitle: Frog Population Biology Talk
+subtitle: Frog Population Biology
 audio: listening_m2_q08_q11_lecture_frog_population.mp3
 image: 20.png
 
@@ -479,7 +479,7 @@ B
 
 ### Listen to a Talk in an Art History Class - Questions 12-15
 
-subtitle: Cubism Art Talk
+subtitle: Cubism Art
 audio: listening_m2_q12_q15_lecture_cubism_art.mp3
 image: 21.png
 
