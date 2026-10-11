@@ -8,7 +8,7 @@ audio: Pack-5_Listening.MP3
 
 1. Our printer is out of ink again isn't it?
 image: 1.png
->> play: 0:24-0:27
+>> play: 0:19-0:22
 A. Please print this double sided.
 B. Have you tried the one on the third floor?
 C. No we don't need anymore paper.
@@ -16,7 +16,7 @@ D. It's not a bad idea.
 
 2. Would you like to share a taxi?
 image: 2.png
->> play: 0:49-0:51
+>> play: 0:44-0:46
 A. I'll bring you up to speed.
 B. No I haven't.
 C. Maybe next time.
@@ -24,7 +24,7 @@ D. Yes Ill be driving.
 
 3. Would you prefer a cup of tea or a glass of water?
 image: 3.png
->> play: 1:14-1:17
+>> play: 1:09-1:12
 A. It's downtown.
 B. A wide variety.
 C. I'm not thirsty.
@@ -32,7 +32,7 @@ D. The serving cart.
 
 4. Only three people will attend the weekly check in.
 image: 4.png
->> play: 1:39-1:44
+>> play: 1:34-1:39
 A. The team is growing.
 B. It's the second or third on the right.
 C. I wonder if we should revisit our staffing then.
@@ -40,7 +40,7 @@ D. It was available earlier this week.
 
 5. Where can we buy some decorations?
 image: 5.png
->> play: 2:06-2:09
+>> play: 2:01-2:04
 A. The food order.
 B. The party's been canceled.
 C. Blue and white.
@@ -48,7 +48,7 @@ D. The sale ends this weekend.
 
 6. Can you help me carry these to the car?
 image: 6.png
->> play: 2:31-2:34
+>> play: 2:26-2:29
 A. I'm tied up at the moment.
 B. I don't need any help thanks.
 C. Thanks you do that.
@@ -56,7 +56,7 @@ D. I'm all out of ideas.
 
 7. Would you like a sandwich or a salad?
 image: 7.png
->> play: 2:56-2:59
+>> play: 2:51-2:54
 A. Everytime.
 B. Neither thanks.
 C. I think so.
@@ -64,7 +64,7 @@ D. Weather permitting.
 
 8. How far away is Theo's house?
 image: 8.png
->> play: 3:21-3:24
+>> play: 3:16-3:19
 A. There are five new homes in the neighborhood.
 B. My uncle lives in town.
 C. Another kilometer or so.
@@ -72,7 +72,7 @@ D. For the first time.
 
 9. Whose car is this?
 image: 9.png
->> play: 3:46-3:48
+>> play: 3:41-3:43
 A. It's in the garage.
 B. I think it's Ms Kim's.
 C. Anton sent me the schedule.
@@ -80,7 +80,7 @@ D. A three hour drive.
 
 10. Have you seen the new guidelines?
 image: 10.png
->> play: 4:10-4:12
+>> play: 4:05-4:07
 A. I'll draw up some new ones before we meet again.
 B. It's a new theory.
 C. There's a lot to unpack in them isn't there?
@@ -103,7 +103,7 @@ C
 ### Listen to a Conversation – Questions 11-12
 
 audio: Pack-5_Listening.MP3
->> play: 4:34-5:02
+>> play: 4:29-4:57
 image: 11.png
 Woman: So are you all set for the picnic tomorrow?
 Man: Not quite. I still need to pick up some snacks and drinks, and maybe a few extra napkins.
@@ -131,7 +131,7 @@ A
 ### Listen to a Conversation – Questions 13-14
 
 audio: Pack-5_Listening.MP3
->> play: 5:45-6:12
+>> play: 5:40-6:07
 image: 12.png
 Woman: Have you decided on a venue for your wedding reception?
 Man: Yes, we're going to have it at the Riverside Pavilion. It has a beautiful view of the river.
@@ -158,7 +158,7 @@ B
 ### Listen to a Conversation – Questions 15-16
 
 audio: Pack-5_Listening.MP3
->> play: 6:55-7:17
+>> play: 6:50-7:12
 image: 13.png
 Man: Have you tried the new app for tracking your workouts?
 Woman: Not yet. Is it any good?
@@ -185,7 +185,7 @@ B
 ### Listen to an Announcement at a university club meeting – Questions 17-18
 
 audio: Pack-5_Listening.MP3
->> play: 8:01 -8:23
+>> play: 7:56-8:18
 image: 14.png
 Man: welcome everyone! Today we'll be discussing the details for our annual fundraising event. This year will be hosting a charity bake sale next Friday in the student center. All proceeds will go to local food banks. We hope you all can participate and make a difference!
 
@@ -208,7 +208,7 @@ B
 ### Listen to an Announcement in a classroom – Questions 19-20
 
 audio: Pack-5_Listening.MP3
->> play: 9:08-9:26
+>> play: 9:03-9:21
 image: 15.png
 Man: attention everyone! Due to the forecast severe weather, the university has decided to cancel all classes and activitiestomorrow. Please stay safe and check your email for further updates
 
@@ -231,7 +231,7 @@ C
 ### Listen to a Talk on a podcast about psychology – Questions 21-24
 
 audio: Pack-5_Listening.MP3
->> play: 10:09-11:50
+>> play: 10:04-11:45
 image: 16.png
 Professor: We'll discuss the psychology of decision making, focusing on the concept of cognitive biases. Cognitive biases a patterns of irrational thinking and they often affect the decisions we make every day. One common cognitive bias is the confirmation bias, where individuals tend to search for and remember information that confirms their pre-existing beliefs, while ignoring or undervaluing evidence that goes against their beliefs. This bias can lead to poor decision making as it prevents people from considering alternative viewpoints or new information objectively. Another significant bias is the anchoring effect. This refers to people's tendency to rely heavily on the first piece of information they receive, the anchor, when making decisions. For instance, if someone's negotiating to buy a car and the seller sets the initial price very high, the buyer is likely to decide to make a higher offer to start, regardless of what the car is actually worth. The availability heuristic is another bias that involves making decisions based on the information that is most readily available, rather than all relevant information. This can lead to skewed perceptions and choices, as easily remembered or recent events can disproportionately influence decisions. Understanding cognitive biases is crucial for improving decision making processes. By recognizing these biases, individuals can work to mitigate their effects, leading to more rational and effective decisions. This knowledge is valuable not just personally, but also professionally, as businesses and organizations can benefit from more objective and thorough decision making practices
 
@@ -266,7 +266,7 @@ B
 ### Listen to a Talk in a sociology class – Questions 25-28
 
 audio: Pack-5_Listening.MP3
->> play: 13:56-15:23
+>> play: 11:45-13:10
 image: 17.png
 Professor: social capital is the network of relationships among people who live and work in a particular society. These networks enable society to function effectively. Social capital includes things like trust, mutual understanding and shared values, and also behaviors that bind people together and facilitate cooperation. Social capital can be divided into two main types bonding social capital and bridging social capital. Bonding social capital refers to the tight bonds within a close knit group, like family members or close friends. These strong ties are essential for providing support and assistance during times of need. Bridging social capital, on the other hand, involves connections that transcend different social groups, like relationships between acquaintances or colleagues from different backgrounds, these weaker ties are crucial for accessing new information and opportunities. The benefits of social capital are numerous. It can give people emotional support, increase their access to resources and information, and foster communal cooperation. And interestingly, people in communities with higher levels of social capital actually tend to have better health. Next, we will discuss how social capital can be measured and the challenges associated with its quantification
 
@@ -307,7 +307,7 @@ audio: Pack-5_Listening.MP3
 
 1. When does the concert start?
 image: 18.png
->> play: 17:37-17:39
+>> play: 13:10-13:11
 A. I'd like two tickets for the second performance.
 B. don't know but the doors open an hour before the show.
 C. Let's meet in the lobby by the ticket booth.
@@ -315,7 +315,7 @@ D. Last year it was on the main stage.
 
 2. Would you like to share a taxi?
 image: 19.png
->> play: 18:01-18:03
+>> play: 13:33-13:35
 A. I've done mine already.
 B. Not right now.
 C. I haven't filled it out yet.
@@ -323,7 +323,7 @@ D. I still have plenty of time.
 
 3. Is the meeting on Monday?
 image: 20.png
->> play: 18:25-18:28
+>> play: 13:57-14:00
 A. No it will be online.
 B. It was moved to the next day.
 C. It was really nice to meet him.
@@ -339,7 +339,7 @@ B
 ### Listen to a Conversation – Questions 4-5
 
 audio: Pack-5_Listening.MP3
->> play: 18:49-19:26
+>> play: 14:21-14:58
 image: 21.png
 Man: Hey, did you ever return that architecture book you borrowed from the library?
 Woman: Not yet. I was planning to drop it off tomorrow.
@@ -367,7 +367,7 @@ B
 ### Listen to a Conversation – Questions 6-7
 
 audio: Pack-5_Listening.MP3
->> play: 20:10-20:54
+>> play: 15:42-16:26
 image: 22.png
 Woman: Are you all set for the conference next week?
 Man: Almost. I just booked my flight this morning, so that's one thing off the list.
@@ -395,7 +395,7 @@ B
 ### Listen to a Talk in a biology class – Questions 8-11
 
 audio: Pack-5_Listening.MP3
->> play: 21:38-23:14
+>> play: 17:10-18:45
 image: 23.png
 Professor: We're discussing the fascinating phenomenon of bioluminescence, the ability of certain organisms to produce light. This trait is found across a variety of species, including bacteria, fungi, and animals like jellyfish and fireflies. Bioluminescence occurs through a chemical reaction that involves the enzyme luciferase, which interacts with a molecule called luciferin. When oxygen is introduced into this reaction, light is produced. This light can serve multiple purposes depending on the organism. For instance, deep sea fish use bioluminescence to attract prey or communicate with potential mates in the dark ocean depths. Fireflies, on the other hand, use their glow primarily for mating signals. Interestingly, the color of bioluminescent light can vary between species. Some emit blue, while others glow green or even red. Researchers have found that the specific wavelengths of light produced, can be crucial for the organism's survival and interaction within its environment. In addition to biological functions, bioluminescence has attracted scientific interest for its potential applications. Medical researchers, for example, are exploring ways to use bioluminescent markers and imaging techniques. This could one day help in tracking processes like the spread of cancer cells or the effectiveness of a drug. The study of bioluminescence not only illuminates the wonders of nature but also opens doors to innovative scientific advancements
 
@@ -430,7 +430,7 @@ D
 ### Listen to a Talk in a philosophy class – Questions 12-15
 
 audio: Pack-5_Listening.MP3
->> play: 25:20-27:05
+>> play: 18:45-20:30
 image: 24.png
 Professor: today we'll explore the concept of existentialism a philosophical movement that emphasizes individual freedom choice and existence. existentialism gained prominence in the twentieth century through thinkers such as Jean Paul Sartre, Simone de Beauvoir and Albert Camus. the core idea of existentialism is that humans are not defined by pre-existing categories or essential characteristics. instead we exist first and then define ourselves through our actions and choices. this notion is encapsulated in such famous phrase existence precedes essence. existentialists argue that each person is responsible for creating their own meaning in life rather than finding it through external sources like religion or societal norms. this can lead to feelings of anxiety or existential acts, as individuals confront the freedom and burden of shaping their own lives. For instance, such spoke extensively about the concept of bad faith where individuals deceive themselves to escape the anxiety of freedom by conforming to societal expectations or denying their own potential. existentialism also addresses themes of authenticity and alienation. authenticity involves embracing one's freedom and making choices that reflect one's true self, while alienation refers to the disconnection from one's true self or others in society. although existentialism may seem abstract, its ideas have influenced literature psychology and even politics, offering profound insights into the human condition and the complexities of modern life
 

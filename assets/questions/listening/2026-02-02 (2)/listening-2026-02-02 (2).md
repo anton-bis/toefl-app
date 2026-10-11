@@ -8,7 +8,7 @@ audio: listening-2026-02-02.m4a
 
 1. Would you like to visit the campus museum or the park?
 image: 1.png
->> play: 0:28 - 0:30
+>> play: 0:28-0:30
 A. I visited my family last week.
 B. I'm interested in the new museum exhibit.
 C. I had to park up the street.
@@ -16,7 +16,7 @@ D. Isn't this a great picture of the museum?
 
 2. Did you enjoy the workshop?
 image: 2.png
->> play: 0:47 - 0:50
+>> play: 0:47-0:50
 A. Does yours work?
 B. Sure, I can attend.
 C. Yes, I learned a lot.
@@ -24,7 +24,7 @@ D. How many people?
 
 3. What should we do tonight after classes?
 image: 3.png
->> play: 1:02 - 1:06
+>> play: 1:02-1:06
 A. After 11:00 p.m.
 B. I don't have mine anymore.
 C. Let's watch a movie.
@@ -122,7 +122,7 @@ A
 ### Listen to a Conversation – Questions 13-14
 
 audio: listening-2026-02-02.m4a
->> play: 3:41 - 4:17
+>> play: 3:41-4:17
 image: 13.png
 
 Man: Hi, Lisa. Have you managed to set up the new software on your computer?
@@ -153,7 +153,7 @@ C
 ### Listen to a Conversation – Questions 15-16
 
 audio: listening-2026-02-02.m4a
->> play: 4:43 - 5:10
+>> play: 4:43-5:10
 image: 14.png
 
 Man: I'm so excited for the outdoor concert this weekend.
@@ -182,7 +182,7 @@ A
 ### Listen to a Conversation – Questions 17-18
 
 audio: listening-2026-02-02.m4a
->> play: 5:52 - 6:17
+>> play: 5:52-6:17
 image: 15.png
 
 Man: What do you know about this rock festival that's happening?
@@ -211,7 +211,7 @@ B
 ### Listen to an Announcement in a classroom – Questions 19-20
 
 audio: listening-2026-02-02.m4a
->> play: 6:39 - 7:15
+>> play: 6:39-7:15
 image: 16.png
 
 Man: I want to remind you all that we will have a paper due every Friday. The papers should be a response to the week's reading and should be at least two pages long. Papers should be uploaded to the class portal on Fridays by 5 PM. I will grade them and send you feedback by the end of the weekend. Late papers will be marked down by one letter grade each day, unless you speak with me ahead of time and receive an extension.
@@ -236,7 +236,7 @@ B
 ### Listen to an Announcement at a school event – Questions 21-22
 
 audio: listening-2026-02-02.m4a
->> play: 7:46 - 8:30
+>> play: 7:46-8:30
 image: 17.png
 
 Man: Attention students, we apologize for the inconvenience caused by the recent changes to our work study program application process. Unfortunately due to system issues, some applications were not processed properly. We are working to resolve this problem as quickly as possible. Please resubmit your applications through the updated portal and phone the Career Center if you encounter any further issues. Additionally, we're pleased to announce several new part-time work opportunities available on campus. The stop by the center to learn more.
@@ -261,7 +261,7 @@ D
 ### Listen to an Announcement in a university classroom – Questions 23-24
 
 audio: listening-2026-02-02.m4a
->> play: 9:00 - 9:32
+>> play: 9:00-9:32
 image: 18.png
 
 Man: Good afternoon, student. I'm sorry for the confusion regarding the deadlines for your upcoming assignments. As I wrote in this morning's email, the due dates on your syllabus are incorrect. Your research paper is actually due on Wednesday the 31st and your group presentations are due the following Friday. I regret any inconvenience this has caused. On the other hand, this means you have some extra time to complete your assignments. If you have any questions, feel free to reach out during office hours.
@@ -286,7 +286,7 @@ B
 ### Listen to a Talk on a psychology podcast – Questions 25-28
 
 audio: listening-2026-02-02.m4a
->> play: 10:00 - 11:48
+>> play: 10:00-11:48
 image: 19.png
 
 Professor: My brother Alex has always wanted to get a cat. He likes cats better than dogs. One day, he sent me an online article titled, "Which pet is right for you?" And says, see, even experts agree cats are better. But when I read the article, nowhere did it say that. The article presents balance facts. Dogs are loyal and trainable. Well, okay, cats are independent and low maintenance. My brother was not being dishonest. Simply focused only on the parts that praise cats and skimmed over or dismissed the parts that highlight dogs advantages. This is called confirmation bias. Our brains are lazy. They'd like consistency. Information that aligns with what we already know is easier to understand and less mentally taxing. So our brains seek it out and filter out the rest. This affects the decisions we make in our daily life as we work. Scientists are not immune to confirmation bias. Researchers may unintentionally design experiments or interpret data in ways that support their hypotheses overlooking results that do not fit their expectations. Flawed conclusions in scientific studies can lead to serious consequences. So, what can we do to minimize confirmation bias? The first step is to recognize the existence of confirmation bias. You might be biased. Then actively seek out information that challenges your beliefs. Don't only talk with people who hold the same views as yours. And slow down. Don't make hasty decisions.
@@ -323,7 +323,7 @@ B
 ### Listen to a Talk in a psychology class – Questions 29-32
 
 audio: listening-2026-02-02.m4a
->> play: 13:33 - 15:25
+>> play: 11:48-13:38
 image: 20.png
 
 Professor: So today we're looking at the hero's journey. A storytelling pattern that shows up in myths, literature, and lives from all over the world. This structure was brought into the spotlight by Joseph Campbell, an American mythologist. In his book, The Hero with a Thousand Faces, Campbell studied myths across cultures and noticed they shared a common structure. Campbell called it the monomyth, and he believed it reflected something universal about the human experience. The journey usually kicks off with a call to adventure, some kind of invitation that pulls the hero out of their everyday life. They might resist at first, but eventually they accept, often with a mentor's help. Then come the trials, tests that push the hero to grow. At the center of it all is the abyss, the toughest part where the hero faces their greatest fear or enemy. If they make it through, they're transformed. And here's the key part, turn with a gift, some kind of insight, wisdom, or ability that can help others. That gift is what makes the journey meaningful, not just for the hero, but for their community. Now, some critics argue this model oversimplifies storytelling. It can flatten out cultural differences and force diverse stories into a single mold. Still, I'd argue it's influential because it taps into some deeply human. The idea that struggle leads to growth and that we come back changed.
@@ -365,7 +365,7 @@ audio: listening-2026-02-02.m4a
 
 1. Are you going to join the practice session tomorrow?
 image: 21.png
->> play: 17:24 - 17:28
+>> play: 13:38-13:41
 A. Someone should follow up.
 B. I don't think that's necessary at this point.
 C. No, that's not what I heard.
@@ -373,7 +373,7 @@ D. That's not where I found out.
 
 2. I loved your class presentation.
 image: 22.png
->> play: 17:41 - 17:45
+>> play: 13:54-13:58
 A. Maybe at next year's conference?
 B. I'm glad you saw it.
 C. I don't know where he is.
@@ -381,7 +381,7 @@ D. There's a bird on my windowsill.
 
 3. Can you help me with the homework?
 image: 23.png
->> play: 17:55 - 17:59 
+>> play: 14:08-14:12
 A. I think it's too big to move.
 B. I think it's still on the table.
 C. If only I had the time.
@@ -398,7 +398,7 @@ C
 ### Listen to a Conversation – Questions 4-5
 
 audio: listening-2026-02-02.m4a
->> play: 18:08 - 18:41
+>> play: 14:21-14:54
 image: 24.png
 
 Man: Have you heard they're finally updating the kitchen in the student lounge of this dormitory?
@@ -429,7 +429,7 @@ C
 ### Listen to a Conversation – Questions 6-7
 
 audio: listening-2026-02-02.m4a
->> play: 19:06 - 19:39
+>> play: 15:19-15:52
 image: 25.png
 
 Woman: Lisa, you've been taking guitar lessons, right?
@@ -459,7 +459,7 @@ B
 ### Listen to a Talk on an anthropology podcast – Questions 8-11
 
 audio: listening-2026-02-02.m4a
->> play: 20:05 - 21:51
+>> play: 16:18-18:04
 image: 26.png
 
 Professor: Previously we discussed the significance of pottery to ancient cultures, including pottery as an art form and pottery's crucial role in trade. Today we'll focus on the development of pottery over time. One breakthrough was the invention of the potters around 3500 BCE in Mesopotamia. For this, pottery was shaped mostly by hand, which was slow and produced less uniform results. The potter's wheel allowed artisans to spin and shape the clay more quickly and evenly, making it possible to create symmetrical vessels with greater precision and speed. Firing technology also advanced. Early pots were fired in open pits, which limited temperature control, resulting in uneven or fragile pots. So kilns were developed, enclosed ovens that could reach higher and more consistent temperatures. This allowed for stronger, more durable pottery. Another advance was the updraft kiln, which directed heat upward through the chamber. By adjusting the airflow, potters could control how much oxygen reached the fire. This helped them produce pottery with specific colors like red or black, depending on how the clay reacted to the firing atmosphere. Then, in ancient China, potter kilns that could reach very high temperatures. This allowed them to create stoneware, and eventually porcelain. Porcelain is made from a special mix of fine clay and minerals and must be fired at temperatures above 1200 degrees Celsius. The result is a smooth white ceramic that is strong, lightweight, and slightly translucent. Porcelain was a major breakthrough because it was more durable and versatile than earlier pottery.
@@ -496,7 +496,7 @@ B
 ### Listen to a Talk in an environmental science class – Questions 12-15
 
 audio: listening-2026-02-02.m4a
->> play: 23:26 - 25:36
+>> play: 18:04-20:13
 image: 27.png
 
 Professor: Let's discuss the role of startup incubators in supporting new businesses. These are programs designed to help startups navigate the early stages of development and increase their chances of success by providing resources, mentorship and networking. What resources might a new business lack? Consumers often provide office space to help startups get off the ground and they also steer new businesses toward funding opportunities. Many new entrepreneurs will lack the financial means to invest in basic necessities themselves and this support can be invaluable. Another important element of incubators is mentorship. Experienced professionals and industry experts offer guidance and advice to startup founders. Starting a business is full of pitfalls and a good mentor can help you avoid some of the more common ones not to mention refine your business strategies. Networking opportunities are another significant benefit of incubators. What does a new enterprise need more than anything else? Investors. Being part of an incubator program allows you to connect with potential investors, other entrepreneurs and partners. Now participating in an incubator is not without its challenges. There's a lot of competition to get into some of these programs, so not all startups are accepted. Once you've been accepted, the pressure to perform and meet milestones can be intense and failure to do so can lose you the support of the incubator. That said, the benefits can be substantial. Incubators provide a support environment that fosters innovation and helps startups overcome the hurdles of early stage development.

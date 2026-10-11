@@ -8,7 +8,7 @@ audio: Pack-4_Listening.MP3
 
 1. What time does the game begin?
 image: 1.png
->> play: 0:20-0:23
+>> play: 0:19-0:22
 A. After the previous one ends.
 B. It's in the main hall.
 C. I don't remember why.
@@ -16,7 +16,7 @@ D. Tonight is my first lesson.
 
 2. Why did you cancel the study group meeting?
 image: 2.png
->> play: 0:46-0:49
+>> play: 0:45-0:48
 A. I had a conflicting appointment.
 B. I'm sorry that you lost it.
 C. I will tell him about it.
@@ -24,7 +24,7 @@ D. I didn't realize that.
 
 3. Did you select a winner yet?
 image: 3.png
->> play: 1:12-1:15
+>> play: 1:11-1:14
 A. It arrived yesterday.
 B. I'm still thinking about it.
 C. Her favorite game.
@@ -32,7 +32,7 @@ D. The prize is a gift card.
 
 4. Wasn't your majoring in engineering?
 image: 4.png
->> play: 1:37-1:40
+>> play: 1:36-1:39
 A. It was taking a lot out of him so he switched to business.
 B. In the course syllabus.
 C. I don't know anything about his reading habits.
@@ -40,7 +40,7 @@ D. He doesn't graduate for another year.
 
 5. Would you like coffee or tea?
 image: 5.png
->> play: 2:03-2:06
+>> play: 2:02-2:05
 A. I think it's your turn to make it.
 B. prefer it with sugar.
 C. There is some cream in the fridge.
@@ -48,7 +48,7 @@ D. No thanks I'm good.
 
 6. Who can I speak to about applying for the customer service job?
 image: 6.png
->> play: 2:28-2:33
+>> play: 2:27-2:32
 A. There are two more customers.
 B. We just spoke this morning.
 C. Everything you need is online.
@@ -56,7 +56,7 @@ D. The cost of the service has gone up.
 
 7. Would you prefer to sit indoors or outside?
 image: 7.png
->> play: 2:57-3:01
+>> play: 2:56-3:00
 A. Everything on the menu looks good.
 B. I had a hard time parking my car.
 C. She should be hereby four o'clock.
@@ -64,7 +64,7 @@ D. It looks like it's going to rain.
 
 8. How many times do I have to remind you?
 image: 8.png
->> play: 3:22-3:26
+>> play: 3:21-3:25
 A. Apologies for the oversight.
 B. Many contracts are still being processed.
 C. This is a reminder about tomorrow's deadline.
@@ -72,7 +72,7 @@ D. I cannot verify the accuracy.
 
 9. It looks like you haven't finished the outline for your research paper.
 image: 9.png
->> play: 3:50-3:55
+>> play: 3:49-3:54
 A. Unfortunately I can't go tonight.
 B. It's taking longer than I expected.
 C. Pedro has done some research on it.
@@ -80,7 +80,7 @@ D. The professor created a template.
 
 10. Are you free to meet later?
 image: 10.png
->> play: 4:16-4:20
+>> play: 4:15-4:19
 A. I did not make it.
 B. I have back to back meetings all day.
 C. I think we'll need longer than that.
@@ -88,7 +88,7 @@ D. I wasn't at the last meeting.
 
 11. Where's this new coffee shop you were telling me about?
 image: 11.png
->> play: 4:44-4:49
+>> play: 4:43-4:48
 A. Please put mine on my desk.
 B. Yes you can get good tea there too.
 C. It's a bit far from here I'm afraid.
@@ -96,7 +96,7 @@ D. Well the new one is very popular.
 
 12. How do you fix this issue?
 image: 12.png
->> play: 5:10-5:13
+>> play: 5:09-5:12
 A. It is affecting about half the staff.
 B. The IT department is aware of the issue.
 C. The software needs to be updated.
@@ -121,7 +121,7 @@ C
 ### Listen to a Conversation – Questions 13-14
 
 audio: Pack-4_Listening.MP3
->> play: 5:35-6:00
+>> play: 5:34-5:59
 image: 13.png
 Man: I'm thinking of renovating my kitchen. Do you have any advice?
 Woman: You should start by setting a budget. Renovations can get expensive quickly.
@@ -148,7 +148,7 @@ A
 ### Listen to a Conversation – Questions 15-16
 
 audio: Pack-4_Listening.MP3
->> play: 6:45-7:12
+>> play: 6:44-7:11
 image: 14.png
 Man: Did you manage to get the tickets for the soccer match tonight?
 Woman: Yes, I bought them online earlier this morning. We got lucky — there were only a few seats left.
@@ -176,7 +176,7 @@ A
 ### Listen to a Conversation – Questions 17-18
 
 audio: Pack-4_Listening.MP3
->> play: 7:56-8:23
+>> play: 7:55-8:22
 image: 15.png
 Woman: Have you decided where to hold the conference next month?
 Man: Yes, we're going to host it at the Grand Hotel downtown. It has excellent facilities.
@@ -203,7 +203,7 @@ B
 ### Listen to an Announcement in a classroom – Questions 19-20
 
 audio: Pack-4_Listening.MP3
->> play: 9:08-9:29
+>> play: 9:07-9:28
 image: 16.png
 Man: Attention everyone! Due to the upcoming construction work near our building, our class will be relocated to room 210 starting next Monday. Please take note of the change and arrive on time.
 
@@ -226,7 +226,7 @@ A
 ### Listen to an Announcement at a student meeting – Questions 21-22
 
 audio: Pack-4_Listening.MP3
->> play: 10:13-10:52
+>> play: 10:12-10:51
 image: 17.png
 Man: Our mentorship program is back this year with some great new features, like regularly scheduled one-on-one sessions and extra resources to support participants. Senior students will once again be paired with freshmen to help them navigate their first year. As a mentor, you'll gain real leadership experience and feel the reward of helping someone succeed. Sign up at the Student Center, room 104. Fill out a quick application, including a short statement about why you're interested. Nothing too formal, just a few lines.
 
@@ -249,7 +249,7 @@ C
 ### Listen to an Announcement at a university event – Questions 23-24
 
 audio: Pack-4_Listening.MP3
->> play: 11:41-12:00
+>> play: 11:40-11:59
 image: 18.png
 Man: Attention everyone! We are excited to announce that the university's annual job fair will take place next Wednesday from 10 a.m. to 4 p.m. in the main hall. This is a great opportunity to meet potential employers and explore career options. We hope to see you there!
 
@@ -272,7 +272,7 @@ D
 ### Listen to an Announcement at a university club meeting – Questions 25-26
 
 audio: Pack-4_Listening.MP3
->> play: 12:45-13:07
+>> play: 12:44-13:06
 image: 19.png
 Man: Welcome everyone! Today we'll be discussing the schedule for our upcoming fundraiser. We'll be hosting a charity bake sale next Friday in the student center. All proceeds will go to local food banks. We hope you all can participate and make a difference!
 
@@ -295,7 +295,7 @@ B
 ### Listen to a Talk in a sociology class – Questions 27-30
 
 audio: Pack-4_Listening.MP3
->> play: 13:52-15:38
+>> play: 13:51-15:37
 image: 20.png
 Professor: Today we'll dive into the world of cubism, an innovative art movement that revolutionized the way we perceive and represent reality. Cubism emerged in the early 20th century, spearheaded by artists like Pablo Picasso and Georges Braque. Unlike traditional art, which aimed to depict subjects from a single viewpoint, cubism fragmented objects into geometric shapes and presented multiple angles simultaneously. This technique challenged conventional perspectives and provided a more dynamic and complex representation of the subject matter. One of the most iconic works of cubism is Picasso's painting Les Demoiselles d'Avignon. It was revolutionary, breaking away from realism with distorted figures and jagged geometric shapes. It rejected traditional perspective, presenting multiple viewpoints at once, and it shocked audiences with its raw, fragmented forms. Cubism can be divided into two phases: analytical cubism and synthetic cubism. Analytical cubism focused on deconstructing objects into basic geometric forms and muted colors, whereas synthetic cubism introduced brighter colors and collage techniques, integrating different materials like newspapers and fabric into the artwork. The impact of cubism extended beyond visual arts, influencing literature, architecture, and even music. Its emphasis on abstraction and multiplicity of perspectives inspired artists and thinkers to explore new ways of expressing ideas and interpreting the world. Ultimately, cubism paved the way for many modern art movements, leaving a lasting legacy on artistic expression.
 
@@ -336,7 +336,7 @@ audio: Pack-4_Listening.MP3
 
 1. did you make it to the meeting
 image: 21.png
->> play: 17:56-17:59
+>> play: 15:37-15:40
 A. Unfortunately I missed it.
 B. Yes I can make it.
 C. I'll think about it.
@@ -344,7 +344,7 @@ D. Is the meeting canceled?
 
 2. when is the company meeting
 image: 22.png
->> play: 18:20-18:23
+>> play: 16:01-16:04
 A. In the large conference room.
 B. It got postponed to Tuesday.
 C. It usually lasts about an hour.
@@ -352,7 +352,7 @@ D. It looks bad if you are late.
 
 3. Do you need help cleaning up after the reception tomorrow?
 image: 23.png
->> play: 18:44-18:48
+>> play: 16:25-16:29
 A. The reception lasted well into the night.
 B. I would be truly grateful.
 C. Sure I'd love to help.
@@ -368,7 +368,7 @@ B
 ### Listen to a Conversation – Questions 4-5
 
 audio: Pack-4_Listening.MP3
->> play: 19:11 -19:47
+>> play: 16:52-17:28
 image: 24.png
 Man: Hi Anna, do you happen to know whether the library is staying open late tonight? I heard there might be a schedule change due to the maintenance work.
 Woman: Actually, yes, it's still open until 10 p.m. on weekdays, even during the renovations. They've just relocated the study areas to the east wing temporarily.
@@ -394,7 +394,7 @@ C
 ### Listen to a Conversation – Questions 6-7
 
 audio: Pack-4_Listening.MP3
->> play: 20:33-21:05
+>> play: 18:14-18:46
 image: 25.png
 Man: I'm having trouble with my internet connection. It keeps dropping every few minutes.
 Woman: That's frustrating. Have you contacted your service provider?
@@ -422,7 +422,7 @@ D
 ### Listen to a Talk on an art podcast – Questions 8-11
 
 audio: Pack-4_Listening.MP3
->> play: 21:50-23:39
+>> play: 19:31-21:17
 image: 26.png
 Professor: Cubism emerged in the early 20th century, spearheaded by artists like Pablo Picasso and Georges Braque. Unlike traditional art, which aimed to depict subjects from a single viewpoint, cubism fragmented objects into geometric shapes and presented multiple angles simultaneously. This technique challenged conventional perspectives and provided a more dynamic and complex representation of the subject matter. One of the most iconic works of cubism is Picasso's painting Le Demoiselle daignon or the young ladies of avenue in English. It was revolutionary, breaking away from realism with distorted figures and jagged geometric shapes, it rejected traditional perspective, presenting multiple viewpoints at once, and the painting shocked audiences with its raw, fragmented forms. Cubism can be divided into two phases, analytical cubism and synthetic cubism. Analytical cubism focused on deconstructing objects into basic geometric forms and muted colors, whereas synthetic cubism introduced brighter colors and collage techniques, integrating different materials like newspapers and fabric into the artwork. The impact of cubism extended beyond visual arts, influencing literature, architecture and even music. Its emphasis on abstraction and multiplicity of perspectives, inspired artists and thinkers to explore new ways of expressing ideas and interpreting the world. Ultimately, cubism paved the way for many modern art movements, leaving a lasting legacy on artistic expression
 
@@ -457,7 +457,7 @@ C
 ### Listen to a Talk on a podcast about music – Questions 12-15
 
 audio: Pack-4_Listening.MP3
->> play: 25:47-27:34
+>> play: 21:17-23:03
 image: 27.png
 Professor: Let's explore the fascinating world of synesthesia, a condition where one sensory experience involuntarily triggers another. This phenomenon is particularly intriguing in the realm of music, where certain individuals can see sounds or taste music. Synesthetic experiences vary widely among individuals. For example, some might perceive specific colors when hearing particular musical notes or chords. A person might see red when they hear AC note or blue when they hear AG note. This blending of senses can enhance their emotional connection to the music and even influence their creative processes. A number of famous musicians, such as Duke Ellington, have reported experiencing synesthesia, which they claim helps them in composing and performing music. Neurologists theorize that synesthesia stems from heightened neural connections between sensory regions, allowing stimulation of one sense to trigger involuntary experiences with another. Though uncommon, it offers profound insight into perception and the mechanisms underlying sensory integration, helping researchers explore cognition, memory, and even creativity. Moreover, synesthesia is not limited to music. It can involve other combinations of senses, such as associating certain tastes with numbers or textures with emotions. Understanding synesthesia can help us appreciate the varied ways people experience the world and highlight the incredible potential of the human brain
 
