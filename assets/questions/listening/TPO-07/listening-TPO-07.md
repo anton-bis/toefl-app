@@ -8,7 +8,7 @@ audio: 托福样题01-听力-Module 01-01-Listen and Choose a Response.mp3
 
 1. Woman: Didn't I just see you in the library an hour ago?
 image: 1.png
->> play: 00:00-00:06
+>> play: 0:00-0:06
 A. As a matter of fact, I was returning a book.
 B. Yes, you can find it in the reference section.
 C. I don't think I'll have enough time to do that.
@@ -16,7 +16,7 @@ D. Actually, I think I can get there a little earlier.
 
 2. Man: Where is the nearest bus stop?
 image: 2.png
->> play: 00:06-00:12
+>> play: 0:06-0:12
 A. I nearly missed the bus.
 B. Every 30 minutes.
 C. I can help you find it.
@@ -24,7 +24,7 @@ D. I'll take the subway instead.
 
 3. Woman: How do I contact customer service?
 image: 3.png
->> play: 00:12-00:20
+>> play: 0:12-0:20
 A. Yes, you're allowed to do that.
 B. Use the convenient chat feature.
 C. No, I don't mind.
@@ -32,7 +32,7 @@ D. They provide good service.
 
 4. Woman: I'm afraid I'm not available this evening.
 image: 4.png
->> play: 00:20-00:28
+>> play: 0:20-0:28
 A. Oh, that's too early.
 B. How about tomorrow night then?
 C. She arrived this afternoon.
@@ -40,7 +40,7 @@ D. No, that's not necessary.
 
 5. Man: Isn't the post office open today?
 image: 5.png
->> play: 00:28-00:34
+>> play: 0:28-0:34
 A. No, it's my package.
 B. It's just around the corner!
 C. I think he's come home already.
@@ -48,7 +48,7 @@ D. Let's check the schedule online.
 
 6. Woman: If you need me, just text.
 image: 6.png
->> play: 00:34-00:42
+>> play: 0:34-0:42
 A. I can help you with that.
 B. You don't need any more information.
 C. You have a lot of questions, don't you?
@@ -56,7 +56,7 @@ D. You haven't given me your number yet.
 
 7. Woman: So the store is open for business all weekend?
 image: 7.png
->> play: 00:42-00:50
+>> play: 0:42-0:50
 A. Yes, there is a major power outage.
 B. Yes, it's under renovation.
 C. Yes, it's closed all day on Sunday.
@@ -64,7 +64,7 @@ D. Yes, they're having a huge sale.
 
 8. Man: Did you attend the seminar?
 image: 8.png
->> play: 00:50-00:56
+>> play: 0:50-0:56
 A. I overslept.
 B. No, not very well.
 C. Have you asked your professor?
@@ -202,56 +202,56 @@ audio: 托福样题01-听力-Module 02-01-Listen and Choose a Response.mp3
 
 1. Woman: Who is the new manager?
 image: 13.png
->> play: 00:00-00:04
+>> play: 0:00-0:04
 A. She started last week.
 B. I'm unsure, but I can find out.
 C. Let's welcome the new manager.
 D. The position has been filled.
 2. Man: When is the due date for the report?
 image: 14.png
->> play: 00:04-00:10
+>> play: 0:04-0:10
 A. Please wait while I look that up.
 B. Give me some dates.
 C. No, I have another due date.
 D. Yes, that's correct.
 3. Man: I'm going to get some groceries.
 image: 15.png
->> play: 00:10-00:17
+>> play: 0:10-0:17
 A. Every Wednesday.
 B. In aisle 4.
 C. The cinema is not open today.
 D. Let's go together.
 4. Woman: Would you like a copy of my notes?
 image: 16.png
->> play: 00:17-00:24
+>> play: 0:17-0:24
 A. The research facility.
 B. That would be great.
 C. The break is in an hour.
 D. Two bullet points.
 5. Man: Sami and Layla are on their way to the cafe.
 image: 17.png
->> play: 00:24-00:32
+>> play: 0:24-0:32
 A. Should we join them?
 B. Did you like the concert?
 C. Yesterday evening.
 D. The best coffee.
 6. Woman: I'd like to hear your thoughts on the job candidates.
 image: 18.png
->> play: 00:32-00:39
+>> play: 0:32-0:39
 A. I'm revising my résumé.
 B. I'll set up a meeting for us to talk.
 C. She just got a promotion.
 D. Yes, the training is complete.
 7. Woman: How much does expedited shipping cost?
 image: 19.png
->> play: 00:39-00:47
+>> play: 0:39-0:47
 A. It's one of many.
 B. Twice last week.
 C. We don't offer that.
 D. I'd like the bill, please.
 8. Man: If you need more information, contact Ms. Lee.
 image: 20.png
->> play: 00:47-00:54
+>> play: 0:47-0:54
 A. I can help with that.
 B. What is her role in the company?
 C. You ask a lot of questions.

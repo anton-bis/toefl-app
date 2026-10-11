@@ -122,7 +122,7 @@ C
 subtitle: Conference Travel
 audio: listening_audio_01.mp3
 image: 13.png
->> play: 23:57-25:06
+>> play: 3:11-4:20
 
 Should we take the train or fly to the conference? The train is slower but the train station is a quick walk from the conference hotel. The airport is at least half an hour away. Train it is then. I hope the hotel has nice views of the city. That I can't answer. Just be ready to leave at 7am. 7 o'clock? That's awfully early. Is that the only option? I thought we should take an early train so we have time to sightsee when we get there. Listen to a conversation.
 
@@ -148,7 +148,7 @@ C
 subtitle: Book Reading and Volunteering
 audio: listening_audio_01.mp3
 image: 14.png
->> play: 25:06-26:25
+>> play: 4:20-5:39
 
 Why weren't you at the book reading at the library yesterday? I wanted to go but I got stuck helping out with a volunteer event. I didn't know you were still doing that. Only sometimes. The animal shelter really needed help. I think I'm going to take myself off the volunteer list though. Well, the featured author yesterday was Courtney Reimer and she mostly talked about her new book, The Breath of Life. I'm sorry I missed it. The only downside was that the question and answer session was so short. Only two or three people had a chance to ask her anything.
 
@@ -174,7 +174,7 @@ C
 subtitle: Roommate Search
 audio: listening_audio_01.mp3
 image: 15.png
->> play: 26:25-27:34
+>> play: 5:39-6:48
 
 Hi Emily. Have you had any luck with your search for a roommate for your new apartment? Not yet. I've posted ads online but I haven't received many responses. Have you tried asking around at the university? Your classmates might know someone. That's a good idea. I'll ask around tomorrow. I hope you find someone soon. It's so expensive when you're not sharing the rent. Definitely.
 
@@ -200,7 +200,7 @@ B
 subtitle: Bookstore Training
 audio: listening_audio_01.mp3
 image: 16.png
->> play: 27:34-28:57
+>> play: 6:48-8:11
 
 Welcome trainees. Now that we've increased our building size, the bookstore has been busier than ever and it's great to have you with us. So we'll start by talking about stocking shelves. Inventory is located in the back room and your manager will let you know who's assigned to restock the shelves each day. Sometimes inventory arrives damaged from shipping. Just let a manager know but don't put out the damaged merchandise. Our goal is for customers to have the best experience possible. Listen to an announcement in a university classroom.
 
@@ -226,7 +226,7 @@ A
 subtitle: Career Resources for Teachers
 audio: listening_audio_01.mp3
 image: 17.png
->> play: 28:57-30:09
+>> play: 8:11-9:23
 
 Since a lot of you have expressed an interest in a career in education once you've graduated, I thought I'd share something that I think will be very helpful to you. It's a list of professional organizations and networking opportunities for aspiring new teachers. I've attached a copy with an email I sent everyone just before class. If you're one of the students I'm referring to, I highly recommend you check it out.
 
@@ -252,7 +252,7 @@ A
 subtitle: Career Counseling Office
 audio: listening_audio_01.mp3
 image: 18.png
->> play: 30:09-31:25
+>> play: 9:23-10:39
 
 Students starting next Monday, our Career Counseling Office will update its schedule and offer extended hours for the spring semester. The office will be open from 8am to 7pm on weekdays to handle the additional demand from students looking for summer jobs and internships or preparing for work post-graduation. The Career Counseling Office will also be merging with the Office of Volunteer Services so that assistance with both paid and volunteer work opportunities will be available in the same location.
 
@@ -278,7 +278,7 @@ C
 subtitle: Surrealism and Joan Miro
 audio: listening_audio_01.mp3
 image: 19.png
->> play: 31:25-34:44
+>> play: 10:39-13:58
 
 Last week we talked about realism, in which artists aimed to depict the world as it really exists. Today we'll explore surrealism. Starting in France in the 1920s, surrealist artists focused on inner realities, concepts such as fantasy and the nature of dreams. Their works reflected a combination of these inner realities as well as outer realities, that is, things we physically experience. Their paintings often depicted a familiar scene, but in a dream-like manner. Spaniard Joan Miro was especially adept at surrealism. Interestingly, though, Miro never wanted to be associated with any artistic movement and he never called himself a surrealist. But his contemporaries did, and we can see why they did when we look at Miro's work. Miro typically painted in two stages. The latter stage was carefully calculated. It was meticulous and precise. Miro knew exactly what he was doing in this stage. But in the initial stage, Miro didn't plan what he was going to paint. He just started painting. The form, whatever it was, a bird, a building, whatever appeared on the canvas, the form suggested itself under his brush. That's how Miro described it. This method of creating art without conscious control is called automatism. Automatism is quite noticeable in a work of Miro's that is titled, simply, Painting. Even Miro couldn't fully explain the meaning of this work. Presumably, the images that appeared came from things deep inside him. Things he may not have even known were there.
 
@@ -316,7 +316,7 @@ A
 subtitle: Trompe-l'oeil Painting
 audio: listening_audio_01.mp3
 image: 20.png
->> play: 34:44-38:00
+>> play: 13:58-17:14
 
 Let's step into the curious world of Trompleu, a painting technique that doesn't just play with perspective. It plays with your perception. The term French for deceive the eye hints at its magic. Paintings so convincing they make you question what's real. Trompleu paintings often look three-dimensional and blur the boundaries between what's real and what isn't. Though its roots stretch back to ancient Greece and Rome, Trompleu truly flourished during the Renaissance. Artists like Andrea Mantegna used the technique to make ceilings look like open skies, creating the impression that rooms were open to the heavens. By the 17th century, Trompleu had become a popular form of interior decoration. Consider the work of Dutch artist Samuel van Hoogstraten, whose paintings gave viewers the illusion of stepping into another room or looking through a window. These paintings play tricks on the viewer's sense of space and depth, creating a sense of wonder. Not everyone is enchanted. Some view Trompleu as a clever trick, technically impressive, but emotionally hollow. It's a fair critique. When art leans heavily on illusion, it risks being seen as spectacle rather than substance. Still, the technique endures, and today's artists push it further, using digital tools to bend reality in ways that go beyond paint and canvas. Trompleu isn't just about fooling the eye anymore. It's about challenging how we see.
 
@@ -390,7 +390,7 @@ B
 subtitle: New Study App
 audio: listening_audio_01.mp3
 image: 24.png
->> play: 38:46-39:57
+>> play: 18:00-19:11
 
 Have you tried using that new app our physics professor mentioned? I was going to download it, but then I figured I wouldn't have time to figure out how to use it. I can totally show you. It's not that bad. And it's been helpful for our last couple of homework assignments. Great! I was planning to go to the tutoring centre for extra help. You probably won't need to now. Here, I'll show you where to get it. And I have the code the professor gave us for the free trial. I actually have that. Listen to a conversation.
 
@@ -416,7 +416,7 @@ A
 subtitle: Downtown Bakery
 audio: listening_audio_01.mp3
 image: 25.png
->> play: 39:57-41:09
+>> play: 19:11-20:23
 
 How did you like the new bakery downtown? I don't know. It seemed to be all about the presentation. The pastries and buns had these fancy shapes and came in all kinds of colourful wrappings, that kind of thing. For me, what matters is the taste. Totally! I'm there to eat the stuff, not take pictures of it. Right. The taste was just kind of regular. Not what you'd expect for the price. Sounds like I'll be skipping out on this one. Especially since I need to cut down on my sugar intake and calories anyway. Pastries have too much of those.
 
@@ -442,7 +442,7 @@ A
 subtitle: Wetlands
 audio: listening_audio_01.mp3
 image: 26.png
->> play: 41:09-44:34
+>> play: 20:23-23:48
 
 Today, we're going to talk about the importance of wetlands and their role in ecosystems. Wetlands are areas where water covers the soil, either permanently or seasonally, and include marshes, swamps, and bogs. These are incredibly productive ecosystems that provide numerous benefits to the environment and human society. They serve as critical habitats for a wide variety of wildlife, including birds, fish, and amphibians, and they provide breeding grounds and food sources that are essential for the survival of many species. But wetlands aren't just waterlogged habitat. They're biochemical powerhouses. One of their primary functions is to act as natural water filters, breaking down or neutralizing toxic substances like heavy metals and pesticides through the action of specialized microbes. These microbial communities form complex relationships with plants and sediments, creating a natural filtration system that can detoxify pollutants before they reach rivers, lakes, or groundwater. Another significant role of wetlands is their ability to manage floodwaters. During periods of heavy rain, wetlands can absorb and store excess water, reducing the risk of floods in surrounding areas. Furthermore, wetlands are important for carbon sequestration, capturing and storing large amounts of carbon dioxide, which helps mitigate climate change. However, wetlands face numerous threats, including drainage from agriculture, urban development, and pollution. Protecting and restoring wetlands is crucial for maintaining their ecological functions and the benefits they provide. In the next part of our class, we will examine specific efforts to conserve and restore wetlands around the world.
 
@@ -480,7 +480,7 @@ D
 subtitle: Indian Pangolin
 audio: listening_audio_01.mp3
 image: 27.png
->> play: 44:34-46:35
+>> play: 23:48-25:44
 
 Some animals have such odd features and habits that they almost seem mythical. One is the Indian pangolin. The Indian pangolin is a mammal about 100 centimeters long. It has a tail, and except for its belly, it's covered in large overlapping scales that make it look kind of like an artichoke or a pinecone. These scales are like its own coat of armor. When it's threatened, the Indian pangolin curls into a tight ball, protecting its belly and using its scales as a shield against predators. This behavior is known as volvation. Think of a hedgehog. When threatened, a hedgehog will also curl into a ball, volvation, with its spikes facing outward for protection. Ingenious. The Indian pangolin is found in forests, grasslands, and even deserts. Wherever Indian pangolins are, there's two things they like, digging and ants. Pangolins are nocturnal, meaning they come out at night, and when they do, they're looking for ants. They eat about 200,000 of them, ants and termites every day. This helps keep their ecosystem balanced. They also dig burrows, which are like holes or tunnels, to sleep or maiden or to find ants. When Indian pangolins dig, they're disturbing the soil, which improves the soil, by making it easier for air, water, and nutrients to circulate in the soil, similar to why farmers plow their fields. Pangolin digging helps contribute to the growth of new healthy vegetation. Plus, the burrows, once they're abandoned, are good shelter and habitat for other animals.
 

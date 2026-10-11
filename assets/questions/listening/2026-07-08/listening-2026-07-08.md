@@ -122,7 +122,7 @@ B
 subtitle: Campus Bookstore Job
 audio: listening_part2.m4a
 image: 13.png
->> play: 2:24-3:27
+>> play: 2:21-3:24
 
 How's your job at the campus bookstore going? Pretty good. It was really hectic last week. Which is no surprise because the semester is just starting. Right. I actually avoided all that by ordering my books online. It was a smart move. Things have calmed down, thankfully. I think this actually might be my last semester at the bookstore, though. I heard that the tutoring center is looking for biology tutors. That's my major, so...
 
@@ -148,7 +148,7 @@ D
 subtitle: Returning a Sweater
 audio: listening_part2.m4a
 image: 14.png
->> play: 3:27-4:24
+>> play: 3:24-4:21
 
 Hi. I need to return this sweater. I bought it yesterday, but it's too small for me. Sure. Do you have the receipt? Yes. I have it right here. Great. We can process the return. Do you want to exchange it for a larger size or get a refund? I'd like to exchange it, please. No problem. I'll get another in that color for you from our stock. Thank you.
 
@@ -174,7 +174,7 @@ C
 subtitle: Astronomy Club Preparations
 audio: listening_part2.m4a
 image: 15.png
->> play: 4:25-5:28
+>> play: 4:22-5:25
 
 Have you gone out to get the food and drinks we need for the astronomy club meeting tomorrow? It's our first thing of the year. Not yet. I've been working on setting up the outdoor space behind the student center for our stargazing activities. There was more to do than I thought. That actually works out perfectly. I've got a few more things to add to the list. All right. Jot them down, and I'll take care of that now.
 
@@ -200,7 +200,7 @@ D
 subtitle: Environmental Club Cleanup
 audio: listening_part2.m4a
 image: 16.png
->> play: 5:28-6:31
+>> play: 5:25-6:28
 
 The Environmental Club will be hosting a campus cleanup session Saturday starting at 9 a.m. It's not too late to sign up, and the activity is open to all. Participants will spend two hours picking up trash around campus, and will receive free t-shirts and refreshments. And next weekend, we'll be hosting the first-ever multi-university symposium. Student leaders from four different schools will discuss ways our students can work together to improve recycling efforts. The complete agenda is available on our club webpage.
 
@@ -226,7 +226,7 @@ B
 subtitle: Dormitory Kitchen Rules
 audio: listening_part2.m4a
 image: 17.png
->> play: 6:31-7:52
+>> play: 6:28-7:49
 
 Attention residents. We would like to remind everyone of the shared responsibility for maintaining the kitchen. Beginning this week, any dirty dishes left in the sink on Sunday will be thrown out. Please remember that sponges and dish soap are available and are replenished daily by the custodial staff. In addition, please be sure to remove anything in the refrigerator that's past its expiration date. And don't forget to put your name on everything that's yours. If there's no name, it's considered communal property.
 
@@ -252,7 +252,7 @@ D
 subtitle: Assignment Deadlines
 audio: listening_part2.m4a
 image: 18.png
->> play: 7:52-8:52
+>> play: 7:49-8:49
 
 Good afternoon, students. I'm sorry for the confusion regarding the deadlines for your upcoming assignments. As I wrote in this morning's email, the due dates on your syllabus are incorrect. Your research paper is actually due on Wednesday the 31st, and your group presentations are due the following Friday. I regret any inconvenience this has caused. On the other hand, this means you have some extra time to complete your assignments. If you have any questions, feel free to reach out during office hours.
 
@@ -278,7 +278,7 @@ B
 subtitle: Storytelling Dice
 audio: listening_part2.m4a
 image: 19.png
->> play: 8:52-11:52
+>> play: 8:49-11:49
 
 Have you ever stared at a blank page trying to come up with an idea of what to write about? Waiting for inspiration? Storytelling dice are a simple way to break through that creative block. Yes, I'm talking about dice similar to ones you roll in some common board games to generate random numbers. But instead of numbers, each die is covered with pictorial symbols like a tree, a key, or a lightning bolt. A typical set could have nine six-sided dice. The magic lies in their unpredictability. You might roll a dragon, a locked door, and a storm. Suddenly, you're weaving a tale of, say, hidden realms and daring escapes. Storytelling dice are not just for writers. They can also serve as icebreakers at social gatherings. Imagine this. The party feels a little stiff, so you pull out the dice and say, Everyone roll three. Someone gets a dragon, a ladder, and a smiley face. Another rolls a spaceship, shoes, and a storm cloud. Soon, people are laughing as they connect these random images into a wild story. The dragon was stuck on a ladder during a thunderstorm. And then a spaceship landed to rescue it. It's silly, spontaneous, and gets everyone talking. But now let's get back to creative writing and talk about a short story that a previous student of mine wrote last semester. While reading the story, try to guess what three images she rolled on her dice that inspired her to write it.
 
@@ -316,7 +316,7 @@ D
 subtitle: Decalcomania
 audio: listening_part2.m4a
 image: 20.png
->> play: 11:52-15:18
+>> play: 11:49-15:15
 
 Humans have been expressing themselves through art for thousands of years. Consider ancient cave paintings that have been discovered throughout the world, some of them more than 40,000 years old. Caves in Sulawesi, Indonesia that include figurative art are an example of this. Some forms of art, though, have much more recent origins. Take, for example, decalcomania, a really cool art technique that originated in the 18th century. So what is decalcomania? At its core, it's a simple process. You begin by spreading paint onto a surface like a sheet of paper. Then you press another surface, let's say canvas, onto the paper. So you press the two surfaces together. At this point, you pull them apart while the paint is still wet. The resulting image is often rich with organic abstract patterns. Decalcomania was first used to decorate pottery in the 18th century, but it really took off in the 20th century, especially with the surrealist movement. Artists like Max Ernst loved this technique because it helped them tap into the subconscious and explore the unexpected. Ernst was enchanted by the process that allowed him to create shapes that the artist could not fully control. What's especially intriguing about decalcomania is the balance it strikes between control and chaos. Sure, the artist chooses the colours and the materials, but once the process is complete, the final result is mostly up to chance.
 
@@ -390,7 +390,7 @@ B
 subtitle: Music Recommendations
 audio: listening_part2.m4a
 image: 24.png
->> play: 16:10-17:13
+>> play: 16:07-17:10
 
 Hey, I'm getting bored listening to the same old pop singers. Any recommendations for me? You came to the right guy. You know I'm always on the lookout for the next big thing. I've really been into this punk rock band lately. Sounds fun, but I'm looking for something more mellow. Well, I was on a date at the café last night, and there was a jazz quartet playing. Their singer was a smooth baritone. I think she used to be an opera singer. If you're looking for something relaxed, you'll love her.
 
@@ -416,7 +416,7 @@ B
 subtitle: Painting Exhibition
 audio: listening_part2.m4a
 image: 25.png
->> play: 17:13-18:14
+>> play: 17:10-18:11
 
 I saw the new painting exhibition in the art museum. Have you? Moving to my new apartment has taken up all of my free time recently. There's so much packing, unpacking to do. How's the exhibit? There's a good variety of paintings, and their arrangement is really creative. I just wish it featured some stuff from artists in our area. We have so many talented painters here whose work is worth seeing. But all in all, it's quite awesome. I'll go check it out this weekend before it closes. I should be all moved in by then.
 
@@ -442,7 +442,7 @@ A
 subtitle: Thin Film Interference
 audio: listening_part2.m4a
 image: 26.png
->> play: 18:14-21:42
+>> play: 18:11-21:39
 
 Today we're going to explore a phenomenon called thin film interference. This is an optical effect that occurs in light, interacts with very thin surfaces. Imagine a soap bubble floating in the air. Although it's made of clear liquid, it shines with shifting rainbow colors. Thin film interference explains how this shimmering display occurs. When light strikes a bubble, some reflects off the outer surface, and some reflects off the inner surface. As these waves meet, they can either work together or work against each other. If they reinforce one another, the color looks brighter. This is called constructive interference, because the waves are constructing or building the light. If the waves hit each other and cancel each other out, the color fades. This is destructive interference because the waves are destroying each other's effect. Which color appears depends on factors changing, factors like the thickness of the film and the angle of the light. As these factors shift, some wavelengths are reinforced while others are canceled, and that constant change is what produces the bubble's rainbow shimmer. The thin film that creates these dazzling colors also makes the bubble fragile. Because the layer is so delicate, the bubble can burst with the slightest touch or breeze. Scientists are interested in applying thin film interference to technology. Possible uses include paints that shine with bright colors without pigments and anti-reflective coatings for lenses. Yet reproducing the bubble's natural balance of simplicity and efficiency remains a significant challenge.
 
@@ -480,7 +480,7 @@ A
 subtitle: Indian Pangolin
 audio: listening_part2.m4a
 image: 27.png
->> play: 21:42-23:40
+>> play: 21:39-23:37
 
 Some animals have such odd features and habits that they almost seem mythical. One is the Indian Pangolin. The Indian Pangolin is a mammal about 100 centimeters long. It has a tail and except for its belly, it's covered in large overlapping scales that make it look kind of like an artichoke or a pinecone. These scales are like its own coat of armor. When it's threatened, the Indian Pangolin curls into a tight ball, protecting its belly and using its scales as a shield against predators. This behavior is known as volvation. Think of a hedgehog. When threatened, a hedgehog will also curl into a ball, volvation, with its spikes facing outward for protection. Ingenious. The Indian Pangolin is found in forests, grasslands, and even deserts. Wherever Indian Pangolins are, there's two things they like, digging and ants. Pangolins are nocturnal, meaning they come out at night. And when they do, they're looking for ants. They eat about 200,000 of them, ants and termites, every day. This helps keep their ecosystem balanced. They also dig burrows, which are like holes or tunnels, to sleep or maiden or to find ants. When Indian Pangolins dig, they're disturbing the soil, which improves the soil by making it easier for air, water, and nutrients to circulate in the soil, similar to why farmers plow their fields. Pangolin digging helps contribute to the growth of new, healthy vegetation. Plus, the burrows, once they're abandoned, are good shelter and habitat for other animals.
 

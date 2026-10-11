@@ -8,7 +8,7 @@ audio: 托福样题02-听力-Module 01-01-Listen and Choose a Response.mp3
 
 1. Man: How can I get this light to work?
 image: 1.png
->> play: 00:00-00:04
+>> play: 0:00-0:04
 A. The lighter one is over there.
 B. There's a switch on the back wall.
 C. The side door is open.
@@ -16,7 +16,7 @@ D. I prefer to work at home.
 
 2. Woman: I'm not available tomorrow.
 image: 2.png
->> play: 00:06-00:10
+>> play: 0:06-0:10
 A. Let's try to get there early.
 B. What's a better day for you?
 C. It's not on my schedule either.
@@ -24,7 +24,7 @@ D. I was in a meeting last night.
 
 3. Man: The campus talent contest will be held next Saturday evening.
 image: 3.png
->> play: 00:12-00:18
+>> play: 0:12-0:18
 A. I can hold that for you.
 B. Stage lighting is usually very hot.
 C. My roommate is a talented basketball player.
@@ -32,7 +32,7 @@ D. Do you know who the judges will be?
 
 4. Man: What time do I need to pick up Michael from the train station?
 image: 4.png
->> play: 00:20-00:26
+>> play: 0:20-0:26
 A. Don't worry about it—I'll get him.
 B. He said he prefers the window seat.
 C. The station now has a snack shop.
@@ -40,7 +40,7 @@ D. There's road construction near the entrance.
 
 5. Woman: Isn't the grocery store open late tonight?
 image: 5.png
->> play: 00:27-00:33
+>> play: 0:27-0:33
 A. Yes, it is.
 B. No, shopping takes time.
 C. It's next to the store.
@@ -48,7 +48,7 @@ D. I'd rather not.
 
 6. Woman: Did you bring the identification documents?
 image: 6.png
->> play: 00:35-00:41
+>> play: 0:35-0:41
 A. They are in the blue folder.
 B. Who can identify them?
 C. Both can be done.
@@ -56,7 +56,7 @@ D. Yes, I would.
 
 7. Man: Wait, isn't the concert tomorrow night?
 image: 7.png
->> play: 00:43-00:48
+>> play: 0:43-0:48
 A. No, it's tonight.
 B. No, I can't wait.
 C. Yes, I would.
@@ -64,7 +64,7 @@ D. Yes, that's fine.
 
 8. Woman: I'm not available this afternoon.
 image: 8.png
->> play: 00:50-00:54
+>> play: 0:50-0:54
 A. So am I.
 B. It takes a while.
 C. I didn't mean it.
@@ -218,7 +218,7 @@ audio: 托福样题02-听力-Module 02-01-Listen and Choose a Response.mp3
 
 1. Woman: Who is responsible for the project timeline?
 image: 13.png
->> play: 00:00-00:04
+>> play: 0:00-0:04
 A. I do.
 B. I'm not sure.
 C. A few unexpected delays.
@@ -226,7 +226,7 @@ D. It stays on track.
 
 2. Woman: Why did the team meeting get canceled?
 image: 14.png
->> play: 00:06-00:11
+>> play: 0:06-0:11
 A. Two days ago.
 B. Meeting attendees.
 C. Actually, it was rescheduled.
@@ -234,7 +234,7 @@ D. How about another time?
 
 3. Man: Can you assist me with my science report?
 image: 15.png
->> play: 00:13-00:18
+>> play: 0:13-0:18
 A. Let me know what you think.
 B. You're very kind.
 C. What exactly do you need help with?
@@ -242,7 +242,7 @@ D. It doesn't matter.
 
 4. Man: I'm not sure about the current plan.
 image: 16.png
->> play: 00:21-00:26
+>> play: 0:21-0:26
 A. That's unfortunate.
 B. Sure, I can.
 C. I think you have it.
@@ -250,7 +250,7 @@ D. No, it's planned.
 
 5. Man: If you need help, ask Ms. Johnson.
 image: 17.png
->> play: 00:28-00:34
+>> play: 0:28-0:34
 A. Either is fine by me.
 B. Happy to help.
 C. That's what I'll do.
@@ -258,7 +258,7 @@ D. I'm available.
 
 6. Woman: What time does the event start?
 image: 18.png
->> play: 00:36-00:41
+>> play: 0:36-0:41
 A. In the party room.
 B. At 1 p.m.
 C. It's crowded.
@@ -266,7 +266,7 @@ D. Event coordinators.
 
 7. Man: Who is hosting the party tonight?
 image: 19.png
->> play: 00:42-00:48
+>> play: 0:42-0:48
 A. The marketing team is.
 B. It's tonight.
 C. I can't help it.
@@ -274,7 +274,7 @@ D. It's good for two days.
 
 8. Man: Let's go hiking this weekend.
 image: 20.png
->> play: 00:50-00:54
+>> play: 0:50-0:54
 A. Maybe it is.
 B. Why not this weekend instead?
 C. Have you checked the weather?

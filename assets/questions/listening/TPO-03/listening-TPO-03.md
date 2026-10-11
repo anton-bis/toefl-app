@@ -8,7 +8,7 @@ audio: Pack-3_Listening.MP3
 
 1. Would you mind opening the window?
 image: 1.png
->> play: 0:26-0:28
+>> play: 0:23-0:25
 A. Not at all.
 B. I was there yesterday.
 C. I didn't see it.
@@ -16,7 +16,7 @@ D. Until last week.
 
 2. Who can help me lead the focus group?
 image: 2.png
->> play: 0:52-0:54
+>> play: 0:49-0:51
 A. Either the first or the second.
 B. The next day.
 C. Donna's great with people.
@@ -24,7 +24,7 @@ D. Josh's camera is out of focus.
 
 3. How do you turn off the alarm?
 image: 3.png
->> play: 1:17-1:19
+>> play: 1:14-1:16
 A. It's cold in here.
 B. It's automatic.
 C. Let's try the fish.
@@ -32,7 +32,7 @@ D. Let's put some music on.
 
 4. Mr brown has agreed to host the webinar again.
 image: 4.png
->> play: 1:42-1:45
+>> play: 1:39-1:42
 A. The deadline was moved to Friday.
 B. Well I guess we know what to expect.
 C. No I haven't received any feedback yet.
@@ -40,7 +40,7 @@ D. The file is too large to send by email.
 
 5. How about joining us for dinner tonight?
 image: 5.png
->> play: 2:09-2:11
+>> play: 2:06-2:08
 A. It's at six thirty p m.
 B. It was a great meal.
 C. Do you take reservations?
@@ -48,7 +48,7 @@ D. I've got prior commitments.
 
 6. We'd love it if you brought your guitar tomorrow.
 image: 6.png
->> play: 2:34-2:37
+>> play: 2:31-2:34
 A. I was worried about that too.
 B. I do enjoy listening to the radio.
 C. I'll take it off the calendar.
@@ -56,7 +56,7 @@ D. I would but it's still in the shop.
 
 7. Isn't the movie theater open today?
 image: 7.png
->> play: 2:59-3:01
+>> play: 2:56-2:58
 A. There are many good actors in that play.
 B. I'm renovating my kitchen.
 C. Let's call them and find out.
@@ -64,7 +64,7 @@ D. The chairs are very comfortable here.
 
 8. Would you prefer the printed or digital version?
 image: 8.png
->> play: 3:23-3:27
+>> play: 3:20-3:24
 A. Whatever's more convenient.
 B. I believe it was in black and white.
 C. Yes I certainly would.
@@ -72,7 +72,7 @@ D. I maybe a little late.
 
 9. Did you really skip the conference?
 image: 9.png
->> play: 3:51-3:53
+>> play: 3:48-3:50
 A. There's nowhere else I have to be next week.
 B. I just had too manythings I needed to do at home.
 C. Let's review the plan.
@@ -80,7 +80,7 @@ D. There were a lot of terrific papers this year.
 
 10. Isn't the pool open today?
 image: 10.png
->> play: 4:16-4:18
+>> play: 4:13-4:15
 A. It was even farther yesterday.
 B. We have a replacement.
 C. I don't think they have it yet.
@@ -88,7 +88,7 @@ D. Did you want to go for a swim?
 
 11. Do you know where Tom parked his car?
 image: 11.png
->> play: 4:41-4:44
+>> play: 4:38-4:41
 A. Yes he placed the order.
 B. He usually takes the bus.
 C. I don't have a car.
@@ -96,7 +96,7 @@ D. Let's go to the park.
 
 12. Can you email me the report?
 image: 12.png
->> play: 5:06-5:08
+>> play: 5:03-5:05
 A. It was due yesterday.
 B. The Finance team is co writing it.
 C. I'll do it after the meeting.
@@ -121,7 +121,7 @@ C
 ### Listen to a Conversation – Questions 13-14
 
 audio: Pack-3_Listening.MP3
->> play: 5:30-5:56
+>> play: 5:27-5:53
 image: 13.png
 Woman: I see that the leaves in the backyard still haven't been raked. Weren't you planning to do that?
 Man: I've been working on a lecture for my English class all morning. Maybe tomorrow.
@@ -147,7 +147,7 @@ D
 ### Listen to a Conversation – Questions 15-16
 
 audio: Pack-3_Listening.MP3
->> play: 6:40-7:09
+>> play: 6:37-7:06
 image: 14.png
 Man: I need to buy a birthday gift for my sister. She loves reading, but I'm not sure which book to get her.
 Woman: Why don't you get her the latest mystery novel? She's really into that genre.
@@ -174,7 +174,7 @@ C
 ### Listen to a Conversation – Questions 17-18
 
 audio: Pack-3_Listening.MP3
->> play: 7:55-8:28
+>> play: 7:52-8:25
 image: 15.png
 Man: Did you hear about the new fitness class at the gym? It's an intense cardio class called Cardio Blast.
 Woman: Yes, I did. I'm thinking of joining. Have you tried it yet?
@@ -200,7 +200,7 @@ C
 ### Listen to an Announcement at a university club meeting – Questions 19-20
 
 audio: Pack-3_Listening.MP3
->> play: 9:14-9:42
+>> play: 9:11-9:39
 image: 16.png
 Man: welcome everyone! Today we'll be discussing the details for our annual fundraising event. This year we'll be hosting a charity bake sale next Friday in the student center. All proceeds will go to local food banks. We hope you all can participate and make a difference!
 
@@ -223,7 +223,7 @@ D
 ### Listen to an Announcement at a university club meeting – Questions 21-22
 
 audio: Pack-3_Listening.MP3
->> play: 10:26-10:52
+>> play: 10:23-10:49
 image: 17.png
 Man: welcome everyone, today I'm pleased to announce that our club has arranged a guest speaker for next week's meeting. Dr Rivera will be discussing the impacts of climate change on ocean ecosystems. The lecture will be held in room 105 at five PM on Tuesday. Please mark your calendars
 
@@ -246,7 +246,7 @@ D
 ### Listen to an Announcement at a campus event – Questions 23-24
 
 audio: Pack-3_Listening.MP3
->> play: 11:37-12:03
+>> play: 11:34-12:00
 image: 18.png
 Man: good afternoon everyone! We are excited to announce that the university's annual technology expo will be held next Thursday from nine AM to three PM in the convention center. Come and see the latest innovations from our engineering and computer science students
 
@@ -269,7 +269,7 @@ C
 ### Listen to an Announcement at a university event – Questions 25-26
 
 audio: Pack-3_Listening.MP3
->> play: 12:47-13:09
+>> play: 12:44-13:06
 image: 19.png
 Man: attention everyone! We are excited to announce that the university's annual book fair will be held next Friday from 10 am to four PM in the student center. There will be author signings, book sales, and workshops. We look forward to seeing you there!
 
@@ -292,7 +292,7 @@ B
 ### Listen to a Talk in a history class – Questions 27-30
 
 audio: Pack-3_Listening.MP3
->> play: 13:55-15:11
+>> play: 13:52-15:07
 image: 20.png
 Professor: the magna carta, also known as the great charter, was signed in 1215 by king John of England. It was a pivotal document that limited the power of the monarchy and laid the groundwork for constitutional law. The magna carta introduced several fundamental legal principles, including the idea that the king must govern according to the law and that all free men have the right to a fair trial. One of its most famous clauses states that no person shall be deprived of life, liberty or property without due process of law. This principle has become a cornerstone of legal systems around the world. While the magna carta was initially intended to address the grievances of rebellious barons, its influence has extended far since then. Over the centuries, it has inspired numerous legal documents, including the United States constitution and the universal declaration of human rights. Its legacy continues to be felt in discussions about individual rights and the rule of law. Let's now talk about some of the specifics of this historic document
 
@@ -333,7 +333,7 @@ audio: Pack-3_Listening.MP3
 
 1. Are you going to the lecture tomorrow?
 image: 21.png
->> play: 17:25-17:28
+>> play: 15:07-15:09
 A. I have a project I need to finish.
 B. Yes two times a week.
 C. Sure I took lots of notes.
@@ -341,7 +341,7 @@ D. The front door of the auditorium.
 
 2. Would you rather have your coffee inside or outside?
 image: 22.png
->> play: 17:51-17:54
+>> play: 15:32-15:35
 A. It looks a bit windy out there don't you think?
 B. Yes coffee sounds nice.
 C. Cream but no sugar please.
@@ -349,7 +349,7 @@ D. I'd rather have coffee first.
 
 3. Who will present the quarterly report?
 image: 23.png
->> play: 18:17-18:21
+>> play: 15:58-16:02
 A. Ms Zhou has always done it in the past.
 B. The last quarter ended in March.
 C. Rick says it's been a rough quarter.
@@ -365,7 +365,7 @@ A
 ### Listen to a Conversation – Questions 4-5
 
 audio: Pack-3_Listening.MP3
->> play: 18:42-19:17
+>> play: 16:23-16:58
 image: 24.png
 Man: Hey Susan, are you planning to hit the gym later today?
 Woman: I am, but only after I wrap up the quarterly report. It's taking longer than expected, so I'll probably head over in the evening.
@@ -392,7 +392,7 @@ C
 ### Listen to a Conversation – Questions 6-7
 
 audio: Pack-3_Listening.MP3
->> play: 20:01-20:42
+>> play: 17:42-18:23
 image: 25.png
 Woman: So they updated the meeting agenda for tomorrow.
 Man: Yes, I saw the email. Apparently the guest speaker from the product strategy team had to cancel last minute.
@@ -420,7 +420,7 @@ A
 ### Listen to a Talk in a history class – Questions 8-11
 
 audio: Pack-3_Listening.MP3
->> play: 21:27-22:55
+>> play: 19:08-20:35
 image: 26.png
 Professor: the silk road is an ancient trade route that connected the east and west. The silk road was not a single path, but a network of trade routes that spanned thousands of miles going through the modern day countries of China and India and further into Europe. It played a crucial role in the development of the civilizations it connected. It facilitated not only trade but also cultural exchange and the spread of ideas. Merchants on the silk road traded a wide variety of goods from silken spices to precious metals and artwork. The route was named after the lucrative trade in silk fabric, which was one of the most sought after commodities from China. However, it's important to note that the exchange was not limited to physical goods. It also included knowledge, technology and religion. For example, Buddhism spread from India to China partly through interactions along the silk road. The cities along the route, such as Samarkand and Baghdad, became prosperous centers of commerce and learning. They were melting pots of different cultures, languages and traditions. Next, we'll explore the impact of the silk road on the economic development of Europe
 
@@ -455,7 +455,7 @@ C
 ### Listen to a Talk in a history class – Questions 12-15
 
 audio: Pack-3_Listening.MP3
->> play: 25:02-26:31
+>> play: 20:35-22:02
 image: 27.png
 Professor: Petra is an ancient city located in present day Jordan. It was established as early as 312 BC as the capital city of Nabataean kingdom. Nabataean were skilled traders and Petra became a major trading hub because of its strategic location along caravan routes that linked the east and west. Petra architecture is unique because much of it was carved directly into the rose red cliffs of the region. The most famous structure in the city is known as the Treasury, but it is actually a tomb. The city also featured a complex system to manage water, including dams, cisterns and water channels that allowed it to thrive in the arid region. These advanced water engineering structures were crucial for the survival of its inhabitants, given the low amount of moisture that was available naturally. In addition to its architectural and engineering feats, Petra is significant for its cultural exchanges. As atrading center, it facilitated the exchange of goods, ideas and customs between diverse peoples. This blend of cultures is evident in the various architectural styles seen in the city, which include influences from Greek, Roman and indigenous Nabataean designs. Next, we will explore how archaeologists rediscovered Petra in the 19th century.
 
