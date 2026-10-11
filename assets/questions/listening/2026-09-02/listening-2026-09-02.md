@@ -169,7 +169,7 @@ A
 
 ### Listen to a Conversation – Questions 17-18
 
-subtitle: ComputerFreezing
+subtitle: Computer Freezing
 audio: listening_m1_q17_q18_conversation_computer_freezing.mp3
 image: 15.png
 
@@ -194,7 +194,7 @@ C
 
 ### Listen to an Announcement – Questions 19-20
 
-subtitle: Technology HelpDesk
+subtitle: Technology Help Desk
 audio: listening_m1_q19_q20_announcement_technology_help_desk.mp3
 image: 16.png
 
@@ -269,7 +269,7 @@ C
 
 ### Listen to a Talk in a Social Sciences Class – Questions 25-28
 
-subtitle: CulturalGlobalization
+subtitle: Cultural Globalization
 audio: listening_m1_q25_q28_lecture_cultural_globalization.mp3
 image: 19.png
 
@@ -429,7 +429,7 @@ B
 
 ### Listen to a Talk in a Physics Class – Questions 8-11
 
-subtitle: Led Technology
+subtitle: LED Technology
 audio: listening_m2_q08_q11_lecture_led_technology.mp3
 image: 26.png
 
@@ -466,7 +466,7 @@ D
 
 ### Listen to a Talk in an Archaeology Class – Questions 12-15
 
-subtitle: PovertyPoint
+subtitle: Poverty Point
 audio: listening_m2_q12_q15_lecture_poverty_point.mp3
 image: 27.png
 
