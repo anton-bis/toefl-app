@@ -9,7 +9,8 @@
       "contentHash": "2a29e2ec0657e5d4f7423b4c02042be68b38f6abd2d5b314098ba4128ddfa22a",
       "archiveHash": "44d0108c53366ecf5fd1674343b88ee7ea0bfbbed6c9ede18caf23b1cae36588",
       "size": 16848,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/catalog-2a29e2ec0657.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/catalog-2a29e2ec0657.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/a6b03c195163/catalog-2a29e2ec0657.zip"
     },
     {
       "id": "tpo-01",
@@ -328,14 +329,16 @@
       "contentHash": "0f6a33461601aca7a54f74b4f21e4ccc4ea895d196ccab286ae2bcc0e633d69b",
       "archiveHash": "961fc71ce94bd3e519b5c7fe7bcfcc67ffe13436885423ed4e044bde28ee1e03",
       "size": 21955766,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/tpo-2026-09-02-0f6a33461601.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/tpo-2026-09-02-0f6a33461601.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/a6b03c195163/tpo-2026-09-02-0f6a33461601.zip"
     },
     {
       "id": "tpo-2026-09-05",
       "contentHash": "80130de9cfc8c7c1b260d1d8e88affe571632ed01525d93e684b8cfa1e9019e1",
       "archiveHash": "5ea65c184cb61355ab2ea9dff021d184701a9ae823690a4dcbced15ef3b0376c",
       "size": 41306216,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/tpo-2026-09-05-80130de9cfc8.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-a6b03c195163/tpo-2026-09-05-80130de9cfc8.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/a6b03c195163/tpo-2026-09-05-80130de9cfc8.zip"
     },
     {
       "id": "vocabulary",
