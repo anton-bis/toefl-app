@@ -28,7 +28,7 @@
 - **最新正式版**：**v1.10.1**（2026-10-10，从 develop 发布，含 license）：Build a Sentence 判分容错（标点/缩写/题干固定词；`solveAnswerOrder` 返回下标；无解预警）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.1）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `a6b03c195163…`（**44 packs，约 890MB**，含 2026-07 十套、2026-08 三套、**2026-09-02/05** 四科、订正与 subtitle；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22`、`2026-09-02/05` 均已发布（见 §3.17/§3.21/§3.23）；部分 `<!-- 推测项 -->` 待人工核对。
+- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22`、`2026-09-02/05` 均已发布（见 §3.17/§3.21/§3.23）；部分 `<!-- 推测项 -->` 待人工核对。**进行中（未发布）**：写作 `2026-09-13`（采集型 4 Email + 3 Discussion）、`2026-09-19`（标准型 10 Build + Email + Discussion）已入库，manifest 166 docs、测试 201 pass、lint 干净（见 §3.24）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -463,6 +463,20 @@
 - **验证**：**44/44 `ossUrl` 匿名 200 且 size 一致**；指针已更新；`minAppVersion=1.10.0`（兼容 1.10.0 客户端）。
 - **备注**：本次**仅内容更新**（无 App 代码改动，不发新版）。
 - **2026-10-11 追补**：发布后另一窗口对 `2026-09-02/05` 听力 subtitle 做了规范化（去前缀/改大小写，如 `ComputerFreezing`→`Computer Freezing`、`Lecture 1 …`→标题）（`8404c1f`）→ 重新 `content:publish` 变更 3 包 → manifest **`a6b03c195163…`（44 包）**；`content-oss-mirror` run `38111792028` success；44/44 `ossUrl` 200、指针已更新。
+
+### 3.24 2026-10-11 — 写作：9 月真题入库（9.13 国内线下「采集型」+ 9.19 海外线下「标准型」）
+
+- **源**：`D:\托福真题word版\9.13-国内线下 / 9.19-海外线下`（各含 `Writing.pdf` + `Answers.pdf`，**均为纯图片 PDF**）。
+- **入库**：
+  - `assets/questions/writing/2026-09-13`（**采集／非标准形态**：**4 Email + 3 Discussion**，无 Build；7 页，**每题自带标题**）。沿用先例 `2026-09-05` 的结构。
+  - `assets/questions/writing/2026-09-19`（**标准旧格式**：10 × Build a Sentence + 1 Email + 1 Discussion；4 页 = Q1-5 / Q6-10 / Email / Discussion）。
+- **答案核对（用户重点关切）**：
+  - `9.13/Answers.pdf`（图片，22 页）写作部分**仅范文**（无 Build）→ 按规则**忽略**。
+  - `9.19/Answers.pdf`（图片，9 页）写作答案为**一个表格**，OCR 仅稳定识别 4 条（Q4/Q5/Q9/Q10）→ Build 答案按 `Word Bank` 瓦片 + `Response` 空格**推导**，并与表格**交叉核对一致**（10/10）。
+  - 源自洽：9.19 十题均为「空格数 = 用到的瓦片数」，**无干扰项**。
+- **处理**：两套均**多模态视觉逐图录入**（弃 OCR）；`subtitle` 直接采用**源标题**（9.13）；9.13 Email 填源 `To/Subject`，Email 3/4 源无 bullet → Requirements 由题干归纳并标 `<!-- 推测项 -->`；9.19 按旧格式配 `avatar-bs-*`；Discussion 配 `avatar-d-*`；候选词全部**打乱**；忽略全部范文。
+- **校验**：`content:manifest` **166 documents**、`warnings` 空；`npm test` **201 pass**、`npm run lint` 干净。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）；9.13 Email 3/4 的 Requirements 系归纳，待人工核对。
 
 ---
 
