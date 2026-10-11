@@ -4,7 +4,7 @@
 
 ### Listen to a Talk in an Art History Class – Questions 1-4
 
-subtitle: Lecture 1 Leonardo da Vinci's Mechanical Knight
+subtitle: Leonardo da Vinci's Mechanical Knight
 audio: listening_form01_q01_q04_lecture.mp3
 image: 1.png
 
@@ -41,7 +41,7 @@ D
 
 ### Listen to a Talk on a History Podcast – Questions 1-4
 
-subtitle: Lecture 2 Lewis Latimer Inventor and Innovator
+subtitle: Lewis Latimer Inventor and Innovator
 audio: listening_form02_q01_q04_lecture.mp3
 image: 2.png
 
@@ -78,7 +78,7 @@ A
 
 ### Listen to a Talk on a Art Podcast – Questions 1-4
 
-subtitle: Lecture 3 Kinetic Art Motion and Visual Storytelling
+subtitle: Kinetic Art Motion and Visual Storytelling
 audio: listening_form03_q01_q04_lecture.mp3
 image: 3.png
 
@@ -115,7 +115,7 @@ A
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 4 Social Entrepreneurship
+subtitle: Social Entrepreneurship
 audio: listening_form04_q01_q04_lecture.mp3
 image: 4.png
 
@@ -152,7 +152,7 @@ B
 
 ### Listen to a Talk in an Art History Class – Questions 1-4
 
-subtitle: Lecture 5 Renaissance Tapestries
+subtitle: Renaissance Tapestries
 audio: listening_form05_q01_q04_lecture.mp3
 image: 5.png
 
@@ -189,7 +189,7 @@ B
 
 ### Listen to a Talk in a Geography Class – Questions 1-4
 
-subtitle: Lecture 6 Desertification and Its Impact
+subtitle: Desertification and Its Impact
 audio: listening_form06_q01_q04_lecture.mp3
 image: 6.png
 
@@ -226,7 +226,7 @@ C
 
 ### Listen to a Talk in an Archaeology Class – Questions 1-4
 
-subtitle: Lecture 7 Soil Casts and Ancient Agriculture
+subtitle: Soil Casts and Ancient Agriculture
 audio: listening_form07_q01_q04_lecture.mp3
 image: 7.png
 
@@ -263,7 +263,7 @@ C
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 8 Infant Language Learning and the Wug Test
+subtitle: Infant Language Learning and the Wug Test
 audio: listening_form08_q01_q04_lecture.mp3
 image: 8.png
 
@@ -300,7 +300,7 @@ D
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 9 Keystone Species and Yellowstone Wolves
+subtitle: Keystone Species and Yellowstone Wolves
 audio: listening_form09_q01_q04_lecture.mp3
 image: 9.png
 
@@ -337,7 +337,7 @@ A
 
 ### Listen to a Talk in an Art History Class – Questions 1-4
 
-subtitle: Lecture 10 Cubism and Its Influence
+subtitle: Cubism and Its Influence
 audio: listening_form10_q01_q04_lecture.mp3
 image: 10.png
 
@@ -374,7 +374,7 @@ C
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 11 Isolation in Literary Characters
+subtitle: Isolation in Literary Characters
 audio: listening_form11_q01_q04_lecture.mp3
 image: 11.png
 
@@ -411,7 +411,7 @@ D
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 12 The Precautionary Principle
+subtitle: The Precautionary Principle
 audio: listening_form12_q01_q04_lecture.mp3
 image: 12.png
 
@@ -448,7 +448,7 @@ B
 
 ### Listen to a Talk – Questions 1-4
 
-subtitle: Lecture 13 Soil Microorganisms and Restoration
+subtitle: Soil Microorganisms and Restoration
 audio: listening_form13_q01_q04_lecture.mp3
 image: 13.png
 
