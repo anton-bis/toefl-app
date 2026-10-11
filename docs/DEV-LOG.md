@@ -442,6 +442,20 @@
 - **App 先发**：`package.json` → **1.10.1** + CHANGELOG；annotated tag `v1.10.1` → Release run `38038392290` **全绿**；OSS feed = 1.10.1，exe/dmg/稳定副本 200。
 - **Content 后发**：`content:publish` → manifest **`db05fe24269a…`（42 包，约 830MB）**（29 个包变更）；期间遭遇 github DNS 瞬时失败、大上传超时，删 Draft 后**后台重跑成功**；自动派发 `content-oss-mirror` run `38044595471` **success**；复核 **42/42 `ossUrl` 匿名 200 且 size 一致**、指针已更新、`minAppVersion=1.10.0`（兼容 1.10.0 客户端）。
 
+### 3.22 2026-10-10 — 写作：9 月真题入库（9.02 标准形态 + 9.05 国内线下非标准形态）
+
+- **源**：`D:\托福真题word版\9.02 / 9.05-国内线下`。
+- **入库**：
+  - `assets/questions/writing/2026-09-02`（**标准形态**：10 × Build a Sentence + 1 Email + 1 Discussion）。源 `Writing.docx` 为**纯文本**，Email/Discussion 位于 docx 表格内。
+  - `assets/questions/writing/2026-09-05`（**非标准形态**：**4 Email + 4 Discussion**，无 Build；用户口头说的"5+5"以实际文件为准）。源 `Writing.pdf` 为**纯图片**（8 页，每页 1 题、**带标题**）。
+- **答案核对/推导（用户重点）**：
+  - `9.02/Answers.pdf` 为**图片**，仅含阅读/听力/口语答案 + 邮件/讨论**范文**，**没有 Build 的 10 条答案** → 按「Context + Response 空格 + Word Bank」**推导**答案，并做**三者交叉验证**（空格数=用到的瓦片数、`renderSentence(题干, 正确瓦片顺序)==[ANSWER]`、编译无解预警）。
+  - 源自洽性：9.02 Q3 的 `did` 为官方**干扰项**（8 瓦片/7 空，保留）；Q10 源 Response 误标 **5 空**、Word Bank 仅 **4 瓦片** → 已订正为 4 空（`<!-- 推测项 -->`）。9.05 全为 Email/Discussion，无 Build。
+  - `9.05/Answers.pdf`（图片，26 页）为各题范文，按规则**忽略**。
+- **处理**：9.05 用**多模态视觉逐图录入**；`subtitle` 直接采用源标题（9.05），9.02 无标题 → **AI 归纳**；候选词全部**打乱**；Build 配 `avatar-bs-*`、Email/Discussion 配 `avatar-d-*`；忽略范文。
+- **校验**：`content:manifest` **158 documents**、无无解预警；`npm test` node **292 pass/1 skip** + vitest **201 pass**（首跑曾因并发隔离令 2 条 HomeView 计数用例偶发失败，复跑全绿）；`npm run lint` 干净。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
