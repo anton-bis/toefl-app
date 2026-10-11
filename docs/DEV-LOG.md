@@ -26,7 +26,7 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.1**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.1**（2026-10-10，从 develop 发布，含 license）：Build a Sentence 判分容错（标点/缩写/题干固定词；`solveAnswerOrder` 返回下标；无解预警）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.1）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `f770b902e3f8…`（**44 packs，约 890MB**，含 2026-07 十套、2026-08 三套、**2026-09-02/05** 四科、订正与 subtitle；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `a6b03c195163…`（**44 packs，约 890MB**，含 2026-07 十套、2026-08 三套、**2026-09-02/05** 四科、订正与 subtitle；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22`、`2026-09-02/05` 均已发布（见 §3.17/§3.21/§3.23）；部分 `<!-- 推测项 -->` 待人工核对。
 - **未完成事项 / 待办**：
@@ -462,6 +462,7 @@
 - **发布**：`content:publish` → 变更 **7 包**（catalog + 09-02、09-05 两个日期包 + 07-05/07-11/07-13/07-25 听力 subtitle 修正）→ manifest **`f770b902e3f8…`（44 包，约 890MB）**；自动派发 `content-oss-mirror` run `38110734365` **success**。
 - **验证**：**44/44 `ossUrl` 匿名 200 且 size 一致**；指针已更新；`minAppVersion=1.10.0`（兼容 1.10.0 客户端）。
 - **备注**：本次**仅内容更新**（无 App 代码改动，不发新版）。
+- **2026-10-11 追补**：发布后另一窗口对 `2026-09-02/05` 听力 subtitle 做了规范化（去前缀/改大小写，如 `ComputerFreezing`→`Computer Freezing`、`Lecture 1 …`→标题）（`8404c1f`）→ 重新 `content:publish` 变更 3 包 → manifest **`a6b03c195163…`（44 包）**；`content-oss-mirror` run `38111792028` success；44/44 `ossUrl` 200、指针已更新。
 
 ---
 
@@ -472,7 +473,7 @@
 | `develop` | 完整开发线（含 license，正式发布线） | 1.10.1 | 61e225b（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 内容/文档同步 |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | f770b902e3f8 manifestId（44 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | a6b03c195163 manifestId（44 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
