@@ -119,7 +119,7 @@ D
 
 ### Listen to a Conversation – Questions 13-14
 
-subtitle: Conversation: Running in the Park
+subtitle: Running in the Park
 audio: listening_m1_q13_q14_conversation_park_clean.mp3
 image: 13.png
 
@@ -150,7 +150,7 @@ D
 
 ### Listen to a Conversation – Questions 15-16
 
-subtitle: Conversation: Student Activities Fair
+subtitle: Student Activities Fair
 audio: listening_m1_q15_q16_conversation_debate_club.mp3
 image: 14.png
 
@@ -180,7 +180,7 @@ D
 
 ### Listen to a Conversation – Questions 17-18
 
-subtitle: Conversation: Rock Festival
+subtitle: Rock Festival
 audio: listening_m1_q17_q18_conversation_event_clean.mp3
 image: 15.png
 
@@ -211,7 +211,7 @@ B
 
 ### Listen to an Announcement – Questions 19-20
 
-subtitle: Announcement: Shuttle Updates
+subtitle: Shuttle Updates
 audio: listening_m1_q19_q20_announcement_shuttle.mp3
 image: 16.png
 
@@ -236,7 +236,7 @@ A
 
 ### Listen to an Announcement – Questions 21-22
 
-subtitle: Announcement: Online Platform
+subtitle: Online Platform
 audio: listening_m1_q21_q22_announcement_online_platform.mp3
 image: 17.png
 
@@ -261,7 +261,7 @@ B
 
 ### Listen to an Announcement – Questions 23-24
 
-subtitle: Announcement: Debate Championship
+subtitle: Debate Championship
 audio: listening_m1_q23_q24_announcement_debate.mp3
 image: 18.png
 
@@ -286,7 +286,7 @@ D
 
 ### Listen to a Talk in an Art History Class – Questions 25-28
 
-subtitle: Talk: Pottery Technology
+subtitle: Pottery Technology
 audio: listening_m1_q25_q28_lecture_pottery.mp3
 image: 19.png
 
@@ -323,7 +323,7 @@ B
 
 ### Listen to a Talk in a Physics Class – Questions 29-32
 
-subtitle: Talk: Physics of Ice Skating
+subtitle: Physics of Ice Skating
 audio: listening_m1_q29_q32_lecture_ice_skating.mp3
 image: 20.png
 
@@ -396,7 +396,7 @@ B
 
 ### Listen to a Conversation – Questions 4-5
 
-subtitle: Conversation: Medical Checkup
+subtitle: Medical Checkup
 audio: listening_m2_q04_q05_conversation_health.mp3
 image: 24.png
 
@@ -428,7 +428,7 @@ B
 
 ### Listen to a Conversation – Questions 6-7
 
-subtitle: Conversation: Bicycle Rental
+subtitle: Bicycle Rental
 audio: listening_m2_q06_q07_conversation_bike_route.mp3
 image: 25.png
 
@@ -457,7 +457,7 @@ C
 
 ### Listen to a Talk in an Environmental Science Class – Questions 8-11
 
-subtitle: Talk: Permafrost Microbes
+subtitle: Permafrost Microbes
 audio: listening_m2_q08_q11_podcast_permafrost.mp3
 image: 26.png
 
@@ -494,7 +494,7 @@ B
 
 ### Listen to a Talk in a Psychology Class – Questions 12-15
 
-subtitle: Talk: Over-Justification Effect
+subtitle: Over-Justification Effect
 audio: listening_m2_q12_q15_lecture_overjustification.mp3
 image: 27.png
 
