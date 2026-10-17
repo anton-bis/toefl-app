@@ -19,6 +19,7 @@ const fatalError = ref('');
 const storageReady = inject('storageReady');
 const electronEnabled = Boolean(window.electronAPI);
 const UpdateNotice = defineAsyncComponent(() => import('./components/UpdateNotice.vue'));
+const ContentNotice = defineAsyncComponent(() => import('./components/ContentNotice.vue'));
 const updates = useUpdatesStore();
 const catalog = useCatalogStore();
 const license = useLicenseStore();
@@ -27,6 +28,7 @@ const catalogLoading = ref(false);
 let disposed = false;
 let stopDataFlush;
 let catalogRefreshPromise;
+let hadContentAtStartup = false;
 
 async function refreshCatalog() {
   if (!updates.contentReady) return false;
@@ -54,6 +56,23 @@ async function retryStartup() {
   if (!storageReady.value) return;
   if (!updates.contentReady || updates.contentStatus === 'error') await updates.retryContent();
   if (updates.contentReady) await refreshCatalog();
+}
+
+function officialSummary() {
+  let total = 0;
+  let latest = '';
+  let latestKey = -1;
+  for (const test of catalog.tests) {
+    const match = String(test.tpoId || '').match(/^(\d{4})-(\d{2})-(\d{2})(?:\s*\(\d+\))?$/);
+    if (!match) continue;
+    total += 1;
+    const key = Number(`${match[1]}${match[2]}${match[3]}`);
+    if (key > latestKey) {
+      latestKey = key;
+      latest = `${match[2]}-${match[3]}`;
+    }
+  }
+  return { total, latest };
 }
 
 const startupStatus = computed(() => {
@@ -91,10 +110,19 @@ onMounted(async () => {
   if (electronEnabled) {
     stopDataFlush = window.electronAPI.data.onFlush(handleDataFlush);
     await updates.initialize();
+    hadContentAtStartup = updates.contentReady;
   }
   if (!disposed && updates.contentReady) await refreshCatalog();
 });
-watch(() => updates.contentActivation, refreshCatalog);
+watch(() => updates.contentActivation, async () => {
+  const backgroundUpdate = hadContentAtStartup;
+  const refreshed = await refreshCatalog();
+  if (!backgroundUpdate || !refreshed) return;
+  const { total, latest } = officialSummary();
+  updates.showContentNotice(
+    total ? `题库已更新：最新 ${latest}（共 ${total} 套真题）` : '题库已更新'
+  );
+});
 onBeforeUnmount(() => {
   disposed = true;
   updates.dispose();
@@ -124,4 +152,5 @@ onErrorCaptured(error => {
   />
   <RouterView v-else />
   <UpdateNotice v-if="electronEnabled" />
+  <ContentNotice v-if="electronEnabled" />
 </template>

@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import { homeState } from '../../src/vue/platform/homeState.js';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
+import { useSettingsStore } from '../../src/vue/stores/settings.js';
 import { examStorageKey, useExamStore } from '../../src/vue/stores/exam.js';
 import { installMemoryStorage, storeJson } from './helpers/storage.js';
 
@@ -125,11 +126,11 @@ describe('HomeView official test id display', () => {
     homeState.officialPage = 1;
   });
 
-  async function mountOfficial() {
+  async function mountOfficial(overrides) {
     const pinia = createPinia();
     setActivePinia(pinia);
     const catalog = useCatalogStore(pinia);
-    catalog.tests = [
+    catalog.tests = overrides || [
       { tpoId: '09', description: 'Practice', sections: {} },
       {
         tpoId: '2026-02-01',
@@ -171,6 +172,31 @@ describe('HomeView official test id display', () => {
     const wrapper = await mountOfficial();
     const practiceId = wrapper.find('.id-cell .tpo-id');
     expect(practiceId.text()).toBe('TPO 09');
+    wrapper.unmount();
+  });
+
+  it('shows newest official tests first and toggles to oldest first', async () => {
+    const wrapper = await mountOfficial([
+      {
+        tpoId: '2026-02-01',
+        description: 'February',
+        sections: { reading: { documentPath: 'r.md' } }
+      },
+      {
+        tpoId: '2026-03-05',
+        description: 'March',
+        sections: { reading: { documentPath: 'r2.md' } }
+      }
+    ]);
+    const ids = () => wrapper.findAll('tbody .tpo-id').map(node => node.text());
+
+    expect(ids()).toEqual(['03-05', '02-01']);
+    expect(wrapper.get('.sort-toggle').text()).toBe('最新在前');
+
+    await wrapper.get('.sort-toggle').trigger('click');
+    expect(ids()).toEqual(['02-01', '03-05']);
+    expect(wrapper.get('.sort-toggle').text()).toBe('最早在前');
+    expect(useSettingsStore().officialSort).toBe('asc');
     wrapper.unmount();
   });
 });

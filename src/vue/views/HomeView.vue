@@ -3,6 +3,8 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useCatalogStore } from '../stores/catalog.js';
 import { useLicenseStore } from '../stores/license.js';
+import { useSettingsStore } from '../stores/settings.js';
+import { useUpdatesStore } from '../stores/updates.js';
 import { readExamSession, useExamStore } from '../stores/exam.js';
 import { recordingRepository } from '../platform/dataRepository.js';
 import { homeState } from '../platform/homeState.js';
@@ -17,6 +19,8 @@ const route = useRoute();
 const catalog = useCatalogStore();
 const exam = useExamStore();
 const license = useLicenseStore();
+const settings = useSettingsStore();
+const updates = useUpdatesStore();
 const panel = ref(homeState.panel);
 const modal = ref('');
 const pendingExam = ref(null);
@@ -55,7 +59,21 @@ const DATE_ID_PATTERN = /^\d{4}-\d{2}-\d{2}(?:\s*\(\d+\))?$/;
 const DATE_ID_PARTS = /^(\d{4})-(\d{2})-(\d{2})(?:\s*\((\d+)\))?$/;
 const isDateId = tpoId => DATE_ID_PATTERN.test(String(tpoId || ''));
 const practiceTests = computed(() => tests.value.filter(test => !isDateId(test.tpoId)));
-const officialTests = computed(() => tests.value.filter(test => isDateId(test.tpoId)));
+const officialSort = computed(() => (settings.officialSort === 'asc' ? 'asc' : 'desc'));
+function compareOfficial(left, right) {
+  const leftParts = String(left.tpoId || '').match(DATE_ID_PARTS);
+  const rightParts = String(right.tpoId || '').match(DATE_ID_PARTS);
+  if (!leftParts || !rightParts) return 0;
+  const leftDate = Number(`${leftParts[1]}${leftParts[2]}${leftParts[3]}`);
+  const rightDate = Number(`${rightParts[1]}${rightParts[2]}${rightParts[3]}`);
+  if (leftDate !== rightDate) {
+    return officialSort.value === 'desc' ? rightDate - leftDate : leftDate - rightDate;
+  }
+  return Number(leftParts[4] || 1) - Number(rightParts[4] || 1);
+}
+const officialTests = computed(() =>
+  tests.value.filter(test => isDateId(test.tpoId)).sort(compareOfficial)
+);
 function displayId(tpoId) {
   const match = String(tpoId || '').match(DATE_ID_PARTS);
   return match
@@ -92,6 +110,16 @@ function setOfficialPage(page) {
   officialPage.value = Math.min(Math.max(1, page), officialPageCount.value);
   scrollListTop();
 }
+function toggleOfficialSort() {
+  settings.setOfficialSort(officialSort.value === 'desc' ? 'asc' : 'desc');
+  setOfficialPage(1);
+  homeState.officialPage = 1;
+}
+watch(() => updates.contentActivation, () => {
+  if (officialSort.value !== 'desc' || officialPage.value === 1) return;
+  setOfficialPage(1);
+  homeState.officialPage = 1;
+});
 function clampPage(pageRef, count) {
   if (pageRef.value > count.value) {
     pageRef.value = count.value;
@@ -375,9 +403,20 @@ function hasReport(test) {
           </div>
         </section>
         <section v-else-if="panel === 'real'" class="panel active">
-          <div class="panel-header">
-            <h2>Official Tests</h2>
-            <p>Official ETS Tests for the 2026 TOEFL IBT</p>
+          <div class="panel-header panel-header--split">
+            <div class="panel-heading">
+              <h2>Official Tests</h2>
+              <p>Official ETS Tests for the 2026 TOEFL IBT</p>
+            </div>
+            <button
+              type="button"
+              class="sort-toggle"
+              :aria-pressed="officialSort === 'desc'"
+              aria-label="切换官方真题排序"
+              @click="toggleOfficialSort"
+            >
+              {{ officialSort === 'desc' ? '最新在前' : '最早在前' }}
+            </button>
           </div>
           <div v-if="officialTests.length" class="table-scroll">
             <table class="data-table">

@@ -10,6 +10,9 @@ const NOTICE_STATES = new Set([
   'error'
 ]);
 
+const CONTENT_NOTICE_DURATION_MS = 6000;
+let contentNoticeTimer;
+
 export const useUpdatesStore = defineStore('updates', {
   state: () => ({
     initialized: false,
@@ -29,6 +32,8 @@ export const useUpdatesStore = defineStore('updates', {
     contentProgress: window.electronAPI ? 0 : 100,
     contentError: '',
     contentActivation: 0,
+    contentNoticeVisible: false,
+    contentNoticeMessage: '',
     cleanups: []
   }),
   getters: {
@@ -122,10 +127,25 @@ export const useUpdatesStore = defineStore('updates', {
         this.contentError = error.message;
       }
     },
+    showContentNotice(message) {
+      clearTimeout(contentNoticeTimer);
+      this.contentNoticeMessage = String(message || '题库已更新');
+      this.contentNoticeVisible = true;
+      contentNoticeTimer = setTimeout(() => {
+        contentNoticeTimer = undefined;
+        this.contentNoticeVisible = false;
+      }, CONTENT_NOTICE_DURATION_MS);
+    },
+    dismissContentNotice() {
+      clearTimeout(contentNoticeTimer);
+      contentNoticeTimer = undefined;
+      this.contentNoticeVisible = false;
+    },
     dispose() {
       this.cleanups.forEach(cleanup => cleanup());
       this.cleanups = [];
       this.initialized = false;
+      this.dismissContentNotice();
     }
   }
 });

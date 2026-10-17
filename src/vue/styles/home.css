@@ -108,6 +108,35 @@
   font-size: 16px;
   color: var(--muted);
 }
+.panel-header--split {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.panel-heading {
+  min-width: 0;
+}
+.sort-toggle {
+  flex: none;
+  min-height: 34px;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sort-toggle:hover {
+  background: var(--teal-light);
+}
+.sort-toggle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
 .data-table {
   width: 100%;
   border-collapse: separate;

@@ -1,10 +1,12 @@
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import { createMemoryHistory, createRouter } from 'vue-router';
+import { nextTick } from 'vue';
 import { beforeEach, describe, expect, it } from 'vitest';
 import HomeView from '../../src/vue/views/HomeView.vue';
 import { homeState } from '../../src/vue/platform/homeState.js';
 import { useCatalogStore } from '../../src/vue/stores/catalog.js';
+import { useUpdatesStore } from '../../src/vue/stores/updates.js';
 import { installMemoryStorage } from './helpers/storage.js';
 
 function testsFor(prefix, count, official = false) {
@@ -129,5 +131,33 @@ describe('HomeView list pagination', () => {
     const second = await mountHome(tests);
     expect(second.find('.pagination-info').text()).toContain('第 2 / 2 页 · 共 11 套');
     second.unmount();
+  });
+
+  it('resets the official page on sort changes and on updates while newest-first', async () => {
+    homeState.panel = 'real';
+    const wrapper = await mountHome(testsFor('2026-02', 11, true));
+    const next = () => wrapper.findAll('.pagination-btn')[1];
+    const info = () => wrapper.find('.pagination-info').text();
+
+    await next().trigger('click');
+    expect(info()).toContain('第 2 / 2 页');
+    await wrapper.get('.sort-toggle').trigger('click');
+    expect(info()).toContain('第 1 / 2 页');
+
+    await next().trigger('click');
+    expect(info()).toContain('第 2 / 2 页');
+    const updates = useUpdatesStore();
+    updates.contentActivation += 1;
+    await nextTick();
+    expect(info()).toContain('第 2 / 2 页');
+
+    await wrapper.get('.sort-toggle').trigger('click');
+    expect(info()).toContain('第 1 / 2 页');
+    await next().trigger('click');
+    expect(info()).toContain('第 2 / 2 页');
+    updates.contentActivation += 1;
+    await nextTick();
+    expect(info()).toContain('第 1 / 2 页');
+    wrapper.unmount();
   });
 });
