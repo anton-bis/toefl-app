@@ -21,11 +21,11 @@
 
 ---
 
-## 1. 最新状态速览（最后更新：2026-10-11）
+## 1. 最新状态速览（最后更新：2026-10-17）
 
-- **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.1**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
+- **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.2**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
-- **最新正式版**：**v1.10.1**（2026-10-10，从 develop 发布，含 license）：Build a Sentence 判分容错（标点/缩写/题干固定词；`solveAnswerOrder` 返回下标；无解预警）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.1）
+- **最新正式版**：**v1.10.2**（2026-10-17，从 develop 发布，含 license）：Official Tests 支持「最新在前/最早在前」切换（偏好跨重启保存，默认最新在前）；后台题库更新完成后顶部提示（6s 自动消失、可关闭、考试中不显示），并在降序时把 Official 分页重置到第 1 页。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.2）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `12ade505012f…`（**48 packs，约 923MB**，含 2026-07 十套、2026-08 五套（12/19/22/26/30）、2026-09-02/05/13/19 四科、订正与 listening 时间戳规范化；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
 - **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27）；部分 `<!-- 推测项 -->` 待人工核对。
@@ -509,19 +509,32 @@
 - **发布**：`content:publish` → 变更 **3 包**（catalog、tpo-2026-08-26、tpo-2026-08-30）→ manifest **`12ade505012f…`（48 包，约 923MB）**；自动派发 `content-oss-mirror` run `39015961378` **success**。
 - **验证**：**48/48 `ossUrl` 匿名 200 且 size 一致**；指针已更新；`minAppVersion` 仍 1.10.0（**纯内容更新，无需 App 版本**）。
 
+### 3.28 2026-10-17 — v1.10.2：Official Tests 排序切换 + 题库更新提示
+
+- **背景（用户实测反馈）**：内容已更新到 48 套，但 Official Tests 列表默认升序、10 套/页，新日期（8/26、8/30）落在第 3 页 → 用户误以为“没更新/一直挂着”。
+- **功能**：
+  - Official Tests 默认**最新在前**（日期降序；同一天场次升序），标题右侧新增切换按钮「最新在前/最早在前」，**偏好写入 settings（跨重启保存）**；Practice/TPO 保持升序。
+  - 切换排序时 Official 分页回第 1 页并滚顶。
+  - 后台题库更新完成：刷新 catalog 后**顶部居中提示**「题库已更新：最新 MM-DD（共 N 套真题）」，6s 自动消失、可关闭、**exam 路由不显示**、**首次安装不显示**；若处于降序则 Official 分页回第 1 页（升序保持当前页）。
+- **实现**：`HomeView.vue`（排序/切换/分页重置）、`settings.js`（`officialSort` 持久化）、`ContentNotice.vue`（新组件，样式与 UpdateNotice 同一设计语言）、`updates.js`（notice 状态+定时器）、`App.vue`（激活后判定后台更新并提示）、`home.css`（排序按钮样式）。
+- **测试**：新增 `settings-sort.test.js`、`content-notice.test.js`，补充 home-view/home-pagination 排序/分页重置用例；lint 干净；node 312 pass/1 skip + vitest **207 pass**。
+- **发布**：`package.json` → **1.10.2**；annotated tag `v1.10.2` → Release run `39035198835` **全绿**（verify + 三平台 + publish + OSS 镜像）；OSS feed = **1.10.2**，exe/dmg/稳定副本均 200。
+- **内容侧不变**：manifest 仍 `12ade505012f…`（48 包，`minAppVersion=1.10.0`）。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license，正式发布线） | 1.10.1 | 712524b（+ 文档提交） |
+| `develop` | 完整开发线（含 license，正式发布线） | 1.10.2 | df8cf62（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 内容/文档同步 |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
 | `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 12ade505012f manifestId（48 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
+| v1.10.2 | 2026-10-17 | Official Tests 最新在前/最早在前切换（偏好持久化）+ 题库更新提示（从 develop，含 license）|
 | v1.10.1 | 2026-10-10 | Build a Sentence 判分容错（标点/缩写/题干固定词）（从 develop，含 license）|
 | v1.10.0 | 2026-09-16 | 8 月真题（Read an Article、写作多篇+独立计时、口语多段）+ 技能页状态恢复（从 develop，含 license）|
 | v1.9.1 | 2026-09-10 | Read a Course Description 帮助文案/指令（从 develop，含 license）|
