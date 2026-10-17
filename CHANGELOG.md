@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.10.2] - 2026-10-17
+
+### Added
+
+- Official Tests can be sorted newest-first (default) or oldest-first with a toggle beside the panel
+  title; the choice is remembered across restarts.
+- A dismissible notice appears at the top of the window after a question-bank update is applied in
+  the background (it auto-hides after six seconds and is suppressed during exams).
+
+### Changed
+
+- When a background content update lands while newest-first is selected, Official Tests returns to
+  the first page so newly published exams are immediately visible. Practice/TPO ordering is
+  unchanged (ascending).
+
 ## [1.10.1] - 2026-10-10
 
 ### Fixed
