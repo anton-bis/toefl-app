@@ -282,7 +282,7 @@ test('missing-letter tasks use the current title without repeating it in the pas
       assert.doesNotMatch(task.passage, /^Fill in the missing letters/i);
     }
   }
-  assert.equal(taskCount, 136);
+  assert.equal(taskCount, 155);
 });
 
 test('reading question numbers follow their declared module ranges', () => {

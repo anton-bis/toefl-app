@@ -28,7 +28,7 @@
 - **最新正式版**：**v1.10.1**（2026-10-10，从 develop 发布，含 license）：Build a Sentence 判分容错（标点/缩写/题干固定词；`solveAnswerOrder` 返回下标；无解预警）。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.1）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `e8643249afbb…`（**46 packs，约 884MB**，含 2026-07 十套、2026-08 三套、2026-09-02/05/13/19 四科、订正与 listening 时间戳规范化；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25）；部分 `<!-- 推测项 -->` 待人工核对。
+- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25）；部分 `<!-- 推测项 -->` 待人工核对。**进行中（未发布）**：写作 `2026-08-26`（标准旧格式 10 Build + Email + Discussion）、`2026-08-30`（采集型 5 Email + 5 Discussion）已入库，manifest 176 docs、测试 201 pass、lint 干净（见 §3.26）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -486,6 +486,20 @@
 - **发布**：`content:publish` → 变更 **22 包** → manifest **`e8643249afbb…`（46 包，约 884MB）**；自动派发 `content-oss-mirror` run `38139807437` **success**。
 - **验证**：**46/46 `ossUrl` 匿名 200 且 size 一致**；指针已更新；`minAppVersion` 仍为 1.10.0（**纯内容更新，无需 App 版本**）。
 - **备注**：工作区仍遗留未跟踪的 `_verify_listening.mjs`（未提交）。
+
+### 3.26 2026-10-12 — 写作：8 月两套真题入库（8.26 国内线下「标准型」+ 8.30 国内线下「采集型」）
+
+- **源**：`D:\托福真题word版\8.26-国内线下 / 8.30-国内线下`。
+- **入库**：
+  - `assets/questions/writing/2026-08-26`（**标准旧格式**：10 × Build a Sentence + 1 Email + 1 Discussion）。源 `Writing.docx` 为**纯文本**（Build 以「Sentence Construction」命名；Email/Discussion 位于 docx 表格内）。
+  - `assets/questions/writing/2026-08-30`（**采集型/非标准**：**5 Email + 5 Discussion**，无 Build）。源 `Writing.pdf` 为**纯图片**（10 页，每题一页、**带标题**）。
+- **答案核对/推导（用户重点）**：
+  - `8.26/Answers.pdf`（图片，7 页）仅含阅读/听力答案 + 写作**范文**，**无 Build 答案表** → Build 10 题按 `Context + Response 空格 + Word Bank` **推导**，并以 `solveAnswerOrder` 自洽校验（全部有解、无预警）。
+  - 源 Word Bank 缺陷**已订正**（推测项）：Q1/Q9 多含瓦片「no」（与应答首词 No 重复，保留为干扰项）；Q4 前缀误含瓦片「I wasn't」、Q5 前缀误含瓦片「was」→ 题干只留非瓦片前缀（I / She）；**Q2** 瓦片「the room that」与「in the」重叠 → 改「room that」；**Q9** 瓦片「able」缺 to（拼不出 able to）→ 改「able to」。
+  - `8.30/Answers.pdf`（图片，26 页）写作部分**仅范文** → 按规则**忽略**（5 Email + 5 Discussion 无客观答案）。
+- **处理**：8.30 用**多模态视觉逐页录入**；`subtitle` 采用源标题（8.26 Email 无标题 → **AI 归纳**）；Build 配 `avatar-bs-*`、Discussion 配 `avatar-d-*`；候选词全部**打乱**；忽略全部范文。
+- **校验**：`content:manifest` **176 documents**、`warnings` 空（**无 build 无解预警**）；`npm test` **201 pass**、`npm run lint` 干净。
+- **状态/待办**：本次**未 `content:publish`**（按分工交其他窗口）；8.26 的 5 处瓦片订正与 8.30 视觉录入文本建议人工抽查。
 
 ---
 
