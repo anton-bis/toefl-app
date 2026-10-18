@@ -284,7 +284,7 @@ D
 
 ---
 
-### Listen to a Talk in an Art History Class – Questions 25-28
+### Listen to a Talk in an Anthropology Class – Questions 25-28
 
 subtitle: Pottery Technology
 audio: listening_m1_q25_q28_lecture_pottery.mp3

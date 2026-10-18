@@ -4,11 +4,10 @@
 
 ### Listen and Choose a Response – Questions 1-12
 
-audio: listening_audio_01.mp3
 
 1. How will you plan the weekend trip?
 image: 1.png
->> play: 0:05-0:07
+audio: listening-q1.m4a
 A. I'll take your word for it.
 B. The weather is nice.
 C. We just got back from vacation.
@@ -16,7 +15,7 @@ D. We need to make reservations.
 
 2. Why did you choose this venue for the freshman orientation?
 image: 2.png
->> play: 0:19-0:22
+audio: listening-q2.m4a
 A. You are welcome here, too.
 B. It was the only one with enough space.
 C. I will receive the product tomorrow.
@@ -24,7 +23,7 @@ D. Yes, I was there.
 
 3. I just learned that Abby and I have the same advisor.
 image: 3.png
->> play: 0:23-0:42
+audio: listening-q3.m4a
 A. Do you want to borrow my lawn mower?
 B. English and history.
 C. How did you find out?
@@ -32,7 +31,7 @@ D. That's good advice.
 
 4. How many pages do we need to write for this assignment?
 image: 4.png
->> play: 0:43-0:55
+audio: listening-q4.m4a
 A. At least six.
 B. This book has more than three hundred pages.
 C. The assignment is due by next Wednesday.
@@ -40,7 +39,7 @@ D. I read them all last night.
 
 5. I noticed you haven't finished the report yet.
 image: 5.png
->> play: 1:05-1:08
+audio: listening-q5.m4a
 A. The library has been open all week.
 B. I'm almost done with the assignment.
 C. How long did it take?
@@ -48,7 +47,7 @@ D. Thanks for letting me borrow the textbook.
 
 6. Where can I find the nearest study lounge?
 image: 6.png
->> play: 1:21-1:24
+audio: listening-q6.m4a
 A. Sure, in three days.
 B. Thanks for letting me know.
 C. No, I can't go.
@@ -56,7 +55,7 @@ D. There's one in the student center.
 
 7. Did you listen to the entire lecture?
 image: 7.png
->> play: 1:38-1:40
+audio: listening-q7.m4a
 A. It's usually very interesting.
 B. It was too long!
 C. He doesn't know.
@@ -64,7 +63,7 @@ D. Is it as long as last week's?
 
 8. Maybe the power went out for this whole area.
 image: 8.png
->> play: 1:51-1:54
+audio: listening-q8.m4a
 A. It's a device that runs on solar power.
 B. Yes, they usually go out to eat.
 C. I thought it was a powerful speech.
@@ -72,7 +71,7 @@ D. It looks like the streetlights outside the dorm are still on.
 
 9. What did you think of the documentary on student life?
 image: 9.png
->> play: 2:04-2:07
+audio: listening-q9.m4a
 A. We haven't been able to stop talking about it.
 B. I stream most of the documentaries that I see.
 C. I prefer action movies over comedies.
@@ -80,7 +79,7 @@ D. Yes, there's still time to catch a matinee.
 
 10. What did you think of the student debate?
 image: 10.png
->> play: 2:26-2:28
+audio: listening-q10.m4a
 A. The debate class will meet next Saturday.
 B. I thought that the arguments were well-informed.
 C. Yes, the students are allowed to make up the assignment.
@@ -88,7 +87,7 @@ D. The next debate is on Tuesday.
 
 11. Would you like beef or chicken curry?
 image: 11.png
->> play: 2:41-2:43
+audio: listening-q11.m4a
 A. No, I'm not in a hurry.
 B. I liked what you said.
 C. They were delicious, thanks.
@@ -96,7 +95,7 @@ D. Is there a vegetarian option?
 
 12. How can I volunteer for research studies?
 image: 12.png
->> play: 2:57-2:59
+audio: listening-q12.m4a
 A. The event is next week.
 B. He was studying late last night.
 C. You can check the university's website.
@@ -338,7 +337,7 @@ A
 subtitle: Trompe-l'oeil Painting
 audio: listening_audio_01.mp3
 image: 20.png
->> play: 13:58-15:51
+>> play: 13:58-17:14
 
 Let's step into the curious world of trompe-l'oeil, a painting technique that doesn't just play with perspective, it plays with your perception. The term French for deceive the eye hints at its magic, paintings so convincing they make you question what's real. Trompe-l'oeil paintings often look three-dimensional and blur the boundaries between what's real and what isn't. Though its roots stretch back to ancient Greece and Rome, trompe-l'oeil truly flourished during the Renaissance. Artists like Andrea Mantegna used the technique to make ceilings look like open skies, creating the impression that rooms were open to the heavens. By the 17th century, trompe-l'oeil had become a popular form of interior decoration. Consider the work of Dutch artist Samuel van Hoogstraten, whose paintings gave viewers the illusion of stepping into another room or looking through a window. These paintings play tricks on the viewer's sense of space and depth, creating a sense of wonder. Not everyone is enchanted. Some view trompe-l'oeil as a clever trick, technically impressive, but emotionally hollow. It's a fair critique. When art leans heavily on illusion, it risks being seen as spectacle rather than substance. Still, the technique endures, and today's artists push it further, using digital tools to bend reality in ways that go beyond paint and canvas. Trompe-l'oeil isn't just about fooling the eye anymore, it's about challenging how we see.
 
@@ -375,11 +374,10 @@ B
 
 ### Listen and Choose a Response – Questions 1-3
 
-audio: listening_audio_01.mp3
 
 1. The store features educational materials.
 image: 21.png
->> play: 17:14-17:16
+audio: listening-m2q1.m4a
 A. Yes, the library features a display of science fiction in the lobby.
 B. Great, I need to buy some new books for class.
 C. The city is known for its quality educational institutions.
@@ -387,7 +385,7 @@ D. Please gather all of the chemicals and materials you need for the science exp
 
 2. Are you coming to the robotics club party?
 image: 22.png
->> play: 17:30-17:33
+audio: listening-m2q2.m4a
 A. Either time is fine with me.
 B. You can bring a friend if you want.
 C. Wouldn't miss it for the world.
@@ -395,7 +393,7 @@ D. I'll tell you the venue when it's been announced.
 
 3. Her mid-term presentation focused on Greek authors.
 image: 23.png
->> play: 17:46-17:48
+audio: listening-m2q3.m4a
 A. She will be presenting tomorrow.
 B. She prepared really well.
 C. Probably in the study lounge.
@@ -426,7 +424,7 @@ A
 subtitle: New Study App
 audio: listening_audio_01.mp3
 image: 24.png
->> play: 18:00-19:10
+>> play: 18:00-19:11
 
 Have you tried using that new app, our physics professor mentioned? I was going to download it, but then I figured I wouldn't have time to figure out how to use it. I can totally show you. It's not that bad, and it's been helpful for our last couple of homework assignments. Great! I was planning to go to the tutoring centre for extra help. You probably won't need to now. Here, I'll show you where to get it. And I have the code the professor gave us for the free trial. I actually have that. Listen to a conversation.
 
@@ -452,7 +450,7 @@ A
 subtitle: Downtown Bakery
 audio: listening_audio_01.mp3
 image: 25.png
->> play: 19:10-20:23
+>> play: 19:11-20:23
 
 How did you like the new bakery downtown? I don't know. It seemed to be all about the presentation. The pastries and buns had these fancy shapes and came in all kinds of colourful wrappings, that kind of thing. For me, what matters is the taste. Totally. I'm there to eat the stuff, not take pictures of it. Right. The taste was just kind of regular, not what you'd expect for the price. Sounds like I'll be skipping out on this one, especially since I need to cut down on my sugar intake and calories anyway. Pastries have too much of those.
 
