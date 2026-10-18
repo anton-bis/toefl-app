@@ -9,7 +9,8 @@
       "contentHash": "0c6260bb6201201aab280287f1c5a09f16289a4a72c9915e121259b3e6916e26",
       "archiveHash": "520d4daea5b50854e1695beaee90b9849f6aca3927d533757fd8509af638507c",
       "size": 19297,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/catalog-0c6260bb6201.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/catalog-0c6260bb6201.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/catalog-0c6260bb6201.zip"
     },
     {
       "id": "tpo-01",
@@ -224,14 +225,16 @@
       "contentHash": "de4bcfa0858b674d42b9fb818d24d6157ac8eb1d655e0357e6570f25a8980884",
       "archiveHash": "187cff135f72cf3974ba27dea78d14a89622464e6378b315e8f8fd73c4a170cb",
       "size": 16297815,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-24-de4bcfa0858b.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-24-de4bcfa0858b.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/tpo-2026-06-24-de4bcfa0858b.zip"
     },
     {
       "id": "tpo-2026-06-29",
       "contentHash": "dbd31c269c15d3534b0ded74cc47cda760c5ac804e7b3807e523aa7710c8576c",
       "archiveHash": "bb6cdf5619591ddb3e4e22b7bacb6e6567d62485e8449188239d22f115670db7",
       "size": 18436856,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-29-dbd31c269c15.zip"
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-29-dbd31c269c15.zip",
+      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/tpo-2026-06-29-dbd31c269c15.zip"
     },
     {
       "id": "tpo-2026-07-04",
