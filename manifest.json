@@ -1,16 +1,15 @@
 {
   "schemaVersion": 1,
-  "manifestId": "3ae0e124daefae68a468f7086b1860c52fbad6475c5345c76434dda33c9be750",
-  "publishedAt": "2026-10-18T09:07:49.383Z",
+  "manifestId": "2b73ade64d7779eff129d969f022c022dce30a8f9e6c5a60a0e59ac0a8488443",
+  "publishedAt": "2026-10-18T16:29:11.918Z",
   "minAppVersion": "1.10.0",
   "packs": [
     {
       "id": "catalog",
-      "contentHash": "0c6260bb6201201aab280287f1c5a09f16289a4a72c9915e121259b3e6916e26",
-      "archiveHash": "520d4daea5b50854e1695beaee90b9849f6aca3927d533757fd8509af638507c",
-      "size": 19297,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/catalog-0c6260bb6201.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/catalog-0c6260bb6201.zip"
+      "contentHash": "303771bbc973012988b1965a3fdba3814c4a3bffdd7ba64828f56612d77e0c47",
+      "archiveHash": "4ff68511fb32c08f7e437916617843a657a91248385e90349ce882b3f8ac099e",
+      "size": 19289,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-2b73ade64d77/catalog-303771bbc973.zip"
     },
     {
       "id": "tpo-01",
@@ -222,27 +221,24 @@
     },
     {
       "id": "tpo-2026-06-24",
-      "contentHash": "de4bcfa0858b674d42b9fb818d24d6157ac8eb1d655e0357e6570f25a8980884",
-      "archiveHash": "187cff135f72cf3974ba27dea78d14a89622464e6378b315e8f8fd73c4a170cb",
-      "size": 16297815,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-24-de4bcfa0858b.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/tpo-2026-06-24-de4bcfa0858b.zip"
+      "contentHash": "0f0ed72568911fa44a03554ea4d62b0d4a7bb07bb86e37f5560aa25a4ad7eea5",
+      "archiveHash": "01e46da35882213536e5834c4ccabcd88cd1f95171f4e196408e40787041ddf3",
+      "size": 17238562,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-2b73ade64d77/tpo-2026-06-24-0f0ed7256891.zip"
     },
     {
       "id": "tpo-2026-06-29",
-      "contentHash": "dbd31c269c15d3534b0ded74cc47cda760c5ac804e7b3807e523aa7710c8576c",
-      "archiveHash": "bb6cdf5619591ddb3e4e22b7bacb6e6567d62485e8449188239d22f115670db7",
-      "size": 18436856,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-3ae0e124daef/tpo-2026-06-29-dbd31c269c15.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/3ae0e124daef/tpo-2026-06-29-dbd31c269c15.zip"
+      "contentHash": "9f7e6eef9f92bfe3bd3eab9f63d15b1d0e3c4aa4273c9714a4e0f1218c45a6c1",
+      "archiveHash": "388653ff69767962161e7291282d28103545ba80ff911e2ef7e022ba26f6f5e3",
+      "size": 11490516,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-2b73ade64d77/tpo-2026-06-29-9f7e6eef9f92.zip"
     },
     {
       "id": "tpo-2026-07-04",
-      "contentHash": "2dcecdc405b5f5715b7b84a7693c54494c2f0f246985e07d4c1683019a98b813",
-      "archiveHash": "b61600b58649098a2c61f74775f0da923fa1fdbd6d3762a2b0bdfa8b4976cd93",
-      "size": 17004315,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-e8643249afbb/tpo-2026-07-04-2dcecdc405b5.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/e8643249afbb/tpo-2026-07-04-2dcecdc405b5.zip"
+      "contentHash": "cfbc1750576ac67fac396dd2aefa83d0a5bfdf42d0affeba3d08be8bcee789a4",
+      "archiveHash": "ad04b3ab57f6c78b08da00fe8801e9b96f5ca0d8c3312f5933dd09ca4a1a8b42",
+      "size": 17180491,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-2b73ade64d77/tpo-2026-07-04-cfbc1750576a.zip"
     },
     {
       "id": "tpo-2026-07-05",
@@ -262,11 +258,10 @@
     },
     {
       "id": "tpo-2026-07-11",
-      "contentHash": "29939ca333bcdb3233c19db7a86f99cfaf52a6ff21fc25df0309e8d1eff6a773",
-      "archiveHash": "dfabd020156d33a6491fa62bdd53b0ebb5c1a200473d34e2628e734e7915a69e",
-      "size": 11618510,
-      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-f770b902e3f8/tpo-2026-07-11-29939ca333bc.zip",
-      "ossUrl": "https://justtofu-downloads.oss-cn-hangzhou.aliyuncs.com/releases/content/f770b902e3f8/tpo-2026-07-11-29939ca333bc.zip"
+      "contentHash": "60296599a3e830d4b973e9dd285c56ffde19b09d35674e8b997e9e2252fdcd0e",
+      "archiveHash": "b9f58b07ccec83a620aa85919c61857ea7d3a62c5689183d024c7571744892f0",
+      "size": 11618508,
+      "url": "https://v6.gh-proxy.org/https://github.com/anton-bis/toefl-app/releases/download/content-2b73ade64d77/tpo-2026-07-11-60296599a3e8.zip"
     },
     {
       "id": "tpo-2026-07-13",
