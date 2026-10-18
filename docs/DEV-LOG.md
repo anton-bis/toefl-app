@@ -28,7 +28,7 @@
 - **最新正式版**：**v1.10.2**（2026-10-17，从 develop 发布，含 license）：Official Tests 支持「最新在前/最早在前」切换（偏好跨重启保存，默认最新在前）；后台题库更新完成后顶部提示（6s 自动消失、可关闭、考试中不显示），并在降序时把 Official 分页重置到第 1 页。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.2）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `12ade505012f…`（**48 packs，约 923MB**，含 2026-07 十套、2026-08 五套（12/19/22/26/30）、2026-09-02/05/13/19 四科、订正与 listening 时间戳规范化；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27）；部分 `<!-- 推测项 -->` 待人工核对。
+- **真题发布进度**：`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27）；部分 `<!-- 推测项 -->` 待人工核对。**进行中（未发布）**：写作 `2026-06-24`、`2026-06-29`（标准旧格式 10 Build + Email + Discussion）已入库，manifest 184 docs、测试 207 pass、lint 干净（见 §3.29）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -520,6 +520,19 @@
 - **测试**：新增 `settings-sort.test.js`、`content-notice.test.js`，补充 home-view/home-pagination 排序/分页重置用例；lint 干净；node 312 pass/1 skip + vitest **207 pass**。
 - **发布**：`package.json` → **1.10.2**；annotated tag `v1.10.2` → Release run `39035198835` **全绿**（verify + 三平台 + publish + OSS 镜像）；OSS feed = **1.10.2**，exe/dmg/稳定副本均 200。
 - **内容侧不变**：manifest 仍 `12ade505012f…`（48 包，`minAppVersion=1.10.0`）。
+
+### 3.29 2026-10-17 — 写作：6 月两套真题入库（6.24 / 6.29，标准旧格式）
+
+- **源**：`D:\托福真题word版\6.24 / 6.29`（`Writing_with_Samples.docx` + `Answers.docx`，**实为 .docx**，纯文本、0 图片）。
+- **入库**：`assets/questions/writing/2026-06-24`、`2026-06-29`（各 **10 Build + 1 Email + 1 Discussion**，标准旧格式）。
+- **答案**：Build 10 题答案均在 `Answers.docx`「Writing Answers」中**原文给出**（无需推导），已逐条录入并以 `solveAnswerOrder` 校验**全部有解、0 预警**。
+- **处理**：
+  - 候选词全部**打乱**（源里 6.24 Q4–Q10、6.29 全部 10 题的 Word Bank 就是答案顺序）。
+  - **6.24**：Email = 瑜伽课时间建议（To: Mr. Davis）；Discussion = the arts（Dr. Gupta / Claire + Paul），**与 2026-09-19 逐字重复**，已在文件内注明。Email 的 `To/Subject` 源未给 → 归纳。
+  - **6.29**：Build 的 Context 源为元描述（如 "Mia and Ben are discussing a lunch plan."）→ **改写为对话原句**（10 条，推测项）；Discussion 源无教授姓名 → `Instructor: Dr. Lee`（推测项）；Email = 写作中心反馈（To: Ms. Garcia）。
+  - 忽略全部 Sample（Email/Discussion 范文）。
+- **校验**：`content:manifest` **184 documents**、`warnings` 空（无 build 无解预警）；`npm test` **207 pass**；`npm run lint` 干净。
+- **状态/待办**：未 `content:publish`（按分工交其他窗口）；6.29 的 10 条 Context 改写 + 教授名、两套归纳的 To/Subject 建议人工抽查。
 
 ---
 
