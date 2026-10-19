@@ -28,7 +28,7 @@
 - **最新正式版**：**v1.10.2**（2026-10-17，从 develop 发布，含 license）：Official Tests 支持「最新在前/最早在前」切换（偏好跨重启保存，默认最新在前）；后台题库更新完成后顶部提示（6s 自动消失、可关闭、考试中不显示），并在降序时把 Official 分页重置到第 1 页。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.2）
 - **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `2b73ade64d77…`（**50 packs，约 950.5MB**，含 2026-06-24/29、2026-07 十套、2026-08 五套、2026-09 四科；含逐题音频与时间戳修订；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **真题发布进度**：`2026-06-24/29`、`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27/§3.30）；部分 `<!-- 推测项 -->` 待人工核对。
+- **真题发布进度**：`2026-06-24/29`、`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27/§3.30）；部分 `<!-- 推测项 -->` 待人工核对。**进行中（未发布）**：写作 `2026-06-07`（= 07-25 整份复制）、`2026-06-08`（= 07-11 整份复制）、`2026-06-22`（新增）已入库，manifest 191 docs、测试 207 pass、lint 干净（见 §3.31）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -546,6 +546,18 @@
 - **发布**：`content:publish` → 变更 **5 包**（catalog + 06-24、06-29、07-04、07-11）→ manifest **`2b73ade64d77…`（50 包，约 950.5MB）**；`content-oss-mirror` run `39145226892` success；**50/50 `ossUrl` 200 且 size 一致**，指针已更新。
 - **客户端**：本机 `Tofu Practice` userData 已同步到 `2b73ade64d77…`（50 包），测试窗口已重新拉起。
 - **回答用户疑问**：此前发布的确为未修订测试版；现已把修订版发布并同步，线上与工作区一致。
+
+### 3.31 2026-10-19 — 写作：6 月三套真题入库（6.7 / 6.8 / 6.22）
+
+- **源**：`D:\托福真题word版\6.7 / 6.8 / 6.22-已经修复`（`Writing.docx` + `Answers.docx`，纯文本；6.8/6.22 的 Email/Discussion 位于 docx 表格/文本框内）。
+- **结构**：三套均为**标准旧格式**（10 Sentence Construction + 1 Email + 1 Discussion）；Build 答案均在 `Answers.docx`「Writing Answers」中**原文给出**（无需推导），逐条录入并以 `solveAnswerOrder` 校验**全部有解**。
+- **重复盘点（重点）**：
+  - **6.7 = 2026-07-25 整份完全一致**（10 Build + Email + Discussion 逐字相同，已逐条比对）→ 按用户要求**直接由 2026-07-25 复制**为 `2026-06-07`，两日期并存。
+  - **6.8 = 2026-07-11 整份完全一致** → 同样由 `2026-07-11` 复制为 `2026-06-08`。
+  - **6.22 为新增内容**；例外：Build Q2（`The invitation I received had the wrong address`）与 06-24 / 07-04 / 07-18 重复。
+- **处理**：6.22 候选词已**打乱**（源里多数为答案顺序）；Build 配 `avatar-bs-*`、Discussion 配 `avatar-d-*`；忽略全部 Sample（Email/Discussion 范文）。
+- **校验**：`content:manifest` **191 documents**、`warnings` 空（无 build 无解预警）；`npm test` **207 pass**；`npm run lint` 干净。
+- **状态/待办**：未 `content:publish`（按分工交其他窗口）；6.7/6.8 为整份重复，如需下架其一请告知。
 
 ---
 
