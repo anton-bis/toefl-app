@@ -7,7 +7,7 @@
 
 1. How can I apply for the study abroad program?
 image: 1.png
-audio: listening-q1.m4a
+audio: listening_m1_q01_choose_response.mp3
 A. You need to submit the application online.
 B. The program lasts one semester.
 C. I studied abroad last year.
@@ -15,7 +15,7 @@ D. The campus is near the library.
 
 2. How can I improve my rowing skills?
 image: 2.png
-audio: listening-q2.m4a
+audio: listening_m1_q02_choose_response.mp3
 A. The river is closed today.
 B. Practice regularly with a coach.
 C. The boat is near the dock.
@@ -23,7 +23,7 @@ D. I watched the race yesterday.
 
 3. What time does the registrar's office open tomorrow?
 image: 3.png
-audio: listening-q3.m4a
+audio: listening_m1_q03_choose_response.mp3
 A. The office closes on Friday.
 B. It is in the student center.
 C. Early in the morning.
@@ -31,7 +31,7 @@ D. The form is online.
 
 4. The library has a quiet study area.
 image: 4.png
-audio: listening-q4.m4a
+audio: listening_m1_q04_choose_response.mp3
 A. Yes, I often study there.
 B. The library book is overdue.
 C. The area was noisy.
@@ -39,7 +39,7 @@ D. I need a new desk.
 
 5. If you're comfortable with the schedule, we can book the lab for tomorrow.
 image: 5.png
-audio: listening-q5.m4a
+audio: listening_m1_q05_choose_response.mp3
 A. That should work for me.
 B. The lab equipment is old.
 C. I already bought a ticket.
@@ -47,7 +47,7 @@ D. The schedule was printed.
 
 6. Where is the nearest train station?
 image: 6.png
-audio: listening-q6.m4a
+audio: listening_m1_q06_choose_response.mp3
 A. The train leaves at noon.
 B. It is three blocks away.
 C. I prefer taking the bus.
@@ -55,7 +55,7 @@ D. The station was renovated.
 
 7. When is the next class in advanced data analysis being offered?
 image: 7.png
-audio: listening-q7.m4a
+audio: listening_m1_q07_choose_response.mp3
 A. The class uses software.
 B. It was difficult last semester.
 C. Next spring.
@@ -63,7 +63,7 @@ D. The professor is from the math department.
 
 8. I don't think I'll be able to go hiking today.
 image: 8.png
-audio: listening-q8.m4a
+audio: listening_m1_q08_choose_response.mp3
 A. The trail is beautiful.
 B. But you've been looking forward to it.
 C. The club meets every week.
@@ -71,7 +71,7 @@ D. Bring enough water.
 
 9. Who is doing the extra credit assignment?
 image: 9.png
-audio: listening-q9.m4a
+audio: listening_m1_q09_choose_response.mp3
 A. The assignment is optional.
 B. I finished it already.
 C. My biology professor assigned it.
@@ -79,7 +79,7 @@ D. I think Jenna is.
 
 10. What should we do about the broken desk chair?
 image: 10.png
-audio: listening-q10.m4a
+audio: listening_m1_q10_choose_response.mp3
 A. My friend can repair it.
 B. The desk is near the door.
 C. The chair is expensive.
@@ -87,7 +87,7 @@ D. I prefer sitting in front.
 
 11. Where did you buy a laptop?
 image: 11.png
-audio: listening-q11.m4a
+audio: listening_m1_q11_choose_response.mp3
 A. It was on sale.
 B. My old one stopped working.
 C. It's really fast.
@@ -95,7 +95,7 @@ D. Online.
 
 12. How can I access the local archives?
 image: 12.png
-audio: listening-q12.m4a
+audio: listening_m1_q12_choose_response.mp3
 A. The archives have many documents.
 B. The ingredients are from local farms.
 C. The plane has exits in the front and rear.
@@ -144,7 +144,7 @@ subtitle: Running in the Park
 audio: listening_m1_q13_q14_conversation_park_clean.mp3
 image: 13.png
 
-How are your morning runs going? Overall, great. Though it's hard to run on the trails at the local park I've been going to. I feel like I'm always getting stuck behind people or bumping into them. I see. Are you working toward a specific goal? My main goal is just to be healthier. But if I'm making enough progress, I might sign up for the campus 5K race at the end of the semester. Have you done one before? It'll be my first, so that's why I'm still undecided. I have faith in you. Listen to a conversation.
+How are your morning runs going? Overall great, though it's hard to run on the trails at the local park I've been going to. I feel like I'm always getting stuck behind people or bumping into them. I see. Are you working toward a specific goal? My main goal is just to be healthier. But if I'm making enough progress, I might sign up for the campus 5K race at the end of the semester. Have you done one before? It'll be my first, so that's why I'm still undecided. I have faith in you.
 
 13. What is the woman's main problem with running in the local park?
 A. She has trouble finding the park.
@@ -169,7 +169,7 @@ subtitle: Activities Fair
 audio: listening_m1_q15_q16_conversation_debate_club.mp3
 image: 14.png
 
-I went to the student activities fair yesterday. Oh, how was it? I meant to go, but I was working on a paper for my sociology class. Well, I saw a table for a debate club, and I thought of you. You were on the debate team in high school, weren't you? I was. Maybe you should sign up. I don't know. I'd like something that requires a little less brain power. My classes this semester are going to be really difficult. I think the hiking club is more up my alley. Listen to a conversation.
+I went to the student activities fair yesterday. Oh, how was it? I meant to go, but I was working on a paper for my sociology class. Well, I saw a table for a debate club, and I thought of you. You were on the debate team in high school, weren't you? I was. Maybe you should sign up. I don't know. I'd like something that requires a little less brain power. My classes this semester are going to be really difficult. I think the hiking club is more up my alley.
 
 15. Why did the man miss the activities fair?
 A. He was working on a sociology paper.
@@ -194,7 +194,7 @@ subtitle: Rock Festival
 audio: listening_m1_q17_q18_conversation_event_clean.mp3
 image: 15.png
 
-What do you know about this rock festival that's happening? Not much. Do you know what time it starts? It kicks off at 3 PM. That's perfect. Oh, I remember hearing that there'll be food trucks. Oh, right. And a dance floor. No way. You can't keep us away. Let's get there early so we can get a good spot.
+What do you know about this rock festival that is happening? Not much. Do you know what time it starts? It kicks off at 3 p.m. That's perfect. Oh, I remember hearing that there'll be food trucks. Oh, right. And a dance floor. No way. You can't keep us away. Let's get there early so we can get a good spot.
 
 17. What event are the speakers discussing?
 A. A truck show.
@@ -219,7 +219,7 @@ subtitle: Shuttle Route Updates
 audio: listening_m1_q19_q20_announcement_shuttle.mp3
 image: 16.png
 
-Good morning, students. We wanted to remind you about some recent updates to our campus shuttle schedule. Beginning next Monday, the shuttle service will operate on a new extended schedule in the mornings, starting at 7 AM. It will also add two additional stops to its route, the Campus Art Museum and the Zimmerman Theater. These changes are in response to student feedback. We're always working to improve. Please check the updated schedule on the Transportation Office website and plan your travel accordingly. Listen to an announcement in a classroom.
+Good morning students. We wanted to remind you about some recent updates to our campus shuttle schedule. Beginning next Monday, the shuttle service will operate on a new extended schedule in the mornings, starting at 7 a.m. It will also add two additional stops to its route, the Campus Art Museum and the Zimmerman Theatre. These changes are in response to student feedback. Please check the updated schedule on the Transportation Office website and plan your travel accordingly. Listen to another announcement.
 
 19. What is the main purpose of the campus radio announcement?
 A. To announce shuttle schedule updates.
@@ -244,7 +244,7 @@ subtitle: Online Platform
 audio: listening_m1_q21_q22_announcement_online_platform.mp3
 image: 17.png
 
-Let me tell you about something exciting. Starting next week, all our course readings, assignments and lecture slides will be available through our new online platform. This should make it easier for you to stay organized and access everything in one place. Please create your account by Friday and take some time to explore the layout and features. There's also a tutorial video on the home page to help you get started. If you have any trouble logging in or locating materials, please let me know.
+Let me tell you about something exciting, starting next week, all our course readings, assignments, and lecture slides will be available through our new online platform. This should make it easier for you to stay organized and access everything in one place. Please create your account by Friday and take some time to explore the layout and features. There is also a tutorial video on the homepage to help you get started.
 
 21. What will students need to do for the new online platform?
 A. Create an account by Friday.
@@ -269,7 +269,7 @@ subtitle: Debate Championship
 audio: listening_m1_q23_q24_announcement_debate.mp3
 image: 18.png
 
-Before we begin our film screening, I want to invite you all to the Regional University Debate Championship on Thursday at 7 PM in the Student Center Auditorium. We're excited to be hosting this special event for the second year in a row. Come see your very own Nordgren University Debate Team take on the South Melville University Team. Learn new perspectives, cheer on your friends and enjoy complimentary snacks. Registration is free. Just remember to sign up on the Debate Team's website soon.
+Before we begin our film screening, I want to invite you all to the Regional University Debate Championship on Thursday at 7 p.m. in the Student Center Auditorium. We are excited to be hosting this special event for the second year in a row. Come see Nordgren University Debate Team take on the South Melville University Team. Registration is free. Remember to sign up on the Debate Team website soon.
 
 23. What event is being announced before the film screening?
 A. A debate championship.
@@ -369,7 +369,7 @@ A
 
 1. The school assembly was very engaging.
 image: 21.png
-audio: listening-m2q1.m4a
+audio: listening_m2_q01_choose_response.mp3
 A. I'm glad you enjoyed it.
 B. The building is near the gym.
 C. The school begins at nine.
@@ -377,7 +377,7 @@ D. I lost my notebook.
 
 2. Any idea where the new science library is?
 image: 22.png
-audio: listening-m2q2.m4a
+audio: listening_m2_q02_choose_response.mp3
 A. It has many chemistry books.
 B. It's on the east side of campus.
 C. I borrowed one yesterday.
@@ -385,7 +385,7 @@ D. The library opens late.
 
 3. I was sure the professor mentioned an optional assignment.
 image: 23.png
-audio: listening-m2q3.m4a
+audio: listening_m2_q03_choose_response.mp3
 A. Maybe you should check the syllabus.
 B. The professor is in the office.
 C. Assignments are always difficult.
@@ -417,7 +417,7 @@ subtitle: Medical Checkup
 audio: listening_m2_q04_q05_conversation_health.mp3
 image: 24.png
 
-Hey, how was your checkup? Get a load of this, Tom. The doctor said I need to exercise more. Really? You? Didn't you run a marathon last year? Three of them. I've never been in better shape. So why would your doctor say something like that? I think she was distracted, and maybe confused me with another patient. But when I called her out on it, she insisted that she was right. Hmm. Time to find a new doctor. Agreed. Listen to a conversation.
+Hey, how was your check-up? Get a load of this, Tom. The doctor said I need to exercise more. Really? You? Didn't you run a marathon last year? Three of them. I have never been in better shape. So why would your doctor say something like that? I think she was distracted and maybe confused me with another patient. But when I called her out on it, she insisted that she was right. Time to find a new doctor. Agreed.
 
 4. What mistake did the doctor make?
 A. She confused the woman with another patient.
@@ -442,7 +442,7 @@ subtitle: Bicycle Rental
 audio: listening_m2_q06_q07_conversation_bike_route.mp3
 image: 25.png
 
-My parents are visiting a few days before graduation weekend, and I'm thinking about renting bikes for us to explore the city. They're both in good shape, but, you know, they're a little older. You think they could handle it? It's pretty flat here, so it's easy riding. The thing is, some intersections get pretty busy, so they'll need to be careful at the traffic lights. Yeah, like where Main Street meets George Street. Have you looked into rental prices? Yeah, there's a place near the university that offers hourly rentals. They're always very busy. Then you'd better get on it. Listen to a talk on a science podcast.
+My parents are visiting a few days before graduation weekend, and I am thinking about renting bikes for us to explore the city. They are both in good shape, but they are a little older. Do you think they could handle it? It is pretty flat here, so it is easy riding. The thing is, some intersections get pretty busy, so they will need to be careful at the traffic lights. Yeah, like where Main Street meets George Street. Have you looked into rental prices? Yeah, there is a place near the university that offers hourly rentals. They are always very busy. Then you had better get on it.
 
 6. What is the woman considering doing with her parents?
 A. Renting bikes to explore the city.
