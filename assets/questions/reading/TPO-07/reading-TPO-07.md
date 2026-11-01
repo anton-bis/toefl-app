@@ -4,7 +4,7 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-We know from drawings that have been preserved in caves for over 10,000 years that early humans performed dances as a group activity. We mi\_\_\_ think th\_\__ prehistoric peo\_\_\_ concentrated on\_\_ on ba\_\_\_ survival. How\_\_\_\_ it i\_ clear fr\_\_ the rec\_\_\_ that dan\_\_\_ was important to them. They recorded more drawings of dances than of any other group activity. Dances served various purposes, including ritualistic communication with the divine, storytelling, and social cohesion.
+We know from drawings that have been preserved in caves for over 10,000 years that early humans performed dances as a group activity. We mi\_\_\_ think th\_\__ prehistoric peo\_\_\_ concentrated on\_\_ on ba\_\_\_ survival. How\_\_\_\_ it i\_ clear fr\_\_ the rec\_\_\_ that dan\_\_\_\_ was important to them. They recorded more drawings of dances than of any other group activity. Dances served various purposes, including ritualistic communication with the divine, storytelling, and social cohesion.
 
 [ANSWER]
 might:might

@@ -173,7 +173,7 @@ B
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Elephants are social animals that live in groups called herds. They commu\_\_\_\_\_\_\_ using sou\_\_\_\_, gestures, a\_\_ touch. These ani\_\_\_\_\_ are kn\_\_\_\_ for th\_\_\_\_ strong fam\_\_\_\_ bonds and of\_\_\_\_ help ea\_\_ other i\_ times of need. They can remember the locations of water sources and food, which helps them survive in their natural environment. These highly intelligent creatures play an important role in their ecosystems, shaping the landscape, creating access to moisture, and spreading seeds.
+Elephants are social animals that live in groups called herds. They commu\_\_\_\_\_\_ using sou\_\_\_, gestures, a\_\_ touch. These ani\_\_\_\_ are kn\_\_\_ for th\_\_\_ strong fam\_\_\_ bonds and of\_\_\_ help ea\_\_ other i\_ times of need. They can remember the locations of water sources and food, which helps them survive in their natural environment. These highly intelligent creatures play an important role in their ecosystems, shaping the landscape, creating access to moisture, and spreading seeds.
 
 [ANSWER]
 communicate:communicate
