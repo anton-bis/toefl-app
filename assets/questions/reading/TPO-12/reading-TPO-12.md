@@ -4,7 +4,7 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Early civilizations, including those in Mesopotamia, Egypt, the Indus Valley, and China, emerged around river valleys, where fertile land and water resources supported agriculture. Th\_\_ developed sophis\_\_ social struc\_\_, written lang\_\_, and adva\_\_ technologies, wh\_\_ allowed th\_\_ to thr\_\_ and esta\_\_ cities, tr\_\_ networks, and even empires. Just as important were their significant contributions to fields like art, science, and law. These developments were crucial in shaping the course of human history.
+Early civilizations, including those in Mesopotamia, Egypt, the Indus Valley, and China, emerged around river valleys, where fertile land and water resources supported agriculture. Th\_\_ developed sophis\_\_\_\_\_\_\_ social struc\_\_\_\_\_, written lang\_\_\_\_\_, and adva\_\_\_\_ technologies, wh\_\_\_ allowed th\_\_ to thr\_\_\_ and esta\_\_\_\_\_ cities, tr\_\_\_ networks, and even empires. Just as important were their significant contributions to fields like art, science, and law. These developments were crucial in shaping the course of human history.
 
 [ANSWER]
 They:They
@@ -168,7 +168,7 @@ A
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Consciousness is the state of being aware of and able to think about one's own existence, thoughts, and surroundings. Wh\_\_ you lo\_\_ in a mir\_\_ and recognize your\_\_, you exh\_\_ self-awareness, wh\_\_ is n\_\_ unique t\_\_ humans b\_\_ is al\_\_ found in dolphins and great apes. Consciousness is not to be confused with cognition. The latter refers to mental processes involved in gaining knowledge and solving problems, like thinking, judging, and remembering.
+Consciousness is the state of being aware of and able to think about one's own existence, thoughts, and surroundings. Wh\_\_ you lo\_\_ in a mir\_\_\_ and recognize your\_\_\_\_, you exh\_\_\_\_ self-awareness, wh\_\_\_ is n\_\_ unique t\_ humans b\_\_ is al\_\_ found in dolphins and great apes. Consciousness is not to be confused with cognition. The latter refers to mental processes involved in gaining knowledge and solving problems, like thinking, judging, and remembering.
 
 [ANSWER]
 When:When

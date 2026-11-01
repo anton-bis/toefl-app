@@ -4,7 +4,7 @@
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Early films were quite different from what we are used to today—they were silent and black-and-white. Technological develop\_\_ introduced so\_\_, color, a\_\_ special eff\_\_. Filmmaking requ\_\_ the collab\_\_ of ma\_\_ different peo\_\_: actors, dire\_\_, writers. Films ha\_\_ the power to entertain, educate, and inspire audiences, shaping popular culture and influencing social trends. The film industry has grown from its early beginnings to become a major cultural and economic force worldwide.
+Early films were quite different from what we are used to today—they were silent and black-and-white. Technological develop\_\_\_\_ introduced so\_\_\_, color, a\_\_ special eff\_\_\_\_. Filmmaking requ\_\_\_\_ the collab\_\_\_\_\_\_\_ of ma\_\_ different peo\_\_\_: actors, dire\_\_\_\_\_, writers. Films ha\_\_ the power to entertain, educate, and inspire audiences, shaping popular culture and influencing social trends. The film industry has grown from its early beginnings to become a major cultural and economic force worldwide.
 
 [ANSWER]
 development:development
@@ -161,7 +161,7 @@ C
 
 ### Task 1 Fill in the missing letters (Questions 1–10)
 
-Water is essential for life as we know it, so finding water on other planets and moons is a crucial part of the quest to find life beyond Earth. Mars' riverbeds sh\_\_ evidence o\_\_ water i\_\_ ancient ti\_\_. The moons Europa a\_\_ Enceladus ha\_\_ ice-covered surf\_\_ that m\_\_ hide oce\_\_ beneath. Discov\_\_ new extraterrestrial water, whether past or present, liquid or solid, could significantly impact our understanding of life in the universe. Such findings could guide future missions in the search for habitable environments outside of Earth.
+Water is essential for life as we know it, so finding water on other planets and moons is a crucial part of the quest to find life beyond Earth. Mars' riverbeds sh\_\_ evidence o\_ water i\_ ancient ti\_\_\_. The moons Europa a\_\_ Enceladus ha\_\_ ice-covered surf\_\_\_\_ that m\_\_ hide oce\_\_\_ beneath. Discov\_\_\_\_\_ new extraterrestrial water, whether past or present, liquid or solid, could significantly impact our understanding of life in the universe. Such findings could guide future missions in the search for habitable environments outside of Earth.
 
 [ANSWER]
 show:show
