@@ -26,9 +26,9 @@
 - **当前 checkout 分支**：`develop`（= 完整发布线，含 license；package.json version = **1.10.2**）；`release/v1.7.5`（无 license 历史线）已同步内容/文档，version 仍 1.7.8（不打 tag）
 - **GitHub 远端对齐**：`develop`、`release/v1.7.5`、`master`、`content` 均已 push（HEAD==远端）
 - **最新正式版**：**v1.10.2**（2026-10-17，从 develop 发布，含 license）：Official Tests 支持「最新在前/最早在前」切换（偏好跨重启保存，默认最新在前）；后台题库更新完成后顶部提示（6s 自动消失、可关闭、考试中不显示），并在降序时把 Official 分页重置到第 1 页。三平台打包 + OSS 自动镜像成功（OSS feed = 1.10.2）
-- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `651226bf1868…`（**53 packs，约 999.8MB**，含 2026-06-07/08/22/24/29、2026-07 十套、2026-08 五套、2026-09 四科；含逐题音频与时间戳修订；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
+- **内容 OSS 镜像已上线（方案 B 落地）**：最新 manifest `93fc3c9691d0…`（**58 packs，约 1098.6MB**，含 2026-05-24/29、2026-06-07/08/22/24/29、2026-07 十套、2026-08（08/12/19/22/26/30）、2026-09（02/05/13/19/23/30）四科；含逐题音频、时间戳与阅读完形修正；`minAppVersion=1.10.0`）全部 pack 带 `ossUrl` 且匿名 `curl -I` 200、size 一致；OSS `releases/content/manifest.json` 指针与 `releases/content/<前12>/` 目录均匿名可读。上传由 `content-oss-mirror.yml`（workflow_dispatch，repo secrets）执行；**2026-09-12 起发布脚本在本地镜像不可用时自动派发该 workflow**（详见 §3.12）。**S1/S2/S3 真实客户端 E2E 全部 PASS**（详见 §3.10）
 - **重要状态**：Web 已上线 + license 激活互通 v1.8.0+；**app 更新源与内容更新源均已 OSS 优先、GitHub 兜底**（国内直连）。重心转真实 E2E（见 §3.9）
-- **真题发布进度**：`2026-06-07/08/22/24/29`、`2026-07-04…10 套`、`2026-08-12/19/22/26/30`、`2026-09-02/05/13/19` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27/§3.30/§3.32）；部分 `<!-- 推测项 -->` 待人工核对。注：6.7 与 07-25、6.8 与 07-11 为整份重复内容（见 §3.31）。**进行中（未发布）**：写作 `2026-08-08`（10 Build + Email + Discussion）、`2026-05-24`（7 Email + 7 Discussion）、`2026-05-29`（10 Build + Email + Discussion）、`2026-09-23`（7 Email + 6 Discussion）、`2026-09-30`（5 Email + 5 Discussion）均已入库，manifest 210 docs、测试 207 pass、lint 干净（见 §3.33 / §3.34 / §3.35）。
+- **真题发布进度**：`2026-05-24/29`、`2026-06-07/08/22/24/29`、`2026-07-04…10 套`、`2026-08-08/12/19/22/26/30`、`2026-09-02/05/13/19/23/30` 均已发布（见 §3.17/§3.21/§3.23/§3.25/§3.27/§3.30/§3.32/§3.36）；部分 `<!-- 推测项 -->` 待人工核对。注：6.7 与 07-25、6.8 与 07-11 为整份重复内容（见 §3.31）。
 - **未完成事项 / 待办**：
   - [x] 切 Electron license 基址 → `https://www.justtofu.com`（license-config）+ `PROMO_JUMP_ENABLED`=true（promoConfig）【2026-09 已完成，仅 develop】
   - [x] OSS 更新源：bucket 公共读已开 → 匿名可读 200；oss-mirror.yml 上传已加 `--acl public-read`
@@ -613,16 +613,24 @@
 - **校验**：`content:manifest` **210 documents**、`warnings` 空；`npm test` **207 pass**；`npm run lint` 干净。
 - **状态/待办**：未 `content:publish`（按分工交其他窗口）；两套均为图片录入 + 部分回忆题，建议人工抽查。
 
+### 3.36 2026-10-19 — 发布 5 月两套 + 9 月两套 + 补发 8/08（含阅读完形修正）
+
+- **提交（develop）**：`fix(reading)` 完形下划线数量修正 `5846b1a`（覆盖 TPO-07~13 与 06-24、07-04/05/08/16/18/25/29、09-02/05/13/19，共 19 个包）；新增 5 天四科：reading `2472eae`、listening `10cdc49`、speaking `f2c7e00`、writing `8d034e5`；测试/文档 `3c0b454`。release 线内容/文档同步 `a5ff762`。
+- **内容**：新增 `2026-05-24`、`2026-05-29`、`2026-08-08`（补发此前遗漏）、`2026-09-23`、`2026-09-30`（各四科），并同步修正既有 reading 完形空位。
+- **预检**：`content:manifest` **220 documents**；媒体 5431 引用、0 真实缺失（`reading/2026-08-30` 的两处仍为答案行误报）；lint 干净；node 352 pass/1 skip + vitest 207 pass。
+- **发布**：`content:publish` → 变更 **25 包**（catalog + 5 个新日期 + 19 个阅读修正包）→ manifest **`93fc3c9691d0…`（58 包，约 1098.6MB）**；自动派发 `content-oss-mirror` run `41301242429` **success**；**58/58 `ossUrl` 匿名 200 且 size 一致**；OSS 指针已更新。
+- **客户端**：线上已是最新；客户端下次启动/内容检查即可获取，本次未再启动测试窗口。
+
 ---
 
 ## 4. 附：分支 / 版本 / 内容 速查
 
 | 分支 | 定位 | package.json version | HEAD |
 |---|---|---|---|
-| `develop` | 完整开发线（含 license，正式发布线） | 1.10.2 | 7f417d9（+ 文档提交） |
+| `develop` | 完整开发线（含 license，正式发布线） | 1.10.2 | 3c0b454（+ 文档提交） |
 | `release/v1.7.5` | 可发布线（无 license，历史） | 1.7.8 | 内容/文档同步 |
 | `master` | 默认分支（含 OSS CI workflow） | 1.7.1 | 392d7d6 |
-| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 651226bf1868 manifestId（53 packs，minApp 1.10.0） |
+| `content` | 内容 manifest（自动生成，勿手改；已带 ossUrl） | — | 93fc3c9691d0 manifestId（58 packs，minApp 1.10.0） |
 
 | tag | 日期 | 内容摘要 |
 |---|---|---|
